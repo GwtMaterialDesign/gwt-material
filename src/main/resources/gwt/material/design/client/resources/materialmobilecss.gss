@@ -1,0 +1,11 @@
+@media only screen and (max-width: 992px), only screen and (max-device-width: 992px) {
+    .loginPanel {
+        width: 90% !important;
+    }
+
+    header,
+    main,
+    footer {
+        padding-left: 0;
+    }
+}

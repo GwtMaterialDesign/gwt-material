@@ -1,0 +1,39 @@
+<!--
+  #%L
+  GwtMaterialDesign
+  %%
+  Copyright (C) 2015 GwtMaterial
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.panel{
+		padding: 9%;
+		font-size: 4em;
+		background: #555;
+		padding-bottom: 200px;
+	}
+	.description{
+		font-size: 0.3em;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="panel" addStyleNames="{style.panel}">
+		<g:Label ui:field="lblTitle"/>
+		<g:Label ui:field="lblDescription" addStyleNames="{style.description}"/>
+		<g:HTMLPanel ui:field="customPanel"/>
+	</g:HTMLPanel>
+</ui:UiBinder> 

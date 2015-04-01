@@ -1,0 +1,57 @@
+<!--
+  #%L
+  GwtMaterialDesign
+  %%
+  Copyright (C) 2015 GwtMaterial
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:gwt.material.design.client.custom">
+	<ui:style>
+		.navMobile{
+			margin-left: 30px;
+		}
+		.navHeader{
+			overflow: hidden !important;
+		}
+		.imgLogo{
+			width: 90px;
+			height: auto;
+			padding: 10px;
+		}
+		.mobileNav{
+			overflow: hidden;
+		}
+		.mobileNav:hover{
+			overflow: auto;
+		}
+	</ui:style>
+	<g:HTMLPanel ui:field="navBar">
+		<nav>
+	      <g:HTMLPanel ui:field="wrapper" addStyleNames="nav-wrapper {style.navHeader}">
+	        <c:CustomAnchor ui:field="anchor" addStyleNames="brand-logo"><g:Image ui:field="imgLogo" addStyleNames="{style.imgLogo}"/></c:CustomAnchor>
+	        <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse {style.navMobile} white-text" >
+	        	<c:child><g:HTMLPanel><i class="mdi-navigation-menu"></i></g:HTMLPanel></c:child>
+	        </c:CustomAnchor>
+	       
+	        <c:UnorderedList ui:field="navigation"  addStyleNames="hide-on-med-and-down"/>
+	        <c:UnorderedList ui:field="mobileNav"  addStyleNames="side-nav {style.mobileNav}"/>
+	        
+	      </g:HTMLPanel>
+	    </nav>
+	</g:HTMLPanel>
+</ui:UiBinder> 
