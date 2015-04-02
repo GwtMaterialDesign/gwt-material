@@ -78,6 +78,15 @@
 
 
 <build>
+    <resources>
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.gwt.xml</include>
+            </includes>
+        </resource>
+    </resources>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -152,9 +161,16 @@
             <version>${gwt-maven-plugin.version}</version>
             <executions>
                 <execution>
+                    <id>gwt-compile</id>
                     <phase>compile</phase>
                     <goals>
                         <goal>compile</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>gwt-resources</id>
+                    <goals>
+                        <goal>resources</goal>
                     </goals>
                 </execution>
             </executions>
