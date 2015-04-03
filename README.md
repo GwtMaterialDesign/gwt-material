@@ -1,5 +1,7 @@
 # gwt-material
 
+[![Join the chat at https://gitter.im/GwtMaterialDesign/gwt-material](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/GwtMaterialDesign/gwt-material?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 <img src="http://gwt-material.appspot.com/bin/ic_gwt_logo.png" />
 <br/>
 A GWT Wrapper for Materializecss
