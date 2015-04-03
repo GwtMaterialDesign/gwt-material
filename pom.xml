@@ -32,6 +32,7 @@
     <target.version>1.7</target.version>
     <gwt.version>2.7.0</gwt.version>
     <gwt-maven-plugin.version>2.7.0</gwt-maven-plugin.version>
+    <gwt.style>OBF</gwt.style>
 </properties>
 
 <scm>
@@ -150,6 +151,9 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>gwt-maven-plugin</artifactId>
             <version>${gwt-maven-plugin.version}</version>
+            <configuration>
+                <style>${gwt.style}</style>
+            </configuration>
             <executions>
                 <execution>
                     <id>gwt-compile</id>
