@@ -1,0 +1,11 @@
+.loginPanel {
+	width: 90% !important;
+}
+
+header,main,footer {
+	padding-left: 0;
+}
+
+.mobileNav{
+	overflow: auto !important;
+}

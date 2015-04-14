@@ -1,0 +1,18 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:m="urn:import:gwt.material.design.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<m:MaterialPanel>
+		<m:MaterialPanel ui:field="imageContainer" addStyleNames="parallax-container">
+			<m:MaterialPanel addStyleNames="parallax">
+				<g:Image ui:field="image" />
+			</m:MaterialPanel>
+		</m:MaterialPanel>
+		<m:MaterialPanel addStyleNames="section white">
+			<m:MaterialRow ui:field="container" addStyleNames="container" />
+		</m:MaterialPanel>
+	</m:MaterialPanel>
+</ui:UiBinder> 
