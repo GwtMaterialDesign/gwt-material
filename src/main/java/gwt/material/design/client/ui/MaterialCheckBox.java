@@ -1,28 +1,9 @@
 package gwt.material.design.client.ui;
 
-/*
- * #%L
- * GwtMaterialDesign
- * %%
- * Copyright (C) 2015 GwtMaterial
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import gwt.material.design.client.resources.MaterialResources;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -38,6 +19,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers{
 	private Object object;
 	private String old;
 	private boolean disabled;
+	private String type;
 	
 	public MaterialCheckBox() {
 		// TODO Auto-generated constructor stub
@@ -104,6 +86,8 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers{
 	protected void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
+		this.getElement().getStyle().setDisplay(Display.BLOCK);
+		this.getElement().getStyle().setMarginBottom(3, Unit.PCT);
 	}
 
 	public String getOld() {
@@ -122,6 +106,22 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers{
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 		this.setEnabled(!disabled);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+		if(type.equalsIgnoreCase("indeterminate")){
+			this.addStyleName(type + "-checkbox");
+		}else if(type.equalsIgnoreCase("filled")){
+			this.addStyleName(type + "-in");
+		}else{
+			this.addStyleName(type);
+		}
+		
 	}
 
 }
