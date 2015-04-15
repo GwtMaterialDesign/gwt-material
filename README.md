@@ -4,7 +4,7 @@
 <br/>
 A GWT Wrapper for Materializecss
 
-<h3>Current Version 15.4</h3>
+<h3>Current Version 1.2</h3>
 <ul>
 <li>Integrate GWT Material to Phonegap</li>
 <li>Remove GWT Uploader on Build Path (Which cause a inheritance problem)</li>
@@ -19,7 +19,7 @@ A GWT Wrapper for Materializecss
 <li>Adding Roboto Fonts by default</li>
 </ul>
 
-<h3>Version 15.3 </h3>
+<h3>Version 1.0</h3>
 <ul>
 <li>Collabsible and Accordion</li>
 <li>Dropdown Menu</li>
@@ -27,3 +27,6 @@ A GWT Wrapper for Materializecss
 <li>Tabs</li>
 <li>Collections (Dismissable and Avatar)</li>
 </ul>
+
+
+[![Join the chat at https://gitter.im/GwtMaterialDesign/gwt-material](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/GwtMaterialDesign/gwt-material?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
