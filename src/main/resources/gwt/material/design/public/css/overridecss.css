@@ -14,7 +14,6 @@
   	font-weight: normal;
   	color: rgba(0, 0, 0, 0.87);
 }
-
 div{
   -webkit-font-smoothing: antialiased;
 }
@@ -184,13 +183,3 @@ th{
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
 }
-
-
- header,footer, main {
-    @if ^[width] <= 400 {
-      width: == ^[width];
-      height: == ^[height] / 2;
-    }
-  }
-  
-
