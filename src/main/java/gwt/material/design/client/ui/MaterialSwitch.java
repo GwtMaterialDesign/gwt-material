@@ -51,12 +51,13 @@ public class MaterialSwitch extends Composite implements HasChangeHandlers {
 
 	public void setValue(Boolean value) {
 		this.value = value;
-		setInputValue(true);
+		if(value){
+			cbBox.getElement().setAttribute("checked", ""+value);
+		}else{
+			cbBox.getElement().removeAttribute("checked");
+		}
 	}
 
-	public static native void setInputValue(Boolean real)/*-{
-		$wnd.jQuery('#switch').prop('checked', real);
-	}-*/;
 
 	@Override
 	public HandlerRegistration addChangeHandler(ChangeHandler handler) {

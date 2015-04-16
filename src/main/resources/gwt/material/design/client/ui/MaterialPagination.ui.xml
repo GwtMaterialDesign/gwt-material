@@ -10,9 +10,9 @@
 			padding-top: 5px;
 		}
 	</ui:style>
-	<c:UnorderedList ui:field="pager" addStyleNames="pagination">
-		<c:ListItem><m:MaterialLink ui:field="prev" icon="mdi-navigation-chevron-left"/></c:ListItem>
-		<c:ListItem><m:MaterialLink ui:field="lblName" addStyleNames="{style.name}"/></c:ListItem>
-		<c:ListItem><m:MaterialLink ui:field="next" icon="mdi-navigation-chevron-right"/></c:ListItem>
-	</c:UnorderedList>
+	<m:UnorderedList ui:field="pager" addStyleNames="pagination">
+		<m:ListItem><m:MaterialLink ui:field="prev" icon="mdi-navigation-chevron-left"/></m:ListItem>
+		<m:ListItem><m:MaterialLink ui:field="lblName" addStyleNames="{style.name}"/></m:ListItem>
+		<m:ListItem><m:MaterialLink ui:field="next" icon="mdi-navigation-chevron-right"/></m:ListItem>
+	</m:UnorderedList>
 </ui:UiBinder> 

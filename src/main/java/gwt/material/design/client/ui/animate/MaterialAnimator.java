@@ -21,6 +21,8 @@ package gwt.material.design.client.ui.animate;
  */
 
 import gwt.material.design.client.resources.MaterialResources;
+import gwt.material.design.client.ui.ListItem;
+import gwt.material.design.client.ui.UnorderedList;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,11 +32,17 @@ public class MaterialAnimator {
 	
 	public static void animate(final Transition transition,final Widget w, int delayMillis){
 		switch (transition) {
-		case SCALE:
-			w.addStyleName(MaterialResources.INSTANCE.materialcss().materialScaleInitial());
-			break;
-		case PULL:
-			w.addStyleName(MaterialResources.INSTANCE.materialcss().pullInitial());
+		case SHOW_STAGGERED_LIST:
+			
+			if(w instanceof UnorderedList){
+				UnorderedList ul = (UnorderedList) w;
+				
+				for(Widget li : ul){
+					if(li instanceof ListItem){
+						li.getElement().getStyle().setOpacity(0);
+					}
+				}
+			}
 			break;
 		default:
 			break;
@@ -48,12 +56,14 @@ public class MaterialAnimator {
 			}
 
 			private void applyAnimation(Transition transition, Widget w) {
+				String name = String.valueOf(this.hashCode());
+				w.getElement().setId(name);
 				switch (transition) {
-				case SCALE:
-					w.addStyleName(MaterialResources.INSTANCE.materialcss().materialScale());
+				case SHOW_STAGGERED_LIST:
+					showStaggeredList(name);
 					break;
-				case PULL:
-					w.addStyleName(MaterialResources.INSTANCE.materialcss().pull());
+				case FADE_IN_IMAGE:
+					fadeInImage(name);
 					break;
 				default:
 					break;
@@ -64,5 +74,13 @@ public class MaterialAnimator {
 		w.removeStyleName(MaterialResources.INSTANCE.materialcss().pull());
 		w.removeStyleName(MaterialResources.INSTANCE.materialcss().materialScale());
 	}
+	
+	protected static native void fadeInImage(String name) /*-{
+		$wnd.Materialize.fadeInImage('#' + name);
+	}-*/;
+
+	public static native void showStaggeredList(String name)/*-{
+		$wnd.Materialize.showStaggeredList('#' + name);
+	}-*/;
 	
 }

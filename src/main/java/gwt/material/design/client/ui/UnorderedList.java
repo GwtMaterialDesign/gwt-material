@@ -1,4 +1,4 @@
-package gwt.material.design.client.custom;
+package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ComplexPanel;

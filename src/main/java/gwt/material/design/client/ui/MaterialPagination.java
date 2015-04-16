@@ -1,7 +1,6 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.custom.UnorderedList;
 
 import java.util.ArrayList;
 import java.util.List;

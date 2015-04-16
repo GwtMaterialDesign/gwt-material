@@ -6,7 +6,8 @@ public class MaterialImage extends Image{
 	
 	private String type="";
 	private String caption="";
-
+	private String opacity;
+	
 	public MaterialImage() {
 		
 	}
@@ -44,5 +45,12 @@ public class MaterialImage extends Image{
 		this.getElement().setAttribute("data-caption", caption);
 	}
 	
-	
+	public String getOpacity() {
+		return opacity;
+	}
+
+	public void setOpacity(String opacity) {
+		this.opacity = opacity;
+		this.getElement().getStyle().setOpacity(Double.parseDouble(opacity));
+	}
 }

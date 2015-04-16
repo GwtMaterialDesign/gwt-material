@@ -1,7 +1,5 @@
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.custom.ListItem;
-import gwt.material.design.client.custom.UnorderedList;
 import gwt.material.design.client.resources.MaterialResources;
 
 import com.google.gwt.dom.client.Style.Unit;

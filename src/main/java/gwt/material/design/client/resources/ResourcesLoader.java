@@ -27,6 +27,7 @@ public class ResourcesLoader {
     public ResourcesLoader(MaterialResources resources) {
         injectJQuery(resources);
         injectMaterializeJs(resources);
+       
     }
 
     private void injectJQuery(MaterialResources resources) {

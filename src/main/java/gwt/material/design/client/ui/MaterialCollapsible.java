@@ -1,7 +1,5 @@
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.custom.UnorderedList;
-
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.ui.Widget;
 

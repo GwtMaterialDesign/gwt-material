@@ -15,7 +15,7 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<m:MaterialButton ui:field="anchor" width="100%" addStyleNames='dropdown-button' icon="mdi-navigation-arrow-drop-down" iconPosition="right"/>
-		<c:UnorderedList ui:field="list" addStyleNames='dropdown-content {style.dropdown}' />
+		<m:UnorderedList ui:field="list" addStyleNames='dropdown-content {style.dropdown}' />
 
 	</g:HTMLPanel>
 </ui:UiBinder> 

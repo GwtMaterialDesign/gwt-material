@@ -1,8 +1,6 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.CustomAnchor;
-import gwt.material.design.client.custom.ListItem;
-import gwt.material.design.client.custom.UnorderedList;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
