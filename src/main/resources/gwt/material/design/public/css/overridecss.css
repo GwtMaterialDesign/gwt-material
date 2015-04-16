@@ -14,6 +14,12 @@
   	font-weight: normal;
   	color: rgba(0, 0, 0, 0.87);
 }
+.dropdown-content {
+	max-height: 70vh !important;
+}
+ul li button.btn-floating{
+	opacity: 0;
+}
 div{
   -webkit-font-smoothing: antialiased;
 }

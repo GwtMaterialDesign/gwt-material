@@ -40,6 +40,7 @@ public class MaterialFloatingContainer extends MaterialPanel {
 		for(Widget w : list){
 			if(w instanceof ListItem){
 				MaterialButton buttom = (MaterialButton) ((ListItem) w).getWidget(0);
+				buttom.getElement().getStyle().setOpacity(0);
 				buttom.getElement().setAttribute("style", "transition-delay: "+ms+"ms;");
 				ms -= 100;
 			}
