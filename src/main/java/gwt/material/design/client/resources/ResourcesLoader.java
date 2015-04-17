@@ -24,10 +24,9 @@ import com.google.gwt.core.client.ScriptInjector;
 
 public class ResourcesLoader {
 
-    public ResourcesLoader(MaterialResources resources) {
+    public ResourcesLoader(final MaterialResources resources) {
         injectJQuery(resources);
         injectMaterializeJs(resources);
-       
     }
 
     private void injectJQuery(MaterialResources resources) {
