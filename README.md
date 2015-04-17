@@ -4,6 +4,16 @@
 <br/>
 A Google Material Design wrapper for GWT <br>
 <a href="www.gwt-material.appspot.com">http://www.gwt-material.appspot.com</a>
+
+<h3>Version 15.5</h3>
+<ul>
+<li>GWT Material Official Maven Release</li>
+<li>Switch bug fixed on setValue()</li>
+<li>Transition Added</li>
+<li>Embed stylesheets and javascripts inside the project (no more external files)</li>
+
+</ul>
+
 <h3>Version 15.4.15</h3>
 <ul>
 <li>GWT Material Showcase</li>
