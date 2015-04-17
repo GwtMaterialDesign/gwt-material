@@ -29,6 +29,9 @@ A Google Material Design wrapper for GWT <br>
 <li>Apache License 2.0  Information Added</li>
 <li>Donate Button added to support the development of GWT Material</li>
 </ul>
+<img src="http://gwt-material.appspot.com/bin/weather.gif" />
+<img src="http://gwt-material.appspot.com/bin/parallax.gif" />
+
 <h3>Version 15.4</h3>
 <ul>
 <li>Integrate GWT Material to Phonegap</li>
