@@ -57,7 +57,7 @@ public class MaterialCollection extends MaterialWidget {
 
 	/**
 	 * Add each item on a collection container
-	 * @param item, the item to be added
+	 * @param item the item to be added
 	 */
 	@UiChild(tagname = "item")
 	public void addCollectionItem(Widget item){
