@@ -34,10 +34,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialButton extends MaterialWidget implements HasClickHandlers{
+public class MaterialButton extends MaterialWidget implements HasClickHandlers,HasText{
 
 	private static MaterialButtonUiBinder uiBinder = GWT.create(MaterialButtonUiBinder.class);
 
