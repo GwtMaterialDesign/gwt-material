@@ -30,6 +30,7 @@ public class MaterialLink extends FocusPanel {
 
 	protected HTMLPanel panel = new HTMLPanel("");
 	private String text = "";
+	private String href;
 	private String icon = "";
 	private String iconPosition = "";
 	private String textColor = "";
@@ -98,6 +99,15 @@ public class MaterialLink extends FocusPanel {
 		generateLink();
 	}
 
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
+		generateLink();
+	}
+
 	public String getFontSize() {
 		return fontSize;
 	}
@@ -119,10 +129,14 @@ public class MaterialLink extends FocusPanel {
 	public void generateLink() {
 		this.clear();
 		String iconMarkup = "";
+		String hrefMarkup = "";
 		if (!icon.isEmpty()) {
 			iconMarkup = "<i class='" + icon + " " + iconPosition + "'></i>";
 		}
-		panel = new HTMLPanel("<a class='" + textColor + "-text'>" + iconMarkup + " " + text + "</a>");
+		if (this.href != null) {
+			hrefMarkup = "href='" + href + "' ";
+		}
+		panel = new HTMLPanel("<a " + hrefMarkup + "class='" + textColor + "-text'>" + iconMarkup + text + "</a>");
 		panel.getElement().getStyle().setCursor(Cursor.POINTER);
 		this.add(panel);
 	}
