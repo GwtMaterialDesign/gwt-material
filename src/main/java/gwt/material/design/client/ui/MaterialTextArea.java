@@ -40,11 +40,12 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTextArea extends Composite implements HasKeyPressHandlers,HasKeyDownHandlers,HasKeyUpHandlers,HasChangeHandlers {
+public class MaterialTextArea extends Composite implements HasText,HasKeyPressHandlers,HasKeyDownHandlers,HasKeyUpHandlers,HasChangeHandlers {
 
 	private static MaterialTextAreaUiBinder uiBinder = GWT
 			.create(MaterialTextAreaUiBinder.class);
@@ -96,7 +97,6 @@ public class MaterialTextArea extends Composite implements HasKeyPressHandlers,H
 	public void setText(String text) {
 		txtBox.setText(text);
 		customLabel.addStyleName("active");
-
 	}
 	
 	@Override

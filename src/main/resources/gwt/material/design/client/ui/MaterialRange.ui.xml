@@ -26,7 +26,7 @@
 	<g:HTMLPanel>
 		<form action="#">
 		  <p class="range-field">
-		    <input type="range" id="test5" min="0" max="100" />
+		    <input type="range" min="0" max="100" />
 		  </p>
 		</form>
 	</g:HTMLPanel>
