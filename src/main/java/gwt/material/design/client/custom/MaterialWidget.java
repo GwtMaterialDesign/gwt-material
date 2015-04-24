@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialWidget extends Composite{
-	
+
 	protected String waves = "";
 	protected String color = "";
 	protected String textColor = "";
@@ -37,7 +37,7 @@ public class MaterialWidget extends Composite{
 	protected String tooltipDelay = "50";
 	protected boolean disable;
 	private String padding;
-	
+
 	public String getWaves() {
 		return waves;
 	}
@@ -74,14 +74,17 @@ public class MaterialWidget extends Composite{
 	}
 
 	public void applyMaterialEffect() {
-		
+		boolean applyWavesEffect = false;
 		if(widget!=null){
 			if(!isDisable()){
-				if(!waves.isEmpty()) widget.getElement().addClassName("waves-effect waves-" + waves);
+				if(!waves.isEmpty()) {
+					applyWavesEffect = true;
+					widget.getElement().addClassName("waves-effect waves-" + waves);
+				}
 				if(!color.isEmpty()) widget.getElement().addClassName(color);
 				if(!textColor.isEmpty()) widget.getElement().addClassName(textColor + "-text");
 				if(!align.isEmpty()) widget.getElement().addClassName(align + "-align");
-					
+
 				if(!tooltip.isEmpty()) getWidget().addStyleName("tooltipped");
 				if(!tooltipLocation.isEmpty()) getWidget().getElement().setAttribute("data-position", tooltipLocation);
 				if(!tooltipDelay.isEmpty()) getWidget().getElement().setAttribute("data-delay", tooltipDelay);
@@ -90,9 +93,10 @@ public class MaterialWidget extends Composite{
 				widget.addStyleName("disabled");
 				widget.getElement().addClassName("grey lighten-2 ");
 			}
-			
+
 		}
 		initToolTip();
+		if (applyWavesEffect) initWaves();
 	}
 
 	public Widget getWidget() {
@@ -111,11 +115,11 @@ public class MaterialWidget extends Composite{
 		this.align = align;
 	}
 
-	
+
 	public String getTooltip() {
 		return tooltip;
 	}
-	
+
 	public void setTooltip(String tooltip) {
 		this.tooltip = tooltip;
 		applyMaterialEffect();
@@ -145,6 +149,15 @@ public class MaterialWidget extends Composite{
 		  });
 	}-*/;
 
+    /**
+     * As materialize.js does not provide a init method we are calling displayEffect
+     * directly. If Materialize ever change this function name we must change it here
+     * as well.
+     */
+    private native void initWaves()/*-{
+        $wnd.Waves.displayEffect();
+    }-*/;
+
 	public boolean isDisable() {
 		return disable;
 	}
@@ -161,7 +174,7 @@ public class MaterialWidget extends Composite{
 		this.padding = padding;
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
 	}
-	
-	
-	
+
+
+
 }
