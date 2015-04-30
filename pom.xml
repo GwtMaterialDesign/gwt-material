@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.3.1</version>
 
     <name>Gwt Material Design</name>
     <description>A Material Design look and feel for GWT Apps plus Phonegap</description>
@@ -40,7 +39,7 @@
         <connection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</connection>
         <developerConnection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</developerConnection>
         <url>http://github.com/GwtMaterialDesign/gwt-material</url>
-        <tag>HEAD</tag>
+        <tag>gwt-material-1.3.1</tag>
     </scm>
 
     <licenses>
@@ -199,7 +198,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -214,7 +213,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
