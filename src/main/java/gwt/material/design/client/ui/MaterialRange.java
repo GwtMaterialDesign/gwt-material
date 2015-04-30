@@ -103,7 +103,7 @@ public class MaterialRange extends Composite implements HasChangeHandlers{
 
 	/**
 	 * Write the current value
-	 * @param value value must be >= min and <= max 
+	 * @param value value must be &gt;= min and &lt;= max 
 	 */
 	public void setValue(Integer value) {
 		if (value==null)return;
@@ -122,7 +122,7 @@ public class MaterialRange extends Composite implements HasChangeHandlers{
 
 	/**
 	 * Write the current min value
-	 * @param min value must be < max 
+	 * @param min value must be &lt; max 
 	 */
 	public void setMin(Integer min) {
 		if (min==null)return;
@@ -140,7 +140,7 @@ public class MaterialRange extends Composite implements HasChangeHandlers{
 
 	/**
 	 * Write the current max value
-	 * @param max value must be > min
+	 * @param max value must be &gt; min
 	 */
 	public void setMax(Integer max) {
 		if (max==null)return;
