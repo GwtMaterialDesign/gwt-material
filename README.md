@@ -4,7 +4,10 @@
 <br/>
 A Google Material Design wrapper for GWT <br>
 <a href="www.gwt-material.appspot.com">http://www.gwt-material.appspot.com</a>
-
+<h3>Version 1.3.1</h3>
+<ul>
+ <li>Many bug fixes provided. <a href='https://github.com/GwtMaterialDesign/gwt-material/releases/tag/gwt-material-1.3.1'>See release notes</a></li>
+</ul>
 <h3>Version 1.3</h3>
 <ul>
 <li>GWT Material Official Maven Release</li>

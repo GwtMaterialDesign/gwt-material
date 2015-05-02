@@ -82,11 +82,12 @@ public class MaterialModal extends Widget{
 	public static native void showModal(String id)/*-{
 		$wnd.jQuery('#' + id).openModal();
 	}-*/;
-	
-	public static native void closeModal()/*-{
+
+	public static native void closeModal(String id)/*-{
 		$wnd.jQuery('#' + id).closeModal();
 	}-*/;
 
-	
-	
+	public static void closeModal() {
+		closeModal(panel.getElement().getId());
+	}
 }
