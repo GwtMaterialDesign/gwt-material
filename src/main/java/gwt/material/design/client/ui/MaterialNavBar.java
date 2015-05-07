@@ -46,7 +46,6 @@ public class MaterialNavBar extends Composite {
 	@UiField
 	CustomAnchor anchor, navMenu;
 
-	private String name = "sample";
 	private String color = "";
 	private String type = "";
 	private String align = "";
@@ -70,7 +69,11 @@ public class MaterialNavBar extends Composite {
 	@Override
 	protected void onAttach() {
 		super.onAttach();
+		String name = String.valueOf(hashCode());
+		navMenu.getElement().setAttribute("data-activates", name);
+		mobileNav.getElement().setId(name);
 		initNavBar();
+		
 	}
 
 	@UiChild(tagname = "nav")
@@ -192,16 +195,6 @@ public class MaterialNavBar extends Composite {
 				w.getElement().getStyle().setDisplay(Display.BLOCK);
 			}
 		}
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-		navMenu.getElement().setAttribute("data-activates", name);
-		mobileNav.getElement().setId(name);
 	}
 
 	public String getSideBar() {

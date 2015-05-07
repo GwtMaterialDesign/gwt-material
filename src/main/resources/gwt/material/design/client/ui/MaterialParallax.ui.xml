@@ -22,12 +22,14 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:m="urn:import:gwt.material.design.client.ui">
 	<ui:style>
-	
+		.imgParallax{
+			left: 50%;
+		}
 	</ui:style>
 	<m:MaterialPanel>
 		<m:MaterialPanel ui:field="imageContainer" addStyleNames="parallax-container">
 			<m:MaterialPanel addStyleNames="parallax">
-				<g:Image ui:field="image" />
+				<g:Image ui:field="image" addStyleNames="{style.imgParallax}"/>
 			</m:MaterialPanel>
 		</m:MaterialPanel>
 		<m:MaterialPanel addStyleNames="section white">
