@@ -28,6 +28,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialCollection extends MaterialWidget {
@@ -65,6 +67,12 @@ public class MaterialCollection extends MaterialWidget {
 		list.addStyleName("collection-item");
 		collection.add(list);
 	}
+
+    public void insertCollectionItem(Widget item, int beforeIndex) {
+        ListItem list = new ListItem(item);
+        list.addStyleName("collection-item");
+        collection.insert(list, beforeIndex);
+    }
 	
 	@UiChild(tagname = "header")
 	public void addHeader(Widget item){
@@ -79,6 +87,12 @@ public class MaterialCollection extends MaterialWidget {
 		list.addStyleName("collection-item dismissable");
 		collection.add(list);
 	}
+
+    public void insertDismissableItem(Widget item, int beforeIndex) {
+        ListItem list = new ListItem(item);
+        list.addStyleName("collection-item dismissable");
+        collection.insert(list, beforeIndex);
+    }
 	
 	@UiChild(tagname = "avatar")
 	public void addAvatarItem(Widget item){
@@ -94,9 +108,48 @@ public class MaterialCollection extends MaterialWidget {
 			}
 		}
 	}
+
+    public void insertAvatarItem(Widget item, int beforeIndex) {
+        ListItem list = new ListItem(item);
+        list.addStyleName("collection-item avatar");
+        collection.insert(list, beforeIndex);
+        if (item instanceof MaterialPanel) {
+            HTMLPanel panel = (HTMLPanel) item;
+            for (Widget w : panel) {
+                if (w instanceof MaterialIcon) {
+                    w.addStyleName("secondary-content");
+                }
+            }
+        }
+    }
 	
 	public void clear(){
 		collection.clear();
 	}
+
+    public Widget getWidget(int index) {
+        return getFirstChild(collection.getWidget(index));
+    }
+
+    public int getWidgetCount() {
+        return collection.getWidgetCount();
+    }
+
+    public int getWidgetIndex(Widget child) {
+        return collection.getWidgetIndex(child.getParent());
+    }
+
+    public int getWidgetIndex(IsWidget child) {
+        return getWidgetIndex(asWidgetOrNull(child).getParent());
+    }
+
+    private Widget getFirstChild(Widget parent) {
+        if (parent instanceof HasWidgets) {
+            Iterator<Widget> iter = ((HasWidgets) parent).iterator();
+            return (iter != null && iter.hasNext()) ? iter.next() : null;
+        }
+
+        return null;
+    }
 
 }
