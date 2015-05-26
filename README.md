@@ -6,10 +6,10 @@ A Google Material Design wrapper for GWT <br>
 <a href="www.gwt-material.appspot.com">http://www.gwt-material.appspot.com</a>
 <h3>Version 1.3.2</h3>
 <ul>
- <li>GWT Material Themes</li>
- <li>Shadow DOM on Material Panels, Columns, Rows</li>
- <li>Helpers (Alignment, Hiding Content, Formatting esp. Text Truncation)</li>
- <li>Tables (Bordered Table, Striped Table, Hoverable Table, Centered Table, Responsive Table) </li>
+ <li><a href="http://gwt-material.appspot.com/#theme" >GWT Material Themes</a></li>
+ <li><a href="http://gwt-material.appspot.com/#shadow">Shadow DOM on Material Panels, Columns, Rows</a></li>
+ <li><a href="http://gwt-material.appspot.com/#helper">Helpers (Alignment, Hiding Content, Formatting esp. Text Truncation)</a></li>
+ <li><a href="http://gwt-material.appspot.com/#table">Tables (Bordered Table, Striped Table, Hoverable Table, Centered Table, Responsive Table)</a></li>
 </ul>
 <h3>Version 1.3.1</h3>
 <ul>
