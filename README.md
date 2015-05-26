@@ -9,6 +9,7 @@ A Google Material Design wrapper for GWT <br>
  <li>GWT Material Themes</li>
  <li>Shadow DOM on Material Panels, Columns, Rows</li>
  <li>Helpers (Alignment, Hiding Content, Formatting esp. Text Truncation)</li>
+ <li>Tables (Bordered Table, Striped Table, Hoverable Table, Centered Table, Responsive Table) </li>
 </ul>
 <h3>Version 1.3.1</h3>
 <ul>
