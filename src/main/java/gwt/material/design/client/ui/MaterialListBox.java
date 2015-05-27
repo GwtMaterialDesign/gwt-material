@@ -76,6 +76,7 @@ public class MaterialListBox extends ListBox{
 	@Override
 	public HandlerRegistration addChangeHandler(ChangeHandler handler) {
 		// TODO Auto-generated method stub
+		onInitMaterialDesign();
 		return super.addChangeHandler(handler);
 	}
 
@@ -89,30 +90,35 @@ public class MaterialListBox extends ListBox{
 	public void addItem(String item) {
 		// TODO Auto-generated method stub
 		super.addItem(item);
+		onInitMaterialDesign();
 	}
 
 	@Override
 	public void addItem(String item, Direction dir) {
 		// TODO Auto-generated method stub
 		super.addItem(item, dir);
+		onInitMaterialDesign();
 	}
 
 	@Override
 	public void addItem(String item, String value) {
 		// TODO Auto-generated method stub
 		super.addItem(item, value);
+		onInitMaterialDesign();
 	}
 
 	@Override
 	public void addItem(String item, Direction dir, String value) {
 		// TODO Auto-generated method stub
 		super.addItem(item, dir, value);
+		onInitMaterialDesign();
 	}
 
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
 		super.clear();
+		onInitMaterialDesign();
 	}
 
 	@Override
