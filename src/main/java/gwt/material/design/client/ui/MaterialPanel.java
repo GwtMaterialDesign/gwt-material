@@ -33,6 +33,10 @@ public class MaterialPanel extends HTMLPanel{
 	private String type = "";
 	private String padding = "";
 	
+	public MaterialPanel() {
+		super("");
+	}
+	
 	public MaterialPanel(SafeHtml safeHtml) {
 		super(safeHtml);
 		// TODO Auto-generated constructor stub

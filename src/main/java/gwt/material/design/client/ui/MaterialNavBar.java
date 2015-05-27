@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomAnchor;
+import gwt.material.design.client.custom.CustomNav;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
@@ -45,7 +46,11 @@ public class MaterialNavBar extends Composite {
 	HTMLPanel navBar;
 	@UiField
 	CustomAnchor anchor, navMenu;
-
+	@UiField
+	MaterialLink lblLogo;
+	@UiField
+	CustomNav customNav;
+	
 	private String color = "";
 	private String type = "";
 	private String align = "";
@@ -65,6 +70,7 @@ public class MaterialNavBar extends Composite {
 	
 	private String logoUrl;
 	private ImageResource logoResource;
+	private String text;
 
 	@Override
 	protected void onAttach() {
@@ -109,7 +115,7 @@ public class MaterialNavBar extends Composite {
 
 	public void setColor(String color) {
 		this.color = color;
-		wrapper.addStyleName(color);
+		customNav.addStyleName(color);
 	}
 
 	public ImageResource getLogoResource() {
@@ -119,6 +125,7 @@ public class MaterialNavBar extends Composite {
 	public void setLogoResource(ImageResource logoResource) {
 		this.logoResource = logoResource;
 		imgLogo.setResource(logoResource);
+		lblLogo.removeFromParent();
 	}
 
 	public String getLogoUrl() {
@@ -128,6 +135,18 @@ public class MaterialNavBar extends Composite {
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
 		imgLogo.setUrl(logoUrl);
+		lblLogo.removeFromParent();
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+		imgLogo.removeFromParent();
+		lblLogo.setText(text);
+		
 	}
 
 	public void hide() {
