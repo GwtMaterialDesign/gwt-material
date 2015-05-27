@@ -57,7 +57,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	private String iconPosition = "";
 	private String size = "";
 	private String width = "";
-	
+	private String href= "";
 
 	public MaterialButton() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -214,6 +214,15 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	public void setButton(CustomButton button) {
 		this.button = button;
 		initButtonStyles();
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
+		this.getElement().setAttribute("href", href);
 	}
 
 	
