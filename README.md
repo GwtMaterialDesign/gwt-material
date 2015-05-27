@@ -10,6 +10,7 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="http://gwt-material.appspot.com/#shadow">Shadow DOM on Material Panels, Columns, Rows</a></li>
  <li><a href="http://gwt-material.appspot.com/#helper">Helpers (Alignment, Hiding Content, Formatting esp. Text Truncation)</a></li>
  <li><a href="http://gwt-material.appspot.com/#table">Tables (Bordered Table, Striped Table, Hoverable Table, Centered Table, Responsive Table)</a></li>
+ <li>Updated the Getting Started Page of showcase site to add Starter Template Sample (UI Binder Code) <a href="http://gwt-material-starter.appspot.com">Demo(Google Inbox App)</a></li>
 </ul>
 <h3>Version 1.3.1</h3>
 <ul>
