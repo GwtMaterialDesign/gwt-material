@@ -23,6 +23,8 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.CustomFooter;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
@@ -41,6 +43,7 @@ public class MaterialFooter extends Composite {
 	@UiField MaterialPanel container;
 	private String color = "";
 	private String copyright = "";
+	private String type = "";
 	
 	public MaterialFooter() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -68,6 +71,19 @@ public class MaterialFooter extends Composite {
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
 		if(!copyright.isEmpty()) lblCopyright.setText(copyright);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+		if(type.equals("fixed")){
+			footerPanel.getElement().getStyle().setPosition(Position.FIXED);
+			footerPanel.getElement().getStyle().setWidth(100, Unit.PCT);
+			footerPanel.getElement().getStyle().setBottom(0, Unit.PCT);
+		}
 	}
 
 }

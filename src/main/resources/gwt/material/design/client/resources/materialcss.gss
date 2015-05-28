@@ -1,3 +1,4 @@
+
 * html,body {
 	margin: 0px;
 	padding: 0px;
@@ -185,5 +186,10 @@ th{
 	-moz-box-shadow: none !important;
 }
 
+@external pressed;
+.pressed{
+	background-color: #ebe4d1 !important;
+	background-image: none;
+}
 
 

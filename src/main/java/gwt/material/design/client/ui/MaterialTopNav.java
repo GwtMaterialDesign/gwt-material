@@ -43,12 +43,13 @@ public class MaterialTopNav extends Composite {
 	@UiField
 	Label lblTitle, lblDescription;
 	@UiField
-	HTMLPanel panel, customPanel;
+	HTMLPanel panel, customPanel, menuPanel;
 
 	private String title = "";
 	private String description = "";
 	private String color = "blue";
 	private String textColor = "white";
+	private String fontSize ;
 	private String padding = "";
 	private ImageResource resource;
 	private String url;
@@ -62,6 +63,11 @@ public class MaterialTopNav extends Composite {
 		customPanel.add(item);
 	}
 
+	@UiChild(tagname = "menu")
+	public void addMenuItem(Widget item){
+		menuPanel.add(item);
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -131,6 +137,15 @@ public class MaterialTopNav extends Composite {
 	private void generateBackground(String url){
 		panel.addStyleName(MaterialResources.INSTANCE.materialcss().fullBackground());
 		panel.getElement().setAttribute("style", "background-image: url(" + url + ");" );
+	}
+
+	public String getFontSize() {
+		return fontSize;
+	}
+
+	public void setFontSize(String fontSize) {
+		this.fontSize = fontSize;
+		this.getElement().getStyle().setFontSize(Double.valueOf(fontSize), Unit.EM);
 	}
 
 }

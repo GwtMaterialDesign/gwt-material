@@ -19,7 +19,8 @@
   -->
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:m="urn:import:gwt.material.design.client.ui">
 	<ui:style>
 	.panel{
 		padding: 9%;
@@ -32,8 +33,15 @@
 	}
 	</ui:style>
 	<g:HTMLPanel ui:field="panel" addStyleNames="{style.panel}">
-		<g:Label ui:field="lblTitle"/>
-		<g:Label ui:field="lblDescription" addStyleNames="{style.description}"/>
+		<m:MaterialRow>
+			<m:MaterialColumn grid="s12 m6 l8">
+				<g:Label ui:field="lblTitle"/>
+				<g:Label ui:field="lblDescription" addStyleNames="{style.description}"/>
+			</m:MaterialColumn>
+			<m:MaterialColumn ui:field="menuPanel" grid="s12 m6 l4" />
+		</m:MaterialRow>
+	
+		
 		<g:HTMLPanel ui:field="customPanel"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 
