@@ -36,6 +36,7 @@ public class MaterialImage extends Image{
 	protected void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
+		this.setWidth("100%");
 		this.addStyleName("responsive-img");
 		onInitMaterialDesign();
 		
