@@ -14,8 +14,26 @@
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
 }
+
+/**SIDEBAR **/
 .side-nav li{
 	padding: 0px ;
+}
+nav .nav-wrapper .side-nav i{
+	display: inline !important;
+	vertical-align: middle;
+}
+.side-nav .collapsible-header{
+	padding: 0px !important;
+	margin: 0px !important;
+}
+ 
+nav .nav-wrapper .collapsible-body{
+	padding: 0px !important;
+}
+nav .nav-wrapper .collapsible-body a{
+	opacity: 0.7 !important;
+	padding-left: 50px;
 }
 
 .gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon{
