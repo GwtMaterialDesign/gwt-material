@@ -86,4 +86,6 @@ public class MaterialFooter extends Composite {
 		}
 	}
 
+	
+
 }

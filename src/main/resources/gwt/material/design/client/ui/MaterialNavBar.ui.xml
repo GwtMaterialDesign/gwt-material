@@ -42,7 +42,7 @@
 			overflow: auto;
 		}
 	</ui:style>
-	<g:HTMLPanel ui:field="navBar" >
+	<c:CustomHeader ui:field="navBar" >
 		<c:CustomNav ui:field="customNav">
 	      <g:HTMLPanel ui:field="wrapper" addStyleNames="nav-wrapper container {style.navHeader}">
 	        <c:CustomAnchor ui:field="anchor" addStyleNames="brand-logo">
@@ -58,5 +58,5 @@
 	        
 	      </g:HTMLPanel>
 	    </c:CustomNav>
-	</g:HTMLPanel>
+	</c:CustomHeader>
 </ui:UiBinder> 

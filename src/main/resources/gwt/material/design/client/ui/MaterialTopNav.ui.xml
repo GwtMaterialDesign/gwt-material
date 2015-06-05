@@ -22,6 +22,23 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:m="urn:import:gwt.material.design.client.ui">
 	<ui:style>
+	@external .sidebar;
+	.sidebar{
+		padding: 10% !important;
+		font-size: 1em;
+		margin-left: -20px;
+		margin-right: -20px;
+	}
+	.sidebar a{
+		padding: 0px !important;
+	}	 
+	.sidebar a, .sidebar i{
+		line-height: 1 !important;
+		height: 0px !important;
+	}
+	.sidebar i{
+		line-height: 0.5 !important;
+	}
 	.panel{
 		padding: 9%;
 		font-size: 4em;

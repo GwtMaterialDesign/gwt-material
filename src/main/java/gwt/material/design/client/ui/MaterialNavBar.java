@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomAnchor;
+import gwt.material.design.client.custom.CustomHeader;
 import gwt.material.design.client.custom.CustomNav;
 
 import com.google.gwt.core.client.GWT;
@@ -43,7 +44,7 @@ public class MaterialNavBar extends Composite {
 	}
 
 	@UiField
-	HTMLPanel navBar;
+	CustomHeader navBar;
 	@UiField
 	CustomAnchor anchor, navMenu;
 	@UiField
@@ -56,6 +57,7 @@ public class MaterialNavBar extends Composite {
 	private String align = "";
 	private String wave = "";
 	private String sideBar = "";
+	private String sideBarWidth = "";
 
 	public MaterialNavBar() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -78,7 +80,7 @@ public class MaterialNavBar extends Composite {
 		String name = String.valueOf(hashCode());
 		navMenu.getElement().setAttribute("data-activates", name);
 		mobileNav.getElement().setId(name);
-		initNavBar();
+		initNavBar(Integer.parseInt(getSideBarWidth()));
 		
 	}
 
@@ -93,8 +95,11 @@ public class MaterialNavBar extends Composite {
 	}
 
 	
-	public static native void initNavBar()/*-{
-		$wnd.jQuery(".button-collapse").sideNav();
+	public static native void initNavBar(int width)/*-{
+		$wnd.jQuery(".button-collapse").sideNav({
+				menuWidth: width
+			}
+		);
 	}-*/;
 
 	public static native void hideNav()/*-{
@@ -223,6 +228,15 @@ public class MaterialNavBar extends Composite {
 	public void setSideBar(String sideBar) {
 		this.sideBar = sideBar;
 		mobileNav.addStyleName(sideBar);
+	}
+
+	public String getSideBarWidth() {
+		return sideBarWidth;
+	}
+
+	public void setSideBarWidth(String sideBarWidth) {
+		this.sideBarWidth = sideBarWidth;
+		mobileNav.setWidth(sideBarWidth + "px");
 	}
 
 	

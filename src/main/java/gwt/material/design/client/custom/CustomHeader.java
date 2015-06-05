@@ -1,4 +1,4 @@
-package gwt.material.design.client.resources;
+package gwt.material.design.client.custom;
 
 /*
  * #%L
@@ -20,32 +20,30 @@ package gwt.material.design.client.resources;
  * #L%
  */
 
-import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.uibinder.client.UiChild;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Widget;
 
-public interface MaterialCSS extends CssResource {
-	String showPanel();
-	String fullBackground();
-	String sideBarProfile();
+@SuppressWarnings("deprecation")
+public class CustomHeader  extends ComplexPanel {
 	
-	//ADNIMATIONS
-	String materialScale();
-	String materialScaleInitial();
-	String pull();
-	String pullInitial();
+	
+	public CustomHeader() {
+		setElement(DOM.createElement("HEADER"));
+	}
 
-	//FLOATING BUTTONS ANIMATIONS
-	String floatingButtonsItem();
+	@UiChild(tagname = "child")
+	public void addWidget(final Widget item) {
+		add(item);
+	}
 	
-	//CUSTOM LOADING
-	String progress();
-	
-	String disabled();
-	String collectionHeader();
-	String collectionAvatarIcon();
-	
-	String collection();
-	String badge();
-	
-	//OLD UI
-	String oldCheckBox();
+	public void add(Widget w) {
+		super.add(w, getElement());
+	}
+
+	public void insert(Widget w, int beforeIndex) {
+		super.insert(w, getElement(), beforeIndex, true);
+	}
+
 }

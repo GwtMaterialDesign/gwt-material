@@ -42,6 +42,8 @@ public class MaterialLink extends FocusPanel {
 	private String tooltipDelay = "50";
 	private Widget container;
 	
+
+	private boolean separator = false;
 	private boolean active = false;
 
 	public MaterialLink() {
@@ -199,5 +201,37 @@ public class MaterialLink extends FocusPanel {
 		    $wnd.jQuery('.tooltipped').tooltip({delay: 50});
 		  });
 	}-*/;
+
+
+
+	public boolean isActive() {
+		return active;
+	}
+
+
+
+	public void setActive(boolean active) {
+		this.active = active;
+		if(active){
+			this.addStyleName("active");
+		}
+	}
+
+
+
+	public boolean isSeparator() {
+		return separator;
+	}
+
+
+
+	public void setSeparator(boolean separator) {
+		this.separator = separator;
+		if(separator){
+			this.getElement().setAttribute("style", "border-bottom: 1px solid #e9e9e9;");
+		}
+	}
+	
+	
 	
 }
