@@ -32,8 +32,11 @@ nav .nav-wrapper .collapsible-body{
 	padding: 0px !important;
 }
 nav .nav-wrapper .collapsible-body a{
-	opacity: 0.7 !important;
 	padding-left: 50px;
+}
+
+nav .nav-wrapper .collapsible-body a .active{
+	background: red;
 }
 
 .gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon{
