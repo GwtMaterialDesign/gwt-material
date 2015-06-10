@@ -73,14 +73,16 @@ public class MaterialNavBar extends Composite {
 	private String logoUrl;
 	private ImageResource logoResource;
 	private String text;
+	private String sideNav = String.valueOf(hashCode());
 
 	@Override
 	protected void onAttach() {
 		super.onAttach();
 		String name = String.valueOf(hashCode());
+		navMenu.addStyleName(sideNav);
 		navMenu.getElement().setAttribute("data-activates", name);
 		mobileNav.getElement().setId(name);
-		initNavBar(Integer.parseInt(getSideBarWidth()));
+		initNavBar(Integer.parseInt(getSideBarWidth()), sideNav);
 		
 	}
 
@@ -95,23 +97,23 @@ public class MaterialNavBar extends Composite {
 	}
 
 	
-	public static native void initNavBar(int width)/*-{
-		$wnd.jQuery(".button-collapse").sideNav({
+	public static native void initNavBar(int width, String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav({
 				menuWidth: width
 			}
 		);
 	}-*/;
 
-	public static native void hideNav()/*-{
-		$wnd.jQuery(".button-collapse").sideNav('hide');
+	public static native void hideNav(String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav('hide');
 	}-*/;
 	
 	public void showSideBar(){
-		onShowSideBar();
+		onShowSideBar(sideNav);
 	}
 	
-	public static native void onShowSideBar()/*-{
-		$wnd.jQuery(".button-collapse").sideNav('show');
+	public static native void onShowSideBar(String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav('show');
 	}-*/;
 
 	public String getColor() {
@@ -155,7 +157,7 @@ public class MaterialNavBar extends Composite {
 	}
 
 	public void hide() {
-		hideNav();
+		hideNav(sideNav);
 	}
 
 	public String getType() {
@@ -237,6 +239,14 @@ public class MaterialNavBar extends Composite {
 	public void setSideBarWidth(String sideBarWidth) {
 		this.sideBarWidth = sideBarWidth;
 		mobileNav.setWidth(sideBarWidth + "px");
+	}
+
+	public CustomHeader getNavBar() {
+		return navBar;
+	}
+
+	public void setNavBar(CustomHeader navBar) {
+		this.navBar = navBar;
 	}
 
 	
