@@ -20,22 +20,22 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.CustomIcon;
 import gwt.material.design.client.resources.MaterialResources;
 
-import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
 
 public class MaterialIcon extends FocusPanel {
 
-	protected HTMLPanel panel = new HTMLPanel("");
+	CustomIcon iconElem;
 
 	protected String icon;
 	protected String fontSize;
+	private String size = "";
 	private String type = "";
 	private String color = "";
-	private String textColor = "";
+	private String background = "";
 	protected String tooltip = "";
 	private String shape = "";
 	protected String title = "";
@@ -43,15 +43,11 @@ public class MaterialIcon extends FocusPanel {
 	public MaterialIcon() {
 	}
 
-	
-	
 	public MaterialIcon(String icon, String fontSize) {
 		super();
 		setIcon(icon);
 		setFontSize(fontSize);
 	}
-
-	
 
 	public String getIcon() {
 		return icon;
@@ -59,7 +55,6 @@ public class MaterialIcon extends FocusPanel {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
-		this.getElement().getStyle().setCursor(Cursor.POINTER);
 		generateIcon();
 	}
 
@@ -89,12 +84,10 @@ public class MaterialIcon extends FocusPanel {
 	}
 
 	public static native void initTooltip()/*-{
-		$wnd.jQuery('.tooltipped').tooltip({
-			"delay" : 10
-		});
-	}-*/;
-	
-	
+											$wnd.jQuery('.tooltipped').tooltip({
+											"delay" : 10
+											});
+											}-*/;
 
 	public String getTitle() {
 		return title;
@@ -107,11 +100,32 @@ public class MaterialIcon extends FocusPanel {
 
 	public void generateIcon() {
 		this.clear();
-		panel = new HTMLPanel("<i class='" + icon + " " + textColor +"-text " + " " + type + " materialIcon'></i>");
-		if (!tooltip.isEmpty()) {
-			panel = new HTMLPanel("<i class='tooltipped " + icon + " materialIcon' data-position='bottom' data-tooltip=" + tooltip + "></i>");
+
+		iconElem = new CustomIcon();
+
+		if (!icon.isEmpty())
+			iconElem.addStyleName(icon);
+		if (!type.isEmpty())
+			iconElem.addStyleName(type);
+		if(!background.isEmpty())
+			this.addStyleName(background);
+		if (!size.isEmpty()) {
+			iconElem.addStyleName(size);
 		}
-		this.add(panel);
+		else {
+			iconElem.addStyleName("small");
+		}
+		iconElem.addStyleName("materialIcon");
+
+		if (!color.isEmpty())
+			iconElem.addStyleName(color + "-text");
+
+		if (!tooltip.isEmpty()) {
+			iconElem.addStyleName("tooltipped");
+			iconElem.getElement().setAttribute("data-position", "bottom");
+			iconElem.getElement().setAttribute("data-tooltip", tooltip);
+		}
+		this.add(iconElem);
 	}
 
 	public String getType() {
@@ -120,7 +134,7 @@ public class MaterialIcon extends FocusPanel {
 
 	public void setType(String type) {
 		this.type = type;
-		if(type.equals("avatar")){
+		if (type.equals("avatar")) {
 			this.addStyleName(MaterialResources.INSTANCE.materialcss().collectionAvatarIcon());
 		}
 		generateIcon();
@@ -132,7 +146,6 @@ public class MaterialIcon extends FocusPanel {
 
 	public void setColor(String color) {
 		this.color = color;
-		this.addStyleName(color);
 		generateIcon();
 	}
 
@@ -145,16 +158,22 @@ public class MaterialIcon extends FocusPanel {
 		this.addStyleName(shape);
 	}
 
-	public String getTextColor() {
-		return textColor;
+	public String getSize() {
+		return size;
 	}
 
-	public void setTextColor(String textColor) {
-		this.textColor = textColor;
+	public void setSize(String size) {
+		this.size = size;
 		generateIcon();
 	}
-	
-	
 
-	
+	public String getBackground() {
+		return background;
+	}
+
+	public void setBackground(String background) {
+		this.background = background;
+		generateIcon();
+	}
+
 }

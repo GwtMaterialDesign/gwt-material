@@ -20,72 +20,87 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.MaterialWindowHeader;
+
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialModal extends Widget{
-	
-	private static HTMLPanel panel = new HTMLPanel("");
-	
-	private boolean fixedFooter;
-	
-	public enum TYPE{
-		FIXED_FOOTER, BOTTOM_SHEET, DEFAULT;
-	}
-	
-	public static void showModal(boolean isShow,Widget composite, TYPE type){
-		if(isShow){
-			panel.clear();
-			
-			panel.add(composite);	
-			
-			switch (type) {
-			case FIXED_FOOTER:
-				panel.getElement().setId("modalFix");
-				panel.setStyleName("modal modal-fixed-footer");
-				panel.getElement().getStyle().clearBottom();
-				break;
-			case BOTTOM_SHEET:
-				panel.getElement().setId("modalBottom");
-				panel.setStyleName("modal bottom-sheet");
-				break;
+public class MaterialModal extends Widget {
 
-			default:
-				panel.getElement().setId("modal1");
-				panel.setStyleName("modal");
-				panel.getElement().getStyle().clearBottom();
-				break;
-			}
-			
-			RootPanel.get().add(panel);
-		}
+	private static HTMLPanel panel = new HTMLPanel("");
+
+	private boolean fixedFooter;
+
+	public enum TYPE {
+		FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW;
+	}
+
+	public static void showModal(Widget composite, TYPE type) {
+		panel.clear();
+		confirmType(type);
+		panel.add(composite);
+		RootPanel.get().add(panel);
 		showModal(panel.getElement().getId());
 	}
-	
-	public static void showModal(boolean isShow,Widget composite){
-		if(isShow){
+
+	public static void showWindow(Widget composite, TYPE type, String title, String headerColor) {
+		panel.clear();
+		switch (type) {
+			case WINDOW:
+				panel.getElement().setId("modal1");
+				panel.setStyleName("modal material-window");
+				panel.getElement().getStyle().clearBottom();
+				panel.add(new MaterialWindowHeader(panel, title, headerColor));
+				break;
+			default:
+				break;
+		}
+		panel.add(composite);
+		RootPanel.get().add(panel);
+		showModal(panel.getElement().getId());
+	}
+
+	private static void confirmType(TYPE type) {
+		switch (type) {
+		case FIXED_FOOTER:
+			panel.getElement().setId("modalFix");
+			panel.setStyleName("modal modal-fixed-footer");
+			panel.getElement().getStyle().clearBottom();
+			break;
+		case BOTTOM_SHEET:
+			panel.getElement().setId("modalBottom");
+			panel.setStyleName("modal bottom-sheet");
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	public static void showModal(boolean isShow, Widget composite) {
+		if (isShow) {
 			panel.clear();
 			panel.getElement().setId("modal1");
 			panel.addStyleName("modal");
-			panel.add(composite);	
+			panel.add(composite);
 			RootPanel.get().add(panel);
 		}
 		showModal(panel.getElement().getId());
 	}
-	
-	public void hide(){
+
+	public void hide() {
 		panel.getElement().removeAttribute("style");
 		closeModal();
 	}
-	
-	public static native void showModal(String id)/*-{
-		$wnd.jQuery('#' + id).openModal();
-	}-*/;
+
+	private static native void showModal(String id)/*-{
+													$wnd.jQuery('#' + id).openModal();
+													}-*/;
 
 	public static native void closeModal(String id)/*-{
-		$wnd.jQuery('#' + id).closeModal();
-	}-*/;
+													$wnd.jQuery('#' + id).closeModal();
+													}-*/;
 
 	public static void closeModal() {
 		closeModal(panel.getElement().getId());

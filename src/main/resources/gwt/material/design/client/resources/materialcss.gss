@@ -16,6 +16,7 @@
   	color: rgba(0, 0, 0, 0.87);
 }
 
+
 .sideBarProfile{
 	padding: 1%;
 	margin-left: -20px;

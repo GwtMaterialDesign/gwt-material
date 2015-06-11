@@ -35,9 +35,7 @@
 			height: auto;
 			padding: 10px;
 		}
-		.mobileNav{
-			overflow: hidden;
-		}
+	
 		.mobileNav:hover{
 			overflow: auto;
 		}
@@ -54,7 +52,7 @@
 	        </c:CustomAnchor>
 	       
 	        <m:UnorderedList ui:field="navigation"  addStyleNames="hide-on-med-and-down"/>
-	        <m:UnorderedList ui:field="mobileNav"  addStyleNames="side-nav {style.mobileNav} {res.materialmobilecss.mobileNav}"/>
+	        <m:UnorderedList ui:field="mobileNav"  addStyleNames="side-nav {res.materialmobilecss.mobileNav}"/>
 	        
 	      </g:HTMLPanel>
 	    </c:CustomNav>

@@ -79,7 +79,7 @@ public class MaterialNoResult extends Composite {
 
 	public void setTextColor(String textColor) {
 		this.textColor = textColor;
-		iconElem.setTextColor(textColor);
+		iconElem.setColor(textColor);
 		titleElem.setColor(textColor);
 	}
 

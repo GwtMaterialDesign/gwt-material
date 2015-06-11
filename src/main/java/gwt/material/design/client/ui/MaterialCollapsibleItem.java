@@ -40,6 +40,7 @@ public class MaterialCollapsibleItem extends ListItem{
 	public void addContent(final Widget content) {
 		MaterialPanel panel = new MaterialPanel("");
 		panel.addStyleName("collapsible-body");
+		
 		panel.add(content);
 		panel.getElement().getStyle().setPadding(2, Unit.EM);
 		panel.getElement().getStyle().setMargin(0, Unit.EM);

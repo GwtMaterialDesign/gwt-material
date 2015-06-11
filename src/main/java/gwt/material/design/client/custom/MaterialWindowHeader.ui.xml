@@ -1,0 +1,30 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:m="urn:import:gwt.material.design.client.ui"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.header{
+			text-align: right;
+			padding: 1%;
+		}
+		.icon{
+			display: inline-block;
+			opacity: 0.7;
+			padding: 0px 5px;
+		}
+		.title{
+			float: left;
+			color: #fff;
+			padding-left: 10px;
+			opacity: 0.7;
+		}
+	</ui:style>
+	<m:MaterialPanel>
+		<m:MaterialPanel ui:field="headerPanel" addStyleNames="blue darken-2 {style.header}" >
+			<m:MaterialLabel ui:field="lblTitle" addStyleNames="{style.title}" fontSize="1.2"/>
+			<m:MaterialLink ui:field="btnRestore" tooltip="Restore" tooltipLocation="bottom" icon="mdi-image-filter-none" fontSize="1.2" textColor="white" addStyleNames="{style.icon}" />
+			<m:MaterialLink ui:field="btnMaximize" tooltip="Maximize" tooltipLocation="bottom" icon="mdi-toggle-check-box-outline-blank" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
+			<m:MaterialLink ui:field="btnClose" tooltip="Close" tooltipLocation="bottom" icon="mdi-navigation-close" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
+		</m:MaterialPanel>
+	</m:MaterialPanel>
+</ui:UiBinder> 

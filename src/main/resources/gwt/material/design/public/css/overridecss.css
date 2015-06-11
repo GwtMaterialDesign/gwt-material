@@ -15,6 +15,24 @@
 	color: rgba(0, 0, 0, 0.87);
 }
 
+/**WINDOW**/
+.material-window nav .nav-wrapper{
+	width: 100% !important;
+}
+.material-window header, .material-window main{
+	padding: 0px;
+}
+.material-window-maximize{
+	width: 100% !important;
+	height: 100% !important;
+	top: 0 !important;
+	max-height: 100% !important;
+}
+.material-window-maximize{
+	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
+}
 /**SIDEBAR **/
 .side-nav li{
 	padding: 0px ;
@@ -52,6 +70,10 @@ nav .nav-wrapper .collapsible-body a .active{
 	color: #fff;
 	background-color: #999;
 	text-align: center;
+}
+
+ul.side-nav.fixed li:hover, ul.side-nav.fixed li.active {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 @media only screen and (max-width : 992px) {
