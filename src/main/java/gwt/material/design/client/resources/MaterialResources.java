@@ -31,6 +31,9 @@ public interface MaterialResources extends ClientBundle {
 	
 	@Source("image.png")
 	ImageResource image();
+	
+	@Source("yuna.jpg")
+	ImageResource yuna();
 
 	@Source("ic_progress_cancel.png")
 	ImageResource ic_progress_cancel();

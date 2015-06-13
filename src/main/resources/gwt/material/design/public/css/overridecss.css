@@ -15,6 +15,49 @@
 	color: rgba(0, 0, 0, 0.87);
 }
 
+/**SCROLLSPY**/
+.table-of-contents a.active{
+	border-left: 2px solid #2196f3 !important;
+}
+.table-of-contents a:hover{
+	border-left: 1px solid #2196f3 !important;
+}
+/**WINDOW**/
+.material-window nav .nav-wrapper{
+	width: 100% !important;
+}
+.material-window header, .material-window main{
+	padding: 0px;
+}
+.material-window-maximize{
+	width: 100% !important;
+	height: 100% !important;
+	top: 0 !important;
+	max-height: 100% !important;
+}
+.material-window-maximize{
+	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
+}
+/**SIDEBAR **/
+.side-nav li{
+	padding: 0px ;
+}
+nav .nav-wrapper .side-nav i{
+	display: inline !important;
+	vertical-align: middle;
+}
+.side-nav .collapsible-header{
+	padding: 0px !important;
+	margin: 0px !important;
+}
+ 
+nav .nav-wrapper .collapsible-body{
+	padding: 0px !important;
+}
+
+
 .gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon{
 	position: absolute;
 	width: 42px;
@@ -30,9 +73,19 @@
 	text-align: center;
 }
 
+ul.side-nav.fixed li:hover, ul.side-nav.fixed li.active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 @media only screen and (max-width : 992px) {
 	header,main,footer {
-		padding-left: 0 !important;
+		padding: 0 !important;
+	}
+}
+
+@media only screen and (max-width : 992px) {
+	main{
+		padding-bottom: 70 !important;
 	}
 }
 
@@ -162,10 +215,6 @@ a:hover,a:visited {
 	-webkit-transform: scale(1) !important;
 	-ms-transform: scale(1) !important;
 	transform: scale(1) !important;
-}
-
-th {
-	display: table-cell !important;
 }
 
 /**

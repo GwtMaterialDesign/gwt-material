@@ -22,43 +22,21 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:m="urn:import:gwt.material.design.client.ui">
 	<ui:style>
-	@external .sidebar;
-	.sidebar{
-		padding: 10% !important;
-		font-size: 1em;
-		margin-left: -20px;
-		margin-right: -20px;
-	}
-	.sidebar a{
-		padding: 0px !important;
-	}	 
-	.sidebar a, .sidebar i{
-		line-height: 1 !important;
-		height: 0px !important;
-	}
-	.sidebar i{
-		line-height: 0.5 !important;
-	}
-	.panel{
-		padding: 9%;
-		font-size: 4em;
-		background: #555;
-		padding-bottom: 200px;
-	}
-	.description{
-		font-size: 0.3em;
-	}
+		.panel{
+			height: 100%;
+		}
+		.title{
+			margin-top: -100px;
+		}
+		.container{
+			width: 100%;
+		}
 	</ui:style>
-	<g:HTMLPanel ui:field="panel" addStyleNames="{style.panel}">
-		<m:MaterialRow>
-			<m:MaterialColumn grid="s12 m6 l8">
-				<g:Label ui:field="lblTitle"/>
-				<g:Label ui:field="lblDescription" addStyleNames="{style.description}"/>
-			</m:MaterialColumn>
-			<m:MaterialColumn ui:field="menuPanel" grid="s12 m6 l4" />
-		</m:MaterialRow>
-	
+	<m:MaterialPanel ui:field="panel" align="center"  addStyleNames="{style.panel} valign-wrapper">
+		<m:MaterialPanel addStyleNames="valign center {style.container}"> 	
+			<m:MaterialIcon ui:field="iconElem" fontSize="15" />
+		<m:MaterialTitle ui:field="titleElem" addStyleNames="{style.title}" />
+		</m:MaterialPanel>
 		
-		<g:HTMLPanel ui:field="customPanel"/>
-	</g:HTMLPanel>
+	</m:MaterialPanel>
 </ui:UiBinder> 

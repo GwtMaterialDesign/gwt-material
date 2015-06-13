@@ -1,4 +1,4 @@
-package gwt.material.design.client.resources;
+package gwt.material.design.client.ui;
 
 /*
  * #%L
@@ -20,34 +20,16 @@ package gwt.material.design.client.resources;
  * #L%
  */
 
-import com.google.gwt.resources.client.CssResource;
 
-public interface MaterialCSS extends CssResource {
-	String showPanel();
-	String fullBackground();
-	String sideBarProfile();
-	
-	//ADNIMATIONS
-	String materialScale();
-	String materialScaleInitial();
-	String pull();
-	String pullInitial();
+import gwt.material.design.client.custom.CustomMain;
 
-	//FLOATING BUTTONS ANIMATIONS
-	String floatingButtonsItem();
+public class MaterialContainer extends CustomMain{
+
 	
-	//CUSTOM LOADING
-	String progress();
-	
-	String disabled();
-	String collectionHeader();
-	String collectionAvatarIcon();
-	
-	String collection();
-	String badge();
-	
-	//OLD UI
-	String oldCheckBox();
-	
+	public MaterialContainer() {
+		
+	}
+
+
 
 }

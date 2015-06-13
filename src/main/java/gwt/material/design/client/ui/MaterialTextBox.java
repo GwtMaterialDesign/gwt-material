@@ -73,7 +73,9 @@ public class MaterialTextBox extends Composite implements HasText,HasKeyUpHandle
 	protected void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
-		customLabel.getElement().setAttribute("for", "field");
+		String name = String.valueOf(hashCode());
+		txtBox.getElement().setId(name);
+		customLabel.getElement().setAttribute("for", name);
 	}
 
 

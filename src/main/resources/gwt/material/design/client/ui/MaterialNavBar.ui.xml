@@ -35,14 +35,12 @@
 			height: auto;
 			padding: 10px;
 		}
-		.mobileNav{
-			overflow: hidden;
-		}
+	
 		.mobileNav:hover{
 			overflow: auto;
 		}
 	</ui:style>
-	<g:HTMLPanel ui:field="navBar" >
+	<c:CustomHeader ui:field="navBar" >
 		<c:CustomNav ui:field="customNav">
 	      <g:HTMLPanel ui:field="wrapper" addStyleNames="nav-wrapper container {style.navHeader}">
 	        <c:CustomAnchor ui:field="anchor" addStyleNames="brand-logo">
@@ -54,9 +52,9 @@
 	        </c:CustomAnchor>
 	       
 	        <m:UnorderedList ui:field="navigation"  addStyleNames="hide-on-med-and-down"/>
-	        <m:UnorderedList ui:field="mobileNav"  addStyleNames="side-nav {style.mobileNav} {res.materialmobilecss.mobileNav}"/>
+	        <m:UnorderedList ui:field="mobileNav"  addStyleNames="side-nav {res.materialmobilecss.mobileNav}"/>
 	        
 	      </g:HTMLPanel>
 	    </c:CustomNav>
-	</g:HTMLPanel>
+	</c:CustomHeader>
 </ui:UiBinder> 
