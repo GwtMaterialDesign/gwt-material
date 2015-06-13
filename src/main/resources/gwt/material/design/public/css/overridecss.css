@@ -15,6 +15,13 @@
 	color: rgba(0, 0, 0, 0.87);
 }
 
+/**SCROLLSPY**/
+.table-of-contents a.active{
+	border-left: 2px solid #2196f3 !important;
+}
+.table-of-contents a:hover{
+	border-left: 1px solid #2196f3 !important;
+}
 /**WINDOW**/
 .material-window nav .nav-wrapper{
 	width: 100% !important;
@@ -49,13 +56,7 @@ nav .nav-wrapper .side-nav i{
 nav .nav-wrapper .collapsible-body{
 	padding: 0px !important;
 }
-nav .nav-wrapper .collapsible-body a{
-	padding-left: 50px;
-}
 
-nav .nav-wrapper .collapsible-body a .active{
-	background: red;
-}
 
 .gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon{
 	position: absolute;
@@ -214,10 +215,6 @@ a:hover,a:visited {
 	-webkit-transform: scale(1) !important;
 	-ms-transform: scale(1) !important;
 	transform: scale(1) !important;
-}
-
-th {
-	display: table-cell !important;
 }
 
 /**
