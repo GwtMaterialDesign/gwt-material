@@ -48,7 +48,6 @@ public class MaterialCollapsible extends UnorderedList {
 		this.add(item);
 	}
 	
-	
 	public static native void onInitCollapsible()/*-{
 		$wnd.jQuery(document).ready(function() {
 			$wnd.jQuery('.collapsible').collapsible({
