@@ -14,7 +14,7 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="http://gwt-material.appspot.com/#dialogs">Material Window Dialog</a></li>
  <li><a href="http://gwt-material.appspot.com/#icons">Material Icons</a></li>
  <li>Sidebar supports Collapsible Submenus and multi declaration on any interface</li>
- <li><a href="http://gwt-material.appspot.com/#icons">Scroll Spy</li></li>
+ <li><a href="http://gwt-material.appspot.com/#scrollspy">Scroll Spy</li></li>
 </ul>
 
  <img src="http://gwt-material.appspot.com/bin/starter.gif" width="200px"/>
