@@ -28,7 +28,15 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 
 public class MaterialDatePicker extends FocusPanel{
 
+	/**
+	 * Delegate interface for handling picker events.
+	 */
 	public interface MaterialDatePickerDelegate {
+		
+		/**
+		 * Called as soon as a click occurs on the calendar widget. !EXPERIMENTAL!
+		 * @param currDate which is currently selected.
+		 */
 		void onCalendarClick(Date currDate);
 	}
 	
@@ -51,7 +59,7 @@ public class MaterialDatePicker extends FocusPanel{
 		panel = new HTMLPanel("<input placeholder='"+placeholder+"' type='date' id='"+id+"' class='datepicker'>");
 		this.add(panel);
 		initDatePicker(id);
-		onValueChange(id, this);
+		initClickHandler(id, this);
 	}
 	
 	public static native String getDatePickerValue(String id)/*-{
@@ -67,14 +75,19 @@ public class MaterialDatePicker extends FocusPanel{
         $wnd.jQuery('#' + id).pickadate();
 	}-*/;
 	
-	native void onValueChange(String id, MaterialDatePicker picker) /*-{
+	native void initClickHandler(String id, MaterialDatePicker picker) /*-{
 		$wnd.jQuery('.picker__wrap').bind('click',function(){
 			picker.@gwt.material.design.client.ui.MaterialDatePicker::notifyDelegate()();
 			});
 	}-*/;
 
-	public void setDelegate(MaterialDatePickerDelegate del) {
-		this.delegate = del;
+	/**
+	 * A delegate which implements handling of events from date picker.
+	 * @param delegate which will be notified on picker events.
+	 * @see MaterialDatePickerDelegate 
+	 */
+	public void setDelegate(MaterialDatePickerDelegate delegate) {
+		this.delegate = delegate;
 	}
 	
 	void notifyDelegate() {
