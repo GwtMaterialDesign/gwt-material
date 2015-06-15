@@ -28,10 +28,16 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 
 public class MaterialDatePicker extends FocusPanel{
 
+	public interface MaterialDatePickerDelegate {
+		void onCalendarClick(Date currDate);
+	}
+	
 	private HTMLPanel panel;
 	private Date date;
 	private String placeholder;
 	private String id;
+	private MaterialDatePickerDelegate delegate;
+	
 	public MaterialDatePicker() {
 	
 	}
@@ -45,6 +51,7 @@ public class MaterialDatePicker extends FocusPanel{
 		panel = new HTMLPanel("<input placeholder='"+placeholder+"' type='date' id='"+id+"' class='datepicker'>");
 		this.add(panel);
 		initDatePicker(id);
+		onValueChange(id, this);
 	}
 	
 	public static native String getDatePickerValue(String id)/*-{
@@ -59,6 +66,22 @@ public class MaterialDatePicker extends FocusPanel{
 	public static native void initDatePicker(String id)/*-{
         $wnd.jQuery('#' + id).pickadate();
 	}-*/;
+	
+	native void onValueChange(String id, MaterialDatePicker picker) /*-{
+		$wnd.jQuery('.picker__wrap').bind('click',function(){
+			picker.@gwt.material.design.client.ui.MaterialDatePicker::notifyDelegate()();
+			});
+	}-*/;
+
+	public void setDelegate(MaterialDatePickerDelegate del) {
+		this.delegate = del;
+	}
+	
+	void notifyDelegate() {
+		if(delegate != null) {
+			delegate.onCalendarClick(getDate());
+		}
+	}
 
 
 	
