@@ -91,6 +91,14 @@ public class MaterialTextBox extends Composite implements HasText,HasKeyUpHandle
 		txtBox.getElement().addClassName("valid");
 		isValid = true;
 	}
+	
+	/**
+	 * Resets the textbox by removing its content and resetting visual state.
+	 */
+	public void clear() {
+		txtBox.setText("");
+		backToDefault();
+	}
 
 	public void backToDefault() {
 		txtBox.getElement().removeClassName("valid");
