@@ -15,6 +15,7 @@
 	color: rgba(0, 0, 0, 0.87);
 }
 
+
 /**SCROLLSPY**/
 .table-of-contents a.active{
 	border-left: 2px solid #2196f3 !important;
@@ -88,6 +89,19 @@ ul.side-nav.fixed li:hover, ul.side-nav.fixed li.active {
 		padding-bottom: 70 !important;
 	}
 }
+
+.sideBarBadge{
+  height: 20px !important;
+  line-height: 0 !important;
+  padding: 10px !important;
+  color: #fff !important;
+  border-radius: 3px !important;
+  font-size: 0.7em !important;
+}
+ul.side-nav .sideBarBadge{
+  margin-top: 20px !important;
+}
+/** DROPDOWN **/
 
 .dropdown-content {
 	max-height: 70vh !important;

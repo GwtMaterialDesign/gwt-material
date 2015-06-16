@@ -26,6 +26,7 @@ import gwt.material.design.client.custom.CustomNav;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
@@ -239,6 +240,7 @@ public class MaterialNavBar extends Composite {
 	public void setSideBarWidth(String sideBarWidth) {
 		this.sideBarWidth = sideBarWidth;
 		mobileNav.setWidth(sideBarWidth + "px");
+		navBar.getElement().getStyle().setPaddingLeft(Double.parseDouble(sideBarWidth), Unit.PX);
 	}
 
 	public CustomHeader getNavBar() {

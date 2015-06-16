@@ -24,6 +24,7 @@ import gwt.material.design.client.custom.CustomIcon;
 
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -46,6 +47,7 @@ public class MaterialLink extends FocusPanel {
 	private Widget container;
 	private Anchor anchorElem;
 	private CustomIcon iconElem;
+	private MaterialBadge badge;
 
 	private boolean separator = false;
 	private boolean active = false;
@@ -146,11 +148,19 @@ public class MaterialLink extends FocusPanel {
 			anchorElem.getElement().appendChild(iconElem.getElement());
 			iconElem.addStyleName(icon);
 		}
+		if(getBadge()!=null) anchorElem.getElement().appendChild(getBadge().getElement());
 		panel.add(anchorElem);
 		panel.getElement().getStyle().setCursor(Cursor.POINTER);
 		this.add(panel);
 	}
 
+	@UiChild(tagname = "badge")
+	public void addBadge(Widget w){
+		MaterialBadge badge = ((MaterialBadge)w) ;
+		badge.addStyleName("sideBarBadge");
+		setBadge(badge);
+	}
+	
 	public String getWave() {
 		return wave;
 	}
@@ -247,5 +257,14 @@ public class MaterialLink extends FocusPanel {
 	public void setIconElem(CustomIcon iconElem) {
 		this.iconElem = iconElem;
 	}
+
+	public MaterialBadge getBadge() {
+		return badge;
+	}
+
+	public void setBadge(MaterialBadge badge) {
+		this.badge = badge;
+	}
+
 
 }
