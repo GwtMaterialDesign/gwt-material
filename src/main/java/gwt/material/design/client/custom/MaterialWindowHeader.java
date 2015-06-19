@@ -20,6 +20,7 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
+
 import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialModal;
