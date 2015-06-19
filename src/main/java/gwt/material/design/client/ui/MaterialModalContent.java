@@ -24,6 +24,8 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 
 public class MaterialModalContent extends MaterialPanel{
 
+	private String height;
+	
 	public MaterialModalContent(SafeHtml safeHtml) {
 		super(safeHtml);
 		// TODO Auto-generated constructor stub
@@ -44,6 +46,15 @@ public class MaterialModalContent extends MaterialPanel{
 		// TODO Auto-generated method stub
 		super.onAttach();
 		this.addStyleName("modal-content");
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+		this.setHeight(height + "px");
 	}
 
 	

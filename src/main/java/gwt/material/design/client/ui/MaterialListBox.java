@@ -22,14 +22,20 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ChangeListener;
-import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Widget;
 
 @SuppressWarnings("deprecation")
-public class MaterialListBox extends ListBox{
+public class MaterialListBox extends com.google.gwt.user.client.ui.ListBox{
 
 	private boolean old = false;
 	private boolean disabled = false;
@@ -40,6 +46,288 @@ public class MaterialListBox extends ListBox{
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
+	public HandlerRegistration addAttachHandler(Handler handler) {
+		// TODO Auto-generated method stub
+		return super.addAttachHandler(handler);
+	}
+
+	@Override
+	public Widget asWidget() {
+		// TODO Auto-generated method stub
+		return super.asWidget();
+	}
+
+	@Override
+	public void fireEvent(GwtEvent<?> event) {
+		// TODO Auto-generated method stub
+		super.fireEvent(event);
+	}
+
+	@Override
+	public Object getLayoutData() {
+		// TODO Auto-generated method stub
+		return super.getLayoutData();
+	}
+
+	@Override
+	public Widget getParent() {
+		// TODO Auto-generated method stub
+		return super.getParent();
+	}
+
+	@Override
+	public boolean isAttached() {
+		// TODO Auto-generated method stub
+		return super.isAttached();
+	}
+
+	@Override
+	public void onBrowserEvent(Event event) {
+		// TODO Auto-generated method stub
+		super.onBrowserEvent(event);
+	}
+
+	@Override
+	public void removeFromParent() {
+		// TODO Auto-generated method stub
+		super.removeFromParent();
+	}
+
+	@Override
+	public void setLayoutData(Object layoutData) {
+		// TODO Auto-generated method stub
+		super.setLayoutData(layoutData);
+	}
+
+	@Override
+	public void sinkEvents(int eventBitsToAdd) {
+		// TODO Auto-generated method stub
+		super.sinkEvents(eventBitsToAdd);
+	}
+
+	@Override
+	public void unsinkEvents(int eventBitsToRemove) {
+		// TODO Auto-generated method stub
+		super.unsinkEvents(eventBitsToRemove);
+	}
+
+	@Override
+	protected HandlerManager createHandlerManager() {
+		// TODO Auto-generated method stub
+		return super.createHandlerManager();
+	}
+
+	@Override
+	protected void delegateEvent(Widget target, GwtEvent<?> event) {
+		// TODO Auto-generated method stub
+		super.delegateEvent(target, event);
+	}
+
+	@Override
+	protected void doAttachChildren() {
+		// TODO Auto-generated method stub
+		super.doAttachChildren();
+	}
+
+	@Override
+	protected void doDetachChildren() {
+		// TODO Auto-generated method stub
+		super.doDetachChildren();
+	}
+
+	@Override
+	protected int getHandlerCount(Type<?> type) {
+		// TODO Auto-generated method stub
+		return super.getHandlerCount(type);
+	}
+
+	@Override
+	protected void onDetach() {
+		// TODO Auto-generated method stub
+		super.onDetach();
+	}
+
+	@Override
+	protected void onLoad() {
+		// TODO Auto-generated method stub
+		super.onLoad();
+	}
+
+	@Override
+	protected void onUnload() {
+		// TODO Auto-generated method stub
+		super.onUnload();
+	}
+
+	@Override
+	public void addStyleDependentName(String styleSuffix) {
+		// TODO Auto-generated method stub
+		super.addStyleDependentName(styleSuffix);
+	}
+
+	@Override
+	public void addStyleName(String style) {
+		// TODO Auto-generated method stub
+		super.addStyleName(style);
+	}
+
+	@Override
+	public int getAbsoluteLeft() {
+		// TODO Auto-generated method stub
+		return super.getAbsoluteLeft();
+	}
+
+	@Override
+	public int getAbsoluteTop() {
+		// TODO Auto-generated method stub
+		return super.getAbsoluteTop();
+	}
+
+	@Override
+	public Element getElement() {
+		// TODO Auto-generated method stub
+		return super.getElement();
+	}
+
+	@Override
+	public int getOffsetHeight() {
+		// TODO Auto-generated method stub
+		return super.getOffsetHeight();
+	}
+
+	@Override
+	public int getOffsetWidth() {
+		// TODO Auto-generated method stub
+		return super.getOffsetWidth();
+	}
+
+	@Override
+	public String getStyleName() {
+		// TODO Auto-generated method stub
+		return super.getStyleName();
+	}
+
+	@Override
+	public String getStylePrimaryName() {
+		// TODO Auto-generated method stub
+		return super.getStylePrimaryName();
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return super.getTitle();
+	}
+
+	@Override
+	public boolean isVisible() {
+		// TODO Auto-generated method stub
+		return super.isVisible();
+	}
+
+	@Override
+	public void removeStyleDependentName(String styleSuffix) {
+		// TODO Auto-generated method stub
+		super.removeStyleDependentName(styleSuffix);
+	}
+
+	@Override
+	public void removeStyleName(String style) {
+		// TODO Auto-generated method stub
+		super.removeStyleName(style);
+	}
+
+	@Override
+	public void setHeight(String height) {
+		// TODO Auto-generated method stub
+		super.setHeight(height);
+	}
+
+	@Override
+	public void setPixelSize(int width, int height) {
+		// TODO Auto-generated method stub
+		super.setPixelSize(width, height);
+	}
+
+	@Override
+	public void setSize(String width, String height) {
+		// TODO Auto-generated method stub
+		super.setSize(width, height);
+	}
+
+	@Override
+	public void setStyleDependentName(String styleSuffix, boolean add) {
+		// TODO Auto-generated method stub
+		super.setStyleDependentName(styleSuffix, add);
+	}
+
+	@Override
+	public void setStyleName(String style, boolean add) {
+		// TODO Auto-generated method stub
+		super.setStyleName(style, add);
+	}
+
+	@Override
+	public void setStyleName(String style) {
+		// TODO Auto-generated method stub
+		super.setStyleName(style);
+	}
+
+	@Override
+	public void setStylePrimaryName(String style) {
+		// TODO Auto-generated method stub
+		super.setStylePrimaryName(style);
+	}
+
+	@Override
+	public void setTitle(String title) {
+		// TODO Auto-generated method stub
+		super.setTitle(title);
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		// TODO Auto-generated method stub
+		super.setVisible(visible);
+	}
+
+	@Override
+	public void setWidth(String width) {
+		// TODO Auto-generated method stub
+		super.setWidth(width);
+	}
+
+	@Override
+	public void sinkBitlessEvent(String eventTypeName) {
+		// TODO Auto-generated method stub
+		super.sinkBitlessEvent(eventTypeName);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+
+	@Override
+	protected Element getStyleElement() {
+		// TODO Auto-generated method stub
+		return super.getStyleElement();
+	}
+
+	@Override
+	protected com.google.gwt.dom.client.Element resolvePotentialElement() {
+		// TODO Auto-generated method stub
+		return super.resolvePotentialElement();
+	}
+
+	@Override
+	protected void setElement(Element elem) {
+		// TODO Auto-generated method stub
+		super.setElement(elem);
+	}
+
 	@Override
 	protected void onAttach() {
 		// TODO Auto-generated method stub
@@ -299,6 +587,19 @@ public class MaterialListBox extends ListBox{
 			this.getElement().setAttribute("disabled", "true");
 		}
 	}
+
+	@Override
+	public String getSelectedItemText() {
+		// TODO Auto-generated method stub
+		return super.getSelectedItemText();
+	}
+
+	@Override
+	public String getSelectedValue() {
+		// TODO Auto-generated method stub
+		return super.getSelectedValue();
+	}
+
 	
 	
 	

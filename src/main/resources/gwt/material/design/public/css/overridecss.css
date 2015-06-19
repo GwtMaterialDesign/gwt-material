@@ -15,6 +15,32 @@
 	color: rgba(0, 0, 0, 0.87);
 }
 
+
+/**SCROLLSPY**/
+.table-of-contents a.active{
+	border-left: 2px solid #2196f3 !important;
+}
+.table-of-contents a:hover{
+	border-left: 1px solid #2196f3 !important;
+}
+/**WINDOW**/
+.material-window nav .nav-wrapper{
+	width: 100% !important;
+}
+.material-window header, .material-window main{
+	padding: 0px;
+}
+.material-window-maximize{
+	width: 100% !important;
+	height: 100% !important;
+	top: 0 !important;
+	max-height: 100% !important;
+}
+.material-window-maximize{
+	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
+}
 /**SIDEBAR **/
 .side-nav li{
 	padding: 0px ;
@@ -31,13 +57,7 @@ nav .nav-wrapper .side-nav i{
 nav .nav-wrapper .collapsible-body{
 	padding: 0px !important;
 }
-nav .nav-wrapper .collapsible-body a{
-	padding-left: 50px;
-}
 
-nav .nav-wrapper .collapsible-body a .active{
-	background: red;
-}
 
 .gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon{
 	position: absolute;
@@ -54,6 +74,10 @@ nav .nav-wrapper .collapsible-body a .active{
 	text-align: center;
 }
 
+ul.side-nav.fixed li:hover, ul.side-nav.fixed li.active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 @media only screen and (max-width : 992px) {
 	header,main,footer {
 		padding: 0 !important;
@@ -65,6 +89,19 @@ nav .nav-wrapper .collapsible-body a .active{
 		padding-bottom: 70 !important;
 	}
 }
+
+.sideBarBadge{
+  height: 20px !important;
+  line-height: 0 !important;
+  padding: 10px !important;
+  color: #fff !important;
+  border-radius: 3px !important;
+  font-size: 0.7em !important;
+}
+ul.side-nav .sideBarBadge{
+  margin-top: 20px !important;
+}
+/** DROPDOWN **/
 
 .dropdown-content {
 	max-height: 70vh !important;
@@ -192,10 +229,6 @@ a:hover,a:visited {
 	-webkit-transform: scale(1) !important;
 	-ms-transform: scale(1) !important;
 	transform: scale(1) !important;
-}
-
-th {
-	display: table-cell !important;
 }
 
 /**
