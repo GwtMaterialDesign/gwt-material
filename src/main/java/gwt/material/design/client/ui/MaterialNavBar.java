@@ -44,6 +44,7 @@ public class MaterialNavBar extends Composite {
 	interface MaterialNavBarUiBinder extends UiBinder<Widget, MaterialNavBar> {
 	}
 
+
 	@UiField
 	CustomHeader navBar;
 	@UiField
@@ -231,6 +232,11 @@ public class MaterialNavBar extends Composite {
 	public void setSideBar(String sideBar) {
 		this.sideBar = sideBar;
 		mobileNav.addStyleName(sideBar);
+		if(sideBar.equals("hidden"))
+		{
+			mobileNav.getElement().getStyle().setPaddingLeft(0, Unit.PX);
+			navMenu.getElement().getStyle().setDisplay(Display.BLOCK);
+		}
 	}
 
 	public String getSideBarWidth() {
@@ -240,7 +246,9 @@ public class MaterialNavBar extends Composite {
 	public void setSideBarWidth(String sideBarWidth) {
 		this.sideBarWidth = sideBarWidth;
 		mobileNav.setWidth(sideBarWidth + "px");
-		navBar.getElement().getStyle().setPaddingLeft(Double.parseDouble(sideBarWidth), Unit.PX);
+		if(getSideBar().equals("fixed")){
+			navBar.getElement().getStyle().setPaddingLeft(Double.parseDouble(sideBarWidth), Unit.PX);
+		}
 	}
 
 	public CustomHeader getNavBar() {
