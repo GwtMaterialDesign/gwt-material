@@ -30,6 +30,8 @@ public class MaterialCollapsibleItem extends ListItem{
 		// TODO Auto-generated constructor stub
 	}
 	
+	private UnorderedList ulPanel;
+	
 	@UiChild(tagname = "header")
 	public void addHeader(final Widget header) {
 		header.addStyleName("collapsible-header");
@@ -38,12 +40,13 @@ public class MaterialCollapsibleItem extends ListItem{
 	
 	@UiChild(tagname = "content")
 	public void addContent(final Widget content) {
-		MaterialPanel panel = new MaterialPanel("");
-		panel.addStyleName("collapsible-body");
-		panel.add(content);
-		panel.getElement().getStyle().setPadding(2, Unit.EM);
-		panel.getElement().getStyle().setMargin(0, Unit.EM);
-		this.add(panel);
+		ulPanel = new UnorderedList();
+		ulPanel.addStyleName("collapsible-body");
+		
+		ulPanel.add(content);
+		ulPanel.getElement().getStyle().setPadding(2, Unit.EM);
+		ulPanel.getElement().getStyle().setMargin(0, Unit.EM);
+		this.add(ulPanel);
 	}
 	
 }

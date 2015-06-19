@@ -26,6 +26,7 @@ import gwt.material.design.client.custom.CustomNav;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
@@ -42,6 +43,7 @@ public class MaterialNavBar extends Composite {
 
 	interface MaterialNavBarUiBinder extends UiBinder<Widget, MaterialNavBar> {
 	}
+
 
 	@UiField
 	CustomHeader navBar;
@@ -73,14 +75,16 @@ public class MaterialNavBar extends Composite {
 	private String logoUrl;
 	private ImageResource logoResource;
 	private String text;
+	private String sideNav = String.valueOf(hashCode());
 
 	@Override
 	protected void onAttach() {
 		super.onAttach();
 		String name = String.valueOf(hashCode());
+		navMenu.addStyleName(sideNav);
 		navMenu.getElement().setAttribute("data-activates", name);
 		mobileNav.getElement().setId(name);
-		initNavBar(Integer.parseInt(getSideBarWidth()));
+		initNavBar(Integer.parseInt(getSideBarWidth()), sideNav);
 		
 	}
 
@@ -95,23 +99,23 @@ public class MaterialNavBar extends Composite {
 	}
 
 	
-	public static native void initNavBar(int width)/*-{
-		$wnd.jQuery(".button-collapse").sideNav({
+	public static native void initNavBar(int width, String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav({
 				menuWidth: width
 			}
 		);
 	}-*/;
 
-	public static native void hideNav()/*-{
-		$wnd.jQuery(".button-collapse").sideNav('hide');
+	public static native void hideNav(String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav('hide');
 	}-*/;
 	
 	public void showSideBar(){
-		onShowSideBar();
+		onShowSideBar(sideNav);
 	}
 	
-	public static native void onShowSideBar()/*-{
-		$wnd.jQuery(".button-collapse").sideNav('show');
+	public static native void onShowSideBar(String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav('show');
 	}-*/;
 
 	public String getColor() {
@@ -155,7 +159,7 @@ public class MaterialNavBar extends Composite {
 	}
 
 	public void hide() {
-		hideNav();
+		hideNav(sideNav);
 	}
 
 	public String getType() {
@@ -174,6 +178,10 @@ public class MaterialNavBar extends Composite {
 			anchor.addStyleName("left");
 			navigation.addStyleName("right");
 			break;
+		}
+		
+		if(type.contains("no-padding")){
+			wrapper.removeStyleName("container");
 		}
 
 	}
@@ -228,6 +236,11 @@ public class MaterialNavBar extends Composite {
 	public void setSideBar(String sideBar) {
 		this.sideBar = sideBar;
 		mobileNav.addStyleName(sideBar);
+		if(sideBar.equals("hidden"))
+		{
+			mobileNav.getElement().getStyle().setPaddingLeft(0, Unit.PX);
+			navMenu.getElement().getStyle().setDisplay(Display.BLOCK);
+		}
 	}
 
 	public String getSideBarWidth() {
@@ -237,6 +250,17 @@ public class MaterialNavBar extends Composite {
 	public void setSideBarWidth(String sideBarWidth) {
 		this.sideBarWidth = sideBarWidth;
 		mobileNav.setWidth(sideBarWidth + "px");
+		if(getSideBar().equals("fixed")){
+			navBar.getElement().getStyle().setPaddingLeft(Double.parseDouble(sideBarWidth), Unit.PX);
+		}
+	}
+
+	public CustomHeader getNavBar() {
+		return navBar;
+	}
+
+	public void setNavBar(CustomHeader navBar) {
+		this.navBar = navBar;
 	}
 
 	

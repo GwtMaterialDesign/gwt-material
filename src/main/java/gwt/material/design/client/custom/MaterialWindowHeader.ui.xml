@@ -1,0 +1,49 @@
+<!--
+  #%L
+  GwtMaterial
+  %%
+  Copyright (C) 2015 GwtMaterialDesign
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:m="urn:import:gwt.material.design.client.ui"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.header{
+			text-align: right;
+			padding: 1%;
+		}
+		.icon{
+			display: inline-block;
+			opacity: 0.7;
+			padding: 0px 5px;
+		}
+		.title{
+			float: left;
+			color: #fff;
+			padding-left: 10px;
+			opacity: 0.7;
+		}
+	</ui:style>
+	<m:MaterialPanel>
+		<m:MaterialPanel ui:field="headerPanel" addStyleNames="blue darken-2 {style.header}" >
+			<m:MaterialLabel ui:field="lblTitle" addStyleNames="{style.title}" fontSize="1.2"/>
+			<m:MaterialLink ui:field="btnRestore" tooltip="Restore" tooltipLocation="bottom" icon="mdi-image-filter-none" fontSize="1.2" textColor="white" addStyleNames="{style.icon}" />
+			<m:MaterialLink ui:field="btnMaximize" tooltip="Maximize" tooltipLocation="bottom" icon="mdi-toggle-check-box-outline-blank" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
+			<m:MaterialLink ui:field="btnClose" tooltip="Close" tooltipLocation="bottom" icon="mdi-navigation-close" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
+		</m:MaterialPanel>
+	</m:MaterialPanel>
+</ui:UiBinder> 

@@ -11,11 +11,12 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="http://gwt-material.appspot.com/#helper">Helpers (Alignment, Hiding Content, Formatting esp. Text Truncation)</a></li>
  <li><a href="http://gwt-material.appspot.com/#table">Tables (Bordered Table, Striped Table, Hoverable Table, Centered Table, Responsive Table)</a></li>
  <li>Updated the Getting Started Page of showcase site to add Starter Template Sample (UI Binder Code) <a href="http://gwt-material-starter.appspot.com">Demo(Google Inbox App)</a></li>
- <li><a href="http://gwt-material-starter.appspot.com">No Result Interface</a></li>
+ <li><a href="http://gwt-material.appspot.com/#dialogs">Material Window Dialog</a></li>
+ <li><a href="http://gwt-material.appspot.com/#icons">Material Icons</a></li>
+ <li>Sidebar supports Collapsible Submenus and multi declaration on any interface</li>
+ <li><a href="http://gwt-material.appspot.com/#scrollspy">Scroll Spy</li></li>
+ <li><a href="http://gwt-material.appspot.com/#badges">Material Badge Update</li></li>
 </ul>
-
- <img src="http://gwt-material.appspot.com/bin/starter.gif" width="200px"/>
- <img src="http://gwt-material.appspot.com/bin/starter-desktop.png" width="600px"/>
 <h3>Version 1.3.1</h3>
 <ul>
  <li>Many bug fixes provided. <a href='https://github.com/GwtMaterialDesign/gwt-material/releases/tag/gwt-material-1.3.1'>See release notes</a></li>
