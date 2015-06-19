@@ -96,8 +96,6 @@ public class MaterialDatePicker extends FocusPanel{
 		}
 	}
 
-
-	
 	public Date getDate() {
 		return getPickerDate();
 	}
@@ -117,11 +115,24 @@ public class MaterialDatePicker extends FocusPanel{
 		}
 	}
 	
+	/**
+	 * Sets the current date of the picker.
+	 * @param date - must not be <code>null</code>
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 		DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
 		setDatePickerValue(sdf.format(date), id);
+		selectDate(sdf.format(date), id);
 	}
+	
+	private native void selectDate(String date, String id) /*-{
+		var $input = $wnd.jQuery('#' + id).pickadate();
+        var picker = $input.pickadate('picker');
+		if(picker) {
+			picker.set('select', date);
+		}
+	}-*/;
 
 	public String getPlaceholder() {
 		return placeholder;
