@@ -179,6 +179,10 @@ public class MaterialNavBar extends Composite {
 			navigation.addStyleName("right");
 			break;
 		}
+		
+		if(type.contains("no-padding")){
+			wrapper.removeStyleName("container");
+		}
 
 	}
 
