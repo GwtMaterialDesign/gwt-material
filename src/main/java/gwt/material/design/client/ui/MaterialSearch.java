@@ -21,20 +21,52 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialSearch extends Composite {
+public class MaterialSearch extends Composite implements HasText,HasKeyUpHandlers {
 
 	private static MaterialSearchUiBinder uiBinder = GWT
 			.create(MaterialSearchUiBinder.class);
 
 	interface MaterialSearchUiBinder extends UiBinder<Widget, MaterialSearch> {
 	}
+	
+	private String color="";
 
 	public MaterialSearch() {
 		initWidget(uiBinder.createAndBindUi(this));
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	@Override
+	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setText(String text) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
