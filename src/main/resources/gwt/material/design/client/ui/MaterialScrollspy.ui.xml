@@ -20,13 +20,12 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:m="urn:import:gwt.material.design.client.ui"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:gwt.material.design.client.custom">
 	<ui:style>
 	
 	</ui:style>
-	<m:MaterialPanel addStyleNames="input-field">
-          <input id="search" type="search" required="true" />
-          <label for="search"><i class="mdi-action-search"></i></label>
-          <i class="mdi-navigation-close"></i>
-	</m:MaterialPanel>
+	<m:UnorderedList ui:field="ulPanel" addStyleNames="section table-of-contents">
+		 
+	</m:UnorderedList>
 </ui:UiBinder> 

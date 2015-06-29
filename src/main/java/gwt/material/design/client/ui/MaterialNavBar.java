@@ -26,6 +26,7 @@ import gwt.material.design.client.custom.CustomNav;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
@@ -42,6 +43,7 @@ public class MaterialNavBar extends Composite {
 
 	interface MaterialNavBarUiBinder extends UiBinder<Widget, MaterialNavBar> {
 	}
+
 
 	@UiField
 	CustomHeader navBar;
@@ -93,7 +95,12 @@ public class MaterialNavBar extends Composite {
 	
 	@UiChild(tagname = "sidebaritem")
 	public void addWidgetSideNav(final Widget item) {
-		mobileNav.add(new ListItem(item));
+		ListItem listItem = new ListItem(item);
+		if(item instanceof MaterialCollapsible){
+			listItem.getElement().getStyle().setBackgroundColor("transparent");
+		}
+		
+		mobileNav.add(listItem);
 	}
 
 	
@@ -177,6 +184,10 @@ public class MaterialNavBar extends Composite {
 			navigation.addStyleName("right");
 			break;
 		}
+		
+		if(type.contains("no-padding")){
+			wrapper.removeStyleName("container");
+		}
 
 	}
 
@@ -215,10 +226,25 @@ public class MaterialNavBar extends Composite {
 				w.addStyleName("waves-effect waves-" + wave);
 			}
 		}
+		
 		for(Widget w : mobileNav){
 			if(w instanceof ListItem){
-				w.addStyleName("waves-effect waves-" + wave);
-				w.getElement().getStyle().setDisplay(Display.BLOCK);
+				ListItem item = (ListItem) w;
+				for(Widget child : item){
+					if(!(child instanceof MaterialCollapsible)){
+						w.addStyleName("waves-effect waves-" + wave);
+						w.getElement().getStyle().setDisplay(Display.BLOCK);
+					}else{
+						MaterialCollapsible col = (MaterialCollapsible) child;
+						for(Widget colItem : col){
+							if(colItem instanceof MaterialCollapsibleItem){
+								((MaterialCollapsibleItem) colItem).getHeader().addStyleName("waves-effect waves-" + wave);
+							}
+						}
+					}
+					
+				}
+				
 			}
 		}
 	}
@@ -230,6 +256,11 @@ public class MaterialNavBar extends Composite {
 	public void setSideBar(String sideBar) {
 		this.sideBar = sideBar;
 		mobileNav.addStyleName(sideBar);
+		if(sideBar.equals("hidden"))
+		{
+			mobileNav.getElement().getStyle().setPaddingLeft(0, Unit.PX);
+			navMenu.getElement().getStyle().setDisplay(Display.BLOCK);
+		}
 	}
 
 	public String getSideBarWidth() {
@@ -239,6 +270,9 @@ public class MaterialNavBar extends Composite {
 	public void setSideBarWidth(String sideBarWidth) {
 		this.sideBarWidth = sideBarWidth;
 		mobileNav.setWidth(sideBarWidth + "px");
+		if(getSideBar().equals("fixed")){
+			navBar.getElement().getStyle().setPaddingLeft(Double.parseDouble(sideBarWidth), Unit.PX);
+		}
 	}
 
 	public CustomHeader getNavBar() {

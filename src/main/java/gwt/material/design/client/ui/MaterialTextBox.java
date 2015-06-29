@@ -78,8 +78,6 @@ public class MaterialTextBox extends Composite implements HasText,HasKeyUpHandle
 		customLabel.getElement().setAttribute("for", name);
 	}
 
-
-
 	public void setInvalid() {
 		backToDefault();
 		txtBox.getElement().addClassName("invalid");
@@ -90,6 +88,15 @@ public class MaterialTextBox extends Composite implements HasText,HasKeyUpHandle
 		backToDefault();
 		txtBox.getElement().addClassName("valid");
 		isValid = true;
+	}
+	
+	/**
+	 * Resets the textbox by removing its content and resetting visual state.
+	 */
+	public void clear() {
+		txtBox.setText("");
+		backToDefault();
+		customLabel.removeStyleName("active");
 	}
 
 	public void backToDefault() {

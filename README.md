@@ -3,8 +3,20 @@
 <img src="http://gwt-material.appspot.com/bin/ic_gwt_logo.png" />
 <br/>
 A Google Material Design wrapper for GWT <br>
-<a href="www.gwt-material.appspot.com">http://www.gwt-material.appspot.com</a>
-<h3>Upcoming Version 1.3.2</h3>
+<a href="www.gwt-material.appspot.com">http://www.gwt-material.appspot.com</a><br/>
+<a href="https://www.bountysource.com/teams/gwtmaterialdesign/members"> Support us on Bountysource </a>
+
+<h3>Upcoming Version 1.3.3</h3>
+<ul>
+ <li><a href="http://gwt-material.appspot.com/#dialogs" >Toast with Action and Toast with Rounded Style </a></li>
+ <li><a href="https://www.bountysource.com/teams/gwtmaterialdesign" >BountySource </a></li>
+ <li><a href="http://gwt-material.appspot.com/#charts" >Material Charts v1 </a></li>
+ <li><a href="http://gwt-material.appspot.com/#media" >Image Slider / Full Screen  </a></li>
+ <li>Fixed the Sidebar Waves on Collapsible Items</li>
+ <li><a href="http://gwt-material.appspot.com/#forms" >Date Picker Selection Type -> Month Day, Month Day Year, Year, Day </a></li>
+</ul>
+
+<h3>Version 1.3.2</h3>
 <ul>
  <li><a href="http://gwt-material.appspot.com/#theme" >GWT Material Themes</a></li>
  <li><a href="http://gwt-material.appspot.com/#shadow">Shadow DOM on Material Panels, Columns, Rows</a></li>
@@ -14,10 +26,9 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="http://gwt-material.appspot.com/#dialogs">Material Window Dialog</a></li>
  <li><a href="http://gwt-material.appspot.com/#icons">Material Icons</a></li>
  <li>Sidebar supports Collapsible Submenus and multi declaration on any interface</li>
+ <li><a href="http://gwt-material.appspot.com/#scrollspy">Scroll Spy</li></li>
+ <li><a href="http://gwt-material.appspot.com/#badges">Material Badge Update</li></li>
 </ul>
-
- <img src="http://gwt-material.appspot.com/bin/starter.gif" width="200px"/>
- <img src="http://gwt-material.appspot.com/bin/starter-desktop.png" width="600px"/>
 <h3>Version 1.3.1</h3>
 <ul>
  <li>Many bug fixes provided. <a href='https://github.com/GwtMaterialDesign/gwt-material/releases/tag/gwt-material-1.3.1'>See release notes</a></li>

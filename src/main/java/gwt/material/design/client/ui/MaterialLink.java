@@ -20,8 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.CustomIcon;
+
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.uibinder.client.UiChild;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,8 +34,9 @@ public class MaterialLink extends FocusPanel {
 
 	protected HTMLPanel panel = new HTMLPanel("");
 	private String text = "";
-	private String href;
+	private String href = "";
 	private String icon = "";
+	private String target = "";
 	private String iconPosition = "";
 	private String textColor = "";
 	protected String fontSize = "";
@@ -41,7 +46,9 @@ public class MaterialLink extends FocusPanel {
 	private String tooltipLocation = "bottom";
 	private String tooltipDelay = "50";
 	private Widget container;
-	
+	private Anchor anchorElem;
+	private CustomIcon iconElem;
+	private MaterialBadge badge;
 
 	private boolean separator = false;
 	private boolean active = false;
@@ -49,8 +56,6 @@ public class MaterialLink extends FocusPanel {
 	public MaterialLink() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public MaterialLink(String text, String textColor) {
 		super();
@@ -58,16 +63,12 @@ public class MaterialLink extends FocusPanel {
 		setTextColor(textColor);
 	}
 
-	
-
 	@Override
 	protected void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
 		initToolTip();
 	}
-
-
 
 	public MaterialLink(String text) {
 		super();
@@ -129,20 +130,40 @@ public class MaterialLink extends FocusPanel {
 	}
 
 	public void generateLink() {
+		panel.clear();
 		this.clear();
-		String iconMarkup = "";
-		String hrefMarkup = "";
+		anchorElem = new Anchor();
+		iconElem = new CustomIcon();
+		if (!iconPosition.isEmpty())
+			iconElem.addStyleName(iconPosition);
+
+		if (!href.isEmpty())
+			anchorElem.setHref(href);
+		if(!target.isEmpty())
+			anchorElem.setTarget(target);
+		if (!textColor.isEmpty())
+			anchorElem.addStyleName(textColor + "-text");
+		if (!text.isEmpty()) {
+			anchorElem.setText(text);
+		}
+		;
 		if (!icon.isEmpty()) {
-			iconMarkup = "<i class='" + icon + " " + iconPosition + "'></i>";
+			anchorElem.getElement().appendChild(iconElem.getElement());
+			iconElem.addStyleName(icon);
 		}
-		if (this.href != null) {
-			hrefMarkup = "href='" + href + "' ";
-		}
-		panel = new HTMLPanel("<a " + hrefMarkup + "class='" + textColor + "-text'>" + iconMarkup + text + "</a>");
+		if(getBadge()!=null) anchorElem.getElement().appendChild(getBadge().getElement());
+		panel.add(anchorElem);
 		panel.getElement().getStyle().setCursor(Cursor.POINTER);
 		this.add(panel);
 	}
 
+	@UiChild(tagname = "badge")
+	public void addBadge(Widget w){
+		MaterialBadge badge = ((MaterialBadge)w) ;
+		badge.addStyleName("sideBarBadge");
+		setBadge(badge);
+	}
+	
 	public String getWave() {
 		return wave;
 	}
@@ -165,7 +186,7 @@ public class MaterialLink extends FocusPanel {
 	public String getTooltip() {
 		return tooltip;
 	}
-	
+
 	public void setTooltip(String tooltip) {
 		this.tooltip = tooltip;
 		generateTooltip();
@@ -189,7 +210,7 @@ public class MaterialLink extends FocusPanel {
 		generateTooltip();
 	}
 
-	private void generateTooltip(){
+	private void generateTooltip() {
 		this.addStyleName("tooltipped");
 		this.getElement().setAttribute("data-position", tooltipLocation);
 		this.getElement().setAttribute("data-delay", tooltipDelay);
@@ -197,41 +218,66 @@ public class MaterialLink extends FocusPanel {
 	}
 
 	public native void initToolTip()/*-{
-		 $wnd.jQuery(document).ready(function(){
-		    $wnd.jQuery('.tooltipped').tooltip({delay: 50});
-		  });
-	}-*/;
-
-
+									$wnd.jQuery(document).ready(function(){
+									$wnd.jQuery('.tooltipped').tooltip({delay: 50});
+									});
+									}-*/;
 
 	public boolean isActive() {
 		return active;
 	}
 
-
-
 	public void setActive(boolean active) {
 		this.active = active;
-		if(active){
+		if (active) {
 			this.addStyleName("active");
 		}
 	}
-
-
 
 	public boolean isSeparator() {
 		return separator;
 	}
 
-
-
 	public void setSeparator(boolean separator) {
 		this.separator = separator;
-		if(separator){
+		if (separator) {
 			this.getElement().setAttribute("style", "border-bottom: 1px solid #e9e9e9;");
 		}
 	}
+
+	public Anchor getAnchorElem() {
+		return anchorElem;
+	}
+
+	public void setAnchorElem(Anchor anchorElem) {
+		this.anchorElem = anchorElem;
+	}
+
+	public CustomIcon getIconElem() {
+		return iconElem;
+	}
+
+	public void setIconElem(CustomIcon iconElem) {
+		this.iconElem = iconElem;
+	}
+
+	public MaterialBadge getBadge() {
+		return badge;
+	}
+
+	public void setBadge(MaterialBadge badge) {
+		this.badge = badge;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+		generateLink();
+	}
+
 	
-	
-	
+
 }

@@ -24,9 +24,7 @@
 	xmlns:c="urn:import:gwt.material.design.client.custom">
 	<ui:with field='res' type='gwt.material.design.client.resources.MaterialResources' />
 	<ui:style>
-		.navMobile{
-			margin-left: 30px;
-		}
+		
 		.navHeader{
 			overflow: hidden !important;
 		}
@@ -43,13 +41,14 @@
 	<c:CustomHeader ui:field="navBar" >
 		<c:CustomNav ui:field="customNav">
 	      <g:HTMLPanel ui:field="wrapper" addStyleNames="nav-wrapper container {style.navHeader}">
+	      	 <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse  white-text" >
+	        	<c:child><g:HTMLPanel><i class="mdi-navigation-menu"></i></g:HTMLPanel></c:child>
+	        </c:CustomAnchor>
 	        <c:CustomAnchor ui:field="anchor" addStyleNames="brand-logo">
 	        	<g:Image ui:field="imgLogo" addStyleNames="{style.imgLogo}"/>
 	        	<m:MaterialLink ui:field="lblLogo" textColor="white"/>
 	        </c:CustomAnchor>
-	        <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse {style.navMobile} white-text" >
-	        	<c:child><g:HTMLPanel><i class="mdi-navigation-menu"></i></g:HTMLPanel></c:child>
-	        </c:CustomAnchor>
+	       
 	       
 	        <m:UnorderedList ui:field="navigation"  addStyleNames="hide-on-med-and-down"/>
 	        <m:UnorderedList ui:field="mobileNav"  addStyleNames="side-nav {res.materialmobilecss.mobileNav}"/>
