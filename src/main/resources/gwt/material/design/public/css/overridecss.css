@@ -14,6 +14,12 @@
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
 }
+
+/** Image Slider **/
+.slider .indicators .indicator-item.active{
+	  background-color: #2196f3;
+}
+
 /** SuggestedBox */
 
 /** Add css rules here for your application. */

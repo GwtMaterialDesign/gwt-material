@@ -1,6 +1,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 
 
@@ -41,7 +42,6 @@ public class MaterialToast {
 	 */
 	public static native void alert(String msg) /*-{
 		 $wnd.Materialize.toast(msg, 4000);
-		 $wnd.jQuery(".toast").attr('id',  'toast');
 	}-*/;
 
 	/**
@@ -50,10 +50,16 @@ public class MaterialToast {
 	 * @param link - A MaterialLink Widget to have some specific function when clicked.
 	 */
 	public static void alert(String msg, MaterialLink link) {
-		alert(msg);
+		String genId = DOM.createUniqueId();
+		alertWithAction(msg, genId);
 		link.getElement().getStyle().setPaddingLeft(30, Unit.PX);
-		RootPanel.get("toast").add(link);
+		RootPanel.get(genId).add(link);
 	}
+	
+	public static native void alertWithAction(String msg, String id)/*-{
+		$wnd.Materialize.toast(msg, 4000);
+		 $wnd.jQuery(".toast").attr('id',  id);
+	}-*/;
 	
 	/**
 	 * Provides specific style in your toast for better clarity e.g Rounded , any class name is acceptable for some specific design. Just add it in to

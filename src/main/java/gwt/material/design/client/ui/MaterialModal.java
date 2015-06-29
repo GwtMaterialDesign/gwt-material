@@ -72,7 +72,10 @@ public class MaterialModal extends Widget {
 			panel.getElement().setId("modalBottom");
 			panel.setStyleName("modal bottom-sheet");
 			break;
-
+		case DEFAULT:
+			panel.getElement().setId("modal");
+			panel.setStyleName("modal");
+			break;
 		default:
 			break;
 		}

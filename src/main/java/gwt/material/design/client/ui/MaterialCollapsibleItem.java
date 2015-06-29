@@ -31,10 +31,12 @@ public class MaterialCollapsibleItem extends ListItem{
 	}
 	
 	private UnorderedList ulPanel;
+	private Widget header;
 	
 	@UiChild(tagname = "header")
 	public void addHeader(final Widget header) {
 		header.addStyleName("collapsible-header");
+		setHeader(header);
 		this.add(header);
 	}
 	
@@ -47,6 +49,14 @@ public class MaterialCollapsibleItem extends ListItem{
 		ulPanel.getElement().getStyle().setPadding(2, Unit.EM);
 		ulPanel.getElement().getStyle().setMargin(0, Unit.EM);
 		this.add(ulPanel);
+	}
+
+	public Widget getHeader() {
+		return header;
+	}
+
+	public void setHeader(Widget header) {
+		this.header = header;
 	}
 	
 }

@@ -38,7 +38,7 @@ public class MaterialDatePicker extends FocusPanel{
 		 * Called as soon as a click occurs on the calendar widget. !EXPERIMENTAL!
 		 * @param currDate which is currently selected.
 		 */
-		void onCalendarClick(Date currDate);
+		void onCalendarClose(Date currDate);
 	}
 	
 	private HTMLPanel panel;
@@ -49,7 +49,7 @@ public class MaterialDatePicker extends FocusPanel{
 	private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 	JavaScriptObject input;
 	public MaterialDatePicker() {
-	
+		
 	}
 		
 	@Override
@@ -125,7 +125,7 @@ public class MaterialDatePicker extends FocusPanel{
 	
 	void notifyDelegate() {
 		if(delegate != null) {
-			delegate.onCalendarClick(getDate());
+			delegate.onCalendarClose(getDate());
 		}
 	}
 
