@@ -76,7 +76,12 @@ public class MaterialDatePicker extends FocusPanel{
 				selectYears: true,
 				selectMonths: true
 			});
-		} else {
+		}else if(typeName === "YEAR"){
+			input = $wnd.jQuery('#' + id).pickadate({
+				selectYears: true
+			});
+		} 
+		else {
 			input = $wnd.jQuery('#' + id).pickadate();
 		}
 		
@@ -101,7 +106,11 @@ public class MaterialDatePicker extends FocusPanel{
 	}-*/;
 	
 	private static native void setDatePickerValue(String value, String id)/*-{
-        $wnd.jQuery('#' + id).val(value);
+        var input = $wnd.jQuery('#' + id).pickadate();
+        var picker = input.pickadate('picker');
+		if(picker) {
+			picker.set('select', 1429970887654);
+		}
 	}-*/;
 	
 	native void initClickHandler(String id, MaterialDatePicker parent) /*-{
@@ -156,8 +165,8 @@ public class MaterialDatePicker extends FocusPanel{
 		this.date = date;
 		DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
 		setDatePickerValue(sdf.format(date), id);
-		DateTimeFormat sdfSetter = DateTimeFormat.getFormat("yyyy-MM-dd");
-		selectDate(sdfSetter.format(date), id, this);
+		/*DateTimeFormat sdfSetter = DateTimeFormat.getFormat("yyyy-MM-dd");
+		selectDate(sdfSetter.format(date), id, this);*/
 	}
 	
 	private native void selectDate(String date, String id, MaterialDatePicker parent) /*-{
@@ -183,7 +192,18 @@ public class MaterialDatePicker extends FocusPanel{
 	public enum MaterialDatePickerType {
 		DAY,
 		MONTH_DAY,
-		YEAR_MONTH_DAY
+		YEAR_MONTH_DAY,
+		YEAR
 	}
+
+	public MaterialDatePickerType getSelectionType() {
+		return selectionType;
+	}
+
+	public void setSelectionType(MaterialDatePickerType selectionType) {
+		this.selectionType = selectionType;
+	}
+	
+	
 	
 }
