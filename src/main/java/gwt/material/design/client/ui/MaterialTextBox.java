@@ -30,16 +30,18 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTextBox extends Composite implements HasText,HasKeyUpHandlers{
+public class MaterialTextBox extends Composite implements HasText, HasKeyUpHandlers, HasValue<String> {
 
 	private static MaterialTextBoxUiBinder uiBinder = GWT.create(MaterialTextBoxUiBinder.class);
 
@@ -104,10 +106,12 @@ public class MaterialTextBox extends Composite implements HasText,HasKeyUpHandle
 		txtBox.getElement().removeClassName("invalid");
 	}
 
+	@Override
 	public String getText() {
 		return txtBox.getText();
 	}
 
+	@Override
 	public void setText(String text) {
 		txtBox.setText(text);
 		customLabel.addStyleName("active");
@@ -173,24 +177,37 @@ public class MaterialTextBox extends Composite implements HasText,HasKeyUpHandle
 		
 	}
 
-
-
 	@Override
 	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
 		return addDomHandler(handler, KeyUpEvent.getType());
 	}
 
-
-
 	public String getLength() {
 		return length;
 	}
-
-
 
 	public void setLength(String length) {
 		this.length = length;
 		txtBox.getElement().setAttribute("length", length);
 	}
-	
+
+	@Override
+	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
+		return txtBox.addValueChangeHandler(handler);
+	}
+
+	@Override
+	public String getValue() {
+		return txtBox.getValue();
+	}
+
+	@Override
+	public void setValue(String value) {
+		txtBox.setValue(value);
+	}
+
+	@Override
+	public void setValue(String value, boolean fireEvents) {
+		txtBox.setValue(value, fireEvents);
+	}
 }
