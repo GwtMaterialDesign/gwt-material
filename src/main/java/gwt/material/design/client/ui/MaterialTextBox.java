@@ -24,24 +24,72 @@ import gwt.material.design.client.custom.CustomIcon;
 import gwt.material.design.client.custom.CustomLabel;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.editor.client.IsEditor;
+import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.DragEndHandler;
+import com.google.gwt.event.dom.client.DragEnterHandler;
+import com.google.gwt.event.dom.client.DragHandler;
+import com.google.gwt.event.dom.client.DragLeaveHandler;
+import com.google.gwt.event.dom.client.DragOverHandler;
+import com.google.gwt.event.dom.client.DragStartHandler;
+import com.google.gwt.event.dom.client.DropHandler;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.GestureChangeHandler;
+import com.google.gwt.event.dom.client.GestureEndHandler;
+import com.google.gwt.event.dom.client.GestureStartHandler;
+import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
+import com.google.gwt.event.dom.client.HasAllFocusHandlers;
+import com.google.gwt.event.dom.client.HasAllGestureHandlers;
+import com.google.gwt.event.dom.client.HasAllKeyHandlers;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
+import com.google.gwt.event.dom.client.HasAllTouchHandlers;
+import com.google.gwt.event.dom.client.HasChangeHandlers;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
 import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.i18n.client.AutoDirectionHandler;
+import com.google.gwt.i18n.shared.DirectionEstimator;
+import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTextBox extends Composite implements HasText, HasKeyUpHandlers, HasValue<String> {
+public class MaterialTextBox extends Composite implements
+		HasChangeHandlers, HasName, HasDirectionEstimator, HasValue<String>,
+		HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>,
+		HasKeyUpHandlers, HasClickHandlers, HasDoubleClickHandlers,
+		HasEnabled, HasAllDragAndDropHandlers, HasAllFocusHandlers,
+		HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers,
+		HasAllTouchHandlers {
 
 	private static MaterialTextBoxUiBinder uiBinder = GWT.create(MaterialTextBoxUiBinder.class);
 
@@ -56,20 +104,17 @@ public class MaterialTextBox extends Composite implements HasText, HasKeyUpHandl
 	private String length;
 
 	@UiField
-	CustomLabel 
-	customLabel;
+	protected CustomLabel customLabel;
 	@UiField
-	Label lblName;
+	protected Label lblName;
 	@UiField
-	TextBox txtBox;
+	protected TextBox txtBox;
 	@UiField
-	CustomIcon iconPanel;
+	protected CustomIcon iconPanel;
 
 	public MaterialTextBox() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
-	
 
 	@Override
 	protected void onAttach() {
@@ -167,14 +212,15 @@ public class MaterialTextBox extends Composite implements HasText, HasKeyUpHandl
 		this.isValid = isValid;
 	}
 
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		txtBox.setEnabled(enabled);
-		
 	}
 
 	@Override
@@ -209,5 +255,180 @@ public class MaterialTextBox extends Composite implements HasText, HasKeyUpHandl
 	@Override
 	public void setValue(String value, boolean fireEvents) {
 		txtBox.setValue(value, fireEvents);
+	}
+
+	@Override
+	public void setDirection(Direction direction) {
+		txtBox.setDirection(direction);
+	}
+
+	@Override
+	public Direction getDirection() {
+		return txtBox.getDirection();
+	}
+
+	@Override
+	public ValueBoxEditor<String> asEditor() {
+		return txtBox.asEditor();
+	}
+
+	@Override
+	public DirectionEstimator getDirectionEstimator() {
+		return txtBox.getDirectionEstimator();
+	}
+
+	@Override
+	public void setDirectionEstimator(boolean enabled) {
+		txtBox.setDirectionEstimator(enabled);
+	}
+
+	@Override
+	public void setDirectionEstimator(DirectionEstimator directionEstimator) {
+		txtBox.setDirectionEstimator(directionEstimator);
+	}
+
+	@Override
+	public void setName(String name) {
+		txtBox.setName(name);
+	}
+
+	@Override
+	public String getName() {
+		return txtBox.getName();
+	}
+
+	@Override
+	public HandlerRegistration addChangeHandler(ChangeHandler handler) {
+		return txtBox.addChangeHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+		return txtBox.addDragEndHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+		return txtBox.addDragEnterHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+		return txtBox.addDragLeaveHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragHandler(DragHandler handler) {
+		return txtBox.addDragHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+		return txtBox.addDragOverHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+		return txtBox.addDragStartHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDropHandler(DropHandler handler) {
+		return txtBox.addDropHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addFocusHandler(FocusHandler handler) {
+		return txtBox.addFocusHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addBlurHandler(BlurHandler handler) {
+		return txtBox.addBlurHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+		return txtBox.addGestureStartHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+		return txtBox.addGestureChangeHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+		return txtBox.addGestureEndHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+		return txtBox.addKeyDownHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+		return txtBox.addKeyPressHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+		return txtBox.addMouseDownHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+		return txtBox.addMouseUpHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+		return txtBox.addMouseOutHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+		return txtBox.addMouseOverHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+		return txtBox.addMouseMoveHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+		return txtBox.addMouseWheelHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+		return txtBox.addTouchStartHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+		return txtBox.addTouchMoveHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+		return txtBox.addTouchEndHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+		return txtBox.addTouchCancelHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+		return txtBox.addDoubleClickHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return txtBox.addClickHandler(handler);
 	}
 }
