@@ -95,7 +95,12 @@ public class MaterialNavBar extends Composite {
 	
 	@UiChild(tagname = "sidebaritem")
 	public void addWidgetSideNav(final Widget item) {
-		mobileNav.add(new ListItem(item));
+		ListItem listItem = new ListItem(item);
+		if(item instanceof MaterialCollapsible){
+			listItem.getElement().getStyle().setBackgroundColor("transparent");
+		}
+		
+		mobileNav.add(listItem);
 	}
 
 	
@@ -221,10 +226,25 @@ public class MaterialNavBar extends Composite {
 				w.addStyleName("waves-effect waves-" + wave);
 			}
 		}
+		
 		for(Widget w : mobileNav){
 			if(w instanceof ListItem){
-				w.addStyleName("waves-effect waves-" + wave);
-				w.getElement().getStyle().setDisplay(Display.BLOCK);
+				ListItem item = (ListItem) w;
+				for(Widget child : item){
+					if(!(child instanceof MaterialCollapsible)){
+						w.addStyleName("waves-effect waves-" + wave);
+						w.getElement().getStyle().setDisplay(Display.BLOCK);
+					}else{
+						MaterialCollapsible col = (MaterialCollapsible) child;
+						for(Widget colItem : col){
+							if(colItem instanceof MaterialCollapsibleItem){
+								((MaterialCollapsibleItem) colItem).getHeader().addStyleName("waves-effect waves-" + wave);
+							}
+						}
+					}
+					
+				}
+				
 			}
 		}
 	}

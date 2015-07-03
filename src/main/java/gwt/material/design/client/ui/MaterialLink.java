@@ -36,6 +36,7 @@ public class MaterialLink extends FocusPanel {
 	private String text = "";
 	private String href = "";
 	private String icon = "";
+	private String target = "";
 	private String iconPosition = "";
 	private String textColor = "";
 	protected String fontSize = "";
@@ -138,6 +139,8 @@ public class MaterialLink extends FocusPanel {
 
 		if (!href.isEmpty())
 			anchorElem.setHref(href);
+		if(!target.isEmpty())
+			anchorElem.setTarget(target);
 		if (!textColor.isEmpty())
 			anchorElem.addStyleName(textColor + "-text");
 		if (!text.isEmpty()) {
@@ -266,5 +269,15 @@ public class MaterialLink extends FocusPanel {
 		this.badge = badge;
 	}
 
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+		generateLink();
+	}
+
+	
 
 }
