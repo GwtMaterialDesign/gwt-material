@@ -283,5 +283,14 @@ public class MaterialNavBar extends Composite {
 		this.navBar = navBar;
 	}
 
+	public MaterialLink getNavBarTextLogo() {
+	    return lblLogo;
+	}
+	
+    public void setNavBarTextLogo(MaterialLink textLogo) {
+        this.text = lblLogo.getText();
+        this.lblLogo = textLogo;
+        imgLogo.removeFromParent();
+    }
 	
 }
