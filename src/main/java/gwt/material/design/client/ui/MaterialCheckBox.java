@@ -141,7 +141,6 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers{
 		}else{
 			this.addStyleName(type);
 		}
-		
 	}
 
 }

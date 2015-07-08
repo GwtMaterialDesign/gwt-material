@@ -13,147 +13,236 @@
 	font-family: "Roboto", sans-serif;
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
+	 -webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
 }
 
+
+/** DataGrid **/
+table th {
+	border-bottom: initial !important;
+	padding: 15px 5px !important;
+	text-align: left !important;
+	color: inherit !important;
+	text-shadow: none !important;
+	overflow: initial !important;
+	white-space: initial !important;
+}
+
+table td {
+	border: none !important;
+	padding: 15px 5px !important;
+}
+
+table tr {
+	border: none;
+	background: none !important;
+}
+
+.striped table tbody tr:nth-child(odd) {
+	background-color: #f2f2f2 !important;
+}
+
+.bordered table tr {
+	border-bottom: 1px solid #d0d0d0 !important;
+}
+
+/**RESPONSIVE DATAGRID **/
+@media only screen and (max-width: 992px) {
+	.responsive-table table {
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+		display: block;
+		position: relative;
+	}
+	.responsive-table table th {
+		display: block;
+	}
+	.responsive-table table tbody tr {
+		display: inline-block;
+		vertical-align: top;
+	}
+	.responsive-table table tbody {
+		display: block;
+		width: auto;
+		position: relative;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+	.responsive-table table tbody tr {
+		display: inline-block;
+		vertical-align: top;
+	}
+	.responsive-table table td {
+		display: block;
+		min-height: 1.25em;
+		text-align: left;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.responsive-table	table thead {
+		border: 0;
+		border-right: 1px solid #d0d0d0;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.responsive-table	table thead tr {
+		display: block;
+		padding: 0 10px 0 0;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.responsive-table table thead {
+		display: block;
+		float: left;
+	}
+}
 /** Image Slider **/
-.slider .indicators .indicator-item.active{
-	  background-color: #2196f3;
+.slider .indicators .indicator-item.active {
+	background-color: #2196f3;
 }
 
 /** SuggestedBox */
 
 /** Add css rules here for your application. */
-
 .auto_suggest {
-    z-index: 20;
-    background-color: white;
-    padding: 10px;
-    width: 400px;
-    height: 230px;
+	z-index: 20;
+	background-color: white;
+	padding: 10px;
+	width: 400px;
+	height: 230px;
 }
 
 .original-token-input {
-    width: 396px;
-    border: 1px solid #8496ba;
-    font-size: 12px;
-    font-family: Verdana;
-    padding: 4px 8px;
+	width: 396px;
+	border: 1px solid #8496ba;
+	font-size: 12px;
+	font-family: Verdana;
+	padding: 4px 8px;
 }
 
 /* Example tokeninput style #2: Facebook style */
 ul.token-input-list-facebook {
-    overflow: hidden;
-    height: auto !important;
-    height: 1%;
-    width: 400px;
-    border: 1px solid #8496ba;
-    cursor: text;
-    font-size: 12px;
-    font-family: Verdana;
-    min-height: 1px;
-    z-index: 999;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
+	overflow: hidden;
+	height: auto !important;
+	height: 1%;
+	width: 400px;
+	border: 1px solid #8496ba;
+	cursor: text;
+	font-size: 12px;
+	font-family: Verdana;
+	min-height: 1px;
+	z-index: 999;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
 }
 
 ul.token-input-list-facebook {
-    list-style-type: none;
+	list-style-type: none;
 }
 
 ul.token-input-list-facebook li input {
-    border: 0;
-    width: 100px;
-    padding: 3px 8px;
-    background-color: white;
-    margin: 2px 0;
+	border: 0;
+	width: 100px;
+	padding: 3px 8px;
+	background-color: white;
+	margin: 2px 0;
 }
 
 li.token-input-token-facebook {
-    overflow: hidden;
-    height: auto !important;
-    height: 1%;
-    margin: 3px;
-    padding: 1px 3px;
-    background-color: #eff2f7;
-    color: #000;
-    cursor: default;
-    border: 1px solid #ccd5e4;
-    font-size: 11px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    float: left;
+	overflow: hidden;
+	height: auto !important;
+	height: 1%;
+	margin: 3px;
+	padding: 1px 3px;
+	background-color: #eff2f7;
+	color: #000;
+	cursor: default;
+	border: 1px solid #ccd5e4;
+	font-size: 11px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	float: left;
 }
 
 li.token-input-token-facebook p {
-    display: inline;
-    padding: 0;
-    margin: 0;
+	display: inline;
+	padding: 0;
+	margin: 0;
 }
 
 li.token-input-token-facebook span {
-    color: #a6b3cf;
-    margin-left: 5px;
-    font-weight: bold;
-    cursor: pointer;
+	color: #a6b3cf;
+	margin-left: 5px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 li.token-input-selected-token-facebook {
-    background-color: #5670a6;
-    border: 1px solid #3b5998;
-    color: #fff;
+	background-color: #5670a6;
+	border: 1px solid #3b5998;
+	color: #fff;
 }
 
 li.token-input-input-token-facebook {
-    float: left;
+	float: left;
 }
-
 
 /**SCROLLSPY**/
-.table-of-contents a.active{
+.table-of-contents a.active {
 	border-left: 2px solid #2196f3 !important;
 }
-.table-of-contents a:hover{
+
+.table-of-contents a:hover {
 	border-left: 1px solid #2196f3 !important;
 }
 /**WINDOW**/
-.material-window nav .nav-wrapper{
+.material-window nav .nav-wrapper {
 	width: 100% !important;
 }
-.material-window header, .material-window main{
+
+.material-window header,.material-window main {
 	padding: 0px;
 }
-.material-window-maximize{
+
+.material-window-maximize {
 	width: 100% !important;
 	height: 100% !important;
 	top: 0 !important;
 	max-height: 100% !important;
 }
-.material-window-maximize{
+
+.material-window-maximize {
 	transition: 0.2s all;
 	-webkit-transition: 0.2s all;
 	-moz-transition: 0.2s all;
 }
 /**SIDEBAR **/
-.side-nav li{
-	padding: 0px ;
+.side-nav li {
+	padding: 0px;
 }
-nav .nav-wrapper .side-nav i{
+
+nav .nav-wrapper .side-nav i {
 	display: inline !important;
 	vertical-align: middle;
 }
-.side-nav .collapsible-header{
+
+.side-nav .collapsible-header {
 	padding: 0px !important;
 	margin: 0px !important;
 }
- 
-nav .nav-wrapper .collapsible-body{
+
+nav .nav-wrapper .collapsible-body {
 	padding: 0px !important;
 }
 
-
-.gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon{
+.gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon {
 	position: absolute;
 	width: 42px;
 	height: 42px;
@@ -168,8 +257,8 @@ nav .nav-wrapper .collapsible-body{
 	text-align: center;
 }
 
-ul.side-nav.fixed li:hover, ul.side-nav.fixed li.active {
-    background-color: rgba(0, 0, 0, 0.05);
+ul.side-nav.fixed li:hover,ul.side-nav.fixed li.active {
+	background-color: rgba(0, 0, 0, 0.05);
 }
 
 @media only screen and (max-width : 992px) {
@@ -179,24 +268,24 @@ ul.side-nav.fixed li:hover, ul.side-nav.fixed li.active {
 }
 
 @media only screen and (max-width : 992px) {
-	main{
+	main {
 		padding-bottom: 70 !important;
 	}
 }
 
-.sideBarBadge{
-  height: 20px !important;
-  line-height: 0 !important;
-  padding: 10px !important;
-  color: #fff !important;
-  border-radius: 3px !important;
-  font-size: 0.7em !important;
+.sideBarBadge {
+	height: 20px !important;
+	line-height: 0 !important;
+	padding: 10px !important;
+	color: #fff !important;
+	border-radius: 3px !important;
+	font-size: 0.7em !important;
 }
-ul.side-nav .sideBarBadge{
-  margin-top: 20px !important;
+
+ul.side-nav .sideBarBadge {
+	margin-top: 20px !important;
 }
 /** DROPDOWN **/
-
 .dropdown-content {
 	max-height: 70vh !important;
 }
