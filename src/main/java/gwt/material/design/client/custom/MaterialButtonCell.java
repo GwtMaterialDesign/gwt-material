@@ -29,6 +29,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.user.client.DOM;
 
 public class MaterialButtonCell extends AbstractCell<MaterialButton> {
 
@@ -51,9 +52,10 @@ public class MaterialButtonCell extends AbstractCell<MaterialButton> {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void render(Context context, MaterialButton value, SafeHtmlBuilder sb) {
-        sb.appendHtmlConstant(value.getElement().toString());
+        sb.appendHtmlConstant(DOM.toString(value.getElement()));
     }
 
     @Override
