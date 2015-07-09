@@ -178,6 +178,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+		initButtonStyles();
 	}
 
 	public String getIconPosition() {
@@ -186,7 +187,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 
 	public void setIconPosition(String iconPosition) {
 		this.iconPosition = iconPosition;
-		
+		initButtonStyles();
 	}
 
 	public String getSize() {
