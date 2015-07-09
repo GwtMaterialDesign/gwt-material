@@ -177,6 +177,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	}
 
 	public void setIcon(String icon) {
+	    if (iconElem != null && !this.icon.isEmpty()) iconElem.removeStyleName(this.icon);
 		this.icon = icon;
 		initButtonStyles();
 	}
