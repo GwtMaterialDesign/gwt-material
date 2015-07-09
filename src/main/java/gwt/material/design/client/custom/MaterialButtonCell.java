@@ -26,6 +26,7 @@ import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialCheckBox;
 import gwt.material.design.client.ui.MaterialLabel;
 
+import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.AbstractSafeHtmlCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.dom.client.Element;
@@ -40,36 +41,18 @@ import com.google.gwt.text.shared.SimpleSafeHtmlRenderer;
 /**
  * A {@link Cell} used to render a button.
  */
-public class MaterialButtonCell extends AbstractSafeHtmlCell<String> {
-
-    private MaterialButton mb;
+public class MaterialButtonCell extends AbstractCell<MaterialButton> {
 
     /**
      * Construct a new ButtonCell that will use a {@link SimpleSafeHtmlRenderer}.
      */
     public MaterialButtonCell() {
-        this(SimpleSafeHtmlRenderer.getInstance());
-        mb = new MaterialButton();
-    }
-
-    /**
-     * Construct a new ButtonCell that will use a given {@link SafeHtmlRenderer}.
-     * 
-     * @param renderer
-     *            a {@link SafeHtmlRenderer SafeHtmlRenderer<String>} instance
-     */
-    public MaterialButtonCell(SafeHtmlRenderer<String> renderer) {
-        super(renderer, CLICK, KEYDOWN);
-    }
-
-    public MaterialButtonCell(MaterialButton mb, MaterialLabel ml) {
-        this();
-        this.mb = mb;
+        super("click", "keydown");
     }
 
     @Override
-    public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
-        super.onBrowserEvent(context, parent, value, event, valueUpdater);
+    public void onBrowserEvent(Context context, Element parent, MaterialButton value, NativeEvent event, ValueUpdater<MaterialButton> valueUpdater) {
+         super.onBrowserEvent(context, parent, value, event, valueUpdater);
         if (CLICK.equals(event.getType())) {
             EventTarget eventTarget = event.getEventTarget();
             if (!Element.is(eventTarget)) {
@@ -83,20 +66,12 @@ public class MaterialButtonCell extends AbstractSafeHtmlCell<String> {
     }
 
     @Override
-    public void render(Context context, SafeHtml data, SafeHtmlBuilder sb) {
-        sb.appendHtmlConstant("<button type=\"button\" tabindex=\"-1\" class=\"");
-        sb.append(SafeHtmlUtils.fromSafeConstant(mb.getWidget().getStyleName()));
-        sb.appendHtmlConstant("\" style=\"display:inline-flex\">");
-        sb.append(SafeHtmlUtils.fromSafeConstant("<i class=\"" + mb.getIcon() + " " + mb.getIconPosition() + "\"></i>"));
-        if (data != null) {
-            MaterialLabel ml = new MaterialLabel(data.asString());
-            sb.appendHtmlConstant(ml.getElement().toString());
-        }
-        sb.appendHtmlConstant("</button>");
+    public void render(Context context, MaterialButton value, SafeHtmlBuilder sb) {
+        sb.appendHtmlConstant(value.getElement().toString());
     }
 
     @Override
-    protected void onEnterKeyDown(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
+    protected void onEnterKeyDown(Context context, Element parent, MaterialButton value, NativeEvent event, ValueUpdater<MaterialButton> valueUpdater) {
         if (valueUpdater != null) {
             valueUpdater.update(value);
         }
