@@ -24,18 +24,15 @@ import com.google.gwt.cell.client.AbstractEditableCell;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
 public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean> {
-
-    private static final SafeHtml INPUT_CHECKED = SafeHtmlUtils.fromSafeConstant("<input type=\"checkbox\" tabindex=\"-1\" checked/><label/>");
-    private static final SafeHtml INPUT_UNCHECKED = SafeHtmlUtils.fromSafeConstant("<input type=\"checkbox\" tabindex=\"-1\"/><label/>");
 
     private final boolean dependsOnSelection;
     private final boolean handlesSelection;
@@ -134,10 +131,15 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
             viewData = null;
         }
 
-        if (value != null && ((viewData != null) ? viewData : value)) {
-            sb.append(INPUT_CHECKED);
-        } else {
-            sb.append(INPUT_UNCHECKED);
-        }
+        String state = "";
+        if (value != null && ((viewData != null) ? viewData : value))
+            state = "checked";
+
+        String id = Document.get().createUniqueId();
+
+        sb.append(SafeHtmlUtils.fromSafeConstant("<span class=\"gwt-CheckBox\"><input type=\"checkbox\" tabindex=\"-1\" value=\"on\" id=\""
+                + id + "\" " + state));
+        sb.append(SafeHtmlUtils.fromSafeConstant("/><label for=\"" + id + "\"></label></span>"));
+
     }
 }
