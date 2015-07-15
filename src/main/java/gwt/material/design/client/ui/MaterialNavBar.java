@@ -76,7 +76,8 @@ public class MaterialNavBar extends Composite {
 	private ImageResource logoResource;
 	private String text;
 	private String sideNav = String.valueOf(hashCode());
-
+	private MaterialProgress progress = new MaterialProgress();
+	
 	@Override
 	protected void onAttach() {
 		super.onAttach();
@@ -85,8 +86,9 @@ public class MaterialNavBar extends Composite {
 		navMenu.getElement().setAttribute("data-activates", name);
 		mobileNav.getElement().setId(name);
 		initNavBar(Integer.parseInt(getSideBarWidth()), sideNav);
-		
 	}
+	
+	
 
 	@UiChild(tagname = "nav")
 	public void addWidget(final Widget item) {
@@ -103,6 +105,17 @@ public class MaterialNavBar extends Composite {
 		mobileNav.add(listItem);
 	}
 
+	/**
+	 * Adding progress indicator on the Nav Bar
+	 * @param isProgress
+	 */
+	public void showProgress(boolean isProgress){
+		if(isProgress){
+			customNav.add(progress);
+		}else{
+			progress.removeFromParent();
+		}
+	}
 	
 	public static native void initNavBar(int width, String sideNav)/*-{
 		$wnd.jQuery("." + sideNav).sideNav({

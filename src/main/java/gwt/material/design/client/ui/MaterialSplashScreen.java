@@ -1,8 +1,5 @@
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.ui.animate.MaterialAnimator;
-import gwt.material.design.client.ui.animate.Transition;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -28,6 +25,12 @@ public class MaterialSplashScreen extends Composite {
 	private String appDescription;
 	private String color;
 	private String textColor;
+	private int splashTime = 5000;
+	private Composite main;
+	
+	public MaterialSplashScreen() {
+		initWidget(uiBinder.createAndBindUi(this));
+	}
 	
 	/**
 	 * Material Splashcreen implementation on GWT Apps, its good for loading purposes
@@ -46,19 +49,24 @@ public class MaterialSplashScreen extends Composite {
 		setAppDescription(appDescription);
 		setColor(color);
 		setTextColor(textColor);
-		
-		MaterialAnimator.animate(Transition.FADE_IN_IMAGE, imgLogo, 0);
-		
+	}
+	
+	/**
+	 * Show the splash screen 
+	 * @return
+	 */
+	public void show(){
+		RootPanel.get().clear();
+		RootPanel.get().add(this);
 		Timer timer = new Timer() {
 			
 			@Override
 			public void run() {
 				MaterialSplashScreen.this.removeFromParent();
-				RootPanel.get().add(main);
+				RootPanel.get().add(getMain());
 			}
 		};
-		timer.schedule(splashTime);
-		
+		timer.schedule(1000);
 	}
 
 	public ImageResource getLogo() {
@@ -128,6 +136,50 @@ public class MaterialSplashScreen extends Composite {
 		this.textColor = textColor;
 		title.setColor(textColor);
 	}
+
+	/**
+	 * @return the imgLogo
+	 */
+	public MaterialImage getImgLogo() {
+		return imgLogo;
+	}
+
+	/**
+	 * @param imgLogo the imgLogo to set
+	 */
+	public void setImgLogo(MaterialImage imgLogo) {
+		this.imgLogo = imgLogo;
+	}
+	
+	/**
+	 * @return the splashtime
+	 */
+	public int getSplashTime() {
+		return splashTime;
+	}
+
+	/**
+	 * How long it will take to show your splash screen, by default 5 seconds or 5000 ms
+	 * @param splashTime
+	 */
+	public void setSplashTime(int splashTime) {
+		this.splashTime = splashTime;
+	}
+
+	/**
+	 * @return the main
+	 */
+	public Composite getMain() {
+		return main;
+	}
+
+	/**
+	 * @param main the main to set
+	 */
+	public void setMain(Composite main) {
+		this.main = main;
+	}
+
 	
 	
 

@@ -50,7 +50,7 @@ public class MaterialCard extends Composite {
 	Label lblTitle, lblDescription;
 	
 	@UiField 
-	HTMLPanel cardPanel, cardContentPanel, cardRevealPanel,cardRevealContent, actionPanel, headerPanel;
+	HTMLPanel panel, cardPanel, cardContentPanel, cardRevealPanel,cardRevealContent, actionPanel, headerPanel;
 	
 	private ImageResource resource;
 	private String url = "";
@@ -60,6 +60,7 @@ public class MaterialCard extends Composite {
 	private String type = "";
 	private String imageHeight = "";
 	private String color = "";
+	private String grid = "";
 	
 	public MaterialCard() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -237,6 +238,22 @@ public class MaterialCard extends Composite {
 	public void setColor(String color) {
 		this.color = color;
 		generateCard();
+	}
+
+	/**
+	 * @return the grid
+	 */
+	public String getGrid() {
+		return grid;
+	}
+
+	/**
+	 * Setting the column grid for responsive design
+	 * @param grid the grid to set
+	 */
+	public void setGrid(String grid) {
+		this.grid = grid;
+		panel.addStyleName("col " + grid);
 	}
 
 	

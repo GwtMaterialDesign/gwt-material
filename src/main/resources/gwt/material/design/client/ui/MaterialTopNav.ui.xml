@@ -42,7 +42,6 @@
 	.panel{
 		padding: 9%;
 		font-size: 4em;
-		background: #555;
 		padding-bottom: 200px;
 	}
 	.description{
