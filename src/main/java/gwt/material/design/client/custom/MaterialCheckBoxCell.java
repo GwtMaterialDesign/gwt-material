@@ -37,33 +37,15 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
     private final boolean dependsOnSelection;
     private final boolean handlesSelection;
 
-    /**
-     * Construct a new {@link CheckboxCell}.
-     */
     public MaterialCheckBoxCell() {
         this(false);
     }
 
-    /**
-     * Construct a new {@link CheckboxCell} that optionally controls selection.
-     *
-     * @param isSelectBox
-     *            true if the cell controls the selection state
-     * @deprecated use {@link #CheckboxCell(boolean, boolean)} instead
-     */
     @Deprecated
     public MaterialCheckBoxCell(boolean isSelectBox) {
         this(isSelectBox, isSelectBox);
     }
 
-    /**
-     * Construct a new {@link CheckboxCell} that optionally controls selection.
-     *
-     * @param dependsOnSelection
-     *            true if the cell depends on the selection state
-     * @param handlesSelection
-     *            true if the cell modifies the selection state
-     */
     public MaterialCheckBoxCell(boolean dependsOnSelection, boolean handlesSelection) {
         super(BrowserEvents.CHANGE, BrowserEvents.KEYDOWN, BrowserEvents.CLICK);
         this.dependsOnSelection = dependsOnSelection;
