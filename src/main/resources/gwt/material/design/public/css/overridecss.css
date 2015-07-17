@@ -45,9 +45,6 @@ table tr {
 	border-bottom: 1px solid #d0d0d0 !important;
 }
 
-.com-google-gwt-user-client-ui-CustomScrollPanel-Style-customScrollPanel div {
-  overflow: hidden !important;
-}
 table .gwt-CheckBox label {
 	 margin-bottom: -10px;
 } 
