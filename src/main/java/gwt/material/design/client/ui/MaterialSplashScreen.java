@@ -49,6 +49,7 @@ public class MaterialSplashScreen extends Composite {
 		setAppDescription(appDescription);
 		setColor(color);
 		setTextColor(textColor);
+		setMain(main);
 	}
 	
 	/**
