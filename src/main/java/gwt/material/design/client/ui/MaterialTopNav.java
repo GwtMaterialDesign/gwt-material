@@ -57,6 +57,7 @@ public class MaterialTopNav extends Composite {
 	private String url;
 	
 	private String profileImageUrl = "";
+	private ImageResource profileImageResource;
 	private String profileName = "";
 
 	public MaterialTopNav() {
@@ -199,6 +200,21 @@ public class MaterialTopNav extends Composite {
 	public void setProfileImageUrl(String profileImageUrl) {
 		this.profileImageUrl = profileImageUrl;
 		generateProfile();
+	}
+
+	/**
+	 * @return the profileImageResource
+	 */
+	public ImageResource getProfileImageResource() {
+		return profileImageResource;
+	}
+
+	/**
+	 * @param profileImageResource the profileImageResource to set
+	 */
+	public void setProfileImageResource(ImageResource profileImageResource) {
+		this.profileImageResource = profileImageResource;
+		
 	}
 
 }

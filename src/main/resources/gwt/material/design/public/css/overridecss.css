@@ -13,8 +13,6 @@
 	font-family: "Roboto", sans-serif;
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
-	 -webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
 }
 
 
@@ -47,6 +45,16 @@ table tr {
 	border-bottom: 1px solid #d0d0d0 !important;
 }
 
+table .gwt-CheckBox label {
+	 margin-bottom: -10px;
+} 
+
+.hoverable table > tbody > tr:hover {
+ 	background: #f2f2f2 !important;
+ 	transition: 1s all;
+ 	-webkit-transition: 1s all;
+ 	-moz-transition: 1s all;
+}
 /**RESPONSIVE DATAGRID **/
 @media only screen and (max-width: 992px) {
 	.responsive-table table {
@@ -79,6 +87,15 @@ table tr {
 		min-height: 1.25em;
 		text-align: left;
 	}
+	.responsive-table > div:nth-child(1){
+		width: 20% !important;
+	}
+	.responsive-table > div:nth-child(3){
+ 		top: 0 !important;
+  		left: 20% !important;
+  		width: 80% !important;
+	}
+	
 }
 
 @media only screen and (max-width: 992px) {
@@ -101,6 +118,7 @@ table tr {
 		float: left;
 	}
 }
+
 /** Image Slider **/
 .slider .indicators .indicator-item.active {
 	background-color: #2196f3;

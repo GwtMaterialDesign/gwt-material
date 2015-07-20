@@ -32,26 +32,24 @@
 		padding-top: 10px;
 	}
 	</ui:style>
-	<g:HTMLPanel>
-		<g:HTMLPanel ui:field="cardPanel" addStyleNames="card {style.card}">
-
+	<m:MaterialPanel ui:field="panel">
+	    <m:MaterialPanel ui:field="cardPanel" addStyleNames="card {style.card}">
 			<g:HTMLPanel ui:field="headerPanel" addStyleNames="card-image waves-effect waves-block waves-light">
 				<g:Image addStyleNames="activator responsive-img" ui:field="imgCard" />
 				<span class="card-title">
 					<g:Label ui:field="lblTitle" />
 				</span>
 			</g:HTMLPanel>
-
-
+	
+	
 			<g:HTMLPanel ui:field="cardContentPanel" addStyleNames="card-content">
 				<g:Label ui:field="lblDescription" />
 			</g:HTMLPanel>
-
+	
 			<g:HTMLPanel ui:field="actionPanel" addStyleNames="card-action" />
 			<g:HTMLPanel ui:field="cardRevealPanel" addStyleNames="card-reveal" >
 				<g:HTMLPanel ui:field="cardRevealContent" addStyleNames="{style.cardRevealContent}"/>
 			</g:HTMLPanel>
-		</g:HTMLPanel>
-
-	</g:HTMLPanel>
+		</m:MaterialPanel>
+	</m:MaterialPanel>
 </ui:UiBinder> 
