@@ -67,7 +67,7 @@ public class MaterialSplashScreen extends Composite {
 				RootPanel.get().add(getMain());
 			}
 		};
-		timer.schedule(1000);
+		timer.schedule(splashTime);
 	}
 
 	public ImageResource getLogo() {

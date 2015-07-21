@@ -21,7 +21,6 @@ package gwt.material.design.client.custom;
  */
 
 import com.google.gwt.cell.client.AbstractEditableCell;
-import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Document;
@@ -120,8 +119,7 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
         String id = Document.get().createUniqueId();
 
         sb.append(SafeHtmlUtils.fromSafeConstant("<span class=\"gwt-CheckBox\"><input type=\"checkbox\" tabindex=\"-1\" value=\"on\" id=\""
-                + id + "\" " + state));
-        sb.append(SafeHtmlUtils.fromSafeConstant("/><label for=\"" + id + "\"></label></span>"));
+                + id + "\" " + state + "/><label for=\"" + id + "\"></label></span>"));
 
     }
 }
