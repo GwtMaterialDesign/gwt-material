@@ -20,9 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
 
 public class MaterialRadioButton extends RadioButton{
@@ -80,7 +82,12 @@ public class MaterialRadioButton extends RadioButton{
 
 	public void setType(String type) {
 		this.type = type;
-		this.addStyleName("with-" + type);
+		if(type.equals("gap")){
+			Element e_cb = this.getElement(); 
+	        Element e_input = DOM.getChild(e_cb, 0); 
+	        e_input.setAttribute("class", "with-gap");
+		}
+		
 	}
 
 	public boolean isDisabled() {

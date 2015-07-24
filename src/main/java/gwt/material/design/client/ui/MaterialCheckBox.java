@@ -32,6 +32,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.CheckBox;
 
 public class MaterialCheckBox extends CheckBox implements HasClickHandlers{
@@ -137,10 +138,13 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers{
 		if(type.equalsIgnoreCase("indeterminate")){
 			this.addStyleName(type + "-checkbox");
 		}else if(type.equalsIgnoreCase("filled")){
-			this.addStyleName(type + "-in");
+			Element e_cb = this.getElement(); 
+	        Element e_input = DOM.getChild(e_cb, 0); 
+	        e_input.setAttribute("class", "filled-in");
 		}else{
 			this.addStyleName(type);
 		}
 	}
+	
 
 }
