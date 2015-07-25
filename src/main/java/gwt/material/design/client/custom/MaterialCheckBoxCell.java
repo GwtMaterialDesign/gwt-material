@@ -118,7 +118,7 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
 
         String id = Document.get().createUniqueId();
 
-        sb.append(SafeHtmlUtils.fromSafeConstant("<span class=\"gwt-CheckBox\"><input type=\"checkbox\" tabindex=\"-1\" value=\"on\" id=\""
+        sb.append(SafeHtmlUtils.fromSafeConstant("<span class=\"gwt-CheckBox\"><input type=\"checkbox\" class=\"filled-in\" tabindex=\"-1\" value=\"on\" id=\""
                 + id + "\" " + state + "/><label for=\"" + id + "\"></label></span>"));
 
     }

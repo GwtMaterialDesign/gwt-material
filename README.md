@@ -14,6 +14,13 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="http://gwt-material.appspot.com/#media" >Image Slider / Full Screen  </a></li>
  <li>Fixed the Sidebar Waves on Collapsible Items</li>
  <li><a href="http://gwt-material.appspot.com/#forms" >Date Picker Selection Type -> Month Day, Month Day Year, Year, Day </a></li>
+ <li><a href="http://gwt-material.appspot.com/#forms">Material Listbox Change Handler Solved</a></li>
+ <li><a href="http://gwt-material.appspot.com/#loaders">Material Nav Bar Progress Loader</a></li>
+ <li><a href="http://gwt-material.appspot.com/#showcase">Material Splash Screen</a></li>
+ <li><a href="http://gwt-material.appspot.com/#datagrid">Material Datagrid v1 Implementation with MaterialCheckboxCell and MaterialButtonCell</a></li>
+ <li><a href="http://gwt-material.appspot.com/#forms">Material CheckBox Styles (Filled in)</a></li>
+ <li><a href="http://gwt-material.appspot.com/#forms">Material Radio Button Styles (With GAP)</a></li>
+ <li><a href="http://gwt-material.appspot.com/#tabs">Material Tabs setTabIndex(index) method</a></li>
 </ul>
 
 <h3>Version 1.3.2</h3>

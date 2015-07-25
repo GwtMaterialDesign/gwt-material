@@ -15,6 +15,11 @@
 	color: rgba(0, 0, 0, 0.87);
 }
 
+/** Calendar **/
+.picker__table td {
+  padding: 0 !important;
+}
+
 
 /** DataGrid **/
 table th {
@@ -94,6 +99,7 @@ table .gwt-CheckBox label {
  		top: 0 !important;
   		left: 20% !important;
   		width: 80% !important;
+  		height: 100% !important;
 	}
 	
 }
