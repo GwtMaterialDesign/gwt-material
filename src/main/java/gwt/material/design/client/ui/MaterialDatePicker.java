@@ -109,7 +109,7 @@ public class MaterialDatePicker extends FocusPanel{
         var input = $wnd.jQuery('#' + id).pickadate();
         var picker = input.pickadate('picker');
 		if(picker) {
-			picker.set('select', 1429970887654);
+			picker.set('select', value);
 		}
 	}-*/;
 	
@@ -165,8 +165,8 @@ public class MaterialDatePicker extends FocusPanel{
 		this.date = date;
 		DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
 		setDatePickerValue(sdf.format(date), id);
-		/*DateTimeFormat sdfSetter = DateTimeFormat.getFormat("yyyy-MM-dd");
-		selectDate(sdfSetter.format(date), id, this);*/
+		DateTimeFormat sdfSetter = DateTimeFormat.getFormat("yyyy-MM-dd");
+		selectDate(sdfSetter.format(date), id, this);
 	}
 	
 	private native void selectDate(String date, String id, MaterialDatePicker parent) /*-{
