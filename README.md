@@ -6,7 +6,7 @@ A Google Material Design wrapper for GWT <br>
 <a href="www.gwt-material.appspot.com">http://www.gwt-material.appspot.com</a><br/>
 <a href="https://www.bountysource.com/teams/gwtmaterialdesign/members"> Support us on Bountysource </a>
 
-<h3>Upcoming Version 1.3.3</h3>
+<h3>Version 1.3.3</h3>
 <ul>
  <li><a href="http://gwt-material.appspot.com/#dialogs" >Toast with Action and Toast with Rounded Style </a></li>
  <li><a href="https://www.bountysource.com/teams/gwtmaterialdesign" >BountySource </a></li>
