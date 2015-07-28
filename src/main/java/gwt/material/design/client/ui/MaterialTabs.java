@@ -118,6 +118,7 @@ public class MaterialTabs extends MaterialWidget {
 
 	/**
 	 * Initialize the Material Tab
+     * @param ulId Id of the list
 	 */
 	public static native void initTabs(String ulId)/*-{
 		$wnd.jQuery(document).ready(function() {

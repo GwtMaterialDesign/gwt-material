@@ -122,6 +122,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * Optional , you can add your app description on Splash Screen
+	 * @param appDescription Description string
 	 */
 	public void setAppDescription(String appDescription) {
 		this.appDescription = appDescription;
