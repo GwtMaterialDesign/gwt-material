@@ -37,7 +37,7 @@ public interface MaterialResources extends ClientBundle {
 
 	@Source("ic_progress_cancel.png")
 	ImageResource ic_progress_cancel();
-
+	
 	@Source("jquery.js")
 	TextResource jQuery();
 

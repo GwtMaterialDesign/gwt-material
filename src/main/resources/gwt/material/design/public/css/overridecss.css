@@ -32,6 +32,10 @@ table th {
 	white-space: initial !important;
 }
 
+.CW3BUMB-ab-a{
+	overflow: hidden !important;
+}
+
 table td {
 	border: none !important;
 	padding: 15px 5px !important;
