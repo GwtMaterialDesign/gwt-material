@@ -204,7 +204,7 @@ public class MaterialTabs extends MaterialWidget {
 
 
 	/**
-	 * @param You can automatically set the tab index by passing the desired tab index number, starts from 1.
+	 * @param tabIndex You can automatically set the tab index by passing the desired tab index number, starts from 1.
 	 */
 	public void setTabIndex(int tabIndex) {
 		this.tabIndex = tabIndex;
