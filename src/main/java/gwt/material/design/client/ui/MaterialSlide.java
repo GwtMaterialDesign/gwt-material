@@ -58,6 +58,7 @@ public class MaterialSlide extends Composite {
 	
 	/**
 	 * Initialize the slider when the widget is attached
+	 * @param className CSS class name
 	 */
 	public native void initializeSlider(String className)/*-{
 		$wnd.jQuery(document).ready(function() {
@@ -73,7 +74,7 @@ public class MaterialSlide extends Composite {
 
 	/**
 	 * Set the image slider if its fullscreen view
-	 * @param fullScreen
+	 * @param fullScreen True to fullscreen False otherwise
 	 */
 	public void setFullScreen(boolean fullScreen) {
 		this.fullScreen = fullScreen;
