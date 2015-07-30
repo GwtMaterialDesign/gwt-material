@@ -74,7 +74,6 @@ public class MaterialSplashScreen extends Composite {
 	
 	/**
 	 * Show the splash screen 
-	 * @return
 	 */
 	public void show(){
 		RootPanel.get().clear();
@@ -96,7 +95,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * The logo of the Splash screen 
-	 * @param logo
+	 * @param logo ImageResource object
 	 */
 	public void setLogo(ImageResource logo) {
 		this.logo = logo;
@@ -109,7 +108,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * The app name displayed on Splash Screen
-	 * @param appName
+	 * @param appName Application name string
 	 */
 	public void setAppName(String appName) {
 		this.appName = appName;
@@ -123,7 +122,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * Optional , you can add your app description on Splash Screen
-	 * @return
+	 * @param appDescription Description string
 	 */
 	public void setAppDescription(String appDescription) {
 		this.appDescription = appDescription;
@@ -136,7 +135,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * Background Color of your splash screen
-	 * @param color
+	 * @param color Color string
 	 */
 	public void setColor(String color) {
 		this.color = color;
@@ -181,7 +180,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * How long it will take to show your splash screen, by default 5 seconds or 5000 ms
-	 * @param splashTime
+	 * @param splashTime Splash time in milliseconds
 	 */
 	public void setSplashTime(int splashTime) {
 		this.splashTime = splashTime;
