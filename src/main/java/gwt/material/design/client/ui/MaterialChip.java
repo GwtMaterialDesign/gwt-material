@@ -3,6 +3,9 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -12,18 +15,23 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialChip extends Composite {
+public class MaterialChip extends Composite implements HasClickHandlers {
 
 	private static MaterialChipUiBinder uiBinder = GWT
 			.create(MaterialChipUiBinder.class);
 
 	interface MaterialChipUiBinder extends UiBinder<Widget, MaterialChip> {
 	}
-	
-	@UiField Label lblChip;
-	@UiField Image imgChip;
-	@UiField MaterialIcon btnClose;
-	
+
+	@UiField
+	Label lblChip;
+	@UiField
+	Image imgChip;
+	@UiField
+	MaterialIcon btnClose;
+	@UiField
+	MaterialPanel chipPanel;
+
 	private String text;
 	private String imageUrl = "";
 	private ImageResource imageResource;
@@ -32,23 +40,32 @@ public class MaterialChip extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		imgChip.getElement().getStyle().setDisplay(Display.NONE);
 	}
-	
+
 	/**
-	 * Chips represent complex entities in small blocks, such as a contact.  They can contain a photo, short title string, and brief information.
-	 * @param text - Default chip with text only
+	 * Chips represent complex entities in small blocks, such as a contact. They
+	 * can contain a photo, short title string, and brief information.
+	 * 
+	 * @param text
+	 *            - Default chip with text only
 	 */
 	public MaterialChip(String text) {
 		initWidget(uiBinder.createAndBindUi(this));
+		imgChip.getElement().getStyle().setDisplay(Display.NONE);
 		setText(text);
 	}
-	
+
 	/* *
-	 * Chips represent complex entities in small blocks, such as a contact.  They can contain a photo, short title string, and brief information.
-	 * @param text - Chip text 
-	 * @param imageUrl - Image addition into your chip. It can be used on Contact Chips
+	 * Chips represent complex entities in small blocks, such as a contact. They
+	 * can contain a photo, short title string, and brief information.
+	 * 
+	 * @param text - Chip text
+	 * 
+	 * @param imageUrl - Image addition into your chip. It can be used on
+	 * Contact Chips
 	 */
-	public MaterialChip(String text, String imageUrl){
+	public MaterialChip(String text, String imageUrl) {
 		initWidget(uiBinder.createAndBindUi(this));
+		imgChip.getElement().getStyle().setDisplay(Display.NONE);
 		setText(text);
 		setImageUrl(imageUrl);
 	}
@@ -75,7 +92,8 @@ public class MaterialChip extends Composite {
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
@@ -90,7 +108,8 @@ public class MaterialChip extends Composite {
 	}
 
 	/**
-	 * @param imageUrl the imageUrl to set
+	 * @param imageUrl
+	 *            the imageUrl to set
 	 */
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
@@ -106,14 +125,15 @@ public class MaterialChip extends Composite {
 	}
 
 	/**
-	 * @param imageResource the imageResource to set
+	 * @param imageResource
+	 *            the imageResource to set
 	 */
 	public void setImageResource(ImageResource imageResource) {
 		this.imageResource = imageResource;
 		imgChip.getElement().getStyle().setDisplay(Display.INLINE);
 		getImgChip().setResource(imageResource);
 	}
-	
+
 	/**
 	 * @return the btnClose
 	 */
@@ -123,12 +143,32 @@ public class MaterialChip extends Composite {
 
 	/**
 	 * Will remove the chip from its parent.
+	 * 
 	 * @param e
 	 */
 	@UiHandler("btnClose")
-	void onRemoveChip(ClickEvent e){
+	void onRemoveChip(ClickEvent e) {
 		this.removeFromParent();
 	}
-	
+
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return addDomHandler(handler, ClickEvent.getType());
+	}
+
+	/**
+	 * @return the chipPanel
+	 */
+	public MaterialPanel getChipPanel() {
+		return chipPanel;
+	}
+
+	/**
+	 * @param chipPanel
+	 *            the chipPanel to set
+	 */
+	public void setChipPanel(MaterialPanel chipPanel) {
+		this.chipPanel = chipPanel;
+	}
 
 }

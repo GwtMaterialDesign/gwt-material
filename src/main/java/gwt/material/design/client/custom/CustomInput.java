@@ -20,25 +20,17 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 @SuppressWarnings("deprecation")
-public class CustomLabel  extends ComplexPanel implements HasClickHandlers{
+public class CustomInput  extends ComplexPanel {
 	
 	
-	public CustomLabel() {
-		setElement(DOM.createElement("LABEL"));
-	}
-
-	public CustomLabel(String string) {
-		// TODO Auto-generated constructor stub
+	public CustomInput() {
+		setElement(DOM.createElement("INPUT"));
 	}
 
 	@UiChild(tagname = "child")
@@ -52,11 +44,6 @@ public class CustomLabel  extends ComplexPanel implements HasClickHandlers{
 
 	public void insert(Widget w, int beforeIndex) {
 		super.insert(w, getElement(), beforeIndex, true);
-	}
-
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
 	}
 
 }

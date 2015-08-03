@@ -1,0 +1,479 @@
+.lolliclock-popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: none;
+  width: 196px;
+  height: 324px;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26), 0 2px 10px 0 rgba(0,0,0,0.16);
+  font-family: "Roboto", 'Helvetica Neue, Helvetica, Arial', sans-serif;
+  background-color: #fff;
+  font-size: 20px;
+  user-select: none;
+}
+.lolliclock-popover.animate {
+  max-height: 0;
+  animation: open-popover 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-popover.animate-out {
+  animation: open-popover 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-header {
+  background: #03a9f4;
+  height: 85px;
+  width: 196px;
+  display: flex;
+  color: #fff;
+  font-size: 2.3em;
+  font-weight: 400;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+}
+.lolliclock-header.animate {
+  height: 0;
+  animation: slide-header 150ms 150ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-header.animate-out {
+  animation: slide-header 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-time {
+  display: flex;
+  align-self: center;
+}
+.lolliclock-primary-text {
+  color: #fff;
+}
+.lolliclock-hours {
+  width: 51px;
+  text-align: right;
+  opacity: 0.6;
+  cursor: pointer;
+  overflow: hidden;
+  height: 54px;
+}
+.lolliclock-colon {
+  opacity: 0.6;
+  cursor: default;
+}
+.lolliclock-minutes {
+  width: 51px;
+  opacity: 0.6;
+  cursor: pointer;
+  overflow: hidden;
+  height: 54px;
+}
+.lolliclock-am-pm {
+  cursor: pointer;
+  font-size: 10px;
+  position: absolute;
+  top: 47px;
+  left: 157px;
+  opacity: 0.6;
+  padding: 3px;
+}
+.lolliclock-primary-text {
+  opacity: 1;
+}
+.lolliclock-time-old {
+  opacity: 1;
+  height: 54px;
+}
+.lolliclock-time-new {
+  opacity: 0;
+}
+.lolliclock-time .old-up {
+  animation: transition-top-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-time .new-up {
+  animation: transition-bottom-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-time .old-down {
+  animation: transition-top-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-time .new-down {
+  animation: transition-bottom-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-minutes .lolliclock-time-old.animate {
+  animation: transition-top-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-minutes .lolliclock-time-new.animate {
+  animation: transition-bottom-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-hours .lolliclock-time-old.animate {
+  animation: transition-top-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-hours .lolliclock-time-new.animate {
+  animation: transition-bottom-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.popover-content {
+  padding: 18px 14px;
+  width: 168px;
+  height: 203px;
+  top: 85px;
+  position: absolute;
+}
+.lolliclock-plate,
+.lolliclock-canvas,
+.lolliclock-dial {
+  width: 168px;
+  height: 168px;
+}
+.lolliclock-dial {
+  transition: all 300ms;
+}
+.lolliclock-dial-out {
+  transform: scale(1.25, 1.25);
+  opacity: 0;
+}
+.lolliclock-plate {
+  background: #f0f0f0;
+  border-radius: 100%;
+  position: relative;
+}
+.lolliclock-plate.animate {
+  transform: scale(0);
+  animation: open-clock 150ms 150ms forwards;
+}
+.lolliclock-plate.animate-out {
+  animation: open-clock 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-canvas,
+.lolliclock-dial {
+  position: absolute;
+}
+.lolliclock-dial-minutes {
+  visibility: hidden;
+}
+.lolliclock-bearing {
+  fill: #000;
+  stroke-width: 1;
+}
+.lolliclock-canvas line {
+  stroke: #b3e5fc;
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+.lolliclock-canvas-fg {
+  stroke: none;
+  fill: #0288d1;
+}
+.lolliclock-canvas-bg {
+  fill: rgba(3,169,244,0.25);
+}
+.lolliclock-tick {
+  border-radius: 100%;
+  color: #666;
+  line-height: 24px;
+  text-align: center;
+  width: 24px;
+  height: 24px;
+  font-size: 0.55em;
+  font-weight: 600;
+  position: absolute;
+  cursor: pointer;
+}
+.lolliclock-tick.active,
+.lolliclock-tick:hover {
+  background: #b3e5fc;
+}
+.lolliclock-ampm-block {
+  display: flex;
+  justify-content: space-around;
+}
+.lolliclock-ampm-btn {
+  position: relative;
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lolliclock-ampm-btn.animate {
+  opacity: 0;
+  animation: open-btn 114ms 186ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-ampm-btn.animate-out {
+  animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-button.animate {
+  opacity: 0;
+  animation: open-btn 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-button.animate-out {
+  animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lolliclock-btn-background {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  opacity: 0;
+  transform: scale(0);
+}
+.lolliclock-btn-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  line-height: 35px;
+  vertical-align: middle;
+  color: #212121;
+}
+.lolliclock-active-button-background {
+  background-color: #03a9f4;
+  border-radius: 100%;
+  transition: transform 175ms;
+  transform: scale(1);
+  opacity: 1;
+}
+.lolliclock-active-button-text {
+  color: #fff;
+}
+.lolliclock-ampm-btn:focus {
+  outline: 0;
+}
+.lolliclock-clickable {
+  cursor: pointer;
+}
+.lolliclock-moving {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+.lolliclock-export {
+  display: hidden;
+}
+.lolliclock-buttons {
+  font-size: 11px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  position: absolute;
+  width: 196px;
+  top: 324px;
+}
+.lolliclock-button {
+  font-weight: 500;
+  color: #03a9f4;
+  cursor: pointer;
+  padding: 8px;
+  min-width: 32px;
+  margin: 0 4px;
+  background: transparent;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+@-moz-keyframes open-popover {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 380px;
+  }
+}
+@-webkit-keyframes open-popover {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 380px;
+  }
+}
+@-o-keyframes open-popover {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 380px;
+  }
+}
+@keyframes open-popover {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 380px;
+  }
+}
+@-moz-keyframes slide-header {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 85px;
+  }
+}
+@-webkit-keyframes slide-header {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 85px;
+  }
+}
+@-o-keyframes slide-header {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 85px;
+  }
+}
+@keyframes slide-header {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 85px;
+  }
+}
+@-moz-keyframes transition-top-up {
+  0% {
+    margin-top: 0;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -54px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes transition-top-up {
+  0% {
+    margin-top: 0;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -54px;
+    opacity: 0;
+  }
+}
+@-o-keyframes transition-top-up {
+  0% {
+    margin-top: 0;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -54px;
+    opacity: 0;
+  }
+}
+@keyframes transition-top-up {
+  0% {
+    margin-top: 0;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -54px;
+    opacity: 0;
+  }
+}
+@-moz-keyframes transition-bottom-up {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes transition-bottom-up {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes transition-bottom-up {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes transition-bottom-up {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes open-clock {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes open-clock {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes open-clock {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes open-clock {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-moz-keyframes open-btn {
+  0% {
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes open-btn {
+  0% {
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+@-o-keyframes open-btn {
+  0% {
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+@keyframes open-btn {
+  0% {
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
