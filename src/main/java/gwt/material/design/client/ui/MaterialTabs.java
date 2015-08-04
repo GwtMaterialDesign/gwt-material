@@ -88,7 +88,7 @@ public class MaterialTabs extends MaterialWidget {
 	
 	/**
 	 * Line Indicator on Tab Navigation
-	 * @param color
+	 * @param color Color string
 	 */
 	public native void changeIndicator(String color)/*-{
 		$wnd.jQuery( ".indicator" ).css( "background-color", color );
@@ -96,7 +96,7 @@ public class MaterialTabs extends MaterialWidget {
 
 	/**
 	 * Adding each tab nav , must add also the Content if you add a tab nav item
-	 * @param item
+	 * @param item Widget item
 	 */
 	@UiChild(tagname = "tab")
 	public void addTab(final Widget item) {
@@ -108,7 +108,7 @@ public class MaterialTabs extends MaterialWidget {
 
 	/**
 	 * Adding each tab content on the navigation
-	 * @param item
+	 * @param item Widget content
 	 */
 	@UiChild(tagname = "content")
 	public void addContent(final Widget item) {
@@ -118,6 +118,7 @@ public class MaterialTabs extends MaterialWidget {
 
 	/**
 	 * Initialize the Material Tab
+     * @param ulId Id of the list
 	 */
 	public static native void initTabs(String ulId)/*-{
 		$wnd.jQuery(document).ready(function() {
@@ -128,7 +129,8 @@ public class MaterialTabs extends MaterialWidget {
 	
 	/**
 	 * Selecting the tab with id on the content 
-	 * @param id
+	 * @param id Id of the tab
+	 * @param ulId Id of the list
 	 */
 	private native void selectTab(String id, String ulId)/*-{
 		 $wnd.jQuery(document).ready(function(){
@@ -166,7 +168,7 @@ public class MaterialTabs extends MaterialWidget {
 
 	/**
 	 * Get the indicator underlined color
-	 * @return
+	 * @return Color string
 	 */
 	public String getIndicatorColor() {
 		return indicatorColor;
@@ -174,7 +176,7 @@ public class MaterialTabs extends MaterialWidget {
 
 	/**
 	 * Set the indicator underlined color
-	 * @param indicatorColor
+	 * @param indicatorColor Color string
 	 */
 	public void setIndicatorColor(String indicatorColor) {
 		this.indicatorColor = indicatorColor;
@@ -204,7 +206,7 @@ public class MaterialTabs extends MaterialWidget {
 
 
 	/**
-	 * @param You can automatically set the tab index by passing the desired tab index number, starts from 1.
+	 * @param tabIndex You can automatically set the tab index by passing the desired tab index number, starts from 1.
 	 */
 	public void setTabIndex(int tabIndex) {
 		this.tabIndex = tabIndex;

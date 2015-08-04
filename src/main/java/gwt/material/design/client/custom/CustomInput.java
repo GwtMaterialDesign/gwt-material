@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui;
+package gwt.material.design.client.custom;
 
 /*
  * #%L
@@ -20,21 +20,30 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.uibinder.client.UiChild;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialProgress extends Composite {
-
-	private static MaterialProgressUiBinder uiBinder = GWT.create(MaterialProgressUiBinder.class);
-
-	interface MaterialProgressUiBinder extends UiBinder<Widget, MaterialProgress> {
+@SuppressWarnings("deprecation")
+public class CustomInput  extends ComplexPanel {
+	
+	
+	public CustomInput() {
+		setElement(DOM.createElement("INPUT"));
 	}
 
-	public MaterialProgress() {
-		initWidget(uiBinder.createAndBindUi(this));
+	@UiChild(tagname = "child")
+	public void addWidget(final Widget item) {
+		add(item);
+	}
+	
+	public void add(Widget w) {
+		super.add(w, getElement());
+	}
+
+	public void insert(Widget w, int beforeIndex) {
+		super.insert(w, getElement(), beforeIndex, true);
 	}
 
 }

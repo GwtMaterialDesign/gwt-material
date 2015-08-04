@@ -136,7 +136,7 @@ public class MaterialTextBox extends Composite implements
 		txtBox.getElement().addClassName("valid");
 		isValid = true;
 	}
-	
+
 	/**
 	 * Resets the textbox by removing its content and resetting visual state.
 	 */
@@ -159,7 +159,10 @@ public class MaterialTextBox extends Composite implements
 	@Override
 	public void setText(String text) {
 		txtBox.setText(text);
-		customLabel.addStyleName("active");
+
+		if (!text.isEmpty()) {
+			customLabel.addStyleName("active");
+		}
 	}
 
 	public String getPlaceholder() {
@@ -181,11 +184,11 @@ public class MaterialTextBox extends Composite implements
 		txtBox.getElement().setAttribute("type", type);
 		if(type.equals("number")){
 			txtBox.addKeyPressHandler(new KeyPressHandler() {
-				
+
 				@Override
 				public void onKeyPress(KeyPressEvent event) {
-					 if (!Character.isDigit(event.getCharCode()) 
-			                    && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB 
+					 if (!Character.isDigit(event.getCharCode())
+			                    && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
 			                    && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE
 			                    && event.getNativeEvent().getKeyCode() != 190){
 			                ((TextBox) event.getSource()).cancelKey();
@@ -249,12 +252,16 @@ public class MaterialTextBox extends Composite implements
 
 	@Override
 	public void setValue(String value) {
-		txtBox.setValue(value);
+		setValue(value, false);
 	}
 
 	@Override
 	public void setValue(String value, boolean fireEvents) {
 		txtBox.setValue(value, fireEvents);
+
+		if (!value.isEmpty()) {
+			customLabel.addStyleName("active");
+		}
 	}
 
 	@Override

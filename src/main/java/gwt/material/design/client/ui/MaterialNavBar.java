@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+
 import gwt.material.design.client.custom.CustomAnchor;
 import gwt.material.design.client.custom.CustomHeader;
 import gwt.material.design.client.custom.CustomNav;
@@ -107,7 +108,7 @@ public class MaterialNavBar extends Composite {
 
 	/**
 	 * Adding progress indicator on the Nav Bar
-	 * @param isProgress
+	 * @param isProgress True to show the progress indicator False otherwise
 	 */
 	public void showProgress(boolean isProgress){
 		if(isProgress){

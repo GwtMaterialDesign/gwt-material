@@ -1,0 +1,15 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:m="urn:import:gwt.material.design.client.ui">
+	<ui:style>
+		.action i{
+			font-size: 1.3rem !important;
+		}
+	</ui:style>
+	<m:MaterialPanel ui:field="chipPanel" addStyleNames="chip">
+	    <g:Image ui:field="imgChip" />
+	    <m:MaterialIcon ui:field="btnClose" icon="mdi-navigation-close" addStyleNames="right {style.action}"/>
+        <g:Label ui:field="lblChip" addStyleNames="right"/>
+	</m:MaterialPanel>
+</ui:UiBinder> 

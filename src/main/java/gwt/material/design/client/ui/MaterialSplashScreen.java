@@ -1,5 +1,25 @@
 package gwt.material.design.client.ui;
 
+/*
+ * #%L
+ * GwtMaterial
+ * %%
+ * Copyright (C) 2015 GwtMaterialDesign
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -54,7 +74,6 @@ public class MaterialSplashScreen extends Composite {
 	
 	/**
 	 * Show the splash screen 
-	 * @return
 	 */
 	public void show(){
 		RootPanel.get().clear();
@@ -76,7 +95,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * The logo of the Splash screen 
-	 * @param logo
+	 * @param logo ImageResource object
 	 */
 	public void setLogo(ImageResource logo) {
 		this.logo = logo;
@@ -89,7 +108,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * The app name displayed on Splash Screen
-	 * @param appName
+	 * @param appName Application name string
 	 */
 	public void setAppName(String appName) {
 		this.appName = appName;
@@ -103,7 +122,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * Optional , you can add your app description on Splash Screen
-	 * @return
+	 * @param appDescription Description string
 	 */
 	public void setAppDescription(String appDescription) {
 		this.appDescription = appDescription;
@@ -116,7 +135,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * Background Color of your splash screen
-	 * @param color
+	 * @param color Color string
 	 */
 	public void setColor(String color) {
 		this.color = color;
@@ -161,7 +180,7 @@ public class MaterialSplashScreen extends Composite {
 
 	/**
 	 * How long it will take to show your splash screen, by default 5 seconds or 5000 ms
-	 * @param splashTime
+	 * @param splashTime Splash time in milliseconds
 	 */
 	public void setSplashTime(int splashTime) {
 		this.splashTime = splashTime;
