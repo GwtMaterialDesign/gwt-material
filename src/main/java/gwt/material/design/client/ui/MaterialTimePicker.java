@@ -20,6 +20,7 @@ public class MaterialTimePicker extends Composite {
 
 	@UiField CustomInput inputElement;
 	private String time;
+	private String placeholder;
 
 	public MaterialTimePicker() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -31,13 +32,12 @@ public class MaterialTimePicker extends Composite {
 		super.onAttach();
 		String genId = DOM.createUniqueId();
 		inputElement.getElement().setAttribute("type", "text");
-		inputElement.getElement().setAttribute("placeholder", "Time");
 		inputElement.getElement().setAttribute("id", genId);
 		initTimePicker(genId);
 	}
 
 	public native void initTimePicker(String id)/*-{
-		$wnd.jQuery('#' + id).lolliclock({autoclose:true});
+		$wnd.jQuery('#' + id).lolliclock({autoclose:false});
 	}-*/;
 
 	/**
@@ -53,7 +53,23 @@ public class MaterialTimePicker extends Composite {
 	 */
 	public void setTime(String time) {
 		this.time = time;
-		inputElement.getElement().setAttribute("value", time);
+		inputElement.getElement().setAttribute("value", time.toUpperCase());
 	}
 
+	/**
+	 * @return the placeholder
+	 */
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	/**
+	 * @param placeholder the placeholder to set
+	 */
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+		inputElement.getElement().setAttribute("placeholder", "Time");
+	}
+
+	
 }
