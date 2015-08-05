@@ -51,6 +51,7 @@
 
   // Popover template
   var tpl = [
+    '<div class="clock-overlay">',
     '<div class="lolliclock-popover">',
     '<div class="lolliclock-header">',
     '<div class="lolliclock-time">',
@@ -84,12 +85,14 @@
     '</div>',
     '</div>',
     '</div>',
+    '</div>',
     '</div>'
   ].join('');
 
   // LolliClock
   function LolliClock(element, options) {
     var popover = $(tpl);
+    var popoverContent = popover.find('.lolliclock-popover');
     var plate = popover.find('.lolliclock-plate');
     var hoursView = popover.find('.lolliclock-dial-hours');
     var minutesView = popover.find('.lolliclock-dial-minutes');
@@ -125,7 +128,7 @@
     // If autoclose is not setted, append a button
     if (!options.autoclose) {
       this.popover.css('height', '380px');
-      var $closeButtons = $('<div class="lolliclock-buttons"></div>').appendTo(popover);
+      var $closeButtons = $('<div class="lolliclock-buttons"></div>').appendTo(popoverContent);
       $('<div class="lolliclock-button">Cancel</div>')
         .click($.proxy(this.hide, this))
         .appendTo($closeButtons);

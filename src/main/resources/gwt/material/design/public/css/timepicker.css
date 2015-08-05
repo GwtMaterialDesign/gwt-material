@@ -1,9 +1,4 @@
 .lolliclock-popover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  display: none;
   width: 196px;
   height: 324px;
   border-radius: 2px;
@@ -12,7 +7,23 @@
   background-color: #fff;
   font-size: 20px;
   user-select: none;
+  margin: auto;
+  width: 250px;
+  height: 380px;
+  margin-top: 10%;
 }
+
+.clock-overlay{
+	position: absolute !important;
+    width: 100% !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    height: 100% !important;
+    background: rgba(0,0,0,0.3);
+}
+
+
 .lolliclock-popover.animate {
   max-height: 0;
   animation: open-popover 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
@@ -23,7 +34,7 @@
 .lolliclock-header {
   background: #03a9f4;
   height: 85px;
-  width: 196px;
+  width: 250px;
   display: flex;
   color: #fff;
   font-size: 2.3em;
@@ -31,7 +42,6 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  position: absolute;
 }
 .lolliclock-header.animate {
   height: 0;
@@ -69,7 +79,6 @@
 .lolliclock-am-pm {
   cursor: pointer;
   font-size: 10px;
-  position: absolute;
   top: 47px;
   left: 157px;
   opacity: 0.6;
@@ -111,10 +120,8 @@
 }
 .popover-content {
   padding: 18px 14px;
-  width: 168px;
+  width: 250px;
   height: 203px;
-  top: 85px;
-  position: absolute;
 }
 .lolliclock-plate,
 .lolliclock-canvas,
@@ -133,6 +140,7 @@
   background: #f0f0f0;
   border-radius: 100%;
   position: relative;
+  margin: auto;
 }
 .lolliclock-plate.animate {
   transform: scale(0);
@@ -183,6 +191,7 @@
 .lolliclock-ampm-block {
   display: flex;
   justify-content: space-around;
+  margin-top: 20px;
 }
 .lolliclock-ampm-btn {
   position: relative;
@@ -250,12 +259,8 @@
   font-size: 11px;
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
-  margin-bottom: 8px;
+  margin-top: 50px;
   margin-right: 8px;
-  position: absolute;
-  width: 196px;
-  top: 324px;
 }
 .lolliclock-button {
   font-weight: 500;
