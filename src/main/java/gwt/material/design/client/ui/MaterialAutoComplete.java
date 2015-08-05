@@ -119,7 +119,7 @@ public class MaterialAutoComplete extends Composite {
 	}
 
     /**
-     * Removing the item selected using the close button of Chip
+     * Adding the item value using Material Chips added on auto complete box
      * @param itemBox
      * @param list
      */
@@ -162,12 +162,15 @@ public class MaterialAutoComplete extends Composite {
                     list.remove(displayItem);
                 }
             });
-            
-            displayItem.add(chip);
-            itemValues.add(chip.getText());
-            list.insert(displayItem, list.getWidgetCount() - 1);
-            itemBox.setValue("");
-            itemBox.setFocus(true);
+            if(!itemValues.contains(textChip)){
+	            displayItem.add(chip);
+	            itemValues.add(chip.getText());
+	            list.insert(displayItem, list.getWidgetCount() - 1);
+	            itemBox.setValue("");
+	            itemBox.setFocus(true);
+            }else{
+            	itemBox.setValue("");
+            }
             
         }else{
         	itemBox.setValue("");
