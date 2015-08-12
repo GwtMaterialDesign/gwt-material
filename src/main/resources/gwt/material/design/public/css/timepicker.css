@@ -13,6 +13,40 @@
   margin-top: 10%;
 }
 
+/** landscape **/
+.landscape .lolliclock-popover{
+    width: 450px;
+    height: 250px;
+}
+
+.landscape .lolliclock-header{
+	display: inline-block !important;
+    vertical-align: middle !important;
+    width: 140px !important;
+    height: 100% !important;
+    padding-top: 20% !important;
+    padding-left: 10px !important;
+}
+
+.landscape .popover-content{
+	display: inline-block !important;
+    vertical-align: top !important;
+    width: 310px !important;
+}
+
+.landscape .lolliclock-buttons{
+	margin-top: -40px !important;
+}
+
+.landscape .lolliclock-am-pm{
+	padding-left: 50px !important;
+	font-size: 20px !important;
+}
+
+.landscape .lolliclock-ampm-block{
+	display: none !important;
+}
+
 .clock-overlay{
 	position: absolute !important;
     width: 100% !important;
@@ -27,9 +61,13 @@
 .lolliclock-popover.animate {
   max-height: 0;
   animation: open-popover 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: open-popover 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: open-popover 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-popover.animate-out {
   animation: open-popover 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: open-popover 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: open-popover 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-header {
   background: #03a9f4;
@@ -46,9 +84,13 @@
 .lolliclock-header.animate {
   height: 0;
   animation: slide-header 150ms 150ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: slide-header 150ms 150ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: slide-header 150ms 150ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-header.animate-out {
   animation: slide-header 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: slide-header 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: slide-header 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-time {
   display: flex;
@@ -96,27 +138,43 @@
 }
 .lolliclock-time .old-up {
   animation: transition-top-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-top-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-top-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-time .new-up {
   animation: transition-bottom-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-bottom-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-bottom-up 300ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-time .old-down {
   animation: transition-top-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-top-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-top-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-time .new-down {
   animation: transition-bottom-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-bottom-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-bottom-up 300ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-minutes .lolliclock-time-old.animate {
   animation: transition-top-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-top-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-top-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-minutes .lolliclock-time-new.animate {
   animation: transition-bottom-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-bottom-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-bottom-up 75ms 210ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-hours .lolliclock-time-old.animate {
   animation: transition-top-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-top-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-top-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-hours .lolliclock-time-new.animate {
   animation: transition-bottom-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: transition-bottom-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: transition-bottom-up 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .popover-content {
   padding: 18px 14px;
@@ -131,23 +189,35 @@
 }
 .lolliclock-dial {
   transition: all 300ms;
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
 }
 .lolliclock-dial-out {
   transform: scale(1.25, 1.25);
+  -webkit-transform: scale(1.25, 1.25);
+  -moz-transform: scale(1.25, 1.25);
   opacity: 0;
 }
 .lolliclock-plate {
   background: #f0f0f0;
   border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
   position: relative;
   margin: auto;
 }
 .lolliclock-plate.animate {
   transform: scale(0);
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
   animation: open-clock 150ms 150ms forwards;
+  -webkit-animation: open-clock 150ms 150ms forwards;
+  -moz-animation: open-clock 150ms 150ms forwards;
 }
 .lolliclock-plate.animate-out {
   animation: open-clock 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: open-clock 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: open-clock 150ms forwards reverse cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-canvas,
 .lolliclock-dial {
@@ -174,6 +244,8 @@
 }
 .lolliclock-tick {
   border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
   color: #666;
   line-height: 24px;
   text-align: center;
@@ -198,6 +270,8 @@
   height: 35px;
   width: 35px;
   border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
   font-size: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -205,16 +279,24 @@
 .lolliclock-ampm-btn.animate {
   opacity: 0;
   animation: open-btn 114ms 186ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: open-btn 114ms 186ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: open-btn 114ms 186ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-ampm-btn.animate-out {
   animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-button.animate {
   opacity: 0;
   animation: open-btn 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: open-btn 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: open-btn 75ms 225ms forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-button.animate-out {
   animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-animation: open-btn 150ms reverse forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lolliclock-btn-background {
   position: absolute;
@@ -222,6 +304,8 @@
   width: 35px;
   opacity: 0;
   transform: scale(0);
+  -moz-transform: scale(0);
+  -webkit-transform: scale(0);
 }
 .lolliclock-btn-text {
   position: absolute;
@@ -235,7 +319,11 @@
   background-color: #03a9f4;
   border-radius: 100%;
   transition: transform 175ms;
+  -webkit-transition: transform 175ms;
+  -moz-transition: transform 175ms;
   transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
   opacity: 1;
 }
 .lolliclock-active-button-text {
@@ -273,6 +361,8 @@
   text-align: center;
   text-transform: uppercase;
   border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
 }
 @-moz-keyframes open-popover {
   0% {
@@ -413,48 +503,70 @@
 @-moz-keyframes open-clock {
   0% {
     transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
   }
   100% {
     transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
   }
 }
 @-webkit-keyframes open-clock {
   0% {
     transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
   }
   100% {
     transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
   }
 }
 @-o-keyframes open-clock {
   0% {
     transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
   }
   100% {
     transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
   }
 }
 @keyframes open-clock {
   0% {
     transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
   }
   100% {
     transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
   }
 }
 @-moz-keyframes open-btn {
   0% {
     transform: translate3d(0, -40px, 0);
+    -webkit-transform: translate3d(0, -40px, 0);
+    -moz-transform: translate3d(0, -40px, 0);
     opacity: 0;
   }
   100% {
     transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 }
 @-webkit-keyframes open-btn {
   0% {
     transform: translate3d(0, -40px, 0);
+    -webkit-transform: translate3d(0, -40px, 0);
+    -moz-transform: translate3d(0, -40px, 0);
     opacity: 0;
   }
   100% {
@@ -465,20 +577,28 @@
 @-o-keyframes open-btn {
   0% {
     transform: translate3d(0, -40px, 0);
+    -webkit-transform: translate3d(0, -40px, 0);
+    -moz-transform: translate3d(0, -40px, 0);
     opacity: 0;
   }
   100% {
     transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 }
 @keyframes open-btn {
   0% {
     transform: translate3d(0, -40px, 0);
+    -webkit-transform: translate3d(0, -40px, 0);
+    -moz-transform: translate3d(0, -40px, 0);
     opacity: 0;
   }
   100% {
     transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 }

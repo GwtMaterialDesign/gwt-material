@@ -20,6 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.resources.Orientation;
+
 import java.util.Date;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -41,6 +43,7 @@ public class MaterialDatePicker extends FocusPanel{
 		void onCalendarClose(Date currDate);
 	}
 	
+	private Orientation orientation = Orientation.PORTRAIT;
 	private HTMLPanel panel;
 	private Date date;
 	private String placeholder;
@@ -60,6 +63,7 @@ public class MaterialDatePicker extends FocusPanel{
 		this.clear();
 		panel = new HTMLPanel("<input placeholder='"+placeholder+"' type='date' id='"+id+"' class='datepicker'>");
 		this.add(panel);
+		panel.addStyleName(orientation.getValue());
 		initDatePicker(id, selectionType.name(), this);
 		initClickHandler(id, this);
 	}
@@ -202,6 +206,20 @@ public class MaterialDatePicker extends FocusPanel{
 
 	public void setSelectionType(MaterialDatePickerType selectionType) {
 		this.selectionType = selectionType;
+	}
+
+	/**
+	 * @return the orientation
+	 */
+	public Orientation getOrientation() {
+		return orientation;
+	}
+
+	/**
+	 * @param orientation the orientation to set : can be Vertical or Horizontal
+	 */
+	public void setOrientation(Orientation orientation) {
+		this.orientation = orientation;
 	}
 	
 	

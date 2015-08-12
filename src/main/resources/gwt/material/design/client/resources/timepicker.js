@@ -12,7 +12,8 @@
   LolliClock.DEFAULTS = {
     startTime: '',	      // default time, '' or 'now' or 'H:MM AM'
     autoclose: false,    	// show Cancel/OK buttons
-    vibrate: true        	// vibrate the device when dragging clock hand
+    vibrate: true,        	// vibrate the device when dragging clock hand
+    orientation: 'portrait'
   };
 
   // Listen touch events in touch screen device, instead of mouse events in desktop.
@@ -24,8 +25,12 @@
   // Vibrate the device if supported
   var vibrate = navigator.vibravarte ? 'vibrate' : navigator.webkitVibrate ? 'webkitVibrate' : null;
 
+ var orientation ;
+  
+  
   var svgNS = 'http://www.w3.org/2000/svg';
 
+  
   function createSvgElement(name) {
     return document.createElementNS(svgNS, name);
   }
@@ -48,11 +53,12 @@
   var tickRadius = 12;
   var diameter = dialRadius * 2;
   var duration = 350;
+  
 
   // Popover template
   var tpl = [
-    '<div class="clock-overlay">',
-    '<div class="lolliclock-popover">',
+    '<div id="time-picker" class="clock-overlay">',
+    '<div  class="lolliclock-popover">',
     '<div class="lolliclock-header">',
     '<div class="lolliclock-time">',
     '<div class="lolliclock-hours lolliclock-primary-text">',
@@ -137,7 +143,10 @@
         .appendTo($closeButtons);
       this.closeButtons = popover.find('.lolliclock-button');
     }
+    
 
+    popover.addClass(options.orientation);
+    
     // Show or toggle
     input.on('focus.lolliclock click.lolliclock', $.proxy(this.show, this));
 
@@ -364,7 +373,6 @@
 
     //animate show
     this.plate.addClass('animate');
-    this.header.addClass('animate');
     this.popover.addClass('animate');
     this.AmPmButtons.addClass('animate');
     this.spanNewTime.addClass('animate');
@@ -374,7 +382,6 @@
     this.plate.on('webkitAnimationEnd animationend MSAnimationEnd oanimationend',
       function () {
         self.plate.removeClass("animate");
-        self.header.removeClass("animate");
         self.popover.removeClass("animate");
         self.AmPmButtons.removeClass("animate");
         self.spanNewTime.removeClass("animate");
@@ -459,7 +466,6 @@
     var self = this;
     self.popover.addClass('animate-out');
     self.plate.addClass("animate-out");
-    self.header.addClass("animate-out");
     self.AmPmButtons.addClass("animate-out");
     !self.options.autoclose && self.closeButtons.addClass('animate-out');
 
@@ -469,7 +475,6 @@
         $(self.spanMinutes[0].childNodes[0]).html('');
         self.popover.removeClass("animate-out");
         self.plate.removeClass("animate-out");
-        self.header.removeClass("animate-out");
         self.AmPmButtons.removeClass("animate-out");
         !self.options.autoclose && self.closeButtons.removeClass("animate-out");
         self.popover.off('webkitAnimationEnd animationend MSAnimationEnd oanimationend');
