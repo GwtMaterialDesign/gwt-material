@@ -14,6 +14,29 @@
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
 }
+
+/** Date Picker landscape **/
+.landscape .picker__date-display{
+	width: 298px !important;
+    display: inline-block !important;
+    height: 350px !important;
+}
+.landscape .picker__frame{
+	max-width: 600px !important;
+}
+
+.landscape .picker__calendar-container{
+	width: 300px !important;
+    display: inline-block !important;
+    vertical-align: top !important;
+}
+
+.landscape .picker__footer{
+	position: absolute !important;
+    right: 0 !important;
+    bottom: 0px !important;
+}
+
 /** Blockquote **/
 blockquote{
 	border-left: 5px solid #42A5F5 !important;
