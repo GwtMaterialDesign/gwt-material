@@ -63,6 +63,7 @@ public class MaterialTimePicker extends Composite {
 
 	public native void initTimePicker(String id, String orientation)/*-{
 		$wnd.jQuery('#' + id).lolliclock({autoclose:false, orientation: orientation});
+		$wnd.jQuery('#' + id).blur();
 	}-*/;
 
 	/**
