@@ -14,6 +14,7 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="http://gwt-material.appspot.com/#" >Material Chips</a></li>
  <li><a href="http://gwt-material.appspot.com/#" >Material Autocomplete</a></li>
  <li><a href="http://gwt-material.appspot.com/#" >Material form error message</a></li>
+ <li><a href="http://gwt-material.appspot.com/#" >Parameter on Modals (autoHideEnabled)</a></li>
 </ul>
 
 <h3>Version 1.3.3</h3>
