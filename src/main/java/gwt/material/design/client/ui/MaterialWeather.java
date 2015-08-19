@@ -46,8 +46,9 @@ public class MaterialWeather extends MaterialPanel {
 	protected void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
-		String name = "weatherPanel";
+		String name = "weatherContainer";
 		this.addStyleName(name);
+		this.getElement().setId("weatherContainer");
 		showWeather(location, name, color);
 	}
 
@@ -90,10 +91,9 @@ public class MaterialWeather extends MaterialPanel {
 		  weekday[6] = "Saturday";
 		
 		  var today = weekday[d.getDay()];
-		  
-		  items.push("<div class='center-align card white-text "+color+"'> <div class='row'> <ul id='weatherPanel' > <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5 >"+main+"</h5> <p style='margin-top: -5px; font-weight: 100;text-transform: capitalize;'>"+desc+"</p> </li> <li style='opacity: 0;'> <div class='row'> <div class='col s12 m4 l4'> <img src='"+icon+"' style='margin-top: 20px;'> </div> <div class='col s12 m8 l8'> <h2 style='font-weight: 100;'>"+temp+"</h2> </div> </div> </li> </div> <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5>"+location+"</h5> <p style='margin-top: -5px; font-weight: 100;'>"+today+"</p> </li> <div class='left-align'> <li style='opacity: 0;'> <span><i class='mdi-communication-invert-colors-on'> </i> "+humidity+"%</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-device-wifi-tethering'> </i>3.9  mph</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-av-timer'></i>"+pressure+"  hPa</span> </li> </div> </div> </ul> </div> </div>");
-		
-		
+		 
+		  items.push("<div id='weatherPanel' class='center-align card white-text "+color+"'> <div class='row'> <ul id='weatherPanel' > <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5 >"+main+"</h5> <p style='margin-top: -5px; font-weight: 100;text-transform: capitalize;'>"+desc+"</p> </li> <li style='opacity: 0;'> <div class='row'> <div class='col s12 m4 l4'> <img src='"+icon+"' style='margin-top: 20px;'> </div> <div class='col s12 m8 l8'> <h2 style='font-weight: 100;'>"+temp+"</h2> </div> </div> </li> </div> <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5>"+location+"</h5> <p style='margin-top: -5px; font-weight: 100;'>"+today+"</p> </li> <div class='left-align'> <li style='opacity: 0;'> <span><i class='mdi-communication-invert-colors-on'> </i> "+humidity+"%</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-device-wifi-tethering'> </i>3.9  mph</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-av-timer'></i>"+pressure+"  hPa</span> </li> </div> </div> </ul> </div> </div>");
+		  $wnd.document.getElementById('weatherContainer').innerHTML = '';
 		  $wnd.jQuery( "<ul/>", { "class": "my-new-list",  html: items.join( "" ) }).appendTo( "." + div );
 			
 		  $wnd.Materialize.showStaggeredList('#weatherPanel');

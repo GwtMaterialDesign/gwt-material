@@ -4,7 +4,7 @@
 
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.3.4-SNAPSHOT</version>
 
     <name>Gwt Material Design</name>
     <description>A Material Design look and feel for GWT Apps plus Phonegap</description>
@@ -12,7 +12,7 @@
     <developers>
         <developer>
             <name>Kevzlou7979</name>
-            <email>Kevzlou7979@somemail.com</email>
+            <email>kevzlou7979@gmail.com</email>
             <organization>Gwt Material</organization>
             <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
         </developer>

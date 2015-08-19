@@ -50,7 +50,7 @@ public class MaterialCard extends Composite {
 	Label lblTitle, lblDescription;
 	
 	@UiField 
-	HTMLPanel cardPanel, cardContentPanel, cardRevealPanel,cardRevealContent, actionPanel, headerPanel;
+	HTMLPanel panel, cardPanel, cardContentPanel, cardRevealPanel,cardRevealContent, actionPanel, headerPanel;
 	
 	private ImageResource resource;
 	private String url = "";
@@ -59,6 +59,8 @@ public class MaterialCard extends Composite {
 	private String size = "medium";
 	private String type = "";
 	private String imageHeight = "";
+	private String color = "";
+	private String grid = "";
 	
 	public MaterialCard() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -126,6 +128,16 @@ public class MaterialCard extends Composite {
 	public void addRevealContent(Widget item){
 		cardRevealContent.add(item);
 	}
+	
+	@UiChild( tagname = "header")
+	public void addHeader(Widget item){
+		headerPanel.add(item);
+	} 
+	
+	@UiChild( tagname = "content")
+	public void addContent(Widget item){
+		cardContentPanel.add(item);
+	} 
 
 	public void setType(String type) {
 		this.type = type;
@@ -133,13 +145,20 @@ public class MaterialCard extends Composite {
 	}
 	
 	private void generateCard(){
+		String textColor = "grey";
+		if(!color.isEmpty()){ 
+			cardPanel.addStyleName(color);
+			textColor = "white";
+		}
+		if(!color.isEmpty()) actionPanel.addStyleName(color + " darken-1");
+		
 		switch (type) {
 		case "reveal":
+		case "chart":
 			cardContentPanel.clear();
 			cardRevealPanel.clear();
 			lblTitle.removeFromParent();
-			cardContentPanel.add(new HTML("<span class='card-title activator grey-text text-darken-4'>"+title+"<i class='mdi-navigation-more-vert right'></i></span>"));
-			
+			cardContentPanel.add(new HTML("<span class='card-title activator "+textColor+"-text text-darken-4'>"+title+"<i class='mdi-navigation-more-vert right'></i></span>"));
 			cardContentPanel.getElement().getStyle().setPaddingBottom(0, Unit.PX);
 			cardRevealPanel.add(new HTML("<span class='card-title activator grey-text text-darken-4'>"+title+"<i class='mdi-navigation-close right'></i></span>"));
 			cardRevealPanel.add(lblDescription);
@@ -148,7 +167,7 @@ public class MaterialCard extends Composite {
 		case "basic":
 			cardContentPanel.clear();
 			cardRevealPanel.removeFromParent();
-			cardContentPanel.add(new HTML("<span class='card-title black-text'>"+title+"</span>"));
+			cardContentPanel.add(new HTML("<span class='card-title "+textColor+"-text'>"+title+"</span>"));
 			cardContentPanel.add(lblDescription);
 			headerPanel.removeFromParent();
 			break;
@@ -202,6 +221,39 @@ public class MaterialCard extends Composite {
 
 	public void setActionPanel(HTMLPanel actionPanel) {
 		this.actionPanel = actionPanel;
+	}
+
+	public HTMLPanel getHeaderPanel() {
+		return headerPanel;
+	}
+
+	public void setHeaderPanel(HTMLPanel headerPanel) {
+		this.headerPanel = headerPanel;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+		generateCard();
+	}
+
+	/**
+	 * @return the grid
+	 */
+	public String getGrid() {
+		return grid;
+	}
+
+	/**
+	 * Setting the column grid for responsive design
+	 * @param grid the grid to set
+	 */
+	public void setGrid(String grid) {
+		this.grid = grid;
+		panel.addStyleName("col " + grid);
 	}
 
 	

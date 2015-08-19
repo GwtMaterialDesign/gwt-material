@@ -27,6 +27,7 @@ public class ResourcesLoader {
     public ResourcesLoader(final MaterialResources resources) {
         injectJQuery(resources);
         injectMaterializeJs(resources);
+        injectPickTimeJs(resources);
     }
 
     private void injectJQuery(MaterialResources resources) {
@@ -39,6 +40,12 @@ public class ResourcesLoader {
 
     private void injectMaterializeJs(MaterialResources resources) {
         ScriptInjector.fromString(resources.materializeJs().getText())
+                .setWindow(ScriptInjector.TOP_WINDOW)
+                .inject();
+    }
+    
+    private void injectPickTimeJs(MaterialResources resources) {
+        ScriptInjector.fromString(resources.timepicker().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW)
                 .inject();
     }

@@ -23,9 +23,11 @@
 	xmlns:m="urn:import:gwt.material.design.client.ui"
 	xmlns:c="urn:import:gwt.material.design.client.custom">
 	<ui:style>
-
+		.footerPanel{
+			padding-top:0px !important;
+		}
 	</ui:style>
-	<c:CustomFooter ui:field="footerPanel" addStyleNames="page-footer">
+	<c:CustomFooter ui:field="footerPanel" addStyleNames="page-footer {style.footerPanel}">
 		<m:MaterialPanel addStyleNames="container" ui:field="container"/>
 		<m:MaterialPanel addStyleNames="footer-copyright">
 	    	<m:MaterialPanel addStyleNames="container">

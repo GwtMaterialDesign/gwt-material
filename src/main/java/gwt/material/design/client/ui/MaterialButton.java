@@ -58,6 +58,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	private String size = "";
 	private String width = "";
 	private String href= "";
+	private String textColor="";
 
 	public MaterialButton() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -126,6 +127,10 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 		
 		if(!type.isEmpty()) w.addStyleName("btn-" + type);
 		
+		if(!textColor.isEmpty()){ 
+			label.addStyleName(textColor + "-text");
+			iconElem.addStyleName(textColor + "-text");
+		}
 		
 		if(!text.isEmpty()){
 			label.setText(text);
@@ -134,6 +139,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 		
 		if(!icon.isEmpty()) iconElem.addStyleName(icon);
 		else iconElem.removeFromParent();
+		
 		
 		if(!iconPosition.isEmpty()) iconElem.addStyleName(iconPosition);
 		
@@ -171,7 +177,9 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	}
 
 	public void setIcon(String icon) {
+	    if (iconElem != null && !this.icon.isEmpty()) iconElem.removeStyleName(this.icon);
 		this.icon = icon;
+		initButtonStyles();
 	}
 
 	public String getIconPosition() {
@@ -180,7 +188,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 
 	public void setIconPosition(String iconPosition) {
 		this.iconPosition = iconPosition;
-		
+		initButtonStyles();
 	}
 
 	public String getSize() {
@@ -223,6 +231,14 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	public void setHref(String href) {
 		this.href = href;
 		this.getElement().setAttribute("href", href);
+	}
+
+	public String getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
 	}
 
 	

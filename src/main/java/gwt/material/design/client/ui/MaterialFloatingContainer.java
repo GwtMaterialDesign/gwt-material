@@ -49,8 +49,8 @@ public class MaterialFloatingContainer extends MaterialPanel {
 		// TODO Auto-generated method stub
 		super.onAttach();
 		this.addStyleName("fixed-action-btn");
-		this.getElement().getStyle().setBottom(1, Unit.PCT);
-		this.getElement().getStyle().setRight(1, Unit.PCT);
+		this.getElement().getStyle().setBottom(3, Unit.PCT);
+		this.getElement().getStyle().setRight(3, Unit.PCT);
 		this.addStyleName(MaterialResources.INSTANCE.materialcss().floatingButtonsItem());
 		this.add(list);
 		

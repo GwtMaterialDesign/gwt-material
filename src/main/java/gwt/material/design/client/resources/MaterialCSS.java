@@ -25,6 +25,7 @@ import com.google.gwt.resources.client.CssResource;
 public interface MaterialCSS extends CssResource {
 	String showPanel();
 	String fullBackground();
+	String sideBarProfile();
 	
 	//ADNIMATIONS
 	String materialScale();
@@ -47,4 +48,6 @@ public interface MaterialCSS extends CssResource {
 	
 	//OLD UI
 	String oldCheckBox();
+	
+
 }

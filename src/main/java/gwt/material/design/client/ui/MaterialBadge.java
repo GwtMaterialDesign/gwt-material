@@ -41,6 +41,18 @@ public class MaterialBadge  extends ComplexPanel {
 		this.addStyleName("badge");
 		this.addStyleName(MaterialResources.INSTANCE.materialcss().badge());
 	}
+	
+	
+
+	public MaterialBadge(String text, String color) {
+		setElement(DOM.createElement("SPAN"));
+		setText(text);
+		setColor(color);
+		this.addStyleName("badge");
+		this.addStyleName(MaterialResources.INSTANCE.materialcss().badge());
+	}
+
+
 
 	@UiChild(tagname = "child")
 	public void addWidget(final Widget item) {

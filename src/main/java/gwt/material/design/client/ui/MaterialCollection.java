@@ -20,13 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import java.util.Iterator;
-
 import gwt.material.design.client.custom.MaterialWidget;
 import gwt.material.design.client.resources.MaterialResources;
 
+import java.util.Iterator;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;

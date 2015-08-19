@@ -20,10 +20,14 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+
 import gwt.material.design.client.custom.CustomAnchor;
+import gwt.material.design.client.custom.CustomHeader;
+import gwt.material.design.client.custom.CustomNav;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
@@ -41,16 +45,22 @@ public class MaterialNavBar extends Composite {
 	interface MaterialNavBarUiBinder extends UiBinder<Widget, MaterialNavBar> {
 	}
 
+
 	@UiField
-	HTMLPanel navBar;
+	CustomHeader navBar;
 	@UiField
 	CustomAnchor anchor, navMenu;
-
+	@UiField
+	MaterialLink lblLogo;
+	@UiField
+	CustomNav customNav;
+	
 	private String color = "";
 	private String type = "";
 	private String align = "";
 	private String wave = "";
 	private String sideBar = "";
+	private String sideBarWidth = "";
 
 	public MaterialNavBar() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -65,16 +75,21 @@ public class MaterialNavBar extends Composite {
 	
 	private String logoUrl;
 	private ImageResource logoResource;
-
+	private String text;
+	private String sideNav = String.valueOf(hashCode());
+	private MaterialProgress progress = new MaterialProgress();
+	
 	@Override
 	protected void onAttach() {
 		super.onAttach();
 		String name = String.valueOf(hashCode());
+		navMenu.addStyleName(sideNav);
 		navMenu.getElement().setAttribute("data-activates", name);
 		mobileNav.getElement().setId(name);
-		initNavBar();
-		
+		initNavBar(Integer.parseInt(getSideBarWidth()), sideNav);
 	}
+	
+	
 
 	@UiChild(tagname = "nav")
 	public void addWidget(final Widget item) {
@@ -83,24 +98,43 @@ public class MaterialNavBar extends Composite {
 	
 	@UiChild(tagname = "sidebaritem")
 	public void addWidgetSideNav(final Widget item) {
-		mobileNav.add(new ListItem(item));
+		ListItem listItem = new ListItem(item);
+		if(item instanceof MaterialCollapsible){
+			listItem.getElement().getStyle().setBackgroundColor("transparent");
+		}
+		
+		mobileNav.add(listItem);
 	}
 
+	/**
+	 * Adding progress indicator on the Nav Bar
+	 * @param isProgress True to show the progress indicator False otherwise
+	 */
+	public void showProgress(boolean isProgress){
+		if(isProgress){
+			customNav.add(progress);
+		}else{
+			progress.removeFromParent();
+		}
+	}
 	
-	public static native void initNavBar()/*-{
-		$wnd.jQuery(".button-collapse").sideNav();
+	public static native void initNavBar(int width, String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav({
+				menuWidth: width
+			}
+		);
 	}-*/;
 
-	public static native void hideNav()/*-{
-		$wnd.jQuery(".button-collapse").sideNav('hide');
+	public static native void hideNav(String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav('hide');
 	}-*/;
 	
 	public void showSideBar(){
-		onShowSideBar();
+		onShowSideBar(sideNav);
 	}
 	
-	public static native void onShowSideBar()/*-{
-		$wnd.jQuery(".button-collapse").sideNav('show');
+	public static native void onShowSideBar(String sideNav)/*-{
+		$wnd.jQuery("." + sideNav).sideNav('show');
 	}-*/;
 
 	public String getColor() {
@@ -109,7 +143,7 @@ public class MaterialNavBar extends Composite {
 
 	public void setColor(String color) {
 		this.color = color;
-		wrapper.addStyleName(color);
+		customNav.addStyleName(color);
 	}
 
 	public ImageResource getLogoResource() {
@@ -119,6 +153,7 @@ public class MaterialNavBar extends Composite {
 	public void setLogoResource(ImageResource logoResource) {
 		this.logoResource = logoResource;
 		imgLogo.setResource(logoResource);
+		lblLogo.removeFromParent();
 	}
 
 	public String getLogoUrl() {
@@ -128,10 +163,22 @@ public class MaterialNavBar extends Composite {
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
 		imgLogo.setUrl(logoUrl);
+		lblLogo.removeFromParent();
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+		imgLogo.removeFromParent();
+		lblLogo.setText(text);
+		
 	}
 
 	public void hide() {
-		hideNav();
+		hideNav(sideNav);
 	}
 
 	public String getType() {
@@ -150,6 +197,10 @@ public class MaterialNavBar extends Composite {
 			anchor.addStyleName("left");
 			navigation.addStyleName("right");
 			break;
+		}
+		
+		if(type.contains("no-padding")){
+			wrapper.removeStyleName("container");
 		}
 
 	}
@@ -189,10 +240,25 @@ public class MaterialNavBar extends Composite {
 				w.addStyleName("waves-effect waves-" + wave);
 			}
 		}
+		
 		for(Widget w : mobileNav){
 			if(w instanceof ListItem){
-				w.addStyleName("waves-effect waves-" + wave);
-				w.getElement().getStyle().setDisplay(Display.BLOCK);
+				ListItem item = (ListItem) w;
+				for(Widget child : item){
+					if(!(child instanceof MaterialCollapsible)){
+						w.addStyleName("waves-effect waves-" + wave);
+						w.getElement().getStyle().setDisplay(Display.BLOCK);
+					}else{
+						MaterialCollapsible col = (MaterialCollapsible) child;
+						for(Widget colItem : col){
+							if(colItem instanceof MaterialCollapsibleItem){
+								((MaterialCollapsibleItem) colItem).getHeader().addStyleName("waves-effect waves-" + wave);
+							}
+						}
+					}
+					
+				}
+				
 			}
 		}
 	}
@@ -204,7 +270,41 @@ public class MaterialNavBar extends Composite {
 	public void setSideBar(String sideBar) {
 		this.sideBar = sideBar;
 		mobileNav.addStyleName(sideBar);
+		if(sideBar.equals("hidden"))
+		{
+			mobileNav.getElement().getStyle().setPaddingLeft(0, Unit.PX);
+			navMenu.getElement().getStyle().setDisplay(Display.BLOCK);
+		}
 	}
 
+	public String getSideBarWidth() {
+		return sideBarWidth;
+	}
+
+	public void setSideBarWidth(String sideBarWidth) {
+		this.sideBarWidth = sideBarWidth;
+		mobileNav.setWidth(sideBarWidth + "px");
+		if(getSideBar().equals("fixed")){
+			navBar.getElement().getStyle().setPaddingLeft(Double.parseDouble(sideBarWidth), Unit.PX);
+		}
+	}
+
+	public CustomHeader getNavBar() {
+		return navBar;
+	}
+
+	public void setNavBar(CustomHeader navBar) {
+		this.navBar = navBar;
+	}
+
+	public MaterialLink getNavBarTextLogo() {
+	    return lblLogo;
+	}
+	
+    public void setNavBarTextLogo(MaterialLink textLogo) {
+        this.text = lblLogo.getText();
+        this.lblLogo = textLogo;
+        imgLogo.removeFromParent();
+    }
 	
 }

@@ -19,21 +19,14 @@
   -->
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:m="urn:import:gwt.material.design.client.ui"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 	
 	</ui:style>
-	<g:HTMLPanel>
-		 <nav>
-    <div class="nav-wrapper">
-      <form>
-        <div class="input-field">
+	<m:MaterialPanel addStyleNames="input-field">
           <input id="search" type="search" required="true" />
           <label for="search"><i class="mdi-action-search"></i></label>
           <i class="mdi-navigation-close"></i>
-        </div>
-      </form>
-    </div>
-  </nav>
-	</g:HTMLPanel>
+	</m:MaterialPanel>
 </ui:UiBinder> 

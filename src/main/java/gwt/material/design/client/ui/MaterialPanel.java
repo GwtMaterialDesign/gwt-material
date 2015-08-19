@@ -32,6 +32,11 @@ public class MaterialPanel extends HTMLPanel{
 	private String shadow = "";
 	private String type = "";
 	private String padding = "";
+	private String scrollspy="";
+	
+	public MaterialPanel() {
+		super("");
+	}
 	
 	public MaterialPanel(SafeHtml safeHtml) {
 		super(safeHtml);
@@ -104,6 +109,16 @@ public class MaterialPanel extends HTMLPanel{
 	public void setPadding(String padding) {
 		this.padding = padding;
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
+	}
+
+	public String getScrollspy() {
+		return scrollspy;
+	}
+
+	public void setScrollspy(String scrollspy) {
+		this.scrollspy = scrollspy;
+		this.addStyleName("scrollspy section");
+		this.getElement().setId(scrollspy);
 	}
 
 	
