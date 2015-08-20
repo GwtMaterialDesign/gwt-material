@@ -24,7 +24,7 @@
 	<ui:style>
 	
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel ui:field="panel">
 	    <c:CustomInput ui:field="inputElement" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

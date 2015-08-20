@@ -22,16 +22,18 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:c="urn:import:gwt.material.design.client.custom">
 	<ui:style>
-	
+		.sw{
+			margin-bottom: 15px;
+		}
 	</ui:style>
-	<g:HTMLPanel>
-		<div class="switch">
+	<g:HTMLPanel ui:field="panel">
+		<g:HTMLPanel addStyleNames="switch {style.sw}">
 			<label>
 				Off
 				<c:CustomCheckBox ui:field="cbBox"/>
 				<span class="lever"></span>
 				On
 			</label>
-		</div>
+		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

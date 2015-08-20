@@ -21,6 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomCheckBox;
+import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -30,9 +32,10 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialSwitch extends Composite implements HasChangeHandlers {
+public class MaterialSwitch extends Composite implements HasChangeHandlers , HasGrid, HasError{
 
 	private static MaterialSwitchUiBinder uiBinder = GWT.create(MaterialSwitchUiBinder.class);
 
@@ -40,10 +43,16 @@ public class MaterialSwitch extends Composite implements HasChangeHandlers {
 	}
 	
 	@UiField CustomCheckBox cbBox;
+	@UiField HTMLPanel panel;
+	
 	private Boolean value = false;
 	private boolean disabled;
+	private MaterialLabel lblError = new MaterialLabel();
+	
 	public MaterialSwitch() {
 		initWidget(uiBinder.createAndBindUi(this));
+		lblError.setVisible(false);
+		panel.add(lblError);
 	}
 
 
@@ -95,7 +104,30 @@ public class MaterialSwitch extends Composite implements HasChangeHandlers {
 		this.disabled = disabled;
 		cbBox.getElement().setAttribute("disabled", "true");
 	}
+	
+	@Override
+	public void setError(String error) {
+		lblError.setText(error);
+		lblError.addStyleName("field-error-label");
+		lblError.removeStyleName("field-success-label");
+		panel.addStyleName("field-error-picker");
+		panel.removeStyleName("field-success-picker");
+		lblError.setVisible(true);
+	}
 
-	
-	
+	@Override
+	public void setSuccess(String success) {
+		lblError.setText(success);
+		lblError.addStyleName("field-success-label");
+		lblError.removeStyleName("field-error-label");
+		panel.addStyleName("field-success-picker");
+		panel.removeStyleName("field-error-picker");
+		lblError.setVisible(true);
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
+	}
+
 }

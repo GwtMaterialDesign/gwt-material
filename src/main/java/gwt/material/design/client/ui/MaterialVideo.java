@@ -20,11 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
-public class MaterialVideo extends HTMLPanel{
+public class MaterialVideo extends HTMLPanel implements HasGrid{
 
 	private String url="";
 	
@@ -51,6 +53,11 @@ public class MaterialVideo extends HTMLPanel{
 		this.addStyleName("video-container");
 		this.add(new Frame(url));
 		this.url = url;
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 
 	

@@ -22,6 +22,8 @@ package gwt.material.design.client.ui;
 
 
 import gwt.material.design.client.custom.CustomInput;
+import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.resources.Orientation;
 
 import com.google.gwt.core.client.GWT;
@@ -29,9 +31,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTimePicker extends Composite {
+public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 
 	private static MaterialTimePickerUiBinder uiBinder = GWT
 			.create(MaterialTimePickerUiBinder.class);
@@ -41,14 +44,17 @@ public class MaterialTimePicker extends Composite {
 	}
 	
 	
-
+	@UiField HTMLPanel panel;
 	@UiField CustomInput inputElement;
 	private String time;
 	private String placeholder;
 	private Orientation orientation = Orientation.PORTRAIT;
+	private MaterialLabel lblError = new MaterialLabel();
 	
 	public MaterialTimePicker() {
 		initWidget(uiBinder.createAndBindUi(this));
+		lblError.setVisible(false);
+		panel.add(lblError);
 	}
 
 	@Override
@@ -109,6 +115,31 @@ public class MaterialTimePicker extends Composite {
 	 */
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
+	}
+
+	@Override
+	public void setError(String error) {
+		lblError.setText(error);
+		lblError.addStyleName("field-error-label");
+		lblError.removeStyleName("field-success-label");
+		panel.addStyleName("field-error-picker");
+		panel.removeStyleName("field-success-picker");
+		lblError.setVisible(true);
+	}
+
+	@Override
+	public void setSuccess(String success) {
+		lblError.setText(success);
+		lblError.addStyleName("field-success-label");
+		lblError.removeStyleName("field-error-label");
+		panel.addStyleName("field-success-picker");
+		panel.removeStyleName("field-error-picker");
+		lblError.setVisible(true);
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 
 	

@@ -20,6 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
@@ -28,29 +31,36 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Slider for numeric values
  */
-public class MaterialRange extends Composite implements HasChangeHandlers{
+public class MaterialRange extends Composite implements HasChangeHandlers, HasGrid, HasError{
 
 	private static MaterialRangeUiBinder uiBinder = GWT.create(MaterialRangeUiBinder.class);
 
 	interface MaterialRangeUiBinder extends UiBinder<Widget, MaterialRange> {
 	}
 
+	@UiField HTMLPanel panel;
+	
     private static String VALUE = "value";
     private static String MAX = "max";
     private static String MIN = "min";
     private static String INPUT = "INPUT";
+    private MaterialLabel lblError = new MaterialLabel();
 	
 	// cache the embedded range input element
 	private Element rangeElement = null;
 
 	public MaterialRange() {
 		initWidget(uiBinder.createAndBindUi(this));
+		lblError.setVisible(false);
+		panel.add(lblError);
 	}
 
 	/**
@@ -156,6 +166,27 @@ public class MaterialRange extends Composite implements HasChangeHandlers{
 	@Override
 	public HandlerRegistration addChangeHandler(ChangeHandler handler) {
 		return addDomHandler(handler, ChangeEvent.getType());
+	}
+
+	@Override
+	public void setError(String error) {
+		lblError.setText(error);
+		lblError.addStyleName("field-error-label");
+		lblError.removeStyleName("field-success-label");
+		lblError.setVisible(true);
+	}
+
+	@Override
+	public void setSuccess(String success) {
+		lblError.setText(success);
+		lblError.addStyleName("field-success-label");
+		lblError.removeStyleName("field-error-label");
+		lblError.setVisible(true);
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 	
 }

@@ -14,6 +14,24 @@
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
 }
+/** Errors **/
+.field-error, .field-error-picker input{
+    border-bottom: 1px solid #F44336 !important;
+    box-shadow: 0 1px 0 0 #F44336 !important;
+}
+.field-error-label, .field-success-label{
+	color: #F44336 !important;
+	font-size: 12px;
+    opacity: 1 !important;
+}
+.field-success-label{
+	color: #4CAF50 !important;
+}
+
+.field-success, .field-success-picker input{
+	border-bottom: 1px solid #4CAF50 !important;
+    box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
 
 /** Date Picker landscape **/
 .landscape .picker__date-display{
@@ -51,10 +69,11 @@ ul.multiValueSuggestBox-list {
     z-index: 999;
     margin: 0;
     padding: 0;
-    box-shadow: 0 1px rgb(224,224,224);
     border: none;
     width: 100%;
      list-style-type: none;
+     margin-bottom: 15px;
+     border-bottom: 1px solid #9e9e9e;
 }
 .multiValueSuggestBox-panel:focus{
 	border-bottom: 2px solid #42A5F5 !important;
@@ -101,7 +120,7 @@ ul.multiValueSuggestBox-list {
 ul.multiValueSuggestBox-list li input{
     border: 0;
     width: 200px;
-    padding: 3px 8px;
+    padding: 0px 8px;
     background-color: white;
     margin: 2px 0;
     border: none !important;

@@ -20,6 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Unit;
@@ -35,7 +37,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialCard extends Composite {
+public class MaterialCard extends Composite implements HasGrid{
 
 	private static MaterialCardUiBinder uiBinder = GWT
 			.create(MaterialCardUiBinder.class);
@@ -60,7 +62,6 @@ public class MaterialCard extends Composite {
 	private String type = "";
 	private String imageHeight = "";
 	private String color = "";
-	private String grid = "";
 	
 	public MaterialCard() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -240,19 +241,12 @@ public class MaterialCard extends Composite {
 		generateCard();
 	}
 
-	/**
-	 * @return the grid
-	 */
-	public String getGrid() {
-		return grid;
-	}
-
+	
 	/**
 	 * Setting the column grid for responsive design
 	 * @param grid the grid to set
 	 */
 	public void setGrid(String grid) {
-		this.grid = grid;
 		panel.addStyleName("col " + grid);
 	}
 

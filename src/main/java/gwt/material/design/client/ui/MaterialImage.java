@@ -20,9 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.user.client.ui.Image;
 
-public class MaterialImage extends Image{
+public class MaterialImage extends Image implements HasGrid{
 	
 	private String type="";
 	private String caption="";
@@ -73,4 +75,10 @@ public class MaterialImage extends Image{
 		this.opacity = opacity;
 		this.getElement().getStyle().setOpacity(Double.parseDouble(opacity));
 	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
+	}
+
 }

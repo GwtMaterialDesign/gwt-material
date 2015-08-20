@@ -22,6 +22,8 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.CustomIcon;
 import gwt.material.design.client.custom.CustomLabel;
+import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.IsEditor;
@@ -75,6 +77,7 @@ import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
@@ -89,7 +92,7 @@ public class MaterialTextBox extends Composite implements
 		HasKeyUpHandlers, HasClickHandlers, HasDoubleClickHandlers,
 		HasEnabled, HasAllDragAndDropHandlers, HasAllFocusHandlers,
 		HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers,
-		HasAllTouchHandlers {
+		HasAllTouchHandlers, HasGrid, HasError {
 
 	private static MaterialTextBoxUiBinder uiBinder = GWT.create(MaterialTextBoxUiBinder.class);
 
@@ -102,6 +105,7 @@ public class MaterialTextBox extends Composite implements
 	private boolean isValid = true;
 	private boolean enabled;
 	private String length;
+	private MaterialLabel lblError = new MaterialLabel();
 
 	@UiField
 	protected CustomLabel customLabel;
@@ -111,9 +115,13 @@ public class MaterialTextBox extends Composite implements
 	protected TextBox txtBox;
 	@UiField
 	protected CustomIcon iconPanel;
+	@UiField
+	protected HTMLPanel panel;
 
 	public MaterialTextBox() {
 		initWidget(uiBinder.createAndBindUi(this));
+		lblError.setVisible(false);
+		panel.add(lblError);
 	}
 
 	@Override
@@ -127,12 +135,14 @@ public class MaterialTextBox extends Composite implements
 
 	public void setInvalid() {
 		backToDefault();
+		lblName.setStyleName("red-text");
 		txtBox.getElement().addClassName("invalid");
 		isValid = false;
 	}
 
 	public void setValid() {
 		backToDefault();
+		lblName.setStyleName("green-text");
 		txtBox.getElement().addClassName("valid");
 		isValid = true;
 	}
@@ -437,5 +447,28 @@ public class MaterialTextBox extends Composite implements
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		return txtBox.addClickHandler(handler);
+	}
+
+	@Override
+	public void setError(String error) {
+		lblError.setText(error);
+		lblError.addStyleName("field-error-label");
+		lblError.removeStyleName("field-success-label");
+		lblError.setVisible(true);
+		setInvalid();
+	}
+
+	@Override
+	public void setSuccess(String success) {
+		lblError.setText(success);
+		lblError.addStyleName("field-success-label");
+		lblError.removeStyleName("field-error-label");
+		lblError.setVisible(true);
+		setValid();
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 }
