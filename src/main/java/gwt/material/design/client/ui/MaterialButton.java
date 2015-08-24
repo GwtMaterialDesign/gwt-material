@@ -201,6 +201,9 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		if(isDisable()){
+			return null;
+		}
 		return addDomHandler(handler, ClickEvent.getType());
 	}
 
