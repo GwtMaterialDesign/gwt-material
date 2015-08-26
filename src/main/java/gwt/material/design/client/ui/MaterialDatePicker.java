@@ -77,21 +77,26 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 		var input;
 		if(typeName === "MONTH_DAY") {
 			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body',
 				selectYears: false,
 				selectMonths: true
 			});
 		} else if(typeName === "YEAR_MONTH_DAY") {
 			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body',
 				selectYears: true,
 				selectMonths: true
 			});
 		}else if(typeName === "YEAR"){
 			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body',
 				selectYears: true
 			});
 		} 
 		else {
-			input = $wnd.jQuery('#' + id).pickadate();
+			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body'
+			});
 		}
 		
 		parent.@gwt.material.design.client.ui.MaterialDatePicker::input = input;
