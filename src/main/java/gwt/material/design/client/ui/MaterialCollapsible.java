@@ -20,10 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialCollapsible extends UnorderedList {
+public class MaterialCollapsible extends UnorderedList implements HasGrid{
 
 	private String wave = "";
 	private String type = "";
@@ -76,6 +78,11 @@ public class MaterialCollapsible extends UnorderedList {
 		}else{
 			this.getElement().setAttribute("data-collapsible", type);
 		}
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 
 	

@@ -20,12 +20,14 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.user.client.ui.Label;
 
-public class MaterialLabel extends Label {
+public class MaterialLabel extends Label implements HasGrid{
 	
 	String fontSize = "";
 	String textColor = "";
@@ -84,6 +86,11 @@ public class MaterialLabel extends Label {
 	public void setTextColor(String textColor) {
 		this.textColor = textColor;
 		this.addStyleName(textColor + "-text");
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 
 	

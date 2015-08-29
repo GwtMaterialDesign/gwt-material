@@ -20,12 +20,14 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ListBox;
 
-public class MaterialListBox extends ListBox {
+public class MaterialListBox extends ListBox implements HasGrid{
 
 	private String id = "";
 	private boolean old = false;
@@ -118,4 +120,9 @@ public class MaterialListBox extends ListBox {
 	protected native void initializeMaterial(String id) /*-{
 		$wnd.jQuery('#' + id).material_select();
 	}-*/;
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
+	}
 }

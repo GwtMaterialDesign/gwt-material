@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.MaterialWidget;
 import gwt.material.design.client.resources.MaterialResources;
 
@@ -34,7 +35,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialCollection extends MaterialWidget {
+public class MaterialCollection extends MaterialWidget implements HasGrid{
 
 	private static MaterialCollectionUiBinder uiBinder = GWT.create(MaterialCollectionUiBinder.class);
 
@@ -230,6 +231,11 @@ public class MaterialCollection extends MaterialWidget {
 			return (iter != null && iter.hasNext()) ? iter.next() : null;
 		}
 		return null;
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 
 }

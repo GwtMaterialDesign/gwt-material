@@ -21,6 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 
+import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.HasError;
 import gwt.material.design.client.custom.MaterialSuggestionOracle;
 
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class MaterialAutoComplete extends Composite {
+public class MaterialAutoComplete extends Composite implements HasError,  HasGrid{
 	
     private List<String> itemValues = new ArrayList<String>();
     private List<ListItem> itemsHighlighted = new ArrayList<ListItem>();
@@ -51,6 +53,7 @@ public class MaterialAutoComplete extends Composite {
     private TextBox itemBox = new TextBox();
     private boolean disabled;
     private String placeholder = "";
+    private MaterialLabel lblError = new MaterialLabel();
     
     /**
      * Use MaterialAutocomplete to search for matches from local or remote data sources.
@@ -82,7 +85,7 @@ public class MaterialAutoComplete extends Composite {
         itemBox.getElement().setId(autocompleteId);
         item.add(box);
         list.add(item);
- 
+        
         itemBox.addKeyDownHandler(new KeyDownHandler() {
             public void onKeyDown(KeyDownEvent event) {
                 switch (event.getNativeKeyCode()) {
@@ -136,6 +139,7 @@ public class MaterialAutoComplete extends Composite {
  
         panel.add(list);
         panel.getElement().setAttribute("onclick", "document.getElementById('"+autocompleteId+"').focus()");
+        panel.add(lblError);
         box.setFocus(true);
 	}
 
@@ -284,4 +288,31 @@ public class MaterialAutoComplete extends Composite {
 		itemBox.setEnabled(!disabled);
 	}
 
+	
+	
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
+	}
+	
+	@Override
+	public void setError(String error) {
+		lblError.setText(error);
+		lblError.addStyleName("field-error-label");
+		lblError.removeStyleName("field-success-label");
+		list.addStyleName("field-error");
+		list.removeStyleName("field-success");
+		lblError.setVisible(true);
+	}
+
+	@Override
+	public void setSuccess(String success) {
+		lblError.setText(success);
+		lblError.addStyleName("field-success-label");
+		lblError.removeStyleName("field-error-label");
+		list.addStyleName("field-success");
+		list.removeStyleName("field-error");
+		lblError.setVisible(true);
+	}
 }

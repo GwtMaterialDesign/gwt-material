@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Unit;
@@ -30,7 +31,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialLink extends FocusPanel {
+public class MaterialLink extends FocusPanel implements HasGrid{
 
 	protected HTMLPanel panel = new HTMLPanel("");
 	private String text = "";
@@ -276,6 +277,11 @@ public class MaterialLink extends FocusPanel {
 	public void setTarget(String target) {
 		this.target = target;
 		generateLink();
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);	
 	}
 
 	
