@@ -27,6 +27,8 @@ import com.google.gwt.user.client.ui.Widget;
 @SuppressWarnings("deprecation")
 public class CustomParagraph extends ComplexPanel {
 	
+	private String text;
+
 	public CustomParagraph() {
 		setElement(DOM.createElement("P"));
 	}
@@ -36,12 +38,31 @@ public class CustomParagraph extends ComplexPanel {
 		add(item);
 	}
 
+	public CustomParagraph(String text) {
+		// TODO Auto-generated constructor stub
+		this.setText(text);
+	}
+
 	public void add(Widget w) {
 		super.add(w, getElement());
 	}
 
 	public void insert(Widget w, int beforeIndex) {
 		super.insert(w, getElement(), beforeIndex, true);
+	}
+
+	/**
+	 * @return the text
+	 */
+	public String getText() {
+		return text;
+	}
+
+	/**
+	 * @param text the text to set
+	 */
+	public void setText(String text) {
+		this.text = text;
 	}
 
 }

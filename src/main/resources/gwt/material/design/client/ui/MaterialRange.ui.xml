@@ -23,7 +23,7 @@
 	<ui:style>
 	
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel ui:field="panel">
 		<form action="#">
 		  <p class="range-field">
 		    <input type="range" min="0" max="100" />

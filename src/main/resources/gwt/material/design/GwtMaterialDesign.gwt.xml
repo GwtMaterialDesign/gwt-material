@@ -26,6 +26,8 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
         "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module>
+    <set-configuration-property name="CssResource.conversionMode"    value="strict" />
+
     <!-- Inherit the core Web Toolkit stuff.                        -->
     <inherits name='com.google.gwt.user.User'/>
     <inherits name="com.google.gwt.core.Core"/>
@@ -52,6 +54,7 @@
 
     <stylesheet src="css/materialize.blue.css"/>
     <stylesheet src="css/overridecss.css"/>
+    <stylesheet src="css/timepicker.css"/>
     <set-configuration-property name="devModeRedirectEnabled" value="true"/>
     <set-configuration-property name="CssResource.enableGss" value="true"/>
     <set-configuration-property name="CssResource.legacy" value="true"/>

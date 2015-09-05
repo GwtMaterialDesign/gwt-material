@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+
 import gwt.material.design.client.custom.CustomAnchor;
 import gwt.material.design.client.custom.CustomHeader;
 import gwt.material.design.client.custom.CustomNav;
@@ -76,7 +77,8 @@ public class MaterialNavBar extends Composite {
 	private ImageResource logoResource;
 	private String text;
 	private String sideNav = String.valueOf(hashCode());
-
+	private MaterialProgress progress = new MaterialProgress();
+	
 	@Override
 	protected void onAttach() {
 		super.onAttach();
@@ -85,8 +87,9 @@ public class MaterialNavBar extends Composite {
 		navMenu.getElement().setAttribute("data-activates", name);
 		mobileNav.getElement().setId(name);
 		initNavBar(Integer.parseInt(getSideBarWidth()), sideNav);
-		
 	}
+	
+	
 
 	@UiChild(tagname = "nav")
 	public void addWidget(final Widget item) {
@@ -103,6 +106,17 @@ public class MaterialNavBar extends Composite {
 		mobileNav.add(listItem);
 	}
 
+	/**
+	 * Adding progress indicator on the Nav Bar
+	 * @param isProgress True to show the progress indicator False otherwise
+	 */
+	public void showProgress(boolean isProgress){
+		if(isProgress){
+			customNav.add(progress);
+		}else{
+			progress.removeFromParent();
+		}
+	}
 	
 	public static native void initNavBar(int width, String sideNav)/*-{
 		$wnd.jQuery("." + sideNav).sideNav({
@@ -283,5 +297,14 @@ public class MaterialNavBar extends Composite {
 		this.navBar = navBar;
 	}
 
+	public MaterialLink getNavBarTextLogo() {
+	    return lblLogo;
+	}
+	
+    public void setNavBarTextLogo(MaterialLink textLogo) {
+        this.text = lblLogo.getText();
+        this.lblLogo = textLogo;
+        imgLogo.removeFromParent();
+    }
 	
 }

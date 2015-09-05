@@ -19,14 +19,13 @@
   -->
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:c="urn:import:gwt.material.design.client.custom">
+	xmlns:m="urn:import:gwt.material.design.client.ui" xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		
+		.progress{
+			margin: 0px !important;
+		}
 	</ui:style>
-	<g:HTMLPanel ui:field="panel" addStyleNames="input-field">
-       	<c:CustomIcon ui:field="iconPanel" />
-       	<g:TextBox ui:field="txtBox" addStyleNames="validate"/>
-      	<c:CustomLabel ui:field="customLabel"><g:Label ui:field="lblName"/></c:CustomLabel>
-	</g:HTMLPanel>
+	<m:MaterialPanel addStyleNames="{style.progress} progress">
+		<m:MaterialPanel addStyleNames="indeterminate" />
+	</m:MaterialPanel>
 </ui:UiBinder> 

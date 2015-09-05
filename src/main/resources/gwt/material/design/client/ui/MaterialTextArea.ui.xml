@@ -26,7 +26,7 @@
 		font-weight: bold;
 	}
 	</ui:style>
-	<g:HTMLPanel addStyleNames="input-field">
+	<g:HTMLPanel ui:field="panel" addStyleNames="input-field">
 		<c:CustomIcon ui:field="iconPanel" />
         <g:TextArea ui:field="txtBox" addStyleNames="materialize-textarea"/>
        	<c:CustomLabel ui:field="customLabel"><g:Label ui:field="lblName"/></c:CustomLabel>

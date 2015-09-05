@@ -22,11 +22,9 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:c="urn:import:gwt.material.design.client.custom">
 	<ui:style>
-		
+	
 	</ui:style>
-	<g:HTMLPanel ui:field="panel" addStyleNames="input-field">
-       	<c:CustomIcon ui:field="iconPanel" />
-       	<g:TextBox ui:field="txtBox" addStyleNames="validate"/>
-      	<c:CustomLabel ui:field="customLabel"><g:Label ui:field="lblName"/></c:CustomLabel>
+	<g:HTMLPanel ui:field="panel">
+	    <c:CustomInput ui:field="inputElement" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

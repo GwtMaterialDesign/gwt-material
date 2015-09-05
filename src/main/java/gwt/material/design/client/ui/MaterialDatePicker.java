@@ -20,6 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.resources.Orientation;
+
 import java.util.Date;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -27,7 +31,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
-public class MaterialDatePicker extends FocusPanel{
+public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 
 	/**
 	 * Delegate interface for handling picker events.
@@ -41,6 +45,7 @@ public class MaterialDatePicker extends FocusPanel{
 		void onCalendarClose(Date currDate);
 	}
 	
+	private Orientation orientation = Orientation.PORTRAIT;
 	private HTMLPanel panel;
 	private Date date;
 	private String placeholder;
@@ -48,6 +53,8 @@ public class MaterialDatePicker extends FocusPanel{
 	private MaterialDatePickerDelegate delegate;
 	private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 	JavaScriptObject input;
+	private MaterialLabel lblError = new MaterialLabel();
+	
 	public MaterialDatePicker() {
 		
 	}
@@ -60,29 +67,36 @@ public class MaterialDatePicker extends FocusPanel{
 		this.clear();
 		panel = new HTMLPanel("<input placeholder='"+placeholder+"' type='date' id='"+id+"' class='datepicker'>");
 		this.add(panel);
+		panel.addStyleName(orientation.getValue());
 		initDatePicker(id, selectionType.name(), this);
 		initClickHandler(id, this);
+		panel.add(lblError);
 	}
 
 	public static native void initDatePicker(String id, String typeName, MaterialDatePicker parent)/*-{
 		var input;
 		if(typeName === "MONTH_DAY") {
 			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body',
 				selectYears: false,
 				selectMonths: true
 			});
 		} else if(typeName === "YEAR_MONTH_DAY") {
 			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body',
 				selectYears: true,
 				selectMonths: true
 			});
 		}else if(typeName === "YEAR"){
 			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body',
 				selectYears: true
 			});
 		} 
 		else {
-			input = $wnd.jQuery('#' + id).pickadate();
+			input = $wnd.jQuery('#' + id).pickadate({
+				container: 'body'
+			});
 		}
 		
 		parent.@gwt.material.design.client.ui.MaterialDatePicker::input = input;
@@ -203,7 +217,45 @@ public class MaterialDatePicker extends FocusPanel{
 	public void setSelectionType(MaterialDatePickerType selectionType) {
 		this.selectionType = selectionType;
 	}
-	
+
+	/**
+	 * @return the orientation
+	 */
+	public Orientation getOrientation() {
+		return orientation;
+	}
+
+	/**
+	 * @param orientation the orientation to set : can be Vertical or Horizontal
+	 */
+	public void setOrientation(Orientation orientation) {
+		this.orientation = orientation;
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
+	}
+
+	@Override
+	public void setError(String error) {
+		lblError.setText(error);
+		lblError.addStyleName("field-error-label");
+		lblError.removeStyleName("field-success-label");
+		panel.addStyleName("field-error-picker");
+		panel.removeStyleName("field-success-picker");
+		lblError.setVisible(true);
+	}
+
+	@Override
+	public void setSuccess(String success) {
+		lblError.setText(success);
+		lblError.addStyleName("field-success-label");
+		lblError.removeStyleName("field-error-label");
+		panel.addStyleName("field-success-picker");
+		panel.removeStyleName("field-error-picker");
+		lblError.setVisible(true);
+	}
 	
 	
 }

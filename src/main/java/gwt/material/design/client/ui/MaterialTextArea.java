@@ -22,6 +22,8 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.CustomIcon;
 import gwt.material.design.client.custom.CustomLabel;
+import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -40,12 +42,13 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTextArea extends Composite implements HasText,HasKeyPressHandlers,HasKeyDownHandlers,HasKeyUpHandlers,HasChangeHandlers {
+public class MaterialTextArea extends Composite implements HasText,HasKeyPressHandlers,HasKeyDownHandlers,HasKeyUpHandlers,HasChangeHandlers, HasGrid, HasError {
 
 	private static MaterialTextAreaUiBinder uiBinder = GWT
 			.create(MaterialTextAreaUiBinder.class);
@@ -59,6 +62,8 @@ public class MaterialTextArea extends Composite implements HasText,HasKeyPressHa
 	private String icon = "";
 	private boolean isValid = true;
 	private String length;
+	private MaterialLabel lblError = new MaterialLabel();
+	
 	@UiField
 	CustomLabel 
 	customLabel;
@@ -68,19 +73,24 @@ public class MaterialTextArea extends Composite implements HasText,HasKeyPressHa
 	TextArea txtBox;
 	@UiField
 	CustomIcon iconPanel;
+	@UiField HTMLPanel panel;
 
 	public MaterialTextArea() {
 		initWidget(uiBinder.createAndBindUi(this));
+		lblError.setVisible(false);
+		panel.add(lblError);
 	}
 
 	public void setInvalid() {
 		backToDefault();
+		lblName.setStyleName("red-text");
 		txtBox.getElement().addClassName("invalid");
 		isValid = false;
 	}
 
 	public void setValid() {
 		backToDefault();
+		lblName.setStyleName("green-text");
 		txtBox.getElement().addClassName("valid");
 		isValid = true;
 	}
@@ -169,6 +179,28 @@ public class MaterialTextArea extends Composite implements HasText,HasKeyPressHa
 	public HandlerRegistration addChangeHandler(ChangeHandler handler) {
 		return addDomHandler(handler, ChangeEvent.getType());
 	}
-		
+
+	@Override
+	public void setError(String error) {
+		lblError.setText(error);
+		lblError.addStyleName("field-error-label");
+		lblError.removeStyleName("field-success-label");
+		lblError.setVisible(true);
+		setInvalid();
+	}
+
+	@Override
+	public void setSuccess(String success) {
+		lblError.setText(success);
+		lblError.addStyleName("field-success-label");
+		lblError.removeStyleName("field-error-label");
+		lblError.setVisible(true);
+		setValid();
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
+	}
 	
 }
