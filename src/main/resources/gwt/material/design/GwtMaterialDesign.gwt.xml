@@ -50,8 +50,8 @@
     <!-- public resources -->
     <public path="public"/>
 
-    <stylesheet src="cache/css/materialize.blue.css"/>
-    <stylesheet src="cache/css/overridecss.css"/>
+    <stylesheet src="css/materialize.blue.css"/>
+    <stylesheet src="css/overridecss.css"/>
     <set-configuration-property name="devModeRedirectEnabled" value="true"/>
     <set-configuration-property name="CssResource.enableGss" value="true"/>
     <set-configuration-property name="CssResource.legacy" value="true"/>
