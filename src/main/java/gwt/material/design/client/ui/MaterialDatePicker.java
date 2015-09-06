@@ -176,6 +176,9 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 	 * @param date - must not be <code>null</code>
 	 */
 	public void setDate(Date date) {
+		if(date == null) {
+			return;
+		}
 		this.date = date;
 		DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
 		setDatePickerValue(sdf.format(date), id);
