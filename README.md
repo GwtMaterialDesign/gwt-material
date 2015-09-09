@@ -15,6 +15,7 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="http://gwt-material-demo.herokuapp.com/#autocompletes" >Material Autocomplete</a></li>
  <li><a href="http://gwt-material-demo.herokuapp.com/#errors" >Material form error message</a></li>
  <li><a href="http://gwt-material-demo.herokuapp.com/#dialogs" >Parameter on Modals (autoHideEnabled)</a></li>
+ <li><a href="#">Transition : SHOW_GRID and HIDE_GRID</a></li>
  <li>Fixed Button setDisabled </li>
  <li>Fixed Datepicker inside modal </li>
 </ul>
