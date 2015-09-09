@@ -169,8 +169,10 @@ public class MaterialCard extends Composite implements HasGrid{
 			cardContentPanel.clear();
 			cardRevealPanel.removeFromParent();
 			cardContentPanel.add(new HTML("<span class='card-title "+textColor+"-text'>"+title+"</span>"));
+			lblDescription.addStyleName(textColor+"-text");
 			cardContentPanel.add(lblDescription);
 			headerPanel.removeFromParent();
+			if(actionPanel.getWidgetCount()==0) actionPanel.removeFromParent();
 			break;
 		case "image":
 			cardRevealPanel.removeFromParent();

@@ -33,6 +33,7 @@ public class MaterialPanel extends HTMLPanel{
 	private String type = "";
 	private String padding = "";
 	private String scrollspy="";
+	private double opacity ;
 	
 	public MaterialPanel() {
 		super("");
@@ -119,6 +120,21 @@ public class MaterialPanel extends HTMLPanel{
 		this.scrollspy = scrollspy;
 		this.addStyleName("scrollspy section");
 		this.getElement().setId(scrollspy);
+	}
+
+	/**
+	 * @return the opacity
+	 */
+	public double getOpacity() {
+		return opacity;
+	}
+
+	/**
+	 * @param opacity the opacity to set
+	 */
+	public void setOpacity(double opacity) {
+		this.opacity = opacity;
+		this.getElement().getStyle().setOpacity(opacity);
 	}
 
 	

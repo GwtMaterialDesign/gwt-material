@@ -44,6 +44,9 @@ public class MaterialAnimator {
 				}
 			}
 			break;
+		case SHOW_GRID:
+			w.getElement().getStyle().setOpacity(0);
+			break;
 		default:
 			break;
 		}
@@ -65,6 +68,14 @@ public class MaterialAnimator {
 				case FADE_IN_IMAGE:
 					fadeInImage(name);
 					break;
+				case SHOW_GRID:
+					w.addStyleName("display-animation");
+					showGrid(name);
+					break;
+				case CLOSE_GRID:
+					w.addStyleName("display-animation");
+					closeGrid(name);
+					break;
 				default:
 					break;
 				}
@@ -74,6 +85,14 @@ public class MaterialAnimator {
 		w.removeStyleName(MaterialResources.INSTANCE.materialcss().pull());
 		w.removeStyleName(MaterialResources.INSTANCE.materialcss().materialScale());
 	}
+	
+	protected static native void closeGrid(String name) /*-{
+		$wnd.closeGrid('#' + name);
+	}-*/;
+	
+	protected static native void showGrid(String name) /*-{
+		$wnd.showGrid('#' + name);
+	}-*/;
 	
 	protected static native void fadeInImage(String name) /*-{
 		$wnd.Materialize.fadeInImage('#' + name);

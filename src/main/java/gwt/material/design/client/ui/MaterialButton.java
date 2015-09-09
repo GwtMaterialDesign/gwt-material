@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.CustomAnchor;
 import gwt.material.design.client.custom.CustomButton;
 import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.MaterialWidget;
 
 import com.google.gwt.core.client.GWT;
@@ -41,7 +42,7 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialButton extends MaterialWidget implements HasClickHandlers,HasDoubleClickHandlers, HasText{
+public class MaterialButton extends MaterialWidget implements HasClickHandlers,HasDoubleClickHandlers, HasText, HasGrid{
 
 	private static MaterialButtonUiBinder uiBinder = GWT.create(MaterialButtonUiBinder.class);
 
@@ -322,6 +323,11 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 			return null;
 		}
 		return addDomHandler(handler, ClickEvent.getType());
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		panel.addStyleName("col " + grid);
 	}
 	
 }
