@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasKeyUpHandlers;
+import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -38,9 +39,20 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	}
 	
 	private String color="";
+	private String text="";
 
 	public MaterialSearch() {
 		initWidget(uiBinder.createAndBindUi(this));
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.google.gwt.user.client.ui.Composite#onAttach()
+	 */
+	@Override
+	protected void onAttach() {
+		// TODO Auto-generated method stub
+		super.onAttach();
+		setInputValue(text);
 	}
 
 	public String getColor() {
@@ -53,20 +65,27 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 
 	@Override
 	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-		// TODO Auto-generated method stub
-		return null;
+		return addDomHandler(handler, KeyUpEvent.getType());
 	}
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		return getInputValue();
 	}
 
 	@Override
 	public void setText(String text) {
-		// TODO Auto-generated method stub
-		
+		  this.text = text;
 	}
+	
+	public native void setInputValue(String value)/*-{
+		$wnd.document.getElementById("search").value = value;
+	}-*/;
+
+	public native String getInputValue()/*-{
+		return $wnd.document.getElementById("search").value;
+	}-*/;
 
 }
+
+

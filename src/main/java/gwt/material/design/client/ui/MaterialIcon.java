@@ -21,12 +21,13 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.resources.MaterialResources;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.FocusPanel;
 
-public class MaterialIcon extends FocusPanel {
+public class MaterialIcon extends FocusPanel implements HasGrid{
 
 	CustomIcon iconElem;
 
@@ -174,6 +175,11 @@ public class MaterialIcon extends FocusPanel {
 	public void setBackground(String background) {
 		this.background = background;
 		generateIcon();
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName("col " + grid);
 	}
 
 }

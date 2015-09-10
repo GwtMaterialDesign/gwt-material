@@ -43,6 +43,9 @@ public interface MaterialResources extends ClientBundle {
 	
 	@Source("timepicker.js")
 	TextResource timepicker();
+	
+	@Source("animation.js")
+	TextResource animation();
 
 	@Source("materialize.min.js")
 	TextResource materializeJs();

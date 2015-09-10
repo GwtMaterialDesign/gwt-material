@@ -28,9 +28,16 @@ public class ResourcesLoader {
         injectJQuery(resources);
         injectMaterializeJs(resources);
         injectPickTimeJs(resources);
+        injectAnimationJs(resources);
     }
 
-    private void injectJQuery(MaterialResources resources) {
+    private void injectAnimationJs(MaterialResources resources) {
+    	 ScriptInjector.fromString(resources.animation().getText())
+         .setWindow(ScriptInjector.TOP_WINDOW)
+         .inject();
+	}
+
+	private void injectJQuery(MaterialResources resources) {
         if (!isjQueryLoaded()) {
             ScriptInjector.fromString(resources.jQuery().getText())
                     .setWindow(ScriptInjector.TOP_WINDOW)
