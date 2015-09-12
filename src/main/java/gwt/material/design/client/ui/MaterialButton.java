@@ -169,8 +169,11 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 		
 		if(!text.isEmpty()){
 			label.setText(text);
-			w.add(label);
-		}else label.removeFromParent();
+		}else {
+			label.setVisible(false);
+		}
+		w.add(label);
+			
 		
 		if(!icon.isEmpty()) iconElem.addStyleName(icon);
 		else iconElem.removeFromParent();
@@ -199,6 +202,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	public void setText(String text) {
 		this.text = text;
 		label.setText(text);
+		label.setVisible(true);
 	}
 
 	public String getType() {
@@ -214,7 +218,7 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	 */
 	public void setType(String type) {
 		this.type = type;
-		
+		initButtonStyles();
 	}
 
 	public String getIcon() {

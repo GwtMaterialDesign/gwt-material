@@ -170,7 +170,7 @@ public class MaterialTextBox extends Composite implements
 	public void setText(String text) {
 		txtBox.setText(text);
 
-		if (!text.isEmpty()) {
+		if (text != null && !text.isEmpty()) {
 			customLabel.addStyleName("active");
 		}
 	}
