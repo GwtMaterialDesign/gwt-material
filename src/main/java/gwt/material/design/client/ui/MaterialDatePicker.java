@@ -114,19 +114,6 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 		this.selectionType = type;
 	}
 	
-	public static native String getDatePickerValue(String id)/*-{
-		var color = $wnd.jQuery('#' + id).val();  
-		return color;
-	}-*/;
-	
-	private static native void setDatePickerValue(String value, String id)/*-{
-        var input = $wnd.jQuery('#' + id).pickadate();
-        var picker = input.pickadate('picker');
-		if(picker) {
-			picker.set('select', value);
-		}
-	}-*/;
-	
 	native void initClickHandler(String id, MaterialDatePicker parent) /*-{
 		var input = parent.@gwt.material.design.client.ui.MaterialDatePicker::input;
 		var picker = input.pickadate('picker');
@@ -180,17 +167,33 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 			return;
 		}
 		this.date = date;
+		initDatePicker(id, selectionType.name(), this);
 		DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
 		setDatePickerValue(sdf.format(date), id);
-		DateTimeFormat sdfSetter = DateTimeFormat.getFormat("yyyy-MM-dd");
-		selectDate(sdfSetter.format(date), id, this);
+		/*DateTimeFormat sdfSetter = DateTimeFormat.getFormat("yyyy-MM-dd");
+		selectDate(sdfSetter.format(date), id, this);*/
 	}
 	
 	private native void selectDate(String date, String id, MaterialDatePicker parent) /*-{
 		var input = parent.@gwt.material.design.client.ui.MaterialDatePicker::input;
 		var picker = input.pickadate('picker');
 		if(picker) {
-			picker.set('select', date, { format: 'yyyy-mm-dd' });
+			picker.set('select', date, { format: 'yyyy-MM-dd' });
+		}
+	}-*/;
+	
+	public static native String getDatePickerValue(String id)/*-{
+		var value = $wnd.jQuery('#' + id).val();  
+		return value;
+	}-*/;
+	
+	private static native void setDatePickerValue(String value, String id)/*-{
+	    var input = $wnd.jQuery('.datepicker').pickadate();
+
+		// Use the picker object directly.
+		var picker = input.pickadate('picker');
+		if(picker) {
+			picker.set('select', value, { format: 'yyyy-MM-dd' });
 		}
 	}-*/;
 

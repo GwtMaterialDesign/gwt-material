@@ -1,5 +1,11 @@
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiChild;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Widget;
+
 /*
  * #%L
  * GwtMaterial
@@ -19,17 +25,11 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
+import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.MaterialWidget;
 import gwt.material.design.client.resources.MaterialResources;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Widget;
-
-public class MaterialDropDown extends MaterialWidget {
+public class MaterialDropDown extends MaterialWidget implements HasGrid{
 
 	private static MaterialDropDownUiBinder uiBinder = GWT.create(MaterialDropDownUiBinder.class);
 
@@ -44,7 +44,7 @@ public class MaterialDropDown extends MaterialWidget {
 	MaterialButton anchor;
 	@UiField
 	UnorderedList list;
-
+	
 	public MaterialDropDown() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
@@ -62,7 +62,13 @@ public class MaterialDropDown extends MaterialWidget {
 		super.setWidget(anchor.getButton());
 		super.applyMaterialEffect();
 		initDropDown();
-		
+	}
+	
+	/**
+	 * Sets the appearence of the button (e.g. "flat")
+	 */
+	public void setType(String type) {
+		anchor.setType(type);
 	}
 
 	public native void initDropDown()/*-{
@@ -81,6 +87,10 @@ public class MaterialDropDown extends MaterialWidget {
 	@UiChild(tagname = "item")
 	public void addWidget(final Widget item) {
 		list.add(new ListItem(item));
+	}
+	
+	public void clearEntryWidgets() {
+		list.clear();
 	}
 
 	public String getText() {
@@ -107,7 +117,6 @@ public class MaterialDropDown extends MaterialWidget {
 				}
 			}
 		}
-		
 	}
 
 	public String getActivates() {
@@ -116,6 +125,11 @@ public class MaterialDropDown extends MaterialWidget {
 
 	public void setActivates(String activates) {
 		this.activates = activates;
+	}
+	
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName(grid + " col");
 	}
 
 }

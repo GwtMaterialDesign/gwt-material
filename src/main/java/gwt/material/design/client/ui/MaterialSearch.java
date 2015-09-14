@@ -20,12 +20,17 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.CustomInput;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
@@ -38,13 +43,22 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	interface MaterialSearchUiBinder extends UiBinder<Widget, MaterialSearch> {
 	}
 	
+	@UiField CustomInput txtSearch;
+	@UiField CustomIcon iconElem;
+	@UiField MaterialPanel panel;
+	
 	private String color="";
 	private String text="";
+	private String textColor="";
+	private String placeholder  = "";
+	private String id = "";
 
 	public MaterialSearch() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
+	
+
 	/* (non-Javadoc)
 	 * @see com.google.gwt.user.client.ui.Composite#onAttach()
 	 */
@@ -52,9 +66,10 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	protected void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
-		setInputValue(text);
+		id = DOM.createUniqueId();
+		txtSearch.getElement().setId(id);
 	}
-
+	
 	public String getColor() {
 		return color;
 	}
@@ -70,21 +85,41 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 
 	@Override
 	public String getText() {
-		return getInputValue();
+		return getInputTextValue(id);
 	}
 
 	@Override
 	public void setText(String text) {
 		  this.text = text;
+		  setInputTextValue(text, id);
 	}
 	
-	public native void setInputValue(String value)/*-{
-		$wnd.document.getElementById("search").value = value;
+	public native String getInputTextValue(String id)/*-{
+		return $wnd.document.getElementById(id).value;
 	}-*/;
+	
+	public native void setInputTextValue(String value, String id)/*-{
+		$wnd.document.getElementById(id).value = value;
+	}-*/;
+	
+	public String getTextColor() {
+		return textColor;
+	}
 
-	public native String getInputValue()/*-{
-		return $wnd.document.getElementById("search").value;
-	}-*/;
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+		txtSearch.addStyleName(textColor + "-text");
+		iconElem.addStyleName(textColor + "-text");
+	}
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+		txtSearch.setPlaceholder(placeholder);
+	}
 
 }
 

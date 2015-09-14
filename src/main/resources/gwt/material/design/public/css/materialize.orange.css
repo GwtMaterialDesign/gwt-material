@@ -5587,6 +5587,9 @@ small {
   outline: 0;
   padding: 0 2rem;
   text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent; }
 
