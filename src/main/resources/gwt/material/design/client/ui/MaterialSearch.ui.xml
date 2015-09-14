@@ -26,10 +26,9 @@
 	
 	</ui:style>
 	<m:MaterialPanel ui:field="panel" addStyleNames="input-field">
+	     
 		  <c:CustomInput ui:field="txtSearch" type="search" required="true"/>
-          <label for="search">
-  			 <c:CustomIcon ui:field="customIcon" addStyleNames="mdi-action-search"/>
-		  </label>
-          <i class="mdi-navigation-close"></i>
+		  <label for="search"><c:CustomIcon ui:field="iconElem" addStyleNames="mdi-action-search" /></label>
+		  <c:CustomIcon  addStyleNames="mdi-navigation-close" />
 	</m:MaterialPanel>
 </ui:UiBinder> 

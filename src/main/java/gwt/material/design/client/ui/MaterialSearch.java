@@ -30,6 +30,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
@@ -43,30 +44,32 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	}
 	
 	@UiField CustomInput txtSearch;
+	@UiField CustomIcon iconElem;
 	@UiField MaterialPanel panel;
-	@UiField CustomIcon customIcon;
 	
 	private String color="";
 	private String text="";
 	private String textColor="";
 	private String placeholder  = "";
-	private String id="";
+	private String id = "";
 
 	public MaterialSearch() {
 		initWidget(uiBinder.createAndBindUi(this));
-		txtSearch.getElement().setId("search");
 	}
 	
+	
+
 	/* (non-Javadoc)
 	 * @see com.google.gwt.user.client.ui.Composite#onAttach()
 	 */
 	@Override
 	protected void onAttach() {
 		// TODO Auto-generated method stub
-		txtSearch.getElement().setId("search");
-		setInputValue(text);
+		super.onAttach();
+		id = DOM.createUniqueId();
+		txtSearch.getElement().setId(id);
 	}
-
+	
 	public String getColor() {
 		return color;
 	}
@@ -82,13 +85,22 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 
 	@Override
 	public String getText() {
-		return getInputValue();
+		return getInputTextValue(id);
 	}
 
 	@Override
 	public void setText(String text) {
 		  this.text = text;
+		  setInputTextValue(text, id);
 	}
+	
+	public native String getInputTextValue(String id)/*-{
+		return $wnd.document.getElementById(id).value;
+	}-*/;
+	
+	public native void setInputTextValue(String value, String id)/*-{
+		$wnd.document.getElementById(id).value = value;
+	}-*/;
 	
 	public String getTextColor() {
 		return textColor;
@@ -96,8 +108,8 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 
 	public void setTextColor(String textColor) {
 		this.textColor = textColor;
-		panel.addStyleName(textColor + "-text"); 
-		customIcon.addStyleName(textColor + "-text"); 
+		txtSearch.addStyleName(textColor + "-text");
+		iconElem.addStyleName(textColor + "-text");
 	}
 
 	public String getPlaceholder() {
@@ -108,23 +120,6 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 		this.placeholder = placeholder;
 		txtSearch.setPlaceholder(placeholder);
 	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public native void setInputValue(String value)/*-{
-		$wnd.document.getElementById('search').value = value;
-	}-*/;
-
-	public native String getInputValue()/*-{
-		return $wnd.document.getElementById('search').value;
-	}-*/;
-	
 
 }
 
