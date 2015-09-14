@@ -56,6 +56,7 @@ public class MaterialNavBar extends Composite {
 	CustomNav customNav;
 	
 	private String color = "";
+	private String textColor = "";
 	private String type = "";
 	private String align = "";
 	private String wave = "";
@@ -306,5 +307,26 @@ public class MaterialNavBar extends Composite {
         this.lblLogo = textLogo;
         imgLogo.removeFromParent();
     }
+
+
+
+	/**
+	 * @return the textColor
+	 */
+	public String getTextColor() {
+		return textColor;
+	}
+
+
+
+	/**
+	 * @param textColor the textColor to set
+	 */
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+		lblLogo.setTextColor(textColor);
+	}
+    
+    
 	
 }
