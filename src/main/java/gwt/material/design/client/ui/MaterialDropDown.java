@@ -25,11 +25,11 @@ import com.google.gwt.user.client.ui.Widget;
  * limitations under the License.
  * #L%
  */
-
+import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.MaterialWidget;
 import gwt.material.design.client.resources.MaterialResources;
 
-public class MaterialDropDown extends MaterialWidget {
+public class MaterialDropDown extends MaterialWidget implements HasGrid{
 
 	private static MaterialDropDownUiBinder uiBinder = GWT.create(MaterialDropDownUiBinder.class);
 
@@ -125,6 +125,11 @@ public class MaterialDropDown extends MaterialWidget {
 
 	public void setActivates(String activates) {
 		this.activates = activates;
+	}
+	
+	@Override
+	public void setGrid(String grid) {
+		this.addStyleName(grid + " col");
 	}
 
 }
