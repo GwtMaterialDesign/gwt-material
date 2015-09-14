@@ -28,6 +28,9 @@ import com.google.gwt.user.client.ui.Widget;
 @SuppressWarnings("deprecation")
 public class CustomInput  extends ComplexPanel {
 	
+	private String type="";
+	private String placeholder="";
+	private boolean required;
 	
 	public CustomInput() {
 		setElement(DOM.createElement("INPUT"));
@@ -44,6 +47,34 @@ public class CustomInput  extends ComplexPanel {
 
 	public void insert(Widget w, int beforeIndex) {
 		super.insert(w, getElement(), beforeIndex, true);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+		this.getElement().setAttribute("type", type);
+		
+	}
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public void setRequired(boolean required) {
+		this.required = required;
+		this.getElement().setAttribute("required", String.valueOf(required));
+	}
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+		this.getElement().setAttribute("placeholder", placeholder);
 	}
 
 }

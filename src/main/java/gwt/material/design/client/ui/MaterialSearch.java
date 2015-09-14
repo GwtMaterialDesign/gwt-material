@@ -20,12 +20,16 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.CustomInput;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
@@ -38,11 +42,19 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	interface MaterialSearchUiBinder extends UiBinder<Widget, MaterialSearch> {
 	}
 	
+	@UiField CustomInput txtSearch;
+	@UiField MaterialPanel panel;
+	@UiField CustomIcon customIcon;
+	
 	private String color="";
 	private String text="";
+	private String textColor="";
+	private String placeholder  = "";
+	private String id="";
 
 	public MaterialSearch() {
 		initWidget(uiBinder.createAndBindUi(this));
+		txtSearch.getElement().setId("search");
 	}
 	
 	/* (non-Javadoc)
@@ -51,7 +63,7 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	@Override
 	protected void onAttach() {
 		// TODO Auto-generated method stub
-		super.onAttach();
+		txtSearch.getElement().setId("search");
 		setInputValue(text);
 	}
 
@@ -78,13 +90,41 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 		  this.text = text;
 	}
 	
+	public String getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+		panel.addStyleName(textColor + "-text"); 
+		customIcon.addStyleName(textColor + "-text"); 
+	}
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+		txtSearch.setPlaceholder(placeholder);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public native void setInputValue(String value)/*-{
-		$wnd.document.getElementById("search").value = value;
+		$wnd.document.getElementById('search').value = value;
 	}-*/;
 
 	public native String getInputValue()/*-{
-		return $wnd.document.getElementById("search").value;
+		return $wnd.document.getElementById('search').value;
 	}-*/;
+	
 
 }
 
