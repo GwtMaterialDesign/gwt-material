@@ -41,7 +41,7 @@
 	<c:CustomHeader ui:field="navBar" >
 		<c:CustomNav ui:field="customNav">
 	      <g:HTMLPanel ui:field="wrapper" addStyleNames="nav-wrapper container {style.navHeader}">
-	      	 <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse  white-text" >
+	      	 <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse" >
 	        	<c:child><g:HTMLPanel><i class="mdi-navigation-menu"></i></g:HTMLPanel></c:child>
 	        </c:CustomAnchor>
 	        <c:CustomAnchor ui:field="anchor" addStyleNames="brand-logo">

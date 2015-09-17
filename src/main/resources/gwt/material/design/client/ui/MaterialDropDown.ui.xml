@@ -31,8 +31,8 @@
 			padding: 1rem 1rem;
 			color: #26a69a;
 		}
-		.fixed{
-			position: fixed;
+		.fixed ul{
+			position: relative !important;
 		}
 		.fixed i{
 			line-height: inherit !important;

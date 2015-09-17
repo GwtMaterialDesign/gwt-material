@@ -325,6 +325,7 @@ public class MaterialNavBar extends Composite {
 	public void setTextColor(String textColor) {
 		this.textColor = textColor;
 		lblLogo.setTextColor(textColor);
+		navMenu.addStyleName(textColor + "-text");
 	}
     
     

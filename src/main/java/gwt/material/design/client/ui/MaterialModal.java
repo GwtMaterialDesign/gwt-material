@@ -143,6 +143,7 @@ public class MaterialModal extends Widget {
 	 * Close the modal
 	 */
 	public static void closeModal() {
+		panel.clear();
 		closeModal(panel.getElement().getId());
 	}
 
