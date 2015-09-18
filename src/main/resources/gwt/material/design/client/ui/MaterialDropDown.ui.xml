@@ -31,10 +31,10 @@
 			padding: 1rem 1rem;
 			color: #26a69a;
 		}
-		.fixed ul{
+		nav .fixed ul{
 			position: relative !important;
 		}
-		.fixed i{
+		nav .fixed i{
 			line-height: inherit !important;
 		}
 	</ui:style>
