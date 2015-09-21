@@ -90,7 +90,7 @@ ul.multiValueSuggestBox-list {
 }
 
 .gwt-SuggestBoxPopup{
-    z-index: 999;
+    z-index: 1000;
     width: 300px !important;
     background: white;
     border-radius: 2px;
@@ -121,7 +121,7 @@ ul.multiValueSuggestBox-list li input{
     border: 0;
     width: 200px;
     padding: 0px 8px;
-    background-color: white;
+    background-color: transparent;
     margin: 2px 0;
     border: none !important;
 }
