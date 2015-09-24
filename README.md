@@ -18,6 +18,13 @@ A Google Material Design wrapper for GWT <br>
  <li><a href="#">Transition : SHOW_GRID and HIDE_GRID</a></li>
  <li>Fixed Button setDisabled </li>
  <li>Fixed Datepicker inside modal </li>
+ <li>MaterialDropdown : Code modification</li>
+ <li>Material NavBar : Fixed and Extended Types</li>
+ <li>Material SideNav : Float (Permanent) or Card (Permanent) </li>
+ <li>Material SideNav : Open (Permanent) or Close (Persistent) </li>
+ <li>Material SideNav : Clip (Permanent) </li>
+ <li>Material SideNav : Mini Variant (Persistent) </li>
+ <li>MaterialNavBar : Dropdown Menu</li>
 </ul>
 
 <h3>Version 1.3.3</h3>
