@@ -1,11 +1,5 @@
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Widget;
-
 /*
  * #%L
  * GwtMaterial
@@ -26,107 +20,55 @@ import com.google.gwt.user.client.ui.Widget;
  * #L%
  */
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.resources.MaterialResources;
 
-public class MaterialDropDown extends MaterialWidget implements HasGrid{
+import com.google.gwt.uibinder.client.UiChild;
+import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.ui.Widget;
 
-	private static MaterialDropDownUiBinder uiBinder = GWT.create(MaterialDropDownUiBinder.class);
+public class MaterialDropDown extends UnorderedList implements HasGrid{
 
-	interface MaterialDropDownUiBinder extends UiBinder<Widget, MaterialDropDown> {
-	}
-
-	private String text = "";
-	private String activates = "";
-	private boolean divider;
-
-	@UiField
-	MaterialButton anchor;
-	@UiField
-	UnorderedList list;
-	
-	public MaterialDropDown() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
-
-	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-		activates = String.valueOf(hashCode());
-		if(!activates.isEmpty()){
-			anchor.getElement().setAttribute("data-activates", activates);
-			list.getElement().setId(activates);
-		}
-		
-		super.setWidget(anchor.getButton());
-		super.applyMaterialEffect();
-		initDropDown();
+	/**
+	 * Material Dropdown - adds a list item selection when button , link , icon button pressed
+	 * @param name - name of your dropdown, a unique name
+	 * @param constraintWidth - Does not change width of dropdown to that of the activator
+	 * @param belowOrigin - displays dropdown below the button
+	 */
+	@UiConstructor
+	public MaterialDropDown(String name,boolean belowOrigin, boolean constraintWidth) {
+		getElement().setId(name);
+		addStyleName("dropdown-content");	
+		initDropDown(name, belowOrigin, constraintWidth);
 	}
 	
 	/**
-	 * Sets the appearence of the button (e.g. "flat")
+	 * Initialize the dropdown components
 	 */
-	public void setType(String type) {
-		anchor.setType(type);
-	}
-
-	public native void initDropDown()/*-{
-		$wnd.jQuery('.dropdown-button').dropdown({
-			inDuration : 300,
-			outDuration : 225,
-			constrain_width : true, // Does not change width of dropdown to that of the activator
-			hover : false, // Activate on click
-			alignment : 'top', // Aligns dropdown to left or right edge (works with constrain_width)
-			gutter : 0, // Spacing from edge
-			belowOrigin : false
-		// Displays dropdown below the button
+	private native void initDropDown(String name,boolean belowOrigin, boolean constraintWidth)/*-{
+		$wnd.jQuery(document).ready(function(){
+			$wnd.jQuery('.' + name).dropdown({
+				  inDuration: 300,
+			      outDuration: 225,
+			      constrain_width: constraintWidth, // Does not change width of dropdown to that of the activator
+			      hover: false, // Activate on hover
+			      gutter: 0, // Spacing from edge
+			      belowOrigin: belowOrigin, // Displays dropdown below the button
+			      alignment: 'right' // Displays dropdown with edge aligned to the left of button
+			      // Displays dropdown below the button
+			});
 		});
+		
 	}-*/;
 
+	/**
+	 * Add Dropdown item into the component
+	 * @param item
+	 */
 	@UiChild(tagname = "item")
-	public void addWidget(final Widget item) {
-		list.add(new ListItem(item));
-	}
-	
-	public void clearEntryWidgets() {
-		list.clear();
+	public void addItem(Widget item){
+		ListItem li = new ListItem(item);
+		add(li);
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-		if (!text.isEmpty())
-			anchor.setText(text);
-		list.addStyleName(MaterialResources.INSTANCE.materialcss().collection());
-	}
-
-	public boolean isDivider() {
-		return divider;
-	}
-
-	public void setDivider(boolean divider) {
-		this.divider = divider;
-		if(isDivider()){
-			for(Widget w : list){
-				if(w instanceof ListItem){
-					w.getElement().setAttribute("style", "border-bottom: 1px solid #e9e9e9;");
-				}
-			}
-		}
-	}
-
-	public String getActivates() {
-		return activates;
-	}
-
-	public void setActivates(String activates) {
-		this.activates = activates;
-	}
-	
 	@Override
 	public void setGrid(String grid) {
 		this.addStyleName(grid + " col");

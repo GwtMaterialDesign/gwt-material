@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.CustomAnchor;
 import gwt.material.design.client.custom.CustomButton;
 import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.HasActivates;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.MaterialWidget;
 
@@ -42,7 +43,7 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialButton extends MaterialWidget implements HasClickHandlers,HasDoubleClickHandlers, HasText, HasGrid{
+public class MaterialButton extends MaterialWidget implements HasClickHandlers,HasDoubleClickHandlers, HasText, HasGrid, HasActivates{
 
 	private static MaterialButtonUiBinder uiBinder = GWT.create(MaterialButtonUiBinder.class);
 
@@ -332,6 +333,12 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 	@Override
 	public void setGrid(String grid) {
 		panel.addStyleName("col " + grid);
+	}
+
+	@Override
+	public void setActivates(String activates) {
+		this.getElement().setAttribute("data-activates", activates);
+		this.addStyleName(activates + " dropdown-button");
 	}
 	
 }

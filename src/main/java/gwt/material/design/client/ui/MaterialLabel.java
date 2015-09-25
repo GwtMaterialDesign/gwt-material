@@ -21,13 +21,14 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.HasSeparator;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.user.client.ui.Label;
 
-public class MaterialLabel extends Label implements HasGrid{
+public class MaterialLabel extends Label implements HasGrid, HasSeparator{
 	
 	String fontSize = "";
 	String textColor = "";
@@ -91,6 +92,13 @@ public class MaterialLabel extends Label implements HasGrid{
 	@Override
 	public void setGrid(String grid) {
 		this.addStyleName("col " + grid);
+	}
+
+	@Override
+	public void setSeparator(boolean separator) {
+		if (separator) {
+			this.getElement().getStyle().setProperty("borderBottom", "1px solid #e9e9e9");
+		}
 	}
 
 	

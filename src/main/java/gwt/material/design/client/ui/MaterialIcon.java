@@ -21,13 +21,17 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.HasActivates;
 import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.HasSeparator;
+import gwt.material.design.client.custom.HasTooltip;
 import gwt.material.design.client.resources.MaterialResources;
 
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.FocusPanel;
 
-public class MaterialIcon extends FocusPanel implements HasGrid{
+public class MaterialIcon extends FocusPanel implements HasGrid, HasSeparator, HasTooltip, HasActivates{
 
 	CustomIcon iconElem;
 
@@ -38,6 +42,7 @@ public class MaterialIcon extends FocusPanel implements HasGrid{
 	private String color = "";
 	private String background = "";
 	protected String tooltip = "";
+	private String tooltipLocation = "";
 	private String shape = "";
 	protected String title = "";
 
@@ -123,7 +128,7 @@ public class MaterialIcon extends FocusPanel implements HasGrid{
 
 		if (!tooltip.isEmpty()) {
 			iconElem.addStyleName("tooltipped");
-			iconElem.getElement().setAttribute("data-position", "bottom");
+			iconElem.getElement().setAttribute("data-position", tooltipLocation);
 			iconElem.getElement().setAttribute("data-tooltip", tooltip);
 		}
 		this.add(iconElem);
@@ -180,6 +185,25 @@ public class MaterialIcon extends FocusPanel implements HasGrid{
 	@Override
 	public void setGrid(String grid) {
 		this.addStyleName("col " + grid);
+	}
+
+	@Override
+	public void setSeparator(boolean separator) {
+		if (separator) {
+			this.getElement().setAttribute("style", "border-bottom: 1px solid #e9e9e9;");
+		}
+	}
+
+	@Override
+	public void setTooltipLocation(String tooltipLocation) {
+		this.tooltipLocation = tooltipLocation;
+	}
+	
+	@Override
+	public void setActivates(String activates) {
+		this.getElement().getStyle().setDisplay(Display.INLINE);
+		this.getElement().setAttribute("data-activates", activates);
+		this.addStyleName(activates + " dropdown-button");
 	}
 
 }

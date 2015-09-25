@@ -21,7 +21,9 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomIcon;
+import gwt.material.design.client.custom.HasActivates;
 import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.HasSeparator;
 
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Unit;
@@ -31,7 +33,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialLink extends FocusPanel implements HasGrid{
+public class MaterialLink extends FocusPanel implements HasGrid, HasSeparator, HasActivates{
 
 	protected HTMLPanel panel = new HTMLPanel("");
 	private String text = "";
@@ -284,6 +286,10 @@ public class MaterialLink extends FocusPanel implements HasGrid{
 		this.addStyleName("col " + grid);	
 	}
 
-	
+	@Override
+	public void setActivates(String activates) {
+		this.getElement().setAttribute("data-activates", activates);
+		this.addStyleName(activates + " dropdown-button");
+	}
 
 }

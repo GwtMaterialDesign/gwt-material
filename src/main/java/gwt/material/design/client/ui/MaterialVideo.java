@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class MaterialVideo extends HTMLPanel implements HasGrid{
 
 	private String url="";
+	private Frame frame =  new Frame();
 	
 	public MaterialVideo(SafeHtml safeHtml) {
 		super(safeHtml);
@@ -50,14 +51,22 @@ public class MaterialVideo extends HTMLPanel implements HasGrid{
 	}
 
 	public void setUrl(String url) {
+		frame.setUrl(url);
 		this.addStyleName("video-container");
-		this.add(new Frame(url));
+		this.add(frame);
 		this.url = url;
 	}
 
 	@Override
 	public void setGrid(String grid) {
 		this.addStyleName("col " + grid);
+	}
+
+	/**
+	 * @param fullscreen the fullscreen to set
+	 */
+	public void setFullscreen(boolean fullscreen) {
+		frame.getElement().setAttribute("allowfullscreen", "true");
 	}
 
 	

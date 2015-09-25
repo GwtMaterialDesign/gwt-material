@@ -41,6 +41,5 @@
 	<g:HTMLPanel addStyleNames="{style.fixed}">
 		<m:MaterialButton ui:field="anchor" width="100%" addStyleNames='dropdown-button' icon="mdi-navigation-arrow-drop-down" iconPosition="right"/>
 		<m:UnorderedList ui:field="list" addStyleNames='dropdown-content {style.dropdown}' />
-
 	</g:HTMLPanel>
 </ui:UiBinder> 

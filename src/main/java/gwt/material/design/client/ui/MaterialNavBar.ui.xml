@@ -1,0 +1,31 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder 
+    xmlns:ui="urn:ui:com.google.gwt.uibinder" 
+    xmlns:c="urn:import:gwt.material.design.client.custom"
+    xmlns:m="urn:import:gwt.material.design.client.ui"
+    xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		@external nav-wrapper;
+		nav{
+			position: relative;
+		}
+		.nav-wrapper a:hover {
+    		color: inherit;
+		}
+		.navMenu i{
+			opacity: 0.9 !important;
+    		font-size: 2em !important;
+			padding-left: 16px;
+		}
+	</ui:style>
+	<c:CustomHeader ui:field="header">
+	    <c:CustomNav>
+		    <m:MaterialPanel ui:field="panel" addStyleNames="nav-wrapper" >
+		        <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse {style.navMenu}" >
+		        	<c:child><g:HTMLPanel><i class="mdi-navigation-menu"></i></g:HTMLPanel></c:child>
+		        </c:CustomAnchor>
+		    </m:MaterialPanel>
+		</c:CustomNav>	
+	</c:CustomHeader>
+	
+</ui:UiBinder> 
