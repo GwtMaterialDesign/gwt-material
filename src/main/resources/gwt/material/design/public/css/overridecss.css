@@ -463,13 +463,22 @@ nav .nav-wrapper .side-nav i {
 	font-size: 2em !important;
 }
 
-.side-nav .collapsible-header {
+.side-nav .collapsible-header , .side-nav .collapsible-body{
 	padding: 0px !important;
 	margin: 0px !important;
 }
 
 nav .nav-wrapper .collapsible-body {
 	padding: 0px !important;
+}
+
+.side-nav .collapsible-body li a {
+    margin: 0 1rem 0 5rem;
+}
+
+.collapsible-body{
+	margin: 0;
+	padding: 2rem;
 }
 
 .gwt-material-design-client-resources-MaterialCSS-collectionAvatarIcon {

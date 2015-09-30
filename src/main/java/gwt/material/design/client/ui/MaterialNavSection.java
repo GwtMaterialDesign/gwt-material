@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialNavSection extends UnorderedList implements HasWidgets{
 
+	
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material Links, Icons or any other material components
 	 */
@@ -39,4 +40,5 @@ public class MaterialNavSection extends UnorderedList implements HasWidgets{
 		return false;
 	}
 
+	
 }

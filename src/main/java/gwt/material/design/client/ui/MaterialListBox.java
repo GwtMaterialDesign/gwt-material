@@ -118,7 +118,10 @@ public class MaterialListBox extends ListBox implements HasGrid{
 	 * @param id The ID of the internal {@code select} element.
 	 */
 	protected native void initializeMaterial(String id) /*-{
-		$wnd.jQuery('#' + id).material_select();
+		$wnd.jQuery( document ).ready(function(){
+			$wnd.jQuery('#' + id).material_select();
+		}) 
+		
 	}-*/;
 
 	@Override

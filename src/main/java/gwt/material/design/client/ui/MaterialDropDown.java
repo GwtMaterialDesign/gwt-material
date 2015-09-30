@@ -19,14 +19,25 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasGrid;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialDropDown extends UnorderedList implements HasGrid{
+public class MaterialDropDown extends ComplexWidget implements HasGrid{
 
+	private String name;
+	private boolean belowOrigin;
+	private boolean constraintWidth;
+
+	public MaterialDropDown(){
+		setElement(Document.get().createULElement());
+		setStyleName("dropdown-content");
+	}
+	
 	/**
 	 * Material Dropdown - adds a list item selection when button , link , icon button pressed
 	 * @param name - name of your dropdown, a unique name
@@ -35,17 +46,40 @@ public class MaterialDropDown extends UnorderedList implements HasGrid{
 	 */
 	@UiConstructor
 	public MaterialDropDown(String name,boolean belowOrigin, boolean constraintWidth) {
+		this();
+		this.name = name;
+		this.belowOrigin = belowOrigin;
+		this.constraintWidth = constraintWidth;
 		getElement().setId(name);
-		addStyleName("dropdown-content");	
-		initDropDown(name, belowOrigin, constraintWidth);
 	}
 	
+	
+
+	/* (non-Javadoc)
+	 * @see com.google.gwt.user.client.ui.Widget#onLoad()
+	 */
+	@Override
+	protected void onLoad() {
+		// TODO Auto-generated method stub
+		super.onLoad();
+		initDropDown(name, belowOrigin,  constraintWidth);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.google.gwt.user.client.ui.Widget#onUnload()
+	 */
+	@Override
+	protected void onUnload() {
+		// TODO Auto-generated method stub
+		super.onUnload();
+	}
+
 	/**
 	 * Initialize the dropdown components
 	 */
 	private native void initDropDown(String name,boolean belowOrigin, boolean constraintWidth)/*-{
 		$wnd.jQuery(document).ready(function(){
-			$wnd.jQuery('.' + name).dropdown({
+			$wnd.jQuery('.'+name).dropdown({
 				  inDuration: 300,
 			      outDuration: 225,
 			      constrain_width: constraintWidth, // Does not change width of dropdown to that of the activator

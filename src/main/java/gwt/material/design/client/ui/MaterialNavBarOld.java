@@ -248,26 +248,7 @@ public class MaterialNavBarOld extends Composite {
 			}
 		}
 		
-		for(Widget w : mobileNav){
-			if(w instanceof ListItem){
-				ListItem item = (ListItem) w;
-				for(Widget child : item){
-					if(!(child instanceof MaterialCollapsible)){
-						w.addStyleName("waves-effect waves-" + wave);
-						w.getElement().getStyle().setDisplay(Display.BLOCK);
-					}else{
-						MaterialCollapsible col = (MaterialCollapsible) child;
-						for(Widget colItem : col){
-							if(colItem instanceof MaterialCollapsibleItem){
-								((MaterialCollapsibleItem) colItem).getHeader().addStyleName("waves-effect waves-" + wave);
-							}
-						}
-					}
-					
-				}
-				
-			}
-		}
+		
 	}
 
 	public String getSideBar() {

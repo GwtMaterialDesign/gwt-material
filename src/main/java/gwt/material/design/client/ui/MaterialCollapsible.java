@@ -20,58 +20,51 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.HasType;
 
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.dom.client.Document;
 
-public class MaterialCollapsible extends UnorderedList implements HasGrid{
+public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasType{
 
-	private String wave = "";
-	private String type = "";
-	
+	/**
+	 * Creates an empty collapsible
+	 */
 	public MaterialCollapsible() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-		this.getElement().addClassName("collapsible");
-		onInitCollapsible();
-	}
-
-	@UiChild(tagname = "item")
-	public void addItem(final Widget item) {
-		if(!wave.isEmpty()){
-			item.addStyleName("waves-effect waves-" + wave);
-		}
-		this.add(item);
+		setElement(Document.get().createULElement());
+		setStyleName("collapsible");
 	}
 	
-	public static native void onInitCollapsible()/*-{
-		$wnd.jQuery(document).ready(function() {
-			$wnd.jQuery('.collapsible').collapsible({
-				accordion : false
-			});
-		});
+	/**
+	 *  Creates a list and adds the given widgets.
+	 */
+	public MaterialCollapsible(final MaterialCollapsibleItem... widgets){
+		this();
+		for (final MaterialCollapsibleItem item : widgets) {
+            add(item);
+        }
+	}
+
+	/**
+	 * Initialize the collapsible material component
+	 * @param uniqueId 
+	 */
+	private native void onInitCollapsible(final com.google.gwt.dom.client.Element e)/*-{
+		$wnd.jQuery(document).ready(function(){
+			$wnd.jQuery(e).collapsible();	
+		})
+			
 	}-*/;
 
-	public String getWave() {
-		return wave;
-	}
-
-	public void setWave(String wave) {
-		this.wave = wave;
-	}
-
-	public String getType() {
-		return type;
-	}
-
+	/**
+	 * Types
+	 * 1. accordion
+	 * 2. collapsible
+	 * 3. popout
+	 */
+	@Override
 	public void setType(String type) {
-		this.type = type;
 		if(type.equals("popout")){
 			this.getElement().setAttribute("data-collapsible", "accordion");
 			this.addStyleName(type);
@@ -85,6 +78,17 @@ public class MaterialCollapsible extends UnorderedList implements HasGrid{
 		this.addStyleName("col " + grid);
 	}
 
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		onInitCollapsible(getElement());
+	}
+
+	@Override
+	protected void onUnload() {
+		super.onUnload();
+	}
+	
 	
 	
 }

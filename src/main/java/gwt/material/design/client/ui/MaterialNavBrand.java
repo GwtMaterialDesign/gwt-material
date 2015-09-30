@@ -44,5 +44,8 @@ public class MaterialNavBrand extends CustomAnchor implements HasText, HasWidget
 		this.getElement().setAttribute("href", href);
 	}
 
+	public void setAlign(String align){
+		addStyleName(align);
+	}
 	
 }

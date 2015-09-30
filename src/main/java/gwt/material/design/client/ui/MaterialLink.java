@@ -24,6 +24,7 @@ import gwt.material.design.client.custom.CustomIcon;
 import gwt.material.design.client.custom.HasActivates;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.HasSeparator;
+import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Unit;
@@ -33,7 +34,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialLink extends FocusPanel implements HasGrid, HasSeparator, HasActivates{
+public class MaterialLink extends FocusPanel implements HasGrid, HasSeparator, HasActivates, HasWaves{
 
 	protected HTMLPanel panel = new HTMLPanel("");
 	private String text = "";
@@ -43,7 +44,6 @@ public class MaterialLink extends FocusPanel implements HasGrid, HasSeparator, H
 	private String iconPosition = "";
 	private String textColor = "";
 	protected String fontSize = "";
-	private String wave = "";
 	private Object object;
 	private String tooltip = "";
 	private String tooltipLocation = "bottom";
@@ -167,17 +167,16 @@ public class MaterialLink extends FocusPanel implements HasGrid, HasSeparator, H
 		setBadge(badge);
 	}
 	
-	public String getWave() {
-		return wave;
+	@Override
+	public void setWaves(String waves) {
+		this.addStyleName("waves-effect waves-" + waves);
 	}
 
-	public void setWave(String wave) {
-		this.wave = wave;
-		if (!wave.isEmpty()) {
-			this.addStyleName("waves-effect waves-" + wave);
-		}
-	}
-
+	@Override
+	public native void initWaves()/*-{
+	    $wnd.Waves.displayEffect();
+	}-*/;
+	
 	public Object getObject() {
 		return object;
 	}

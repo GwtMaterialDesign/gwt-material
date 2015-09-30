@@ -20,17 +20,18 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.user.client.DOM;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 @SuppressWarnings("deprecation")
-public class UnorderedList extends ComplexPanel {
+public class UnorderedList extends ComplexPanel implements HasWidgets{
 	
 	private String ulId = "";
 	
 	public UnorderedList() {
-		setElement(DOM.createElement("UL"));
+		setElement(Document.get().createULElement());
 	}
 
 	public void add(Widget w) {
@@ -40,6 +41,8 @@ public class UnorderedList extends ComplexPanel {
 	public void insert(Widget w, int beforeIndex) {
 		super.insert(w, getElement(), beforeIndex, true);
 	}
+	
+	
 
 	public String getUlId() {
 		return ulId;

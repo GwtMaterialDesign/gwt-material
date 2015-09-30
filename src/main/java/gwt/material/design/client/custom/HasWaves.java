@@ -8,4 +8,9 @@ public interface HasWaves {
 	 */
 	public void setWaves(String waves);
 	
+	/**
+	 * Initialize the ripple effect
+	 */
+	public void initWaves();
+	
 }

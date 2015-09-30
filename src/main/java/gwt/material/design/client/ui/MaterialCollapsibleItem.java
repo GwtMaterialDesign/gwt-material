@@ -1,5 +1,11 @@
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.custom.ComplexWidget;
+
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
+
 /*
  * #%L
  * GwtMaterial
@@ -20,43 +26,27 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.user.client.ui.Widget;
+public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets {
 
-public class MaterialCollapsibleItem extends ListItem{
-
+	
+	/**
+	 * Creates an empty collapsible item
+	 */
 	public MaterialCollapsibleItem() {
-		// TODO Auto-generated constructor stub
+		setElement(Document.get().createLIElement());
 	}
 	
-	private UnorderedList ulPanel;
-	private Widget header;
-	
-	@UiChild(tagname = "header")
-	public void addHeader(final Widget header) {
-		header.addStyleName("collapsible-header");
-		setHeader(header);
-		this.add(header);
-	}
-	
-	@UiChild(tagname = "content")
-	public void addContent(final Widget content) {
-		ulPanel = new UnorderedList();
-		ulPanel.addStyleName("collapsible-body");
-		
-		ulPanel.add(content);
-		ulPanel.getElement().getStyle().setPadding(2, Unit.EM);
-		ulPanel.getElement().getStyle().setMargin(0, Unit.EM);
-		this.add(ulPanel);
+	/**
+	 * Adds MaterialCollapsible contents 
+	 * @param widgets
+	 */
+	public MaterialCollapsibleItem(final Widget... widgets) {
+		this();
+		for(Widget w : widgets){
+			add(w);
+		}
 	}
 
-	public Widget getHeader() {
-		return header;
-	}
-
-	public void setHeader(Widget header) {
-		this.header = header;
-	}
 	
+
 }

@@ -1,6 +1,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.HasType;
+import gwt.material.design.client.custom.HasWaves;
 import gwt.material.design.client.custom.SideNavType;
 
 import java.util.Iterator;
@@ -10,7 +11,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialSideNav extends UnorderedList implements HasWidgets, HasType{
+public class MaterialSideNav extends UnorderedList implements HasWidgets, HasType, HasWaves{
 
 	
 	
@@ -33,7 +34,12 @@ public class MaterialSideNav extends UnorderedList implements HasWidgets, HasTyp
 	
 	@Override
 	public void add(Widget w) {
+		
 		ListItem item = new ListItem(w);
+		if(w instanceof MaterialImage){
+			item.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
+			item.getElement().getStyle().setProperty("textAlign", "center");
+		}
 		super.add(item);
 	}
 
@@ -118,7 +124,7 @@ public class MaterialSideNav extends UnorderedList implements HasWidgets, HasTyp
 	 * Shoe the sidenav
 	 * @param sidenav
 	 */
-	public native void onShowSideBar(String sideNav)/*-{
+	public native void show(String sideNav)/*-{
 		$wnd.jQuery("." + sideNav).sideNav('show');
 	}-*/;
 	
@@ -126,7 +132,7 @@ public class MaterialSideNav extends UnorderedList implements HasWidgets, HasTyp
 	 * Hide the sidenav
 	 * @param sideNav - the name of your sidenav
 	 */
-	public native void hideNav(String sideNav)/*-{
+	public native void hide(String sideNav)/*-{
 		$wnd.jQuery("." + sideNav).sideNav('hide');
 	}-*/;
 
@@ -144,5 +150,17 @@ public class MaterialSideNav extends UnorderedList implements HasWidgets, HasTyp
 		this.name = name;
 	}
 	
+	@Override
+	public void setWaves(String waves) {
+		for(Widget w : this){
+			if(w instanceof ListItem){
+				w.addStyleName(waves + " waves-effect");
+			}
+		}
+	}
 	
+	@Override
+	public native void initWaves() /*-{
+	    $wnd.Waves.displayEffect();
+	}-*/;
 }
