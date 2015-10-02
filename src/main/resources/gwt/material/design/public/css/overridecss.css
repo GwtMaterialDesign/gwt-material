@@ -415,6 +415,7 @@ li.token-input-input-token-facebook {
 /**SIDEBAR **/
 .side-nav li > div{
 	width: 100%;
+	margin-left: 0px !important;
 }
 .side-nav .brand-logo{
 	font-size: 2.1rem;
