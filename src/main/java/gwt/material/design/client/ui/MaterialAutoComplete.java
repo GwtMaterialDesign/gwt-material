@@ -315,4 +315,14 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
 		list.removeStyleName("field-error");
 		lblError.setVisible(true);
 	}
+	
+	@Override
+	public void setOffset(String offset) {
+		  String tobeadded = "";
+		  String[] vals = offset.split(" ");
+		  for(String val : vals){
+		   tobeadded = tobeadded + " offset-" +  val;
+		  }
+		  this.addStyleName(tobeadded);
+	}
 }

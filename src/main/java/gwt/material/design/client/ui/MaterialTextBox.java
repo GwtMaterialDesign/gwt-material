@@ -471,4 +471,14 @@ public class MaterialTextBox extends Composite implements
 	public void setGrid(String grid) {
 		this.addStyleName("col " + grid);
 	}
+	
+	@Override
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
+		}
+		this.addStyleName(tobeadded);
+	}
 }

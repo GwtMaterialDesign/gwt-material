@@ -26,7 +26,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialSplashScreen extends Composite {
@@ -76,17 +76,30 @@ public class MaterialSplashScreen extends Composite {
 	 * Show the splash screen 
 	 */
 	public void show(){
-		RootPanel.get().clear();
-		RootPanel.get().add(this);
-		Timer timer = new Timer() {
+		RootLayoutPanel.get().add(this);
+		final Timer timer = new Timer() {
 			
 			@Override
 			public void run() {
-				MaterialSplashScreen.this.removeFromParent();
-				RootPanel.get().add(getMain());
+			
+				RootLayoutPanel.get().clear();
+				RootLayoutPanel.get().add(getMain());
+				
 			}
+
+			/* (non-Javadoc)
+			 * @see com.google.gwt.user.client.Timer#cancel()
+			 */
+			@Override
+			public void cancel() {
+				// TODO Auto-generated method stub
+				super.cancel();
+			}
+			
+			
 		};
 		timer.schedule(splashTime);
+		
 	}
 
 	public ImageResource getLogo() {

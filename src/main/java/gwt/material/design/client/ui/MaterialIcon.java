@@ -205,5 +205,15 @@ public class MaterialIcon extends FocusPanel implements HasGrid, HasSeparator, H
 		this.getElement().setAttribute("data-activates", activates);
 		this.addStyleName(activates + " dropdown-button");
 	}
+	
+	@Override
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
+		}
+		this.addStyleName(tobeadded);
+	}
 
 }

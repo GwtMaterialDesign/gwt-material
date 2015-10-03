@@ -33,4 +33,10 @@ public interface HasGrid {
 	 */
 	public void setGrid(String grid);
 	
+	/**
+	 * Setting the offset 
+	 * @param offset
+	 */
+	public void setOffset(String offset);
+	
 }

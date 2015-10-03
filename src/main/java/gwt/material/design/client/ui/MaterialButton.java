@@ -341,4 +341,14 @@ public class MaterialButton extends MaterialWidget implements HasClickHandlers,H
 		this.addStyleName(activates + " dropdown-button");
 	}
 	
+	@Override
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
+		}
+		this.addStyleName(tobeadded);
+	}
+	
 }

@@ -189,4 +189,13 @@ public class MaterialRange extends Composite implements HasChangeHandlers, HasGr
 		this.addStyleName("col " + grid);
 	}
 	
+	@Override
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
+		}
+		this.addStyleName(tobeadded);
+	}
 }

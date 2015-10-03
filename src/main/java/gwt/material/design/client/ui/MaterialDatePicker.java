@@ -263,5 +263,15 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 		lblError.setVisible(true);
 	}
 	
+	@Override
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
+		}
+		this.addStyleName(tobeadded);
+	}
+	
 	
 }

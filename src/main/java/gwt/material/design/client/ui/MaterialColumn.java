@@ -20,9 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasGrid;
+
 import com.google.gwt.safehtml.shared.SafeHtml;
 
-public class MaterialColumn extends MaterialPanel {
+public class MaterialColumn extends MaterialPanel implements HasGrid{
 
 	private String grid = "";
 	private String offset = "";
@@ -58,18 +60,25 @@ public class MaterialColumn extends MaterialPanel {
 		return grid;
 	}
 
+	@Override
 	public void setGrid(String grid) {
 		this.grid = grid;
 		this.addStyleName(grid);
 	}
-
+	
 	public String getOffset() {
 		return offset;
 	}
 
+	@Override
 	public void setOffset(String offset) {
-		this.offset = offset;
-		this.addStyleName("offset-" + offset);
+		  this.offset = offset;
+		  String tobeadded = "";
+		  String[] vals = offset.split(" ");
+		  for(String val : vals){
+		   tobeadded = tobeadded + " offset-" +  val;
+		  }
+		  this.addStyleName(tobeadded);
 	}
 
 }

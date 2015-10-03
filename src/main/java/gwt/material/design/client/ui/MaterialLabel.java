@@ -100,7 +100,16 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator{
 			this.getElement().getStyle().setProperty("borderBottom", "1px solid #e9e9e9");
 		}
 	}
-
+	
+	@Override
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
+		}
+		this.addStyleName(tobeadded);
+	}
 	
 	
 }

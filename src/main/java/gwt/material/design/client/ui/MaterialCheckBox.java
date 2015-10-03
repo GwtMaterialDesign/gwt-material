@@ -151,5 +151,14 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 		this.addStyleName("col " + grid);
 	}
 	
+	@Override
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
+		}
+		this.addStyleName(tobeadded);
+	}
 
 }
