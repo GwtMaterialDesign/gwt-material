@@ -21,13 +21,30 @@ package gwt.material.design.client.ui;
  */
 
 
-import gwt.material.design.client.custom.CustomMain;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialContainer extends CustomMain{
+import gwt.material.design.client.custom.ComplexWidget;
+
+public class MaterialContainer extends ComplexWidget{
 
 	
+	/**
+	 * Creates an empty collapsible item
+	 */
 	public MaterialContainer() {
-		
+		setElement(Document.get().createElement("MAIN"));
+	}
+	
+	/**
+	 * Adds MaterialCollapsible contents 
+	 * @param widgets
+	 */
+	public MaterialContainer(final Widget... widgets) {
+		this();
+		for(Widget w : widgets){
+			add(w);
+		}
 	}
 
 

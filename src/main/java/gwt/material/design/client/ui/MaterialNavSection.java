@@ -21,45 +21,35 @@ package gwt.material.design.client.ui;
  */
 
 
-import java.util.Iterator;
+import gwt.material.design.client.custom.ComplexWidget;
 
-import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialNavSection extends UnorderedList implements HasWidgets{
+public class MaterialNavSection extends ComplexWidget {
 
 	
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material Links, Icons or any other material components
 	 */
-	@UiConstructor
-	public MaterialNavSection(String align) {
-		this.addStyleName(align + " hide-on-med-and-down");
+	public MaterialNavSection() {
+		setElement(Document.get().createULElement());
+		setStyleName("hide-on-med-and-down");
 	}
-
-	@Override
-	public void add(Widget w) {
-		ListItem item = new ListItem(w);
-		super.add(item);
+	
+	/**
+	 *  Creates a list and adds the given widgets.
+	 */
+	public MaterialNavSection(final Widget... widgets){
+		this();
+		for (final Widget item : widgets) {
+            add(item);
+        }
 	}
-
-	@Override
-	public void clear() {
-		this.clear();
+	
+	public void setAlign(String align){
+		addStyleName(align);
 	}
-
-	@Override
-	public Iterator<Widget> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean remove(Widget w) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	
 }

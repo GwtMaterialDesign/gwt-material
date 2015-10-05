@@ -21,18 +21,22 @@ package gwt.material.design.client.ui;
  */
 
 
+import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasType;
 import gwt.material.design.client.custom.HasWaves;
 import gwt.material.design.client.custom.SideNavType;
 
-import java.util.Iterator;
-
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialSideNav extends UnorderedList implements HasWidgets, HasType, HasWaves{
+/**
+ * SideNav is a material component that gives you a lists of menus and other navigation components.
+ * @param width
+ * @param name
+ */
+public class MaterialSideNav extends ComplexWidget implements HasType, HasWaves{
 
 	
 	
@@ -40,46 +44,38 @@ public class MaterialSideNav extends UnorderedList implements HasWidgets, HasTyp
 	private String name;
 	
 	/**
-	 * SideNav is a material component that gives you a lists of menus and other navigation components.
-	 * @param width
-	 * @param name
+	 * Container for App Toolbar and App Sidebar , contains Material Links, Icons or any other material components
 	 */
+	public MaterialSideNav() {
+		setElement(Document.get().createULElement());
+		setStyleName("side-nav");
+	}
+	
+	/**
+	 *  Creates a list and adds the given widgets.
+	 */
+	public MaterialSideNav(final Widget... widgets){
+		this();
+		for (final Widget w : widgets) {
+			ListItem item = new ListItem(w);
+			if(w instanceof MaterialImage){
+				item.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
+				item.getElement().getStyle().setProperty("textAlign", "center");
+			}
+			
+            add(item);
+        }
+	}
+	
 	@UiConstructor
 	public MaterialSideNav(int width, String name, boolean closeOnClick) {
+		this();
 		super.getElement().setId(name);
-		addStyleName("side-nav");
 		getElement().getStyle().setWidth(width, Unit.PX);
 		setName(name);
 		initNavBar(width, name, closeOnClick);
 	}
 	
-	@Override
-	public void add(Widget w) {
-		
-		ListItem item = new ListItem(w);
-		if(w instanceof MaterialImage){
-			item.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
-			item.getElement().getStyle().setProperty("textAlign", "center");
-		}
-		super.add(item);
-	}
-
-	@Override
-	public void clear() {
-		this.clear();
-	}
-
-	@Override
-	public Iterator<Widget> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean remove(Widget w) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	private static native void initNavBar(int width, String name, boolean closeOnClick)/*-{
 		$wnd.jQuery( document ).ready(function(){
