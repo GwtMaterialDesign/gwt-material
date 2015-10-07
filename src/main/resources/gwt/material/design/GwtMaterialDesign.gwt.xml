@@ -52,10 +52,11 @@
     <!-- public resources -->
     <public path="public"/>
 
-    <stylesheet src="css/materialize.blue.css"/>
+    <stylesheet src="css/materialize.red.css"/>
     <stylesheet src="css/overridecss.css"/>
     <stylesheet src="css/timepicker.css"/>
     <stylesheet src="css/animation.css"/>
+   	<stylesheet src="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <set-configuration-property name="devModeRedirectEnabled" value="true"/>
     <set-configuration-property name="CssResource.enableGss" value="true"/>
     <set-configuration-property name="CssResource.legacy" value="true"/>
