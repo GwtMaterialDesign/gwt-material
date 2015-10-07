@@ -38,10 +38,10 @@
 		}
 	</ui:style>
 	<c:CustomHeader ui:field="header">
-	    <c:CustomNav>
+	    <c:CustomNav ui:field="nav">
 		    <m:MaterialPanel ui:field="panel" addStyleNames="nav-wrapper" >
 		        <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse {style.navMenu}" >
-		        	<c:child><g:HTMLPanel><i class="mdi-navigation-menu"></i></g:HTMLPanel></c:child>
+		        	<g:HTMLPanel><i class="mdi-navigation-menu"></i></g:HTMLPanel>
 		        </c:CustomAnchor>
 		    </m:MaterialPanel>
 		</c:CustomNav>	

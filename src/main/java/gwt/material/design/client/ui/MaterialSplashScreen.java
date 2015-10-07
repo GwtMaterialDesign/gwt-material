@@ -21,12 +21,13 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialSplashScreen extends Composite {
@@ -76,20 +77,18 @@ public class MaterialSplashScreen extends Composite {
 	 * Show the splash screen 
 	 */
 	public void show(){
-		RootLayoutPanel.get().add(this);
+		RootPanel.get().add(this);
+		RootPanel.get().add(main);
+		main.getElement().getStyle().setDisplay(Display.NONE);
 		final Timer timer = new Timer() {
 			
 			@Override
 			public void run() {
-			
-				RootLayoutPanel.get().clear();
-				RootLayoutPanel.get().add(getMain());
+				MaterialSplashScreen.this.removeFromParent();
+				main.getElement().getStyle().setDisplay(Display.BLOCK);
 				
 			}
-
-			/* (non-Javadoc)
-			 * @see com.google.gwt.user.client.Timer#cancel()
-			 */
+			
 			@Override
 			public void cancel() {
 				// TODO Auto-generated method stub

@@ -20,36 +20,26 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
-@SuppressWarnings("deprecation")
-public class CustomParagraph extends ComplexPanel {
+public class CustomParagraph extends ComplexWidget {
 	
 	private String text;
 
 	public CustomParagraph() {
-		setElement(DOM.createElement("P"));
+		setElement(Document.get().createElement("p"));
 	}
 
 	public CustomParagraph(Widget item) {
-		setElement(DOM.createElement("P"));
+		setElement(Document.get().createElement("p"));
 		add(item);
 	}
 
 	public CustomParagraph(String text) {
-		// TODO Auto-generated constructor stub
 		this.setText(text);
 	}
 
-	public void add(Widget w) {
-		super.add(w, getElement());
-	}
-
-	public void insert(Widget w, int beforeIndex) {
-		super.insert(w, getElement(), beforeIndex, true);
-	}
 
 	/**
 	 * @return the text

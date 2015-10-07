@@ -23,7 +23,9 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.CustomAnchor;
 import gwt.material.design.client.custom.CustomHeader;
+import gwt.material.design.client.custom.CustomNav;
 import gwt.material.design.client.custom.HasColors;
+import gwt.material.design.client.custom.HasLoader;
 import gwt.material.design.client.custom.HasType;
 import gwt.material.design.client.custom.NavBarType;
 
@@ -38,7 +40,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialNavBar extends Composite implements HasWidgets, HasColors, HasType{
+public class MaterialNavBar extends Composite implements HasWidgets, HasColors, HasType, HasLoader{
 
 	private static NavBarUiBinder uiBinder = GWT.create(NavBarUiBinder.class);
 
@@ -47,8 +49,11 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 	
 	@UiField HTMLPanel panel;
 	@UiField CustomAnchor navMenu;
+	@UiField CustomNav nav;
 	@UiField CustomHeader header;
 
+	private MaterialProgress progress = new MaterialProgress();
+	
 	/**
 	 * Nav Bar is a component which contains your app tool bar and app sidebar
 	 */
@@ -118,6 +123,16 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void showLoader() {
+		nav.add(progress);
+	}
+
+	@Override
+	public void hideLoader() {
+		progress.removeFromParent();
 	}
 
 }

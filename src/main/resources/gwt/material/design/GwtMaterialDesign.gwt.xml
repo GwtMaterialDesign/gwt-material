@@ -52,7 +52,7 @@
     <!-- public resources -->
     <public path="public"/>
 
-    <stylesheet src="css/materialize.red.css"/>
+    <stylesheet src="css/materialize.blue.css"/>
     <stylesheet src="css/overridecss.css"/>
     <stylesheet src="css/timepicker.css"/>
     <stylesheet src="css/animation.css"/>

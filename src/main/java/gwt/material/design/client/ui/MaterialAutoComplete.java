@@ -43,6 +43,23 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 
+//@formatter:off
+/**
+* Use GWT Autocomplete to search for matches from local or remote data sources. We used MultiWordSuggestOracle to populate the list to be added on the autocomplete values
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+*  <m:MaterialAutoComplete ui:field="autocomplete" placeholder="States" />
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#autocompletes">Material Badge</a>
+*/
+//@formatter:on
 public class MaterialAutoComplete extends Composite implements HasError,  HasGrid{
 	
     private List<String> itemValues = new ArrayList<String>();

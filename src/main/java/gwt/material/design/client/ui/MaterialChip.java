@@ -75,7 +75,7 @@ public class MaterialChip extends Composite implements HasClickHandlers {
 		setText(text);
 	}
 
-	/* *
+	/**
 	 * Chips represent complex entities in small blocks, such as a contact. They
 	 * can contain a photo, short title string, and brief information.
 	 * 

@@ -28,7 +28,7 @@
 	</ui:style>
 	<m:MaterialPanel ui:field="chipPanel" addStyleNames="chip">
 	    <g:Image ui:field="imgChip" />
-	    <m:MaterialIcon ui:field="btnClose" icon="mdi-navigation-close" addStyleNames="right {style.action}"/>
+	    <m:MaterialIcon ui:field="btnClose" icon="close" addStyleNames="right {style.action}"/>
         <g:Label ui:field="lblChip" addStyleNames="right"/>
 	</m:MaterialPanel>
 </ui:UiBinder> 

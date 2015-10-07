@@ -20,79 +20,86 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.CustomSpan;
+import gwt.material.design.client.custom.HasColors;
+import gwt.material.design.client.custom.HasType;
 import gwt.material.design.client.resources.MaterialResources;
 
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.HasText;
 
-@SuppressWarnings("deprecation")
-public class MaterialBadge  extends ComplexPanel {
+//@formatter:off
+/**
+* Badges can notify you that there are new or unread messages or notifications. Add the new class to the badge to give it the background.
+* 
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* <m:MaterialBadge text="1 new" color="blue"/>
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#badges">Material Badge</a>
+*/
+//@formatter:on
+public class MaterialBadge  extends CustomSpan implements HasColors, HasText, HasType{
 	
-	private String type;
-	private String text;
-	private String color;
-	private Label label;
-	
+	/**
+	 * Creates  a badge component that can be added to Link , Collection , DropDown, Sidenav and any other Material components
+	 */
 	public MaterialBadge() {
-		setElement(DOM.createElement("SPAN"));
-		this.addStyleName("badge");
-		this.addStyleName(MaterialResources.INSTANCE.materialcss().badge());
+		setStyleName("badge");
+		addStyleName(MaterialResources.INSTANCE.materialcss().badge());
 	}
 	
 	
-
-	public MaterialBadge(String text, String color) {
-		setElement(DOM.createElement("SPAN"));
+	/**
+	 * Badge with text and color
+	 * @param text
+	 * @param color
+	 */
+	
+	
+	
+	public MaterialBadge(String text, String textColor, String bgColor) {
+		this();
 		setText(text);
-		setColor(color);
-		this.addStyleName("badge");
-		this.addStyleName(MaterialResources.INSTANCE.materialcss().badge());
+		setTextColor(textColor);
+		setBackgroundColor(bgColor);
+	}
+
+	@Override
+	public void setType(String type) {
+		addStyleName(type);
 	}
 
 
+	@Override
+	public String getText() {
+		return getElement().getInnerHTML();
+	}
 
-	@UiChild(tagname = "child")
-	public void addWidget(final Widget item) {
-		add(item);
+
+	@Override
+	public void setText(String text) {
+		getElement().setInnerHTML(text);
+	}
+
+
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		addStyleName(bgColor);
+	}
+
+
+	@Override
+	public void setTextColor(String textColor) {
+		addStyleName(textColor + "-text");
 	}
 	
-	public void add(Widget w) {
-		super.add(w, getElement());
-	}
 
-	public void insert(Widget w, int beforeIndex) {
-		super.insert(w, getElement(), beforeIndex, true);
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-		this.addStyleName(type);
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-		this.label = new Label(text);
-		add(label);
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-		this.addStyleName(color);
-	}
 
 }

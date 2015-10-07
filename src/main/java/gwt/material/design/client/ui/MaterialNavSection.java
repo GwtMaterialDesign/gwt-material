@@ -43,7 +43,8 @@ public class MaterialNavSection extends ComplexWidget {
 	public MaterialNavSection(final Widget... widgets){
 		this();
 		for (final Widget item : widgets) {
-            add(item);
+			ListItem li = new ListItem(item);
+            add(li);
         }
 	}
 	

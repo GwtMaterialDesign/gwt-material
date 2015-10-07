@@ -36,5 +36,10 @@ public interface HasTooltip {
 	 * @param tooltip
 	 */
 	public void setTooltipLocation(String tooltipLocation);
+	
+	/**
+	 * Initilize the tooltip component
+	 */
+	public void initTooltip();
 
 }

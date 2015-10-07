@@ -20,33 +20,16 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.dom.client.Document;
 
-@SuppressWarnings("deprecation")
-public class CustomInput  extends ComplexPanel {
+public class CustomInput  extends ComplexWidget {
 	
 	private String type="";
 	private String placeholder="";
 	private boolean required;
 	
 	public CustomInput() {
-		setElement(DOM.createElement("INPUT"));
-	}
-
-	@UiChild(tagname = "child")
-	public void addWidget(final Widget item) {
-		add(item);
-	}
-	
-	public void add(Widget w) {
-		super.add(w, getElement());
-	}
-
-	public void insert(Widget w, int beforeIndex) {
-		super.insert(w, getElement(), beforeIndex, true);
+		setElement(Document.get().createElement("input"));
 	}
 
 	public String getType() {

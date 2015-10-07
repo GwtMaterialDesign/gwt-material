@@ -36,10 +36,10 @@
 		}
 	</ui:style>
 	<g:HTMLPanel ui:field="panel" addStyleNames="{style.panel}">
-		<c:CustomButton ui:field="button">
+		<c:ButtonBase ui:field="button">
 			<c:CustomIcon ui:field="iconElem" addStyleNames="{style.icon}"/>
 			<g:Label ui:field="label" addStyleNames="{style.label}"/>
-		</c:CustomButton>
+		</c:ButtonBase>
 		
 		<c:CustomAnchor ui:field="anchor" />
 	</g:HTMLPanel>

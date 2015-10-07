@@ -14,6 +14,11 @@
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
 }
+/** Button **/
+button.btn-flat:focus {
+    outline: none;
+    background-color: inherit;
+}
 /** Errors **/
 .field-error, .field-error-picker input{
     border-bottom: 1px solid #F44336 !important;
@@ -668,6 +673,7 @@ html,body {
 }
 
 a:hover,a:visited {
+	color: none !important;
 	text-decoration: none !important;
 }
 
