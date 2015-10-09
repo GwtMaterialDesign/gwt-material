@@ -1,21 +1,17 @@
-package gwt.material.design.client.custom;
+package gwt.material.design.client.type;
 
 /**
- * Type of the Sidenav
- * - raised
- * - flat
- * - floating
+ * Types of Icon
+ * - CIRCLE
  * @author kevzlou7979
  *
  */
-public enum ButtonType {
-	RAISED("raised"), 
-	FLAT("flat"), 
-	FLOATING("floating");
+public enum IconType {
+	CIRCLE("circle");
 	
 	String value;
 	
-	ButtonType(String value){
+	IconType(String value){
 		this.value = value;
 	}
 	/**
@@ -36,14 +32,14 @@ public enum ButtonType {
 	 * @param text
 	 * @return Type
 	 */
-	public static ButtonType fromString(String text) {
+	public static IconType fromString(String text) {
 	    if (text != null) {
-	      for (ButtonType b : ButtonType.values()) {
+	      for (IconType b : IconType.values()) {
 	        if (text.equalsIgnoreCase(b.getValue())) {
 	          return b;
 	        }
 	      }
 	    }
 	    return null;
-	  }
+	 }
 }

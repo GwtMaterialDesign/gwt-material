@@ -26,8 +26,7 @@ import gwt.material.design.client.custom.CustomHeader;
 import gwt.material.design.client.custom.CustomNav;
 import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasLoader;
-import gwt.material.design.client.custom.HasType;
-import gwt.material.design.client.custom.NavBarType;
+import gwt.material.design.client.type.NavBarType;
 
 import java.util.Iterator;
 
@@ -40,8 +39,9 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialNavBar extends Composite implements HasWidgets, HasColors, HasType, HasLoader{
+public class MaterialNavBar extends Composite implements HasWidgets, HasColors, HasLoader{
 
+	
 	private static NavBarUiBinder uiBinder = GWT.create(NavBarUiBinder.class);
 
 	interface NavBarUiBinder extends UiBinder<Widget, MaterialNavBar> {
@@ -109,11 +109,8 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 		panel.addStyleName(textColor + "-text");
 	}
 
-
-	@Override
-	public void setType(String type) {
-		NavBarType navType = NavBarType.fromString(type);
-		switch (navType) {
+	public void setType(NavBarType type) {
+		switch (type) {
 		case FIXED:
 			header.addStyleName("navbar-fixed");
 			break;

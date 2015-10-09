@@ -1,11 +1,19 @@
-package gwt.material.design.client.custom;
+package gwt.material.design.client.type;
 
-public enum IconType {
-
-	CIRCLE("circle");
+/**
+ * Types of CheckBox<br>
+ * - FILLED<br>
+ * - INTERMEDIATE<br>
+ * @author kevzlou7979
+ *
+ */
+public enum CheckBoxType {
+	FILLED("filled"), 
+	INTERMEDIATE("intermediate");
 	
 	String value;
-	IconType(String value){
+	
+	CheckBoxType(String value){
 		this.value = value;
 	}
 	/**
@@ -26,9 +34,9 @@ public enum IconType {
 	 * @param text
 	 * @return Type
 	 */
-	public static IconType fromString(String text) {
+	public static CheckBoxType fromString(String text) {
 	    if (text != null) {
-	      for (IconType b : IconType.values()) {
+	      for (CheckBoxType b : CheckBoxType.values()) {
 	        if (text.equalsIgnoreCase(b.getValue())) {
 	          return b;
 	        }
@@ -36,5 +44,4 @@ public enum IconType {
 	    }
 	    return null;
 	  }
-	
 }

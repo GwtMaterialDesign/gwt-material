@@ -1,14 +1,9 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.ButtonBase;
-import gwt.material.design.client.custom.ButtonType;
 import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasActivates;
-import gwt.material.design.client.custom.HasColors;
-import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.HasIcons;
-import gwt.material.design.client.custom.HasType;
-import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.type.ButtonType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasText;
@@ -34,7 +29,7 @@ import com.google.gwt.user.client.ui.HasText;
 * <m:MaterialButton text="Button" type="flat" waves="grey" />
 * 
 * Large Button
-* <m:MaterialButton size="large" text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="right"/>
+* <m:MaterialButton size="large" text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="right"/>}
 * </pre>
 * </p>
 * 
@@ -43,9 +38,11 @@ import com.google.gwt.user.client.ui.HasText;
 */
 
 //@formatter:on
-public class MaterialButton extends ButtonBase implements HasText, HasGrid, HasActivates, HasWaves, HasColors, HasIcons, HasType{
+public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 
 	private MaterialIcon iconElem = new MaterialIcon();
+	private CustomSpan spanElem = new CustomSpan();
+	private String text;
 	
 	/**
 	 * Creates an empty button
@@ -76,7 +73,7 @@ public class MaterialButton extends ButtonBase implements HasText, HasGrid, HasA
 	 * @param waves - A material design aspect that helps user to add ripple effect on button
 	 * @param tooltip - The tooltip to be shown when it is hovered
 	 */
-	public MaterialButton(String icon, String bgColor, String type, String waves, String tooltip, String tooltipLocation) {
+	public MaterialButton(String icon, String bgColor, ButtonType type, String waves, String tooltip, String tooltipLocation) {
 		this();
 		setType(type);
 		setBackgroundColor(bgColor);
@@ -96,7 +93,7 @@ public class MaterialButton extends ButtonBase implements HasText, HasGrid, HasA
 	 * @param size - small, medium or large
 	 * @param tooltip - The tooltip to be shown when it is hovered
 	 */
-	public MaterialButton(String text, String type, String icon, String iconPosition, String size, String tooltip, String tooltipLocation) {
+	public MaterialButton(String text, ButtonType type, String icon, String iconPosition, String size, String tooltip, String tooltipLocation) {
 		this();
 		setText(text);
 		setType(type);
@@ -113,57 +110,6 @@ public class MaterialButton extends ButtonBase implements HasText, HasGrid, HasA
 		super.onLoad();
 		initWaves();
 		initTooltip();
-	}
-
-	@Override
-	public void setActivates(String activates) {
-		this.getElement().setAttribute("data-activates", activates);
-		this.addStyleName(activates + " dropdown-button");
-	}
-
-	@Override
-	public void setGrid(String grid) {
-		addStyleName("col " + grid);
-	}
-
-	@Override
-	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
-		}
-		this.addStyleName(tobeadded);
-	}
-
-	@Override
-	public String getText() {
-		return null;
-	}
-
-	@Override
-	public void setText(String text) {
-		add(new CustomSpan(text));
-	}
-
-	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-	}
-
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
-
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
 	}
 
 	@Override
@@ -186,10 +132,15 @@ public class MaterialButton extends ButtonBase implements HasText, HasGrid, HasA
 		addStyleName("btn-" + size);
 	}
 
-	@Override
-	public void setType(String type) {
-		ButtonType btnType = ButtonType.fromString(type);
-		switch (btnType) {
+	/**
+	 * ButtonType to be applied into your component
+	 * - RAISED (Default)
+	 * - FLAT
+	 * - FLOATING
+	 * @param type
+	 */
+	public void setType(ButtonType type) {
+		switch (type) {
 		case FLAT:
 			addStyleName("btn-flat");
 			removeStyleName("btn");
@@ -203,13 +154,21 @@ public class MaterialButton extends ButtonBase implements HasText, HasGrid, HasA
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see gwt.material.design.client.custom.ButtonBase#setHref(java.lang.String)
-	 */
 	@Override
-	public void setHref(String href) {
-		getElement().setAttribute("data-href", href);
+	public void setText(String text) {
+		this.text= text;
+		spanElem.setText(text);
+		add(spanElem);
 	}
 	
+	@Override
+	public String getText() {
+		return text;
+	}
+
+	@Override
+	public void setIconColor(String iconColor) {
+		iconElem.addStyleName(iconColor + "-text");
+	}
 	
 }

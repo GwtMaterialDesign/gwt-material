@@ -467,6 +467,7 @@ nav .nav-wrapper .side-nav i {
 }
 .side-nav i{
 	font-size: 2em !important;
+	line-height: inherit;
 }
 
 .side-nav .collapsible-header , .side-nav .collapsible-body{
@@ -720,7 +721,7 @@ a:hover,a:visited {
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
-	color: #9F9F9F;
+	color: #9F9F9F !important;
 	cursor: default;
 }
 

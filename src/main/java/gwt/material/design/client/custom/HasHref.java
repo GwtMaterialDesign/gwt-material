@@ -29,4 +29,10 @@ public interface HasHref {
 	 */
 	public void setHref(String href);
 	
+	/**
+	 * Set the target of the href
+	 * @param target
+	 */
+	public void setTarget(String target);
+	
 }

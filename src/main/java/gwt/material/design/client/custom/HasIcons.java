@@ -25,5 +25,11 @@ public interface HasIcons {
      * @param size
 	 */
 	public void setSize(String size);
+	
+	/**
+	 * Sets the color of the icon
+	 * @param iconColor
+	 */
+	public void setIconColor(String iconColor);
 
 }

@@ -1,4 +1,4 @@
-package gwt.material.design.client.custom;
+package gwt.material.design.client.type;
 
 /*
  * #%L
@@ -21,18 +21,29 @@ package gwt.material.design.client.custom;
  */
 
 
+
 /**
- * Types of NavBar
+ * Types of Sidenav<br>
+ * - OPEN<br>
+ * - CLOSE<br>
+ * - MINI<br>
+ * - CLIP<br>
+ * - FLOAT<br>
+ * - CARD<br>
  * @author kevzlou7979
  *
  */
-public enum NavBarType {
+public enum SideNavType{
 
-	FIXED("fixed"),
-	TALL("tall");
+	OPEN("open"), 
+	CLOSE("close"), 
+	MINI("mini"),
+	CLIP("clip"),
+	FLOAT("float"),
+	CARD("card");
 	
 	String value;
-	NavBarType(String value){
+	SideNavType(String value){
 		this.value = value;
 	}
 	/**
@@ -53,9 +64,9 @@ public enum NavBarType {
 	 * @param text
 	 * @return Type
 	 */
-	public static NavBarType fromString(String text) {
+	public static SideNavType fromString(String text) {
 	    if (text != null) {
-	      for (NavBarType b : NavBarType.values()) {
+	      for (SideNavType b : SideNavType.values()) {
 	        if (text.equalsIgnoreCase(b.getValue())) {
 	          return b;
 	        }

@@ -42,13 +42,13 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, HasClickHandlers, HasDoubleClickHandlers, HasHref, HasTooltip, HasEnabled{
+public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, HasClickHandlers, HasDoubleClickHandlers, HasHref, HasTooltip
+, HasGrid, HasActivates, HasColors, HasWaves, HasDisabled{
 	
 	
-	private boolean enabled = true;
+	private boolean disabled = false;
 	
 	/**
      * {@inheritDoc}
@@ -71,7 +71,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, MouseDownEvent.getType());
@@ -80,7 +80,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, MouseUpEvent.getType());
@@ -89,7 +89,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, MouseOutEvent.getType());
@@ -98,7 +98,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, MouseOverEvent.getType());
@@ -107,7 +107,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, MouseMoveEvent.getType());
@@ -116,7 +116,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, MouseWheelEvent.getType());
@@ -125,7 +125,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, ClickEvent.getType());
@@ -134,7 +134,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
 		// TODO Auto-generated method stub
-		if(!enabled){
+		if(disabled){
 			return null;
 		}
 		return addDomHandler(handler, DoubleClickEvent.getType());
@@ -149,6 +149,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	public void setTooltip(String tooltip) {
 		addStyleName("tooltipped");
 		getElement().setAttribute("data-tooltip", tooltip);
+		initTooltip();
 	}
 
 	@Override
@@ -164,30 +165,65 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	}-*/;
 
 	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isDisabled() {
+		return disabled;
 	}
 
 	@Override
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+		getElement().setAttribute("disabled", String.valueOf(disabled));
+		getElement().getStyle().setProperty("color", "#b3b3b3 !important");
+		addStyleName("disabled");
+		removeStyleName("waves-effect");
+		
+	}
+	
+	@Override
+	public void setGrid(String grid) {
+		addStyleName("col " + grid);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.Widget#onLoad()
-	 */
 	@Override
-	protected void onLoad() {
-		// TODO Auto-generated method stub
-		super.onLoad();
-		if(!enabled){
-			getElement().setAttribute("disabled", "true");
-			addStyleName("disabled");
-			removeStyleName("waves-effect");
+	public void setOffset(String offset) {
+		String tobeadded = "";
+		String[] vals = offset.split(" ");
+		for(String val : vals){
+			tobeadded = tobeadded + " offset-" +  val;
 		}
+		this.addStyleName(tobeadded);
 	}
-	
-	
+
+	@Override
+	public void setActivates(String activates) {
+		this.getElement().setAttribute("data-activates", activates);
+		this.addStyleName(activates + " dropdown-button");
+	}
+
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		addStyleName(bgColor);
+	}
+
+
+	@Override
+	public void setTextColor(String textColor) {
+		addStyleName(textColor + "-text");
+	}
+
+	@Override
+	public void setWaves(String waves) {
+		addStyleName("waves-effect waves-" + waves);
+	}
+
+	@Override
+	public native void initWaves()/*-{
+	    $wnd.Waves.displayEffect();
+	}-*/;
+
+	@Override
+	public void setTarget(String target) {
+		getElement().setAttribute("target", target);
+	}
 
 }

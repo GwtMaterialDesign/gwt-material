@@ -170,7 +170,7 @@ public class MaterialTopNav extends Composite {
 	private void generateProfile(){
 		panel.clear();
 		MaterialImage profile = new MaterialImage();
-		MaterialLink link = new MaterialLink();
+		MaterialLink3 link = new MaterialLink3();
 		link.getElement().getStyle().setFontWeight(FontWeight.BOLD);
 		link.setTextColor("white");
 		link.setText(profileName);

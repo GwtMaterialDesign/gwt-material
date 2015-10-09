@@ -62,5 +62,10 @@ public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref 
 		// TODO Auto-generated method stub
 		return text;
 	}
+
+	@Override
+	public void setTarget(String target) {
+		getElement().setAttribute("target", target);
+	}
 	
 }

@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.CustomSpan;
 import gwt.material.design.client.custom.HasColors;
-import gwt.material.design.client.custom.HasType;
 import gwt.material.design.client.resources.MaterialResources;
 
 import com.google.gwt.user.client.ui.HasText;
@@ -37,7 +36,7 @@ import com.google.gwt.user.client.ui.HasText;
 * 
 * <pre>
 * {@code 
-* <m:MaterialBadge text="1 new" color="blue"/>
+* <m:MaterialBadge text="1 new" color="blue"/>}
 * </pre>
 * </p>
 * 
@@ -45,37 +44,28 @@ import com.google.gwt.user.client.ui.HasText;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#badges">Material Badge</a>
 */
 //@formatter:on
-public class MaterialBadge  extends CustomSpan implements HasColors, HasText, HasType{
+public class MaterialBadge  extends CustomSpan implements HasColors, HasText{
 	
 	/**
 	 * Creates  a badge component that can be added to Link , Collection , DropDown, Sidenav and any other Material components
 	 */
 	public MaterialBadge() {
-		setStyleName("badge");
+		setStyleName("badge sideBarBadge");
 		addStyleName(MaterialResources.INSTANCE.materialcss().badge());
 	}
 	
 	
 	/**
 	 * Badge with text and color
-	 * @param text
-	 * @param color
+	 * @param text - text of the badge
+	 * @param color - color of the badge
 	 */
-	
-	
-	
 	public MaterialBadge(String text, String textColor, String bgColor) {
 		this();
 		setText(text);
 		setTextColor(textColor);
 		setBackgroundColor(bgColor);
 	}
-
-	@Override
-	public void setType(String type) {
-		addStyleName(type);
-	}
-
 
 	@Override
 	public String getText() {

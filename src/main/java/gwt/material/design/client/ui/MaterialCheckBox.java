@@ -20,12 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasDisabled;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.resources.MaterialResources;
+import gwt.material.design.client.type.CheckBoxType;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -36,12 +37,34 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.CheckBox;
 
-public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid{
+//@formatter:off
+/**
+* Checkbox component provides two types
+* - FILLED
+* - INTERMEDIATE
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* Default
+* <m:MaterialCheckBox text="Option 1"/>
+* 
+* Filled
+* <m:MaterialCheckBox text="Option 1" type="FILLED"/>
+* 
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">CheckBox</a>
+*/
+public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid, HasDisabled{
 
 	private Object object;
 	private String old;
 	private boolean disabled;
-	private String type;
 	
 	public MaterialCheckBox() {
 		// TODO Auto-generated constructor stub
@@ -95,9 +118,6 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 		this.object = object;
 	}
 	
-	
-	
-
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		return addDomHandler(handler, ClickEvent.getType());
@@ -105,44 +125,47 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 
 	@Override
 	protected void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		this.getElement().getStyle().setDisplay(Display.BLOCK);
-		this.getElement().getStyle().setMarginBottom(3, Unit.PCT);
 	}
 
 	public String getOld() {
 		return old;
 	}
 
+	/**
+	 * Used the old checkbox
+	 * @param old
+	 */
 	public void setOld(String old) {
 		this.old = old;
 		this.addStyleName(MaterialResources.INSTANCE.materialcss().oldCheckBox());
 	}
-
+	
+	@Override
 	public boolean isDisabled() {
 		return disabled;
 	}
-
+	
+	@Override
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 		this.setEnabled(!disabled);
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-		if(type.equalsIgnoreCase("indeterminate")){
-			this.addStyleName(type + "-checkbox");
-		}else if(type.equalsIgnoreCase("filled")){
+	public void setType(CheckBoxType type) {
+		switch (type) {
+		case FILLED:
 			Element e_cb = this.getElement(); 
 	        Element e_input = DOM.getChild(e_cb, 0); 
 	        e_input.setAttribute("class", "filled-in");
-		}else{
-			this.addStyleName(type);
+			break;
+		case INTERMEDIATE:
+			this.addStyleName(type + "-checkbox");
+			break;
+		default:
+			this.addStyleName(type.getValue());
+			break;
 		}
 	}
 

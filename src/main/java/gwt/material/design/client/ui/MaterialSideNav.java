@@ -21,10 +21,9 @@ package gwt.material.design.client.ui;
  */
 
 
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasType;
+import gwt.material.design.client.custom.ComplexNav;
 import gwt.material.design.client.custom.HasWaves;
-import gwt.material.design.client.custom.SideNavType;
+import gwt.material.design.client.type.SideNavType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
@@ -36,12 +35,13 @@ import com.google.gwt.user.client.ui.Widget;
  * @param width
  * @param name
  */
-public class MaterialSideNav extends ComplexWidget implements HasType, HasWaves{
+public class MaterialSideNav extends ComplexNav implements HasWaves{
 
 	
-	
-	
 	private String name;
+	private int width;
+	private boolean closeOnClick;
+	private SideNavType type;
 	
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material Links, Icons or any other material components
@@ -68,32 +68,19 @@ public class MaterialSideNav extends ComplexWidget implements HasType, HasWaves{
 	}
 	
 	@UiConstructor
-	public MaterialSideNav(int width, String name, boolean closeOnClick) {
+	public MaterialSideNav(String name, int width, boolean closeOnClick, SideNavType type){
 		this();
-		super.getElement().setId(name);
-		getElement().getStyle().setWidth(width, Unit.PX);
 		setName(name);
-		initNavBar(width, name, closeOnClick);
+		setWidth(width);
+		setCloseOnClick(closeOnClick);
+		setType(type);
 	}
 	
-	
-	private static native void initNavBar(int width, String name, boolean closeOnClick)/*-{
-		$wnd.jQuery( document ).ready(function(){
-			$wnd.jQuery(".button-collapse").sideNav({
-				menuWidth: width,
-				closeOnClick: closeOnClick
-			});
-		}) 
-	}-*/;
-
-	/**
-	 * Set the type of the sideBar
-	 * OPEN, CLOSE, MINI, CLIP 
-	 */
 	@Override
-	public void setType(String type) {
-		SideNavType type2 = SideNavType.fromString(type);
-		switch (type2) {
+	protected void onLoad() {
+		super.onLoad();
+		
+		switch (type) {
 		case OPEN:
 			addStyleName("fixed open");
 			break;
@@ -116,6 +103,42 @@ public class MaterialSideNav extends ComplexWidget implements HasType, HasWaves{
 			showNavMenu(name);
 			break;
 		}
+		initNavBar(width, name, closeOnClick);
+	}
+
+	@Override
+	protected void onUnload() {
+		super.onUnload();
+	}
+	
+	public void setWidth(int width){
+		this.width = width;
+		getElement().getStyle().setWidth(width, Unit.PX);
+	}
+	
+	
+	public void setCloseOnClick(boolean closeOnClick){
+		this.closeOnClick = closeOnClick;
+	}
+	
+	private static native void initNavBar(int width, String name, boolean closeOnClick)/*-{
+		$wnd.jQuery( document ).ready(function(){
+			$wnd.jQuery(".button-collapse").sideNav({
+				menuWidth: width,
+				closeOnClick: closeOnClick
+			});
+		}) 
+	}-*/;
+
+	/**
+	 * Set the type of the sideBar
+	 * - OPEN
+	 * - CLOSE
+	 * - MINI
+	 * - CLIP 
+	 */
+	public void setType(SideNavType type) {
+		this.type = type;
 	}
 
 	/**
@@ -165,6 +188,7 @@ public class MaterialSideNav extends ComplexWidget implements HasType, HasWaves{
 	 */
 	public void setName(String name) {
 		this.name = name;
+		super.getElement().setId(name);
 	}
 	
 	@Override
@@ -174,6 +198,7 @@ public class MaterialSideNav extends ComplexWidget implements HasType, HasWaves{
 				w.addStyleName(waves + " waves-effect");
 			}
 		}
+		initWaves();
 	}
 	
 	@Override
