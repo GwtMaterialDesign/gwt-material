@@ -49,7 +49,7 @@ public class MaterialToast {
 	 * @param msg - Message text for your toast
 	 * @param link - A MaterialLink Widget to have some specific function when clicked.
 	 */
-	public static void alert(String msg, MaterialLink3 link) {
+	public static void alert(String msg, MaterialLink link) {
 		String genId = DOM.createUniqueId();
 		alertWithAction(msg, genId);
 		link.getElement().getStyle().setPaddingLeft(30, Unit.PX);

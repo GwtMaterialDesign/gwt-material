@@ -25,7 +25,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ComplexWidget extends ComplexPanel {
+public class ComplexWidget extends ComplexPanel{
 	
 	/**
      * {@inheritDoc}

@@ -1,255 +1,102 @@
 package gwt.material.design.client.ui;
 
-/*
- * #%L
- * GwtMaterial
- * %%
- * Copyright (C) 2015 GwtMaterialDesign
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
+import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasGrid;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.dom.client.Style.VerticalAlign;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialCard extends Composite implements HasGrid{
+//@formatter:off
+/**
+* Cards are a convenient means of displaying content composed of different types of objects. They’re also well-suited for presenting similar objects whose size or supported actions can vary considerably, like photos with captions of variable length.
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* Basic Card
+<m:MaterialCard backgroundColor="blue-grey darken-1" grid="l3">
+	<m:MaterialCardContent textColor="white">
+		<m:MaterialCardTitle text="Sample" icon="polymer" iconPosition="right"/>
+		<m:MaterialLabel text="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively." />
+	</m:MaterialCardContent>
+	<m:MaterialCardAction>
+		<m:MaterialLink text="Link 1" icon="polymer" iconPosition="left"/>
+		<m:MaterialLink text="Link 1" icon="polymer" iconPosition="left"/>
+	</m:MaterialCardAction>
+</m:MaterialCard>
+* 
+* Image Card
+<m:MaterialCard backgroundColor="white" grid="l3">
+	<m:MaterialCardImage waves="light">
+		<m:MaterialImage url="http://assets.materialup.com/uploads/ac9bf2ac-bf1c-4dc0-b655-0e13bf523bc8/20150710-__.png"/>
+		<m:MaterialCardTitle text="Sample" iconPosition="right"/>
+	</m:MaterialCardImage>
+	            
+	<m:MaterialCardContent textColor="black">
+		<m:MaterialLabel text="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively." />
+	</m:MaterialCardContent>
+			    
+	<m:MaterialCardAction>
+		<m:MaterialLink text="Link 1" icon="polymer" iconPosition="left"/>
+		<m:MaterialLink text="Link 1" icon="polymer" iconPosition="left"/>
+	</m:MaterialCardAction>
+</m:MaterialCard>
+* 
+* Reveal Card
+<m:MaterialCard backgroundColor="white" grid="l3">
+	<m:MaterialCardImage waves="light">
+		<m:MaterialImage url="http://assets.materialup.com/uploads/b6992fb2-7bf4-401d-a233-e34a486b9337/gif.gif"/>
+	</m:MaterialCardImage>
+	            
+	<m:MaterialCardContent textColor="black">
+		<m:MaterialCardTitle text="Sample" icon="more_vert" iconPosition="right" textColor="black"/>
+	</m:MaterialCardContent>
+			    
+	<m:MaterialCardReveal>
+		<m:MaterialCardTitle text="Sample" icon="close" iconPosition="right" textColor="black"/>
+		<m:MaterialLabel text="Here is some more information about this product that is only revealed once clicked on." />
+	</m:MaterialCardReveal>
+			    
+	<m:MaterialCardAction>
+		<m:MaterialLink text="Link 1" textColor="blue" icon="polymer" iconPosition="left"/>
+		<m:MaterialLink text="Link 1" textColor="blue" icon="polymer" iconPosition="left"/>
+	</m:MaterialCardAction>
+</m:MaterialCard>}
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
+*/
 
-	private static MaterialCardUiBinder uiBinder = GWT
-			.create(MaterialCardUiBinder.class);
+//@formatter:on
+public class MaterialCard extends ComplexWidget implements HasColors, HasGrid{
 
-	interface MaterialCardUiBinder extends UiBinder<Widget, MaterialCard> {
-	}
-
-	@UiField
-	Image imgCard;
-	
-	@UiField 
-	Label lblTitle, lblDescription;
-	
-	@UiField 
-	HTMLPanel panel, cardPanel, cardContentPanel, cardRevealPanel,cardRevealContent, actionPanel, headerPanel;
-	
-	private ImageResource resource;
-	private String url = "";
-	private String title="";
-	private String description = "";
-	private String size = "medium";
-	private String type = "";
-	private String imageHeight = "";
-	private String color = "";
-	
-	public MaterialCard() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
-
-	public ImageResource getResource() {
-		return resource;
-	}
-
-	public void setResource(ImageResource resource) {
-		this.resource = resource;
-		imgCard.setResource(resource);
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-		imgCard.setUrl(url);
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-		generateCard();
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-		lblDescription.setText(description);
-	}
-
-	public String getSize() {
-		return size;
-	}
-
-	public void setSize(String size) {
-		this.size = size;
-		if(!size.isEmpty()){
-			cardPanel.addStyleName(size);
-		}
-	}
-
-	public String getType() {
-		return type;
-	}
-	
-	@UiChild( tagname = "link" )
-	public void addWidget(Widget item) {
-		item.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
-		item.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
-		actionPanel.add(item);
-	} 
-	
-	@UiChild( tagname = "reveal" )
-	public void addRevealContent(Widget item){
-		cardRevealContent.add(item);
-	}
-	
-	@UiChild( tagname = "header")
-	public void addHeader(Widget item){
-		headerPanel.add(item);
-	} 
-	
-	@UiChild( tagname = "content")
-	public void addContent(Widget item){
-		cardContentPanel.add(item);
-	} 
-
-	public void setType(String type) {
-		this.type = type;
-		generateCard();
-	}
-	
-	private void generateCard(){
-		String textColor = "grey";
-		if(!color.isEmpty()){ 
-			cardPanel.addStyleName(color);
-			textColor = "white";
-		}
-		if(!color.isEmpty()) actionPanel.addStyleName(color + " darken-1");
-		
-		switch (type) {
-		case "reveal":
-		case "chart":
-			cardContentPanel.clear();
-			cardRevealPanel.clear();
-			lblTitle.removeFromParent();
-			cardContentPanel.add(new HTML("<span class='card-title activator "+textColor+"-text text-darken-4'>"+title+"<i class='mdi-navigation-more-vert right'></i></span>"));
-			cardContentPanel.getElement().getStyle().setPaddingBottom(0, Unit.PX);
-			cardRevealPanel.add(new HTML("<span class='card-title activator grey-text text-darken-4'>"+title+"<i class='mdi-navigation-close right'></i></span>"));
-			cardRevealPanel.add(lblDescription);
-			cardRevealPanel.add(cardRevealContent);
-			break;
-		case "basic":
-			cardContentPanel.clear();
-			cardRevealPanel.removeFromParent();
-			cardContentPanel.add(new HTML("<span class='card-title "+textColor+"-text'>"+title+"</span>"));
-			lblDescription.addStyleName(textColor+"-text");
-			cardContentPanel.add(lblDescription);
-			headerPanel.removeFromParent();
-			if(actionPanel.getWidgetCount()==0) actionPanel.removeFromParent();
-			break;
-		case "image":
-			cardRevealPanel.removeFromParent();
-			cardRevealPanel.removeFromParent();
-			lblTitle.setText(title);
-			lblDescription.setText(description);
-			break;
-		default:
-			break;
-		}
-	}
-
-	public Image getImgCard() {
-		return imgCard;
-	}
-
-	public void setImgCard(Image imgCard) {
-		this.imgCard = imgCard;
-	}
-
-	public String getImageHeight() {
-		return imageHeight;
-	}
-
-	public void setImageHeight(String imageHeight) {
-		this.imageHeight = imageHeight;
-		imgCard.setHeight(imageHeight + "vh");
-	}
-
-	public HTMLPanel getCardContentPanel() {
-		return cardContentPanel;
-	}
-
-	public void setCardContentPanel(HTMLPanel cardContentPanel) {
-		this.cardContentPanel = cardContentPanel;
-	}
-
-	public HTMLPanel getCardRevealContent() {
-		return cardRevealContent;
-	}
-
-	public void setCardRevealContent(HTMLPanel cardRevealContent) {
-		this.cardRevealContent = cardRevealContent;
-	}
-
-	public HTMLPanel getActionPanel() {
-		return actionPanel;
-	}
-
-	public void setActionPanel(HTMLPanel actionPanel) {
-		this.actionPanel = actionPanel;
-	}
-
-	public HTMLPanel getHeaderPanel() {
-		return headerPanel;
-	}
-
-	public void setHeaderPanel(HTMLPanel headerPanel) {
-		this.headerPanel = headerPanel;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-		generateCard();
-	}
-
-	
 	/**
-	 * Setting the column grid for responsive design
-	 * @param grid the grid to set
+	 * Creates and empty card
 	 */
+	public MaterialCard(){
+		setElement(Document.get().createDivElement());
+		setStyleName("card");
+	}
+
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		addStyleName(bgColor);
+	}
+
+	@Override
+	public void setTextColor(String textColor) {
+		addStyleName(textColor + "-text");
+	}
+
+	@Override
 	public void setGrid(String grid) {
-		panel.addStyleName("col " + grid);
+		addStyleName("col " + grid);
+		addStyleName("no-padding");
+		getElement().getStyle().setMargin(10, Unit.PX);
 	}
 
 	@Override
@@ -261,5 +108,5 @@ public class MaterialCard extends Composite implements HasGrid{
 		}
 		this.addStyleName(tobeadded);
 	}
-	
+
 }

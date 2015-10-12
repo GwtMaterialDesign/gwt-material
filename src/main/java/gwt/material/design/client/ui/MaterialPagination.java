@@ -50,7 +50,7 @@ public class MaterialPagination<T> extends MaterialWidget {
 	
 	private List<T> objects = new ArrayList<T>();
 	
-	@UiField MaterialLink3 next, prev, lblName;
+	@UiField MaterialLink next, prev, lblName;
 	@UiField UnorderedList pager;
 
 	public MaterialPagination() {

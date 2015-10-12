@@ -68,7 +68,6 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator{
 	protected void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
-		this.getElement().getStyle().setOpacity(0.71);
 	}
 
 	public String getFontSize() {
