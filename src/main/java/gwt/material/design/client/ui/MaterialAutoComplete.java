@@ -21,8 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 
-import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.MaterialSuggestionOracle;
 
 import java.util.ArrayList;
@@ -177,7 +177,7 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
             if(imageChip.contains(s)){
             	int ix = imageChip.indexOf(s)+s.length();
             	imageChip = imageChip.substring(ix, imageChip.indexOf("\"", ix+1));
-            	chip.setImageUrl(imageChip);
+            	chip.setUrl(imageChip);
             	textChip = textChip.replaceAll("[<](/)?img[^>]*[>]", "");
             }
             chip.setText(textChip);
@@ -196,7 +196,7 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
  
          
            
-            chip.getBtnClose().addClickHandler(new ClickHandler() {
+            chip.getIcon().addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent clickEvent) {
                 	itemValues.remove(chip.getText());
                     list.remove(displayItem);

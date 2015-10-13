@@ -153,6 +153,10 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 		this.setEnabled(!disabled);
 	}
 
+	/**
+	 * Settubg tge type of Checbox
+	 * @param type
+	 */
 	public void setType(CheckBoxType type) {
 		switch (type) {
 		case FILLED:
@@ -183,5 +187,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 		}
 		this.addStyleName(tobeadded);
 	}
+	
+	
 
 }

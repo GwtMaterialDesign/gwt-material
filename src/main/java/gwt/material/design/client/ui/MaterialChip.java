@@ -1,195 +1,139 @@
 package gwt.material.design.client.ui;
 
-/*
- * #%L
- * GwtMaterial
- * %%
- * Copyright (C) 2015 GwtMaterialDesign
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
+import gwt.material.design.client.custom.ButtonBase;
+import gwt.material.design.client.custom.CustomSpan;
+import gwt.material.design.client.custom.HasIcons;
+import gwt.material.design.client.custom.HasImage;
 
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialChip extends Composite implements HasClickHandlers {
+//@formatter:off
+/**
+* Chips can be used to represent small blocks of information. They are most commonly used either for contacts or for tags.
+* 
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* Simple Chips
+* <m:MaterialChip text="Default" icon="close"/>
+* 
+* Static Chip
+* <m:MaterialChip text="Apple" />
+* 
+* Contact Chips
+* <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" icon="close"/>
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
+*/
+//@formatter:on
+public class MaterialChip extends ButtonBase implements HasImage, HasIcons{
 
-	private static MaterialChipUiBinder uiBinder = GWT
-			.create(MaterialChipUiBinder.class);
-
-	interface MaterialChipUiBinder extends UiBinder<Widget, MaterialChip> {
-	}
-
-	@UiField
-	Label lblChip;
-	@UiField
-	Image imgChip;
-	@UiField
-	MaterialIcon btnClose;
-	@UiField
-	MaterialPanel chipPanel;
-
-	private String text;
-	private String imageUrl = "";
-	private ImageResource imageResource;
-
-	public MaterialChip() {
-		initWidget(uiBinder.createAndBindUi(this));
-		imgChip.getElement().getStyle().setDisplay(Display.NONE);
-	}
-
+	private String text = "";
+	private String url = "";
+	private ImageResource resource;
+	private Image image = new Image();
+	private MaterialIcon icon = new MaterialIcon();
+	private CustomSpan span = new CustomSpan();
+	
 	/**
-	 * Chips represent complex entities in small blocks, such as a contact. They
-	 * can contain a photo, short title string, and brief information.
-	 * 
-	 * @param text
-	 *            - Default chip with text only
+	 * Creates an empty chip
 	 */
-	public MaterialChip(String text) {
-		initWidget(uiBinder.createAndBindUi(this));
-		imgChip.getElement().getStyle().setDisplay(Display.NONE);
-		setText(text);
+	public MaterialChip(){
+		setElement(Document.get().createDivElement());
+		setStyleName("chip");
 	}
-
-	/**
-	 * Chips represent complex entities in small blocks, such as a contact. They
-	 * can contain a photo, short title string, and brief information.
-	 * 
-	 * @param text - Chip text
-	 * 
-	 * @param imageUrl - Image addition into your chip. It can be used on
-	 * Contact Chips
-	 */
-	public MaterialChip(String text, String imageUrl) {
-		initWidget(uiBinder.createAndBindUi(this));
-		imgChip.getElement().getStyle().setDisplay(Display.NONE);
-		setText(text);
-		setImageUrl(imageUrl);
+	
+	public void setText(String text){
+		this.text = text;
+		span.setText(text);
+		add(span);
 	}
-
-	/**
-	 * @return the lblChip
-	 */
-	public Label getLblChip() {
-		return lblChip;
-	}
-
-	/**
-	 * @return the imgChip
-	 */
-	public Image getImgChip() {
-		return imgChip;
-	}
-
-	/**
-	 * @return the text
-	 */
-	public String getText() {
+	
+	public String getText(){
 		return text;
 	}
 
-	/**
-	 * @param text
-	 *            the text to set
-	 */
-	public void setText(String text) {
-		this.text = text;
-		lblChip.setText(text);
-	}
-
-	/**
-	 * @return the imageUrl
-	 */
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	/**
-	 * @param imageUrl
-	 *            the imageUrl to set
-	 */
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-		imgChip.getElement().getStyle().setDisplay(Display.INLINE);
-		getImgChip().setUrl(imageUrl);
-	}
-
-	/**
-	 * @return the imageResource
-	 */
-	public ImageResource getImageResource() {
-		return imageResource;
-	}
-
-	/**
-	 * @param imageResource
-	 *            the imageResource to set
-	 */
-	public void setImageResource(ImageResource imageResource) {
-		this.imageResource = imageResource;
-		imgChip.getElement().getStyle().setDisplay(Display.INLINE);
-		getImgChip().setResource(imageResource);
-	}
-
-	/**
-	 * @return the btnClose
-	 */
-	public MaterialIcon getBtnClose() {
-		return btnClose;
-	}
-
-	/**
-	 * Will remove the chip from its parent.
-	 * 
-	 * @param e
-	 */
-	@UiHandler("btnClose")
-	void onRemoveChip(ClickEvent e) {
-		this.removeFromParent();
+	@Override
+	public void setUrl(String url) {
+		this.url = url;
+		image.setUrl(url);
+		add(image);
 	}
 
 	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
+	public String getUrl() {
+		// TODO Auto-generated method stub
+		return url;
+	}
+
+	@Override
+	public void setResource(ImageResource resource) {
+		this.resource = resource;
+		image.setResource(resource);
+		add(image);
+	}
+
+	@Override
+	public ImageResource getResource() {
+		return resource;
 	}
 
 	/**
-	 * @return the chipPanel
+	 * @return the image
 	 */
-	public MaterialPanel getChipPanel() {
-		return chipPanel;
+	public Image getImage() {
+		return image;
 	}
 
 	/**
-	 * @param chipPanel
-	 *            the chipPanel to set
+	 * @param image the image to set
 	 */
-	public void setChipPanel(MaterialPanel chipPanel) {
-		this.chipPanel = chipPanel;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
+	@Override
+	public void setIcon(String icon) {
+		this.icon.setIcon(icon);
+		add(this.icon);
+	}
+
+	@Override
+	public void setIconPosition(String iconPosition) {
+		icon.setIconPosition(iconPosition);
+	}
+
+	@Override
+	public void setSize(String size) {
+		icon.setSize(size);
+	}
+
+	@Override
+	public void setIconColor(String iconColor) {
+		icon.setIconColor(iconColor);
+	}
+
+	/**
+	 * @return the icon
+	 */
+	public MaterialIcon getIcon() {
+		return icon;
+	}
+
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(MaterialIcon icon) {
+		this.icon = icon;
+	}
+	
 }
