@@ -22,11 +22,67 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.custom.HasType;
+import gwt.material.design.client.type.CollapsibleType;
 
 import com.google.gwt.dom.client.Document;
 
-public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasType{
+//@formatter:off
+/**
+* Collapsibles are accordion elements that expand when clicked on. They allow you to hide content that is not immediately relevant to the user.
+* 
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* Accordion
+<m:MaterialCollapsible type="ACCORDION" grid="s12 m6 l8">
+	<!-- ITEM 1 -->
+	<m:MaterialCollapsibleItem>
+		<m:MaterialCollapsibleHeader>
+			<m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+		</m:MaterialCollapsibleHeader>
+		<m:MaterialCollapsibleBody>
+			<m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+		</m:MaterialCollapsibleBody>
+	</m:MaterialCollapsibleItem>       
+</m:MaterialCollapsible>
+* 
+* Expandable
+<m:MaterialCollapsible type="EXPANDABLE" grid="s12 m6 l8">
+	<!-- ITEM 1 -->
+	<m:MaterialCollapsibleItem>
+		<m:MaterialCollapsibleHeader>
+			<m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+		</m:MaterialCollapsibleHeader>
+		<m:MaterialCollapsibleBody>
+			<m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+		</m:MaterialCollapsibleBody>
+	</m:MaterialCollapsibleItem>       
+</m:MaterialCollapsible>
+* 
+* Popout
+<m:MaterialCollapsible type="POPOUT" grid="s12 m6 l8">
+	<!-- ITEM 1 -->
+	<m:MaterialCollapsibleItem>
+		<m:MaterialCollapsibleHeader>
+			<m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+		</m:MaterialCollapsibleHeader>
+		<m:MaterialCollapsibleBody>
+			<m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+		</m:MaterialCollapsibleBody>
+	</m:MaterialCollapsibleItem>       
+</m:MaterialCollapsible>
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+*/
+//@formatter:on
+public class MaterialCollapsible extends ComplexWidget implements HasGrid{
 
 	/**
 	 * Creates an empty collapsible
@@ -57,19 +113,17 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasTy
 			
 	}-*/;
 
-	/**
-	 * Types
-	 * 1. accordion
-	 * 2. collapsible
-	 * 3. popout
-	 */
-	@Override
-	public void setType(String type) {
-		if(type.equals("popout")){
+
+	public void setType(CollapsibleType type) {
+		switch (type) {
+		case POPOUT:
 			this.getElement().setAttribute("data-collapsible", "accordion");
-			this.addStyleName(type);
-		}else{
-			this.getElement().setAttribute("data-collapsible", type);
+			this.addStyleName(type.getValue());
+			break;
+
+		default:
+			getElement().setAttribute("data-collapsible", type.getValue());
+			break;
 		}
 	}
 

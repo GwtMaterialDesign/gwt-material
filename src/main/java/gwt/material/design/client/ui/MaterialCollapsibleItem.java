@@ -26,6 +26,13 @@ import com.google.gwt.user.client.ui.Widget;
  * #L%
  */
 
+//@formatter:off
+/**
+* Collapsible element to define every items
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+*/
+//@formatter:on
 public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets {
 
 	

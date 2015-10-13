@@ -22,11 +22,20 @@ package gwt.material.design.client.ui;
 
 
 import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.HasColors;
+import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialCollapsibleBody extends ComplexWidget{
+//@formatter:off
+/**
+* CollapsibleItem element to define the body 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+*/
+//@formatter:on
+public class MaterialCollapsibleBody extends ComplexWidget implements HasColors, HasWaves{
 	
 	/**
 	 * Creates empty collapsible body
@@ -47,4 +56,30 @@ public class MaterialCollapsibleBody extends ComplexWidget{
 		}
 	}
 	
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		initWaves();
+	}
+	
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		addStyleName(bgColor);
+	}
+
+	@Override
+	public void setTextColor(String textColor) {
+		addStyleName(textColor + "-text");
+	}
+	
+	@Override
+	public void setWaves(String waves) {
+		addStyleName("waves-effect waves-" + waves);
+	}
+
+	@Override
+	public native void initWaves()/*-{
+	    $wnd.Waves.displayEffect();
+	}-*/;
+
 }
