@@ -6,7 +6,6 @@ import gwt.material.design.client.custom.HasSeparator;
 import gwt.material.design.client.type.IconType;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Unit;
 
 //@formatter:off
 /**
@@ -109,7 +108,6 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 	public void setType(IconType type) {
 		switch (type) {
 		case CIRCLE:
-			getElement().getStyle().setPadding(0.2, Unit.EM);
 			addStyleName("circle");
 			break;
 
@@ -121,6 +119,10 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 	@Override
 	public void setIconColor(String iconColor) {
 		addStyleName(iconColor + "-text");
+	}
+	
+	public void setIconBackgroundColor(String bgColor){
+		addStyleName(bgColor);
 	}
 
 }

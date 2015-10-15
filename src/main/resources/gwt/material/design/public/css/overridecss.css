@@ -508,6 +508,10 @@ nav .nav-wrapper .collapsible-body {
 	text-align: center;
 }
 
+.collection .collection-item .secondary-content i{
+	margin-top: -5px;
+}
+
 ul.side-nav.fixed li:hover,ul.side-nav.fixed li.active {
 	background-color: rgba(0, 0, 0, 0.05);
 }
@@ -576,11 +580,6 @@ div {
 	position: initial !important;
 	opacity: 0 !important;
 }
-
-.collection>li>div {
-	overflow: auto;
-}
-
 .collection>li>div>div:first-child {
 	float: left;
 }

@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.resources.MaterialResources;
+import gwt.material.design.client.type.ImageType;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -174,7 +175,7 @@ public class MaterialTopNav extends Composite {
 		link.getElement().getStyle().setFontWeight(FontWeight.BOLD);
 		link.setTextColor("white");
 		link.setText(profileName);
-		profile.setType("circle");
+		profile.setType(ImageType.CIRCLE);
 		profile.setUrl(profileImageUrl);
 		profile.getElement().getStyle().setWidth(60, Unit.PX);
 		profile.getElement().getStyle().setHeight(60, Unit.PX);

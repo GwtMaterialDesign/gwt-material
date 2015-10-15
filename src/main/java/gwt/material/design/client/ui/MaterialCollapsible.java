@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.HasActive;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.type.CollapsibleType;
 
@@ -82,7 +83,9 @@ import com.google.gwt.dom.client.Document;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsible extends ComplexWidget implements HasGrid{
+public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasActive{
+
+	private int index;
 
 	/**
 	 * Creates an empty collapsible
@@ -151,6 +154,18 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid{
 			tobeadded = tobeadded + " offset-" +  val;
 		}
 		this.addStyleName(tobeadded);
+	}
+
+	@Override
+	public void setActive(int index) {
+		this.index = index;
+		MaterialCollapsibleItem item = (MaterialCollapsibleItem) getWidget(index);
+		item.getWidget(0).addStyleName("active");
+	}
+
+	@Override
+	public int getActive() {
+		return index;
 	}
 	
 }

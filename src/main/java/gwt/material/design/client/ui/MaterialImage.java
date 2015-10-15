@@ -21,17 +21,61 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.type.ImageType;
 
 import com.google.gwt.user.client.ui.Image;
 
+//@formatter:off
+/**
+* Images can be styled in different ways using Material Design
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* Simple Image
+* <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif"/>
+* 
+* Circle Image
+* <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="CIRCLE"/>
+* 
+* MaterialBoxed Image
+* <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="MATERIALBOXED"/>
+}
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
+*/
+
+//@formatter:on
 public class MaterialImage extends Image implements HasGrid{
 	
-	private String type="";
 	private String caption="";
 	private String opacity;
 	
-	public MaterialImage() {
-		
+	/**
+	 * Creates an empty image
+	 */
+	public MaterialImage() {}
+	
+	/**
+	 * Creates a simple image
+	 * @param url
+	 */
+	public MaterialImage(String url){
+		setUrl(url);
+	}
+	
+	/**
+	 * Creates an image with Specific type
+	 * @param url
+	 * @param caption
+	 */
+	public MaterialImage(String url, ImageType type){
+		setUrl(url);
+		setType(type);
 	}
 	
 	@Override
@@ -49,13 +93,9 @@ public class MaterialImage extends Image implements HasGrid{
 	    });
 	}-*/;
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-		this.addStyleName(type);
+	public void setType(ImageType type) {
+		this.addStyleName(type.getValue());
 	}
 
 	public String getCaption() {

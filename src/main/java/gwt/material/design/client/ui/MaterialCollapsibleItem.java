@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets {
+public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets{
 
 	
 	/**
@@ -54,6 +54,5 @@ public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets
 		}
 	}
 
-	
 
 }
