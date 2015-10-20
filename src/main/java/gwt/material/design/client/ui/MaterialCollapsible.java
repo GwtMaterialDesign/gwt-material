@@ -26,6 +26,7 @@ import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.type.CollapsibleType;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
@@ -103,6 +104,14 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasAc
 		for (final MaterialCollapsibleItem item : widgets) {
             add(item);
         }
+	}
+	
+	
+	@Override
+	public void add(Widget child) {
+		// TODO Auto-generated method stub
+		super.add(child);
+		onInitCollapsible(getElement());
 	}
 
 	/**

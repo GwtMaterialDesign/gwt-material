@@ -26,6 +26,29 @@ import com.google.gwt.user.client.ui.Widget;
 
 import gwt.material.design.client.custom.ComplexWidget;
 
+//@formatter:off
+/**
+* Material Container is a wrapper of MAIN element, primary content of your app.
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* 
+* <m:MaterialContainer>
+* 	<!--
+* 		Content goes here
+* 	-->
+* </m:MaterialContainer>
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+*/
+//@formatter:on
 public class MaterialContainer extends ComplexWidget{
 
 	

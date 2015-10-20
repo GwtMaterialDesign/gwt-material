@@ -20,33 +20,44 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.CustomInput;
+import gwt.material.design.client.custom.CustomParagraph;
 import gwt.material.design.client.custom.HasError;
 import gwt.material.design.client.custom.HasGrid;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Widget;
 
+//@formatter:off
 /**
- * Slider for numeric values
- */
-public class MaterialRange extends Composite implements HasChangeHandlers, HasGrid, HasError{
+* Material Range - a slider that initialize the minimum and maximum values. 
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* <pre>
+* {@code 
+* 
+* <m:MaterialRange value="2" min="20" max="50" value="25"/>
+* 
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
+*/
+//@formatter:on
+public class MaterialRange extends ComplexWidget implements HasChangeHandlers, HasGrid, HasError{
 
-	private static MaterialRangeUiBinder uiBinder = GWT.create(MaterialRangeUiBinder.class);
-
-	interface MaterialRangeUiBinder extends UiBinder<Widget, MaterialRange> {
-	}
-
-	@UiField HTMLPanel panel;
+	private CustomParagraph paragraph = new CustomParagraph();
+	private CustomInput input = new CustomInput();
 	
     private static String VALUE = "value";
     private static String MAX = "max";
@@ -57,10 +68,31 @@ public class MaterialRange extends Composite implements HasChangeHandlers, HasGr
 	// cache the embedded range input element
 	private Element rangeElement = null;
 
+	/**
+	 * Creates a range
+	 */
 	public MaterialRange() {
-		initWidget(uiBinder.createAndBindUi(this));
+		setElement(Document.get().createElement("form"));
 		lblError.setVisible(false);
-		panel.add(lblError);
+		paragraph.setStyleName("range-field");
+		input.setType("range");
+		paragraph.add(input);
+		add(paragraph);
+		add(lblError);
+		lblError.getElement().getStyle().setMarginTop(-10, Unit.PX);
+	}
+	
+	/**
+	 * Creates a range with specified values
+	 * @param min - start min value
+	 * @param max - end max value
+	 * @param value - default range value
+	 */
+	public MaterialRange(Integer min, Integer max, Integer value){
+		this();
+		setMin(min);
+		setMax(max);
+		setValue(value);
 	}
 
 	/**
@@ -135,8 +167,6 @@ public class MaterialRange extends Composite implements HasChangeHandlers, HasGr
 	 * @param min value must be &lt; max 
 	 */
 	public void setMin(Integer min) {
-		if (min==null)return;
-		if (min>=getMax())return;
         setIntToRangeElement(MIN,min);
 	}
 
@@ -153,8 +183,6 @@ public class MaterialRange extends Composite implements HasChangeHandlers, HasGr
 	 * @param max value must be &gt; min
 	 */
 	public void setMax(Integer max) {
-		if (max==null)return;
-		if (max<=getMin())return;
         setIntToRangeElement(MAX,max);
 	}
 

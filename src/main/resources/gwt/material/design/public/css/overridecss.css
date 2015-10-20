@@ -14,6 +14,11 @@
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
 }
+/**Switch**/
+.switch label input[type=checkbox]:checked + .lever.disabled {
+    background-color: #D4D4D4;
+}
+
 /** Button **/
 button.btn-flat:focus {
     outline: none;
@@ -507,6 +512,10 @@ nav .nav-wrapper .collapsible-body {
 	background-color: #999;
 	text-align: center;
 }
+.collection-item.waves-effect{
+	display: block !important;
+	padding-bottom: 0px;
+}
 
 .collection .collection-item .secondary-content i{
 	margin-top: -5px;
@@ -570,6 +579,9 @@ ul.side-nav .sideBarBadge {
 
 ul li button.btn-floating {
 	opacity: 0;
+}
+.dropdown-content li > a, .dropdown-content li > span{
+    width: 100%;
 }
 
 div {
@@ -734,3 +746,4 @@ a:hover,a:visited {
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
 }
+

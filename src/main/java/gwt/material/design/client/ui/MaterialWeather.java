@@ -20,27 +20,16 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.safehtml.shared.SafeHtml;
 
 public class MaterialWeather extends MaterialPanel {
-
-	private String location;
-	private String color;
-
-	public MaterialWeather(SafeHtml safeHtml) {
-		super(safeHtml);
-		// TODO Auto-generated constructor stub
-	}
-
-	public MaterialWeather(String tag, String html) {
-		super(tag, html);
-		// TODO Auto-generated constructor stub
-	}
 
 	public MaterialWeather(String html) {
 		super(html);
 		// TODO Auto-generated constructor stub
 	}
+
+	private String location;
+	private String color;
 
 	@Override
 	protected void onAttach() {

@@ -70,7 +70,7 @@ public class MaterialNoResult extends Composite {
 
 	public void setColor(String color) {
 		this.color = color;
-		panel.setColor(color);
+		panel.setBackgroundColor(color);
 	}
 
 	public String getTextColor() {

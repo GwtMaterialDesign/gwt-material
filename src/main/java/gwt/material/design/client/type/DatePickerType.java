@@ -7,12 +7,14 @@ package gwt.material.design.client.type;
  * @author kevzlou7979
  *
  */
-public enum CollectionType {
-	AVATAR("avatar"),
-	CHECKBOX("checkbox");
+public enum DatePickerType {
+	DAY("day"),
+	MONTH_DAY("month_day"),
+	YEAR_MONTH_DAY("year_month_day"),
+	YEAR("year");
 	
 	String value;
-	CollectionType(String value){
+	DatePickerType(String value){
 		this.value = value;
 	}
 	/**
@@ -33,9 +35,9 @@ public enum CollectionType {
 	 * @param text
 	 * @return Type
 	 */
-	public static CollectionType fromString(String text) {
+	public static DatePickerType fromString(String text) {
 	    if (text != null) {
-	      for (CollectionType b : CollectionType.values()) {
+	      for (DatePickerType b : DatePickerType.values()) {
 	        if (text.equalsIgnoreCase(b.getValue())) {
 	          return b;
 	        }

@@ -21,58 +21,50 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.HasGrid;
-
-import com.google.gwt.safehtml.shared.SafeHtml;
-
+//@formatter:off
+/**
+* MaterialColumn is panel that act as a fluid panel to easily sets your desired column.We are using 12 grid layout with screens small, medium and large.
+* Just set grid='s12 m12 l12' to define your grid layout values.
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* 
+* <m:MaterialColumn grid='s12 m6 l4'/>
+* 
+* 	Small Device - 12 grid
+* 	Medium Device - 6 grid
+* 	Large Device - 4 grid
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+*/
+//@formatter:on
 public class MaterialColumn extends MaterialPanel implements HasGrid{
-
-	private String grid = "";
-	private String offset = "";
-	
-	public MaterialColumn(SafeHtml safeHtml) {
-		super(safeHtml);
-		// TODO Auto-generated constructor stub
-	}
-
-	public MaterialColumn(String tag, String html) {
-		super(tag, html);
-		// TODO Auto-generated constructor stub
-	}
 
 	public MaterialColumn(String html) {
 		super(html);
-		// TODO Auto-generated constructor stub
+		setStyleName("col");
 	}
-	
+
 	public MaterialColumn(int small, int medium, int large){
 		super("");
+		setStyleName("col");
 		this.addStyleName("s"+small+" m"+medium + " l" + large);
 	}
 
 	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-		this.addStyleName("col");
-	}
-
-	public String getGrid() {
-		return grid;
-	}
-
-	@Override
 	public void setGrid(String grid) {
-		this.grid = grid;
 		this.addStyleName(grid);
-	}
-	
-	public String getOffset() {
-		return offset;
 	}
 
 	@Override
 	public void setOffset(String offset) {
-		  this.offset = offset;
 		  String tobeadded = "";
 		  String[] vals = offset.split(" ");
 		  for(String val : vals){

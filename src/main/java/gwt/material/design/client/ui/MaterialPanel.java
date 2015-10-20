@@ -1,142 +1,91 @@
 package gwt.material.design.client.ui;
 
-/*
- * #%L
- * GwtMaterial
- * %%
- * Copyright (C) 2015 GwtMaterialDesign
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
+import gwt.material.design.client.custom.HasColors;
+import gwt.material.design.client.custom.HasShadow;
+import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HasVisibility;
 
-public class MaterialPanel extends HTMLPanel{
-
-	private String color = "";
-	private String align = "";
-	private String textColor = "";
-	private String shadow = "";
-	private String type = "";
-	private String padding = "";
-	private String scrollspy="";
-	private double opacity ;
+//@formatter:off
+/**
+* A normal panel that has some material features like : shadow and ripple effect
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* <m:MaterialPanel color="white" waves="blue" shadow="3"/>
+}
+* </pre>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
+* @author kevzlou7979
+*/
+public class MaterialPanel extends HTMLPanel implements HasColors, HasWaves, HasShadow, HasVisibility{
 	
-	public MaterialPanel() {
-		super("");
-	}
-	
-	public MaterialPanel(SafeHtml safeHtml) {
-		super(safeHtml);
-		// TODO Auto-generated constructor stub
-	}
-
-	public MaterialPanel(String tag, String html) {
-		super(tag, html);
-		// TODO Auto-generated constructor stub
-	}
 
 	public MaterialPanel(String html) {
 		super(html);
-		// TODO Auto-generated constructor stub
 	}
 
-	public String getColor() {
-		return color;
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		addStyleName(bgColor);
+	}
+	
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		initWaves();
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-		this.addStyleName(color);
-	}
-
-	public String getAlign() {
-		return align;
-	}
-
-	public void setAlign(String align) {
-		this.align = align;
-		if(align.equals("valign-wrapper")){
-			this.addStyleName(align);
-		}else{
-			this.addStyleName(align + "-align");
-		}
-	}
-
-	public String getTextColor() {
-		return textColor;
-	}
-
+	@Override
 	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-		this.addStyleName(textColor + "-text");
+		addStyleName(textColor + "-text");
 	}
 
-	public String getShadow() {
-		return shadow;
+	@Override
+	public void setWaves(String waves) {
+		addStyleName("waves-effect waves-" + waves);
 	}
 
-	public void setShadow(String shadow) {
-		this.shadow = shadow;
+	@Override
+	public native void initWaves()/*-{
+	    $wnd.Waves.displayEffect();
+	}-*/;
+
+	@Override
+	public void setShadow(int shadow) {
 		this.addStyleName("z-depth-" + shadow);
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-		this.addStyleName(type);
-	}
-
-	public String getPadding() {
-		return padding;
-	}
-
-	public void setPadding(String padding) {
-		this.padding = padding;
-		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
-	}
-
-	public String getScrollspy() {
-		return scrollspy;
-	}
-
-	public void setScrollspy(String scrollspy) {
-		this.scrollspy = scrollspy;
+	
+	/**
+	 * Sets the name of your scrollspy
+	 * @param scrollspy
+	 */
+	public void setScrollspy(String scrollspy){
 		this.addStyleName("scrollspy section");
 		this.getElement().setId(scrollspy);
 	}
-
+	
 	/**
-	 * @return the opacity
+	 * Sets the opacity of the panel
+	 * @param opacity
 	 */
-	public double getOpacity() {
-		return opacity;
-	}
-
-	/**
-	 * @param opacity the opacity to set
-	 */
-	public void setOpacity(double opacity) {
-		this.opacity = opacity;
+	public void setOpacity(int opacity){
 		this.getElement().getStyle().setOpacity(opacity);
 	}
-
 	
+	/**
+	 * Sets the padding of the panel
+	 * @param padding
+	 */
+	public void setPadding(String padding){
+		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
+	}
+	
+	public void setAlign(String align){
+		addStyleName("align-" + align);
+	}
 	
 }

@@ -1,236 +1,107 @@
 package gwt.material.design.client.ui;
 
-/*
- * #%L
- * GwtMaterial
- * %%
- * Copyright (C) 2015 GwtMaterialDesign
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
+import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.CustomH4;
+import gwt.material.design.client.custom.HasActive;
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.resources.MaterialResources;
 
-import java.util.Iterator;
+import com.google.gwt.dom.client.Document;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
+//@formatter:off
+/**
+* Collections allow you to group list objects together.
+* @author kevzlou7979
+*<p>
+*<h3>UiBinder Usage:</h3>
+*<pre>
+*{@code 
+*Simple
+<m:MaterialCollection >
+	<m:MaterialCollectionItem><m:MaterialLabel text="Collecton 1"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLabel text="Collecton 2"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLabel text="Collecton 3"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLabel text="Collecton 4"/></m:MaterialCollectionItem>
+</m:MaterialCollection>
 
-public class MaterialCollection extends MaterialWidget implements HasGrid{
+Links
+<m:MaterialCollection >
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 1"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 2"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 3"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 4"/></m:MaterialCollectionItem>
+</m:MaterialCollection>
 
-	private static MaterialCollectionUiBinder uiBinder = GWT.create(MaterialCollectionUiBinder.class);
+Header
+<m:MaterialCollection header="Header Title">
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 1"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 2"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 3"/></m:MaterialCollectionItem>
+	<m:MaterialCollectionItem><m:MaterialLink text="Collecton 4"/></m:MaterialCollectionItem>
+</m:MaterialCollection>
 
-	interface MaterialCollectionUiBinder extends UiBinder<Widget, MaterialCollection> {
-	}
+Secondary Content
+<m:MaterialCollection header="Header Title">
+	<m:MaterialCollectionItem>
+		<m:MaterialLink text="Collecton 1"/>
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>
+	</m:MaterialCollectionItem>
+	<m:MaterialCollectionItem>
+		<m:MaterialLink text="Collecton 2"/>
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>
+	</m:MaterialCollectionItem>
+	<m:MaterialCollectionItem>
+		<m:MaterialLink text="Collecton 3"/>
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>	
+	</m:MaterialCollectionItem>
+	<m:MaterialCollectionItem>
+		<m:MaterialLink text="Collecton 4"/>
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>
+	</m:MaterialCollectionItem>
+</m:MaterialCollection>
 
-	@UiField
-	UnorderedList collection;
+*}
+*</pre>
+* </p>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
+*/
 
+//@formatter:on
+public class MaterialCollection extends ComplexWidget implements HasActive, HasGrid{
+	
+	private CustomH4 span = new CustomH4();
+	private int index;
+	
+	/**
+	 * Creates an empty collection component
+	 */
 	public MaterialCollection() {
-		initWidget(uiBinder.createAndBindUi(this));
+		setElement(Document.get().createULElement());
+		setStyleName("collection");		
+	}
+	
+	/**
+	 * Sets the header of the collection component
+	 * @param header
+	 */
+	public void setHeader(String header){
+		span.getElement().setInnerHTML(header);
+		addStyleName("with-header");
+		ListItem item = new ListItem(span);
+		MaterialUiHelper.addMousePressedHandlers(item);
+		item.setStyleName("collection-header");
+		insert(item, 0);
 	}
 
 	@Override
-	protected void onAttach() {
-		super.onAttach();
-		this.addStyleName(MaterialResources.INSTANCE.materialcss().collection());
+	public void setActive(int index) {
+		this.index = index;
+		getWidget(index).addStyleName("active");
 	}
 
-	/**
-	 * Add new item on the collection container. Implicit as well assigns a
-	 * press indication.
-	 * 
-	 * @param item
-	 *            The widget to be added to the collection container
-	 * @return The created ListItem, this might be used to add DomHandlers (eg.
-	 *         ClickHandlers etc.) and to react therefore on the full widget
-	 *         panel
-	 */
-	@UiChild(tagname = "item")
-	public ListItem addCollectionItem(Widget item) {
-		ListItem listItem = new ListItem(item);
-		listItem.addStyleName("collection-item");
-		MaterialUiHelper.addMousePressedHandlers(listItem);
-		collection.add(listItem);
-		return listItem;
-	}
-
-	/**
-	 * Insert item on a collection container at the given index. Implicit as
-	 * well assigns a press indication.
-	 * 
-	 * @param item
-	 *            The widget to be inserted into the collection container
-	 * @param beforeIndex
-	 *            The location to insert the widget into the collection
-	 * @return The created ListItem, this might be used to add DomHandlers (eg.
-	 *         ClickHandlers etc.) and to react therefore on the full widget
-	 *         panel
-	 */
-	public ListItem insertCollectionItem(Widget item, int beforeIndex) {
-		ListItem listItem = new ListItem(item);
-		listItem.addStyleName("collection-item");
-		MaterialUiHelper.addMousePressedHandlers(listItem);
-		collection.insert(listItem, beforeIndex);
-		return listItem;
-	}
-
-	/**
-	 * Adds an item to the collection styled as header row. No PressedHandler/Indication is
-	 * applied here.
-	 * 
-	 * @param item The widget to be added to the put at the top of the collection container
-	 * @return The created ListItem, this might be used to add DomHandlers (eg.
-	 *         ClickHandlers etc.) and to react therefore on the full widget
-	 *         panel
-	 */
-	@UiChild(tagname = "header")
-	public ListItem addHeader(Widget item) {
-		ListItem listItem = new ListItem(item);
-		listItem.addStyleName(MaterialResources.INSTANCE.materialcss().collectionHeader());
-		collection.add(listItem);
-		return listItem;
-	}
-
-	/**
-	 * Add new dismissable item on the collection container. Implicit as well
-	 * assigns a press indication.
-	 * 
-	 * @param item
-	 *            The widget item to be added
-	 * @return The created ListItem, this might be used to add DomHandlers (eg.
-	 *         ClickHandlers etc.) and to react therefore on the full widget
-	 *         panel
-	 */
-	@UiChild(tagname = "dismissable")
-	public ListItem addDismissableItem(Widget item) {
-		ListItem listItem = new ListItem(item);
-		listItem.addStyleName("collection-item dismissable");
-		MaterialUiHelper.addMousePressedHandlers(listItem);
-		collection.add(listItem);
-		return listItem;
-	}
-
-	/**
-	 * Insert new item on the collection container. Implicit as well assigns a
-	 * press indication.
-	 * 
-	 * @param item
-	 *            The widget item to be inserted
-	 * @param beforeIndex
-	 *            The location to be inserted
-	 * @return The created ListItem, this might be used to add DomHandlers (eg.
-	 *         ClickHandlers etc.) and to react therefore on the full widget
-	 *         panel
-	 */
-	public ListItem insertDismissableItem(Widget item, int beforeIndex) {
-		ListItem listItem = new ListItem(item);
-		listItem.addStyleName("collection-item dismissable");
-		MaterialUiHelper.addMousePressedHandlers(listItem);
-		collection.insert(listItem, beforeIndex);
-		return listItem;
-	}
-
-	/**
-	 * Add new Avatar item on the collection container. Implicit as well assigns
-	 * a press indication.
-	 * 
-	 * @param item
-	 *            The widget item to be added
-	 * @return The created ListItem, this might be used to add DomHandlers (eg.
-	 *         ClickHandlers etc.) and to react therefore on the full widget
-	 *         panel
-	 */
-	@UiChild(tagname = "avatar")
-	public ListItem addAvatarItem(Widget item) {
-		ListItem listItem = new ListItem(item);
-		listItem.addStyleName("collection-item avatar");
-		MaterialUiHelper.addMousePressedHandlers(listItem);
-		collection.add(listItem);
-		if (item instanceof MaterialPanel) {
-			HTMLPanel panel = (HTMLPanel) item;
-			for (Widget w : panel) {
-				if (w instanceof MaterialIcon) {
-					w.addStyleName("secondary-content");
-				}
-			}
-		}
-		return listItem;
-	}
-
-	/**
-	 * Insert new Avatar item on the collection container. Implicit as well
-	 * assigns a press indication.
-	 * 
-	 * @param item
-	 *            The item to be added
-	 * @param beforeIndex
-	 *            The location to insert the widget item
-	 * @return The created ListItem, this might be used to add DomHandlers (eg.
-	 *         ClickHandlers etc.) and to react therefore on the full widget
-	 *         panel
-	 */
-	public ListItem insertAvatarItem(Widget item, int beforeIndex) {
-		ListItem listItem = new ListItem(item);
-		listItem.addStyleName("collection-item avatar");
-		MaterialUiHelper.addMousePressedHandlers(listItem);
-		collection.insert(listItem, beforeIndex);
-		if (item instanceof MaterialPanel) {
-			HTMLPanel panel = (HTMLPanel) item;
-			for (Widget w : panel) {
-				if (w instanceof MaterialIcon) {
-					w.addStyleName("secondary-content");
-				}
-			}
-		}
-		return listItem;
-	}
-
-	public void clear() {
-		collection.clear();
-	}
-
-	public Widget getWidget(int index) {
-		return getFirstChild(collection.getWidget(index));
-	}
-
-	public int getWidgetCount() {
-		return collection.getWidgetCount();
-	}
-
-	public int getWidgetIndex(Widget child) {
-		return collection.getWidgetIndex(child.getParent());
-	}
-
-	public int getWidgetIndex(IsWidget child) {
-		return getWidgetIndex(asWidgetOrNull(child).getParent());
-	}
-
-	private Widget getFirstChild(Widget parent) {
-		if (parent instanceof HasWidgets) {
-			Iterator<Widget> iter = ((HasWidgets) parent).iterator();
-			return (iter != null && iter.hasNext()) ? iter.next() : null;
-		}
-		return null;
+	@Override
+	public int getActive() {
+		// TODO Auto-generated method stub
+		return index;
 	}
 
 	@Override

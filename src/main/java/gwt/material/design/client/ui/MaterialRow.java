@@ -20,35 +20,37 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.safehtml.shared.SafeHtml;
-
+//@formatter:off
+/**
+* Material Row is a container (needed to define) for every Component that implements HasGrid functionality.
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* <pre>
+* {@code 
+* <m:MaterialRow>
+* 	<m:MaterialColumn grid='s12 m6 l6'/>
+* 	<m:MaterialColumn grid='s12 m6 l6'/>
+* </m:MaterialRow>
+* 
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+*/
+//@formatter:on
 public class MaterialRow extends MaterialPanel {
 
-	
-	public MaterialRow() {
+	public MaterialRow(){
 		super("");
+		setStyleName("row");
 	}
-
-	public MaterialRow(SafeHtml safeHtml) {
-		super(safeHtml);
-		// TODO Auto-generated constructor stub
-	}
-
-	public MaterialRow(String tag, String html) {
-		super(tag, html);
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	public MaterialRow(String html) {
 		super(html);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-		this.addStyleName("row");
+		setStyleName("row");
 	}
 
 }

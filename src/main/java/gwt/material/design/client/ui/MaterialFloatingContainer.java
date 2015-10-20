@@ -23,26 +23,18 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.resources.MaterialResources;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialFloatingContainer extends MaterialPanel {
 
-	private UnorderedList list = new UnorderedList();
-	
-
-	public MaterialFloatingContainer(SafeHtml safeHtml) {
-		super(safeHtml);
-	}
-
-	public MaterialFloatingContainer(String tag, String html) {
-		super(tag, html);
-	}
-
 	public MaterialFloatingContainer(String html) {
 		super(html);
+		// TODO Auto-generated constructor stub
 	}
+
+	private UnorderedList list = new UnorderedList();
+
 
 	@Override
 	protected void onAttach() {
