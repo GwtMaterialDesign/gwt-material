@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.HasText;
 public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref {
 
 	private String text;
-	
+	private HTML html = new HTML("");
 	/**
 	 * Material NavBrand is a component wherein you can pass a text / logo branding of your app
 	 */
@@ -45,7 +45,8 @@ public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref 
 	@Override
 	public void setText(String text) {
 		this.text = text;
-		super.add(new HTML("" + text));
+		html.setHTML(text);
+		super.add(html);
 	}
 
 	@Override

@@ -77,9 +77,44 @@ public class MaterialSideNav extends ComplexNav implements HasWaves{
 	}
 	
 	@Override
-	protected void onLoad() {
+	public void onLoad() {
 		super.onLoad();
-		
+		initNavBar(width, name, closeOnClick);
+	}
+
+	@Override
+	protected void onUnload() {
+		super.onUnload();
+	}
+	
+	public void setWidth(int width){
+		this.width = width;
+		getElement().getStyle().setWidth(width, Unit.PX);
+	}
+	
+	
+	public void setCloseOnClick(boolean closeOnClick){
+		this.closeOnClick = closeOnClick;
+	}
+	
+	public native void initNavBar(int width, String name, boolean closeOnClick)/*-{
+		$wnd.jQuery( document ).ready(function(){
+			$wnd.jQuery(".button-collapse").sideNav({
+				menuWidth: width,
+				closeOnClick: closeOnClick
+			});
+		}) 
+	}-*/;
+
+	/**
+	 * Set the type of the sideBar
+	 * - OPEN
+	 * - CLOSE
+	 * - MINI
+	 * - CLIP 
+	 */
+	public void setType(SideNavType type) {
+		this.type = type;
 		switch (type) {
 		case OPEN:
 			addStyleName("fixed open");
@@ -103,42 +138,6 @@ public class MaterialSideNav extends ComplexNav implements HasWaves{
 			showNavMenu(name);
 			break;
 		}
-		initNavBar(width, name, closeOnClick);
-	}
-
-	@Override
-	protected void onUnload() {
-		super.onUnload();
-	}
-	
-	public void setWidth(int width){
-		this.width = width;
-		getElement().getStyle().setWidth(width, Unit.PX);
-	}
-	
-	
-	public void setCloseOnClick(boolean closeOnClick){
-		this.closeOnClick = closeOnClick;
-	}
-	
-	private static native void initNavBar(int width, String name, boolean closeOnClick)/*-{
-		$wnd.jQuery( document ).ready(function(){
-			$wnd.jQuery(".button-collapse").sideNav({
-				menuWidth: width,
-				closeOnClick: closeOnClick
-			});
-		}) 
-	}-*/;
-
-	/**
-	 * Set the type of the sideBar
-	 * - OPEN
-	 * - CLOSE
-	 * - MINI
-	 * - CLIP 
-	 */
-	public void setType(SideNavType type) {
-		this.type = type;
 	}
 
 	/**

@@ -20,15 +20,36 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.ComplexPanel;
+//@formatter:off
+/**
+* The section class is used for simple top and bottom padding. Just add the section class to your div's containing large blocks of content.
+* 
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* <m:MaterialSection>
+* 	<m:MaterialTitle title="Title" description="Description"/>
+* </m:MaterialSection>
+* 
+* 
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Section</a>
+*/
+//@formatter:on
+public class MaterialSection extends ComplexPanel{
 
-public class MaterialSection extends HTMLPanel{
-
-	public MaterialSection(SafeHtml safeHtml) {
-		super(safeHtml);
-		// TODO Auto-generated constructor stub
-		this.addStyleName("section");
+	public MaterialSection() {
+		setElement(Document.get().createElement("div"));
+		setStyleName("section");
 	}
 
 }

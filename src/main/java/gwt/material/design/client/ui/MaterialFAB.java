@@ -21,33 +21,17 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasColors;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style.Unit;
 
-//@formatter:off
-/**
-* Card Element for action links. 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
-*/
+public class MaterialFAB extends ComplexWidget {
 
-//@formatter:on
-public class MaterialCardAction extends ComplexWidget implements HasColors{
-
-	public MaterialCardAction(){
+	public MaterialFAB() {
 		setElement(Document.get().createDivElement());
-		setStyleName("card-action");
-	}
-	
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
+		setStyleName("fixed-action-btn");
+		this.getElement().getStyle().setRight(24, Unit.PCT);
+		this.getElement().getStyle().setBottom(45, Unit.PCT);
 	}
 
-	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
-	}
-	
 }

@@ -125,7 +125,7 @@ public class MaterialTextBox extends Composite implements
 	}
 
 	@Override
-	protected void onAttach() {
+	public void onAttach() {
 		// TODO Auto-generated method stub
 		super.onAttach();
 		String name = String.valueOf(hashCode());
