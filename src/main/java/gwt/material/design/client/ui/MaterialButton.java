@@ -105,7 +105,7 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 	}
 	
 	@Override
-	protected void onLoad() {
+	public void onLoad() {
 		// TODO Auto-generated method stub
 		super.onLoad();
 		initWaves();

@@ -23,10 +23,7 @@ package gwt.material.design.client.ui;
 
 public class MaterialWeather extends MaterialPanel {
 
-	public MaterialWeather(String html) {
-		super(html);
-		// TODO Auto-generated constructor stub
-	}
+	public MaterialWeather() {}
 
 	private String location;
 	private String color;

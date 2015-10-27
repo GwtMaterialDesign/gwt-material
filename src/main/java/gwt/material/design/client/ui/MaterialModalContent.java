@@ -23,26 +23,11 @@ package gwt.material.design.client.ui;
 
 public class MaterialModalContent extends MaterialPanel{
 
-	public MaterialModalContent(String html) {
-		super(html);
-		// TODO Auto-generated constructor stub
-	}
-
-	private String height;
-
-	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-		this.addStyleName("modal-content");
-	}
-
-	public String getHeight() {
-		return height;
+	public MaterialModalContent() {
+		setStyleName("modal-content");
 	}
 
 	public void setHeight(String height) {
-		this.height = height;
 		this.setHeight(height + "px");
 	}
 

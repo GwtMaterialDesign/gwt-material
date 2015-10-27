@@ -24,8 +24,9 @@ import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasShadow;
 import gwt.material.design.client.custom.HasWaves;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HasVisibility;
 
 //@formatter:off
@@ -41,11 +42,11 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
 * @author kevzlou7979
 */
-public class MaterialPanel extends HTMLPanel implements HasColors, HasWaves, HasShadow, HasVisibility{
+public class MaterialPanel extends ComplexPanel implements HasColors, HasWaves, HasShadow, HasVisibility{
 	
 
-	public MaterialPanel(String html) {
-		super(html);
+	public MaterialPanel() {
+		setElement(Document.get().createDivElement());
 	}
 
 	@Override

@@ -19,15 +19,13 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.ComplexNav;
 import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialDropDown extends ComplexWidget implements HasGrid{
+public class MaterialDropDown extends ComplexNav implements HasGrid{
 
 	private String name;
 	private boolean belowOrigin;
@@ -92,16 +90,6 @@ public class MaterialDropDown extends ComplexWidget implements HasGrid{
 		});
 		
 	}-*/;
-
-	/**
-	 * Add Dropdown item into the component
-	 * @param item
-	 */
-	@UiChild(tagname = "item")
-	public void addItem(Widget item){
-		ListItem li = new ListItem(item);
-		add(li);
-	}
 
 	@Override
 	public void setGrid(String grid) {

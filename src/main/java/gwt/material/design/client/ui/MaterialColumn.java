@@ -48,12 +48,10 @@ import gwt.material.design.client.custom.HasGrid;
 public class MaterialColumn extends MaterialPanel implements HasGrid{
 
 	public MaterialColumn(String html) {
-		super(html);
 		setStyleName("col");
 	}
 
 	public MaterialColumn(int small, int medium, int large){
-		super("");
 		setStyleName("col");
 		this.addStyleName("s"+small+" m"+medium + " l" + large);
 	}

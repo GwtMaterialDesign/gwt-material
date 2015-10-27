@@ -44,13 +44,8 @@ package gwt.material.design.client.ui;
 public class MaterialRow extends MaterialPanel {
 
 	public MaterialRow(){
-		super("");
 		setStyleName("row");
 	}
 	
-	public MaterialRow(String html) {
-		super(html);
-		setStyleName("row");
-	}
 
 }

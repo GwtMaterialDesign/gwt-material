@@ -23,15 +23,12 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Unit;
 
 public class MaterialFAB extends ComplexWidget {
 
 	public MaterialFAB() {
 		setElement(Document.get().createDivElement());
 		setStyleName("fixed-action-btn");
-		this.getElement().getStyle().setRight(24, Unit.PCT);
-		this.getElement().getStyle().setBottom(45, Unit.PCT);
 	}
 
 }

@@ -71,7 +71,7 @@ public class MaterialListBox extends ListBox implements HasGrid{
 	}
 	
 	@Override
-	protected void onLoad() {
+	public void onLoad() {
 		super.onLoad();
 		if (!old) {
 			createInternalChangeHandler(id, this);

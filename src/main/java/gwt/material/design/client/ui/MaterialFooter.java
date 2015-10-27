@@ -86,6 +86,22 @@ public class MaterialFooter extends Composite {
 		}
 	}
 
+	public CustomFooter getFooterPanel() {
+		return footerPanel;
+	}
+
+	public void setFooterPanel(CustomFooter footerPanel) {
+		this.footerPanel = footerPanel;
+	}
+
+	public MaterialPanel getContainer() {
+		return container;
+	}
+
+	public void setContainer(MaterialPanel container) {
+		this.container = container;
+	}
+
 	
 
 }

@@ -143,7 +143,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 		return getPickerDate();
 	}
 
-	public static native void clearValues()/*-{
+	public native void clearValues()/*-{
 		$wnd.jQuery('.datepicker').val("");
 	}-*/;
 	

@@ -33,7 +33,7 @@ public class MaterialInfo {
 		
 	}
 	
-	public static void showInfo(HTMLPanel panel, ImageResource resource, String message){
+	public  void showInfo(HTMLPanel panel, ImageResource resource, String message){
 		panel.clear();
 		
 		HTMLPanel container = new HTMLPanel("");
