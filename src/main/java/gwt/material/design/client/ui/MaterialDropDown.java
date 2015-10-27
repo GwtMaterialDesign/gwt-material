@@ -25,6 +25,29 @@ import gwt.material.design.client.custom.HasGrid;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
 
+//@formatter:off
+/**
+* You can add dropdown easily by specifying it's item content and add a UiHandler on it to implement any event.
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* 
+* <m:MaterialContainer>
+* 	<!--
+* 		Content goes here
+* 	-->
+* </m:MaterialContainer>
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+*/
+//@formatter:on
 public class MaterialDropDown extends ComplexNav implements HasGrid{
 
 	private String name;
@@ -51,11 +74,7 @@ public class MaterialDropDown extends ComplexNav implements HasGrid{
 		getElement().setId(name);
 	}
 	
-	
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.Widget#onLoad()
-	 */
 	@Override
 	protected void onLoad() {
 		// TODO Auto-generated method stub
@@ -63,9 +82,6 @@ public class MaterialDropDown extends ComplexNav implements HasGrid{
 		initDropDown(name, belowOrigin,  constraintWidth);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.Widget#onUnload()
-	 */
 	@Override
 	protected void onUnload() {
 		// TODO Auto-generated method stub
