@@ -159,9 +159,7 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public native void initTooltip() /*-{
-		$wnd.jQuery('.tooltipped').tooltip({
-			"delay" : 10
-		});
+		
 	}-*/;
 
 	@Override
