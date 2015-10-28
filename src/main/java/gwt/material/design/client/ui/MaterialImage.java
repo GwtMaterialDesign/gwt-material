@@ -78,16 +78,22 @@ public class MaterialImage extends Image implements HasGrid{
 		setType(type);
 	}
 	
+	
 	@Override
-	protected void onAttach() {
+	public void onLoad() {
 		// TODO Auto-generated method stub
-		super.onAttach();
+		super.onLoad();
 		this.addStyleName("responsive-img");
 		onInitMaterialDesign();
-		
 	}
 	
-	public static native void onInitMaterialDesign()/*-{
+	@Override
+	protected void onUnload() {
+		// TODO Auto-generated method stub
+		super.onUnload();
+	}
+
+	public native void onInitMaterialDesign()/*-{
 		$wnd.jQuery(document).ready(function(){
 	    	$wnd.jQuery('.materialboxed').materialbox();
 	    });

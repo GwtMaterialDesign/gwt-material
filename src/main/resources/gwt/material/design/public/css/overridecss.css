@@ -459,6 +459,9 @@ li.token-input-input-token-facebook {
 	padding-bottom: 10px;
     padding-top: 10px;
 }
+.side-nav a{
+	width: 100%;
+}
 nav .brand-logo{
 	padding-left: 16px;
 }
