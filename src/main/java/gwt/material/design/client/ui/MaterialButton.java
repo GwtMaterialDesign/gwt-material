@@ -109,7 +109,6 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 		// TODO Auto-generated method stub
 		super.onLoad();
 		initWaves();
-		initTooltip();
 	}
 
 	@Override

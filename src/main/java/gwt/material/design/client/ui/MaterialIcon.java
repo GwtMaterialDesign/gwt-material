@@ -82,7 +82,6 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 		// TODO Auto-generated method stub
 		super.onLoad();
 		initWaves();
-		initTooltip();
 	}
 
 	@Override
