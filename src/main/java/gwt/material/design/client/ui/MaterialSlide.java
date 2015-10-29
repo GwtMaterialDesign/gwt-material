@@ -15,12 +15,18 @@ public class MaterialSlide extends ComplexWidget{
 		setStyleName("slider");
 		ul.setStyleName("slides");
 		super.add(ul);
+		
+	}
+	
+	
+	@Override
+	protected void onLoad() {
+		// TODO Auto-generated method stub
+		super.onLoad();
 		String className = DOM.createUniqueId();
 		addStyleName(className);
 		initializeSlider(className);
 	}
-	
-	
 	
 
 	@Override

@@ -126,7 +126,7 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasCo
 	@Override
 	public void setTextColor(String textColor) {
 		// TODO Auto-generated method stub
-		addStyleName(textColor);
+		addStyleName(textColor + "-text");
 	}
 	
 	
