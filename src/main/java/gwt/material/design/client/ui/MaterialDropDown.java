@@ -35,17 +35,17 @@ import com.google.gwt.uibinder.client.UiConstructor;
 * <pre>
 * {@code 
 * 
-* <m:MaterialContainer>
-* 	<!--
-* 		Content goes here
-* 	-->
-* </m:MaterialContainer>
+* <m:MaterialDropDown>
+* 	<m:MaterialLink text="First" />
+	<m:MaterialLink text="Second" />
+	<m:MaterialLink text="Third" />
+* </m:MaterialDropDown>
 * }
 * </pre>
 * </p>
 * 
 * @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
 */
 //@formatter:on
 public class MaterialDropDown extends ComplexNav implements HasGrid{

@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.HasAlign;
 import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasShadow;
 import gwt.material.design.client.custom.HasWaves;
@@ -42,7 +43,7 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
 * @author kevzlou7979
 */
-public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves, HasShadow, HasVisibility{
+public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves, HasShadow, HasVisibility, HasAlign{
 	
 
 	public MaterialPanel() {
@@ -104,7 +105,8 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 	public void setPadding(String padding){
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
 	}
-	
+
+	@Override
 	public void setAlign(String align){
 		addStyleName("align-" + align);
 	}

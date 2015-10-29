@@ -31,6 +31,34 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+//@formatter:off
+/**
+* Material Date Picker will provide a visual calendar to your apps.
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* 
+* <m:MaterialDatePicker ui:field="datePicker">
+* }
+* </pre>
+* 
+* <h3>Java Usage:</h3>
+* 
+* <pre>
+* {@code 
+* 
+* datePicker.setDate(new Date());
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
+*/
+//@formatter:on
 public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 
 	/**

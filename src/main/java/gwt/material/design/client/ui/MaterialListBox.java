@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasDisabled;
 import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Document;
@@ -27,7 +28,34 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ListBox;
 
-public class MaterialListBox extends ListBox implements HasGrid{
+//@formatter:off
+/**
+* 
+* <p>Material Listbox is another dropdown component that will set / get the value depends on the selected index
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+	<m:MaterialListBox ui:field="lstBox" />
+}
+* </pre>
+* <h3>Java Usage:</h3>
+* 
+* <pre>
+* {@code 
+* 	// functions
+	lstBox.setSelectedIndex(2);
+	lstBox.getSelectedIndex();
+	lstBox.addChangeHandler(handler);
+}
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material ListBoxt</a>
+*/
+//@formatter:on
+public class MaterialListBox extends ListBox implements HasGrid, HasDisabled{
 
 	private String id = "";
 	private boolean old = false;
@@ -58,11 +86,13 @@ public class MaterialListBox extends ListBox implements HasGrid{
 		this.textColor = textColor;
 		this.getElement().addClassName(textColor);
 	}
-
+	
+	@Override
 	public boolean isDisabled() {
 		return disabled;
 	}
-
+	
+	@Override
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 		if (disabled) {

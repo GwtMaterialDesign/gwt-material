@@ -51,6 +51,7 @@ import com.google.gwt.user.client.ui.Widget;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
 */
+//@formatter:on
 public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator{
 
 	private MaterialIcon iconElem = new MaterialIcon();

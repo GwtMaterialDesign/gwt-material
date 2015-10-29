@@ -7,6 +7,12 @@ import gwt.material.design.client.custom.HasColors;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
+//@formatter:off
+/**
+* Footer specific zone for copyright text
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
+*///@formatter:on
 public class MaterialFooterCopyright extends ComplexWidget implements HasColors{
 
 	CustomDiv container = new CustomDiv();

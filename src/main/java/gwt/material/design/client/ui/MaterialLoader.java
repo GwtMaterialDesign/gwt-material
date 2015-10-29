@@ -25,10 +25,34 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
+//@formatter:off
+/**
+* 
+* <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.
+* <h3>Java Usage:</h3>
+* 
+* <pre>
+* {@code 
+// FOR CIRCULAR LOADER
+MaterialLoader.showLoading(true);
+// FOR PROGRESS LOADER
+MaterialLoader.showProgress(true);
+
+</pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
+*/
+//@formatter:on
 public class MaterialLoader {
 	private static PreLoader preLoader = new PreLoader();
 	private static HTMLPanel indeterminateProgress = new HTMLPanel("<div id='lean-overlay' style='display: block; opacity: 0.8; background: #fff;'></div><div class='progress' style='z-index: 1000; position: fixed !important;' ><div class='indeterminate' '></div></div>"); 
 
+	/**
+	 * Show a circular loader
+	 * @param isShow
+	 */
 	public static void showLoading(boolean isShow) {
 		if (isShow) {
 			RootPanel.get().add(preLoader);
@@ -38,7 +62,10 @@ public class MaterialLoader {
 
 	}
 	
-
+	/**
+	 * Show a progress loader
+	 * @param isShow
+	 */
 	public static void showProgress(boolean isShow){
 		if(isShow){
 			indeterminateProgress.getElement().getStyle().setPosition(Position.ABSOLUTE);

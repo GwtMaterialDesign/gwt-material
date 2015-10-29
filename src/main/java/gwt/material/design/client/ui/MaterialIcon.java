@@ -45,6 +45,7 @@ import com.google.gwt.dom.client.Document;
 * @see <a href="http://www.google.com/design/icons/">Search Google Icons</a>
 * @see <a href="http://gwt-material-demo.herokuapp.com/#icons">Material Icons Documentation</a>
 */
+//@formatter:on
 public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 
 	/**

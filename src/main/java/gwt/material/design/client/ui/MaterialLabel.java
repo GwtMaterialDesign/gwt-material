@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.HasSeparator;
 
@@ -28,7 +29,24 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.user.client.ui.Label;
 
-public class MaterialLabel extends Label implements HasGrid, HasSeparator{
+//@formatter:off
+/**
+* 
+* <p>Material Label will extend to GWT Label functionality with other material specifications
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+	<m:MaterialLabel text="I love material design" />
+}
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
+*/
+//@formatter:on
+public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasColors{
 	
 	String fontSize = "";
 	String textColor = "";
@@ -62,8 +80,6 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator{
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	@Override
 	protected void onAttach() {
 		// TODO Auto-generated method stub
@@ -77,15 +93,6 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator{
 	public void setFontSize(String fontSize) {
 		this.fontSize = fontSize;
 		this.getElement().getStyle().setFontSize(Double.valueOf(fontSize), Unit.EM);
-	}
-
-	public String getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-		this.addStyleName(textColor + "-text");
 	}
 
 	@Override
@@ -108,6 +115,18 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator{
 			tobeadded = tobeadded + " offset-" +  val;
 		}
 		this.addStyleName(tobeadded);
+	}
+
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		// TODO Auto-generated method stub
+		addStyleName(bgColor);
+	}
+
+	@Override
+	public void setTextColor(String textColor) {
+		// TODO Auto-generated method stub
+		addStyleName(textColor);
 	}
 	
 	

@@ -20,31 +20,22 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasGrid;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Frame;
-import com.google.gwt.user.client.ui.HTMLPanel;
 
-public class MaterialVideo extends HTMLPanel implements HasGrid{
+public class MaterialVideo extends ComplexWidget implements HasGrid{
 
 	private String url="";
 	private Frame frame =  new Frame();
 	
-	public MaterialVideo(SafeHtml safeHtml) {
-		super(safeHtml);
-		// TODO Auto-generated constructor stub
+	public MaterialVideo() {
+		setElement(Document.get().createElement("div"));
+		add(frame);
 	}
 
-	public MaterialVideo(String tag, String html) {
-		super(tag, html);
-		// TODO Auto-generated constructor stub
-	}
-
-	public MaterialVideo(String html) {
-		super(html);
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getUrl() {
 		return url;
