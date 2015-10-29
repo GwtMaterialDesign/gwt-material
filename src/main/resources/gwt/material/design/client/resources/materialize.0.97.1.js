@@ -39,7 +39,9 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
 */
-
+jQuery(document).ready(function(){
+	jQuery('.tooltipped').tooltip({delay: 50});
+});
 // t: current time, b: begInnIng value, c: change In value, d: duration
 jQuery.easing['jswing'] = jQuery.easing['swing'];
 

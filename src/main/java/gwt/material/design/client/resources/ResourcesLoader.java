@@ -49,7 +49,6 @@ public class ResourcesLoader {
         ScriptInjector.fromString(resources.materializeJs().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW)
                 .inject();
-        initTooltip();
     }
     
     private void injectPickTimeJs(MaterialResources resources) {
@@ -67,9 +66,4 @@ public class ResourcesLoader {
         return (typeof $wnd['jQuery'] !== 'undefined');
     }-*/;
     
-    public native void initTooltip()/*-{
-    	$wnd.jQuery(document).ready(function(){
-    		$wnd.jQuery('.tooltipped').tooltip({delay: 50});
-    	});
-    }-*/;
 }

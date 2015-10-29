@@ -33,4 +33,7 @@ public class GwtMaterialDesign implements EntryPoint {
 	public void onModuleLoad() {
 		new ResourcesLoader(MaterialResources.INSTANCE);
 	}
+	
+	
+	
 }

@@ -1,3 +1,6 @@
+
+
+
 function showGrid(id, duration){
   var speed = 900;
   var container =  $(id);  
