@@ -4,6 +4,7 @@ import gwt.material.design.client.custom.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialSlide extends ComplexWidget{
 
@@ -13,12 +14,23 @@ public class MaterialSlide extends ComplexWidget{
 		setElement(Document.get().createDivElement());
 		setStyleName("slider");
 		ul.setStyleName("slides");
-		add(ul);
+		super.add(ul);
 		String className = DOM.createUniqueId();
 		addStyleName(className);
 		initializeSlider(className);
 	}
 	
+	
+	
+
+	@Override
+	public void add(Widget child) {
+		ul.add(child);
+	}
+
+
+
+
 	/**
 	 * Initialize the slider when the widget is attached
 	 * @param className CSS class name

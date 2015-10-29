@@ -149,18 +149,12 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	public void setTooltip(String tooltip) {
 		addStyleName("tooltipped");
 		getElement().setAttribute("data-tooltip", tooltip);
-		initTooltip();
 	}
 
 	@Override
 	public void setTooltipLocation(String tooltipLocation) {
 		getElement().setAttribute("data-position", tooltipLocation);
 	}
-
-	@Override
-	public native void initTooltip() /*-{
-		
-	}-*/;
 
 	@Override
 	public boolean isDisabled() {
