@@ -1,107 +1,75 @@
 package gwt.material.design.client.ui;
 
-/*
- * #%L
- * GwtMaterial
- * %%
- * Copyright (C) 2015 GwtMaterialDesign
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
+import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.CustomDiv;
+import gwt.material.design.client.custom.HasColors;
 
-import gwt.material.design.client.custom.CustomFooter;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Position;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialFooter extends Composite {
 
-	private static MaterialFooterUiBinder uiBinder = GWT.create(MaterialFooterUiBinder.class);
+//@formatter:off
+/**
+* Footers are a great way to organize a lot of site navigation and information at the end of a page. This is where the user will look once hes finished scrolling through the current page or is looking for additional information about your website.
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+<m:MaterialFooter backgroundColor="blue">
+	<m:MaterialRow>
+		<m:MaterialColumn grid="s12 m6 l6">
+			<m:MaterialTitle fontSize="0.7" color="white" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+			<m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="blue lighten-2" waves="light"/>
+		</m:MaterialColumn>
+		<m:MaterialColumn grid="s12 m6 l6">
+			<m:MaterialTitle fontSize="0.7" color="white" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+			<m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="blue lighten-2" waves="light"/>
+		</m:MaterialColumn>
+	</m:MaterialRow>
+					
+	<m:MaterialFooterCopyright backgroundColor="blue darken-1">
+		<m:MaterialLabel text=" © 2014 Copyright Text"/>
+	</m:MaterialFooterCopyright>
+</m:MaterialFooter> }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
+*/
+//@formatter:on
+public class MaterialFooter extends ComplexWidget implements HasColors{
 
-	interface MaterialFooterUiBinder extends UiBinder<Widget, MaterialFooter> {
-	}
-	@UiField CustomFooter footerPanel;
-	@UiField Label lblCopyright;
-	@UiField MaterialPanel container;
-	private String color = "";
-	private String copyright = "";
-	private String type = "";
+	
+	CustomDiv container = new CustomDiv();
 	
 	public MaterialFooter() {
-		initWidget(uiBinder.createAndBindUi(this));
+		setElement(Document.get().createElement("footer"));
+		setStyleName("page-footer");
+		container.setStyleName("container");
 	}
 
-	@UiChild(tagname = "content")
-	public void onAddFooterContent(Widget w){
-		container.add(w);
-	}
-	
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-		if(!color.isEmpty()) footerPanel.addStyleName(color);
-	}
-
-	public String getCopyright() {
-		return copyright;
-	}
-
-	public void setCopyright(String copyright) {
-		this.copyright = copyright;
-		if(!copyright.isEmpty()) lblCopyright.setText(copyright);
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-		if(type.equals("fixed")){
-			footerPanel.getElement().getStyle().setPosition(Position.FIXED);
-			footerPanel.getElement().getStyle().setWidth(100, Unit.PCT);
-			footerPanel.getElement().getStyle().setBottom(0, Unit.PCT);
+	@Override
+	public void add(Widget child) {
+		if(child.getElement().getClassName().contains("footer-copyright")){
+			super.add(child);
+		}else{
+			container.add(child);
+			super.add(container);
 		}
+		
 	}
 
-	public CustomFooter getFooterPanel() {
-		return footerPanel;
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		// TODO Auto-generated method stub
+		addStyleName(bgColor);
 	}
 
-	public void setFooterPanel(CustomFooter footerPanel) {
-		this.footerPanel = footerPanel;
+	@Override
+	public void setTextColor(String textColor) {
+		// TODO Auto-generated method stub
+		addStyleName(textColor + "-text");
 	}
-
-	public MaterialPanel getContainer() {
-		return container;
-	}
-
-	public void setContainer(MaterialPanel container) {
-		this.container = container;
-	}
-
 	
-
 }
