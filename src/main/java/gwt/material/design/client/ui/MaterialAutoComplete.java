@@ -68,6 +68,7 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
     private TextBox itemBox = new TextBox();
     private boolean disabled;
     private String placeholder = "";
+    private int limit = 0;
     private MaterialLabel lblError = new MaterialLabel();
     
     /**
@@ -164,7 +165,14 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
      * @param list
      */
 	private void addItem(final TextBox itemBox, final UnorderedList list) {
-        if (itemBox.getValue() != null && !"".equals(itemBox.getValue().trim()) && !itemValues.contains(itemBox.getValue().trim())) {
+        if(getLimit()>0){
+        	if(itemValues.size() == getLimit()){
+        		itemBox.setValue("");
+        		return;
+        	}
+        }
+		
+		if (itemBox.getValue() != null && !"".equals(itemBox.getValue().trim()) && !itemValues.contains(itemBox.getValue().trim())) {
            
             final ListItem displayItem = new ListItem();
             displayItem.setStyleName("multiValueSuggestBox-token");
@@ -339,5 +347,13 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
 		   tobeadded = tobeadded + " offset-" +  val;
 		  }
 		  this.addStyleName(tobeadded);
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 }

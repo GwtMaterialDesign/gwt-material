@@ -28,6 +28,7 @@ import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasVisibility;
 
 //@formatter:off
@@ -43,8 +44,10 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
 * @author kevzlou7979
 */
-public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves, HasShadow, HasVisibility, HasAlign{
+public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves, HasShadow, HasVisibility, HasAlign, HasName{
 	
+
+	private String name = "test";
 
 	public MaterialPanel() {
 		setElement(Document.get().createDivElement());
@@ -59,6 +62,7 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 	protected void onLoad() {
 		super.onLoad();
 		initWaves();
+		getElement().setId(name);
 	}
 
 	@Override
@@ -110,5 +114,15 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 	public void setAlign(String align){
 		addStyleName("align-" + align);
 	}
-	
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 }

@@ -127,7 +127,7 @@ public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors,
 
 	@Override
 	public void setGrid(String grid) {
-		this.addStyleName(grid);
+		this.addStyleName(grid + " col");
 	}
 
 	@Override
