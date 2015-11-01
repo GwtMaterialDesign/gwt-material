@@ -23,7 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.HasDisabled;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.type.CheckBoxType;
+import gwt.material.design.client.constants.CheckBoxType;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;

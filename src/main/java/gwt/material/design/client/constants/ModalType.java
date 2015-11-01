@@ -1,4 +1,4 @@
-package gwt.material.design.client.custom;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -22,7 +22,14 @@ package gwt.material.design.client.custom;
 
 
 /**
- * Marker interface for enums that represent types.
+ * Types of Modal<br>
+ * - FIXED_FOOTER<br>
+ * - BOTTOM_SHEET<br>
+ * - DEFAULT<br>
+ * - WINDOW<br>
+ * @author kevzlou7979
+ *
  */
-public interface Type {
+public enum ModalType {
+	FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW;
 }

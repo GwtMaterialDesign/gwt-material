@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,19 +21,21 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of Icon
- * - CIRCLE
+ * Types of NavBar<br>
+ * - FIXED<br>
+ * - TALL<br>
  * @author kevzlou7979
  */
-public enum IconType implements Type, Style.HasCssName {
-	CIRCLE("circle");
+public enum ImageType implements Type, Style.HasCssName {
+	CIRCLE("circle"),
+	MATERIALBOXED("materialboxed");
 
 	private final String cssClass;
 
-	IconType(final String cssClass) {
+	ImageType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -42,17 +44,7 @@ public enum IconType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static IconType fromString(String text) {
-		if (text != null) {
-			for (IconType b : IconType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static ImageType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, ImageType.class, CIRCLE);
 	}
 }

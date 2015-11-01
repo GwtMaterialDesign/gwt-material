@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,30 +21,23 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of Sidenav<br>
- * - OPEN<br>
- * - CLOSE<br>
- * - MINI<br>
- * - CLIP<br>
- * - FLOAT<br>
- * - CARD<br>
+ * Types of Button<br>
+ * - RAISED<br>
+ * - FLAT<br>
+ * - FLOATING<br>
  * @author kevzlou7979
  */
-public enum SideNavType implements Type, Style.HasCssName {
-
-	OPEN("open"), 
-	CLOSE("close"), 
-	MINI("mini"),
-	CLIP("clip"),
-	FLOAT("float"),
-	CARD("card");
+public enum ButtonType implements Type, Style.HasCssName {
+	RAISED("raised"), 
+	FLAT("flat"), 
+	FLOATING("floating");
 
 	private final String cssClass;
 
-	SideNavType(final String cssClass) {
+	ButtonType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -53,17 +46,7 @@ public enum SideNavType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static SideNavType fromString(String text) {
-		if (text != null) {
-			for (SideNavType b : SideNavType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static ButtonType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, ButtonType.class, FLAT);
 	}
 }

@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,23 +21,22 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of Button<br>
- * - RAISED<br>
- * - FLAT<br>
- * - FLOATING<br>
+ * Types of NavBar<br>
+ * - FIXED<br>
+ * - TALL<br>
  * @author kevzlou7979
+ *
  */
-public enum ButtonType implements Type, Style.HasCssName {
-	RAISED("raised"), 
-	FLAT("flat"), 
-	FLOATING("floating");
+public enum NavBarType implements Type, Style.HasCssName {
+	FIXED("fixed"),
+	TALL("tall");
 
 	private final String cssClass;
 
-	ButtonType(final String cssClass) {
+	NavBarType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -46,17 +45,7 @@ public enum ButtonType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static ButtonType fromString(String text) {
-		if (text != null) {
-			for (ButtonType b : ButtonType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static NavBarType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, NavBarType.class, FIXED);
 	}
 }

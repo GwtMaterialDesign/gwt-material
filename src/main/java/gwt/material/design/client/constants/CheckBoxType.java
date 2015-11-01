@@ -1,4 +1,4 @@
-package gwt.material.design.client.options;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,14 +21,21 @@ package gwt.material.design.client.options;
  */
 
 import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
-public enum Orientation implements Style.HasCssName {
-	LANDSCAPE("landscape"), 
-	PORTRAIT("portrait");
+/**
+ * Types of CheckBox<br>
+ * - FILLED<br>
+ * - INTERMEDIATE<br>
+ * @author kevzlou7979
+ */
+public enum CheckBoxType implements Type, Style.HasCssName {
+	FILLED("filled"),
+	INTERMEDIATE("intermediate");
 
 	private final String cssClass;
 
-	Orientation(final String cssClass) {
+	CheckBoxType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -37,17 +44,7 @@ public enum Orientation implements Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get from String.
-	 */
-	public static Orientation fromString(String text) {
-		if (text != null) {
-			for (Orientation b : Orientation.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static CheckBoxType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, CheckBoxType.class, FILLED);
 	}
 }

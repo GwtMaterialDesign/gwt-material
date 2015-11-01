@@ -20,6 +20,8 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
+import gwt.material.design.client.constants.Type;
+
 public interface HasType<T extends Type> {
 	/**
 	 * Sets the type on the widget

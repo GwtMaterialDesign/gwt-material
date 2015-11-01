@@ -23,7 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.ComplexNav;
 import gwt.material.design.client.custom.HasWaves;
 import gwt.material.design.client.custom.Waves;
-import gwt.material.design.client.type.SideNavType;
+import gwt.material.design.client.constants.SideNavType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;

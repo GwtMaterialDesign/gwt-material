@@ -23,7 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasActive;
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.type.CollapsibleType;
+import gwt.material.design.client.constants.CollapsibleType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;

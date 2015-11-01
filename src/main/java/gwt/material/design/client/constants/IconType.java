@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,23 +21,19 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of CheckBox<br>
- * - ACCORDION<br>
- * - EXPANDABLE<br>
- * - POPOUT<br>
+ * Types of Icon
+ * - CIRCLE
  * @author kevzlou7979
  */
-public enum CollapsibleType implements Type, Style.HasCssName {
-	ACCORDION("accordion"), 
-	EXPANDABLE("expandable"),
-	POPOUT("popout");
+public enum IconType implements Type, Style.HasCssName {
+	CIRCLE("circle");
 
 	private final String cssClass;
 
-	CollapsibleType(final String cssClass) {
+	IconType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -46,17 +42,7 @@ public enum CollapsibleType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static CollapsibleType fromString(String text) {
-		if (text != null) {
-			for (CollapsibleType b : CollapsibleType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static IconType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, IconType.class, CIRCLE);
 	}
 }

@@ -25,7 +25,7 @@ import gwt.material.design.client.custom.CustomHeader;
 import gwt.material.design.client.custom.CustomNav;
 import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasLoader;
-import gwt.material.design.client.type.NavBarType;
+import gwt.material.design.client.constants.NavBarType;
 
 import java.util.Iterator;
 

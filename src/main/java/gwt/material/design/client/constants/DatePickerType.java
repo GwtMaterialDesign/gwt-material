@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,23 +21,23 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of NavBar<br>
- * - FIXED<br>
- * - TALL<br>
+ * Types of Collection<br>
+ * - AVATAR<br>
+ * - DISMISSABLE<br>
  * @author kevzlou7979
- *
  */
-public enum NavBarType implements Type, Style.HasCssName {
-
-	FIXED("fixed"),
-	TALL("tall");
+public enum DatePickerType implements Type, Style.HasCssName {
+	DAY("day"),
+	MONTH_DAY("month_day"),
+	YEAR_MONTH_DAY("year_month_day"),
+	YEAR("year");
 
 	private final String cssClass;
 
-	NavBarType(final String cssClass) {
+	DatePickerType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -46,17 +46,7 @@ public enum NavBarType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static NavBarType fromString(String text) {
-		if (text != null) {
-			for (NavBarType b : NavBarType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static DatePickerType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, DatePickerType.class, DAY);
 	}
 }

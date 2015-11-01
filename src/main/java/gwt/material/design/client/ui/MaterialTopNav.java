@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.type.ImageType;
+import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.FontWeight;

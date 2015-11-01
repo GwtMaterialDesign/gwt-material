@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,22 +21,23 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of Collection<br>
- * - AVATAR<br>
- * - DISMISSABLE<br>
+ * Types of CheckBox<br>
+ * - ACCORDION<br>
+ * - EXPANDABLE<br>
+ * - POPOUT<br>
  * @author kevzlou7979
- *
  */
-public enum CollectionType implements Type, Style.HasCssName {
-	AVATAR("avatar"),
-	CHECKBOX("checkbox");
+public enum CollapsibleType implements Type, Style.HasCssName {
+	ACCORDION("accordion"), 
+	EXPANDABLE("expandable"),
+	POPOUT("popout");
 
 	private final String cssClass;
 
-	CollectionType(final String cssClass) {
+	CollapsibleType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -45,17 +46,7 @@ public enum CollectionType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static CollectionType fromString(String text) {
-		if (text != null) {
-			for (CollectionType b : CollectionType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static CollapsibleType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, CollapsibleType.class, ACCORDION);
 	}
 }

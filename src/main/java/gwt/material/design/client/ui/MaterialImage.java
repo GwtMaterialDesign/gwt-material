@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.type.ImageType;
+import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.user.client.ui.Image;
 

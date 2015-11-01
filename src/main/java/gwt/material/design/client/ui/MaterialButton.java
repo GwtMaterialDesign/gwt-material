@@ -23,8 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.ButtonBase;
 import gwt.material.design.client.custom.CustomSpan;
 import gwt.material.design.client.custom.HasIcons;
-import gwt.material.design.client.custom.Waves;
-import gwt.material.design.client.type.ButtonType;
+import gwt.material.design.client.constants.ButtonType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasText;

@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,21 +21,22 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of CheckBox<br>
- * - FILLED<br>
- * - INTERMEDIATE<br>
+ * Types of Collection<br>
+ * - AVATAR<br>
+ * - DISMISSABLE<br>
  * @author kevzlou7979
+ *
  */
-public enum CheckBoxType implements Type, Style.HasCssName {
-	FILLED("filled"),
-	INTERMEDIATE("intermediate");
+public enum CollectionType implements Type, Style.HasCssName {
+	AVATAR("avatar"),
+	CHECKBOX("checkbox");
 
 	private final String cssClass;
 
-	CheckBoxType(final String cssClass) {
+	CollectionType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -43,18 +44,8 @@ public enum CheckBoxType implements Type, Style.HasCssName {
 	public String getCssName() {
 		return cssClass;
 	}
-	
-	/**
-	 * Get Type from String.
-	 */
-	public static CheckBoxType fromString(String text) {
-		if (text != null) {
-			for (CheckBoxType b : CheckBoxType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+
+	public static CollectionType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, CollectionType.class, AVATAR);
 	}
 }

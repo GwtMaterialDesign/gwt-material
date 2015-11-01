@@ -29,4 +29,9 @@ public interface HasAlign {
 	 * - center
 	 */
 	void setAlign(String align);
+
+	/**
+	 * Get the alignment.
+	 */
+	String getAlign();
 }

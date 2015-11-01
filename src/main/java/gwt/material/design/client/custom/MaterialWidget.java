@@ -22,9 +22,10 @@ package gwt.material.design.client.custom;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialWidget extends Composite{
+public class MaterialWidget extends Composite implements HasWaves, HasTooltip, HasColors, HasAlign, HasEnabled {
 
 	protected String waves = "";
 	protected String color = "";
@@ -114,10 +115,12 @@ public class MaterialWidget extends Composite{
 		this.widget = widget;
 	}
 
+	@Override
 	public String getAlign() {
 		return align;
 	}
 
+	@Override
 	public void setAlign(String align) {
 		this.align = align;
 	}

@@ -24,7 +24,7 @@ import gwt.material.design.client.custom.ButtonBase;
 import gwt.material.design.client.custom.HasIcons;
 import gwt.material.design.client.custom.HasSeparator;
 import gwt.material.design.client.custom.Waves;
-import gwt.material.design.client.type.IconType;
+import gwt.material.design.client.constants.IconType;
 
 import com.google.gwt.dom.client.Document;
 

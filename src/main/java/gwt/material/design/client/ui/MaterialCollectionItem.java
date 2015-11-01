@@ -25,7 +25,7 @@ import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasDismissable;
 import gwt.material.design.client.custom.HasWaves;
 import gwt.material.design.client.custom.Waves;
-import gwt.material.design.client.type.CollectionType;
+import gwt.material.design.client.constants.CollectionType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;

@@ -23,7 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.CustomInput;
 import gwt.material.design.client.custom.HasError;
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.options.Orientation;
+import gwt.material.design.client.constants.Orientation;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;

@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,23 +21,29 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of Collection<br>
- * - AVATAR<br>
- * - DISMISSABLE<br>
+ * Types of Sidenav<br>
+ * - OPEN<br>
+ * - CLOSE<br>
+ * - MINI<br>
+ * - CLIP<br>
+ * - FLOAT<br>
+ * - CARD<br>
  * @author kevzlou7979
  */
-public enum DatePickerType implements Type, Style.HasCssName {
-	DAY("day"),
-	MONTH_DAY("month_day"),
-	YEAR_MONTH_DAY("year_month_day"),
-	YEAR("year");
+public enum SideNavType implements Type, Style.HasCssName {
+	OPEN("open"), 
+	CLOSE("close"), 
+	MINI("mini"),
+	CLIP("clip"),
+	FLOAT("float"),
+	CARD("card");
 
 	private final String cssClass;
 
-	DatePickerType(final String cssClass) {
+	SideNavType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -46,17 +52,7 @@ public enum DatePickerType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static DatePickerType fromString(String text) {
-		if (text != null) {
-			for (DatePickerType b : DatePickerType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static SideNavType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, SideNavType.class, OPEN);
 	}
 }

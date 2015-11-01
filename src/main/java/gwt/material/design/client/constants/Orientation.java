@@ -1,4 +1,4 @@
-package gwt.material.design.client.custom;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,15 +20,25 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-public interface HasDisabled {
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
-	/**
-	 * Set disabled material component.
-	 */
-	void setDisabled(boolean disabled);
-	
-	/**
-	 * Check if component is disabled.
-	 */
-	boolean isDisabled();
+public enum Orientation implements Style.HasCssName {
+	LANDSCAPE("landscape"), 
+	PORTRAIT("portrait");
+
+	private final String cssClass;
+
+	Orientation(final String cssClass) {
+		this.cssClass = cssClass;
+	}
+
+	@Override
+	public String getCssName() {
+		return cssClass;
+	}
+
+	public static Orientation fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, Orientation.class, PORTRAIT);
+	}
 }

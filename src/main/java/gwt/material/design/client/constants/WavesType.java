@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -21,21 +21,21 @@ package gwt.material.design.client.type;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.Type;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of NavBar<br>
- * - FIXED<br>
- * - TALL<br>
+ * Types of CheckBox<br>
+ * - FILLED<br>
+ * - INTERMEDIATE<br>
  * @author kevzlou7979
  */
-public enum ImageType implements Type, Style.HasCssName {
-	CIRCLE("circle"),
-	MATERIALBOXED("materialboxed");
+public enum WavesType implements Type, Style.HasCssName {
+	FILLED("filled"),
+	INTERMEDIATE("intermediate");
 
 	private final String cssClass;
 
-	ImageType(final String cssClass) {
+	WavesType(final String cssClass) {
 		this.cssClass = cssClass;
 	}
 
@@ -44,17 +44,7 @@ public enum ImageType implements Type, Style.HasCssName {
 		return cssClass;
 	}
 
-	/**
-	 * Get Type from String.
-	 */
-	public static ImageType fromString(String text) {
-		if (text != null) {
-			for (ImageType b : ImageType.values()) {
-				if (text.equalsIgnoreCase(b.getCssName())) {
-					return b;
-				}
-			}
-		}
-		return null;
+	public static WavesType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, WavesType.class, FILLED);
 	}
 }
