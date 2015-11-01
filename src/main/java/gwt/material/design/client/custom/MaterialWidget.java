@@ -74,28 +74,34 @@ public class MaterialWidget extends Composite{
 	}
 
 	public void applyMaterialEffect() {
-		boolean applyWavesEffect = false;
 		if(widget != null) {
 			if(!isDisable()) {
 				if(!waves.isEmpty()) {
-					applyWavesEffect = true;
 					widget.getElement().addClassName("waves-effect waves-" + waves);
+					Waves.detectAndApply(this);
 				}
 				if(!color.isEmpty()) widget.getElement().addClassName(color);
 				if(!textColor.isEmpty()) widget.getElement().addClassName(textColor + "-text");
 				if(!align.isEmpty()) widget.getElement().addClassName(align + "-align");
 
-				if(!tooltip.isEmpty()) getWidget().addStyleName("tooltipped");
-				if(!tooltipLocation.isEmpty()) getWidget().getElement().setAttribute("data-position", tooltipLocation);
-				if(!tooltipDelay.isEmpty()) getWidget().getElement().setAttribute("data-delay", tooltipDelay);
-				if(!tooltip.isEmpty()) getWidget().getElement().setAttribute("data-tooltip", tooltip);
+				if(!tooltip.isEmpty()) {
+					getWidget().addStyleName("tooltipped");
+					getWidget().getElement().setAttribute("data-tooltip", tooltip);
+
+					if(!tooltipLocation.isEmpty()) {
+						getWidget().getElement().setAttribute("data-position", tooltipLocation);
+					}
+					if(!tooltipDelay.isEmpty()) {
+						getWidget().getElement().setAttribute("data-delay", tooltipDelay);
+					}
+					Tooltip.detectAndApply(this);
+				}
+
 			} else {
 				widget.addStyleName("disabled");
 				widget.getElement().addClassName("grey lighten-2 ");
 			}
 		}
-		initToolTip();
-		if (applyWavesEffect) Waves.detectAndApply(this);
 	}
 
 	@Override
@@ -142,12 +148,6 @@ public class MaterialWidget extends Composite{
 		this.tooltipDelay = tooltipDelay;
 		applyMaterialEffect();
 	}
-
-	private native void initToolTip()/*-{
-		 $wnd.jQuery(document).ready(function(){
-		    $wnd.jQuery('.tooltipped').tooltip({delay: 50});
-		  });
-	}-*/;
 
 	public boolean isDisable() {
 		return disable;

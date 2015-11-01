@@ -24,13 +24,13 @@ import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
-public class Waves {
+public class Tooltip {
 
     /**
-     * Initialize any uninitialized wave elements.
+     * Initialize any uninitialized tooltip elements.
      */
     public static native void detectAndApply() /*-{
-        $wnd.Waves.displayEffect();
+        $wnd.jQuery('.tooltipped').tooltip({delay: 50});
     }-*/;
 
     /**
