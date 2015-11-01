@@ -38,6 +38,10 @@ public class MaterialDesign implements EntryPoint {
 		inject(resource, true, false);
 	}
 
+	protected void injectDebug(TextResource resource) {
+		inject(resource, false, true);
+	}
+
 	protected void inject(TextResource resource, boolean removeTag, boolean sourceUrl) {
 		String text = resource.getText() +
 			(sourceUrl ? "//# sourceURL="+resource.getName()+".js" : "");
