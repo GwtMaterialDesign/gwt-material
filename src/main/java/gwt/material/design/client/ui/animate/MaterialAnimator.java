@@ -29,11 +29,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialAnimator {
 
-	
-	public static void animate(final Transition transition,final Widget w, int delayMillis){
+	public static void animate(final Transition transition,final Widget w, int delayMillis) {
 		switch (transition) {
 		case SHOW_STAGGERED_LIST:
-			
 			if(w instanceof UnorderedList){
 				UnorderedList ul = (UnorderedList) w;
 				
@@ -51,8 +49,7 @@ public class MaterialAnimator {
 			break;
 		}
 		
-		Timer t = new Timer() {
-			
+		new Timer() {
 			@Override
 			public void run() {
 				applyAnimation(transition, w);
@@ -80,8 +77,7 @@ public class MaterialAnimator {
 					break;
 				}
 			}
-		};
-		t.schedule(delayMillis);
+		}.schedule(delayMillis);
 		w.removeStyleName(MaterialResources.INSTANCE.materialcss().pull());
 		w.removeStyleName(MaterialResources.INSTANCE.materialcss().materialScale());
 	}
@@ -101,5 +97,4 @@ public class MaterialAnimator {
 	public static native void showStaggeredList(String name)/*-{
 		$wnd.Materialize.showStaggeredList('#' + name);
 	}-*/;
-	
 }

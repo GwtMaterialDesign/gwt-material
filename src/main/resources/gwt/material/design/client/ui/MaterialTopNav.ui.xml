@@ -30,11 +30,11 @@
 		margin-right: -20px;
 	}
 	.sidebar a{
-		padding: 0px !important;
+		padding: 0 !important;
 	}	 
 	.sidebar a, .sidebar i{
 		line-height: 1 !important;
-		height: 0px !important;
+		height: 0 !important;
 	}
 	.sidebar i{
 		line-height: 0.5 !important;
@@ -56,8 +56,6 @@
 			</m:MaterialColumn>
 			<m:MaterialColumn ui:field="menuPanel" grid="s12 m6 l4" />
 		</m:MaterialRow>
-	
-		
 		<g:HTMLPanel ui:field="customPanel"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

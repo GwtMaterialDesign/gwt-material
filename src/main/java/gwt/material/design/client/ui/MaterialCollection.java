@@ -78,21 +78,19 @@ Secondary Content
 		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>
 	</m:MaterialCollectionItem>
 </m:MaterialCollection>
-
 *}
 *</pre>
 * </p>
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 */
-
 //@formatter:on
-public class MaterialCollection extends ComplexWidget implements HasActive, HasGrid{
+public class MaterialCollection extends ComplexWidget implements HasActive, HasGrid {
 	
 	private CustomH4 span = new CustomH4();
 	private int index;
 	
 	/**
-	 * Creates an empty collection component
+	 * Creates an empty collection component.
 	 */
 	public MaterialCollection() {
 		setElement(Document.get().createULElement());
@@ -100,8 +98,7 @@ public class MaterialCollection extends ComplexWidget implements HasActive, HasG
 	}
 	
 	/**
-	 * Sets the header of the collection component
-	 * @param header
+	 * Sets the header of the collection component.
 	 */
 	public void setHeader(String header){
 		span.getElement().setInnerHTML(header);
@@ -120,7 +117,6 @@ public class MaterialCollection extends ComplexWidget implements HasActive, HasG
 
 	@Override
 	public int getActive() {
-		// TODO Auto-generated method stub
 		return index;
 	}
 
@@ -131,11 +127,10 @@ public class MaterialCollection extends ComplexWidget implements HasActive, HasG
 
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 }

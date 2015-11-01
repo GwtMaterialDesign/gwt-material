@@ -26,29 +26,28 @@ import com.google.gwt.dom.client.Document;
 
 //@formatter:off
 /**
-* Floating action buttons are used for a promoted action. They are distinguished by a circled icon floating above the UI and have motion behaviors that include morphing, launching, and a transferring anchor point.
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* 
-	<m:MaterialFAB>
-		<m:MaterialButton type="FLOATING" backgroundColor="blue" icon="polymer" size="large"/>
-		<m:MaterialFABList>
-			<m:MaterialButton type="FLOATING" backgroundColor="red" icon="polymer"/>
-			<m:MaterialButton type="FLOATING" backgroundColor="orange" icon="polymer"/>
-			<m:MaterialButton type="FLOATING" backgroundColor="white" icon="polymer" iconColor="black"/>
-		</m:MaterialFABList>
-	</m:MaterialFAB>
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
-*/
+ * Floating action buttons are used for a promoted action. They
+ * are distinguished by a circled icon floating above the UI and
+ * have motion behaviors that include morphing, launching, and a
+ * transferring anchor point.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code<m:MaterialFAB>
+ *   <m:MaterialButton type="FLOATING" backgroundColor="blue" icon="polymer" size="large"/>
+ *   <m:MaterialFABList>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="red" icon="polymer"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="orange" icon="polymer"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="white" icon="polymer" iconColor="black"/>
+ *   </m:MaterialFABList>
+ * </m:MaterialFAB>
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
+ */
 //@formatter:on
 public class MaterialFAB extends ComplexWidget {
 
@@ -56,5 +55,4 @@ public class MaterialFAB extends ComplexWidget {
 		setElement(Document.get().createDivElement());
 		setStyleName("fixed-action-btn");
 	}
-
 }

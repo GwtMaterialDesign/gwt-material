@@ -21,38 +21,38 @@ package gwt.material.design.client.custom;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 
-public class CustomParagraph extends ComplexWidget {
-	
-	private String text;
+public class CustomParagraph extends ComplexWidget implements HasText {
 
 	public CustomParagraph() {
 		setElement(Document.get().createElement("p"));
 	}
 
 	public CustomParagraph(Widget item) {
-		setElement(Document.get().createElement("p"));
+		this();
 		add(item);
 	}
 
 	public CustomParagraph(String text) {
-		this.setText(text);
+		this();
+		setText(text);
 	}
-
 
 	/**
 	 * @return the text
 	 */
+	@Override
 	public String getText() {
-		return text;
+		return getElement().getInnerText();
 	}
 
 	/**
 	 * @param text the text to set
 	 */
+	@Override
 	public void setText(String text) {
-		this.text = text;
+		getElement().setInnerText(text);
 	}
-
 }

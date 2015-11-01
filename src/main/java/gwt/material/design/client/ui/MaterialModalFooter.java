@@ -26,10 +26,9 @@ package gwt.material.design.client.ui;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#dialogs">Material Modal</a>
 *///@formatter:on
-public class MaterialModalFooter extends MaterialPanel{
+public class MaterialModalFooter extends MaterialPanel {
 
 	public MaterialModalFooter() {
 		setStyleName("modal-footer");
 	}
-
 }

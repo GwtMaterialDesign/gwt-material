@@ -31,11 +31,10 @@ import com.google.gwt.dom.client.Document;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
-
 //@formatter:on
-public class MaterialCardContent extends ComplexWidget implements HasColors{
+public class MaterialCardContent extends ComplexWidget implements HasColors {
 
-	public MaterialCardContent(){
+	public MaterialCardContent() {
 		super();
 		setElement(Document.get().createDivElement());
 		setStyleName("card-content");
@@ -50,5 +49,4 @@ public class MaterialCardContent extends ComplexWidget implements HasColors{
 	public void setTextColor(String textColor) {
 		addStyleName(textColor + "-text");
 	}
-	
 }

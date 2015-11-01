@@ -24,6 +24,7 @@ import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasDismissable;
 import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.custom.Waves;
 import gwt.material.design.client.type.CollectionType;
 
 import com.google.gwt.dom.client.Document;
@@ -39,36 +40,30 @@ import com.google.gwt.user.client.ui.Widget;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 *///@formatter:on
-public class MaterialCollectionItem extends ComplexWidget implements HasColors, HasDismissable, HasWaves, HasClickHandlers{
+public class MaterialCollectionItem extends ComplexWidget implements HasColors,
+		HasDismissable, HasWaves, HasClickHandlers {
 
 	public MaterialCollectionItem() {
 		setElement(Document.get().createLIElement());
 		setStyleName("collection-item");
 	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		initWaves();
-	}
 
-	public void setType(CollectionType type){
+	public void setType(CollectionType type) {
 		switch (type) {
 		case AVATAR:
-			addStyleName(type.getValue());
+			addStyleName(type.getCssName());
 			break;
 		case CHECKBOX:
 			if(getWidgetCount()> 0) getWidget(0).getElement().getStyle().setProperty("display" , "inline");
 			addClickHandler(new ClickHandler() {
-				
 				@Override
 				public void onClick(ClickEvent event) {
-					for(Widget w : MaterialCollectionItem.this){
-						if(w instanceof MaterialCollectionSecondary){
-							for(Widget a : (MaterialCollectionSecondary)w){
-								if(a instanceof MaterialCheckBox){
+					for(Widget w : MaterialCollectionItem.this) {
+						if(w instanceof MaterialCollectionSecondary) {
+							for(Widget a : (MaterialCollectionSecondary)w) {
+								if(a instanceof MaterialCheckBox) {
 									MaterialCheckBox  cb = (MaterialCheckBox)a;
-									if(cb.getValue()){
+									if(cb.getValue()) {
 										cb.setValue(false);
 									}else{
 										cb.setValue(true);
@@ -104,16 +99,11 @@ public class MaterialCollectionItem extends ComplexWidget implements HasColors, 
 	@Override
 	public void setWaves(String waves) {
 		addStyleName("waves-effect waves-" + waves);
+		Waves.detectAndApply(this);
 	}
-
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
 
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		return addDomHandler(handler, ClickEvent.getType());
 	}
-	
 }

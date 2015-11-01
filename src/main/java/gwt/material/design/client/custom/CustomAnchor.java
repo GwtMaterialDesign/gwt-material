@@ -27,5 +27,4 @@ public class CustomAnchor  extends ComplexWidget {
 	public CustomAnchor(){
 		setElement(Document.get().createElement("a"));
 	}
-	
 }

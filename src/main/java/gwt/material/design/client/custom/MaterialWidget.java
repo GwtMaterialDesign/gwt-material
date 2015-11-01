@@ -75,8 +75,8 @@ public class MaterialWidget extends Composite{
 
 	public void applyMaterialEffect() {
 		boolean applyWavesEffect = false;
-		if(widget!=null){
-			if(!isDisable()){
+		if(widget != null) {
+			if(!isDisable()) {
 				if(!waves.isEmpty()) {
 					applyWavesEffect = true;
 					widget.getElement().addClassName("waves-effect waves-" + waves);
@@ -89,20 +89,21 @@ public class MaterialWidget extends Composite{
 				if(!tooltipLocation.isEmpty()) getWidget().getElement().setAttribute("data-position", tooltipLocation);
 				if(!tooltipDelay.isEmpty()) getWidget().getElement().setAttribute("data-delay", tooltipDelay);
 				if(!tooltip.isEmpty()) getWidget().getElement().setAttribute("data-tooltip", tooltip);
-			}else{
+			} else {
 				widget.addStyleName("disabled");
 				widget.getElement().addClassName("grey lighten-2 ");
 			}
-
 		}
 		initToolTip();
-		if (applyWavesEffect) initWaves();
+		if (applyWavesEffect) Waves.detectAndApply(this);
 	}
 
+	@Override
 	public Widget getWidget() {
 		return widget;
 	}
 
+	@Override
 	public void setWidget(Widget widget) {
 		this.widget = widget;
 	}
@@ -114,7 +115,6 @@ public class MaterialWidget extends Composite{
 	public void setAlign(String align) {
 		this.align = align;
 	}
-
 
 	public String getTooltip() {
 		return tooltip;
@@ -149,15 +149,6 @@ public class MaterialWidget extends Composite{
 		  });
 	}-*/;
 
-    /**
-     * As materialize.js does not provide a init method we are calling displayEffect
-     * directly. If Materialize ever change this function name we must change it here
-     * as well.
-     */
-    private native void initWaves()/*-{
-        $wnd.Waves.displayEffect();
-    }-*/;
-
 	public boolean isDisable() {
 		return disable;
 	}
@@ -174,7 +165,4 @@ public class MaterialWidget extends Composite{
 		this.padding = padding;
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
 	}
-
-
-
 }

@@ -23,15 +23,12 @@ package gwt.material.design.client.custom;
 public interface HasDisabled {
 
 	/**
-	 * Set disabled material component
-	 * @param disabled
+	 * Set disabled material component.
 	 */
-	public void setDisabled(boolean disabled);
+	void setDisabled(boolean disabled);
 	
 	/**
-	 * Check if component is disabled
-	 * @return
+	 * Check if component is disabled.
 	 */
-	public boolean isDisabled();
-	
+	boolean isDisabled();
 }

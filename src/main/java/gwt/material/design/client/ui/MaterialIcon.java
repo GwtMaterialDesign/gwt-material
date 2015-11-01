@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.ButtonBase;
 import gwt.material.design.client.custom.HasIcons;
 import gwt.material.design.client.custom.HasSeparator;
+import gwt.material.design.client.custom.Waves;
 import gwt.material.design.client.type.IconType;
 
 import com.google.gwt.dom.client.Document;
@@ -38,7 +39,6 @@ import com.google.gwt.dom.client.Document;
 * <m:MaterialIcon waves="light" icon="polymer" textColor="blue" type="CIRCLE"/>
 * <m:MaterialIcon waves="light" icon="polymer" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="bottom"/>
 * }
-* 
 * </pre>
 * 
 * @author kevzlou7979
@@ -46,10 +46,10 @@ import com.google.gwt.dom.client.Document;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#icons">Material Icons Documentation</a>
 */
 //@formatter:on
-public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
+public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons {
 
 	/**
-	 * Creates an empty icon
+	 * Creates an empty icon.
 	 */
 	public MaterialIcon() {
 		setElement(Document.get().createElement("i"));
@@ -57,38 +57,21 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 	}
 	
 	/**
-	 * Sets a simple icon with black textcolor
-	 * @param icon
+	 * Sets a simple icon with black textcolor.
 	 */
-	public MaterialIcon(String icon){
+	public MaterialIcon(String icon) {
 		this();
 		setIcon(icon);
 	}
 	
 	/**
-	 * Sets an icon with textColor and backgroundColor
-	 * @param icon
-	 * @param textColor
-	 * @param bgColor
+	 * Sets an icon with textColor and backgroundColor.
 	 */
-	public MaterialIcon(String icon, String textColor, String bgColor){
+	public MaterialIcon(String icon, String textColor, String bgColor) {
 		this();
 		setIcon(icon);
 		setTextColor(textColor);
 		setBackgroundColor(bgColor);
-	}
-	
-	@Override
-	protected void onLoad() {
-		// TODO Auto-generated method stub
-		super.onLoad();
-		initWaves();
-	}
-
-	@Override
-	protected void onUnload() {
-		// TODO Auto-generated method stub
-		super.onUnload();
 	}
 
 	@Override
@@ -98,18 +81,15 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 		}
 	}
 
-
 	@Override
 	public void setIcon(String icon) {
 		getElement().setInnerHTML(icon);
 	}
 
-
 	@Override
 	public void setIconPosition(String iconPosition) {
 		addStyleName(iconPosition);
 	}
-
 
 	@Override
 	public void setSize(String size) {
@@ -123,6 +103,8 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 		getElement().getStyle().setProperty("height", "auto");
 		getElement().getStyle().setProperty("textAlign", "center");
 		getElement().getStyle().setProperty("padding", "0.2em");
+
+		Waves.detectAndApply(this);
 	}
 
 	public void setType(IconType type) {
@@ -130,7 +112,6 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 		case CIRCLE:
 			addStyleName("circle");
 			break;
-
 		default:
 			break;
 		}
@@ -144,5 +125,4 @@ public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons{
 	public void setIconBackgroundColor(String bgColor){
 		addStyleName(bgColor);
 	}
-
 }

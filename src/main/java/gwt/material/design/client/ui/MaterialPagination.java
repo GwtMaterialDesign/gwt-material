@@ -36,7 +36,6 @@ public class MaterialPagination<T> extends MaterialWidget {
 
 	private static MaterialPaginationUiBinder uiBinder = GWT.create(MaterialPaginationUiBinder.class);
 
-	@SuppressWarnings("rawtypes")
 	interface MaterialPaginationUiBinder extends UiBinder<Widget, MaterialPagination> {
 	}
 	
@@ -48,7 +47,7 @@ public class MaterialPagination<T> extends MaterialWidget {
 	private int last;
 	private int currentPage = 1;
 	
-	private List<T> objects = new ArrayList<T>();
+	private List<T> objects = new ArrayList<>();
 	
 	@UiField MaterialLink next, prev, lblName;
 	@UiField UnorderedList pager;
@@ -96,16 +95,13 @@ public class MaterialPagination<T> extends MaterialWidget {
 		this.getPageResult(1);
 	}
 
-	public List<T> getPageResult(int currentPage){
+	public List<T> getPageResult(int currentPage) {
 		List<T> displayObj = new ArrayList<T>();
 		
 		last = displayItem * currentPage;
 		initial = (last - displayItem) + 1;
-		System.out.println(initial + ":" + last);
 		
 		lblName.setText(initial + "-" + last + " of " + getNumberOfItems());
-	
-		
 		return displayObj;
 	}
 
@@ -116,6 +112,4 @@ public class MaterialPagination<T> extends MaterialWidget {
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
-	
-
 }

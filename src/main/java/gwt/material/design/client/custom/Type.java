@@ -1,4 +1,4 @@
-package gwt.material.design.client.resources;
+package gwt.material.design.client.custom;
 
 /*
  * #%L
@@ -21,19 +21,8 @@ package gwt.material.design.client.resources;
  */
 
 
-public enum Orientation{
-	LANDSCAPE("landscape"), 
-	PORTRAIT("portrait");
-	
-	private String value;
-	
-	Orientation(String value){
-		this.setValue(value);
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+/**
+ * Marker interface for enums that represent types.
+ */
+public interface Type {
 }

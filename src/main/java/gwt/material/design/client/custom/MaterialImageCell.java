@@ -28,7 +28,6 @@ import com.google.gwt.user.client.DOM;
 
 public class MaterialImageCell extends AbstractCell<MaterialImage> {
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void render(com.google.gwt.cell.client.Cell.Context context,
 			MaterialImage value, SafeHtmlBuilder sb) {

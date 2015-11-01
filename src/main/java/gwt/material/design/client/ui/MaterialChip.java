@@ -31,31 +31,29 @@ import com.google.gwt.user.client.ui.Image;
 
 //@formatter:off
 /**
-* Chips can be used to represent small blocks of information. They are most commonly used either for contacts or for tags.
-* 
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* Simple Chips
-* <m:MaterialChip text="Default" icon="close"/>
-* 
-* Static Chip
-* <m:MaterialChip text="Apple" />
-* 
-* Contact Chips
-* <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" icon="close"/>
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
-*/
+ * Chips can be used to represent small blocks of information.
+ * They are most commonly used either for contacts or for tags.
+ *
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code// Simple Chips
+ * <m:MaterialChip text="Default" icon="close"/>
+ *
+ * // Static Chip
+ * <m:MaterialChip text="Apple" />
+ *
+ * // Contact Chips
+ * <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" icon="close"/>
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
+ */
 //@formatter:on
-public class MaterialChip extends ButtonBase implements HasImage, HasIcons{
+public class MaterialChip extends ButtonBase implements HasImage, HasIcons {
 
 	private String text = "";
 	private String url = "";
@@ -65,9 +63,9 @@ public class MaterialChip extends ButtonBase implements HasImage, HasIcons{
 	private CustomSpan span = new CustomSpan();
 	
 	/**
-	 * Creates an empty chip
+	 * Creates an empty chip.
 	 */
-	public MaterialChip(){
+	public MaterialChip() {
 		setElement(Document.get().createDivElement());
 		setStyleName("chip");
 	}
@@ -91,7 +89,6 @@ public class MaterialChip extends ButtonBase implements HasImage, HasIcons{
 
 	@Override
 	public String getUrl() {
-		// TODO Auto-generated method stub
 		return url;
 	}
 

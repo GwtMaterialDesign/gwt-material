@@ -24,12 +24,10 @@
 	
 	</ui:style>
 	<g:HTMLPanel addStyleNames="row valign-wrapper">
-		
 		<g:Image ui:field="imgProfile" addStyleNames="responsive-img circle col s12 m3 center-on-small-only"/>
 		<g:HTMLPanel addStyleNames="col s12 m9">
 			<h4><g:Label ui:field="lblName"/></h4>
 			<p><g:Label ui:field="lblDescription"/></p>
 		</g:HTMLPanel>
-	
 	</g:HTMLPanel>
 </ui:UiBinder> 

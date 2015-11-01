@@ -47,11 +47,13 @@ MaterialLoader.showProgress(true);
 //@formatter:on
 public class MaterialLoader {
 	private static PreLoader preLoader = new PreLoader();
-	private static HTMLPanel indeterminateProgress = new HTMLPanel("<div id='lean-overlay' style='display: block; opacity: 0.8; background: #fff;'></div><div class='progress' style='z-index: 1000; position: fixed !important;' ><div class='indeterminate' '></div></div>"); 
+	private static HTMLPanel indeterminateProgress = new HTMLPanel(
+		"<div id='lean-overlay' style='display: block; opacity: 0.8; background: #fff;'></div>" +
+		"<div class='progress' style='z-index: 1000; position: fixed !important;' >" +
+		"<div class='indeterminate' '></div></div>");
 
 	/**
-	 * Show a circular loader
-	 * @param isShow
+	 * Show a circular loader.
 	 */
 	public static void showLoading(boolean isShow) {
 		if (isShow) {
@@ -59,22 +61,20 @@ public class MaterialLoader {
 		} else {
 			preLoader.removeFromParent();
 		}
-
 	}
 	
 	/**
-	 * Show a progress loader
-	 * @param isShow
+	 * Show a progress loader.
 	 */
-	public static void showProgress(boolean isShow){
-		if(isShow){
+	public static void showProgress(boolean isShow) {
+		if(isShow) {
 			indeterminateProgress.getElement().getStyle().setPosition(Position.ABSOLUTE);
 			indeterminateProgress.getElement().getStyle().setTop(0, Unit.PCT);
 			indeterminateProgress.getElement().getStyle().setWidth(100, Unit.PCT);
 			indeterminateProgress.getElement().getStyle().setLeft(0, Unit.PCT);
 			indeterminateProgress.getElement().getStyle().setZIndex(1000);
 			RootPanel.get().add(indeterminateProgress);
-		}else{
+		} else {
 			indeterminateProgress.removeFromParent();
 		}
 	}	

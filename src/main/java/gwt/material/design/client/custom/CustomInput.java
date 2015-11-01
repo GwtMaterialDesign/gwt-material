@@ -24,8 +24,8 @@ import com.google.gwt.dom.client.Document;
 
 public class CustomInput  extends ComplexWidget {
 	
-	private String type="";
-	private String placeholder="";
+	private String type = "";
+	private String placeholder = "";
 	private boolean required;
 	
 	public CustomInput() {
@@ -39,7 +39,6 @@ public class CustomInput  extends ComplexWidget {
 	public void setType(String type) {
 		this.type = type;
 		this.getElement().setAttribute("type", type);
-		
 	}
 
 	public boolean isRequired() {
@@ -59,5 +58,4 @@ public class CustomInput  extends ComplexWidget {
 		this.placeholder = placeholder;
 		this.getElement().setAttribute("placeholder", placeholder);
 	}
-
 }

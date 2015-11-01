@@ -54,5 +54,4 @@ public class ListItem extends ComplexPanel {
 		this.opacity = opacity;
 		this.getElement().getStyle().setOpacity(Double.parseDouble(opacity));
 	}
-
 }

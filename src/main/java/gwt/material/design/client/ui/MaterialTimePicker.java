@@ -20,11 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import gwt.material.design.client.custom.CustomInput;
 import gwt.material.design.client.custom.HasError;
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.resources.Orientation;
+import gwt.material.design.client.options.Orientation;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -37,12 +36,10 @@ import com.google.gwt.user.client.ui.Widget;
 public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 
 	private static MaterialTimePickerUiBinder uiBinder = GWT
-			.create(MaterialTimePickerUiBinder.class);
+		.create(MaterialTimePickerUiBinder.class);
 
-	interface MaterialTimePickerUiBinder extends
-			UiBinder<Widget, MaterialTimePicker> {
+	interface MaterialTimePickerUiBinder extends UiBinder<Widget, MaterialTimePicker> {
 	}
-	
 	
 	@UiField HTMLPanel panel;
 	@UiField CustomInput inputElement;
@@ -59,15 +56,14 @@ public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 
 	@Override
 	protected void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		String genId = DOM.createUniqueId();
 		inputElement.getElement().setAttribute("type", "text");
 		inputElement.getElement().setAttribute("id", genId);
-		initTimePicker(genId, getOrientation().getValue());
+		initTimePicker(genId, getOrientation().getCssName());
 	}
 
-	public native void initTimePicker(String id, String orientation)/*-{
+	public native void initTimePicker(String id, String orientation) /*-{
 		$wnd.jQuery('#' + id).lolliclock({autoclose:false, orientation: orientation});
 		$wnd.jQuery('#' + id).blur();
 	}-*/;
@@ -80,8 +76,7 @@ public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 	}
 
 	/**
-	 * @param time
-	 *            the time to set
+	 * @param time the time to set
 	 */
 	public void setTime(String time) {
 		this.time = time;
@@ -144,12 +139,10 @@ public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")) {
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
-	
 }

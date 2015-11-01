@@ -29,49 +29,41 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
 
-public class MaterialRadioButton extends RadioButton implements HasGrid{
+public class MaterialRadioButton extends RadioButton implements HasGrid {
 
-	private String type ="";
+	private String type = "";
 	private boolean disabled;
 	
 	public MaterialRadioButton() {
-		// TODO Auto-generated constructor stub
 		super("");
 	}
 
 	public MaterialRadioButton(String name, SafeHtml label, Direction dir) {
 		super(name, label, dir);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialRadioButton(String name, SafeHtml label, DirectionEstimator directionEstimator) {
 		super(name, label, directionEstimator);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialRadioButton(String name, SafeHtml label) {
 		super(name, label);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialRadioButton(String name, String label, boolean asHTML) {
 		super(name, label, asHTML);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialRadioButton(String name, String label, Direction dir) {
 		super(name, label, dir);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialRadioButton(String name, String label, DirectionEstimator directionEstimator) {
 		super(name, label, directionEstimator);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialRadioButton(String name, String label) {
 		super(name, label);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialRadioButton(String name) {
@@ -89,7 +81,6 @@ public class MaterialRadioButton extends RadioButton implements HasGrid{
 	        Element e_input = DOM.getChild(e_cb, 0); 
 	        e_input.setAttribute("class", "with-gap");
 		}
-		
 	}
 
 	public boolean isDisabled() {
@@ -108,13 +99,10 @@ public class MaterialRadioButton extends RadioButton implements HasGrid{
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
-
-	
 }

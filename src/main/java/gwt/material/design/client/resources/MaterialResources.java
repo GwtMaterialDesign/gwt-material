@@ -26,34 +26,29 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.TextResource;
 
 public interface MaterialResources extends ClientBundle {
-	public static final MaterialResources INSTANCE = GWT
-			.create(MaterialResources.class);
+	MaterialResources INSTANCE = GWT.create(MaterialResources.class);
 	
-	@Source("image.png")
+	@Source("img/image.png")
 	ImageResource image();
 	
-	@Source("yuna.jpg")
+	@Source("img/yuna.jpg")
 	ImageResource yuna();
 
-	@Source("ic_progress_cancel.png")
+	@Source("img/ic_progress_cancel.png")
 	ImageResource ic_progress_cancel();
 	
-	@Source("jquery.js")
-	TextResource jQuery();
+	@Source("js/timepicker-0.1.0.min.js")
+	TextResource timepickerJs();
 	
-	@Source("timepicker.js")
-	TextResource timepicker();
-	
-	@Source("animation.js")
-	TextResource animation();
+	@Source("js/animation.js")
+	TextResource animationJs();
 
-	@Source("materialize.0.97.1.js")
+	@Source("js/materialize-0.97.1.min.js")
 	TextResource materializeJs();
 	
-	@Source("materialcss.gss")
+	@Source("css/materialcss.gss")
 	MaterialCSS materialcss();
 
-	@Source("materialmobilecss.gss")
+	@Source("css/materialmobilecss.gss")
 	MaterialMobileCSS materialmobilecss();
-
 }

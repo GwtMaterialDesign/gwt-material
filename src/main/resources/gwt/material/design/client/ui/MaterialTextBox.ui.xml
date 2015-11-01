@@ -25,8 +25,8 @@
 		
 	</ui:style>
 	<g:HTMLPanel ui:field="panel" addStyleNames="input-field">
-       	<c:CustomIcon ui:field="iconPanel" />
-       	<g:TextBox ui:field="txtBox" addStyleNames="validate"/>
-      	<c:CustomLabel ui:field="customLabel"><g:Label ui:field="lblName"/></c:CustomLabel>
+      <c:CustomIcon ui:field="iconPanel" />
+      <g:TextBox ui:field="txtBox" addStyleNames="validate"/>
+      <c:CustomLabel ui:field="customLabel"><g:Label ui:field="lblName"/></c:CustomLabel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

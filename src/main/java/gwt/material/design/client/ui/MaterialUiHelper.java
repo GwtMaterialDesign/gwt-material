@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -114,5 +113,4 @@ public final class MaterialUiHelper {
 			}
 		}, TouchCancelEvent.getType());
 	}
-
 }

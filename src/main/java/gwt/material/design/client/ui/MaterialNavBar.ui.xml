@@ -25,18 +25,19 @@
     xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 		@external nav-wrapper;
-		nav{
+		nav {
 			position: relative;
 		}
 		.nav-wrapper a:hover {
     		color: inherit;
 		}
-		.navMenu i{
+		.navMenu i {
 			opacity: 0.9 !important;
-    		font-size: 2em !important;
+			font-size: 2em !important;
 			padding-left: 16px;
 		}
 	</ui:style>
+
 	<c:CustomHeader ui:field="header">
 	    <c:CustomNav ui:field="nav">
 		    <m:MaterialPanel ui:field="panel" addStyleNames="nav-wrapper" >
@@ -46,5 +47,4 @@
 		    </m:MaterialPanel>
 		</c:CustomNav>	
 	</c:CustomHeader>
-	
 </ui:UiBinder> 

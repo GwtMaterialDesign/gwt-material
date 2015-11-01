@@ -20,20 +20,25 @@ package gwt.material.design.client;
  * #L%
  */
 
-import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.resources.ResourcesLoader;
+import gwt.material.design.client.resources.WithJQueryResources;
 
-import com.google.gwt.core.client.EntryPoint;
+public class MaterialWithJQuery extends MaterialDesign {
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
-public class GwtMaterialDesign implements EntryPoint {
-	
+	@Override
 	public void onModuleLoad() {
-		new ResourcesLoader(MaterialResources.INSTANCE);
+		if(isjQueryLoaded()) {
+			WithJQueryResources.INSTANCE.jQuery();
+		}
+
+		super.onModuleLoad();
 	}
-	
-	
-	
+
+	/**
+	 * Check to see if jQuery is loaded already
+	 *
+	 * @return true is jQuery is loaded, false otherwise
+	 */
+	private native boolean isjQueryLoaded() /*-{
+        return (typeof $wnd['jQuery'] !== 'undefined');
+    }-*/;
 }

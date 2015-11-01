@@ -42,7 +42,6 @@ public class MaterialHeader extends Composite {
 	
 	private String color = "white";
 	private String textColor = "black";
-	
 	private ImageResource logo;
 	private String url;
 
@@ -98,11 +97,4 @@ public class MaterialHeader extends Composite {
 	public Image getImgLogo() {
 		return imgLogo;
 	}
-
-	public void setImgLogo(Image imgLogo) {
-		this.imgLogo = imgLogo;
-	}
-	
-	
-
 }

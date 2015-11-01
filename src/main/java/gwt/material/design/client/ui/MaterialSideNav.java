@@ -20,9 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import gwt.material.design.client.custom.ComplexNav;
 import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.custom.Waves;
 import gwt.material.design.client.type.SideNavType;
 
 import com.google.gwt.dom.client.Document;
@@ -31,13 +31,11 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * SideNav is a material component that gives you a lists of menus and other navigation components.
- * @param width
- * @param name
+ * SideNav is a material component that gives you a lists
+ * of menus and other navigation components.
  */
-public class MaterialSideNav extends ComplexNav implements HasWaves{
+public class MaterialSideNav extends ComplexNav implements HasWaves {
 
-	
 	private String name;
 	private int width;
 	private boolean closeOnClick;
@@ -62,7 +60,6 @@ public class MaterialSideNav extends ComplexNav implements HasWaves{
 				item.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
 				item.getElement().getStyle().setProperty("textAlign", "center");
 			}
-			
             add(item);
         }
 	}
@@ -91,7 +88,6 @@ public class MaterialSideNav extends ComplexNav implements HasWaves{
 		this.width = width;
 		getElement().getStyle().setWidth(width, Unit.PX);
 	}
-	
 	
 	public void setCloseOnClick(boolean closeOnClick){
 		this.closeOnClick = closeOnClick;
@@ -141,8 +137,7 @@ public class MaterialSideNav extends ComplexNav implements HasWaves{
 	}
 
 	/**
-	 * Show the NavMenu
-	 * @param sideNav
+	 * Show the NavMenu.
 	 */
 	public native void showNavMenu(String sideNav)/*-{
 		$wnd.jQuery( document ).ready(function(){
@@ -160,15 +155,14 @@ public class MaterialSideNav extends ComplexNav implements HasWaves{
 	}-*/;
 	
 	/**
-	 * Shoe the sidenav
-	 * @param sidenav
+	 * Shoe the sidenav.
 	 */
 	public native void show(String sideNav)/*-{
 		$wnd.jQuery("." + sideNav).sideNav('show');
 	}-*/;
 	
 	/**
-	 * Hide the sidenav
+	 * Hide the sidenav.
 	 * @param sideNav - the name of your sidenav
 	 */
 	public native void hide(String sideNav)/*-{
@@ -197,11 +191,6 @@ public class MaterialSideNav extends ComplexNav implements HasWaves{
 				w.addStyleName(waves + " waves-effect");
 			}
 		}
-		initWaves();
+		Waves.detectAndApply(this);
 	}
-	
-	@Override
-	public native void initWaves() /*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
 }

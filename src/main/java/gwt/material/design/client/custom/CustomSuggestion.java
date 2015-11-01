@@ -20,7 +20,6 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 
 public class CustomSuggestion extends MultiWordSuggestion{
@@ -30,14 +29,14 @@ public class CustomSuggestion extends MultiWordSuggestion{
     public CustomSuggestion(){}
 
     public CustomSuggestion(String display, String suggestion){
-    	suggestion.replace("", "");
-        this.display = new String(display);
+        this.display = display;
         this.setSuggestion(suggestion);
     }
     @Override
     public String getDisplayString() {
         return (display);
     }
+
     @Override
     public String getReplacementString() {
         return display;

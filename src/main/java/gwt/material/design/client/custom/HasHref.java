@@ -20,19 +20,15 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 public interface HasHref {
 
 	/**
-	 * Set the href parameter on material components
-	 * @param href
+	 * Set the href parameter on material components.
 	 */
-	public void setHref(String href);
+	void setHref(String href);
 	
 	/**
-	 * Set the target of the href
-	 * @param target
+	 * Set the target of the href.
 	 */
-	public void setTarget(String target);
-	
+	void setTarget(String target);
 }

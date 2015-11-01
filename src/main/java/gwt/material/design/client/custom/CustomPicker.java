@@ -24,11 +24,11 @@ import gwt.material.design.client.ui.MaterialLabel;
 
 import com.google.gwt.dom.client.Document;
 
-public class CustomPicker extends ComplexWidget implements HasGrid, HasError{
+public class CustomPicker extends ComplexWidget implements HasGrid, HasError {
 
 	private MaterialLabel lblError = new MaterialLabel();
 	
-	public CustomPicker(){
+	public CustomPicker() {
 		setElement(Document.get().createElement("input"));
 	}
 	
@@ -39,12 +39,11 @@ public class CustomPicker extends ComplexWidget implements HasGrid, HasError{
 
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 
 	@Override
@@ -66,7 +65,4 @@ public class CustomPicker extends ComplexWidget implements HasGrid, HasError{
 		removeStyleName("field-error-picker");
 		lblError.setVisible(true);
 	}
-
-
-
 }

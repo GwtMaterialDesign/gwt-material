@@ -37,12 +37,9 @@ public class MaterialParallax extends Composite {
 	interface MaterialParallaxUiBinder extends UiBinder<Widget, MaterialParallax> {
 	}
 
-	@UiField
-	MaterialRow container;
-	@UiField
-	MaterialPanel imageContainer;
-	@UiField
-	Image image;
+	@UiField MaterialRow container;
+	@UiField MaterialPanel imageContainer;
+	@UiField Image image;
 
 	private String height;
 	private String url;
@@ -64,7 +61,6 @@ public class MaterialParallax extends Composite {
 
 	@Override
 	protected void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		initParallax();
 	}
@@ -74,7 +70,7 @@ public class MaterialParallax extends Composite {
 		container.add(w);
 	}
 
-	public native void initParallax()/*-{
+	public native void initParallax() /*-{
 		$wnd.jQuery(document).ready(function() {
 			$wnd.jQuery('.parallax').parallax();
 		});
@@ -106,7 +102,4 @@ public class MaterialParallax extends Composite {
 		this.height = height;
 		imageContainer.getElement().getStyle().setHeight(Double.parseDouble(height), Unit.PX);
 	}
-	
-	
-
 }

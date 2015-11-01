@@ -22,9 +22,9 @@ package gwt.material.design.client.custom;
 
 import com.google.gwt.dom.client.Document;
 
-public class CustomCheckBox  extends ComplexWidget {
+public class CustomCheckBox extends ComplexWidget {
 	
-	private String type="";
+	private String type = "";
 	
 	public CustomCheckBox() {
 		setElement(Document.get().createElement("input"));
@@ -39,5 +39,4 @@ public class CustomCheckBox  extends ComplexWidget {
 		this.type = type;
 		this.getElement().setAttribute("type", type);
 	}
-
 }

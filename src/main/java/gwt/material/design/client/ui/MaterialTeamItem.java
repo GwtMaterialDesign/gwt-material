@@ -39,9 +39,8 @@ public class MaterialTeamItem extends Composite {
 	@UiField Image imgProfile;
 	@UiField Label lblName;
 	@UiField Label lblDescription;
-	
-	
-	private String name="";
+
+	private String name = "";
 	private String description = "";
 	private ImageResource profile;
 	
@@ -75,7 +74,4 @@ public class MaterialTeamItem extends Composite {
 		this.description = description;
 		lblDescription.setText(description);
 	}
-	
-	
-
 }

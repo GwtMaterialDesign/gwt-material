@@ -101,8 +101,7 @@ public class MaterialModal extends Widget {
 	}
 
 	/**
-	 * Setting the modal type for styles and behaviours
-	 * @param type
+	 * Setting the modal type for styles and behaviours.
 	 */
 	private static void confirmType(ModalType type) {
 		switch (type) {
@@ -124,10 +123,8 @@ public class MaterialModal extends Widget {
 		}
 	}
 
-	
-
 	/**
-	 * Hide the modal 
+	 * Hide the modal.
 	 */
 	public void hide() {
 		panel.getElement().removeAttribute("style");
@@ -135,35 +132,26 @@ public class MaterialModal extends Widget {
 	}
 
 	/**
-	 * Show the modal with provided id
-	 * @param id
-	 * @param autoHideEnabled
+	 * Show the modal with provided id.
 	 */
-	private static native void showModal(String id, boolean autoHideEnabled)/*-{
-													$wnd.jQuery('#' + id).openModal({
-														dismissible: autoHideEnabled
-													});
-													
-													}-*/;
+	private static native void showModal(String id, boolean autoHideEnabled) /*-{
+		$wnd.jQuery('#' + id).openModal({
+			dismissible: autoHideEnabled
+		});
+	}-*/;
 
 	/**
-	 * Closing the modal with provided id
-	 * @param id
+	 * Closing the modal with provided id.
 	 */
-	public static native void closeModal(String id)/*-{
-													$wnd.jQuery('#' + id).closeModal();
-													}-*/;
+	public static native void closeModal(String id) /*-{
+		$wnd.jQuery('#' + id).closeModal();
+	}-*/;
 
 	/**
-	 * Close the modal
+	 * Close the modal.
 	 */
 	public static void closeModal() {
 		panel.clear();
 		closeModal(panel.getElement().getId());
 	}
-
-
-
-	
-	
 }

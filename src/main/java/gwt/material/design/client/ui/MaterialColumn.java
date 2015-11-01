@@ -29,38 +29,35 @@ import gwt.material.design.client.custom.HasWaves;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasVisibility;
+import gwt.material.design.client.custom.Waves;
 //@formatter:off
 /**
 * MaterialColumn is panel that act as a fluid panel to easily sets your desired column.We are using 12 grid layout with screens small, medium and large.
 * Just set grid='s12 m12 l12' to define your grid layout values.
 * 
 * <p>
-* <h3>UiBinder Usage:</h3>
-* 
+* <h4>UiBinder Usage:</h4>
 * <pre>
-* {@code 
-* 
+* {@code
 * <m:MaterialColumn grid='s12 m6 l4'/>
-* 
 * 	Small Device - 12 grid
 * 	Medium Device - 6 grid
 * 	Large Device - 4 grid
 * }
 * </pre>
-* </p>
 * 
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors, HasWaves, HasShadow, HasVisibility{
+public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors, HasWaves, HasShadow, HasVisibility {
 
 	public MaterialColumn() {
 		setElement(Document.get().createDivElement());
 		setStyleName("col");
 	}
 
-	public MaterialColumn(int small, int medium, int large){
+	public MaterialColumn(int small, int medium, int large) {
 		setStyleName("col");
 		this.addStyleName("s"+small+" m"+medium + " l" + large);
 	}
@@ -68,12 +65,6 @@ public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors,
 	@Override
 	public void setBackgroundColor(String bgColor) {
 		addStyleName(bgColor);
-	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		initWaves();
 	}
 
 	@Override
@@ -84,12 +75,8 @@ public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors,
 	@Override
 	public void setWaves(String waves) {
 		addStyleName("waves-effect waves-" + waves);
+		Waves.detectAndApply(this);
 	}
-
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
 
 	@Override
 	public void setShadow(int shadow) {
@@ -97,27 +84,24 @@ public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors,
 	}
 	
 	/**
-	 * Sets the name of your scrollspy
-	 * @param scrollspy
+	 * Sets the name of your scrollspy.
 	 */
-	public void setScrollspy(String scrollspy){
+	public void setScrollspy(String scrollspy) {
 		this.addStyleName("scrollspy section");
 		this.getElement().setId(scrollspy);
 	}
 	
 	/**
-	 * Sets the opacity of the panel
-	 * @param opacity
+	 * Sets the opacity of the panel.
 	 */
 	public void setOpacity(int opacity){
 		this.getElement().getStyle().setOpacity(opacity);
 	}
 	
 	/**
-	 * Sets the padding of the panel
-	 * @param padding
+	 * Sets the padding of the panel.
 	 */
-	public void setPadding(String padding){
+	public void setPadding(String padding) {
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
 	}
 	
@@ -132,12 +116,10 @@ public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors,
 
 	@Override
 	public void setOffset(String offset) {
-		  String tobeadded = "";
-		  String[] vals = offset.split(" ");
-		  for(String val : vals){
-		   tobeadded = tobeadded + " offset-" +  val;
-		  }
-		  this.addStyleName(tobeadded);
+		String cssName = "";
+		for(String val : offset.split(" ")) {
+			cssName = cssName + " offset-" +  val;
+		}
+		this.addStyleName(cssName);
 	}
-
 }

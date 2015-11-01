@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -30,10 +29,9 @@ import com.google.gwt.user.client.ui.Widget;
 public class MaterialNoResult extends Composite {
 
 	private static MaterialNoResultUiBinder uiBinder = GWT
-			.create(MaterialNoResultUiBinder.class);
+		.create(MaterialNoResultUiBinder.class);
 
-	interface MaterialNoResultUiBinder extends
-			UiBinder<Widget, MaterialNoResult> {
+	interface MaterialNoResultUiBinder extends UiBinder<Widget, MaterialNoResult> {
 	}
 
 	@UiField MaterialIcon iconElem;
@@ -41,16 +39,14 @@ public class MaterialNoResult extends Composite {
 	@UiField MaterialPanel panel;
 	
 	private String color = "";
-	private String textColor="";
-	private String icon="";
+	private String textColor = "";
+	private String icon = "";
 	private String title = "";
 	private String description = "";
 	
 	public MaterialNoResult() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
-	
 
 	public MaterialNoResult(String color, String textColor, String icon,
 			String title, String description) {
@@ -59,10 +55,8 @@ public class MaterialNoResult extends Composite {
 		setTextColor(textColor);
 		setIcon(icon);
 		setTitle(title);
-		setDescription(description);;
+		setDescription(description);
 	}
-
-
 
 	public String getColor() {
 		return color;
@@ -109,6 +103,4 @@ public class MaterialNoResult extends Composite {
 		this.description = description;
 		titleElem.setDescription(description);
 	}
-
-	
 }

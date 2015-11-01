@@ -27,5 +27,4 @@ public class CustomDiv  extends ComplexWidget {
 	public CustomDiv(){
 		setElement(Document.get().createElement("div"));
 	}
-	
 }

@@ -20,12 +20,16 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
-public interface HasType {
+public interface HasType<T extends Type> {
 	/**
-	 * Set the type of material component.
-	 * @param type
+	 * Sets the type on the widget
+	 * @param type T type
 	 */
-	public void setType(String type);
-	
+	void setType(T type);
+
+	/**
+	 * Gets the type of the widget.
+	 * @return type of the widget
+	 */
+	T getType();
 }

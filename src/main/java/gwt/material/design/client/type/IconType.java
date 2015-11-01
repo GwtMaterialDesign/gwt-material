@@ -20,46 +20,39 @@ package gwt.material.design.client.type;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.Type;
+
 /**
  * Types of Icon
  * - CIRCLE
  * @author kevzlou7979
- *
  */
-public enum IconType {
+public enum IconType implements Type, Style.HasCssName {
 	CIRCLE("circle");
-	
-	String value;
-	
-	IconType(String value){
-		this.value = value;
+
+	private final String cssClass;
+
+	IconType(final String cssClass) {
+		this.cssClass = cssClass;
 	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
+
+	@Override
+	public String getCssName() {
+		return cssClass;
 	}
+
 	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	/**
-	 * Get Type from String
-	 * @param text
-	 * @return Type
+	 * Get Type from String.
 	 */
 	public static IconType fromString(String text) {
-	    if (text != null) {
-	      for (IconType b : IconType.values()) {
-	        if (text.equalsIgnoreCase(b.getValue())) {
-	          return b;
-	        }
-	      }
-	    }
-	    return null;
-	 }
+		if (text != null) {
+			for (IconType b : IconType.values()) {
+				if (text.equalsIgnoreCase(b.getCssName())) {
+					return b;
+				}
+			}
+		}
+		return null;
+	}
 }

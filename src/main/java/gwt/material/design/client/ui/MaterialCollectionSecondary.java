@@ -31,9 +31,9 @@ import gwt.material.design.client.custom.HasHref;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 *///@formatter:on
-public class MaterialCollectionSecondary extends ComplexWidget implements HasHref{
+public class MaterialCollectionSecondary extends ComplexWidget implements HasHref {
 
-	public MaterialCollectionSecondary(){
+	public MaterialCollectionSecondary() {
 		setElement(Document.get().createAnchorElement());
 		setStyleName("secondary-content");
 	}
@@ -47,5 +47,4 @@ public class MaterialCollectionSecondary extends ComplexWidget implements HasHre
 	public void setTarget(String target) {
 		getElement().setAttribute("target", target);
 	}
-
 }

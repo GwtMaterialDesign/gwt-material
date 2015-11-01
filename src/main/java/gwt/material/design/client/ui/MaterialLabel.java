@@ -46,44 +46,32 @@ import com.google.gwt.user.client.ui.Label;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
 */
 //@formatter:on
-public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasColors{
+public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasColors {
 	
 	String fontSize = "";
 	String textColor = "";
 
 	public MaterialLabel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialLabel(Element element) {
 		super(element);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialLabel(String text, boolean wordWrap) {
 		super(text, wordWrap);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialLabel(String text, Direction dir) {
 		super(text, dir);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialLabel(String text, DirectionEstimator directionEstimator) {
 		super(text, directionEstimator);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialLabel(String text) {
 		super(text);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
 	}
 
 	public String getFontSize() {
@@ -109,25 +97,20 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasCo
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 
 	@Override
 	public void setBackgroundColor(String bgColor) {
-		// TODO Auto-generated method stub
 		addStyleName(bgColor);
 	}
 
 	@Override
 	public void setTextColor(String textColor) {
-		// TODO Auto-generated method stub
 		addStyleName(textColor + "-text");
 	}
-	
-	
 }

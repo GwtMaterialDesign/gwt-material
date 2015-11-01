@@ -32,14 +32,14 @@ import com.google.gwt.user.client.ui.Widget;
 public class MaterialTitle extends Composite {
 
 	private static MaterialTitleUiBinder uiBinder = GWT
-			.create(MaterialTitleUiBinder.class);
+		.create(MaterialTitleUiBinder.class);
 
 	interface MaterialTitleUiBinder extends UiBinder<Widget, MaterialTitle> {
 	}
 
-	private String title="";
+	private String title = "";
 	private String description = "";
-	private String color="";
+	private String color = "";
 	private MaterialTitle materialTitle;
 	private double fontSize;
 	
@@ -60,16 +60,6 @@ public class MaterialTitle extends Composite {
 	public MaterialTitle() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-
-	
-	
-	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-	}
-
-
 
 	public String getDescription() {
 		return description;
@@ -107,19 +97,12 @@ public class MaterialTitle extends Composite {
 		this.materialTitle = materialTitle;
 	}
 
-
-
 	public double getFontSize() {
 		return fontSize;
 	}
-
-
 
 	public void setFontSize(double fontSize) {
 		this.fontSize = fontSize;
 		lblTitle.getElement().getStyle().setFontSize(fontSize, Unit.EM);
 	}
-	
-	
-
 }

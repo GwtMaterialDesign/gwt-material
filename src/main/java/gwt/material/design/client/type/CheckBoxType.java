@@ -20,48 +20,41 @@ package gwt.material.design.client.type;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.Type;
+
 /**
  * Types of CheckBox<br>
  * - FILLED<br>
  * - INTERMEDIATE<br>
  * @author kevzlou7979
- *
  */
-public enum CheckBoxType {
-	FILLED("filled"), 
+public enum CheckBoxType implements Type, Style.HasCssName {
+	FILLED("filled"),
 	INTERMEDIATE("intermediate");
-	
-	String value;
-	
-	CheckBoxType(String value){
-		this.value = value;
+
+	private final String cssClass;
+
+	CheckBoxType(final String cssClass) {
+		this.cssClass = cssClass;
 	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
+
+	@Override
+	public String getCssName() {
+		return cssClass;
 	}
 	
 	/**
-	 * Get Type from String
-	 * @param text
-	 * @return Type
+	 * Get Type from String.
 	 */
 	public static CheckBoxType fromString(String text) {
-	    if (text != null) {
-	      for (CheckBoxType b : CheckBoxType.values()) {
-	        if (text.equalsIgnoreCase(b.getValue())) {
-	          return b;
-	        }
-	      }
-	    }
-	    return null;
-	  }
+		if (text != null) {
+			for (CheckBoxType b : CheckBoxType.values()) {
+				if (text.equalsIgnoreCase(b.getCssName())) {
+					return b;
+				}
+			}
+		}
+		return null;
+	}
 }

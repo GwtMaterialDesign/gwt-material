@@ -54,7 +54,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
 */
 //@formatter:on
-public class MaterialRange extends ComplexWidget implements HasChangeHandlers, HasGrid, HasError{
+public class MaterialRange extends ComplexWidget implements HasChangeHandlers, HasGrid, HasError {
 
 	private CustomParagraph paragraph = new CustomParagraph();
 	private CustomInput input = new CustomInput();
@@ -88,7 +88,7 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 	 * @param max - end max value
 	 * @param value - default range value
 	 */
-	public MaterialRange(Integer min, Integer max, Integer value){
+	public MaterialRange(Integer min, Integer max, Integer value) {
 		this();
 		setMin(min);
 		setMax(max);
@@ -114,24 +114,21 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 	 * @param attribute The name of the attribute on the range element
 	 * @return The Integer vaulue read from the given attribute or null
 	 */
-	private Integer getIntFromRangeElement(String attribute){
+	private Integer getIntFromRangeElement(String attribute) {
 		Element ele = getRangeElement();
-		if(ele!=null){
+		if(ele != null) {
           return ele.getPropertyInt(attribute);
 		}
 		return null;
 	}
 
 	/**
-	 * Set the given Integer value to the attribute of the range element
-	 * @param attribute
-	 * @param val
+	 * Set the given Integer value to the attribute of the range element.
 	 */
-	private void setIntToRangeElement(String attribute,Integer val)
-	{
+	private void setIntToRangeElement(String attribute,Integer val) {
 		Element ele = getRangeElement();
-		if(ele!=null){
-          ele.setPropertyInt(attribute,val);
+		if(ele != null) {
+        	ele.setPropertyInt(attribute,val);
 		}
 	}
 	
@@ -148,9 +145,9 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 	 * @param value value must be &gt;= min and &lt;= max 
 	 */
 	public void setValue(Integer value) {
-		if (value==null)return;
-		if (value<getMin())return;
-		if (value>getMax())return;
+		if (value == null)return;
+		if (value < getMin())return;
+		if (value > getMax())return;
         setIntToRangeElement(VALUE,value);
 	}
 
@@ -219,11 +216,10 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 }

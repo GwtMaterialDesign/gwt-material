@@ -20,6 +20,8 @@ package gwt.material.design.client.type;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.Type;
 
 /**
  * Types of NavBar<br>
@@ -28,42 +30,33 @@ package gwt.material.design.client.type;
  * @author kevzlou7979
  *
  */
-public enum NavBarType {
+public enum NavBarType implements Type, Style.HasCssName {
 
 	FIXED("fixed"),
 	TALL("tall");
-	
-	String value;
-	NavBarType(String value){
-		this.value = value;
+
+	private final String cssClass;
+
+	NavBarType(final String cssClass) {
+		this.cssClass = cssClass;
 	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
+
+	@Override
+	public String getCssName() {
+		return cssClass;
 	}
+
 	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	/**
-	 * Get Type from String
-	 * @param text
-	 * @return Type
+	 * Get Type from String.
 	 */
 	public static NavBarType fromString(String text) {
-	    if (text != null) {
-	      for (NavBarType b : NavBarType.values()) {
-	        if (text.equalsIgnoreCase(b.getValue())) {
-	          return b;
-	        }
-	      }
-	    }
-	    return null;
-	  }
-	
+		if (text != null) {
+			for (NavBarType b : NavBarType.values()) {
+				if (text.equalsIgnoreCase(b.getCssName())) {
+					return b;
+				}
+			}
+		}
+		return null;
+	}
 }

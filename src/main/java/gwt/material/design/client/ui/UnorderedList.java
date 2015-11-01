@@ -41,8 +41,6 @@ public class UnorderedList extends ComplexPanel implements HasWidgets{
 	public void insert(Widget w, int beforeIndex) {
 		super.insert(w, getElement(), beforeIndex, true);
 	}
-	
-	
 
 	public String getUlId() {
 		return ulId;
@@ -52,7 +50,4 @@ public class UnorderedList extends ComplexPanel implements HasWidgets{
 		this.ulId = ulId;
 		this.getElement().setId(ulId);
 	}
-
-	
-
 }

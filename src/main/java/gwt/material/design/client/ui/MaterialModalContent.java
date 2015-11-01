@@ -26,15 +26,13 @@ package gwt.material.design.client.ui;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#dialogs">Material Modal</a>
 *///@formatter:on
-public class MaterialModalContent extends MaterialPanel{
+public class MaterialModalContent extends MaterialPanel {
 
 	public MaterialModalContent() {
 		setStyleName("modal-content");
 	}
 
 	public void setHeight(String height) {
-		this.setHeight(height + "px");
+		super.setHeight(height + "px");
 	}
-
-	
 }

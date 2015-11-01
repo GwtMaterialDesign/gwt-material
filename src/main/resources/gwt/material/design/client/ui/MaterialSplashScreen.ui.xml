@@ -38,7 +38,7 @@
 			position: absolute;
 		  	bottom: 0;
 		  	left: 0;
-		  	padding: 0px;
+		  	padding: 0;
 		  	height: 7px;
 		  	margin-bottom: 2px;
 		}
@@ -51,6 +51,5 @@
 		<m:MaterialPanel addStyleNames="{style.loader} progress">
 			<m:MaterialPanel addStyleNames="indeterminate"/>
 		</m:MaterialPanel>
-		
 	</m:MaterialPanel>
 </ui:UiBinder> 

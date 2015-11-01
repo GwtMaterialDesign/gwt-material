@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class MaterialSearch extends Composite implements HasText,HasKeyUpHandlers {
 
 	private static MaterialSearchUiBinder uiBinder = GWT
-			.create(MaterialSearchUiBinder.class);
+		.create(MaterialSearchUiBinder.class);
 
 	interface MaterialSearchUiBinder extends UiBinder<Widget, MaterialSearch> {
 	}
@@ -47,24 +47,20 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	@UiField CustomIcon iconElem;
 	@UiField MaterialPanel panel;
 	
-	private String color="";
-	private String text="";
-	private String textColor="";
-	private String placeholder  = "";
+	private String color = "";
+	private String textColor = "";
+	private String placeholder = "";
 	private String id = "";
 
 	public MaterialSearch() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
-	
 
 	/* (non-Javadoc)
 	 * @see com.google.gwt.user.client.ui.Composite#onAttach()
 	 */
 	@Override
 	protected void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		id = DOM.createUniqueId();
 		txtSearch.getElement().setId(id);
@@ -90,15 +86,14 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 
 	@Override
 	public void setText(String text) {
-		  this.text = text;
-		  setInputTextValue(text, id);
+		setInputTextValue(text, id);
 	}
 	
-	public native String getInputTextValue(String id)/*-{
+	public native String getInputTextValue(String id) /*-{
 		return $wnd.document.getElementById(id).value;
 	}-*/;
 	
-	public native void setInputTextValue(String value, String id)/*-{
+	public native void setInputTextValue(String value, String id) /*-{
 		$wnd.document.getElementById(id).value = value;
 	}-*/;
 	
@@ -120,7 +115,6 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 		this.placeholder = placeholder;
 		txtSearch.setPlaceholder(placeholder);
 	}
-
 }
 
 

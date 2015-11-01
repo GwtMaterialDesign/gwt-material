@@ -42,19 +42,14 @@ public class MaterialScrollspy extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
-	
-	
 	@UiChild(tagname = "item")
-	public void onAddItem(Widget w){
+	public void onAddItem(Widget w) {
 		ListItem item = new ListItem(w);
 		ulPanel.add(item);
 	}
-	
-	
-	
+
 	@Override
 	protected void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		initScrollspy();
 	}
@@ -70,6 +65,4 @@ public class MaterialScrollspy extends Composite {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
-	
 }
