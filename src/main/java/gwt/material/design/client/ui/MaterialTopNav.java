@@ -20,8 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.ImageType;
+import gwt.material.design.client.custom.HasFontSize;
 import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.custom.mixin.FontSizeMixin;
+import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -34,18 +36,20 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTopNav extends MaterialWidget {
+public class MaterialTopNav extends MaterialWidget implements HasFontSize {
 
 	private static MaterialTopNavUiBinder uiBinder = GWT.create(MaterialTopNavUiBinder.class);
 
 	interface MaterialTopNavUiBinder extends UiBinder<Widget, MaterialTopNav> {
 	}
 
+	private final FontSizeMixin<MaterialTopNav> fontSizeMixin = new FontSizeMixin<>(this);
+
 	@UiField Label lblTitle, lblDescription;
 	@UiField HTMLPanel panel, customPanel;
 	@UiField MaterialColumn menuPanel;
 
-	private String type, url, fontSize = "";
+	private String type, url = "";
 	private ImageResource resource;
 	
 	private String profileImageUrl = "";
@@ -121,13 +125,19 @@ public class MaterialTopNav extends MaterialWidget {
 		panel.getElement().setAttribute("style", "background-image: url(" + url + "); background-size: 100%;" );
 	}
 
-	public String getFontSize() {
-		return fontSize;
+	@Override
+	public void setFontSize(String fontSize) {
+		fontSizeMixin.setFontSize(fontSize);
 	}
 
-	public void setFontSize(String fontSize) {
-		this.fontSize = fontSize;
-		this.getElement().getStyle().setFontSize(Double.valueOf(fontSize), Unit.EM);
+	@Override
+	public String getFontSize() {
+		return fontSizeMixin.getFontSize();
+	}
+
+	@Override
+	public void setFontSize(double fontSize, Unit unit) {
+		fontSizeMixin.setFontSize(fontSize, unit);
 	}
 
 	public String getType() {

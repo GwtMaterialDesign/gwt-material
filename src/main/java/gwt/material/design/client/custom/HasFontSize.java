@@ -20,11 +20,13 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-public interface HasTooltip {
+import com.google.gwt.dom.client.Style;
 
-	void setTooltip(String tooltip);
+public interface HasFontSize {
 
-	void setTooltip(Tooltip tooltip);
+	void setFontSize(String fontSize);
 
-	Tooltip getTooltip();
+	String getFontSize();
+
+	void setFontSize(double fontSize, Style.Unit unit);
 }

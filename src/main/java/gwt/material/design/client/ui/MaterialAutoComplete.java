@@ -226,7 +226,6 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         }
     }
 	
-	
 	/**
 	 * Clear the chip items on the autocomplete box
 	 */
