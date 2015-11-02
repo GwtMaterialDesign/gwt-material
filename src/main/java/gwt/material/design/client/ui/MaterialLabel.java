@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.HasColors;
+import gwt.material.design.client.custom.HasFontSize;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.HasSeparator;
 
@@ -29,31 +30,29 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.user.client.ui.Label;
 import gwt.material.design.client.custom.mixin.ColorsMixin;
+import gwt.material.design.client.custom.mixin.FontSizeMixin;
 import gwt.material.design.client.custom.mixin.GridMixin;
 import gwt.material.design.client.custom.mixin.SeparatorMixin;
 
 //@formatter:off
 /**
-* 
-* <p>Material Label will extend to GWT Label functionality with other material specifications
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-	<m:MaterialLabel text="I love material design" />
-}
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
-*/
+ * Material Label will extend to GWT Label functionality with other material specifications
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code<m:MaterialLabel text="I love material design" />}
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
+ */
 //@formatter:on
-public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasColors {
+public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasColors, HasFontSize {
 
 	private final ColorsMixin<MaterialLabel> colorsMixin = new ColorsMixin<>(this);
 	private final GridMixin<MaterialLabel> gridMixin = new GridMixin<>(this);
 	private final SeparatorMixin<MaterialLabel> separatorMixin = new SeparatorMixin<>(this);
+	private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
 
 	public MaterialLabel() {
 	}
@@ -78,12 +77,19 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasCo
 		super(text);
 	}
 
-	public double getFontSize() {
-		return Double.parseDouble(getElement().getStyle().getFontSize());
+	@Override
+	public void setFontSize(String fontSize) {
+		fontSizeMixin.setFontSize(fontSize);
 	}
 
+	@Override
+	public String getFontSize() {
+		return fontSizeMixin.getFontSize();
+	}
+
+	@Override
 	public void setFontSize(double fontSize, Unit unit) {
-		getElement().getStyle().setFontSize(fontSize, unit);
+		fontSizeMixin.setFontSize(fontSize, unit);
 	}
 
 	@Override

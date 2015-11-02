@@ -133,6 +133,29 @@ public final class StyleHelper {
         }
     }
 
+    public static Double getMeasurementValue(String value) {
+        if(value == null) {
+            return null;
+        }
+        try {
+            return Double.parseDouble(value.replaceAll("[^0-9.]", ""));
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
+    public static Style.Unit getMeasurementUnit(String value) {
+        if(value == null) { return null; }
+        try {
+            return Style.Unit.valueOf(
+                value.replaceAll("[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?", "").toUpperCase());
+        }
+        catch(IllegalArgumentException e) {
+            // Silently catch invalid units
+            return null;
+        }
+    }
+
     private StyleHelper() {
     }
 }

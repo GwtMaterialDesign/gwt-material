@@ -103,6 +103,11 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	}
 
 	@Override
+	public void setTooltip(String tooltip) {
+		tooltipMixin.setTooltip(tooltip);
+	}
+
+	@Override
 	public Tooltip getTooltip() {
 		return tooltipMixin.getTooltip();
 	}
