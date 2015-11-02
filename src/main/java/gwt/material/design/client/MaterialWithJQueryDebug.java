@@ -20,28 +20,24 @@ package gwt.material.design.client;
  * #L%
  */
 
+import com.google.gwt.core.client.EntryPoint;
 import gwt.material.design.client.resources.WithJQueryDebugResources;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class MaterialWithJQueryDebug extends MaterialDesignDebug {
+public class MaterialWithJQueryDebug extends MaterialDesignDebugBase implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		if(isjQueryLoaded()) {
-			injectDebug(WithJQueryDebugResources.INSTANCE.jQueryDebug());
-		}
-
-		super.onModuleLoad();
+		load();
 	}
 
-	/**
-	 * Check to see if jQuery is loaded already
-	 *
-	 * @return true is jQuery is loaded, false otherwise
-	 */
-	private native boolean isjQueryLoaded() /*-{
-        return (typeof $wnd['jQuery'] !== 'undefined');
-    }-*/;
+	@Override
+	public void load() {
+		if(!isjQueryLoaded()) {
+			inject(WithJQueryDebugResources.INSTANCE.jQueryDebug());
+		}
+		super.load();
+	}
 }
