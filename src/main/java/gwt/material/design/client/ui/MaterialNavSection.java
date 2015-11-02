@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import gwt.material.design.client.custom.ComplexNav;
 
 import com.google.gwt.dom.client.Document;
@@ -28,9 +27,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialNavSection extends ComplexNav {
 
-	
 	/**
-	 * Container for App Toolbar and App Sidebar , contains Material Links, Icons or any other material components
+	 * Container for App Toolbar and App Sidebar , contains Material
+	 * Links, Icons or any other material components.
 	 */
 	public MaterialNavSection() {
 		setElement(Document.get().createULElement());
@@ -40,7 +39,7 @@ public class MaterialNavSection extends ComplexNav {
 	/**
 	 *  Creates a list and adds the given widgets.
 	 */
-	public MaterialNavSection(final Widget... widgets){
+	public MaterialNavSection(final Widget... widgets) {
 		this();
 		for (final Widget item : widgets) {
 			ListItem li = new ListItem(item);
@@ -51,6 +50,4 @@ public class MaterialNavSection extends ComplexNav {
 	public void setAlign(String align){
 		addStyleName(align);
 	}
-	
-	
 }

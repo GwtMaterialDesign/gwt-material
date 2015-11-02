@@ -23,68 +23,66 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasActive;
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.type.CollapsibleType;
+import gwt.material.design.client.constants.CollapsibleType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
-* Collapsibles are accordion elements that expand when clicked on. They allow you to hide content that is not immediately relevant to the user.
-* 
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* Accordion
-<m:MaterialCollapsible type="ACCORDION" grid="s12 m6 l8">
-	<!-- ITEM 1 -->
-	<m:MaterialCollapsibleItem>
-		<m:MaterialCollapsibleHeader>
-			<m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
-		</m:MaterialCollapsibleHeader>
-		<m:MaterialCollapsibleBody>
-			<m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
-		</m:MaterialCollapsibleBody>
-	</m:MaterialCollapsibleItem>       
-</m:MaterialCollapsible>
-* 
-* Expandable
-<m:MaterialCollapsible type="EXPANDABLE" grid="s12 m6 l8">
-	<!-- ITEM 1 -->
-	<m:MaterialCollapsibleItem>
-		<m:MaterialCollapsibleHeader>
-			<m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
-		</m:MaterialCollapsibleHeader>
-		<m:MaterialCollapsibleBody>
-			<m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
-		</m:MaterialCollapsibleBody>
-	</m:MaterialCollapsibleItem>       
-</m:MaterialCollapsible>
-* 
-* Popout
-<m:MaterialCollapsible type="POPOUT" grid="s12 m6 l8">
-	<!-- ITEM 1 -->
-	<m:MaterialCollapsibleItem>
-		<m:MaterialCollapsibleHeader>
-			<m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
-		</m:MaterialCollapsibleHeader>
-		<m:MaterialCollapsibleBody>
-			<m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
-		</m:MaterialCollapsibleBody>
-	</m:MaterialCollapsibleItem>       
-</m:MaterialCollapsible>
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
-*/
+ * Collapsibles are accordion elements that expand when clicked on.
+ * They allow you to hide content that is not immediately relevant
+ * to the user.
+ *
+ * <h3>UiBinder Usage:</h3>
+ *
+ * <pre>
+ *{@code// Accordion
+ * <m:MaterialCollapsible type="ACCORDION" grid="s12 m6 l8">
+ *   <!-- ITEM 1 -->
+ *   <m:MaterialCollapsibleItem>
+ *     <m:MaterialCollapsibleHeader>
+ *       <m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+ *     </m:MaterialCollapsibleHeader>
+ *     <m:MaterialCollapsibleBody>
+ *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+ *     </m:MaterialCollapsibleBody>
+ *   </m:MaterialCollapsibleItem>
+ * </m:MaterialCollapsible>
+ *
+ * // Expandable
+ * <m:MaterialCollapsible type="EXPANDABLE" grid="s12 m6 l8">
+ *   <!-- ITEM 1 -->
+ *   <m:MaterialCollapsibleItem>
+ *     <m:MaterialCollapsibleHeader>
+ *       <m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+ *     </m:MaterialCollapsibleHeader>
+ *     <m:MaterialCollapsibleBody>
+ *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+ *     </m:MaterialCollapsibleBody>
+ *   </m:MaterialCollapsibleItem>
+ * </m:MaterialCollapsible>
+ *
+ * // Popout
+ * <m:MaterialCollapsible type="POPOUT" grid="s12 m6 l8">
+ *   <!-- ITEM 1 -->
+ *	 <m:MaterialCollapsibleItem>
+ *     <m:MaterialCollapsibleHeader>
+ *       <m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+ *     </m:MaterialCollapsibleHeader>
+ *     <m:MaterialCollapsibleBody>
+ *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+ *     </m:MaterialCollapsibleBody>
+ *   </m:MaterialCollapsibleItem>
+ * </m:MaterialCollapsible>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+ */
 //@formatter:on
-public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasActive{
+public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasActive {
 
 	private int index;
 
@@ -105,36 +103,30 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasAc
             add(item);
         }
 	}
-	
-	
+
 	@Override
 	public void add(Widget child) {
-		// TODO Auto-generated method stub
 		super.add(child);
 		onInitCollapsible(getElement());
 	}
 
 	/**
-	 * Initialize the collapsible material component
-	 * @param uniqueId 
+	 * Initialize the collapsible material component.
 	 */
-	private native void onInitCollapsible(final com.google.gwt.dom.client.Element e)/*-{
+	private native void onInitCollapsible(final com.google.gwt.dom.client.Element e) /*-{
 		$wnd.jQuery(document).ready(function(){
 			$wnd.jQuery(e).collapsible();	
 		})
-			
 	}-*/;
-
 
 	public void setType(CollapsibleType type) {
 		switch (type) {
 		case POPOUT:
 			this.getElement().setAttribute("data-collapsible", "accordion");
-			this.addStyleName(type.getValue());
+			this.addStyleName(type.getCssName());
 			break;
-
 		default:
-			getElement().setAttribute("data-collapsible", type.getValue());
+			getElement().setAttribute("data-collapsible", type.getCssName());
 			break;
 		}
 	}
@@ -157,12 +149,11 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasAc
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 
 	@Override

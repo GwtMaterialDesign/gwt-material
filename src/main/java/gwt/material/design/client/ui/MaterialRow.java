@@ -8,6 +8,7 @@ import gwt.material.design.client.custom.HasWaves;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasVisibility;
+import gwt.material.design.client.custom.Waves;
 
 /*
  * #%L
@@ -41,7 +42,6 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * 	<m:MaterialColumn grid='s12 m6 l6'/>
 * 	<m:MaterialColumn grid='s12 m6 l6'/>
 * </m:MaterialRow>
-* 
 * }
 * </pre>
 * </p>
@@ -50,7 +50,7 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialRow extends ComplexWidget implements HasColors, HasWaves, HasShadow, HasVisibility{
+public class MaterialRow extends ComplexWidget implements HasColors, HasWaves, HasShadow, HasVisibility {
 
 	public MaterialRow(){
 		setElement(Document.get().createDivElement());
@@ -65,7 +65,6 @@ public class MaterialRow extends ComplexWidget implements HasColors, HasWaves, H
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-		initWaves();
 	}
 
 	@Override
@@ -76,12 +75,8 @@ public class MaterialRow extends ComplexWidget implements HasColors, HasWaves, H
 	@Override
 	public void setWaves(String waves) {
 		addStyleName("waves-effect waves-" + waves);
+		Waves.detectAndApply(this);
 	}
-
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
 
 	@Override
 	public void setShadow(int shadow) {
@@ -89,8 +84,7 @@ public class MaterialRow extends ComplexWidget implements HasColors, HasWaves, H
 	}
 	
 	/**
-	 * Sets the name of your scrollspy
-	 * @param scrollspy
+	 * Sets the name of your scrollspy.
 	 */
 	public void setScrollspy(String scrollspy){
 		this.addStyleName("scrollspy section");
@@ -98,16 +92,14 @@ public class MaterialRow extends ComplexWidget implements HasColors, HasWaves, H
 	}
 	
 	/**
-	 * Sets the opacity of the panel
-	 * @param opacity
+	 * Sets the opacity of the panel.
 	 */
 	public void setOpacity(int opacity){
 		this.getElement().getStyle().setOpacity(opacity);
 	}
 	
 	/**
-	 * Sets the padding of the panel
-	 * @param padding
+	 * Sets the padding of the panel.
 	 */
 	public void setPadding(String padding){
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
@@ -116,5 +108,4 @@ public class MaterialRow extends ComplexWidget implements HasColors, HasWaves, H
 	public void setAlign(String align){
 		addStyleName("align-" + align);
 	}
-
 }

@@ -1,10 +1,10 @@
-package gwt.material.design.client;
+package gwt.material.design.client.resources;
 
 /*
  * #%L
- * GwtMaterialDesign
+ * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterial
+ * Copyright (C) 2015 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,16 @@ package gwt.material.design.client;
  * #L%
  */
 
-import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.resources.ResourcesLoader;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.TextResource;
 
-import com.google.gwt.core.client.EntryPoint;
+public interface MaterialDebugResources extends ClientBundle {
+	MaterialDebugResources INSTANCE = GWT.create(MaterialDebugResources.class);
+	
+	@Source("js/timepicker-0.1.0.js")
+	TextResource timepickerJsDebug();
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
-public class GwtMaterialDesign implements EntryPoint {
-	
-	public void onModuleLoad() {
-		new ResourcesLoader(MaterialResources.INSTANCE);
-	}
-	
-	
-	
+	@Source("js/materialize-0.97.1.js")
+	TextResource materializeJsDebug();
 }

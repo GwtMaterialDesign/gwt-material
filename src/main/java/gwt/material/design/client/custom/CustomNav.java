@@ -22,11 +22,9 @@ package gwt.material.design.client.custom;
 
 import com.google.gwt.dom.client.Document;
 
-public class CustomNav  extends ComplexWidget {
-	
-	
+public class CustomNav extends ComplexWidget {
+
 	public CustomNav() {
 		setElement(Document.get().createElement("nav"));
 	}
-
 }

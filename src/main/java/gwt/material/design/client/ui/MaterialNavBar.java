@@ -20,13 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import gwt.material.design.client.custom.CustomAnchor;
 import gwt.material.design.client.custom.CustomHeader;
 import gwt.material.design.client.custom.CustomNav;
 import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasLoader;
-import gwt.material.design.client.type.NavBarType;
+import gwt.material.design.client.constants.NavBarType;
 
 import java.util.Iterator;
 
@@ -38,9 +37,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialNavBar extends Composite implements HasWidgets, HasColors, HasLoader{
+public class MaterialNavBar extends Composite implements HasWidgets, HasColors, HasLoader {
 
-	
 	private static NavBarUiBinder uiBinder = GWT.create(NavBarUiBinder.class);
 
 	interface NavBarUiBinder extends UiBinder<Widget, MaterialNavBar> {
@@ -62,10 +60,9 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 	}
 	
 	/**
-	 * Set the sidebar name to activate it
-	 * @param sideBar
+	 * Set the sidebar name to activate it.
 	 */
-	public void setSideBar(String sideBar){
+	public void setSideBar(String sideBar) {
 		navMenu.addStyleName(sideBar);
 		navMenu.getElement().setAttribute("data-activates", sideBar);
 	}
@@ -88,13 +85,11 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 
 	@Override
 	public Iterator<Widget> iterator() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean remove(Widget w) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -130,5 +125,4 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 	public void hideLoader() {
 		progress.removeFromParent();
 	}
-
 }

@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,6 +20,9 @@ package gwt.material.design.client.type;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.helper.EnumHelper;
+
 /**
  * Types of Collection<br>
  * - AVATAR<br>
@@ -27,42 +30,22 @@ package gwt.material.design.client.type;
  * @author kevzlou7979
  *
  */
-public enum DatePickerType {
-	DAY("day"),
-	MONTH_DAY("month_day"),
-	YEAR_MONTH_DAY("year_month_day"),
-	YEAR("year");
-	
-	String value;
-	DatePickerType(String value){
-		this.value = value;
+public enum CollectionType implements Type, Style.HasCssName {
+	AVATAR("avatar"),
+	CHECKBOX("checkbox");
+
+	private final String cssClass;
+
+	CollectionType(final String cssClass) {
+		this.cssClass = cssClass;
 	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
+
+	@Override
+	public String getCssName() {
+		return cssClass;
 	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
+
+	public static CollectionType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, CollectionType.class, AVATAR);
 	}
-	
-	/**
-	 * Get Type from String
-	 * @param text
-	 * @return Type
-	 */
-	public static DatePickerType fromString(String text) {
-	    if (text != null) {
-	      for (DatePickerType b : DatePickerType.values()) {
-	        if (text.equalsIgnoreCase(b.getValue())) {
-	          return b;
-	        }
-	      }
-	    }
-	    return null;
-	  }
 }

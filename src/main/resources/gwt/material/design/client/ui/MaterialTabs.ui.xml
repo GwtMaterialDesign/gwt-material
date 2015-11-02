@@ -30,5 +30,4 @@
 	<m:MaterialPanel ui:field="contentPanel">
 		<m:UnorderedList ui:field="tabPanel" addStyleNames="tabs z-depth-1" />
 	</m:MaterialPanel>
-	
 </ui:UiBinder> 

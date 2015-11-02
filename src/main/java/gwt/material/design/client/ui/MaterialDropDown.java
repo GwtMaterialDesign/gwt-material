@@ -27,28 +27,23 @@ import com.google.gwt.uibinder.client.UiConstructor;
 
 //@formatter:off
 /**
-* You can add dropdown easily by specifying it's item content and add a UiHandler on it to implement any event.
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* 
-* <m:MaterialDropDown>
-* 	<m:MaterialLink text="First" />
-	<m:MaterialLink text="Second" />
-	<m:MaterialLink text="Third" />
-* </m:MaterialDropDown>
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
-*/
+ * You can add dropdown easily by specifying it's item
+ * content and add a UiHandler on it to implement any event.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code<m:MaterialDropDown>
+ *   <m:MaterialLink text="First" />
+ *   <m:MaterialLink text="Second" />
+ *   <m:MaterialLink text="Third" />
+ * </m:MaterialDropDown>
+ * }
+ * </pre>
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
+ */
 //@formatter:on
-public class MaterialDropDown extends ComplexNav implements HasGrid{
+public class MaterialDropDown extends ComplexNav implements HasGrid {
 
 	private String name;
 	private boolean belowOrigin;
@@ -73,18 +68,15 @@ public class MaterialDropDown extends ComplexNav implements HasGrid{
 		this.constraintWidth = constraintWidth;
 		getElement().setId(name);
 	}
-	
 
 	@Override
 	protected void onLoad() {
-		// TODO Auto-generated method stub
 		super.onLoad();
 		initDropDown(name, belowOrigin,  constraintWidth);
 	}
 
 	@Override
 	protected void onUnload() {
-		// TODO Auto-generated method stub
 		super.onUnload();
 	}
 
@@ -94,17 +86,16 @@ public class MaterialDropDown extends ComplexNav implements HasGrid{
 	private native void initDropDown(String name,boolean belowOrigin, boolean constraintWidth)/*-{
 		$wnd.jQuery(document).ready(function(){
 			$wnd.jQuery('.'+name).dropdown({
-				  inDuration: 300,
-			      outDuration: 225,
-			      constrain_width: constraintWidth, // Does not change width of dropdown to that of the activator
-			      hover: false, // Activate on hover
-			      gutter: 0, // Spacing from edge
-			      belowOrigin: belowOrigin, // Displays dropdown below the button
-			      alignment: 'right' // Displays dropdown with edge aligned to the left of button
-			      // Displays dropdown below the button
+			  inDuration: 300,
+			  outDuration: 225,
+			  constrain_width: constraintWidth, // Does not change width of dropdown to that of the activator
+			  hover: false, // Activate on hover
+			  gutter: 0, // Spacing from edge
+			  belowOrigin: belowOrigin, // Displays dropdown below the button
+			  alignment: 'right' // Displays dropdown with edge aligned to the left of button
+			  // Displays dropdown below the button
 			});
 		});
-		
 	}-*/;
 
 	@Override
@@ -114,11 +105,10 @@ public class MaterialDropDown extends ComplexNav implements HasGrid{
 
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")) {
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 }

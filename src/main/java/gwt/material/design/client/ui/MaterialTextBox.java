@@ -107,16 +107,11 @@ public class MaterialTextBox extends Composite implements
 	private String length;
 	private MaterialLabel lblError = new MaterialLabel();
 
-	@UiField
-	protected CustomLabel customLabel;
-	@UiField
-	protected Label lblName;
-	@UiField
-	protected TextBox txtBox;
-	@UiField
-	protected CustomIcon iconPanel;
-	@UiField
-	protected HTMLPanel panel;
+	@UiField CustomLabel customLabel;
+	@UiField Label lblName;
+	@UiField TextBox txtBox;
+	@UiField CustomIcon iconPanel;
+	@UiField HTMLPanel panel;
 
 	public MaterialTextBox() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -126,7 +121,6 @@ public class MaterialTextBox extends Composite implements
 
 	@Override
 	public void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		String name = String.valueOf(hashCode());
 		txtBox.getElement().setId(name);
@@ -177,7 +171,6 @@ public class MaterialTextBox extends Composite implements
 
 	public String getPlaceholder() {
 		return placeholder;
-
 	}
 
 	public void setPlaceholder(String placeholder) {
@@ -192,16 +185,16 @@ public class MaterialTextBox extends Composite implements
 	public void setType(String type) {
 		this.type = type;
 		txtBox.getElement().setAttribute("type", type);
-		if(type.equals("number")){
-			txtBox.addKeyPressHandler(new KeyPressHandler() {
 
+		if(type.equals("number")) {
+			txtBox.addKeyPressHandler(new KeyPressHandler() {
 				@Override
 				public void onKeyPress(KeyPressEvent event) {
 					 if (!Character.isDigit(event.getCharCode())
-			                    && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
-			                    && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE
-			                    && event.getNativeEvent().getKeyCode() != 190){
-			                ((TextBox) event.getSource()).cancelKey();
+							&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
+							&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE
+							&& event.getNativeEvent().getKeyCode() != 190) {
+						((TextBox) event.getSource()).cancelKey();
 			         }
 				}
 			});
@@ -474,11 +467,10 @@ public class MaterialTextBox extends Composite implements
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")) {
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 }

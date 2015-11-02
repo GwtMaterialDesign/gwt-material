@@ -27,5 +27,4 @@ public class CustomFooter  extends ComplexWidget {
 	public CustomFooter() {
 		setElement(Document.get().createElement("footer"));
 	}
-
 }

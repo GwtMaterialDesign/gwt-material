@@ -1,10 +1,5 @@
 package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.RootPanel;
-
-
 /*
  * #%L
  * GwtMaterial
@@ -25,15 +20,19 @@ import com.google.gwt.user.client.ui.RootPanel;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.RootPanel;
+
 /**
- * GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts. These toasts are also placed and sized responsively, try it out by clicking the button below on different device sizes.
+ * GWT Material provides an easy way for you to send unobtrusive alerts
+ * to your users through toasts. These toasts are also placed and sized
+ * responsively, try it out by clicking the button below on different
+ * device sizes.
  */
 public class MaterialToast {
-	
-	
-	
+
 	public MaterialToast() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -62,7 +61,8 @@ public class MaterialToast {
 	}-*/;
 	
 	/**
-	 * Provides specific style in your toast for better clarity e.g Rounded , any class name is acceptable for some specific design. Just add it in to
+	 * Provides specific style in your toast for better clarity e.g Rounded,
+	 * any class name is acceptable for some specific design. Just add it in to
 	 * parameter type.
 	 * @param msg - Message text for your toast
 	 * @param type - Specific class name for styling your toast
@@ -71,6 +71,4 @@ public class MaterialToast {
 		 $wnd.Materialize.toast(msg, 4000, type);
 		 $wnd.jQuery(".toast").attr('id',  'toast');
 	}-*/;
-	
-	
 }

@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.type.ImageType;
+import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -42,10 +42,9 @@ public class MaterialTopNav extends Composite {
 	interface MaterialTopNavUiBinder extends UiBinder<Widget, MaterialTopNav> {
 	}
 
-	@UiField
-	Label lblTitle, lblDescription;
-	@UiField
-	HTMLPanel panel, customPanel, menuPanel;
+	@UiField Label lblTitle, lblDescription;
+	@UiField HTMLPanel panel, customPanel;
+	@UiField MaterialColumn menuPanel;
 
 	private String title = "";
 	private String description = "";
@@ -165,8 +164,6 @@ public class MaterialTopNav extends Composite {
 			panel.addStyleName("sidebar");
 		}
 	}
-
-	
 	
 	private void generateProfile(){
 		panel.clear();
@@ -215,7 +212,5 @@ public class MaterialTopNav extends Composite {
 	 */
 	public void setProfileImageResource(ImageResource profileImageResource) {
 		this.profileImageResource = profileImageResource;
-		
 	}
-
 }

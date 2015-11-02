@@ -30,6 +30,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasVisibility;
+import gwt.material.design.client.custom.Waves;
 
 //@formatter:off
 /**
@@ -44,8 +45,8 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
 * @author kevzlou7979
 */
-public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves, HasShadow, HasVisibility, HasAlign, HasName{
-	
+public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves, HasShadow,
+		HasVisibility, HasAlign, HasName {
 
 	private String name = "test";
 
@@ -61,7 +62,6 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-		initWaves();
 		getElement().setId(name);
 	}
 
@@ -73,12 +73,8 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 	@Override
 	public void setWaves(String waves) {
 		addStyleName("waves-effect waves-" + waves);
+		Waves.detectAndApply(this);
 	}
-
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
 
 	@Override
 	public void setShadow(int shadow) {
@@ -86,8 +82,7 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 	}
 	
 	/**
-	 * Sets the name of your scrollspy
-	 * @param scrollspy
+	 * Sets the name of your scrollspy.
 	 */
 	public void setScrollspy(String scrollspy){
 		this.addStyleName("scrollspy section");
@@ -95,16 +90,14 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 	}
 	
 	/**
-	 * Sets the opacity of the panel
-	 * @param opacity
+	 * Sets the opacity of the panel.
 	 */
 	public void setOpacity(int opacity){
 		this.getElement().getStyle().setOpacity(opacity);
 	}
 	
 	/**
-	 * Sets the padding of the panel
-	 * @param padding
+	 * Sets the padding of the panel.
 	 */
 	public void setPadding(String padding){
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
@@ -122,7 +115,6 @@ public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves,
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 }

@@ -30,32 +30,31 @@ import com.google.gwt.user.client.ui.ListBox;
 
 //@formatter:off
 /**
-* 
-* <p>Material Listbox is another dropdown component that will set / get the value depends on the selected index
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-	<m:MaterialListBox ui:field="lstBox" />
-}
-* </pre>
-* <h3>Java Usage:</h3>
-* 
-* <pre>
-* {@code 
-* 	// functions
-	lstBox.setSelectedIndex(2);
-	lstBox.getSelectedIndex();
-	lstBox.addChangeHandler(handler);
-}
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material ListBoxt</a>
-*/
+ * <p>Material ListBox is another dropdown component that will set / get the value depends on the selected index
+ * <h3>UiBinder Usage:</h3>
+ *
+ * <pre>
+ * {@code
+ *	<m:MaterialListBox ui:field="lstBox" />
+ * }
+ * </pre>
+ * <h3>Java Usage:</h3>
+ *
+ * <pre>
+ * {@code
+ * 	// functions
+ *	lstBox.setSelectedIndex(2);
+ *	lstBox.getSelectedIndex();
+ *	lstBox.addChangeHandler(handler);
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material ListBoxt</a>
+ */
 //@formatter:on
-public class MaterialListBox extends ListBox implements HasGrid, HasDisabled{
+public class MaterialListBox extends ListBox implements HasGrid, HasDisabled {
 
 	private String id = "";
 	private boolean old = false;
@@ -150,8 +149,7 @@ public class MaterialListBox extends ListBox implements HasGrid, HasDisabled{
 	protected native void initializeMaterial(String id) /*-{
 		$wnd.jQuery( document ).ready(function(){
 			$wnd.jQuery('#' + id).material_select();
-		}) 
-		
+		})
 	}-*/;
 
 	@Override
@@ -161,11 +159,10 @@ public class MaterialListBox extends ListBox implements HasGrid, HasDisabled{
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 }

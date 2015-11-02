@@ -33,15 +33,14 @@ import com.google.gwt.dom.client.Document;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
-
 //@formatter:on
-public class MaterialCardTitle extends ComplexWidget implements HasIcons, HasColors{
+public class MaterialCardTitle extends ComplexWidget implements HasIcons, HasColors {
 
 	private MaterialIcon iconElem = new MaterialIcon();
 	private CustomSpan spanElem = new CustomSpan();
 	private String text;
 	
-	public MaterialCardTitle(){
+	public MaterialCardTitle() {
 		setElement(Document.get().createSpanElement());
 		setStyleName("card-title activator");
 	}

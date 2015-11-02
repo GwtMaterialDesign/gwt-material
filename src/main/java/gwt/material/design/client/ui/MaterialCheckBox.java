@@ -23,7 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.custom.HasDisabled;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.type.CheckBoxType;
+import gwt.material.design.client.constants.CheckBoxType;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
@@ -39,75 +39,63 @@ import com.google.gwt.user.client.ui.CheckBox;
 
 //@formatter:off
 /**
-* Checkbox component provides two types
-* - FILLED
-* - INTERMEDIATE
-* <p>
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* Default
-* <m:MaterialCheckBox text="Option 1"/>
-* 
-* Filled
-* <m:MaterialCheckBox text="Option 1" type="FILLED"/>
-* 
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">CheckBox</a>
-*/
-public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid, HasDisabled{
+ * Checkbox component provides two types
+ * - FILLED
+ * - INTERMEDIATE
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code// Default
+ * <m:MaterialCheckBox text="Option 1"/>
+ *
+ * // Filled
+ * <m:MaterialCheckBox text="Option 1" type="FILLED"/>
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">CheckBox</a>
+ */
+public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid, HasDisabled {
 
 	private Object object;
 	private String old;
 	private boolean disabled;
 	
 	public MaterialCheckBox() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(Element elem) {
 		super(elem);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(SafeHtml label, Direction dir) {
 		super(label, dir);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(SafeHtml label, DirectionEstimator directionEstimator) {
 		super(label, directionEstimator);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(SafeHtml label) {
 		super(label);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(String label, boolean asHTML) {
 		super(label, asHTML);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(String label, Direction dir) {
 		super(label, dir);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(String label, DirectionEstimator directionEstimator) {
 		super(label, directionEstimator);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MaterialCheckBox(String label) {
 		super(label);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Object getObject() {
@@ -134,8 +122,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 	}
 
 	/**
-	 * Used the old checkbox
-	 * @param old
+	 * Used the old checkbox.
 	 */
 	public void setOld(String old) {
 		this.old = old;
@@ -154,8 +141,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 	}
 
 	/**
-	 * Settubg tge type of Checbox
-	 * @param type
+	 * Setting the type of Checkbox.
 	 */
 	public void setType(CheckBoxType type) {
 		switch (type) {
@@ -168,7 +154,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 			this.addStyleName(type + "-checkbox");
 			break;
 		default:
-			this.addStyleName(type.getValue());
+			this.addStyleName(type.getCssName());
 			break;
 		}
 	}
@@ -180,14 +166,10 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")) {
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
-	
-	
-
 }

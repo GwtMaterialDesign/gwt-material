@@ -28,14 +28,13 @@ import com.google.gwt.user.client.ui.Frame;
 
 public class MaterialVideo extends ComplexWidget implements HasGrid{
 
-	private String url="";
+	private String url = "";
 	private Frame frame =  new Frame();
 	
 	public MaterialVideo() {
 		setElement(Document.get().createElement("div"));
 		add(frame);
 	}
-
 
 	public String getUrl() {
 		return url;
@@ -54,7 +53,7 @@ public class MaterialVideo extends ComplexWidget implements HasGrid{
 	}
 
 	/**
-	 * @param fullscreen the fullscreen to set
+	 * @param fullscreen the fullscreen to set.
 	 */
 	public void setFullscreen(boolean fullscreen) {
 		frame.getElement().setAttribute("allowfullscreen", "true");
@@ -62,11 +61,10 @@ public class MaterialVideo extends ComplexWidget implements HasGrid{
 
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 }

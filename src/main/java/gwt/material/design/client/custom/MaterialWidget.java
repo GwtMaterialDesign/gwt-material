@@ -22,9 +22,10 @@ package gwt.material.design.client.custom;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialWidget extends Composite{
+public class MaterialWidget extends Composite implements HasWaves, HasTooltip, HasColors, HasAlign, HasEnabled {
 
 	protected String waves = "";
 	protected String color = "";
@@ -74,47 +75,55 @@ public class MaterialWidget extends Composite{
 	}
 
 	public void applyMaterialEffect() {
-		boolean applyWavesEffect = false;
-		if(widget!=null){
-			if(!isDisable()){
+		if(widget != null) {
+			if(!isDisable()) {
 				if(!waves.isEmpty()) {
-					applyWavesEffect = true;
 					widget.getElement().addClassName("waves-effect waves-" + waves);
+					Waves.detectAndApply(this);
 				}
 				if(!color.isEmpty()) widget.getElement().addClassName(color);
 				if(!textColor.isEmpty()) widget.getElement().addClassName(textColor + "-text");
 				if(!align.isEmpty()) widget.getElement().addClassName(align + "-align");
 
-				if(!tooltip.isEmpty()) getWidget().addStyleName("tooltipped");
-				if(!tooltipLocation.isEmpty()) getWidget().getElement().setAttribute("data-position", tooltipLocation);
-				if(!tooltipDelay.isEmpty()) getWidget().getElement().setAttribute("data-delay", tooltipDelay);
-				if(!tooltip.isEmpty()) getWidget().getElement().setAttribute("data-tooltip", tooltip);
-			}else{
+				if(!tooltip.isEmpty()) {
+					getWidget().addStyleName("tooltipped");
+					getWidget().getElement().setAttribute("data-tooltip", tooltip);
+
+					if(!tooltipLocation.isEmpty()) {
+						getWidget().getElement().setAttribute("data-position", tooltipLocation);
+					}
+					if(!tooltipDelay.isEmpty()) {
+						getWidget().getElement().setAttribute("data-delay", tooltipDelay);
+					}
+					Tooltip.detectAndApply(this);
+				}
+
+			} else {
 				widget.addStyleName("disabled");
 				widget.getElement().addClassName("grey lighten-2 ");
 			}
-
 		}
-		initToolTip();
-		if (applyWavesEffect) initWaves();
 	}
 
+	@Override
 	public Widget getWidget() {
 		return widget;
 	}
 
+	@Override
 	public void setWidget(Widget widget) {
 		this.widget = widget;
 	}
 
+	@Override
 	public String getAlign() {
 		return align;
 	}
 
+	@Override
 	public void setAlign(String align) {
 		this.align = align;
 	}
-
 
 	public String getTooltip() {
 		return tooltip;
@@ -143,21 +152,6 @@ public class MaterialWidget extends Composite{
 		applyMaterialEffect();
 	}
 
-	private native void initToolTip()/*-{
-		 $wnd.jQuery(document).ready(function(){
-		    $wnd.jQuery('.tooltipped').tooltip({delay: 50});
-		  });
-	}-*/;
-
-    /**
-     * As materialize.js does not provide a init method we are calling displayEffect
-     * directly. If Materialize ever change this function name we must change it here
-     * as well.
-     */
-    private native void initWaves()/*-{
-        $wnd.Waves.displayEffect();
-    }-*/;
-
 	public boolean isDisable() {
 		return disable;
 	}
@@ -174,7 +168,4 @@ public class MaterialWidget extends Composite{
 		this.padding = padding;
 		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
 	}
-
-
-
 }

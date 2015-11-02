@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,7 +20,8 @@ package gwt.material.design.client.type;
  * #L%
  */
 
-
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
  * Types of Sidenav<br>
@@ -31,48 +32,27 @@ package gwt.material.design.client.type;
  * - FLOAT<br>
  * - CARD<br>
  * @author kevzlou7979
- *
  */
-public enum SideNavType{
-
+public enum SideNavType implements Type, Style.HasCssName {
 	OPEN("open"), 
 	CLOSE("close"), 
 	MINI("mini"),
 	CLIP("clip"),
 	FLOAT("float"),
 	CARD("card");
-	
-	String value;
-	SideNavType(String value){
-		this.value = value;
+
+	private final String cssClass;
+
+	SideNavType(final String cssClass) {
+		this.cssClass = cssClass;
 	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
+
+	@Override
+	public String getCssName() {
+		return cssClass;
 	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
+
+	public static SideNavType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, SideNavType.class, OPEN);
 	}
-	
-	/**
-	 * Get Type from String
-	 * @param text
-	 * @return Type
-	 */
-	public static SideNavType fromString(String text) {
-	    if (text != null) {
-	      for (SideNavType b : SideNavType.values()) {
-	        if (text.equalsIgnoreCase(b.getValue())) {
-	          return b;
-	        }
-	      }
-	    }
-	    return null;
-	  }
-	
 }

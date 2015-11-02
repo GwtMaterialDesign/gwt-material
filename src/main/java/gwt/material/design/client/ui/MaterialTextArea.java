@@ -39,7 +39,6 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -48,13 +47,12 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTextArea extends Composite implements HasText,HasKeyPressHandlers,HasKeyDownHandlers,HasKeyUpHandlers,HasChangeHandlers, HasGrid, HasError {
+public class MaterialTextArea extends Composite implements HasText, HasKeyPressHandlers,
+		HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasGrid, HasError {
 
-	private static MaterialTextAreaUiBinder uiBinder = GWT
-			.create(MaterialTextAreaUiBinder.class);
+	private static UiBinder uiBinder = GWT.create(UiBinder.class);
 
-	interface MaterialTextAreaUiBinder extends
-			UiBinder<Widget, MaterialTextArea> {
+	interface UiBinder extends com.google.gwt.uibinder.client.UiBinder<Widget, MaterialTextArea> {
 	}
 
 	private String placeholder;
@@ -64,15 +62,10 @@ public class MaterialTextArea extends Composite implements HasText,HasKeyPressHa
 	private String length;
 	private MaterialLabel lblError = new MaterialLabel();
 	
-	@UiField
-	CustomLabel 
-	customLabel;
-	@UiField
-	Label lblName;
-	@UiField
-	TextArea txtBox;
-	@UiField
-	CustomIcon iconPanel;
+	@UiField CustomLabel customLabel;
+	@UiField Label lblName;
+	@UiField TextArea txtBox;
+	@UiField CustomIcon iconPanel;
 	@UiField HTMLPanel panel;
 
 	public MaterialTextArea() {
@@ -117,7 +110,6 @@ public class MaterialTextArea extends Composite implements HasText,HasKeyPressHa
 
 	public String getPlaceholder() {
 		return placeholder;
-
 	}
 
 	public void setPlaceholder(String placeholder) {
@@ -205,12 +197,10 @@ public class MaterialTextArea extends Composite implements HasText,HasKeyPressHa
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
-	
 }

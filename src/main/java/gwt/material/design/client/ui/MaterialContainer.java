@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -32,36 +31,29 @@ import gwt.material.design.client.custom.ComplexWidget;
 * 
 * <p>
 * <h3>UiBinder Usage:</h3>
-* 
 * <pre>
-* {@code 
-* 
+* {@code
 * <m:MaterialContainer>
-* 	<!--
-* 		Content goes here
-* 	-->
+* 	<!-- Content goes here -->
 * </m:MaterialContainer>
 * }
 * </pre>
-* </p>
-* 
+*
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialContainer extends ComplexWidget{
+public class MaterialContainer extends ComplexWidget {
 
-	
 	/**
-	 * Creates an empty collapsible item
+	 * Creates an empty collapsible item.
 	 */
 	public MaterialContainer() {
 		setElement(Document.get().createElement("MAIN"));
 	}
 	
 	/**
-	 * Adds MaterialCollapsible contents 
-	 * @param widgets
+	 * Adds MaterialCollapsible contents.
 	 */
 	public MaterialContainer(final Widget... widgets) {
 		this();
@@ -69,7 +61,4 @@ public class MaterialContainer extends ComplexWidget{
 			add(w);
 		}
 	}
-
-
-
 }

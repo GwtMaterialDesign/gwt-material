@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.resources.Orientation;
+import gwt.material.design.client.constants.Orientation;
 
 import java.util.Date;
 
@@ -33,39 +33,27 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 
 //@formatter:off
 /**
-* Material Date Picker will provide a visual calendar to your apps.
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* 
-* <m:MaterialDatePicker ui:field="datePicker">
-* }
-* </pre>
-* 
-* <h3>Java Usage:</h3>
-* 
-* <pre>
-* {@code 
-* 
-* datePicker.setDate(new Date());
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
-*/
+ * Material Date Picker will provide a visual calendar to your apps.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * {@code
+ * <m:MaterialDatePicker ui:field="datePicker">
+ * }
+ * <h3>Java Usage:</h3>
+ * {@code
+ * datePicker.setDate(new Date());
+ * }
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
+ */
 //@formatter:on
-public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
+public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError {
 
 	/**
 	 * Delegate interface for handling picker events.
 	 */
 	public interface MaterialDatePickerDelegate {
-		
 		/**
 		 * Called as soon as a click occurs on the calendar widget. !EXPERIMENTAL!
 		 * @param currDate which is currently selected.
@@ -84,24 +72,22 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 	private MaterialLabel lblError = new MaterialLabel();
 	
 	public MaterialDatePicker() {
-		
 	}
 		
 	@Override
 	protected void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		id = String.valueOf(hashCode());
 		this.clear();
 		panel = new HTMLPanel("<input placeholder='"+placeholder+"' type='date' id='"+id+"' class='datepicker'>");
 		this.add(panel);
-		panel.addStyleName(orientation.getValue());
+		panel.addStyleName(orientation.getCssName());
 		initDatePicker(id, selectionType.name(), this);
 		initClickHandler(id, this);
 		panel.add(lblError);
 	}
 
-	public static native void initDatePicker(String id, String typeName, MaterialDatePicker parent)/*-{
+	public static native void initDatePicker(String id, String typeName, MaterialDatePicker parent) /*-{
 		var input;
 		if(typeName === "MONTH_DAY") {
 			input = $wnd.jQuery('#' + id).pickadate({
@@ -115,20 +101,18 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 				selectYears: true,
 				selectMonths: true
 			});
-		}else if(typeName === "YEAR"){
+		} else if(typeName === "YEAR"){
 			input = $wnd.jQuery('#' + id).pickadate({
 				container: 'body',
 				selectYears: true
 			});
-		} 
-		else {
+		} else {
 			input = $wnd.jQuery('#' + id).pickadate({
 				container: 'body'
 			});
 		}
 		
 		parent.@gwt.material.design.client.ui.MaterialDatePicker::input = input;
-		
 	}-*/;
 	
 	/**
@@ -171,16 +155,16 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 		return getPickerDate();
 	}
 
-	public native void clearValues()/*-{
+	public native void clearValues() /*-{
 		$wnd.jQuery('.datepicker').val("");
 	}-*/;
 	
-	public Date getPickerDate(){
-		try{
+	public Date getPickerDate() {
+		try {
 			DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
 			date = sdf.parse(getDatePickerValue(id));
 			return date;
-		}catch(Exception e){
+		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -211,8 +195,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 	}-*/;
 	
 	public static native String getDatePickerValue(String id)/*-{
-		var value = $wnd.jQuery('#' + id).val();  
-		return value;
+		return $wnd.jQuery('#' + id).val();
 	}-*/;
 	
 	private static native void setDatePickerValue(String value, String id)/*-{
@@ -293,13 +276,10 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError{
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")) {
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
-	
-	
 }

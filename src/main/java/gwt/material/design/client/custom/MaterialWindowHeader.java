@@ -20,7 +20,6 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialModal;
@@ -39,8 +38,7 @@ public class MaterialWindowHeader extends Composite {
 
 	private static MaterialWindowHeaderUiBinder uiBinder = GWT.create(MaterialWindowHeaderUiBinder.class);
 
-	interface MaterialWindowHeaderUiBinder extends UiBinder<Widget, MaterialWindowHeader> {
-	}
+	interface MaterialWindowHeaderUiBinder extends UiBinder<Widget, MaterialWindowHeader> {}
 
 	private HTMLPanel windowPanel;
 	@UiField MaterialLabel lblTitle;

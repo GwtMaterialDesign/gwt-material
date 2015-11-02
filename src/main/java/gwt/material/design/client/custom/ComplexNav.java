@@ -20,7 +20,6 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 import gwt.material.design.client.ui.ListItem;
 
 import com.google.gwt.dom.client.Element;
@@ -47,5 +46,4 @@ public class ComplexNav extends ComplexPanel {
     public void insert(final Widget child, final int beforeIndex) {
         insert(child, (Element) getElement(), beforeIndex, true);
     }
-
 }

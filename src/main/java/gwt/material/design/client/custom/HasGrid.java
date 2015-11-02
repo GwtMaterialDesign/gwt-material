@@ -20,23 +20,16 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 public interface HasGrid {
 
-	public String grid = "";
 	/**
 	 * Setting the grid for responsiveness don't forget to build rows first before setting
-	 * the grid on each material widgets
-	 * @param small
-	 * @param medium
-	 * @param large
+	 * the grid on each material widgets.
 	 */
-	public void setGrid(String grid);
+	void setGrid(String grid);
 	
 	/**
-	 * Setting the offset 
-	 * @param offset
+	 * Setting the offset.
 	 */
-	public void setOffset(String offset);
-	
+	void setOffset(String offset);
 }

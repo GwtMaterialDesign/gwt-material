@@ -1,10 +1,10 @@
-package gwt.material.design.client.resources;
+package gwt.material.design.client;
 
 /*
  * #%L
- * GwtMaterial
+ * GwtMaterialDesign
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 GwtMaterial
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,25 @@ package gwt.material.design.client.resources;
  * #L%
  */
 
+import gwt.material.design.client.resources.WithJQueryResources;
 
-public enum Orientation{
-	LANDSCAPE("landscape"), 
-	PORTRAIT("portrait");
-	
-	private String value;
-	
-	Orientation(String value){
-		this.setValue(value);
+public class MaterialWithJQuery extends MaterialDesign {
+
+	@Override
+	public void onModuleLoad() {
+		if(isjQueryLoaded()) {
+			inject(WithJQueryResources.INSTANCE.jQuery());
+		}
+
+		super.onModuleLoad();
 	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+
+	/**
+	 * Check to see if jQuery is loaded already
+	 *
+	 * @return true is jQuery is loaded, false otherwise
+	 */
+	private native boolean isjQueryLoaded() /*-{
+        return (typeof $wnd['jQuery'] !== 'undefined');
+    }-*/;
 }

@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,50 +20,33 @@ package gwt.material.design.client.type;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.helper.EnumHelper;
+
 /**
  * Types of CheckBox<br>
  * - ACCORDION<br>
  * - EXPANDABLE<br>
  * - POPOUT<br>
  * @author kevzlou7979
- *
  */
-public enum CollapsibleType {
+public enum CollapsibleType implements Type, Style.HasCssName {
 	ACCORDION("accordion"), 
 	EXPANDABLE("expandable"),
 	POPOUT("popout");
-	
-	String value;
-	
-	CollapsibleType(String value){
-		this.value = value;
+
+	private final String cssClass;
+
+	CollapsibleType(final String cssClass) {
+		this.cssClass = cssClass;
 	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
+
+	@Override
+	public String getCssName() {
+		return cssClass;
 	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
+
+	public static CollapsibleType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, CollapsibleType.class, ACCORDION);
 	}
-	
-	/**
-	 * Get Type from String
-	 * @param text
-	 * @return Type
-	 */
-	public static CollapsibleType fromString(String text) {
-	    if (text != null) {
-	      for (CollapsibleType b : CollapsibleType.values()) {
-	        if (text.equalsIgnoreCase(b.getValue())) {
-	          return b;
-	        }
-	      }
-	    }
-	    return null;
-	  }
 }

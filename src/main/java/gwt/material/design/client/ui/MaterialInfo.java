@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -28,9 +27,7 @@ import com.google.gwt.user.client.ui.Label;
 
 public class MaterialInfo {
 
-	
 	public MaterialInfo() {
-		
 	}
 	
 	public  void showInfo(HTMLPanel panel, ImageResource resource, String message){
@@ -42,7 +39,5 @@ public class MaterialInfo {
 		container.add(new Image(resource));
 		container.add(label);
 		panel.add(container);
-		
 	}
-	
 }

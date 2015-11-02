@@ -54,17 +54,24 @@ public class MaterialSplashScreen extends Composite {
 	}
 	
 	/**
-	 * Material Splashcreen implementation on GWT Apps, its good for loading purposes
+	 * Material Splashscreen implementation on GWT Apps, its good for loading purposes
 	 * @param splashTime - The delay time in millisecond to show the splash screen
-	 * @param main - The Main COmposite or landing page after the splash screen
+	 * @param main - The Main Composite or landing page after the splash screen
 	 * @param logo - The logo of your app
 	 * @param appName - The Name of your app
 	 * @param appDescription - The Description of your app
 	 * @param color - The background color of your app
 	 * @param textColor - The text color of your app
 	 */
-	public MaterialSplashScreen(int splashTime,final Composite main, ImageResource logo, String appName, String appDescription, String color, String textColor) {
+	public MaterialSplashScreen(int splashTime,
+								Composite main,
+								ImageResource logo,
+								String appName,
+								String appDescription,
+								String color,
+								String textColor) {
 		initWidget(uiBinder.createAndBindUi(this));
+		setSplashTime(splashTime);
 		setLogo(logo);
 		setAppName(appName);
 		setAppDescription(appDescription);
@@ -76,29 +83,23 @@ public class MaterialSplashScreen extends Composite {
 	/**
 	 * Show the splash screen 
 	 */
-	public void show(){
+	public void show() {
 		RootPanel.get().add(this);
 		RootPanel.get().add(main);
 		main.getElement().getStyle().setDisplay(Display.NONE);
-		final Timer timer = new Timer() {
-			
+
+		new Timer() {
 			@Override
 			public void run() {
 				MaterialSplashScreen.this.removeFromParent();
 				main.getElement().getStyle().setDisplay(Display.BLOCK);
-				
 			}
-			
 			@Override
 			public void cancel() {
-				// TODO Auto-generated method stub
 				super.cancel();
 			}
-			
-			
-		};
-		timer.schedule(splashTime);
-		
+		}
+		.schedule(splashTime);
 	}
 
 	public ImageResource getLogo() {
@@ -106,7 +107,7 @@ public class MaterialSplashScreen extends Composite {
 	}
 
 	/**
-	 * The logo of the Splash screen 
+	 * The logo of the Splash screen .
 	 * @param logo ImageResource object
 	 */
 	public void setLogo(ImageResource logo) {
@@ -119,21 +120,20 @@ public class MaterialSplashScreen extends Composite {
 	}
 
 	/**
-	 * The app name displayed on Splash Screen
+	 * The app name displayed on Splash Screen.
 	 * @param appName Application name string
 	 */
 	public void setAppName(String appName) {
 		this.appName = appName;
 		title.setTitle(appName);
 	}
-
 	
 	public String getAppDescription() {
 		return appDescription;
 	}
 
 	/**
-	 * Optional , you can add your app description on Splash Screen
+	 * Optional , you can add your app description on Splash Screen.
 	 * @param appDescription Description string
 	 */
 	public void setAppDescription(String appDescription) {
@@ -175,13 +175,6 @@ public class MaterialSplashScreen extends Composite {
 	public MaterialImage getImgLogo() {
 		return imgLogo;
 	}
-
-	/**
-	 * @param imgLogo the imgLogo to set
-	 */
-	public void setImgLogo(MaterialImage imgLogo) {
-		this.imgLogo = imgLogo;
-	}
 	
 	/**
 	 * @return the splashtime
@@ -211,8 +204,4 @@ public class MaterialSplashScreen extends Composite {
 	public void setMain(Composite main) {
 		this.main = main;
 	}
-
-	
-	
-
 }

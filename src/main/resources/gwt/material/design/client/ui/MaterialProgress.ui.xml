@@ -22,7 +22,7 @@
 	xmlns:m="urn:import:gwt.material.design.client.ui" xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 		.progress{
-			margin: 0px !important;
+			margin: 0 !important;
 		}
 	</ui:style>
 	<m:MaterialPanel addStyleNames="{style.progress} progress">

@@ -23,15 +23,12 @@ package gwt.material.design.client.custom;
 public interface HasActive {
 
 	/**
-	 * Set active element
-	 * @param active
+	 * Set active element.
 	 */
-	public void setActive(int index);
+	void setActive(int index);
 	
 	/**
-	 * Get the active element
-	 * @return
+	 * Get the active element.
 	 */
-	public int getActive();
-	
+	int getActive();
 }

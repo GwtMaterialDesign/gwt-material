@@ -59,10 +59,13 @@ public class MaterialButtonCell extends AbstractCell<MaterialButton> {
     }
 
     @Override
-    protected void onEnterKeyDown(Context context, Element parent, MaterialButton value, NativeEvent event, ValueUpdater<MaterialButton> valueUpdater) {
+    protected void onEnterKeyDown(Context context,
+                                  Element parent,
+                                  MaterialButton value,
+                                  NativeEvent event,
+                                  ValueUpdater<MaterialButton> valueUpdater) {
         if (valueUpdater != null) {
             valueUpdater.update(value);
         }
     }
-
 }

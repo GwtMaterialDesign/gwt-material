@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import gwt.material.design.client.custom.HasError;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.MaterialSuggestionOracle;
@@ -45,23 +44,24 @@ import com.google.gwt.user.client.ui.TextBox;
 
 //@formatter:off
 /**
-* Use GWT Autocomplete to search for matches from local or remote data sources. We used MultiWordSuggestOracle to populate the list to be added on the autocomplete values
-* 
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-*  <m:MaterialAutoComplete ui:field="autocomplete" placeholder="States" />}
-* </pre>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#autocompletes">Material AutoComplete</a>
-*/
+ * Use GWT Autocomplete to search for matches from local or remote data sources.
+ * We used MultiWordSuggestOracle to populate the list to be added on the
+ * autocomplete values.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ *  <m:MaterialAutoComplete ui:field="autocomplete" placeholder="States" />}
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#autocompletes">Material AutoComplete</a>
+ */
 //@formatter:on
-public class MaterialAutoComplete extends Composite implements HasError,  HasGrid{
+public class MaterialAutoComplete extends Composite implements HasError, HasGrid {
 	
-    private List<String> itemValues = new ArrayList<String>();
-    private List<ListItem> itemsHighlighted = new ArrayList<ListItem>();
+    private List<String> itemValues = new ArrayList<>();
+    private List<ListItem> itemsHighlighted = new ArrayList<>();
     private FlowPanel panel = new FlowPanel();
     private UnorderedList list = new UnorderedList();
     private MultiWordSuggestOracle suggestions;
@@ -72,15 +72,16 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
     private MaterialLabel lblError = new MaterialLabel();
     
     /**
-     * Use MaterialAutocomplete to search for matches from local or remote data sources.
+     * Use MaterialAutocomplete to search for matches from
+     * local or remote data sources.
      */
     public MaterialAutoComplete() {
     	 initWidget(panel);
 	}
     
     /**
-     * Use MaterialAutocomplete to search for matches from local or remote data sources.
-     * @param suggestions
+     * Use MaterialAutocomplete to search for matches from
+	 * local or remote data sources.
      */
     public MaterialAutoComplete(MaterialSuggestionOracle suggestions) {
         initWidget(panel);
@@ -88,53 +89,53 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
     }
  
     /**
-     * Generate and build the List Items to be set on Auto Complete box
-     * @param suggestions
+     * Generate and build the List Items to be set on Auto Complete box.
      */
     private void generateAutoComplete(MaterialSuggestionOracle suggestions) {
     	list.setStyleName("multiValueSuggestBox-list");
         this.suggestions = suggestions;
         final ListItem item = new ListItem();
+
         item.setStyleName("multiValueSuggestBox-input-token");
         final SuggestBox box = new SuggestBox(suggestions, itemBox);
         String autocompleteId = DOM.createUniqueId();
         itemBox.getElement().setId(autocompleteId);
+
         item.add(box);
         list.add(item);
         
         itemBox.addKeyDownHandler(new KeyDownHandler() {
             public void onKeyDown(KeyDownEvent event) {
                 switch (event.getNativeKeyCode()) {
-                    case KeyCodes.KEY_ENTER:
-                       addItem(itemBox, list);
-                       break;
- 
-                    case KeyCodes.KEY_BACKSPACE:
-                        if (itemBox.getValue().trim().isEmpty()) {
-                            if (itemsHighlighted.isEmpty()) {
-                                if (itemValues.size() > 0) {
-                                    ListItem li = (ListItem) list.getWidget(list.getWidgetCount() - 2);
-                                    MaterialChip p = (MaterialChip) li.getWidget(0);
-                                    if (itemValues.contains(p.getText())) {
-                                        itemValues.remove(p.getText());
-                                    }
-                                    list.remove(li);
-                                }
-                            }
-                        }
-                      
-                     
-                    case KeyCodes.KEY_DELETE:
-                        if (itemBox.getValue().trim().isEmpty()) {
-                            for (ListItem li : itemsHighlighted) {
-                                li.removeFromParent();
-                                MaterialChip p = (MaterialChip) li.getWidget(0);
-                                itemValues.remove(p.getText());
-                            }
-                            itemsHighlighted.clear();
-                        }
-                        itemBox.setFocus(true);
-                        break;
+				case KeyCodes.KEY_ENTER:
+				   addItem(itemBox, list);
+				   break;
+
+				case KeyCodes.KEY_BACKSPACE:
+					if (itemBox.getValue().trim().isEmpty()) {
+						if (itemsHighlighted.isEmpty()) {
+							if (itemValues.size() > 0) {
+								ListItem li = (ListItem) list.getWidget(list.getWidgetCount() - 2);
+								MaterialChip p = (MaterialChip) li.getWidget(0);
+								if (itemValues.contains(p.getText())) {
+									itemValues.remove(p.getText());
+								}
+								list.remove(li);
+							}
+						}
+					}
+
+				case KeyCodes.KEY_DELETE:
+					if (itemBox.getValue().trim().isEmpty()) {
+						for (ListItem li : itemsHighlighted) {
+							li.removeFromParent();
+							MaterialChip p = (MaterialChip) li.getWidget(0);
+							itemValues.remove(p.getText());
+						}
+						itemsHighlighted.clear();
+					}
+					itemBox.setFocus(true);
+					break;
                 }
             }
         });
@@ -161,26 +162,25 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
 
     /**
      * Adding the item value using Material Chips added on auto complete box
-     * @param itemBox
-     * @param list
      */
 	private void addItem(final TextBox itemBox, final UnorderedList list) {
-        if(getLimit()>0){
-        	if(itemValues.size() == getLimit()){
+        if(getLimit() > 0) {
+        	if(itemValues.size() == getLimit()) {
         		itemBox.setValue("");
         		return;
         	}
         }
-		
-		if (itemBox.getValue() != null && !"".equals(itemBox.getValue().trim()) && !itemValues.contains(itemBox.getValue().trim())) {
-           
+
+		String value = itemBox.getValue();
+		if (value != null && !"".equals(value.trim()) && !itemValues.contains(value.trim())) {
+
             final ListItem displayItem = new ListItem();
             displayItem.setStyleName("multiValueSuggestBox-token");
-            
-            
-            String imageChip = itemBox.getValue();
-            String textChip = itemBox.getValue();
+
+            String imageChip = value;
+            String textChip = value;
             final MaterialChip chip = new MaterialChip();
+
             String s = "<img src=\"";
             if(imageChip.contains(s)){
             	int ix = imageChip.indexOf(s)+s.length();
@@ -188,6 +188,7 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
             	chip.setUrl(imageChip);
             	textChip = textChip.replaceAll("[<](/)?img[^>]*[>]", "");
             }
+
             chip.setText(textChip);
             chip.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent clickEvent) {
@@ -201,26 +202,25 @@ public class MaterialAutoComplete extends Composite implements HasError,  HasGri
                     }
                 }
             });
- 
-         
-           
+
             chip.getIcon().addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent clickEvent) {
                 	itemValues.remove(chip.getText());
                     list.remove(displayItem);
                 }
             });
+
             if(!itemValues.contains(textChip)){
 	            displayItem.add(chip);
 	            itemValues.add(chip.getText());
 	            list.insert(displayItem, list.getWidgetCount() - 1);
 	            itemBox.setValue("");
 	            itemBox.setFocus(true);
-            }else{
+            } else {
             	itemBox.setValue("");
             }
             
-        }else{
+        } else {
         	itemBox.setValue("");
         }
     }

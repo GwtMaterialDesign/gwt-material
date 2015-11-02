@@ -27,6 +27,7 @@ import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.Waves;
 
 //@formatter:off
 /**
@@ -35,31 +36,22 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleHeader extends ComplexWidget implements HasColors, HasWaves{
+public class MaterialCollapsibleHeader extends ComplexWidget implements HasColors, HasWaves {
 	
-	/**
-	 * Creates empth collapsible header
+	/** Creates empth collapsible header.
 	 */
 	public MaterialCollapsibleHeader() {
 		setElement(Document.get().createDivElement());
 		setStyleName("collapsible-header");
 	}
 	
-	/**
-	 * Adds other components as header
-	 * @param widgets
+	/** Adds other components as header.
 	 */
-	public MaterialCollapsibleHeader(final Widget... widgets){
+	public MaterialCollapsibleHeader(final Widget... widgets) {
 		this();
 		for(Widget w : widgets){
 			add(w);
 		}
-	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		initWaves();
 	}
 
 	@Override
@@ -75,12 +67,6 @@ public class MaterialCollapsibleHeader extends ComplexWidget implements HasColor
 	@Override
 	public void setWaves(String waves) {
 		addStyleName("waves-effect waves-" + waves);
+		Waves.detectAndApply(this);
 	}
-
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
-
-	
 }

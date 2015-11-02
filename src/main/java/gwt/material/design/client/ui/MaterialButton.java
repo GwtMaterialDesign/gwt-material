@@ -1,42 +1,61 @@
 package gwt.material.design.client.ui;
 
+/*
+ * #%L
+ * GwtMaterial
+ * %%
+ * Copyright (C) 2015 GwtMaterialDesign
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import gwt.material.design.client.custom.ButtonBase;
 import gwt.material.design.client.custom.CustomSpan;
 import gwt.material.design.client.custom.HasIcons;
-import gwt.material.design.client.type.ButtonType;
+import gwt.material.design.client.constants.ButtonType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasText;
 
 //@formatter:off
 /**
-* There are 3 main button types described in material design. The raised button is a standard button that signify actions and seek to give depth to a mostly flat page. The floating circular action button is meant for very important functions. Flat buttons are usually used within elements that already have depth like cards or modals.
-* <p>
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* Raised (Default) Button
-* <m:MaterialButton text="Button" waves="light" backgroundColor="blue" />
-* 
-* Adding icon
-* <m:MaterialButton text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="left"/>
-* 
-* Floating Button
-* <m:MaterialButton type="floating" waves="light" size="large"  icon="add"/>
-* 
-* Flat Button
-* <m:MaterialButton text="Button" type="flat" waves="grey" />
-* 
-* Large Button
-* <m:MaterialButton size="large" text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="right"/>}
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Button</a>
-*/
-
+ * There are 3 main button types described in material design. The raised
+ * button is a standard button that signify actions and seek to give depth
+ * to a mostly flat page. The floating circular action button is meant for
+ * very important functions. Flat buttons are usually used within elements
+ * that already have depth like cards or modals.
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code// Raised (Default) Button
+ * <m:MaterialButton text="Button" waves="light" backgroundColor="blue" />
+ *
+ * // Adding icon
+ * <m:MaterialButton text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="left"/>
+ *
+ * // Floating Button
+ * <m:MaterialButton type="floating" waves="light" size="large"  icon="add"/>
+ *
+ * // Flat Button
+ * <m:MaterialButton text="Button" type="flat" waves="grey" />
+ *
+ * // Large Button
+ * <m:MaterialButton size="large" text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="right"/>}
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Button</a>
+ */
 //@formatter:on
 public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 
@@ -55,7 +74,7 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 	/**
 	 * Raised buttons
 	 * @param text - The text of the button
-	 * @param color - The background color of the button. See the color palette here http://gwt-material.appspot.com/#colors
+	 * @param bgColor - The background color of the button. See the color palette here http://gwt-material.appspot.com/#colors
 	 * @param waves - A material design aspect that helps user to add ripple effect on button
 	 */
 	public MaterialButton(String text, String bgColor, String waves) {
@@ -68,12 +87,17 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 	/**
 	 * Material Floating button
 	 * @param icon - Icon to be applied. See reference here http://gwt-material.appspot.com/#icons
-	 * @param color - The background color of the button. See the color palette here http://gwt-material.appspot.com/#colors
+	 * @param bgColor - The background color of the button. See the color palette here http://gwt-material.appspot.com/#colors
 	 * @param type - Set it to floating
 	 * @param waves - A material design aspect that helps user to add ripple effect on button
 	 * @param tooltip - The tooltip to be shown when it is hovered
 	 */
-	public MaterialButton(String icon, String bgColor, ButtonType type, String waves, String tooltip, String tooltipLocation) {
+	public MaterialButton(String icon,
+						  String bgColor,
+						  ButtonType type,
+						  String waves,
+						  String tooltip,
+						  String tooltipLocation) {
 		this();
 		setType(type);
 		setBackgroundColor(bgColor);
@@ -93,7 +117,13 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 	 * @param size - small, medium or large
 	 * @param tooltip - The tooltip to be shown when it is hovered
 	 */
-	public MaterialButton(String text, ButtonType type, String icon, String iconPosition, String size, String tooltip, String tooltipLocation) {
+	public MaterialButton(String text,
+						  ButtonType type,
+						  String icon,
+						  String iconPosition,
+						  String size,
+						  String tooltip,
+						  String tooltipLocation) {
 		this();
 		setText(text);
 		setType(type);
@@ -102,13 +132,6 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 		setSize(size);
 		setTooltip(tooltip);
 		setTooltipLocation(tooltipLocation);
-	}
-	
-	@Override
-	public void onLoad() {
-		// TODO Auto-generated method stub
-		super.onLoad();
-		initWaves();
 	}
 
 	@Override
@@ -136,7 +159,6 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 	 * - RAISED (Default)
 	 * - FLAT
 	 * - FLOATING
-	 * @param type
 	 */
 	public void setType(ButtonType type) {
 		switch (type) {
@@ -155,7 +177,7 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 
 	@Override
 	public void setText(String text) {
-		this.text= text;
+		this.text = text;
 		spanElem.setText(text);
 		add(spanElem);
 	}
@@ -169,5 +191,4 @@ public class MaterialButton extends ButtonBase implements HasText, HasIcons{
 	public void setIconColor(String iconColor) {
 		iconElem.addStyleName(iconColor + "-text");
 	}
-	
 }

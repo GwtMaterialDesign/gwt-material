@@ -23,18 +23,16 @@ package gwt.material.design.client.custom;
 public interface HasIcons {
 	
 	/**
-	 * Set Google Material Design icon
+	 * Set Google Material Design icon.
 	 * {@link https://www.google.com/design/icons/}
-	 * @param icon
 	 */
-	public void setIcon(String icon);
+	void setIcon(String icon);
 	
 	/**
-	 * Set the position of the icon
+	 * Set the position of the icon.
 	 * - left or right
-	 * @param iconPosition
 	 */	
-	public void setIconPosition(String iconPosition);
+	void setIconPosition(String iconPosition);
 	
 	/**
 	 * Size of icon
@@ -42,14 +40,12 @@ public interface HasIcons {
      * small: 2rem
      * medium: 4rem
      * large: 6rem
-     * @param size
 	 */
-	public void setSize(String size);
+	void setSize(String size);
 	
 	/**
-	 * Sets the color of the icon
-	 * @param iconColor
+	 * Sets the color of the icon.
 	 */
-	public void setIconColor(String iconColor);
+	void setIconColor(String iconColor);
 
 }

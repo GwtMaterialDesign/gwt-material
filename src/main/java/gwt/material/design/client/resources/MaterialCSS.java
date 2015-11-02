@@ -27,7 +27,7 @@ public interface MaterialCSS extends CssResource {
 	String fullBackground();
 	String sideBarProfile();
 	
-	//ADNIMATIONS
+	//ANIMATIONS
 	String materialScale();
 	String materialScaleInitial();
 	String pull();
@@ -40,6 +40,7 @@ public interface MaterialCSS extends CssResource {
 	String progress();
 	
 	String disabled();
+	String pressed();
 	String collectionHeader();
 	String collectionAvatarIcon();
 	
@@ -48,6 +49,4 @@ public interface MaterialCSS extends CssResource {
 	
 	//OLD UI
 	String oldCheckBox();
-	
-
 }

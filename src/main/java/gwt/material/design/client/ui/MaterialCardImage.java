@@ -26,6 +26,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.Waves;
 
 //@formatter:off
 /**
@@ -33,9 +34,8 @@ import com.google.gwt.user.client.ui.Widget;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
-
 //@formatter:on
-public class MaterialCardImage extends ComplexPanel implements HasWaves{
+public class MaterialCardImage extends ComplexPanel implements HasWaves {
 
 	public MaterialCardImage(){
 		setElement(Document.get().createDivElement());
@@ -46,7 +46,7 @@ public class MaterialCardImage extends ComplexPanel implements HasWaves{
      */
     @Override
     public void add(final Widget child) {
-    	if(child instanceof MaterialImage){
+    	if(child instanceof MaterialImage) {
     		child.addStyleName("activator");
     	}
         add(child, (Element) getElement());
@@ -65,13 +65,6 @@ public class MaterialCardImage extends ComplexPanel implements HasWaves{
 	@Override
 	public void setWaves(String waves) {
 		addStyleName("waves-effect waves-" + waves);
-		initWaves();
+		Waves.detectAndApply(this);
 	}
-	
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
-	
-	
 }

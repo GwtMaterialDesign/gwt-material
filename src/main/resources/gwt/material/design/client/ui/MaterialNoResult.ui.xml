@@ -34,9 +34,8 @@
 	</ui:style>
 	<m:MaterialPanel ui:field="panel" align="center"  addStyleNames="{style.panel} valign-wrapper">
 		<m:MaterialPanel addStyleNames="valign center {style.container}"> 	
-			<m:MaterialIcon ui:field="iconElem" fontSize="15" />
+			<m:MaterialIcon ui:field="iconElem" size="15" />
 		<m:MaterialTitle ui:field="titleElem" addStyleNames="{style.title}" />
 		</m:MaterialPanel>
-		
 	</m:MaterialPanel>
 </ui:UiBinder> 

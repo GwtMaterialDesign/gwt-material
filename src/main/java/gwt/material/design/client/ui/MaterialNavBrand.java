@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasHref;
 
@@ -60,7 +59,6 @@ public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref 
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
 		return text;
 	}
 
@@ -68,5 +66,4 @@ public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref 
 	public void setTarget(String target) {
 		getElement().setAttribute("target", target);
 	}
-	
 }

@@ -21,67 +21,58 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.type.ImageType;
+import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.user.client.ui.Image;
 
 //@formatter:off
 /**
 * Images can be styled in different ways using Material Design
-* <p>
 * <h3>UiBinder Usage:</h3>
 * 
 * <pre>
-* {@code 
-* Simple Image
+*{@code//Simple Image
 * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif"/>
 * 
-* Circle Image
+* // Circle Image
 * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="CIRCLE"/>
 * 
-* MaterialBoxed Image
+* // MaterialBoxed Image
 * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="MATERIALBOXED"/>
-}
+* }
 * </pre>
-* </p>
 * 
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
 */
-
 //@formatter:on
-public class MaterialImage extends Image implements HasGrid{
+public class MaterialImage extends Image implements HasGrid {
 	
-	private String caption="";
+	private String caption = "";
 	private String opacity;
 	
 	/**
-	 * Creates an empty image
+	 * Creates an empty image.
 	 */
 	public MaterialImage() {}
 	
 	/**
-	 * Creates a simple image
-	 * @param url
+	 * Creates a simple image.
 	 */
 	public MaterialImage(String url){
 		setUrl(url);
 	}
 	
 	/**
-	 * Creates an image with Specific type
-	 * @param url
-	 * @param caption
+	 * Creates an image with Specific type.
 	 */
-	public MaterialImage(String url, ImageType type){
+	public MaterialImage(String url, ImageType type) {
 		setUrl(url);
 		setType(type);
 	}
-	
-	
+
 	@Override
 	public void onLoad() {
-		// TODO Auto-generated method stub
 		super.onLoad();
 		this.addStyleName("responsive-img");
 		onInitMaterialDesign();
@@ -89,19 +80,17 @@ public class MaterialImage extends Image implements HasGrid{
 	
 	@Override
 	protected void onUnload() {
-		// TODO Auto-generated method stub
 		super.onUnload();
 	}
 
-	public native void onInitMaterialDesign()/*-{
+	public native void onInitMaterialDesign() /*-{
 		$wnd.jQuery(document).ready(function(){
 	    	$wnd.jQuery('.materialboxed').materialbox();
 	    });
 	}-*/;
 
-
 	public void setType(ImageType type) {
-		this.addStyleName(type.getValue());
+		this.addStyleName(type.getCssName());
 	}
 
 	public String getCaption() {
@@ -129,12 +118,10 @@ public class MaterialImage extends Image implements HasGrid{
 	
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
-
 }

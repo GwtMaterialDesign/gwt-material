@@ -22,9 +22,9 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:c="urn:import:gwt.material.design.client.custom">
 	<ui:style>
-	.important {
-		font-weight: bold;
-	}
+    .important {
+      font-weight: bold;
+    }
 	</ui:style>
 	<g:HTMLPanel ui:field="panel" addStyleNames="input-field">
 		<c:CustomIcon ui:field="iconPanel" />

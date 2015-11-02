@@ -1,4 +1,4 @@
-package gwt.material.design.client.type;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,47 +20,31 @@ package gwt.material.design.client.type;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.custom.helper.EnumHelper;
+
 /**
  * Types of NavBar<br>
  * - FIXED<br>
  * - TALL<br>
  * @author kevzlou7979
- *
  */
-public enum ImageType {
+public enum ImageType implements Type, Style.HasCssName {
 	CIRCLE("circle"),
 	MATERIALBOXED("materialboxed");
-	
-	String value;
-	ImageType(String value){
-		this.value = value;
+
+	private final String cssClass;
+
+	ImageType(final String cssClass) {
+		this.cssClass = cssClass;
 	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
+
+	@Override
+	public String getCssName() {
+		return cssClass;
 	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
+
+	public static ImageType fromStyleName(final String styleName) {
+		return EnumHelper.fromStyleName(styleName, ImageType.class, CIRCLE);
 	}
-	
-	/**
-	 * Get Type from String
-	 * @param text
-	 * @return Type
-	 */
-	public static ImageType fromString(String text) {
-	    if (text != null) {
-	      for (ImageType b : ImageType.values()) {
-	        if (text.equalsIgnoreCase(b.getValue())) {
-	          return b;
-	        }
-	      }
-	    }
-	    return null;
-	  }
 }

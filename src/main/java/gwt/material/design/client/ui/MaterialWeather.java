@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 public class MaterialWeather extends MaterialPanel {
 
 	public MaterialWeather() {}
@@ -30,7 +29,6 @@ public class MaterialWeather extends MaterialPanel {
 
 	@Override
 	protected void onAttach() {
-		// TODO Auto-generated method stub
 		super.onAttach();
 		String name = "weatherContainer";
 		this.addStyleName(name);
@@ -59,7 +57,7 @@ public class MaterialWeather extends MaterialPanel {
  
 		  var items = [];
 		  var location = data.sys.country + ", " + data.name;
-		  var icon = "http://gwt-material.appspot.com/bin/weather/" +data.weather[0].icon + ".png"
+		  var icon = "http://gwt-material.appspot.com/bin/weather/" +data.weather[0].icon + ".png";
 		  var temp = Math.round((data.main.temp - 273.15)* 10 ) / 10;
 		  
 		  var main = data.weather[0].main;
@@ -84,8 +82,5 @@ public class MaterialWeather extends MaterialPanel {
 			
 		  $wnd.Materialize.showStaggeredList('#weatherPanel');
 		});
-		
-		
 	}-*/;
-
 }

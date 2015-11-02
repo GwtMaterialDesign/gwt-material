@@ -27,7 +27,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
 
-public class CustomSpan extends ComplexWidget implements HasClickHandlers, HasText{
+public class CustomSpan extends ComplexWidget implements HasClickHandlers, HasText {
 	private String text;
 
 	public CustomSpan() {

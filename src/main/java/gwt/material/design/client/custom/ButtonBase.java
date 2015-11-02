@@ -44,10 +44,9 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, HasClickHandlers, HasDoubleClickHandlers, HasHref, HasTooltip
-, HasGrid, HasActivates, HasColors, HasWaves, HasDisabled{
-	
-	
+public class ButtonBase extends ComplexPanel implements HasAllMouseHandlers, HasClickHandlers,
+		HasDoubleClickHandlers, HasHref, HasTooltip, HasGrid, HasActivates, HasColors, HasWaves, HasDisabled{
+
 	private boolean disabled = false;
 	
 	/**
@@ -70,7 +69,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -79,7 +77,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -88,7 +85,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -97,7 +93,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -106,7 +101,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -115,7 +109,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -124,7 +117,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -133,7 +125,6 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
-		// TODO Auto-generated method stub
 		if(disabled){
 			return null;
 		}
@@ -178,12 +169,11 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 
 	@Override
 	public void setOffset(String offset) {
-		String tobeadded = "";
-		String[] vals = offset.split(" ");
-		for(String val : vals){
-			tobeadded = tobeadded + " offset-" +  val;
+		String cssName = "";
+		for(String val : offset.split(" ")){
+			cssName = cssName + " offset-" +  val;
 		}
-		this.addStyleName(tobeadded);
+		this.addStyleName(cssName);
 	}
 
 	@Override
@@ -206,16 +196,11 @@ public class ButtonBase  extends ComplexPanel implements HasAllMouseHandlers, Ha
 	@Override
 	public void setWaves(String waves) {
 		addStyleName("waves-effect waves-" + waves);
+		Waves.detectAndApply(this);
 	}
-
-	@Override
-	public native void initWaves()/*-{
-	    $wnd.Waves.displayEffect();
-	}-*/;
 
 	@Override
 	public void setTarget(String target) {
 		getElement().setAttribute("target", target);
 	}
-
 }

@@ -20,7 +20,6 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 
@@ -37,17 +36,13 @@ public class MaterialSuggestionOracle extends MultiWordSuggestOracle {
 	}
 
 	/**
-	 * Autocomplete with Image item selection
-	 * @param text
-	 * @param image
+	 * Autocomplete with Image item selection.
 	 */
 	public void add(String text, Image image){
 		this.imageElem = image.getElement().toString();
 		add(text + image);
 	}
-	
-	
-	
+
 	/* (non-Javadoc)
 	 * @see com.google.gwt.user.client.ui.MultiWordSuggestOracle#add(java.lang.String)
 	 */
@@ -75,7 +70,4 @@ public class MaterialSuggestionOracle extends MultiWordSuggestOracle {
 	public void setImageElem(String imageElem) {
 		this.imageElem = imageElem;
 	}
-
-
-
 }

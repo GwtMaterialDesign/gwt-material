@@ -52,7 +52,7 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
 */
 //@formatter:on
-public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator{
+public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator {
 
 	private MaterialIcon iconElem = new MaterialIcon();
 	private CustomSpan spanElem = new CustomSpan();
@@ -68,21 +68,17 @@ public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator{
 	}
 	
 	/**
-	 * Add badge element into your material link
-	 * @param badge
+	 * Add badge element into your material link.
 	 */
-	public MaterialLink(final Widget... widgets){
+	public MaterialLink(final Widget... widgets) {
 		this();
 		for (final Widget w : widgets) {
             add(w);
         }
 	}
 	
-	
 	/**
-	 * Normal link with href
-	 * @param text
-	 * @param href
+	 * Normal link with href.
 	 */
 	public MaterialLink(String text, String href) {
 		this();
@@ -90,12 +86,8 @@ public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator{
 		setHref(href);
 	}
 
-
 	/**
-	 * Creates a link with icon
-	 * @param text
-	 * @param href
-	 * @param textColor
+	 * Creates a link with icon.
 	 */
 	public MaterialLink(String text, String href, String icon) {
 		this();
@@ -113,7 +105,6 @@ public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator{
 		spanElem.setText(text);
 		add(spanElem);
 	}
-
 
 	@Override
 	public void setIcon(String icon) {
@@ -141,11 +132,10 @@ public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator{
 
 	@Override
 	public void setSeparator(boolean separator) {
-		if(separator){
+		if(separator) {
 			this.getElement().getStyle().setProperty("borderBottom", "1px solid #e9e9e9");
-		}else{
+		} else {
 			this.getElement().getStyle().setProperty("borderBottom", "none");
 		}
 	}
-	
 }
