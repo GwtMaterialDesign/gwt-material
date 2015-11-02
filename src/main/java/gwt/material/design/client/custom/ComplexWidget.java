@@ -285,6 +285,11 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     }
 
     @Override
+    public void setTooltip(String tooltip) {
+        tooltipMixin.setTooltip(tooltip);
+    }
+
+    @Override
     public void setTooltip(Tooltip tooltip) {
         tooltipMixin.setTooltip(tooltip);
     }

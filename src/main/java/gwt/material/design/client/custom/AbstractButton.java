@@ -108,6 +108,11 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	}
 
 	@Override
+	public void setTooltip(String tooltip) {
+		tooltipMixin.setTooltip(tooltip);
+	}
+
+	@Override
 	public void setTooltip(Tooltip tooltip) {
 		tooltipMixin.setTooltip(tooltip);
 	}

@@ -20,7 +20,6 @@ package gwt.material.design.client.custom.mixin;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.custom.HasTooltip;
@@ -35,6 +34,11 @@ public class TooltipMixin<T extends Widget & HasTooltip> extends AbstractMixin<T
 
     public TooltipMixin(final T widget) {
         super(widget);
+    }
+
+    @Override
+    public void setTooltip(String tooltip) {
+        setTooltip(new Tooltip(tooltip));
     }
 
     @Override

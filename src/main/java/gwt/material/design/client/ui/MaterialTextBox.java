@@ -111,13 +111,13 @@ public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers
 
 	private MaterialLabel lblError = new MaterialLabel();
 
-	private final ErrorMixin<MaterialTextBox, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
-
 	@UiField CustomLabel customLabel;
 	@UiField Label lblName;
 	@UiField TextBox txtBox;
 	@UiField MaterialIcon icon;
 	@UiField HTMLPanel panel;
+
+	private final ErrorMixin<MaterialTextBox, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, txtBox);
 
 	public MaterialTextBox() {
 		initWidget(uiBinder.createAndBindUi(this));

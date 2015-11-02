@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.HasAvatar;
 import gwt.material.design.client.custom.HasDismissable;
 import gwt.material.design.client.custom.HasWaves;
 import gwt.material.design.client.constants.CollectionType;
@@ -32,6 +33,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.mixin.AvatarMixin;
 import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
@@ -40,9 +42,11 @@ import gwt.material.design.client.custom.mixin.WavesMixin;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 *///@formatter:on
-public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable, HasWaves {
+public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable, HasWaves,
+		HasAvatar {
 
 	private final WavesMixin<MaterialCollectionItem> wavesMixin = new WavesMixin<>(this);
+	private final AvatarMixin<MaterialCollectionItem> avatarMixin = new AvatarMixin<>(this);
 
 	public MaterialCollectionItem() {
 		super(Document.get().createLIElement());
@@ -97,6 +101,16 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 	@Override
 	public WavesType getWaves() {
 		return wavesMixin.getWaves();
+	}
+
+	@Override
+	public void setAvatar(boolean avatar) {
+		avatarMixin.setAvatar(avatar);
+	}
+
+	@Override
+	public boolean isAvatar() {
+		return avatarMixin.isAvatar();
 	}
 
 	@Override

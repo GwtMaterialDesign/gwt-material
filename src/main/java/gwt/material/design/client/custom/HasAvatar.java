@@ -20,11 +20,15 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-public interface HasTooltip {
+public interface HasAvatar {
+	/**
+	 * Mark the widget as avatar.
+	 */
+	void setAvatar(boolean avatar);
 
-	void setTooltip(String tooltip);
-
-	void setTooltip(Tooltip tooltip);
-
-	Tooltip getTooltip();
+	/**
+	 * Gets the type of the widget.
+	 * @return type of the widget
+	 */
+	boolean isAvatar();
 }
