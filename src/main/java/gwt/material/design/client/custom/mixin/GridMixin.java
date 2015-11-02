@@ -45,7 +45,7 @@ public class GridMixin<T extends UIObject & HasGrid> extends AbstractMixin<T> im
 
     @Override
     public void setOffset(String offset) {
-        if(this.offset != null) {
+        if(this.offset != null && !this.offset.isEmpty()) {
             uiObject.removeStyleName(this.offset);
         }
 
