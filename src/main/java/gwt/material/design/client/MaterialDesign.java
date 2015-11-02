@@ -26,30 +26,10 @@ import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.core.client.EntryPoint;
 import gwt.material.design.client.resources.MaterialResources;
 
-public class MaterialDesign implements EntryPoint {
-	
+public class MaterialDesign extends MaterialDesignBase implements EntryPoint {
+
+	@Override
 	public void onModuleLoad() {
-		inject(MaterialResources.INSTANCE.materializeJs());
-		inject(MaterialResources.INSTANCE.timepickerJs());
-		inject(MaterialResources.INSTANCE.animationJs());
-	}
-
-	protected void inject(TextResource resource) {
-		inject(resource, true, false);
-	}
-
-	protected void injectDebug(TextResource resource) {
-		inject(resource, false, true);
-	}
-
-	protected void inject(TextResource resource, boolean removeTag, boolean sourceUrl) {
-		String text = resource.getText() +
-			(sourceUrl ? "//# sourceURL="+resource.getName()+".js" : "");
-
-		// Inject the script resource
-		ScriptInjector.fromString(text)
-			.setWindow(ScriptInjector.TOP_WINDOW)
-			.setRemoveTag(removeTag)
-			.inject();
+		load();
 	}
 }

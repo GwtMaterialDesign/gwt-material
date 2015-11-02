@@ -20,21 +20,15 @@ package gwt.material.design.client;
  * #L%
  */
 
-import com.google.gwt.core.client.EntryPoint;
-import gwt.material.design.client.resources.WithJQueryResources;
+import gwt.material.design.client.resources.MaterialDebugResources;
+import gwt.material.design.client.resources.MaterialResources;
 
-public class MaterialWithJQuery extends MaterialDesignBase implements EntryPoint {
-
-	@Override
-	public void onModuleLoad() {
-		load();
-	}
+public class MaterialDesignDebugBase extends MaterialDesignBase {
 
 	@Override
 	public void load() {
-		if(!isjQueryLoaded()) {
-			inject(WithJQueryResources.INSTANCE.jQuery());
-		}
-		super.load();
+		injectDebug(MaterialDebugResources.INSTANCE.materializeJsDebug());
+		injectDebug(MaterialDebugResources.INSTANCE.timepickerJsDebug());
+		injectDebug(MaterialResources.INSTANCE.animationJs());
 	}
 }
