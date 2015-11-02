@@ -26,7 +26,7 @@ public class MaterialWithJQuery extends MaterialDesign {
 
 	@Override
 	public void onModuleLoad() {
-		if(isjQueryLoaded()) {
+		if(!isjQueryLoaded()) {
 			inject(WithJQueryResources.INSTANCE.jQuery());
 		}
 

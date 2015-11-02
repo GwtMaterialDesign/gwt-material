@@ -29,7 +29,7 @@ public class MaterialWithJQueryDebug extends MaterialDesignDebug {
 
 	@Override
 	public void onModuleLoad() {
-		if(isjQueryLoaded()) {
+		if(!isjQueryLoaded()) {
 			injectDebug(WithJQueryDebugResources.INSTANCE.jQueryDebug());
 		}
 
