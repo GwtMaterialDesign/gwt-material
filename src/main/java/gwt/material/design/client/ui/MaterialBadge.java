@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.resources.MaterialResources;
 
 import com.google.gwt.user.client.ui.HasText;
@@ -40,7 +39,7 @@ import com.google.gwt.user.client.ui.HasText;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#badges">Material Badge</a>
  */
 //@formatter:on
-public class MaterialBadge extends CustomSpan implements HasColors, HasText{
+public class MaterialBadge extends CustomSpan implements HasText {
 	
 	/**
 	 * Creates a badge component that can be added to Link,
@@ -72,15 +71,5 @@ public class MaterialBadge extends CustomSpan implements HasColors, HasText{
 	@Override
 	public void setText(String text) {
 		getElement().setInnerHTML(text);
-	}
-
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
 	}
 }

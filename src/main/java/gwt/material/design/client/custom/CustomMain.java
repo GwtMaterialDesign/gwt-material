@@ -25,6 +25,6 @@ import com.google.gwt.dom.client.Document;
 public class CustomMain  extends ComplexWidget {
 
 	public CustomMain() {
-		setElement(Document.get().createElement("main"));
+		super(Document.get().createElement("main"));
 	}
 }

@@ -26,11 +26,11 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.MaterialWidget;
 
-public class MaterialParallax extends Composite {
+public class MaterialParallax extends MaterialWidget {
 
 	private static MaterialParallaxUiBinder uiBinder = GWT.create(MaterialParallaxUiBinder.class);
 
@@ -41,8 +41,6 @@ public class MaterialParallax extends Composite {
 	@UiField MaterialPanel imageContainer;
 	@UiField Image image;
 
-	private String height;
-	private String url;
 	private ImageResource resource;
 
 	public MaterialParallax() {
@@ -51,12 +49,12 @@ public class MaterialParallax extends Composite {
 
 	public MaterialParallax(String url) {
 		super();
-		this.url = url;
+		setUrl(url);
 	}
 
 	public MaterialParallax(ImageResource resource) {
 		super();
-		this.resource = resource;
+		setResource(resource);
 	}
 
 	@Override
@@ -77,11 +75,10 @@ public class MaterialParallax extends Composite {
 	}-*/;
 
 	public String getUrl() {
-		return url;
+		return image.getUrl();
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
 		image.setUrl(url);
 	}
 
@@ -94,12 +91,12 @@ public class MaterialParallax extends Composite {
 		image.setResource(resource);
 	}
 
-	public String getHeight() {
-		return height;
+	public double getHeight() {
+		return Double.parseDouble(
+			imageContainer.getElement().getStyle().getHeight());
 	}
 
-	public void setHeight(String height) {
-		this.height = height;
-		imageContainer.getElement().getStyle().setHeight(Double.parseDouble(height), Unit.PX);
+	public void setHeight(double height) {
+		imageContainer.getElement().getStyle().setHeight(height, Unit.PX);
 	}
 }

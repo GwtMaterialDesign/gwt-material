@@ -25,6 +25,6 @@ import com.google.gwt.dom.client.Document;
 public class CustomFooter  extends ComplexWidget {
 	
 	public CustomFooter() {
-		setElement(Document.get().createElement("footer"));
+		super(Document.get().createElement("footer"));
 	}
 }

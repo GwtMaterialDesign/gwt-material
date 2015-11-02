@@ -23,8 +23,54 @@ package gwt.material.design.client.custom;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.Position;
 
 public class Tooltip {
+
+    private Position position = Position.BOTTOM;
+    private int delay = 50;
+    private String text = "";
+
+    public Tooltip() {}
+
+    public Tooltip(String text) {
+        this.text = text;
+    }
+
+    public Tooltip(int delay, String text) {
+        this.delay = delay;
+        this.text = text;
+    }
+
+    public Tooltip(Position position, int delay, String text) {
+        this.position = position;
+        this.delay = delay;
+        this.text = text;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public int getDelay() {
+        return delay;
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     /**
      * Initialize any uninitialized tooltip elements.

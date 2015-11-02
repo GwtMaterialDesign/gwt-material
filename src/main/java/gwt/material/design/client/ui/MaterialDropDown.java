@@ -43,7 +43,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
  */
 //@formatter:on
-public class MaterialDropDown extends ComplexNav implements HasGrid {
+public class MaterialDropDown extends ComplexNav {
 
 	private String name;
 	private boolean belowOrigin;
@@ -97,18 +97,4 @@ public class MaterialDropDown extends ComplexNav implements HasGrid {
 			});
 		});
 	}-*/;
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName(grid + " col");
-	}
-
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")) {
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
-	}
 }

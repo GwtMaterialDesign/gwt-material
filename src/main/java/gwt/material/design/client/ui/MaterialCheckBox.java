@@ -20,8 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasDisabled;
 import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.mixin.GridMixin;
 import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.constants.CheckBoxType;
 
@@ -57,11 +57,12 @@ import com.google.gwt.user.client.ui.CheckBox;
  * @author kevzlou7979
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">CheckBox</a>
  */
-public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid, HasDisabled {
+public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid {
 
 	private Object object;
 	private String old;
-	private boolean disabled;
+
+	private final GridMixin<MaterialCheckBox> gridMixin = new GridMixin<>(this);
 	
 	public MaterialCheckBox() {
 	}
@@ -128,17 +129,6 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 		this.old = old;
 		this.addStyleName(MaterialResources.INSTANCE.materialcss().oldCheckBox());
 	}
-	
-	@Override
-	public boolean isDisabled() {
-		return disabled;
-	}
-	
-	@Override
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
-		this.setEnabled(!disabled);
-	}
 
 	/**
 	 * Setting the type of Checkbox.
@@ -161,15 +151,11 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 
 	@Override
 	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+		gridMixin.setGrid(grid);
 	}
 	
 	@Override
 	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")) {
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+		gridMixin.setOffset(offset);
 	}
 }

@@ -25,10 +25,10 @@ public interface HasActive {
 	/**
 	 * Set active element.
 	 */
-	void setActive(int index);
+	void setActive(boolean active);
 	
 	/**
 	 * Get the active element.
 	 */
-	int getActive();
+	boolean isActive();
 }

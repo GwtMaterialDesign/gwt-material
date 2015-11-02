@@ -20,12 +20,15 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.ui.HasValue;
+import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.CustomInput;
 import gwt.material.design.client.custom.CustomLabel;
 import gwt.material.design.client.custom.CustomSpan;
 import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
@@ -33,46 +36,40 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.custom.HasId;
+import gwt.material.design.client.custom.mixin.ErrorMixin;
 
 //@formatter:off
 /**
 * Material Switch or other call it toggle - used for an alternative for checkbox
-* 
-* <p>
+*
 * <h3>UiBinder Usage:</h3>
 * <pre>
-* {@code 
-* <m:MaterialSwitch value="true"/>
+*{@code<m:MaterialSwitch value="true"/>
 * <m:MaterialSwitch value="true" disabled="true"/>
-* 
 * }
 * </pre>
-* </p>
-* 
+ *
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Switch</a>
 */
 //@formatter:on
-public class MaterialSwitch extends ComplexWidget implements HasClickHandlers, HasGrid, HasError, HasId {
+public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
 
 	private CustomInput input = new CustomInput();
 	private CustomSpan span = new CustomSpan();
 	private CustomLabel label = new CustomLabel();
-	private boolean value = true;
-	private boolean disabled;
 	private MaterialLabel lblError = new MaterialLabel();
+
+	private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
 	/**
 	 * Creates a switch element
 	 */
 	public MaterialSwitch() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("switch");
-		setId(DOM.createUniqueId());
 		span.setStyleName("lever");
-		input.setType("checkbox");
+		input.setType(InputType.CHECKBOX);
 		label.add(input);
 		label.add(span);
 		add(label);
@@ -91,45 +88,56 @@ public class MaterialSwitch extends ComplexWidget implements HasClickHandlers, H
 	@Override
 	protected void onLoad() {
 		super.onLoad();
+
 		addClickHandler(new ClickHandler() {
-			
 			@Override
 			public void onClick(ClickEvent event) {
+				setValue(!!isEnabled());
 				event.preventDefault();
-				//MaterialToast.alert(trigger + "");
-				setValue(value);
 			}
 		});
 	}
 
-	public boolean isDisabled(){
-		return disabled;
-	}
-
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
-		span.addStyleName("disabled");
-		input.getElement().setAttribute("disabled", "true");
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		span.setEnabled(enabled);
+		input.setEnabled(enabled);
 	}
 
 	/**
 	 * Set the value of switch component.
 	 */
-	public void setValue(boolean value) {
+	@Override
+	public void setValue(Boolean value, boolean fireEvents) {
+		boolean oldValue = getValue();
 		if(value) {
 			input.getElement().setAttribute("checked", "true");
-			this.value = false;
 		} else {
 			input.getElement().removeAttribute("checked");
-			this.value = true;
+		}
+
+		if(fireEvents && oldValue != value) {
+			ValueChangeEvent.fire(this, getValue());
 		}
 	}
-	
+
+	@Override
+	public void setValue(Boolean value) {
+		setValue(value, true);
+	}
+
 	/**
 	 * Gets the value of switch component.
 	 */
-	public boolean getValue(){
-		return value;
+	@Override
+	public Boolean getValue() {
+		return input.getElement().hasAttribute("checked");
+	}
+
+	@Override
+	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Boolean> handler) {
+		return addHandler(handler, ValueChangeEvent.getType());
 	}
 
 	/**
@@ -175,50 +183,24 @@ public class MaterialSwitch extends ComplexWidget implements HasClickHandlers, H
 	}
 
 	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		if(isDisabled()){
-			return null;
-		}
-		return addDomHandler(handler, ClickEvent.getType());
-	}
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
-	}
-
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")) {
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+	public HandlerRegistration addClickHandler(final ClickHandler handler) {
+		return addDomHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				if(isEnabled()) {
+					handler.onClick(event);
+				}
+			}
+		}, ClickEvent.getType());
 	}
 
 	@Override
 	public void setError(String error) {
-		lblError.setText(error);
-		lblError.addStyleName("field-error-label");
-		lblError.removeStyleName("field-success-label");
-		lblError.setVisible(true);
+		errorMixin.setError(error);
 	}
 
 	@Override
 	public void setSuccess(String success) {
-		lblError.setText(success);
-		lblError.addStyleName("field-success-label");
-		lblError.removeStyleName("field-error-label");
-		lblError.setVisible(true);
-	}
-
-	@Override
-	public void setId(String id) {
-		input.getElement().setId(id);
-	}
-
-	@Override
-	public String getId() {
-		return input.getElement().getId();
+		errorMixin.setSuccess(success);
 	}
 }

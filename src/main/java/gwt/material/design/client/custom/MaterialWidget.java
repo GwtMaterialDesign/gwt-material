@@ -20,152 +20,265 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.Alignment;
+import gwt.material.design.client.constants.CenterOn;
+import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.ShowOn;
+import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.custom.mixin.AlignMixin;
+import gwt.material.design.client.custom.mixin.CenterOnMixin;
+import gwt.material.design.client.custom.mixin.ColorsMixin;
+import gwt.material.design.client.custom.mixin.EnabledMixin;
+import gwt.material.design.client.custom.mixin.FocusableMixin;
+import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.custom.mixin.HideOnMixin;
+import gwt.material.design.client.custom.mixin.IdMixin;
+import gwt.material.design.client.custom.mixin.ScrollspyMixin;
+import gwt.material.design.client.custom.mixin.SeparatorMixin;
+import gwt.material.design.client.custom.mixin.ShadowMixin;
+import gwt.material.design.client.custom.mixin.ShowOnMixin;
+import gwt.material.design.client.custom.mixin.TooltipMixin;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
-public class MaterialWidget extends Composite implements HasWaves, HasTooltip, HasColors, HasAlign, HasEnabled {
+public class MaterialWidget extends Composite implements Focusable, HasId, HasWaves, HasTooltip, HasColors, HasAlign,
+		HasEnabled, HasGrid, HasInlineStyle, HasShadow, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn {
 
-	protected String waves = "";
-	protected String color = "";
-	protected String textColor = "";
-	protected String type = "";
-	protected Widget widget;
-	protected String align = "";
-	protected String tooltip = "";
-	protected String tooltipLocation = "bottom";
-	protected String tooltipDelay = "50";
-	protected boolean disable;
-	private String padding;
+	private final IdMixin<MaterialWidget> idMixin = new IdMixin<>(this);
+	private final EnabledMixin<MaterialWidget> enabledMixin = new EnabledMixin<>(this);
+	private final AlignMixin<MaterialWidget> alignMixin = new AlignMixin<>(this);
+	private final ColorsMixin<MaterialWidget> colorsMixin = new ColorsMixin<>(this);
+	private final FocusableMixin<MaterialWidget> focusableMixin = new FocusableMixin<>(this);
+	private final GridMixin<MaterialWidget> gridMixin = new GridMixin<>(this);
+	private final ShadowMixin<MaterialWidget> shadowMixin = new ShadowMixin<>(this);
+	private final SeparatorMixin<MaterialWidget> separatorMixin = new SeparatorMixin<>(this);
+	private final ScrollspyMixin<MaterialWidget> scrollspyMixin = new ScrollspyMixin<>(this);
+	private final HideOnMixin<MaterialWidget> hideOnMixin = new HideOnMixin<>(this);
+	private final ShowOnMixin<MaterialWidget> showOnMixin = new ShowOnMixin<>(this);
+	private final CenterOnMixin<MaterialWidget> centerOnMixin = new CenterOnMixin<>(this);
+	private final TooltipMixin<MaterialWidget> tooltipMixin = new TooltipMixin<>(this);
+	private final WavesMixin<MaterialWidget> wavesMixin = new WavesMixin<>(this);
 
-	public String getWaves() {
-		return waves;
+	@Override
+	public void setId(String id) {
+		idMixin.setId(id);
 	}
 
-	public void setWaves(String waves) {
-		this.waves = waves;
-		applyMaterialEffect();
+	@Override
+	public String getId() {
+		return idMixin.getId();
 	}
 
-	public String getColor() {
-		return color;
+	@Override
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-		applyMaterialEffect();
+	@Override
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
 	}
 
+	@Override
+	public String getBackgroundColor() {
+		return colorsMixin.getBackgroundColor();
+	}
+
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		colorsMixin.setBackgroundColor(bgColor);
+	}
+
+	@Override
 	public String getTextColor() {
-		return textColor;
+		return colorsMixin.getTextColor();
 	}
 
+	@Override
 	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-		applyMaterialEffect();
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public void applyMaterialEffect() {
-		if(widget != null) {
-			if(!isDisable()) {
-				if(!waves.isEmpty()) {
-					widget.getElement().addClassName("waves-effect waves-" + waves);
-					Waves.detectAndApply(this);
-				}
-				if(!color.isEmpty()) widget.getElement().addClassName(color);
-				if(!textColor.isEmpty()) widget.getElement().addClassName(textColor + "-text");
-				if(!align.isEmpty()) widget.getElement().addClassName(align + "-align");
-
-				if(!tooltip.isEmpty()) {
-					getWidget().addStyleName("tooltipped");
-					getWidget().getElement().setAttribute("data-tooltip", tooltip);
-
-					if(!tooltipLocation.isEmpty()) {
-						getWidget().getElement().setAttribute("data-position", tooltipLocation);
-					}
-					if(!tooltipDelay.isEmpty()) {
-						getWidget().getElement().setAttribute("data-delay", tooltipDelay);
-					}
-					Tooltip.detectAndApply(this);
-				}
-
-			} else {
-				widget.addStyleName("disabled");
-				widget.getElement().addClassName("grey lighten-2 ");
-			}
-		}
+		colorsMixin.setTextColor(textColor);
 	}
 
 	@Override
-	public Widget getWidget() {
-		return widget;
+	public Tooltip getTooltip() {
+		return tooltipMixin.getTooltip();
 	}
 
 	@Override
-	public void setWidget(Widget widget) {
-		this.widget = widget;
+	public void setTooltip(Tooltip tooltip) {
+		tooltipMixin.setTooltip(tooltip);
 	}
 
 	@Override
-	public String getAlign() {
-		return align;
+	public boolean isEnabled() {
+		return enabledMixin.isEnabled();
 	}
 
 	@Override
-	public void setAlign(String align) {
-		this.align = align;
+	public void setEnabled(boolean enabled) {
+		enabledMixin.setEnabled(enabled);
 	}
 
-	public String getTooltip() {
-		return tooltip;
+	@Override
+	public void setAlign(Alignment align) {
+		alignMixin.setAlign(align);
 	}
 
-	public void setTooltip(String tooltip) {
-		this.tooltip = tooltip;
-		applyMaterialEffect();
+	@Override
+	public Alignment getAlign() {
+		return alignMixin.getAlign();
 	}
 
-	public String getTooltipLocation() {
-		return tooltipLocation;
+	@Override
+	public void setGrid(String grid) {
+		gridMixin.setGrid(grid);
 	}
 
-	public void setTooltipLocation(String tooltipLocation) {
-		this.tooltipLocation = tooltipLocation;
-		applyMaterialEffect();
+	@Override
+	public void setOffset(String offset) {
+		gridMixin.setOffset(offset);
 	}
 
-	public String getTooltipDelay() {
-		return tooltipDelay;
+	@Override
+	public int getTabIndex() {
+		return focusableMixin.getTabIndex();
 	}
 
-	public void setTooltipDelay(String tooltipDelay) {
-		this.tooltipDelay = tooltipDelay;
-		applyMaterialEffect();
+	@Override
+	public void setAccessKey(char key) {
+		focusableMixin.setAccessKey(key);
 	}
 
-	public boolean isDisable() {
-		return disable;
+	@Override
+	public void setFocus(boolean focused) {
+		focusableMixin.setFocus(focused);
 	}
 
-	public void setDisable(boolean disable) {
-		this.disable = disable;
+	@Override
+	public void setTabIndex(int index) {
+		focusableMixin.setTabIndex(index);
 	}
 
-	public String getPadding() {
-		return padding;
+	@Override
+	public void setCenterOn(CenterOn centerOn) {
+		centerOnMixin.setCenterOn(centerOn);
 	}
 
-	public void setPadding(String padding) {
-		this.padding = padding;
-		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
+	@Override
+	public CenterOn getCenterOn() {
+		return centerOnMixin.getCenterOn();
+	}
+
+	@Override
+	public void setHideOn(HideOn hideOn) {
+		hideOnMixin.setHideOn(hideOn);
+	}
+
+	@Override
+	public HideOn getHideOn() {
+		return hideOnMixin.getHideOn();
+	}
+
+	@Override
+	public void setShowOn(ShowOn showOn) {
+		showOnMixin.setShowOn(showOn);
+	}
+
+	@Override
+	public ShowOn getShowOn() {
+		return showOnMixin.getShowOn();
+	}
+
+	@Override
+	public void setScrollspy(String scrollspy) {
+		scrollspyMixin.setScrollspy(scrollspy);
+	}
+
+	@Override
+	public String getScrollspy() {
+		return scrollspyMixin.getScrollspy();
+	}
+
+	@Override
+	public void setSeparator(boolean separator) {
+		separatorMixin.setSeparator(separator);
+	}
+
+	@Override
+	public boolean isSeparator() {
+		return separatorMixin.isSeparator();
+	}
+
+	@Override
+	public void setShadow(int shadow) {
+		shadowMixin.setShadow(shadow);
+	}
+
+	@Override
+	public int getShadow() {
+		return shadowMixin.getShadow();
+	}
+
+	@Override
+	public void setMargin(double margin) {
+		getElement().getStyle().setMargin(margin, Style.Unit.PX);
+	}
+
+	@Override
+	public void setMarginTop(final double margin) {
+		getElement().getStyle().setMarginTop(margin, Style.Unit.PX);
+	}
+
+	@Override
+	public void setMarginLeft(final double margin) {
+		getElement().getStyle().setMarginLeft(margin, Style.Unit.PX);
+	}
+
+	@Override
+	public void setMarginRight(final double margin) {
+		getElement().getStyle().setMarginRight(margin, Style.Unit.PX);
+	}
+
+	@Override
+	public void setMarginBottom(final double margin) {
+		getElement().getStyle().setMarginBottom(margin, Style.Unit.PX);
+	}
+
+	@Override
+	public void setPadding(double padding) {
+		getElement().getStyle().setPadding(padding, Style.Unit.PX);
+	}
+
+	@Override
+	public void setPaddingTop(final double padding) {
+		getElement().getStyle().setPaddingTop(padding, Style.Unit.PX);
+	}
+
+	@Override
+	public void setPaddingLeft(final double padding) {
+		getElement().getStyle().setPaddingLeft(padding, Style.Unit.PX);
+	}
+
+	@Override
+	public void setPaddingRight(final double padding) {
+		getElement().getStyle().setPaddingRight(padding, Style.Unit.PX);
+	}
+
+	@Override
+	public void setPaddingBottom(final double padding) {
+		getElement().getStyle().setPaddingBottom(padding, Style.Unit.PX);
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+		getElement().getStyle().setOpacity(opacity);
+	}
+
+	@Override
+	public double getOpacity() {
+		return Double.parseDouble(getElement().getStyle().getOpacity());
 	}
 }

@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.ComplexPanel;
+import gwt.material.design.client.custom.ComplexWidget;
 //@formatter:off
 /**
  * The section class is used for simple top and bottom padding. Just add
@@ -39,10 +40,10 @@ import com.google.gwt.user.client.ui.ComplexPanel;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Section</a>
  */
 //@formatter:on
-public class MaterialSection extends ComplexPanel {
+public class MaterialSection extends ComplexWidget {
 
 	public MaterialSection() {
-		setElement(Document.get().createElement("div"));
+		super(Document.get().createElement("div"));
 		setStyleName("section");
 	}
 }

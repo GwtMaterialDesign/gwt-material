@@ -20,10 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.CustomIcon;
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.custom.CustomLabel;
 import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -40,99 +42,64 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.HasIcon;
+import gwt.material.design.client.custom.HasPlaceholder;
+import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.custom.mixin.ErrorMixin;
 
-public class MaterialTextArea extends Composite implements HasText, HasKeyPressHandlers,
-		HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasGrid, HasError {
+public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyPressHandlers,
+		HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder {
 
 	private static UiBinder uiBinder = GWT.create(UiBinder.class);
 
 	interface UiBinder extends com.google.gwt.uibinder.client.UiBinder<Widget, MaterialTextArea> {
 	}
 
-	private String placeholder;
-	private String type = "text";
-	private String icon = "";
-	private boolean isValid = true;
 	private String length;
+	private String placeholder;
+	private boolean isValid = true;
+
 	private MaterialLabel lblError = new MaterialLabel();
+
+	private final ErrorMixin<MaterialTextArea, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 	
 	@UiField CustomLabel customLabel;
 	@UiField Label lblName;
 	@UiField TextArea txtBox;
-	@UiField CustomIcon iconPanel;
+	@UiField MaterialIcon icon;
 	@UiField HTMLPanel panel;
 
 	public MaterialTextArea() {
 		initWidget(uiBinder.createAndBindUi(this));
+
+		icon.setIconPrefix(true);
+		txtBox.addStyleName("materialize-textarea");
 		lblError.setVisible(false);
 		panel.add(lblError);
 	}
 
 	public void setInvalid() {
-		backToDefault();
+		removeErrorModifiers();
 		lblName.setStyleName("red-text");
 		txtBox.getElement().addClassName("invalid");
 		isValid = false;
 	}
 
 	public void setValid() {
-		backToDefault();
+		removeErrorModifiers();
 		lblName.setStyleName("green-text");
 		txtBox.getElement().addClassName("valid");
 		isValid = true;
 	}
 
-	public void backToDefault() {
+	public void removeErrorModifiers() {
 		txtBox.getElement().removeClassName("valid");
 		txtBox.getElement().removeClassName("invalid");
-	}
-
-	public String getText() {
-		return txtBox.getText();
-	}
-
-	public void setText(String text) {
-		txtBox.setText(text);
-		customLabel.addStyleName("active");
-	}
-	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		customLabel.getElement().setAttribute("for", "field");
-	}
-
-	public String getPlaceholder() {
-		return placeholder;
-	}
-
-	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
-		lblName.setText(placeholder);
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-		txtBox.getElement().setAttribute("type", type);
-	}
-
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-		iconPanel.addStyleName(icon + " prefix");
 	}
 
 	public boolean isValid() {
@@ -150,6 +117,34 @@ public class MaterialTextArea extends Composite implements HasText, HasKeyPressH
 	public void setLength(String length) {
 		this.length = length;
 		txtBox.getElement().setAttribute("length", length);
+	}
+	
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		customLabel.getElement().setAttribute("for", "field");
+	}
+
+	@Override
+	public String getText() {
+		return txtBox.getText();
+	}
+
+	@Override
+	public void setText(String text) {
+		txtBox.setText(text);
+		customLabel.addStyleName("active");
+	}
+
+	@Override
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	@Override
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+		lblName.setText(placeholder);
 	}
 
 	@Override
@@ -174,33 +169,53 @@ public class MaterialTextArea extends Composite implements HasText, HasKeyPressH
 
 	@Override
 	public void setError(String error) {
-		lblError.setText(error);
-		lblError.addStyleName("field-error-label");
-		lblError.removeStyleName("field-success-label");
-		lblError.setVisible(true);
+		errorMixin.setError(error);
 		setInvalid();
 	}
 
 	@Override
 	public void setSuccess(String success) {
-		lblError.setText(success);
-		lblError.addStyleName("field-success-label");
-		lblError.removeStyleName("field-error-label");
-		lblError.setVisible(true);
+		errorMixin.setSuccess(success);
 		setValid();
 	}
 
 	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+	public MaterialIcon getIcon() {
+		return icon;
 	}
-	
+
 	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+	public void setIconType(IconType iconType) {
+		icon.setIconType(iconType);
+	}
+
+	@Override
+	public void setIconPosition(IconPosition position) {
+		icon.setIconPosition(position);
+	}
+
+	@Override
+	public void setIconSize(IconSize size) {
+		icon.setIconSize(size);
+	}
+
+	@Override
+	public void setIconFontSize(double size, Style.Unit unit) {
+		icon.setIconFontSize(size, unit);
+	}
+
+	@Override
+	public void setIconColor(String iconColor) {
+		icon.setIconColor(iconColor);
+	}
+
+	@Override
+	public void setIconPrefix(boolean prefix) {
+		icon.setIconPrefix(prefix);
+	}
+
+	@Override
+	public boolean isIconPrefix() {
+		return icon.isIconPrefix();
 	}
 }

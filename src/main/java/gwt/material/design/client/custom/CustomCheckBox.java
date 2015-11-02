@@ -20,23 +20,11 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.DOM;
 
-public class CustomCheckBox extends ComplexWidget {
-	
-	private String type = "";
-	
+public class CustomCheckBox extends AbstractInput {
+
 	public CustomCheckBox() {
-		setElement(Document.get().createElement("input"));
-		this.getElement().setAttribute("type", "checkbox");
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-		this.getElement().setAttribute("type", type);
+		super(DOM.createInputCheck());
 	}
 }

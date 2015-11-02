@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.MaterialWidget;
 import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.constants.ImageType;
 
@@ -30,12 +31,11 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTopNav extends Composite {
+public class MaterialTopNav extends MaterialWidget {
 
 	private static MaterialTopNavUiBinder uiBinder = GWT.create(MaterialTopNavUiBinder.class);
 
@@ -46,15 +46,9 @@ public class MaterialTopNav extends Composite {
 	@UiField HTMLPanel panel, customPanel;
 	@UiField MaterialColumn menuPanel;
 
-	private String title = "";
-	private String description = "";
 	private String color = "blue";
-	private String textColor = "white";
-	private String fontSize ;
-	private String padding = "";
-	private String type = "";
+	private String type, url, fontSize = "";
 	private ImageResource resource;
-	private String url;
 	
 	private String profileImageUrl = "";
 	private ImageResource profileImageResource;
@@ -75,49 +69,33 @@ public class MaterialTopNav extends Composite {
 	}
 	
 	public String getTitle() {
-		return title;
+		return lblTitle.getText();
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
 		lblTitle.setText(title);
 	}
 
 	public String getDescription() {
-		return description;
+		return lblDescription.getText();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
 		lblDescription.setText(description);
 	}
 
 	public String getColor() {
-		return color;
+		return lblTitle.getElement().getStyle().getColor();
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-		panel.addStyleName(color);
-	}
-
-	public String getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(String textColor) {
-		this.textColor = textColor;
+	public void setColor(String textColor) {
 		lblTitle.getElement().getStyle().setColor(textColor);
 		lblDescription.getElement().getStyle().setColor(textColor);
 	}
 
-	public String getPadding() {
-		return padding;
-	}
-
-	public void setPadding(String padding) {
-		this.padding = padding;
-		panel.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
+	@Override
+	public void setPadding(double padding) {
+		panel.getElement().getStyle().setPadding(padding, Unit.PCT);
 		panel.getElement().getStyle().setPaddingBottom(200, Unit.PX);
 	}
 
@@ -140,7 +118,7 @@ public class MaterialTopNav extends Composite {
 		generateBackground(url);
 	}
 	
-	private void generateBackground(String url){
+	private void generateBackground(String url) {
 		panel.addStyleName(MaterialResources.INSTANCE.materialcss().fullBackground());
 		panel.getElement().setAttribute("style", "background-image: url(" + url + "); background-size: 100%;" );
 	}
@@ -168,7 +146,7 @@ public class MaterialTopNav extends Composite {
 	private void generateProfile(){
 		panel.clear();
 		MaterialImage profile = new MaterialImage();
-		MaterialLink link = new MaterialLink();
+		MaterialLink link = new MaterialLink(profileName);
 		link.getElement().getStyle().setFontWeight(FontWeight.BOLD);
 		link.setTextColor("white");
 		link.setText(profileName);

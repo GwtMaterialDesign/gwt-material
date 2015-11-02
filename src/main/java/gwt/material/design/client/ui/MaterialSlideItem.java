@@ -24,9 +24,9 @@ import gwt.material.design.client.custom.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
 
-public class MaterialSlideItem extends ComplexWidget{
+public class MaterialSlideItem extends ComplexWidget {
 
 	public MaterialSlideItem(){
-		setElement(Document.get().createLIElement());
+		super(Document.get().createLIElement());
 	}
 }

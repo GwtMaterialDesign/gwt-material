@@ -27,8 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class PreLoader extends Composite {
 
-	private static PreLoaderUiBinder uiBinder = GWT
-		.create(PreLoaderUiBinder.class);
+	private static PreLoaderUiBinder uiBinder = GWT.create(PreLoaderUiBinder.class);
 
 	interface PreLoaderUiBinder extends UiBinder<Widget, PreLoader> {
 	}

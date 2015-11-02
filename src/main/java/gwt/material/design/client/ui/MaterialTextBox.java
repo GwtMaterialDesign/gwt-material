@@ -20,10 +20,14 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.CustomIcon;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.custom.CustomLabel;
 import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.IsEditor;
@@ -76,23 +80,24 @@ import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.HasIcon;
+import gwt.material.design.client.custom.HasInputType;
+import gwt.material.design.client.custom.HasPlaceholder;
+import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.custom.mixin.ErrorMixin;
 
-public class MaterialTextBox extends Composite implements
-		HasChangeHandlers, HasName, HasDirectionEstimator, HasValue<String>,
-		HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>,
-		HasKeyUpHandlers, HasClickHandlers, HasDoubleClickHandlers,
-		HasEnabled, HasAllDragAndDropHandlers, HasAllFocusHandlers,
-		HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers,
-		HasAllTouchHandlers, HasGrid, HasError {
+public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
+		HasValue<String>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>, HasKeyUpHandlers,
+		HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
+		HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
+		HasPlaceholder {
 
 	private static MaterialTextBoxUiBinder uiBinder = GWT.create(MaterialTextBoxUiBinder.class);
 
@@ -100,42 +105,45 @@ public class MaterialTextBox extends Composite implements
 	}
 
 	private String placeholder;
-	private String type = "text";
-	private String icon = "";
+	private InputType type = InputType.TEXT;
 	private boolean isValid = true;
-	private boolean enabled;
 	private String length;
+
 	private MaterialLabel lblError = new MaterialLabel();
+
+	private final ErrorMixin<MaterialTextBox, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
 	@UiField CustomLabel customLabel;
 	@UiField Label lblName;
 	@UiField TextBox txtBox;
-	@UiField CustomIcon iconPanel;
+	@UiField MaterialIcon icon;
 	@UiField HTMLPanel panel;
 
 	public MaterialTextBox() {
 		initWidget(uiBinder.createAndBindUi(this));
+
+		icon.setIconPrefix(true);
 		lblError.setVisible(false);
 		panel.add(lblError);
 	}
 
 	@Override
-	public void onAttach() {
-		super.onAttach();
-		String name = String.valueOf(hashCode());
-		txtBox.getElement().setId(name);
-		customLabel.getElement().setAttribute("for", name);
+	public void onLoad() {
+		super.onLoad();
+		String id = DOM.createUniqueId();
+		txtBox.getElement().setId(id);
+		customLabel.getElement().setAttribute("for", id);
 	}
 
 	public void setInvalid() {
-		backToDefault();
+		removeErrorModifiers();
 		lblName.setStyleName("red-text");
 		txtBox.getElement().addClassName("invalid");
 		isValid = false;
 	}
 
 	public void setValid() {
-		backToDefault();
+		removeErrorModifiers();
 		lblName.setStyleName("green-text");
 		txtBox.getElement().addClassName("valid");
 		isValid = true;
@@ -146,11 +154,11 @@ public class MaterialTextBox extends Composite implements
 	 */
 	public void clear() {
 		txtBox.setText("");
-		backToDefault();
+		removeErrorModifiers();
 		customLabel.removeStyleName("active");
 	}
 
-	public void backToDefault() {
+	public void removeErrorModifiers() {
 		txtBox.getElement().removeClassName("valid");
 		txtBox.getElement().removeClassName("invalid");
 	}
@@ -169,24 +177,28 @@ public class MaterialTextBox extends Composite implements
 		}
 	}
 
+	@Override
 	public String getPlaceholder() {
 		return placeholder;
 	}
 
+	@Override
 	public void setPlaceholder(String placeholder) {
 		this.placeholder = placeholder;
 		lblName.setText(placeholder);
 	}
 
-	public String getType() {
+	@Override
+	public InputType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	@Override
+	public void setType(InputType type) {
 		this.type = type;
-		txtBox.getElement().setAttribute("type", type);
+		txtBox.getElement().setAttribute("type", type.getType());
 
-		if(type.equals("number")) {
+		if(type.equals(InputType.NUMBER)) {
 			txtBox.addKeyPressHandler(new KeyPressHandler() {
 				@Override
 				public void onKeyPress(KeyPressEvent event) {
@@ -201,37 +213,12 @@ public class MaterialTextBox extends Composite implements
 		}
 	}
 
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-		iconPanel.addStyleName(icon + " prefix");
-	}
-
 	public boolean isValid() {
 		return isValid;
 	}
 
 	public void setValid(boolean isValid) {
 		this.isValid = isValid;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-		txtBox.setEnabled(enabled);
-	}
-
-	@Override
-	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-		return addDomHandler(handler, KeyUpEvent.getType());
 	}
 
 	public String getLength() {
@@ -305,6 +292,11 @@ public class MaterialTextBox extends Composite implements
 	@Override
 	public String getName() {
 		return txtBox.getName();
+	}
+
+	@Override
+	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+		return addDomHandler(handler, KeyUpEvent.getType());
 	}
 
 	@Override
@@ -444,33 +436,53 @@ public class MaterialTextBox extends Composite implements
 
 	@Override
 	public void setError(String error) {
-		lblError.setText(error);
-		lblError.addStyleName("field-error-label");
-		lblError.removeStyleName("field-success-label");
-		lblError.setVisible(true);
+		errorMixin.setError(error);
 		setInvalid();
 	}
 
 	@Override
 	public void setSuccess(String success) {
-		lblError.setText(success);
-		lblError.addStyleName("field-success-label");
-		lblError.removeStyleName("field-error-label");
-		lblError.setVisible(true);
+		errorMixin.setSuccess(success);
 		setValid();
 	}
 
 	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+	public MaterialIcon getIcon() {
+		return icon;
 	}
-	
+
 	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")) {
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+	public void setIconType(IconType iconType) {
+		icon.setIconType(iconType);
+	}
+
+	@Override
+	public void setIconPosition(IconPosition position) {
+		icon.setIconPosition(position);
+	}
+
+	@Override
+	public void setIconSize(IconSize size) {
+		icon.setIconSize(size);
+	}
+
+	@Override
+	public void setIconFontSize(double size, Style.Unit unit) {
+		icon.setIconFontSize(size, unit);
+	}
+
+	@Override
+	public void setIconColor(String iconColor) {
+		icon.setIconColor(iconColor);
+	}
+
+	@Override
+	public void setIconPrefix(boolean prefix) {
+		icon.setIconPrefix(prefix);
+	}
+
+	@Override
+	public boolean isIconPrefix() {
+		return icon.isIconPrefix();
 	}
 }

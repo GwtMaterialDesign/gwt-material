@@ -21,12 +21,17 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.custom.HasIcon;
+import gwt.material.design.client.custom.MaterialWidget;
 
-public class MaterialNoResult extends Composite {
+public class MaterialNoResult extends MaterialWidget implements HasIcon {
 
 	private static MaterialNoResultUiBinder uiBinder = GWT
 		.create(MaterialNoResultUiBinder.class);
@@ -34,73 +39,91 @@ public class MaterialNoResult extends Composite {
 	interface MaterialNoResultUiBinder extends UiBinder<Widget, MaterialNoResult> {
 	}
 
-	@UiField MaterialIcon iconElem;
-	@UiField MaterialTitle titleElem;
 	@UiField MaterialPanel panel;
-	
-	private String color = "";
-	private String textColor = "";
-	private String icon = "";
-	private String title = "";
-	private String description = "";
-	
+	@UiField MaterialIcon icon;
+	@UiField MaterialTitle title;
+
 	public MaterialNoResult() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	public MaterialNoResult(String color, String textColor, String icon,
+	public MaterialNoResult(String bgColor, String textColor, IconType iconType,
 			String title, String description) {
-		initWidget(uiBinder.createAndBindUi(this));
-		setColor(color);
+		this();
+
+		setBackgroundColor(bgColor);
 		setTextColor(textColor);
-		setIcon(icon);
+		setIconType(iconType);
 		setTitle(title);
 		setDescription(description);
 	}
 
-	public String getColor() {
-		return color;
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		super.setBackgroundColor(bgColor);
+		panel.setBackgroundColor(bgColor);
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-		panel.setBackgroundColor(color);
-	}
-
-	public String getTextColor() {
-		return textColor;
-	}
-
+	@Override
 	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-		iconElem.setTextColor(textColor);
-		titleElem.setColor(textColor);
+		super.setTextColor(textColor);
+		icon.setTextColor(textColor);
+		title.setTextColor(textColor);
 	}
 
-	public String getIcon() {
+	@Override
+	public MaterialIcon getIcon() {
 		return icon;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-		iconElem.setIcon(icon);
+	@Override
+	public void setIconType(IconType iconType) {
+		icon.setIconType(iconType);
+	}
+
+	@Override
+	public void setIconPosition(IconPosition position) {
+		icon.setIconPosition(position);
+	}
+
+	@Override
+	public void setIconSize(IconSize size) {
+		icon.setIconSize(size);
+	}
+
+	@Override
+	public void setIconFontSize(double size, Style.Unit unit) {
+		icon.setIconFontSize(size, unit);
+	}
+
+	@Override
+	public void setIconColor(String iconColor) {
+		icon.setIconColor(iconColor);
+	}
+
+	@Override
+	public void setIconPrefix(boolean prefix) {
+		icon.setIconPrefix(prefix);
+	}
+
+	@Override
+	public boolean isIconPrefix() {
+		return icon.isIconPrefix();
 	}
 
 	public String getTitle() {
-		return title;
+		return title.getTitle();
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
-		titleElem.setTitle(title);
+		this.title.setTitle(title);
 	}
 
 	public String getDescription() {
-		return description;
+		return title.getDescription();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
-		titleElem.setDescription(description);
+		title.setDescription(description);
 	}
 }

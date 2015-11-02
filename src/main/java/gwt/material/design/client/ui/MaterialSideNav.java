@@ -20,26 +20,33 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexNav;
+import gwt.material.design.client.custom.HasType;
 import gwt.material.design.client.custom.HasWaves;
-import gwt.material.design.client.custom.Waves;
 import gwt.material.design.client.constants.SideNavType;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.mixin.CssTypeMixin;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 /**
  * SideNav is a material component that gives you a lists
  * of menus and other navigation components.
+ *
+ * @author Ben Dol
  */
-public class MaterialSideNav extends ComplexNav implements HasWaves {
+public class MaterialSideNav extends ComplexNav implements HasWaves, HasType<SideNavType> {
 
-	private String name;
-	private int width;
 	private boolean closeOnClick;
-	private SideNavType type;
+	private int width;
+
+	private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
+	private final WavesMixin<MaterialSideNav> wavesMixin = new WavesMixin<>(this);
 	
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material Links, Icons or any other material components
@@ -55,19 +62,14 @@ public class MaterialSideNav extends ComplexNav implements HasWaves {
 	public MaterialSideNav(final Widget... widgets){
 		this();
 		for (final Widget w : widgets) {
-			ListItem item = new ListItem(w);
-			if(w instanceof MaterialImage){
-				item.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
-				item.getElement().getStyle().setProperty("textAlign", "center");
-			}
-            add(item);
+            add(w);
         }
 	}
 	
 	@UiConstructor
-	public MaterialSideNav(String name, int width, boolean closeOnClick, SideNavType type){
+	public MaterialSideNav(int width, boolean closeOnClick, SideNavType type){
 		this();
-		setName(name);
+		setId("nav-mobile");
 		setWidth(width);
 		setCloseOnClick(closeOnClick);
 		setType(type);
@@ -76,14 +78,31 @@ public class MaterialSideNav extends ComplexNav implements HasWaves {
 	@Override
 	public void onLoad() {
 		super.onLoad();
-		initNavBar(width, name, closeOnClick);
+
+		// Initialize the side nav
+		initNavBar();
 	}
 
 	@Override
-	protected void onUnload() {
-		super.onUnload();
+	public void add(Widget child) {
+		ListItem item = new ListItem(child);
+		if(child instanceof MaterialImage) {
+			item.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
+			item.getElement().getStyle().setProperty("textAlign", "center");
+		}
+		super.add(child);
 	}
-	
+
+	@Override
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
+	}
+
+	@Override
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
+	}
+
 	public void setWidth(int width){
 		this.width = width;
 		getElement().getStyle().setWidth(width, Unit.PX);
@@ -92,64 +111,34 @@ public class MaterialSideNav extends ComplexNav implements HasWaves {
 	public void setCloseOnClick(boolean closeOnClick){
 		this.closeOnClick = closeOnClick;
 	}
-	
-	public native void initNavBar(int width, String name, boolean closeOnClick)/*-{
-		$wnd.jQuery( document ).ready(function(){
-			$wnd.jQuery(".button-collapse").sideNav({
-				menuWidth: width,
-				closeOnClick: closeOnClick
-			});
-		}) 
-	}-*/;
 
-	/**
-	 * Set the type of the sideBar
-	 * - OPEN
-	 * - CLOSE
-	 * - MINI
-	 * - CLIP 
-	 */
 	public void setType(SideNavType type) {
-		this.type = type;
-		switch (type) {
-		case OPEN:
-			addStyleName("fixed open");
-			break;
-		case CLIP:
-			addStyleName("fixed clip");
-			break;
-		case MINI:
-			addStyleName("fixed mini");
-			showNavMenu(name);
-			break;
-		case FLOAT:
-			addStyleName("fixed clip float");
-			break;
-		case CARD:
-			addStyleName("fixed clip card");
-			break;
-		case CLOSE:
-		default:
-			addStyleName("close");
-			showNavMenu(name);
-			break;
-		}
+		typeMixin.setType(type);
 	}
 
-	/**
-	 * Show the NavMenu.
-	 */
-	public native void showNavMenu(String sideNav)/*-{
-		$wnd.jQuery( document ).ready(function(){
-			$wnd.jQuery("." + sideNav).addClass('show-on-large');
-		})
-	}-*/;
+	@Override
+	public SideNavType getType() {
+		return typeMixin.getType();
+	}
+
+	public void initNavBar() {
+		initNavBar(getElement(), width, closeOnClick);
+	}
+
+	private native void initNavBar(Element e, int width, boolean closeOnClick)/*-{
+        $wnd.jQuery(document).ready(function() {
+            $wnd.jQuery(e).find(".button-collapse").sideNav({
+                menuWidth: width,
+                closeOnClick: closeOnClick
+            });
+        })
+    }-*/;
 	
 	/**
 	 * Hide the overlay menu
 	 */
-	public native void hideOverlay(String sideNav)/*-{
-		$wnd.jQuery( document ).ready(function(){
+	public native void hideOverlay()/*-{
+		$wnd.jQuery(document).ready(function(){
 			$wnd.jQuery('#sidenav-overlay').css('z-index', '994');
 		})
 	}-*/;
@@ -157,40 +146,14 @@ public class MaterialSideNav extends ComplexNav implements HasWaves {
 	/**
 	 * Shoe the sidenav.
 	 */
-	public native void show(String sideNav)/*-{
-		$wnd.jQuery("." + sideNav).sideNav('show');
+	public native void show(Element e)/*-{
+		$wnd.jQuery(e).sideNav('show');
 	}-*/;
 	
 	/**
 	 * Hide the sidenav.
-	 * @param sideNav - the name of your sidenav
 	 */
-	public native void hide(String sideNav)/*-{
-		$wnd.jQuery("." + sideNav).sideNav('hide');
+	public native void hide(Element e)/*-{
+		$wnd.jQuery(e).sideNav('hide');
 	}-*/;
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-		super.getElement().setId(name);
-	}
-	
-	@Override
-	public void setWaves(String waves) {
-		for(Widget w : this){
-			if(w instanceof ListItem){
-				w.addStyleName(waves + " waves-effect");
-			}
-		}
-		Waves.detectAndApply(this);
-	}
 }

@@ -28,9 +28,9 @@ import gwt.material.design.client.custom.helper.EnumHelper;
  * - AVATAR<br>
  * - DISMISSABLE<br>
  * @author kevzlou7979
- *
+ * @author Ben Dol
  */
-public enum CollectionType implements Type, Style.HasCssName {
+public enum CollectionType implements CssType {
 	AVATAR("avatar"),
 	CHECKBOX("checkbox");
 

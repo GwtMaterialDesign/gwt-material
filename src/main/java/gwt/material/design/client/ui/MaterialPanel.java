@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasAlign;
 import gwt.material.design.client.custom.HasColors;
@@ -31,6 +32,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasVisibility;
 import gwt.material.design.client.custom.Waves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -45,76 +47,26 @@ import gwt.material.design.client.custom.Waves;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
 * @author kevzlou7979
 */
-public class MaterialPanel extends ComplexWidget implements HasColors, HasWaves, HasShadow,
-		HasVisibility, HasAlign, HasName {
+public class MaterialPanel extends ComplexWidget implements HasWaves {
 
-	private String name = "test";
+	private final WavesMixin<MaterialPanel> wavesMixin = new WavesMixin<>(this);
 
 	public MaterialPanel() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 	}
 
 	@Override
 	public void setBackgroundColor(String bgColor) {
 		addStyleName(bgColor);
 	}
-	
+
 	@Override
-	protected void onLoad() {
-		super.onLoad();
-		getElement().setId(name);
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
 	}
 
 	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
-	}
-
-	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-		Waves.detectAndApply(this);
-	}
-
-	@Override
-	public void setShadow(int shadow) {
-		this.addStyleName("z-depth-" + shadow);
-	}
-	
-	/**
-	 * Sets the name of your scrollspy.
-	 */
-	public void setScrollspy(String scrollspy){
-		this.addStyleName("scrollspy section");
-		this.getElement().setId(scrollspy);
-	}
-	
-	/**
-	 * Sets the opacity of the panel.
-	 */
-	public void setOpacity(int opacity){
-		this.getElement().getStyle().setOpacity(opacity);
-	}
-	
-	/**
-	 * Sets the padding of the panel.
-	 */
-	public void setPadding(String padding){
-		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
-	}
-
-	@Override
-	public void setAlign(String align){
-		addStyleName("align-" + align);
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String getName() {
-		return name;
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 }

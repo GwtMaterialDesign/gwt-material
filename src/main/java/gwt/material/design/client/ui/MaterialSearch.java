@@ -20,7 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.CustomIcon;
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.custom.CustomInput;
 
 import com.google.gwt.core.client.GWT;
@@ -31,11 +34,13 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.HasIcon;
+import gwt.material.design.client.custom.HasPlaceholder;
+import gwt.material.design.client.custom.MaterialWidget;
 
-public class MaterialSearch extends Composite implements HasText,HasKeyUpHandlers {
+public class MaterialSearch extends MaterialWidget implements HasText, HasKeyUpHandlers, HasIcon, HasPlaceholder {
 
 	private static MaterialSearchUiBinder uiBinder = GWT
 		.create(MaterialSearchUiBinder.class);
@@ -43,35 +48,21 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 	interface MaterialSearchUiBinder extends UiBinder<Widget, MaterialSearch> {
 	}
 	
-	@UiField CustomInput txtSearch;
-	@UiField CustomIcon iconElem;
+	@UiField CustomInput searchInput;
+	@UiField MaterialIcon icon;
 	@UiField MaterialPanel panel;
-	
-	private String color = "";
-	private String textColor = "";
-	private String placeholder = "";
-	private String id = "";
 
 	public MaterialSearch() {
 		initWidget(uiBinder.createAndBindUi(this));
+
+		icon.setIconPrefix(true);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.Composite#onAttach()
-	 */
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		id = DOM.createUniqueId();
-		txtSearch.getElement().setId(id);
-	}
-	
-	public String getColor() {
-		return color;
-	}
 
-	public void setColor(String color) {
-		this.color = color;
+		searchInput.setId(DOM.createUniqueId());
 	}
 
 	@Override
@@ -81,39 +72,70 @@ public class MaterialSearch extends Composite implements HasText,HasKeyUpHandler
 
 	@Override
 	public String getText() {
-		return getInputTextValue(id);
+		return searchInput.getText();
 	}
 
 	@Override
 	public void setText(String text) {
-		setInputTextValue(text, id);
-	}
-	
-	public native String getInputTextValue(String id) /*-{
-		return $wnd.document.getElementById(id).value;
-	}-*/;
-	
-	public native void setInputTextValue(String value, String id) /*-{
-		$wnd.document.getElementById(id).value = value;
-	}-*/;
-	
-	public String getTextColor() {
-		return textColor;
+		searchInput.setText(text);
 	}
 
+	@Override
 	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-		txtSearch.addStyleName(textColor + "-text");
-		iconElem.addStyleName(textColor + "-text");
+		super.setTextColor(textColor);
+
+		searchInput.setTextColor(textColor);
+		icon.setTextColor(textColor);
 	}
 
+	@Override
+	public MaterialIcon getIcon() {
+		return icon;
+	}
+
+	@Override
+	public void setIconType(IconType iconType) {
+		icon.setIconType(iconType);
+	}
+
+	@Override
+	public void setIconPosition(IconPosition position) {
+		icon.setIconPosition(position);
+	}
+
+	@Override
+	public void setIconSize(IconSize size) {
+		icon.setIconSize(size);
+	}
+
+	@Override
+	public void setIconFontSize(double size, Style.Unit unit) {
+		icon.setIconFontSize(size, unit);
+	}
+
+	@Override
+	public void setIconColor(String iconColor) {
+		icon.setIconColor(iconColor);
+	}
+
+	@Override
+	public void setIconPrefix(boolean prefix) {
+		icon.setIconPrefix(prefix);
+	}
+
+	@Override
+	public boolean isIconPrefix() {
+		return icon.isIconPrefix();
+	}
+
+	@Override
 	public String getPlaceholder() {
-		return placeholder;
+		return searchInput.getPlaceholder();
 	}
 
+	@Override
 	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
-		txtSearch.setPlaceholder(placeholder);
+		searchInput.setPlaceholder(placeholder);
 	}
 }
 

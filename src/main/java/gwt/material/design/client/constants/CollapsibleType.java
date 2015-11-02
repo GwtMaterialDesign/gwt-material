@@ -29,8 +29,9 @@ import gwt.material.design.client.custom.helper.EnumHelper;
  * - EXPANDABLE<br>
  * - POPOUT<br>
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public enum CollapsibleType implements Type, Style.HasCssName {
+public enum CollapsibleType implements CssType {
 	ACCORDION("accordion"), 
 	EXPANDABLE("expandable"),
 	POPOUT("popout");

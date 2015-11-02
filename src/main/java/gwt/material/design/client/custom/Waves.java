@@ -25,6 +25,8 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
 public class Waves {
+    
+    public static final String WAVES_STYLE = "waves-effect";
 
     /**
      * Initialize any uninitialized wave elements.

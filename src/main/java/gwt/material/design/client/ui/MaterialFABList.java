@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class MaterialFABList extends ComplexWidget {
 
 	public MaterialFABList() {
-		setElement(Document.get().createULElement());
+		super(Document.get().createULElement());
 	}
 	
 	@Override

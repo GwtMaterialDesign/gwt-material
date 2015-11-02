@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class CustomParagraph extends ComplexWidget implements HasText {
 
 	public CustomParagraph() {
-		setElement(Document.get().createElement("p"));
+		super(Document.get().createElement("p"));
 	}
 
 	public CustomParagraph(Widget item) {

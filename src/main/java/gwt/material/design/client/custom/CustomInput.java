@@ -21,41 +21,59 @@ package gwt.material.design.client.custom;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.text.shared.Parser;
+import com.google.gwt.text.shared.Renderer;
+import com.google.gwt.text.shared.testing.PassthroughParser;
+import com.google.gwt.text.shared.testing.PassthroughRenderer;
+import com.google.gwt.uibinder.client.UiConstructor;
+import gwt.material.design.client.constants.InputType;
 
-public class CustomInput  extends ComplexWidget {
-	
-	private String type = "";
-	private String placeholder = "";
-	private boolean required;
-	
+public class CustomInput extends ValueBoxBase<String> implements HasInputType {
+
+	private static final String MIN = "min";
+	private static final String MAX = "max";
+
 	public CustomInput() {
-		setElement(Document.get().createElement("input"));
+		this(PassthroughRenderer.instance(), PassthroughParser.instance());
 	}
 
-	public String getType() {
-		return type;
+	public CustomInput(Renderer<String> renderer, Parser<String> parser) {
+		super(Document.get().createElement("input"), renderer, parser);
 	}
 
-	public void setType(String type) {
-		this.type = type;
-		this.getElement().setAttribute("type", type);
+	@UiConstructor
+	public CustomInput(final InputType type) {
+		this();
+		setType(type);
 	}
 
-	public boolean isRequired() {
-		return required;
+	public void setMin(final String min) {
+		getElement().setAttribute(MIN, min);
+	}
+
+	public void setMax(final String max) {
+		getElement().setAttribute(MAX, max);
+	}
+
+	@Override
+	public void setType(final InputType inputType) {
+		getElement().setAttribute(TYPE, inputType.getType());
+	}
+
+	@Override
+	public InputType getType() {
+		if (getElement().getAttribute(TYPE) == null || getElement().getAttribute(TYPE).isEmpty()) { return null; }
+		return InputType.valueOf(getElement().getAttribute(TYPE));
 	}
 
 	public void setRequired(boolean required) {
-		this.required = required;
-		this.getElement().setAttribute("required", String.valueOf(required));
+		getElement().removeAttribute("required");
+		if(required) {
+			getElement().setAttribute("required", "");
+		}
 	}
 
-	public String getPlaceholder() {
-		return placeholder;
-	}
-
-	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
-		this.getElement().setAttribute("placeholder", placeholder);
+	public boolean isRequired() {
+		return getElement().hasAttribute("required");
 	}
 }

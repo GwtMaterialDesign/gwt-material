@@ -20,9 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ButtonBase;
-import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasIcons;
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.custom.HasIcon;
 import gwt.material.design.client.custom.HasImage;
 
 import com.google.gwt.dom.client.Document;
@@ -53,43 +56,38 @@ import com.google.gwt.user.client.ui.Image;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
  */
 //@formatter:on
-public class MaterialChip extends ButtonBase implements HasImage, HasIcons {
+public class MaterialChip extends ComplexWidget implements HasImage, HasIcon {
 
-	private String text = "";
-	private String url = "";
+	private MaterialIcon icon = new MaterialIcon();
+
 	private ImageResource resource;
 	private Image image = new Image();
-	private MaterialIcon icon = new MaterialIcon();
-	private CustomSpan span = new CustomSpan();
 	
 	/**
 	 * Creates an empty chip.
 	 */
 	public MaterialChip() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("chip");
 	}
-	
+
 	public void setText(String text){
-		this.text = text;
-		span.setText(text);
-		add(span);
+		getElement().setInnerText(text);
 	}
 	
 	public String getText(){
-		return text;
+		return getElement().getInnerText();
 	}
 
 	@Override
 	public void setUrl(String url) {
-		this.url = url;
 		image.setUrl(url);
 		add(image);
 	}
 
 	@Override
 	public String getUrl() {
-		return url;
+		return image.getUrl();
 	}
 
 	@Override
@@ -119,19 +117,28 @@ public class MaterialChip extends ButtonBase implements HasImage, HasIcons {
 	}
 
 	@Override
-	public void setIcon(String icon) {
-		this.icon.setIcon(icon);
-		add(this.icon);
+	public MaterialIcon getIcon() {
+		return icon;
 	}
 
 	@Override
-	public void setIconPosition(String iconPosition) {
-		icon.setIconPosition(iconPosition);
+	public void setIconType(IconType iconType) {
+		icon.setIconType(iconType);
 	}
 
 	@Override
-	public void setSize(String size) {
-		icon.setSize(size);
+	public void setIconPosition(IconPosition position) {
+		icon.setIconPosition(position);
+	}
+
+	@Override
+	public void setIconSize(IconSize size) {
+		icon.setIconSize(size);
+	}
+
+	@Override
+	public void setIconFontSize(double size, Style.Unit unit) {
+		icon.setIconFontSize(size, unit);
 	}
 
 	@Override
@@ -139,18 +146,13 @@ public class MaterialChip extends ButtonBase implements HasImage, HasIcons {
 		icon.setIconColor(iconColor);
 	}
 
-	/**
-	 * @return the icon
-	 */
-	public MaterialIcon getIcon() {
-		return icon;
+	@Override
+	public void setIconPrefix(boolean prefix) {
+		icon.setIconPrefix(prefix);
 	}
 
-	/**
-	 * @param icon the icon to set
-	 */
-	public void setIcon(MaterialIcon icon) {
-		this.icon = icon;
+	@Override
+	public boolean isIconPrefix() {
+		return icon.isIconPrefix();
 	}
-	
 }

@@ -24,14 +24,17 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of CheckBox<br>
- * - FILLED<br>
- * - INTERMEDIATE<br>
- * @author kevzlou7979
+ * @author Ben DOl
  */
 public enum WavesType implements Type, Style.HasCssName {
-	FILLED("filled"),
-	INTERMEDIATE("intermediate");
+	DEFAULT(""),
+	LIGHT("waves-light"),
+	RED("waves-red"),
+	YELLOW("waves-yellow"),
+	ORANGE("waves-orange"),
+	PURPLE("waves-purple"),
+	GREEN("waves-green"),
+	TEAL("waves-teal");
 
 	private final String cssClass;
 
@@ -45,6 +48,6 @@ public enum WavesType implements Type, Style.HasCssName {
 	}
 
 	public static WavesType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, WavesType.class, FILLED);
+		return EnumHelper.fromStyleName(styleName, WavesType.class, DEFAULT);
 	}
 }

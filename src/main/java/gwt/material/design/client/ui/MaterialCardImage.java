@@ -20,6 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Document;
@@ -27,6 +29,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.custom.Waves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -35,10 +38,12 @@ import gwt.material.design.client.custom.Waves;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on
-public class MaterialCardImage extends ComplexPanel implements HasWaves {
+public class MaterialCardImage extends ComplexWidget implements HasWaves {
+
+	private final WavesMixin<MaterialCardImage> wavesMixin = new WavesMixin<>(this);
 
 	public MaterialCardImage(){
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 	}
 
 	/**
@@ -52,19 +57,13 @@ public class MaterialCardImage extends ComplexPanel implements HasWaves {
         add(child, (Element) getElement());
     }
 
-    /**
-     * Inserts a widget at a specific index
-     *
-     * @param child       - widget to be inserted
-     * @param beforeIndex - index for the widget
-     */
-    public void insert(final Widget child, final int beforeIndex) {
-        insert(child, (Element) getElement(), beforeIndex, true);
-    }
-	
 	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-		Waves.detectAndApply(this);
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
+	}
+
+	@Override
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 }

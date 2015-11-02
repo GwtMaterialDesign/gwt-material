@@ -20,53 +20,56 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.custom.CustomInput;
 import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.constants.Orientation;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.HasOrientation;
+import gwt.material.design.client.custom.HasPlaceholder;
+import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.custom.mixin.ErrorMixin;
 
-public class MaterialTimePicker extends Composite implements HasGrid, HasError{
+public class MaterialTimePicker extends MaterialWidget implements HasError, HasPlaceholder, HasOrientation {
 
 	private static MaterialTimePickerUiBinder uiBinder = GWT
 		.create(MaterialTimePickerUiBinder.class);
 
 	interface MaterialTimePickerUiBinder extends UiBinder<Widget, MaterialTimePicker> {
 	}
-	
+
 	@UiField HTMLPanel panel;
-	@UiField CustomInput inputElement;
+	@UiField CustomInput input;
+
 	private String time;
 	private String placeholder;
+	private boolean autoClose;
 	private Orientation orientation = Orientation.PORTRAIT;
+
 	private MaterialLabel lblError = new MaterialLabel();
+
+	private final ErrorMixin<MaterialTimePicker, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, panel);
 	
 	public MaterialTimePicker() {
 		initWidget(uiBinder.createAndBindUi(this));
+
 		lblError.setVisible(false);
 		panel.add(lblError);
 	}
 
 	@Override
-	protected void onAttach() {
-		super.onAttach();
-		String genId = DOM.createUniqueId();
-		inputElement.getElement().setAttribute("type", "text");
-		inputElement.getElement().setAttribute("id", genId);
-		initTimePicker(genId, getOrientation().getCssName());
-	}
+	protected void onLoad() {
+		super.onLoad();
 
-	public native void initTimePicker(String id, String orientation) /*-{
-		$wnd.jQuery('#' + id).lolliclock({autoclose:false, orientation: orientation});
-		$wnd.jQuery('#' + id).blur();
-	}-*/;
+		input.getElement().setAttribute("type", "text");
+
+		initTimePicker();
+	}
 
 	/**
 	 * @return the time
@@ -80,12 +83,21 @@ public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 	 */
 	public void setTime(String time) {
 		this.time = time;
-		inputElement.getElement().setAttribute("value", time.toUpperCase());
+		input.getElement().setAttribute("value", time.toUpperCase());
+	}
+
+	public boolean isAutoClose() {
+		return autoClose;
+	}
+
+	public void setAutoClose(boolean autoClose) {
+		this.autoClose = autoClose;
 	}
 
 	/**
 	 * @return the placeholder
 	 */
+	@Override
 	public String getPlaceholder() {
 		return placeholder;
 	}
@@ -93,14 +105,16 @@ public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 	/**
 	 * @param placeholder the placeholder to set
 	 */
+	@Override
 	public void setPlaceholder(String placeholder) {
 		this.placeholder = placeholder;
-		inputElement.getElement().setAttribute("placeholder", "Time");
+		input.getElement().setAttribute("placeholder", "Time");
 	}
 
 	/**
 	 * @return the orientation
 	 */
+	@Override
 	public Orientation getOrientation() {
 		return orientation;
 	}
@@ -108,41 +122,30 @@ public class MaterialTimePicker extends Composite implements HasGrid, HasError{
 	/**
 	 * @param orientation the orientation to set : can be Horizontal or Vertical
 	 */
+	@Override
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
 
 	@Override
 	public void setError(String error) {
-		lblError.setText(error);
-		lblError.addStyleName("field-error-label");
-		lblError.removeStyleName("field-success-label");
-		panel.addStyleName("field-error-picker");
-		panel.removeStyleName("field-success-picker");
-		lblError.setVisible(true);
+		errorMixin.setError(error);
 	}
 
 	@Override
 	public void setSuccess(String success) {
-		lblError.setText(success);
-		lblError.addStyleName("field-success-label");
-		lblError.removeStyleName("field-error-label");
-		panel.addStyleName("field-success-picker");
-		panel.removeStyleName("field-error-picker");
-		lblError.setVisible(true);
+		errorMixin.setSuccess(success);
 	}
 
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+	public void initTimePicker() {
+		initTimePicker(input.getElement(), getOrientation().getCssName(), isAutoClose());
 	}
 
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")) {
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
-	}
+	protected native void initTimePicker(Element e, String orientation, boolean autoClose) /*-{
+        $wnd.jQuery(e).lolliclock({
+            autoclose: autoClose,
+            orientation: orientation
+        });
+        $wnd.jQuery(e).blur();
+    }-*/;
 }

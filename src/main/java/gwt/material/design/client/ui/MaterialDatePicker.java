@@ -30,6 +30,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import gwt.material.design.client.custom.HasOrientation;
+import gwt.material.design.client.custom.mixin.ErrorMixin;
+import gwt.material.design.client.custom.mixin.GridMixin;
 
 //@formatter:off
 /**
@@ -48,7 +51,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError {
+public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError, HasOrientation {
 
 	/**
 	 * Delegate interface for handling picker events.
@@ -60,16 +63,21 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError 
 		 */
 		void onCalendarClose(Date currDate);
 	}
-	
-	private Orientation orientation = Orientation.PORTRAIT;
-	private HTMLPanel panel;
-	private Date date;
+
 	private String placeholder;
 	private String id;
+	private Date date;
+
+	private JavaScriptObject input;
+	private HTMLPanel panel;
+	private MaterialLabel lblError = new MaterialLabel();
+
+	private Orientation orientation = Orientation.PORTRAIT;
 	private MaterialDatePickerDelegate delegate;
 	private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
-	JavaScriptObject input;
-	private MaterialLabel lblError = new MaterialLabel();
+
+	private final GridMixin<MaterialDatePicker> gridMixin = new GridMixin<>(this);
+	private final ErrorMixin<MaterialDatePicker, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, panel);
 	
 	public MaterialDatePicker() {
 	}
@@ -238,6 +246,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError 
 	/**
 	 * @return the orientation
 	 */
+	@Override
 	public Orientation getOrientation() {
 		return orientation;
 	}
@@ -245,41 +254,28 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError 
 	/**
 	 * @param orientation the orientation to set : can be Vertical or Horizontal
 	 */
+	@Override
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
 
 	@Override
 	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+		gridMixin.setGrid(grid);
+	}
+
+	@Override
+	public void setOffset(String offset) {
+		gridMixin.setOffset(offset);
 	}
 
 	@Override
 	public void setError(String error) {
-		lblError.setText(error);
-		lblError.addStyleName("field-error-label");
-		lblError.removeStyleName("field-success-label");
-		panel.addStyleName("field-error-picker");
-		panel.removeStyleName("field-success-picker");
-		lblError.setVisible(true);
+		errorMixin.setError(error);
 	}
 
 	@Override
 	public void setSuccess(String success) {
-		lblError.setText(success);
-		lblError.addStyleName("field-success-label");
-		lblError.removeStyleName("field-error-label");
-		panel.addStyleName("field-success-picker");
-		panel.removeStyleName("field-error-picker");
-		lblError.setVisible(true);
-	}
-	
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")) {
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+		errorMixin.setSuccess(success);
 	}
 }

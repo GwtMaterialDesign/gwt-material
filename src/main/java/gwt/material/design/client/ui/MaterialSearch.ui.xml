@@ -19,23 +19,16 @@
   -->
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:m="urn:import:gwt.material.design.client.ui">
+	xmlns:m="urn:import:gwt.material.design.client.ui"
+	xmlns:c="urn:import:gwt.material.design.client.custom"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		.panel{
-			height: 100%;
-		}
-		.title{
-			margin-top: -100px;
-		}
-		.container{
-			width: 100%;
-		}
+	
 	</ui:style>
-	<m:MaterialPanel ui:field="panel" align="center"  addStyleNames="{style.panel} valign-wrapper">
-		<m:MaterialPanel addStyleNames="valign center {style.container}"> 	
-			<m:MaterialIcon ui:field="iconElem" size="15" />
-		<m:MaterialTitle ui:field="titleElem" addStyleNames="{style.title}" />
-		</m:MaterialPanel>
+
+	<m:MaterialPanel ui:field="panel" addStyleNames="input-field">
+		  <c:CustomInput ui:field="searchInput" type="SEARCH" required="true"/>
+		  <m:MaterialIcon ui:field="icon" addStyleNames="mdi-action-search" />
+		  <c:CustomIcon addStyleNames="mdi-navigation-close" />
 	</m:MaterialPanel>
 </ui:UiBinder> 

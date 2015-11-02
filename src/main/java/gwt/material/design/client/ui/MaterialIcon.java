@@ -20,109 +20,137 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ButtonBase;
-import gwt.material.design.client.custom.HasIcons;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.custom.AbstractButton;
+import gwt.material.design.client.custom.HasIcon;
 import gwt.material.design.client.custom.HasSeparator;
-import gwt.material.design.client.custom.Waves;
 import gwt.material.design.client.constants.IconType;
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.custom.helper.StyleHelper;
 
 //@formatter:off
 /**
-* We have included 740 Material Design Icons courtesy of Google. You can download them directly from the Material Design specs.
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* <m:MaterialIcon waves="light" icon="polymer"/>
-* <m:MaterialIcon waves="light" icon="polymer" textColor="blue" type="CIRCLE"/>
-* <m:MaterialIcon waves="light" icon="polymer" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="bottom"/>
-* }
-* </pre>
-* 
-* @author kevzlou7979
-* @see <a href="http://www.google.com/design/icons/">Search Google Icons</a>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#icons">Material Icons Documentation</a>
-*/
+ * We have included 740 Material Design Icons courtesy of Google. You can download them directly from the Material Design specs.
+ * <h3>UiBinder Usage:</h3>
+ *
+ * <pre>
+ * {@code
+ * <m:MaterialIcon waves="light" icon="polymer"/>
+ * <m:MaterialIcon waves="light" icon="polymer" textColor="blue" type="CIRCLE"/>
+ * <m:MaterialIcon waves="light" icon="polymer" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="bottom"/>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://www.google.com/design/icons/">Search Google Icons</a>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#icons">Material Icons Documentation</a>
+ */
 //@formatter:on
-public class MaterialIcon extends ButtonBase implements HasSeparator, HasIcons {
+public class MaterialIcon extends AbstractButton implements HasSeparator, HasIcon {
+
+	private IconSize size;
+	private IconPosition position;
 
 	/**
 	 * Creates an empty icon.
 	 */
 	public MaterialIcon() {
-		setElement(Document.get().createElement("i"));
 		addStyleName("material-icons");
 	}
 	
 	/**
 	 * Sets a simple icon with black textcolor.
 	 */
-	public MaterialIcon(String icon) {
+	public MaterialIcon(IconType icon) {
 		this();
-		setIcon(icon);
+		setIconType(icon);
 	}
 	
 	/**
 	 * Sets an icon with textColor and backgroundColor.
 	 */
-	public MaterialIcon(String icon, String textColor, String bgColor) {
+	public MaterialIcon(IconType icon, String textColor, String bgColor) {
 		this();
-		setIcon(icon);
+		setIconType(icon);
 		setTextColor(textColor);
 		setBackgroundColor(bgColor);
 	}
 
 	@Override
-	public void setSeparator(boolean separator) {
-		if (separator) {
-			this.getElement().setAttribute("style", "border-bottom: 1px solid #e9e9e9;");
+	protected Element createElement() {
+		return Document.get().createElement("i");
+	}
+
+	@Override
+	public MaterialIcon getIcon() {
+		return this;
+	}
+
+	@Override
+	public void setIconType(IconType icon) {
+		getElement().setInnerText(icon.getCssName());
+	}
+
+	@Override
+	public void setIconPosition(IconPosition position) {
+		if(this.position != null) {
+			removeStyleName(this.position.getCssName());
+		}
+		this.position = position;
+
+		if(position != null) {
+			addStyleName(position.getCssName());
 		}
 	}
 
 	@Override
-	public void setIcon(String icon) {
-		getElement().setInnerHTML(icon);
-	}
+	public void setIconSize(IconSize size) {
+		if(this.size != null) {
+			removeStyleName(this.size.getCssName());
+		}
+		this.size = size;
 
-	@Override
-	public void setIconPosition(String iconPosition) {
-		addStyleName(iconPosition);
-	}
-
-	@Override
-	public void setSize(String size) {
-		addStyleName(size);
-	}
-	
-	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-circle waves-" + waves);
-		getElement().getStyle().setProperty("width", "initial");
-		getElement().getStyle().setProperty("height", "auto");
-		getElement().getStyle().setProperty("textAlign", "center");
-		getElement().getStyle().setProperty("padding", "0.2em");
-
-		Waves.detectAndApply(this);
-	}
-
-	public void setType(IconType type) {
-		switch (type) {
-		case CIRCLE:
-			addStyleName("circle");
-			break;
-		default:
-			break;
+		if(size != null) {
+			addStyleName(size.getCssName());
 		}
 	}
 
 	@Override
 	public void setIconColor(String iconColor) {
-		addStyleName(iconColor + "-text");
+		getElement().getStyle().setColor(iconColor);
 	}
-	
-	public void setIconBackgroundColor(String bgColor){
-		addStyleName(bgColor);
+
+	@Override
+	public void setIconFontSize(double size, Style.Unit unit) {
+		getElement().getStyle().setFontSize(size, unit);
+	}
+
+	@Override
+	public void setIconPrefix(boolean prefix) {
+		removeStyleName("prefix");
+
+		if(prefix) {
+			addStyleName("prefix");
+		}
+	}
+
+	@Override
+	public boolean isIconPrefix() {
+		return StyleHelper.containsStyle(getStyleName(), "prefix");
+	}
+
+	@Override
+	public void setWaves(WavesType waves) {
+		super.setWaves(waves);
+		getElement().getStyle().setProperty("width", "initial");
+		getElement().getStyle().setProperty("height", "auto");
+		getElement().getStyle().setProperty("textAlign", "center");
+		getElement().getStyle().setProperty("padding", "0.2em");
 	}
 }

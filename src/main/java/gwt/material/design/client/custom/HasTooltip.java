@@ -20,18 +20,9 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 public interface HasTooltip {
-	
-	/**
-	 * Tooltip for material specific components
-	 * - buttons, links, icons
-	 */
-	void setTooltip(String tooltip);
-	
-	/**
-	 * Tooltip location for material specific components
-	 * - bottom, right, left, top
-	 */
-	void setTooltipLocation(String tooltipLocation);
+
+	void setTooltip(Tooltip tooltip);
+
+	Tooltip getTooltip();
 }

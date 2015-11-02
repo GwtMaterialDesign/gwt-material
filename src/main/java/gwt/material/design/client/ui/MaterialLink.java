@@ -20,9 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ButtonBase;
+import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.custom.AbstractButton;
+import gwt.material.design.client.custom.AbstractIconButton;
 import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasIcons;
+import gwt.material.design.client.custom.HasIcon;
 import gwt.material.design.client.custom.HasSeparator;
 
 import com.google.gwt.dom.client.Document;
@@ -52,36 +55,19 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
 */
 //@formatter:on
-public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator {
+public class MaterialLink extends AbstractIconButton {
 
-	private MaterialIcon iconElem = new MaterialIcon();
-	private CustomSpan spanElem = new CustomSpan();
-	private String text;
+	public MaterialLink(String text) {
+		super();
+		setText(text);
+		setHref("#");
+	}
 
-	/**
-	 * Create an empty link
-	 */
-	public MaterialLink() {
-		setElement(Document.get().createElement("a"));
-		getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
-		getElement().getStyle().setCursor(Cursor.POINTER);
-	}
-	
-	/**
-	 * Add badge element into your material link.
-	 */
-	public MaterialLink(final Widget... widgets) {
-		this();
-		for (final Widget w : widgets) {
-            add(w);
-        }
-	}
-	
 	/**
 	 * Normal link with href.
 	 */
 	public MaterialLink(String text, String href) {
-		this();
+		super();
 		setText(text);
 		setHref(href);
 	}
@@ -89,53 +75,18 @@ public class MaterialLink extends ButtonBase implements HasIcons, HasSeparator {
 	/**
 	 * Creates a link with icon.
 	 */
-	public MaterialLink(String text, String href, String icon) {
-		this();
+	public MaterialLink(String text, String href, IconType icon) {
+		super();
 		setText(text);
 		setHref(href);
-		setIcon(icon);
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-		spanElem.setText(text);
-		add(spanElem);
+		setIconType(icon);
 	}
 
 	@Override
-	public void setIcon(String icon) {
-		iconElem.setIcon(icon);
-		add(iconElem);
-	}
-
-	@Override
-	public void setIconPosition(String iconPosition) {
-		iconElem.setIconPosition(iconPosition);
-	}
-
-	public void setSize(String size) {
-		addStyleName(size);
-	}
-	
-	@Override
-	public void setIconColor(String iconColor) {
-		iconElem.addStyleName(iconColor + "-text");
-	}
-	
-	public void setFontSize(double fontSize) {
-		spanElem.getElement().getStyle().setFontSize(fontSize, Unit.EM);
-	}
-
-	@Override
-	public void setSeparator(boolean separator) {
-		if(separator) {
-			this.getElement().getStyle().setProperty("borderBottom", "1px solid #e9e9e9");
-		} else {
-			this.getElement().getStyle().setProperty("borderBottom", "none");
-		}
+	protected Element createElement() {
+		Element element = Document.get().createElement("a");
+		element.getStyle().setDisplay(Display.INLINE_BLOCK);
+		element.getStyle().setCursor(Cursor.POINTER);
+		return element;
 	}
 }

@@ -31,7 +31,7 @@ public class CustomSpan extends ComplexWidget implements HasClickHandlers, HasTe
 	private String text;
 
 	public CustomSpan() {
-		setElement(Document.get().createElement("span"));
+		super(Document.get().createElement("span"));
 	}
 
 	public CustomSpan(String string) {

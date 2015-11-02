@@ -64,7 +64,7 @@
 	</ui:style>
 	<g:HTMLPanel ui:field="panel" addStyleNames="{style.panel} z-depth-1">
 		<g:HTMLPanel addStyleNames="{style.inline} {style.logoPanel}">
-			<g:Image ui:field="imgLogo" addStyleNames="{style.imgLogo} {style.inline}"/>
+			<g:Image ui:field="logo" addStyleNames="{style.imgLogo} {style.inline}"/>
 		</g:HTMLPanel>
 		
 		<g:HTMLPanel ui:field="navigation" addStyleNames="{style.inline} {style.navigation}" />

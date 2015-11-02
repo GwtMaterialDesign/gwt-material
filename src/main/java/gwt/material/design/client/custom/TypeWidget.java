@@ -20,32 +20,25 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-public interface HasIcons {
-	
-	/**
-	 * Set Google Material Design icon.
-	 * {@link https://www.google.com/design/icons/}
-	 */
-	void setIcon(String icon);
-	
-	/**
-	 * Set the position of the icon.
-	 * - left or right
-	 */	
-	void setIconPosition(String iconPosition);
-	
-	/**
-	 * Size of icon
-	 * tiny: 1rem
-     * small: 2rem
-     * medium: 4rem
-     * large: 6rem
-	 */
-	void setSize(String size);
-	
-	/**
-	 * Sets the color of the icon.
-	 */
-	void setIconColor(String iconColor);
+import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.constants.Type;
 
+/**
+ * Used to provide custom {@link Type} mixin elements.
+ * @param <T>
+ */
+public class TypeWidget<T extends Type> extends ComplexWidget implements HasType<T> {
+
+	public TypeWidget(Element element) {
+		super(element);
+	}
+
+	@Override
+	public void setType(T type) {
+	}
+
+	@Override
+	public T getType() {
+		return null;
+	}
 }

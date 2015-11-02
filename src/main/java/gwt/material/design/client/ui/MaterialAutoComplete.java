@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.custom.HasPlaceholder;
 import gwt.material.design.client.custom.MaterialSuggestionOracle;
 
 import java.util.ArrayList;
@@ -35,12 +35,13 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
+import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.custom.mixin.ErrorMixin;
 
 //@formatter:off
 /**
@@ -58,7 +59,7 @@ import com.google.gwt.user.client.ui.TextBox;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#autocompletes">Material AutoComplete</a>
  */
 //@formatter:on
-public class MaterialAutoComplete extends Composite implements HasError, HasGrid {
+public class MaterialAutoComplete extends MaterialWidget implements HasError, HasPlaceholder {
 	
     private List<String> itemValues = new ArrayList<>();
     private List<ListItem> itemsHighlighted = new ArrayList<>();
@@ -66,10 +67,11 @@ public class MaterialAutoComplete extends Composite implements HasError, HasGrid
     private UnorderedList list = new UnorderedList();
     private MultiWordSuggestOracle suggestions;
     private TextBox itemBox = new TextBox();
-    private boolean disabled;
     private String placeholder = "";
     private int limit = 0;
     private MaterialLabel lblError = new MaterialLabel();
+
+	private final ErrorMixin<MaterialAutoComplete, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, list);
     
     /**
      * Use MaterialAutocomplete to search for matches from
@@ -190,25 +192,24 @@ public class MaterialAutoComplete extends Composite implements HasError, HasGrid
             }
 
             chip.setText(textChip);
-            chip.addClickHandler(new ClickHandler() {
-                public void onClick(ClickEvent clickEvent) {
-                    if (itemsHighlighted.contains(displayItem)) { 
-                    	chip.removeStyleName("blue white-text");
-                        itemsHighlighted.remove(displayItem);
-                    }
-                    else {
-                    	chip.addStyleName("blue white-text");
-                        itemsHighlighted.add(displayItem);
-                    }
-                }
-            });
+            chip.getIcon().addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent clickEvent) {
+					if (itemsHighlighted.contains(displayItem)) {
+						chip.removeStyleName("blue white-text");
+						itemsHighlighted.remove(displayItem);
+					} else {
+						chip.addStyleName("blue white-text");
+						itemsHighlighted.add(displayItem);
+					}
+				}
+			});
 
             chip.getIcon().addClickHandler(new ClickHandler() {
-                public void onClick(ClickEvent clickEvent) {
-                	itemValues.remove(chip.getText());
-                    list.remove(displayItem);
-                }
-            });
+				public void onClick(ClickEvent clickEvent) {
+					itemValues.remove(chip.getText());
+					list.remove(displayItem);
+				}
+			});
 
             if(!itemValues.contains(textChip)){
 	            displayItem.add(chip);
@@ -281,79 +282,32 @@ public class MaterialAutoComplete extends Composite implements HasError, HasGrid
 		generateAutoComplete(suggestions);
 	}
 
-	/**
-	 * @return the placeholder
-	 */
-	public String getPlaceholder() {
-		return placeholder;
-	}
-
-	/**
-	 * @param placeholder the placeholder to set
-	 */
-	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
-		itemBox.getElement().setAttribute("placeholder", placeholder);
-	}
-
-	/**
-	 * @return the disabled
-	 */
-	public boolean isDisabled() {
-		return disabled;
-	}
-
-	/**
-	 * @param disabled the disabled to set
-	 */
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
-		itemBox.setEnabled(!disabled);
-	}
-
-	
-	
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
-	}
-	
-	@Override
-	public void setError(String error) {
-		lblError.setText(error);
-		lblError.addStyleName("field-error-label");
-		lblError.removeStyleName("field-success-label");
-		list.addStyleName("field-error");
-		list.removeStyleName("field-success");
-		lblError.setVisible(true);
-	}
-
-	@Override
-	public void setSuccess(String success) {
-		lblError.setText(success);
-		lblError.addStyleName("field-success-label");
-		lblError.removeStyleName("field-error-label");
-		list.addStyleName("field-success");
-		list.removeStyleName("field-error");
-		lblError.setVisible(true);
-	}
-	
-	@Override
-	public void setOffset(String offset) {
-		  String tobeadded = "";
-		  String[] vals = offset.split(" ");
-		  for(String val : vals){
-		   tobeadded = tobeadded + " offset-" +  val;
-		  }
-		  this.addStyleName(tobeadded);
-	}
-
 	public int getLimit() {
 		return limit;
 	}
 
 	public void setLimit(int limit) {
 		this.limit = limit;
+	}
+
+	@Override
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	@Override
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+		itemBox.getElement().setAttribute("placeholder", placeholder);
+	}
+
+	@Override
+	public void setError(String error) {
+		errorMixin.setError(error);
+	}
+
+	@Override
+	public void setSuccess(String success) {
+		errorMixin.setSuccess(success);
 	}
 }

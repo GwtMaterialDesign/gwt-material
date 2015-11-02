@@ -25,6 +25,6 @@ import com.google.gwt.dom.client.Document;
 public class CustomNav extends ComplexWidget {
 
 	public CustomNav() {
-		setElement(Document.get().createElement("nav"));
+		super(Document.get().createElement("nav"));
 	}
 }

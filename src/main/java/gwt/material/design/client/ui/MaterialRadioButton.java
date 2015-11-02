@@ -20,19 +20,23 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.RadioButtonType;
 import gwt.material.design.client.custom.HasGrid;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
+import gwt.material.design.client.custom.HasType;
+import gwt.material.design.client.custom.TypeWidget;
+import gwt.material.design.client.custom.mixin.CssTypeMixin;
+import gwt.material.design.client.custom.mixin.GridMixin;
 
-public class MaterialRadioButton extends RadioButton implements HasGrid {
+public class MaterialRadioButton extends RadioButton implements HasGrid, HasType<RadioButtonType> {
 
-	private String type = "";
-	private boolean disabled;
+	private CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> typeMixin;
+	private final GridMixin<MaterialRadioButton> gridMixin = new GridMixin<>(this);
 	
 	public MaterialRadioButton() {
 		super("");
@@ -70,39 +74,33 @@ public class MaterialRadioButton extends RadioButton implements HasGrid {
 		super(name);
 	}
 
-	public String getType() {
-		return type;
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+
+		// Since the input element handles the type
+		// styles we need to override the mixin.
+		typeMixin = new CssTypeMixin<>(
+			new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
 	}
 
-	public void setType(String type) {
-		this.type = type;
-		if(type.equals("gap")){
-			Element e_cb = this.getElement(); 
-	        Element e_input = DOM.getChild(e_cb, 0); 
-	        e_input.setAttribute("class", "with-gap");
-		}
+	@Override
+	public RadioButtonType getType() {
+		return typeMixin.getType();
 	}
 
-	public boolean isDisabled() {
-		return disabled;
-	}
-
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
-		setEnabled(!disabled);
+	@Override
+	public void setType(RadioButtonType type) {
+		typeMixin.setType(type);
 	}
 
 	@Override
 	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+		gridMixin.setGrid(grid);
 	}
 	
 	@Override
 	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+		gridMixin.setOffset(offset);
 	}
 }

@@ -33,12 +33,12 @@ import com.google.gwt.user.client.ui.Widget;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
 *///@formatter:on
-public class MaterialFooterCopyright extends ComplexWidget implements HasColors {
+public class MaterialFooterCopyright extends ComplexWidget {
 
 	CustomDiv container = new CustomDiv();
 	
 	public MaterialFooterCopyright() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("footer-copyright");
 		container.setStyleName("container");
 	}
@@ -47,15 +47,5 @@ public class MaterialFooterCopyright extends ComplexWidget implements HasColors 
 	public void add(Widget child) {
 		container.add(child);
 		super.add(container);
-	}
-	
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
 	}
 }

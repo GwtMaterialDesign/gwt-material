@@ -24,7 +24,7 @@ import com.google.gwt.dom.client.Document;
 
 public class CustomDiv  extends ComplexWidget {
 	
-	public CustomDiv(){
-		setElement(Document.get().createElement("div"));
+	public CustomDiv() {
+		super(Document.get().createElement("div"));
 	}
 }

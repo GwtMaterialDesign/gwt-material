@@ -20,44 +20,32 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.Waves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
-public class MaterialTab extends ComplexWidget implements HasColors, HasWaves {
+public class MaterialTab extends ComplexWidget implements HasWaves {
 
 	private int tabIndex;
+
+	private final WavesMixin<MaterialTab> wavesMixin = new WavesMixin<>(this);
 	
 	public MaterialTab() {
-		setElement(Document.get().createULElement());
+		super(Document.get().createULElement());
 		setStyleName("tabs");
 	}
 	
 	@Override
 	public void onLoad() {
-		String id = DOM.createUniqueId();
-		getElement().setId(id);
-		initTab(id);
+		super.onLoad();
+
+		initTab(getElement());
 	}
-	
-	private native void initTab(String id) /*-{
-		$wnd.jQuery(document).ready(function(){
-	    	$wnd.jQuery('ul#' + id).tabs();
-	  	});
-	}-*/;
-	
-	/**
-	 * Line Indicator on Tab Navigation.
-	 * @param color Color string
-	 */
-	public native void setIndicatorColor(String color)/*-{
-		$wnd.jQuery( ".indicator" ).css( "background-color", color );
-	}-*/;
 
 	public int getTabIndex() {
 		return tabIndex;
@@ -77,18 +65,26 @@ public class MaterialTab extends ComplexWidget implements HasColors, HasWaves {
 	}
 
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
 	}
 
 	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text"); 
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 
-	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-		Waves.detectAndApply(this);
-	}
+	private native void initTab(Element e) /*-{
+        $wnd.jQuery(document).ready(function(){
+            $wnd.jQuery(e).tabs();
+        });
+    }-*/;
+
+	/**
+	 * Line Indicator on Tab Navigation.
+	 * @param color Color string
+	 */
+	public native void setIndicatorColor(Element e, String color)/*-{
+        $wnd.jQuery(e).find(".indicator").css("background-color", color);
+    }-*/;
 }
