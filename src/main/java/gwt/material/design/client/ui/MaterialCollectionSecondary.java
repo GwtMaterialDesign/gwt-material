@@ -34,8 +34,13 @@ import gwt.material.design.client.custom.HasHref;
 public class MaterialCollectionSecondary extends ComplexWidget implements HasHref {
 
 	public MaterialCollectionSecondary() {
-		setElement(Document.get().createAnchorElement());
+		super(Document.get().createAnchorElement());
 		setStyleName("secondary-content");
+	}
+
+	@Override
+	public String getHref() {
+		return getElement().getAttribute("href");
 	}
 	
 	@Override
@@ -46,5 +51,10 @@ public class MaterialCollectionSecondary extends ComplexWidget implements HasHre
 	@Override
 	public void setTarget(String target) {
 		getElement().setAttribute("target", target);
+	}
+
+	@Override
+	public String getTarget() {
+		return getElement().getAttribute("target");
 	}
 }

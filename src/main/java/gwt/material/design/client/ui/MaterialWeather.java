@@ -28,8 +28,9 @@ public class MaterialWeather extends MaterialPanel {
 	private String color;
 
 	@Override
-	protected void onAttach() {
-		super.onAttach();
+	protected void onLoad() {
+		super.onLoad();
+
 		String name = "weatherContainer";
 		this.addStyleName(name);
 		this.getElement().setId("weatherContainer");

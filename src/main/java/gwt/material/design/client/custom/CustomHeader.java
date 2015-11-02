@@ -25,6 +25,6 @@ import com.google.gwt.dom.client.Document;
 public class CustomHeader  extends ComplexWidget {
 
 	public CustomHeader() {
-		setElement(Document.get().createElement("header"));
+		super(Document.get().createElement("header"));
 	}
 }

@@ -27,4 +27,9 @@ public interface HasShadow {
 	 * - depth range are from 1 - 4
 	 */
 	void setShadow(int shadow);
+
+	/**
+	 * Get the shadow depth.
+	 */
+	int getShadow();
 }

@@ -82,7 +82,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasActive {
+public class MaterialCollapsible extends ComplexWidget {
 
 	private int index;
 
@@ -90,7 +90,7 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasAc
 	 * Creates an empty collapsible
 	 */
 	public MaterialCollapsible() {
-		setElement(Document.get().createULElement());
+		super(Document.get().createULElement());
 		setStyleName("collapsible");
 	}
 	
@@ -102,6 +102,17 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasAc
 		for (final MaterialCollapsibleItem item : widgets) {
             add(item);
         }
+	}
+
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		onInitCollapsible(getElement());
+	}
+
+	@Override
+	protected void onUnload() {
+		super.onUnload();
 	}
 
 	@Override
@@ -131,41 +142,20 @@ public class MaterialCollapsible extends ComplexWidget implements HasGrid, HasAc
 		}
 	}
 
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
-	}
-
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		onInitCollapsible(getElement());
-	}
-
-	@Override
-	protected void onUnload() {
-		super.onUnload();
-	}
-	
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
-	}
-
-	@Override
 	public void setActive(int index) {
 		this.index = index;
-		MaterialCollapsibleItem item = (MaterialCollapsibleItem) getWidget(index);
-		item.getWidget(0).addStyleName("active");
+		Widget activeWidget = getActive();
+		if(activeWidget != null) {
+			activeWidget.removeStyleName("active");
+			activeWidget.addStyleName("active");
+		}
 	}
 
-	@Override
-	public int getActive() {
-		return index;
+	public Widget getActive() {
+		try {
+			return getWidget(index);
+		} catch (IndexOutOfBoundsException ex) {
+			return null;
+		}
 	}
-	
 }

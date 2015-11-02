@@ -20,28 +20,30 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.Waves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
 /**
-* CollapsibleItem element to define the header 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
-*/
+ * CollapsibleItem element to define the header
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+ */
 //@formatter:on
-public class MaterialCollapsibleHeader extends ComplexWidget implements HasColors, HasWaves {
+public class MaterialCollapsibleHeader extends ComplexWidget implements HasWaves {
+
+	private final WavesMixin<MaterialCollapsibleHeader> wavesMixin = new WavesMixin<>(this);
 	
-	/** Creates empth collapsible header.
+	/** Creates empty collapsible header.
 	 */
 	public MaterialCollapsibleHeader() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("collapsible-header");
 	}
 	
@@ -55,18 +57,12 @@ public class MaterialCollapsibleHeader extends ComplexWidget implements HasColor
 	}
 
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
 	}
 
 	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
-	}
-
-	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-		Waves.detectAndApply(this);
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 }

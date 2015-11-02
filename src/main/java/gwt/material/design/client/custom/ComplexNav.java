@@ -23,17 +23,16 @@ package gwt.material.design.client.custom;
 import gwt.material.design.client.ui.ListItem;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ComplexNav extends ComplexPanel {
+public class ComplexNav extends ComplexWidget {
 	
 	/**
      * {@inheritDoc}
      */
     @Override
     public void add(final Widget child) {
-    	ListItem item = new  ListItem(child);
+    	ListItem item = new ListItem(child);
         add(item, (Element) getElement());
     }
 

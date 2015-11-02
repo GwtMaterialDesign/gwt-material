@@ -26,6 +26,7 @@ import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
+import gwt.material.design.client.custom.helper.StyleHelper;
 
 //@formatter:off
 /**
@@ -90,39 +91,23 @@ import com.google.gwt.dom.client.Style.Unit;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on
-public class MaterialCard extends ComplexWidget implements HasColors, HasGrid {
+public class MaterialCard extends ComplexWidget {
 
 	/**
 	 * Creates and empty card.
 	 */
 	public MaterialCard(){
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("card");
 	}
 
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
-	}
-
-	@Override
 	public void setGrid(String grid) {
-		addStyleName("col " + grid);
-		addStyleName("no-padding");
-		getElement().getStyle().setMargin(10, Unit.PX);
-	}
+		super.setGrid(grid);
 
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+		removeStyleName("no-padding");
+		addStyleName("no-padding");
+
+		getElement().getStyle().setMargin(10, Unit.PX);
 	}
 }

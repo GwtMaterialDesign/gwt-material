@@ -25,25 +25,22 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.MaterialWidget;
 
-public class MaterialHeader extends Composite {
+public class MaterialHeader extends MaterialWidget {
 
 	private static MaterialHeaderUiBinder uiBinder = GWT.create(MaterialHeaderUiBinder.class);
 
 	interface MaterialHeaderUiBinder extends UiBinder<Widget, MaterialHeader> {
 	}
 	
-	@UiField Image imgLogo;
+	@UiField Image logo;
 	@UiField HTMLPanel navigation, panel;
-	
-	private String color = "white";
-	private String textColor = "black";
-	private ImageResource logo;
-	private String url;
+
+	private ImageResource logoResource;
 
 	public MaterialHeader() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -58,43 +55,32 @@ public class MaterialHeader extends Composite {
 		navigation.add(w);
 	}
 
-	public String getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-		panel.getElement().setAttribute("style", "color: " + textColor);
-	}
-
 	public String getColor() {
-		return color;
+		return panel.getElement().getStyle().getColor();
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-		panel.addStyleName(color);
+	public void setColor(String textColor) {
+		panel.getElement().getStyle().setColor(textColor);
 	}
 
-	public ImageResource getLogo() {
-		return logo;
+	public ImageResource getLogoResource() {
+		return logoResource;
 	}
 
-	public void setLogo(ImageResource logo) {
-		this.logo = logo;
-		imgLogo.setResource(logo);
+	public void setLogoResource(ImageResource logoResource) {
+		this.logoResource = logoResource;
+		logo.setResource(logoResource);
 	}
 
 	public String getUrl() {
-		return url;
+		return logo.getUrl();
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
-		imgLogo.setUrl(url);
+		logo.setUrl(url);
 	}
 
-	public Image getImgLogo() {
-		return imgLogo;
+	public Image getLogo() {
+		return logo;
 	}
 }

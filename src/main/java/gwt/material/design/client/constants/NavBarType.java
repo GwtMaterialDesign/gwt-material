@@ -20,7 +20,6 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
@@ -28,11 +27,11 @@ import gwt.material.design.client.custom.helper.EnumHelper;
  * - FIXED<br>
  * - TALL<br>
  * @author kevzlou7979
- *
+ * @author Ben Dol
  */
-public enum NavBarType implements Type, Style.HasCssName {
-	FIXED("fixed"),
-	TALL("tall");
+public enum NavBarType implements CssType {
+	FIXED("navbar-fixed"),
+	TALL("navbar-tall");
 
 	private final String cssClass;
 

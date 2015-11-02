@@ -24,12 +24,10 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of NavBar<br>
- * - FIXED<br>
- * - TALL<br>
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public enum ImageType implements Type, Style.HasCssName {
+public enum ImageType implements CssType {
 	CIRCLE("circle"),
 	MATERIALBOXED("materialboxed");
 
@@ -45,6 +43,6 @@ public enum ImageType implements Type, Style.HasCssName {
 	}
 
 	public static ImageType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, ImageType.class, CIRCLE);
+		return EnumHelper.fromStyleName(styleName, ImageType.class, MATERIALBOXED);
 	}
 }

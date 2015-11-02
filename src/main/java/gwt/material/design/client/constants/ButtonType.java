@@ -24,16 +24,14 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of Button<br>
- * - RAISED<br>
- * - FLAT<br>
- * - FLOATING<br>
+ * Types of Button.<br>
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public enum ButtonType implements Type, Style.HasCssName {
-	RAISED("raised"), 
-	FLAT("flat"), 
-	FLOATING("floating");
+public enum ButtonType implements CssType {
+	RAISED("btn"),
+	FLAT("btn-flat"),
+	FLOATING("btn-floating");
 
 	private final String cssClass;
 

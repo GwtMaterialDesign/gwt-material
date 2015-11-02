@@ -20,11 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.CustomInput;
 import gwt.material.design.client.custom.CustomParagraph;
 import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -34,27 +34,23 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.custom.mixin.ErrorMixin;
 
 //@formatter:off
 /**
-* Material Range - a slider that initialize the minimum and maximum values. 
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code 
-* 
-* <m:MaterialRange value="2" min="20" max="50" value="25"/>
-* 
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
-*/
+ * Material Range - a slider that initialize the minimum and maximum values.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code<m:MaterialRange value="2" min="20" max="50" value="25"/>}
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
+ */
 //@formatter:on
-public class MaterialRange extends ComplexWidget implements HasChangeHandlers, HasGrid, HasError {
+public class MaterialRange extends ComplexWidget implements HasChangeHandlers, HasError {
 
 	private CustomParagraph paragraph = new CustomParagraph();
 	private CustomInput input = new CustomInput();
@@ -68,14 +64,16 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 	// cache the embedded range input element
 	private Element rangeElement = null;
 
+	private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
+
 	/**
 	 * Creates a range
 	 */
 	public MaterialRange() {
-		setElement(Document.get().createElement("form"));
+		super(Document.get().createElement("form"));
 		lblError.setVisible(false);
 		paragraph.setStyleName("range-field");
-		input.setType("range");
+		input.setType(InputType.RANGE);
 		paragraph.add(input);
 		add(paragraph);
 		add(lblError);
@@ -195,31 +193,11 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 
 	@Override
 	public void setError(String error) {
-		lblError.setText(error);
-		lblError.addStyleName("field-error-label");
-		lblError.removeStyleName("field-success-label");
-		lblError.setVisible(true);
+		errorMixin.setError(error);
 	}
 
 	@Override
 	public void setSuccess(String success) {
-		lblError.setText(success);
-		lblError.addStyleName("field-success-label");
-		lblError.removeStyleName("field-error-label");
-		lblError.setVisible(true);
-	}
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
-	}
-	
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+		errorMixin.setSuccess(success);
 	}
 }

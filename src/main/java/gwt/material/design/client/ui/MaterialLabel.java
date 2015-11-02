@@ -28,6 +28,9 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.user.client.ui.Label;
+import gwt.material.design.client.custom.mixin.ColorsMixin;
+import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.custom.mixin.SeparatorMixin;
 
 //@formatter:off
 /**
@@ -47,9 +50,10 @@ import com.google.gwt.user.client.ui.Label;
 */
 //@formatter:on
 public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasColors {
-	
-	String fontSize = "";
-	String textColor = "";
+
+	private final ColorsMixin<MaterialLabel> colorsMixin = new ColorsMixin<>(this);
+	private final GridMixin<MaterialLabel> gridMixin = new GridMixin<>(this);
+	private final SeparatorMixin<MaterialLabel> separatorMixin = new SeparatorMixin<>(this);
 
 	public MaterialLabel() {
 	}
@@ -74,43 +78,51 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasCo
 		super(text);
 	}
 
-	public String getFontSize() {
-		return fontSize;
+	public double getFontSize() {
+		return Double.parseDouble(getElement().getStyle().getFontSize());
 	}
 
-	public void setFontSize(String fontSize) {
-		this.fontSize = fontSize;
-		this.getElement().getStyle().setFontSize(Double.valueOf(fontSize), Unit.EM);
-	}
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+	public void setFontSize(double fontSize, Unit unit) {
+		getElement().getStyle().setFontSize(fontSize, unit);
 	}
 
 	@Override
 	public void setSeparator(boolean separator) {
-		if (separator) {
-			this.getElement().getStyle().setProperty("borderBottom", "1px solid #e9e9e9");
-		}
+		separatorMixin.setSeparator(separator);
+	}
+
+	@Override
+	public boolean isSeparator() {
+		return separatorMixin.isSeparator();
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		gridMixin.setGrid(grid);
 	}
 	
 	@Override
 	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+		gridMixin.setOffset(offset);
+	}
+
+	@Override
+	public String getBackgroundColor() {
+		return colorsMixin.getBackgroundColor();
 	}
 
 	@Override
 	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
+		colorsMixin.setBackgroundColor(bgColor);
+	}
+
+	@Override
+	public String getTextColor() {
+		return colorsMixin.getTextColor();
 	}
 
 	@Override
 	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
+		colorsMixin.setTextColor(textColor);
 	}
 }

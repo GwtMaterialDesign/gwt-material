@@ -42,7 +42,7 @@
 	    <c:CustomNav ui:field="nav">
 		    <m:MaterialPanel ui:field="panel" addStyleNames="nav-wrapper" >
 		        <c:CustomAnchor ui:field="navMenu" addStyleNames="button-collapse {style.navMenu}" >
-		        	<m:MaterialIcon icon="menu"/>
+		        	<m:MaterialIcon iconType="MENU"/>
 		        </c:CustomAnchor>
 		    </m:MaterialPanel>
 		</c:CustomNav>	

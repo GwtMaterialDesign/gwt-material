@@ -22,9 +22,9 @@ package gwt.material.design.client.custom;
 
 import com.google.gwt.dom.client.Document;
 
-public class CustomAnchor  extends ComplexWidget {
+public class CustomAnchor extends ComplexWidget {
 	
-	public CustomAnchor(){
-		setElement(Document.get().createElement("a"));
+	public CustomAnchor() {
+		super(Document.get().createElement("a"));
 	}
 }

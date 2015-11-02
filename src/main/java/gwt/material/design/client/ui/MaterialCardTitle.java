@@ -20,10 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasColors;
-import gwt.material.design.client.custom.HasIcons;
+import gwt.material.design.client.custom.HasIcon;
 
 import com.google.gwt.dom.client.Document;
 
@@ -34,56 +37,62 @@ import com.google.gwt.dom.client.Document;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on
-public class MaterialCardTitle extends ComplexWidget implements HasIcons, HasColors {
+public class MaterialCardTitle extends ComplexWidget implements HasIcon, HasText {
 
-	private MaterialIcon iconElem = new MaterialIcon();
-	private CustomSpan spanElem = new CustomSpan();
-	private String text;
+	private MaterialIcon icon = new MaterialIcon();
 	
 	public MaterialCardTitle() {
-		setElement(Document.get().createSpanElement());
+		super(Document.get().createSpanElement());
 		setStyleName("card-title activator");
 	}
 
 	@Override
-	public void setIcon(String icon) {
-		iconElem.setIcon(icon);
-		add(iconElem);
+	public String getText() {
+		return getElement().getInnerText();
 	}
 
 	@Override
-	public void setIconPosition(String iconPosition) {
-		iconElem.setIconPosition(iconPosition);
+	public void setText(String text) {
+		getElement().setInnerText(text);
 	}
 
 	@Override
-	public void setSize(String size) {
-		iconElem.addStyleName(size);
+	public MaterialIcon getIcon() {
+		return icon;
+	}
+
+	@Override
+	public void setIconType(IconType iconType) {
+		icon.setIconType(iconType);
+	}
+
+	@Override
+	public void setIconPosition(IconPosition position) {
+		icon.setIconPosition(position);
+	}
+
+	@Override
+	public void setIconSize(IconSize size) {
+		icon.setIconSize(size);
+	}
+
+	@Override
+	public void setIconFontSize(double size, Style.Unit unit) {
+		icon.setIconFontSize(size, unit);
 	}
 
 	@Override
 	public void setIconColor(String iconColor) {
-		iconElem.addStyleName(iconColor + "-text");
-	}
-	
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-		spanElem.setText(text);
-		add(spanElem);
+		icon.setIconColor(iconColor);
 	}
 
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
+	public void setIconPrefix(boolean prefix) {
+		icon.setIconPrefix(prefix);
 	}
 
 	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
+	public boolean isIconPrefix() {
+		return icon.isIconPrefix();
 	}
-
 }

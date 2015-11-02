@@ -20,10 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.custom.HasCaption;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.user.client.ui.Image;
+import gwt.material.design.client.custom.HasOpacity;
+import gwt.material.design.client.custom.mixin.GridMixin;
 
 //@formatter:off
 /**
@@ -46,20 +49,22 @@ import com.google.gwt.user.client.ui.Image;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
 */
 //@formatter:on
-public class MaterialImage extends Image implements HasGrid {
-	
-	private String caption = "";
-	private String opacity;
+public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpacity {
+
+	private final GridMixin<MaterialImage> gridMixin = new GridMixin<>(this);
 	
 	/**
 	 * Creates an empty image.
 	 */
-	public MaterialImage() {}
+	public MaterialImage() {
+		setType(ImageType.MATERIALBOXED);
+	}
 	
 	/**
 	 * Creates a simple image.
 	 */
-	public MaterialImage(String url){
+	public MaterialImage(String url) {
+		this();
 		setUrl(url);
 	}
 	
@@ -74,7 +79,8 @@ public class MaterialImage extends Image implements HasGrid {
 	@Override
 	public void onLoad() {
 		super.onLoad();
-		this.addStyleName("responsive-img");
+
+		addStyleName("responsive-img");
 		onInitMaterialDesign();
 	}
 	
@@ -93,35 +99,33 @@ public class MaterialImage extends Image implements HasGrid {
 		this.addStyleName(type.getCssName());
 	}
 
+	@Override
 	public String getCaption() {
-		return caption;
+		return getElement().getAttribute("caption");
 	}
 
+	@Override
 	public void setCaption(String caption) {
-		this.caption = caption;
-		this.getElement().setAttribute("data-caption", caption);
-	}
-	
-	public String getOpacity() {
-		return opacity;
+		getElement().setAttribute("data-caption", caption);
 	}
 
-	public void setOpacity(String opacity) {
-		this.opacity = opacity;
-		this.getElement().getStyle().setOpacity(Double.parseDouble(opacity));
+	@Override
+	public double getOpacity() {
+		return Double.parseDouble(getElement().getStyle().getOpacity());
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+		getElement().getStyle().setOpacity(opacity);
 	}
 
 	@Override
 	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
+		gridMixin.setGrid(grid);
 	}
 	
 	@Override
 	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+		gridMixin.setOffset(offset);
 	}
 }

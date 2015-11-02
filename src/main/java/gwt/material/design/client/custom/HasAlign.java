@@ -20,18 +20,17 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
+import gwt.material.design.client.constants.Alignment;
+
 public interface HasAlign {
 
 	/**
-	 * Set the alignment of material component<br>
-	 * - left <br>
-	 * - right <br>
-	 * - center
+	 * Set the alignment.
 	 */
-	void setAlign(String align);
+	void setAlign(Alignment align);
 
 	/**
 	 * Get the alignment.
 	 */
-	String getAlign();
+	Alignment getAlign();
 }

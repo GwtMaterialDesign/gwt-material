@@ -170,7 +170,7 @@ public class MaterialSplashScreen extends Composite {
 	}
 
 	/**
-	 * @return the imgLogo
+	 * @return the logo
 	 */
 	public MaterialImage getImgLogo() {
 		return imgLogo;

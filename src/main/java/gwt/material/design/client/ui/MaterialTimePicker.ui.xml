@@ -25,6 +25,6 @@
 	
 	</ui:style>
 	<g:HTMLPanel ui:field="panel">
-	    <c:CustomInput ui:field="inputElement" />
+	    <c:CustomInput ui:field="input" type="TEXT" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

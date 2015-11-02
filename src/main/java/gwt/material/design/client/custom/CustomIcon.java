@@ -22,9 +22,9 @@ package gwt.material.design.client.custom;
 
 import com.google.gwt.dom.client.Document;
 
-public class CustomIcon  extends ComplexWidget {
+public class CustomIcon extends ComplexWidget {
 
 	public CustomIcon() {
-		setElement(Document.get().createElement("i"));
+		super(Document.get().createElement("i"));
 	}
 }

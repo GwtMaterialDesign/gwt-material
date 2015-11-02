@@ -21,33 +21,12 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.ComplexWidget;
 
 @SuppressWarnings("deprecation")
-public class UnorderedList extends ComplexPanel implements HasWidgets{
-	
-	private String ulId = "";
+public class UnorderedList extends ComplexWidget {
 	
 	public UnorderedList() {
-		setElement(Document.get().createULElement());
-	}
-
-	public void add(Widget w) {
-		super.add(w, getElement());
-	}
-
-	public void insert(Widget w, int beforeIndex) {
-		super.insert(w, getElement(), beforeIndex, true);
-	}
-
-	public String getUlId() {
-		return ulId;
-	}
-
-	public void setUlId(String ulId) {
-		this.ulId = ulId;
-		this.getElement().setId(ulId);
+		super(Document.get().createULElement());
 	}
 }

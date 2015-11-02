@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.CustomH4;
 import gwt.material.design.client.custom.HasActive;
@@ -84,7 +85,7 @@ Secondary Content
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 */
 //@formatter:on
-public class MaterialCollection extends ComplexWidget implements HasActive, HasGrid {
+public class MaterialCollection extends ComplexWidget {
 	
 	private CustomH4 span = new CustomH4();
 	private int index;
@@ -93,7 +94,7 @@ public class MaterialCollection extends ComplexWidget implements HasActive, HasG
 	 * Creates an empty collection component.
 	 */
 	public MaterialCollection() {
-		setElement(Document.get().createULElement());
+		super(Document.get().createULElement());
 		setStyleName("collection");		
 	}
 	
@@ -109,28 +110,20 @@ public class MaterialCollection extends ComplexWidget implements HasActive, HasG
 		insert(item, 0);
 	}
 
-	@Override
 	public void setActive(int index) {
 		this.index = index;
-		getWidget(index).addStyleName("active");
-	}
-
-	@Override
-	public int getActive() {
-		return index;
-	}
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
-	}
-
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
+		Widget activeWidget = getActive();
+		if(activeWidget != null) {
+			activeWidget.removeStyleName("active");
+			activeWidget.addStyleName("active");
 		}
-		this.addStyleName(cssName);
+	}
+
+	public Widget getActive() {
+		try {
+			return getWidget(index);
+		} catch (IndexOutOfBoundsException ex) {
+			return null;
+		}
 	}
 }

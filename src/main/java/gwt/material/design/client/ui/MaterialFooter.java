@@ -59,12 +59,12 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
 */
 //@formatter:on
-public class MaterialFooter extends ComplexWidget implements HasColors {
+public class MaterialFooter extends ComplexWidget {
 
-	CustomDiv container = new CustomDiv();
+	private CustomDiv container = new CustomDiv();
 	
 	public MaterialFooter() {
-		setElement(Document.get().createElement("footer"));
+		super(Document.get().createElement("footer"));
 		setStyleName("page-footer");
 		container.setStyleName("container");
 	}
@@ -77,15 +77,5 @@ public class MaterialFooter extends ComplexWidget implements HasColors {
 			container.add(child);
 			super.add(container);
 		}
-	}
-
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
 	}
 }

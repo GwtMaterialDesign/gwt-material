@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasGrid;
@@ -30,6 +31,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasVisibility;
 import gwt.material.design.client.custom.Waves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 //@formatter:off
 /**
 * MaterialColumn is panel that act as a fluid panel to easily sets your desired column.We are using 12 grid layout with screens small, medium and large.
@@ -50,10 +52,12 @@ import gwt.material.design.client.custom.Waves;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors, HasWaves, HasShadow, HasVisibility {
+public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibility {
+
+	private final WavesMixin<MaterialColumn> wavesMixin = new WavesMixin<>(this);
 
 	public MaterialColumn() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("col");
 	}
 
@@ -61,65 +65,14 @@ public class MaterialColumn extends ComplexWidget implements HasGrid, HasColors,
 		setStyleName("col");
 		this.addStyleName("s"+small+" m"+medium + " l" + large);
 	}
-	
+
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
 	}
 
 	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
-	}
-
-	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-		Waves.detectAndApply(this);
-	}
-
-	@Override
-	public void setShadow(int shadow) {
-		this.addStyleName("z-depth-" + shadow);
-	}
-	
-	/**
-	 * Sets the name of your scrollspy.
-	 */
-	public void setScrollspy(String scrollspy) {
-		this.addStyleName("scrollspy section");
-		this.getElement().setId(scrollspy);
-	}
-	
-	/**
-	 * Sets the opacity of the panel.
-	 */
-	public void setOpacity(int opacity){
-		this.getElement().getStyle().setOpacity(opacity);
-	}
-	
-	/**
-	 * Sets the padding of the panel.
-	 */
-	public void setPadding(String padding) {
-		this.getElement().getStyle().setPadding(Double.parseDouble(padding), Unit.PCT);
-	}
-	
-	public void setAlign(String align){
-		addStyleName("align-" + align);
-	}
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName(grid + " col");
-	}
-
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")) {
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 }

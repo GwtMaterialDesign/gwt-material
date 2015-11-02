@@ -25,15 +25,10 @@ import gwt.material.design.client.custom.HasAlign;
 
 import com.google.gwt.dom.client.Document;
 
-public class MaterialSlideCaption extends ComplexWidget implements HasAlign {
+public class MaterialSlideCaption extends ComplexWidget {
 
 	public MaterialSlideCaption() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("caption");
-	}
-
-	@Override
-	public void setAlign(String align) {
-		addStyleName(align + "-align");
 	}
 }

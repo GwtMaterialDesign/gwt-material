@@ -28,8 +28,9 @@ import gwt.material.design.client.custom.helper.EnumHelper;
  * - FILLED<br>
  * - INTERMEDIATE<br>
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public enum CheckBoxType implements Type, Style.HasCssName {
+public enum CheckBoxType implements CssType {
 	FILLED("filled"),
 	INTERMEDIATE("intermediate");
 

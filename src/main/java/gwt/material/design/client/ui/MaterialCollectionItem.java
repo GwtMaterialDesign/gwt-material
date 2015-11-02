@@ -20,11 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasDismissable;
 import gwt.material.design.client.custom.HasWaves;
-import gwt.material.design.client.custom.Waves;
 import gwt.material.design.client.constants.CollectionType;
 
 import com.google.gwt.dom.client.Document;
@@ -33,6 +32,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -40,11 +40,12 @@ import com.google.gwt.user.client.ui.Widget;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 *///@formatter:on
-public class MaterialCollectionItem extends ComplexWidget implements HasColors,
-		HasDismissable, HasWaves, HasClickHandlers {
+public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable, HasWaves {
+
+	private final WavesMixin<MaterialCollectionItem> wavesMixin = new WavesMixin<>(this);
 
 	public MaterialCollectionItem() {
-		setElement(Document.get().createLIElement());
+		super(Document.get().createLIElement());
 		setStyleName("collection-item");
 	}
 
@@ -81,25 +82,21 @@ public class MaterialCollectionItem extends ComplexWidget implements HasColors,
 	}
 
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
-	}
-
-	@Override
 	public void setDismissable(boolean dismissable) {
-		if(dismissable)addStyleName("dismissable");
-		else removeStyleName("dismissable");
+		removeStyleName("dismissable");
+		if(dismissable) {
+			addStyleName("dismissable");
+		}
 	}
 
 	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-		Waves.detectAndApply(this);
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
+	}
+
+	@Override
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 
 	@Override

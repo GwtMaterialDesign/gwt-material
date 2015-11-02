@@ -41,9 +41,9 @@
 	<m:MaterialPanel>
 		<m:MaterialPanel ui:field="headerPanel" addStyleNames="blue darken-2 {style.header}" >
 			<m:MaterialLabel ui:field="lblTitle" addStyleNames="{style.title}" fontSize="1.2"/>
-			<m:MaterialLink ui:field="btnRestore" tooltip="Restore" tooltipLocation="bottom" icon="remove" fontSize="1.2" textColor="white" addStyleNames="{style.icon}" />
-			<m:MaterialLink ui:field="btnMaximize" tooltip="Maximize" tooltipLocation="bottom" icon="crop_square" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
-			<m:MaterialLink ui:field="btnClose" tooltip="Close" tooltipLocation="bottom" icon="close" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
+			<m:MaterialLink ui:field="btnRestore" tooltip="Restore" tooltipLocation="bottom" iconType="remove" fontSize="1.2" textColor="white" addStyleNames="{style.icon}" />
+			<m:MaterialLink ui:field="btnMaximize" tooltip="Maximize" tooltipLocation="bottom" iconType="crop_square" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
+			<m:MaterialLink ui:field="btnClose" tooltip="Close" tooltipLocation="bottom" iconType="close" fontSize="1.2" textColor="white" addStyleNames="{style.icon}"/>
 		</m:MaterialPanel>
 	</m:MaterialPanel>
 </ui:UiBinder> 

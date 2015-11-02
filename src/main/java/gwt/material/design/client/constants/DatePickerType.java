@@ -28,8 +28,9 @@ import gwt.material.design.client.custom.helper.EnumHelper;
  * - AVATAR<br>
  * - DISMISSABLE<br>
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public enum DatePickerType implements Type, Style.HasCssName {
+public enum DatePickerType implements CssType {
 	DAY("day"),
 	MONTH_DAY("month_day"),
 	YEAR_MONTH_DAY("year_month_day"),

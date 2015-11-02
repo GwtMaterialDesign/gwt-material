@@ -21,10 +21,17 @@ package gwt.material.design.client.custom;
  */
 
 
+import gwt.material.design.client.constants.WavesType;
+
 public interface HasWaves {
 
 	/**
 	 * Sets the ripple effect of any material elements
 	 */
-	void setWaves(String waves);
+	void setWaves(WavesType waves);
+
+	/**
+	 * Get the waves type.
+	 */
+	WavesType getWaves();
 }

@@ -20,13 +20,18 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasDisabled;
+import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ListBox;
+import gwt.material.design.client.custom.HasId;
+import gwt.material.design.client.custom.mixin.ColorsMixin;
+import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.custom.mixin.IdMixin;
 
 //@formatter:off
 /**
@@ -54,16 +59,36 @@ import com.google.gwt.user.client.ui.ListBox;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material ListBoxt</a>
  */
 //@formatter:on
-public class MaterialListBox extends ListBox implements HasGrid, HasDisabled {
+public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColors {
 
-	private String id = "";
+	private final IdMixin<MaterialListBox> idMixin = new IdMixin<>(this);
+	private final GridMixin<MaterialListBox> gridMixin = new GridMixin<>(this);
+	private final ColorsMixin<MaterialListBox> colorsMixin = new ColorsMixin<>(this);
+
 	private boolean old = false;
-	private boolean disabled = false;
-	private String textColor = "";
 
 	public MaterialListBox() {
-		id = DOM.createUniqueId();
-		getElement().setId(id);
+		setId(DOM.createUniqueId());
+	}
+
+	@Override
+	public void setId(String id) {
+		idMixin.setId(id);
+	}
+
+	@Override
+	public String getId() {
+		return idMixin.getId();
+	}
+
+	@Override
+	public void setGrid(String grid) {
+		gridMixin.setGrid(grid);
+	}
+
+	@Override
+	public void setOffset(String offset) {
+		gridMixin.setOffset(offset);
 	}
 
 	public boolean isOld() {
@@ -77,92 +102,76 @@ public class MaterialListBox extends ListBox implements HasGrid, HasDisabled {
 		}
 	}
 
-	public String getTextColor() {
-		return textColor;
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		colorsMixin.setBackgroundColor(bgColor);
 	}
 
+	@Override
+	public String getBackgroundColor() {
+		return colorsMixin.getBackgroundColor();
+	}
+
+	@Override
+	public String getTextColor() {
+		return colorsMixin.getTextColor();
+	}
+
+	@Override
 	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-		this.getElement().addClassName(textColor);
+		colorsMixin.setTextColor(textColor);
 	}
-	
-	@Override
-	public boolean isDisabled() {
-		return disabled;
-	}
-	
-	@Override
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
-		if (disabled) {
-			this.getElement().setAttribute("disabled", "true");
-		}
-	}
-	
+
 	@Override
 	public void onLoad() {
 		super.onLoad();
 		if (!old) {
-			createInternalChangeHandler(id, this);
+			createInternalChangeHandler(getElement());
 		}
-		initializeMaterial(id);
+		initializeMaterial();
 	}
 
 	@Override
 	public void insertItem(String item, Direction dir, String value, int index) {
 		super.insertItem(item, dir, value, index);
-		initializeMaterial(id);
+		initializeMaterial();
 	}
 	
 	@Override
 	public void clear() {
 		super.clear();
-		initializeMaterial(id);
+		initializeMaterial();
 	}
 	
 	private void onChangeInternal() {
 		Document.get().createChangeEvent();
 	}
+
+	public void initializeMaterial() {
+		initializeMaterial(getElement());
+	}
 	
 	/**
 	 * Creates the internal change handler needed to trigger change events for
 	 * Materialize CSS change events.
-	 * 
-	 * @param id The ID of the internal {@code select} element.
-	 * @param self The list box itself, used to trigger the callback.
 	 */
-	protected native void createInternalChangeHandler(String id, MaterialListBox self) /*-{
+	protected native void createInternalChangeHandler(Element e) /*-{
+		var that = this;
 		var callback = $entry(function() {
-			self.@gwt.material.design.client.ui.MaterialListBox::onChangeInternal()();
+            that.@gwt.material.design.client.ui.MaterialListBox::onChangeInternal()();
 		});
 		
-		$wnd.jQuery('#' + id).change(callback);
+		$wnd.jQuery(e).change(callback);
 	}-*/;
 	
 	/**
 	 * Initializes the Materialize CSS list box. Should be
 	 * called every time the contents of the list box
 	 * changes, to keep the Materialize CSS design updated.
-	 * 
-	 * @param id The ID of the internal {@code select} element.
 	 */
-	protected native void initializeMaterial(String id) /*-{
-		$wnd.jQuery( document ).ready(function(){
-			$wnd.jQuery('#' + id).material_select();
+	protected native void initializeMaterial(Element e) /*-{
+		$wnd.jQuery(document).ready(function(){
+			$wnd.jQuery(e).material_select();
 		})
 	}-*/;
-
-	@Override
-	public void setGrid(String grid) {
-		this.addStyleName("col " + grid);
-	}
-	
-	@Override
-	public void setOffset(String offset) {
-		String cssName = "";
-		for(String val : offset.split(" ")){
-			cssName = cssName + " offset-" +  val;
-		}
-		this.addStyleName(cssName);
-	}
 }

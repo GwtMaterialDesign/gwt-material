@@ -24,10 +24,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.MaterialWidget;
 
-public class MaterialScrollspy extends Composite {
+public class MaterialScrollspy extends MaterialWidget {
 
 	private static MaterialScrollspyUiBinder uiBinder = GWT.create(MaterialScrollspyUiBinder.class);
 
@@ -35,8 +35,6 @@ public class MaterialScrollspy extends Composite {
 	}
 	
 	@UiField UnorderedList ulPanel;
-
-	private String color = "";
 	
 	public MaterialScrollspy() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -49,20 +47,13 @@ public class MaterialScrollspy extends Composite {
 	}
 
 	@Override
-	protected void onAttach() {
-		super.onAttach();
+	protected void onLoad() {
+		super.onLoad();
+
 		initScrollspy();
 	}
 
 	static native void initScrollspy()/*-{
 		$wnd.jQuery(".scrollspy").scrollSpy();
 	}-*/;
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
 }

@@ -36,8 +36,10 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.HasType;
+import gwt.material.design.client.custom.MaterialWidget;
 
-public class MaterialNavBar extends Composite implements HasWidgets, HasColors, HasLoader {
+public class MaterialNavBar extends MaterialWidget implements HasWidgets, HasLoader, HasType<NavBarType> {
 
 	private static NavBarUiBinder uiBinder = GWT.create(NavBarUiBinder.class);
 
@@ -50,6 +52,8 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 	@UiField CustomHeader header;
 
 	private MaterialProgress progress = new MaterialProgress();
+
+	private NavBarType type;
 	
 	/**
 	 * Nav Bar is a component which contains your app tool bar and app sidebar
@@ -57,6 +61,8 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 	@UiConstructor
 	public MaterialNavBar() {
 		initWidget(uiBinder.createAndBindUi(this));
+
+		setType(NavBarType.FIXED);
 	}
 	
 	/**
@@ -103,13 +109,19 @@ public class MaterialNavBar extends Composite implements HasWidgets, HasColors, 
 		panel.addStyleName(textColor + "-text");
 	}
 
+	@Override
+	public NavBarType getType() {
+		return type;
+	}
+
+	@Override
 	public void setType(NavBarType type) {
 		switch (type) {
 		case FIXED:
-			header.addStyleName("navbar-fixed");
+			header.addStyleName(type.getCssName());
 			break;
 		case TALL:
-			panel.addStyleName("navbar-tall");
+			panel.addStyleName(type.getCssName());
 			break;
 		default:
 			break;

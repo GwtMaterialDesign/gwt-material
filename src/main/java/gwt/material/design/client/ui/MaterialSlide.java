@@ -20,10 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.custom.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialSlide extends ComplexWidget {
@@ -31,7 +31,7 @@ public class MaterialSlide extends ComplexWidget {
 	private UnorderedList ul = new UnorderedList();
 
 	public MaterialSlide() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("slider");
 		ul.setStyleName("slides");
 		super.add(ul);
@@ -40,36 +40,37 @@ public class MaterialSlide extends ComplexWidget {
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-		String className = DOM.createUniqueId();
-		addStyleName(className);
-		initializeSlider(className);
+
+		initializeSlider();
 	}
 
 	@Override
 	public void add(Widget child) {
 		ul.add(child);
 	}
-
-	/**
-	 * Initialize the slider when the widget is attached.
-	 * @param className CSS class name
-	 */
-	private native void initializeSlider(String className)/*-{
-		$wnd.jQuery(document).ready(function() {
-			$wnd.jQuery('.' + className).slider({
-				full_width : true
-			});
-		});
-	}-*/;
 	
 	/**
 	 * Set the image slider to fullscreen view.
 	 */
 	public void setFullScreen(boolean isFullscreen) {
+		removeStyleName("fullscreen");
 		if(isFullscreen){
 			addStyleName("fullscreen");
-		} else {
-			removeStyleName("fullscreen");
 		}
 	}
+
+	/**
+	 * Initialize the slider when the widget is attached.
+	 */
+	private void initializeSlider() {
+		initializeSlider(getElement());
+	}
+
+	private native void initializeSlider(Element e)/*-{
+        $wnd.jQuery(document).ready(function() {
+            $wnd.jQuery(e).slider({
+                full_width : true
+            });
+        });
+    }-*/;
 }

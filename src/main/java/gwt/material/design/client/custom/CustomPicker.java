@@ -29,7 +29,7 @@ public class CustomPicker extends ComplexWidget implements HasGrid, HasError {
 	private MaterialLabel lblError = new MaterialLabel();
 	
 	public CustomPicker() {
-		setElement(Document.get().createElement("input"));
+		super(Document.get().createElement("input"));
 	}
 	
 	@Override

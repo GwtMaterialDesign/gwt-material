@@ -25,11 +25,12 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MaterialTeamItem extends Composite {
+public class MaterialTeamItem extends Composite implements HasName {
 
 	private static MaterialTeamItemUiBinder uiBinder = GWT.create(MaterialTeamItemUiBinder.class);
 
@@ -40,38 +41,36 @@ public class MaterialTeamItem extends Composite {
 	@UiField Label lblName;
 	@UiField Label lblDescription;
 
-	private String name = "";
-	private String description = "";
-	private ImageResource profile;
+	private ImageResource imageResource;
 	
 	public MaterialTeamItem() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	public ImageResource getProfile() {
-		return profile;
+	public ImageResource getImageResource() {
+		return imageResource;
 	}
 
-	public void setProfile(ImageResource profile) {
-		this.profile = profile;
-		imgProfile.setResource(profile);
+	public void setImageResource(ImageResource imageResource) {
+		this.imageResource = imageResource;
+		imgProfile.setResource(imageResource);
 	}
 
+	@Override
 	public String getName() {
-		return name;
+		return lblName.getText();
 	}
 
+	@Override
 	public void setName(String name) {
-		this.name = name;
 		lblName.setText(name);
 	}
 
 	public String getDescription() {
-		return description;
+		return lblDescription.getText();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
 		lblDescription.setText(description);
 	}
 }

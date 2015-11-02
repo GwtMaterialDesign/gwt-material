@@ -39,7 +39,7 @@ public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets
 	 * Creates an empty collapsible item.
 	 */
 	public MaterialCollapsibleItem() {
-		setElement(Document.get().createLIElement());
+		super(Document.get().createLIElement());
 	}
 	
 	/**

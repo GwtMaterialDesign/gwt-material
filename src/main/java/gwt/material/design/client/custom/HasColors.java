@@ -28,9 +28,14 @@ public interface HasColors {
 	 * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
 	 */
 	void setBackgroundColor(String bgColor);
+
+	String getBackgroundColor();
+
 	/**
 	 * Set the textColor of material components
 	 * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
 	 */
 	void setTextColor(String textColor);
+
+	String getTextColor();
 }

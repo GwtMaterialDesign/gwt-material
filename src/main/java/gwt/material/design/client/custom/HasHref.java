@@ -26,9 +26,13 @@ public interface HasHref {
 	 * Set the href parameter on material components.
 	 */
 	void setHref(String href);
+
+	String getHref();
 	
 	/**
 	 * Set the target of the href.
 	 */
 	void setTarget(String target);
+
+	String getTarget();
 }

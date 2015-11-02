@@ -20,13 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ButtonBase;
-import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasIcons;
-import gwt.material.design.client.constants.ButtonType;
-
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.HasText;
+
+import gwt.material.design.client.custom.AbstractIconButton;
 
 //@formatter:off
 /**
@@ -57,138 +54,17 @@ import com.google.gwt.user.client.ui.HasText;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Button</a>
  */
 //@formatter:on
-public class MaterialButton extends ButtonBase implements HasText, HasIcons{
-
-	private MaterialIcon iconElem = new MaterialIcon();
-	private CustomSpan spanElem = new CustomSpan();
-	private String text;
+public class MaterialButton extends AbstractIconButton {
 	
 	/**
-	 * Creates an empty button
+	 * Creates an empty button.
 	 */
 	public MaterialButton() {
-		setElement(Document.get().createElement("button"));
-		setStyleName("btn");
-	}
-	
-	/**
-	 * Raised buttons
-	 * @param text - The text of the button
-	 * @param bgColor - The background color of the button. See the color palette here http://gwt-material.appspot.com/#colors
-	 * @param waves - A material design aspect that helps user to add ripple effect on button
-	 */
-	public MaterialButton(String text, String bgColor, String waves) {
-		this();
-		setText(text);
-		setBackgroundColor(bgColor);
-		setWaves(waves);
-	}
-	
-	/**
-	 * Material Floating button
-	 * @param icon - Icon to be applied. See reference here http://gwt-material.appspot.com/#icons
-	 * @param bgColor - The background color of the button. See the color palette here http://gwt-material.appspot.com/#colors
-	 * @param type - Set it to floating
-	 * @param waves - A material design aspect that helps user to add ripple effect on button
-	 * @param tooltip - The tooltip to be shown when it is hovered
-	 */
-	public MaterialButton(String icon,
-						  String bgColor,
-						  ButtonType type,
-						  String waves,
-						  String tooltip,
-						  String tooltipLocation) {
-		this();
-		setType(type);
-		setBackgroundColor(bgColor);
-		setIcon(icon);
-		setType(type);
-		setWaves(waves);
-		setTooltip(tooltip);
-		setTooltipLocation(tooltipLocation);
-	}
-
-	/**
-	 * Material Flat Button
-	 * @param text - The text of the button
-	 * @param type - Set it to flat
-	 * @param icon - Icon to be applied. See reference here http://gwt-material.appspot.com/#icons
-	 * @param iconPosition - Icon position can be left or right
-	 * @param size - small, medium or large
-	 * @param tooltip - The tooltip to be shown when it is hovered
-	 */
-	public MaterialButton(String text,
-						  ButtonType type,
-						  String icon,
-						  String iconPosition,
-						  String size,
-						  String tooltip,
-						  String tooltipLocation) {
-		this();
-		setText(text);
-		setType(type);
-		setIcon(icon);
-		setIconPosition(iconPosition);
-		setSize(size);
-		setTooltip(tooltip);
-		setTooltipLocation(tooltipLocation);
+		super();
 	}
 
 	@Override
-	public void setIcon(String icon) {
-		iconElem.setIcon(icon);
-		add(iconElem);
-	}
-
-	@Override
-	public void setIconPosition(String iconPosition) {
-		iconElem.setIconPosition(iconPosition);
-	}
-
-	/**
-	 * Button size
-	 * - Large
-	 * - Medium (Default)
-	 */
-	public void setSize(String size) {
-		addStyleName("btn-" + size);
-	}
-
-	/**
-	 * ButtonType to be applied into your component
-	 * - RAISED (Default)
-	 * - FLAT
-	 * - FLOATING
-	 */
-	public void setType(ButtonType type) {
-		switch (type) {
-		case FLAT:
-			addStyleName("btn-flat");
-			removeStyleName("btn");
-			break;
-		case FLOATING:
-			addStyleName("btn-floating");
-			break;
-		default:
-			// default : raised
-			break;
-		}
-	}
-
-	@Override
-	public void setText(String text) {
-		this.text = text;
-		spanElem.setText(text);
-		add(spanElem);
-	}
-	
-	@Override
-	public String getText() {
-		return text;
-	}
-
-	@Override
-	public void setIconColor(String iconColor) {
-		iconElem.addStyleName(iconColor + "-text");
+	protected Element createElement() {
+		return Document.get().createPushButtonElement().cast();
 	}
 }

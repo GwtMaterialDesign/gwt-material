@@ -24,22 +24,19 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.custom.MaterialWidget;
 
-public class MaterialTitle extends Composite {
+public class MaterialTitle extends MaterialWidget implements HasText {
 
-	private static MaterialTitleUiBinder uiBinder = GWT
-		.create(MaterialTitleUiBinder.class);
+	private static MaterialTitleUiBinder uiBinder = GWT.create(MaterialTitleUiBinder.class);
 
 	interface MaterialTitleUiBinder extends UiBinder<Widget, MaterialTitle> {
 	}
 
-	private String title = "";
-	private String description = "";
-	private String color = "";
 	private MaterialTitle materialTitle;
 	private double fontSize;
 	
@@ -62,29 +59,41 @@ public class MaterialTitle extends Composite {
 	}
 
 	public String getDescription() {
-		return description;
+		return lblDescription.getText();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
 		lblDescription.setText(description);
 	}
 
 	public String getTitle() {
-		return title;
+		return lblTitle.getText();
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
 		lblTitle.setText(title);
 	}
-	
+
+	@Override
+	public String getText() {
+		return getTitle();
+	}
+
+	@Override
+	public void setText(String text) {
+		setTitle(text);
+	}
+
+	@Override
+	public void setTextColor(String textColor) {
+		super.setTextColor(textColor);
+	}
+
 	public String getColor() {
-		return color;
+		return lblTitle.getElement().getStyle().getColor();
 	}
 
 	public void setColor(String color) {
-		this.color = color;
 		lblTitle.getElement().getStyle().setColor(color);
 		lblDescription.getElement().getStyle().setColor(color);
 	}

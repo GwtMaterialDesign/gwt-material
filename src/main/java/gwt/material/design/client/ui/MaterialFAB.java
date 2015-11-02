@@ -52,7 +52,7 @@ import com.google.gwt.dom.client.Document;
 public class MaterialFAB extends ComplexWidget {
 
 	public MaterialFAB() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("fixed-action-btn");
 	}
 }

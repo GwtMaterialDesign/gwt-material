@@ -46,8 +46,4 @@ public class MaterialNavSection extends ComplexNav {
             add(li);
         }
 	}
-	
-	public void setAlign(String align){
-		addStyleName(align);
-	}
 }

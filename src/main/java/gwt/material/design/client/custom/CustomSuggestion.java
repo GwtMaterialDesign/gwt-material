@@ -22,7 +22,7 @@ package gwt.material.design.client.custom;
 
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 
-public class CustomSuggestion extends MultiWordSuggestion{
+public class CustomSuggestion extends MultiWordSuggestion {
 	private String suggestion;
 	private String display;
 

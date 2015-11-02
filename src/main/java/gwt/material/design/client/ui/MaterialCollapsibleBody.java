@@ -20,14 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasWaves;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.Waves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -36,13 +35,15 @@ import gwt.material.design.client.custom.Waves;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleBody extends ComplexWidget implements HasColors, HasWaves {
+public class MaterialCollapsibleBody extends ComplexWidget implements HasWaves {
+
+	private final WavesMixin<MaterialCollapsibleBody> wavesMixin = new WavesMixin<>(this);
 	
 	/**
 	 * Creates empty collapsible body.
 	 */
 	public MaterialCollapsibleBody() {
-		setElement(Document.get().createDivElement());
+		super(Document.get().createDivElement());
 		setStyleName("collapsible-body");
 	}
 	
@@ -55,20 +56,14 @@ public class MaterialCollapsibleBody extends ComplexWidget implements HasColors,
 			add(w);
 		}
 	}
-	
+
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
+	public void setWaves(WavesType waves) {
+		wavesMixin.setWaves(waves);
 	}
 
 	@Override
-	public void setTextColor(String textColor) {
-		addStyleName(textColor + "-text");
-	}
-	
-	@Override
-	public void setWaves(String waves) {
-		addStyleName("waves-effect waves-" + waves);
-		Waves.detectAndApply(this);
+	public WavesType getWaves() {
+		return wavesMixin.getWaves();
 	}
 }

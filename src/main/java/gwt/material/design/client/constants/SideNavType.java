@@ -20,26 +20,19 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**
- * Types of Sidenav<br>
- * - OPEN<br>
- * - CLOSE<br>
- * - MINI<br>
- * - CLIP<br>
- * - FLOAT<br>
- * - CARD<br>
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public enum SideNavType implements Type, Style.HasCssName {
-	OPEN("open"), 
-	CLOSE("close"), 
-	MINI("mini"),
-	CLIP("clip"),
-	FLOAT("float"),
-	CARD("card");
+public enum SideNavType implements CssType {
+	CLOSE("close"),
+	OPEN("fixed open"),
+	MINI("fixed mini"),
+	CLIP("fixed clip"),
+	FLOAT("fixed clip float"),
+	CARD("fixed clip card");
 
 	private final String cssClass;
 
@@ -53,6 +46,6 @@ public enum SideNavType implements Type, Style.HasCssName {
 	}
 
 	public static SideNavType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, SideNavType.class, OPEN);
+		return EnumHelper.fromStyleName(styleName, SideNavType.class, CLOSE);
 	}
 }

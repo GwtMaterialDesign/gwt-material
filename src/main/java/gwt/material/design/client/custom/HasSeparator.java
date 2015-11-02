@@ -27,4 +27,9 @@ public interface HasSeparator {
 	 * Border line separator of any material components.
 	 */
 	void setSeparator(boolean separator);
+
+	/**
+	 * Is separated using border.
+	 */
+	boolean isSeparator();
 }
