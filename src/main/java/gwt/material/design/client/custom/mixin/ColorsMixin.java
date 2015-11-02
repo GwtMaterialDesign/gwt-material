@@ -42,7 +42,7 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
 
     @Override
     public void setBackgroundColor(String bgColor) {
-        if(this.bgColor != null) {
+        if(this.bgColor != null && !this.bgColor.isEmpty()) {
             uiObject.removeStyleName(this.bgColor);
         }
         this.bgColor = bgColor;
@@ -59,7 +59,7 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
 
     @Override
     public void setTextColor(String textColor) {
-        if(textColor != null) {
+        if(this.textColor != null && !this.textColor.isEmpty()) {
             uiObject.removeStyleName(this.textColor);
         }
         this.textColor = textColor;

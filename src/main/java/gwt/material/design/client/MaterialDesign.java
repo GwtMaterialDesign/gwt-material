@@ -20,11 +20,7 @@ package gwt.material.design.client;
  * #L%
  */
 
-import com.google.gwt.core.client.ScriptInjector;
-import com.google.gwt.resources.client.TextResource;
-
 import com.google.gwt.core.client.EntryPoint;
-import gwt.material.design.client.resources.MaterialResources;
 
 public class MaterialDesign extends MaterialDesignBase implements EntryPoint {
 
