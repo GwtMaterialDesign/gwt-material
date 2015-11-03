@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.MaterialWindowHeader;
+import gwt.material.design.client.base.MaterialWindowHeader;
 import gwt.material.design.client.constants.ModalType;
 
 import com.google.gwt.user.client.ui.HTMLPanel;

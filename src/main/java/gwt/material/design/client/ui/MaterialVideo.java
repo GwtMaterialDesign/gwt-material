@@ -20,8 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Frame;

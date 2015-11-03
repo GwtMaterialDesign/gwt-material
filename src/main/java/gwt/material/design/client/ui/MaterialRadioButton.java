@@ -21,17 +21,17 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.constants.RadioButtonType;
-import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.base.HasGrid;
 
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
-import gwt.material.design.client.custom.HasType;
-import gwt.material.design.client.custom.TypeWidget;
-import gwt.material.design.client.custom.mixin.CssTypeMixin;
-import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.TypeWidget;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
 
 //@formatter:off
 /**

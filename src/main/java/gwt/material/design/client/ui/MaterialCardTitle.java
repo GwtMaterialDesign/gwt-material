@@ -25,8 +25,8 @@ import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasIcon;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasIcon;
 
 import com.google.gwt.dom.client.Document;
 

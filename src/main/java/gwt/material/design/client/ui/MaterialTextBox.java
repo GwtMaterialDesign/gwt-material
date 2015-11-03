@@ -26,8 +26,8 @@ import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.custom.CustomLabel;
-import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.client.base.HasError;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.IsEditor;
@@ -84,14 +84,13 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.HasIcon;
-import gwt.material.design.client.custom.HasInputType;
-import gwt.material.design.client.custom.HasPlaceholder;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.custom.mixin.ErrorMixin;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasInputType;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 
 public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
 		HasValue<String>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>, HasKeyUpHandlers,
@@ -111,13 +110,14 @@ public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers
 
 	private MaterialLabel lblError = new MaterialLabel();
 
-	private final ErrorMixin<MaterialTextBox, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
-
-	@UiField CustomLabel customLabel;
-	@UiField Label lblName;
+	@UiField
+	Label label;
+	@UiField MaterialLabel lblName;
 	@UiField TextBox txtBox;
 	@UiField MaterialIcon icon;
 	@UiField HTMLPanel panel;
+
+	private final ErrorMixin<MaterialTextBox, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, txtBox);
 
 	public MaterialTextBox() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -132,7 +132,7 @@ public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers
 		super.onLoad();
 		String id = DOM.createUniqueId();
 		txtBox.getElement().setId(id);
-		customLabel.getElement().setAttribute("for", id);
+		label.getElement().setAttribute("for", id);
 	}
 
 	public void setInvalid() {
@@ -155,7 +155,7 @@ public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers
 	public void clear() {
 		txtBox.setText("");
 		removeErrorModifiers();
-		customLabel.removeStyleName("active");
+		label.removeStyleName("active");
 	}
 
 	public void removeErrorModifiers() {
@@ -173,7 +173,7 @@ public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers
 		txtBox.setText(text);
 
 		if (text != null && !text.isEmpty()) {
-			customLabel.addStyleName("active");
+			label.addStyleName("active");
 		}
 	}
 
@@ -250,7 +250,7 @@ public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers
 		txtBox.setValue(value, fireEvents);
 
 		if (!value.isEmpty()) {
-			customLabel.addStyleName("active");
+			label.addStyleName("active");
 		}
 	}
 

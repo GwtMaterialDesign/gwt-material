@@ -20,46 +20,49 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasCaption;
-import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.base.HasCaption;
+import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.user.client.ui.Image;
-import gwt.material.design.client.custom.HasOpacity;
-import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.base.HasOpacity;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
 
 //@formatter:off
 /**
-* Images can be styled in different ways using Material Design
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-*{@code//Simple Image
-* <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif"/>
-* 
-* // Circle Image
-* <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="CIRCLE"/>
-* 
-* // MaterialBoxed Image
-* <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="MATERIALBOXED"/>
-* }
-* </pre>
-* 
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
-*/
+ * Images can be styled in different ways using Material Design
+ * <h3>UiBinder Usage:</h3>
+ *
+ * <pre>
+ *{@code//Simple Image
+ * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif"/>
+ *
+ * // Circle Image
+ * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="CIRCLE"/>
+ *
+ * // MaterialBoxed Image
+ * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif" type="MATERIALBOXED"/>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
+ */
 //@formatter:on
-public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpacity {
+public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpacity, HasType<ImageType> {
 
 	private final GridMixin<MaterialImage> gridMixin = new GridMixin<>(this);
-	
+	private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
+
 	/**
 	 * Creates an empty image.
 	 */
 	public MaterialImage() {
 		setType(ImageType.MATERIALBOXED);
 	}
-	
+
 	/**
 	 * Creates a simple image.
 	 */
@@ -67,7 +70,7 @@ public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpac
 		this();
 		setUrl(url);
 	}
-	
+
 	/**
 	 * Creates an image with Specific type.
 	 */
@@ -83,20 +86,20 @@ public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpac
 		addStyleName("responsive-img");
 		onInitMaterialDesign();
 	}
-	
+
 	@Override
 	protected void onUnload() {
 		super.onUnload();
 	}
 
-	public native void onInitMaterialDesign() /*-{
-		$wnd.jQuery(document).ready(function(){
-	    	$wnd.jQuery('.materialboxed').materialbox();
-	    });
-	}-*/;
-
+	@Override
 	public void setType(ImageType type) {
-		this.addStyleName(type.getCssName());
+		typeMixin.setType(type);
+	}
+
+	@Override
+	public ImageType getType() {
+		return typeMixin.getType();
 	}
 
 	@Override
@@ -123,9 +126,15 @@ public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpac
 	public void setGrid(String grid) {
 		gridMixin.setGrid(grid);
 	}
-	
+
 	@Override
 	public void setOffset(String offset) {
 		gridMixin.setOffset(offset);
 	}
+
+	public native void onInitMaterialDesign() /*-{
+        $wnd.jQuery(document).ready(function(){
+            $wnd.jQuery('.materialboxed').materialbox();
+        });
+    }-*/;
 }

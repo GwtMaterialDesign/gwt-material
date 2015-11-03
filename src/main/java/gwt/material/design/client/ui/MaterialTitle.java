@@ -26,22 +26,22 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.base.HasFontSize;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
 
-public class MaterialTitle extends MaterialWidget implements HasText {
+public class MaterialTitle extends MaterialWidget implements HasText, HasFontSize {
 
 	private static MaterialTitleUiBinder uiBinder = GWT.create(MaterialTitleUiBinder.class);
 
 	interface MaterialTitleUiBinder extends UiBinder<Widget, MaterialTitle> {
 	}
-
-	private MaterialTitle materialTitle;
-	private double fontSize;
 	
 	@UiField HTMLPanel titlePanel;
-	@UiField Label lblTitle, lblDescription;
+	@UiField MaterialLabel lblTitle, lblDescription;
+
+	private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(lblTitle);
 	
 	public MaterialTitle(String title, String description){
 		initWidget(uiBinder.createAndBindUi(this));
@@ -98,20 +98,18 @@ public class MaterialTitle extends MaterialWidget implements HasText {
 		lblDescription.getElement().getStyle().setColor(color);
 	}
 
-	public MaterialTitle getMaterialTitle() {
-		return materialTitle;
+	@Override
+	public void setFontSize(String fontSize) {
+		fontSizeMixin.setFontSize(fontSize);
 	}
 
-	public void setMaterialTitle(MaterialTitle materialTitle) {
-		this.materialTitle = materialTitle;
+	@Override
+	public String getFontSize() {
+		return fontSizeMixin.getFontSize();
 	}
 
-	public double getFontSize() {
-		return fontSize;
-	}
-
-	public void setFontSize(double fontSize) {
-		this.fontSize = fontSize;
-		lblTitle.getElement().getStyle().setFontSize(fontSize, Unit.EM);
+	@Override
+	public void setFontSize(double fontSize, Unit unit) {
+		fontSizeMixin.setFontSize(fontSize, unit);
 	}
 }

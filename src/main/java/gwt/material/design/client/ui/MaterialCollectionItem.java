@@ -21,9 +21,10 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasDismissable;
-import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasAvatar;
+import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.constants.CollectionType;
 
 import com.google.gwt.dom.client.Document;
@@ -32,7 +33,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.mixin.WavesMixin;
+import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.base.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -40,7 +42,8 @@ import gwt.material.design.client.custom.mixin.WavesMixin;
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 *///@formatter:on
-public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable, HasWaves {
+public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable,
+		HasWaves, HasAvatar {
 
 	private final WavesMixin<MaterialCollectionItem> wavesMixin = new WavesMixin<>(this);
 
@@ -55,7 +58,9 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 			addStyleName(type.getCssName());
 			break;
 		case CHECKBOX:
-			if(getWidgetCount()> 0) getWidget(0).getElement().getStyle().setProperty("display" , "inline");
+			if(getWidgetCount() > 0) {
+				getWidget(0).getElement().getStyle().setProperty("display" , "inline");
+			}
 			addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
@@ -66,7 +71,7 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 									MaterialCheckBox  cb = (MaterialCheckBox)a;
 									if(cb.getValue()) {
 										cb.setValue(false);
-									}else{
+									} else {
 										cb.setValue(true);
 									}
 								}
@@ -97,6 +102,19 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 	@Override
 	public WavesType getWaves() {
 		return wavesMixin.getWaves();
+	}
+
+	@Override
+	public void setAvatar(boolean avatar) {
+		removeStyleName("avatar");
+		if(avatar) {
+			addStyleName("avatar");
+		}
+	}
+
+	@Override
+	public boolean isAvatar() {
+		return StyleHelper.containsStyle(getStyleName(), "avatar");
 	}
 
 	@Override

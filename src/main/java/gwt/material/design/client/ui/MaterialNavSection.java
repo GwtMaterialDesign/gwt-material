@@ -20,10 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ComplexNav;
-
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
 /**
@@ -47,14 +46,14 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
 */
 //@formatter:on
-public class MaterialNavSection extends ComplexNav {
+public class MaterialNavSection extends UnorderedList {
 
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material
 	 * Links, Icons or any other material components.
 	 */
 	public MaterialNavSection() {
-		setElement(Document.get().createULElement());
+		super();
 		setStyleName("hide-on-med-and-down");
 	}
 	

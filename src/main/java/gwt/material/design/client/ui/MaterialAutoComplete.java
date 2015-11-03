@@ -20,9 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasError;
-import gwt.material.design.client.custom.HasPlaceholder;
-import gwt.material.design.client.custom.MaterialSuggestionOracle;
+import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.MaterialSuggestionOracle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +40,10 @@ import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.custom.mixin.ErrorMixin;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
 /**
@@ -225,7 +227,6 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         	itemBox.setValue("");
         }
     }
-	
 	
 	/**
 	 * Clear the chip items on the autocomplete box

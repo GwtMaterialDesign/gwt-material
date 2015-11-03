@@ -28,8 +28,8 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.custom.HasIcon;
-import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 /**

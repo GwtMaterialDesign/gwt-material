@@ -21,8 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.constants.CheckBoxType;
-import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.base.HasGrid;
+import gwt.material.design.client.base.mixin.GridMixin;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;

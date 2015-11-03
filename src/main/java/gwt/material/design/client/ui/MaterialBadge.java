@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.CustomSpan;
+import gwt.material.design.client.ui.html.Span;
 
 import com.google.gwt.user.client.ui.HasText;
 
@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.HasText;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#badges">Material Badge</a>
  */
 //@formatter:on
-public class MaterialBadge extends CustomSpan implements HasText {
+public class MaterialBadge extends Span implements HasText {
 	
 	/**
 	 * Creates a badge component that can be added to Link,

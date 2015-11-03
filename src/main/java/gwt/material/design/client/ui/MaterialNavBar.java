@@ -21,12 +21,12 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.constants.NavBarType;
-import gwt.material.design.client.custom.CustomAnchor;
-import gwt.material.design.client.custom.CustomHeader;
-import gwt.material.design.client.custom.CustomNav;
-import gwt.material.design.client.custom.HasLoader;
-import gwt.material.design.client.custom.HasType;
-import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.ui.html.Anchor;
+import gwt.material.design.client.ui.html.Header;
+import gwt.material.design.client.ui.html.Nav;
+import gwt.material.design.client.base.HasLoader;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
 
 import java.util.Iterator;
 
@@ -70,9 +70,9 @@ public class MaterialNavBar extends MaterialWidget implements HasWidgets, HasLoa
 	}
 	
 	@UiField MaterialPanel panel;
-	@UiField CustomAnchor navMenu;
-	@UiField CustomNav nav;
-	@UiField CustomHeader header;
+	@UiField Anchor navMenu;
+	@UiField Nav nav;
+	@UiField Header header;
 
 	private MaterialProgress progress = new MaterialProgress();
 

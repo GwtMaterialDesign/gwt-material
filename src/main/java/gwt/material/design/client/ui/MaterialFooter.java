@@ -21,8 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.CustomDiv;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
@@ -60,7 +60,7 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:on
 public class MaterialFooter extends ComplexWidget {
 
-	private CustomDiv container = new CustomDiv();
+	private Div container = new Div();
 	
 	public MaterialFooter() {
 		super(Document.get().createElement("footer"));
