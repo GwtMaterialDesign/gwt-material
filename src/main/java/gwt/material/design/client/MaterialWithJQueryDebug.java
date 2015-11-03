@@ -36,7 +36,7 @@ public class MaterialWithJQueryDebug extends MaterialDesignDebugBase implements 
 	@Override
 	public void load() {
 		if(!isjQueryLoaded()) {
-			inject(WithJQueryDebugResources.INSTANCE.jQueryDebug());
+			injectDebug(WithJQueryDebugResources.INSTANCE.jQueryDebug());
 		}
 		super.load();
 	}

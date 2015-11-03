@@ -24,7 +24,7 @@ package gwt.material.design.client.base;
 /**
  * @author Joshua Godi
  */
-public interface HasInlineStyle extends HasColors, HasOpacity {
+public interface HasInlineStyle extends HasColors, HasOpacity, HasFontSize {
     void setMargin(double margin);
 
     void setMarginTop(double margin);

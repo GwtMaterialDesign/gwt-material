@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.CenterOn;
 import gwt.material.design.client.constants.HideOn;
@@ -56,6 +57,7 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	private final CssNameMixin<MaterialWidget, ShowOn> showOnMixin = new CssNameMixin<>(this);
 	private final CssNameMixin<MaterialWidget, CenterOn> centerOnMixin = new CssNameMixin<>(this);
 	private final WavesMixin<MaterialWidget> wavesMixin = new WavesMixin<>(this);
+	private final FontSizeMixin<MaterialWidget> fontSizeMixin = new FontSizeMixin<>(this);
 
 	@Override
 	public void setId(String id) {
@@ -265,5 +267,20 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	@Override
 	public double getOpacity() {
 		return Double.parseDouble(getElement().getStyle().getOpacity());
+	}
+
+	@Override
+	public void setFontSize(String fontSize) {
+		fontSizeMixin.setFontSize(fontSize);
+	}
+
+	@Override
+	public String getFontSize() {
+		return fontSizeMixin.getFontSize();
+	}
+
+	@Override
+	public void setFontSize(double fontSize, Style.Unit unit) {
+		fontSizeMixin.setFontSize(fontSize, unit);
 	}
 }

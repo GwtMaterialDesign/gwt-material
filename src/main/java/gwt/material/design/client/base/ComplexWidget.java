@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.CenterOn;
 import gwt.material.design.client.constants.HideOn;
@@ -55,6 +56,7 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     private final CssNameMixin<ComplexWidget, HideOn> hideOnMixin = new CssNameMixin<>(this);
     private final CssNameMixin<ComplexWidget, ShowOn> showOnMixin = new CssNameMixin<>(this);
     private final CssNameMixin<ComplexWidget, CenterOn> centerOnMixin = new CssNameMixin<>(this);
+    private final FontSizeMixin<ComplexWidget> fontSizeMixin = new FontSizeMixin<>(this);
 
     public ComplexWidget() {
     }
@@ -276,5 +278,20 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     @Override
     public ShowOn getShowOn() {
         return showOnMixin.getCssName();
+    }
+
+    @Override
+    public void setFontSize(String fontSize) {
+        fontSizeMixin.setFontSize(fontSize);
+    }
+
+    @Override
+    public String getFontSize() {
+        return fontSizeMixin.getFontSize();
+    }
+
+    @Override
+    public void setFontSize(double fontSize, Style.Unit unit) {
+        fontSizeMixin.setFontSize(fontSize, unit);
     }
 }
