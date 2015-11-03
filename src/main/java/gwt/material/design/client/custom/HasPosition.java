@@ -20,11 +20,14 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-public interface HasTooltip {
 
-	void setTooltip(String tooltip);
+import gwt.material.design.client.constants.Position;
 
-	void setTooltip(Tooltip tooltip);
+/**
+ * @author Ben Dol
+ */
+public interface HasPosition {
+    Position getPosition();
 
-	Tooltip getTooltip();
+    void setPosition(Position position);
 }

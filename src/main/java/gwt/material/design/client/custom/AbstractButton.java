@@ -46,17 +46,15 @@ import gwt.material.design.client.custom.mixin.ActivatesMixin;
 import gwt.material.design.client.custom.mixin.CssTypeMixin;
 import gwt.material.design.client.custom.mixin.GridMixin;
 import gwt.material.design.client.custom.mixin.IdMixin;
-import gwt.material.design.client.custom.mixin.TooltipMixin;
 import gwt.material.design.client.custom.mixin.WavesMixin;
 
 /**
  * @author Ben Dol
  */
-public abstract class AbstractButton extends ComplexWidget implements HasHref, HasTooltip, HasGrid,
-		HasActivates, HasWaves, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasText {
+public abstract class AbstractButton extends ComplexWidget implements HasHref, HasGrid, HasActivates,
+		HasWaves, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasText {
 
 	private final IdMixin<AbstractButton> idMixin = new IdMixin<>(this);
-	private final TooltipMixin<AbstractButton> tooltipMixin = new TooltipMixin<>(this);
 	private final WavesMixin<AbstractButton> wavesMixin = new WavesMixin<>(this);
 	private final GridMixin<AbstractButton> gridMixin = new GridMixin<>(this);
 	private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
@@ -105,21 +103,6 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	@Override
 	public String getTarget() {
 		return getElement().getAttribute("target");
-	}
-
-	@Override
-	public void setTooltip(String tooltip) {
-		tooltipMixin.setTooltip(tooltip);
-	}
-
-	@Override
-	public void setTooltip(Tooltip tooltip) {
-		tooltipMixin.setTooltip(tooltip);
-	}
-
-	@Override
-	public Tooltip getTooltip() {
-		return tooltipMixin.getTooltip();
 	}
 
 	@Override

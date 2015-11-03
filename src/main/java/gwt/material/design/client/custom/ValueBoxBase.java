@@ -20,20 +20,17 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.text.shared.Parser;
 import com.google.gwt.text.shared.Renderer;
 import gwt.material.design.client.custom.mixin.ColorsMixin;
 import gwt.material.design.client.custom.mixin.GridMixin;
 import gwt.material.design.client.custom.mixin.IdMixin;
-import gwt.material.design.client.custom.mixin.TooltipMixin;
 
-public class ValueBoxBase<T> extends com.google.gwt.user.client.ui.ValueBoxBase<T> implements HasId, HasTooltip,
-        HasColors, HasGrid, HasPlaceholder {
+public class ValueBoxBase<T> extends com.google.gwt.user.client.ui.ValueBoxBase<T> implements HasId, HasColors,
+        HasGrid, HasPlaceholder {
 
     private final IdMixin<ValueBoxBase<T>> idMixin = new IdMixin<>(this);
-    private final TooltipMixin<ValueBoxBase<T>> tooltipMixin = new TooltipMixin<>(this);
     private final ColorsMixin<ValueBoxBase<T>> colorsMixin = new ColorsMixin<>(this);
     private final GridMixin<ValueBoxBase<T>> gridMixin = new GridMixin<>(this);
 
@@ -79,21 +76,6 @@ public class ValueBoxBase<T> extends com.google.gwt.user.client.ui.ValueBoxBase<
     @Override
     public void setOffset(String offset) {
         gridMixin.setOffset(offset);
-    }
-
-    @Override
-    public void setTooltip(String tooltip) {
-        tooltipMixin.setTooltip(tooltip);
-    }
-
-    @Override
-    public void setTooltip(Tooltip tooltip) {
-        tooltipMixin.setTooltip(tooltip);
-    }
-
-    @Override
-    public Tooltip getTooltip() {
-        return tooltipMixin.getTooltip();
     }
 
     @Override

@@ -42,11 +42,9 @@ import gwt.material.design.client.custom.mixin.ScrollspyMixin;
 import gwt.material.design.client.custom.mixin.SeparatorMixin;
 import gwt.material.design.client.custom.mixin.ShadowMixin;
 import gwt.material.design.client.custom.mixin.ShowOnMixin;
-import gwt.material.design.client.custom.mixin.TooltipMixin;
 
 public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, HasAlign, HasColors, HasGrid,
-        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasTooltip {
+        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn {
 
     private final IdMixin<ComplexWidget> idMixin = new IdMixin<>(this);
     private final EnabledMixin<ComplexWidget> enabledMixin = new EnabledMixin<>(this);
@@ -60,7 +58,6 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     private final HideOnMixin<ComplexWidget> hideOnMixin = new HideOnMixin<>(this);
     private final ShowOnMixin<ComplexWidget> showOnMixin = new ShowOnMixin<>(this);
     private final CenterOnMixin<ComplexWidget> centerOnMixin = new CenterOnMixin<>(this);
-    private final TooltipMixin<ComplexWidget> tooltipMixin = new TooltipMixin<>(this);
 
     public ComplexWidget() {
     }
@@ -282,20 +279,5 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     @Override
     public ShowOn getShowOn() {
         return showOnMixin.getShowOn();
-    }
-
-    @Override
-    public void setTooltip(String tooltip) {
-        tooltipMixin.setTooltip(tooltip);
-    }
-
-    @Override
-    public void setTooltip(Tooltip tooltip) {
-        tooltipMixin.setTooltip(tooltip);
-    }
-
-    @Override
-    public Tooltip getTooltip() {
-        return tooltipMixin.getTooltip();
     }
 }

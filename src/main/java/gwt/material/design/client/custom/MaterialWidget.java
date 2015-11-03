@@ -41,11 +41,10 @@ import gwt.material.design.client.custom.mixin.ScrollspyMixin;
 import gwt.material.design.client.custom.mixin.SeparatorMixin;
 import gwt.material.design.client.custom.mixin.ShadowMixin;
 import gwt.material.design.client.custom.mixin.ShowOnMixin;
-import gwt.material.design.client.custom.mixin.TooltipMixin;
 import gwt.material.design.client.custom.mixin.WavesMixin;
 
-public class MaterialWidget extends Composite implements Focusable, HasId, HasWaves, HasTooltip, HasColors, HasAlign,
-		HasEnabled, HasGrid, HasInlineStyle, HasShadow, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn {
+public class MaterialWidget extends Composite implements Focusable, HasId, HasWaves, HasColors, HasAlign, HasEnabled,
+		HasGrid, HasInlineStyle, HasShadow, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn {
 
 	private final IdMixin<MaterialWidget> idMixin = new IdMixin<>(this);
 	private final EnabledMixin<MaterialWidget> enabledMixin = new EnabledMixin<>(this);
@@ -59,7 +58,6 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	private final HideOnMixin<MaterialWidget> hideOnMixin = new HideOnMixin<>(this);
 	private final ShowOnMixin<MaterialWidget> showOnMixin = new ShowOnMixin<>(this);
 	private final CenterOnMixin<MaterialWidget> centerOnMixin = new CenterOnMixin<>(this);
-	private final TooltipMixin<MaterialWidget> tooltipMixin = new TooltipMixin<>(this);
 	private final WavesMixin<MaterialWidget> wavesMixin = new WavesMixin<>(this);
 
 	@Override
@@ -100,21 +98,6 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	@Override
 	public void setTextColor(String textColor) {
 		colorsMixin.setTextColor(textColor);
-	}
-
-	@Override
-	public void setTooltip(String tooltip) {
-		tooltipMixin.setTooltip(tooltip);
-	}
-
-	@Override
-	public Tooltip getTooltip() {
-		return tooltipMixin.getTooltip();
-	}
-
-	@Override
-	public void setTooltip(Tooltip tooltip) {
-		tooltipMixin.setTooltip(tooltip);
 	}
 
 	@Override
