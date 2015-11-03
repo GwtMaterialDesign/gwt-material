@@ -105,10 +105,9 @@ public class MaterialTopNav extends MaterialWidget implements HasFontSize {
 		return resource;
 	}
 
-	@SuppressWarnings("deprecation")
 	public void setResource(ImageResource resource) {
 		this.resource = resource;
-		generateBackground(resource.getURL());
+		generateBackground(resource.getSafeUri().asString());
 	}
 
 	public String getUrl() {
@@ -122,7 +121,9 @@ public class MaterialTopNav extends MaterialWidget implements HasFontSize {
 	
 	private void generateBackground(String url) {
 		panel.addStyleName("fullBackground");
-		panel.getElement().setAttribute("style", "background-image: url(" + url + "); background-size: 100%;" );
+
+		panel.getElement().setAttribute("style",
+			"background-image: url(" + url + "); background-size: 100%;");
 	}
 
 	@Override

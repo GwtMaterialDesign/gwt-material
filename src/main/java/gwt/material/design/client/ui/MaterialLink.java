@@ -20,6 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.AbstractIconAnchor;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.base.AbstractIconButton;
 
@@ -49,38 +51,25 @@ import com.google.gwt.dom.client.Style.Display;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
 */
 //@formatter:on
-public class MaterialLink extends AbstractIconButton {
+public class MaterialLink extends AbstractIconAnchor {
+
+	public MaterialLink(String text, String href, IconType iconType) {
+		super(text, href, iconType);
+	}
+
+	public MaterialLink(String text, IconType iconType) {
+		super(text, iconType);
+	}
 
 	public MaterialLink(String text) {
-		super();
-		setText(text);
-		setHref("#");
+		super(text);
 	}
 
-	/**
-	 * Normal link with href.
-	 */
-	public MaterialLink(String text, String href) {
-		super();
-		setText(text);
-		setHref(href);
+	public MaterialLink(IconType iconType) {
+		super(iconType);
 	}
 
-	/**
-	 * Creates a link with icon.
-	 */
-	public MaterialLink(String text, String href, IconType icon) {
+	public MaterialLink() {
 		super();
-		setText(text);
-		setHref(href);
-		setIconType(icon);
-	}
-
-	@Override
-	protected Element createElement() {
-		Element element = Document.get().createElement("a");
-		element.getStyle().setDisplay(Display.INLINE_BLOCK);
-		element.getStyle().setCursor(Cursor.POINTER);
-		return element;
 	}
 }

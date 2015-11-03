@@ -20,12 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Document;
-
+import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.AbstractIconButton;
 
 //@formatter:off
+
 /**
  * There are 3 main button types described in material design. The raised
  * button is a standard button that signify actions and seek to give depth
@@ -54,17 +54,17 @@ import gwt.material.design.client.base.AbstractIconButton;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Button</a>
  */
 //@formatter:on
-public class MaterialButton extends AbstractIconButton {
-	
+public class MaterialAnchorButton extends AbstractIconButton {
+
 	/**
-	 * Creates an empty button.
+	 * Creates an empty anchor button.
 	 */
-	public MaterialButton() {
+	public MaterialAnchorButton() {
 		super();
 	}
 
 	@Override
 	protected Element createElement() {
-		return Document.get().createPushButtonElement();
+		return Document.get().createAnchorElement();
 	}
 }
