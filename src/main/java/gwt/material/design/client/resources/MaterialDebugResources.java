@@ -29,24 +29,4 @@ public interface MaterialDebugResources extends ClientBundle {
 	
 	@Source("js/timepicker-0.1.0.js")
 	TextResource timepickerJsDebug();
-
-<<<<<<< HEAD:src/main/java/gwt/material/design/client/resources/MaterialDebugResources.java
-	@Source("js/materialize-0.97.1.js")
-	TextResource materializeJsDebug();
-=======
-	//FLOATING BUTTONS ANIMATIONS
-	String floatingButtonsItem();
-	
-	//CUSTOM LOADING
-	String progress();
-	
-	String disabled();
-	String pressed();
-	
-	String collection();
-	String badge();
-	
-	//OLD UI
-	String oldCheckBox();
->>>>>>> Restructured the 'custom' widgets and changes to mixin's.:src/main/java/gwt/material/design/client/resources/MaterialCSS.java
 }
