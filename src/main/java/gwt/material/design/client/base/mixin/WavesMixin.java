@@ -20,12 +20,11 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.Waves;
-
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.WavesType;
 
 /**
  * @author Ben Dol
@@ -48,17 +47,15 @@ public class WavesMixin<T extends Widget & HasWaves> extends AbstractMixin<T> im
         this.waves = waves;
 
         if(waves != null) {
-            uiObject.addStyleName(Waves.WAVES_STYLE);
-            uiObject.addStyleName(waves.getCssName());
-            Waves.detectAndApply(uiObject);
+            boolean enabled = !(uiObject instanceof HasEnabled)
+                || ((HasEnabled) uiObject).isEnabled();
+            if(enabled) {
+                uiObject.addStyleName(Waves.WAVES_STYLE);
+            }
 
-            // Scan the top layer for more Wave widgets
-            if(uiObject instanceof HasWidgets) {
-                for(Widget w : (HasWidgets)uiObject) {
-                    if(w instanceof HasWaves && !w.equals(this.uiObject)) {
-                        ((HasWaves) w).setWaves(waves);
-                    }
-                }
+            uiObject.addStyleName(waves.getCssName());
+            if(enabled) {
+                Waves.detectAndApply(uiObject);
             }
         }
     }

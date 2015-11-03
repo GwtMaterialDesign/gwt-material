@@ -20,10 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.mixin.WavesMixin;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasVisibility;
@@ -49,8 +47,6 @@ import com.google.gwt.user.client.ui.HasVisibility;
 //@formatter:on
 public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibility {
 
-	private final WavesMixin<MaterialColumn> wavesMixin = new WavesMixin<>(this);
-
 	public MaterialColumn() {
 		super(Document.get().createDivElement());
 		setStyleName("col");
@@ -59,15 +55,5 @@ public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibi
 	public MaterialColumn(int small, int medium, int large) {
 		setStyleName("col");
 		this.addStyleName("s"+small+" m"+medium + " l" + large);
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 }

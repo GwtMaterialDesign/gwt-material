@@ -21,6 +21,26 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -37,7 +57,6 @@ import com.google.gwt.user.client.ui.Image;
  * Chips can be used to represent small blocks of information.
  * They are most commonly used either for contacts or for tags.
  *
- * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  *{@code// Simple Chips
@@ -50,13 +69,13 @@ import com.google.gwt.user.client.ui.Image;
  * <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" icon="close"/>
  * }
  * </pre>
- * </p>
  *
  * @author kevzlou7979
  * @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
  */
 //@formatter:on
-public class MaterialChip extends ComplexWidget implements HasImage, HasIcon {
+public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, HasClickHandlers,
+		HasAllMouseHandlers, HasDoubleClickHandlers {
 
 	private MaterialIcon icon = new MaterialIcon();
 
@@ -154,5 +173,45 @@ public class MaterialChip extends ComplexWidget implements HasImage, HasIcon {
 	@Override
 	public boolean isIconPrefix() {
 		return icon.isIconPrefix();
+	}
+
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return addDomHandler(handler, ClickEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+		return addDomHandler(handler, MouseDownEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+		return addDomHandler(handler, MouseMoveEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+		return addDomHandler(handler, MouseOutEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+		return addDomHandler(handler, MouseOverEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+		return addDomHandler(handler, MouseUpEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+		return addDomHandler(handler, MouseWheelEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+		return addDomHandler(handler, DoubleClickEvent.getType());
 	}
 }

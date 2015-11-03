@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

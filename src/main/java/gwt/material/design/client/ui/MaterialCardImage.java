@@ -20,10 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.mixin.WavesMixin;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -36,9 +33,7 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on
-public class MaterialCardImage extends ComplexWidget implements HasWaves {
-
-	private final WavesMixin<MaterialCardImage> wavesMixin = new WavesMixin<>(this);
+public class MaterialCardImage extends ComplexWidget {
 
 	public MaterialCardImage(){
 		super(Document.get().createDivElement());
@@ -54,14 +49,4 @@ public class MaterialCardImage extends ComplexWidget implements HasWaves {
     	}
         add(child, (Element) getElement());
     }
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
-	}
 }

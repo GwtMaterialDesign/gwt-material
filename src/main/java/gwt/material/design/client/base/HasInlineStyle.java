@@ -21,8 +21,10 @@ package gwt.material.design.client.base;
  */
 
 
+import com.google.gwt.dom.client.Style;
+
 /**
- * @author Joshua Godi
+ * @author Ben Dol
  */
 public interface HasInlineStyle extends HasColors, HasOpacity, HasFontSize {
     void setMargin(double margin);
@@ -44,4 +46,6 @@ public interface HasInlineStyle extends HasColors, HasOpacity, HasFontSize {
     void setPaddingRight(double padding);
 
     void setPaddingBottom(double padding);
+
+    void setDisplay(Style.Display display);
 }

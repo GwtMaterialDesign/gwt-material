@@ -25,14 +25,16 @@ import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.MaterialIcon;
 
 public abstract class AbstractIconButton extends AbstractButton implements HasIcon {
 
 	private MaterialIcon icon = new MaterialIcon();
 
-	public AbstractIconButton() {
-		super();
+	public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
+		super(type, text);
+		this.icon = icon;
 	}
 
 	public AbstractIconButton(IconType iconType) {
@@ -40,9 +42,12 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 		setIconType(iconType);
 	}
 
-	public AbstractIconButton(ButtonType type, IconType iconType) {
+	public AbstractIconButton(ButtonType type) {
 		super(type);
-		setIconType(iconType);
+	}
+
+	public AbstractIconButton() {
+		super();
 	}
 
 	@Override

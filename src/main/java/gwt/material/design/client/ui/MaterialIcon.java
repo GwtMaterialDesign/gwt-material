@@ -20,10 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 
-import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.WavesType;
@@ -31,12 +31,10 @@ import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasSeparator;
 import gwt.material.design.client.constants.IconType;
-
-import com.google.gwt.dom.client.Document;
-
 import gwt.material.design.client.base.helper.StyleHelper;
 
 //@formatter:off
+
 /**
  * We have included 740 Material Design Icons courtesy of Google. You can download them directly from the Material Design specs.
  * <h3>UiBinder Usage:</h3>
@@ -64,7 +62,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 	 * Creates an empty icon.
 	 */
 	public MaterialIcon() {
-		removeStyleName(ButtonType.RAISED.getCssName());
+		super();
 		addStyleName("material-icons");
 	}
 	
@@ -152,9 +150,10 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 	@Override
 	public void setWaves(WavesType waves) {
 		super.setWaves(waves);
-		getElement().getStyle().setProperty("width", "initial");
-		getElement().getStyle().setProperty("height", "auto");
-		getElement().getStyle().setProperty("textAlign", "center");
-		getElement().getStyle().setProperty("padding", "0.2em");
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
 	}
 }

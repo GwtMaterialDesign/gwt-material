@@ -24,6 +24,8 @@ import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.base.Waves;
 import gwt.material.design.client.base.helper.StyleHelper;
 
 /**
@@ -51,10 +53,21 @@ public class EnabledMixin<T extends UIObject & HasEnabled> extends AbstractMixin
             obj.removeStyleName("disabled");
             obj.removeStyleName("grey lighten-2");
             obj.getElement().removeAttribute(DISABLED);
+
+            if(uiObject instanceof HasWaves) {
+                if(((HasWaves) uiObject).getWaves() == null) {
+                    uiObject.addStyleName(Waves.WAVES_STYLE);
+                    Waves.detectAndApply();
+                }
+            }
         } else {
             obj.addStyleName("disabled");
             obj.addStyleName("grey lighten-2");
             obj.getElement().setAttribute(DISABLED, "");
+
+            if(uiObject instanceof HasWaves) {
+                uiObject.removeStyleName(Waves.WAVES_STYLE);
+            }
         }
 
         if(obj instanceof HasWidgets) {

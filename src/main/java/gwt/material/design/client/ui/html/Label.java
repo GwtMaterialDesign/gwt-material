@@ -25,10 +25,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.ComplexWidget;
 
-public class Label extends ComplexWidget implements HasClickHandlers, HasText {
+public class Label extends ComplexWidget implements HasClickHandlers {
 	
 	public Label() {
 		super(DOM.createLabel());
@@ -39,12 +38,10 @@ public class Label extends ComplexWidget implements HasClickHandlers, HasText {
 		setText(text);
 	}
 
-	@Override
 	public String getText() {
 		return getElement().getInnerText();
 	}
 
-	@Override
 	public void setText(String text) {
 		getElement().setInnerText(text);
 	}

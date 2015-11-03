@@ -20,43 +20,23 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasWaves;
-
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.mixin.WavesMixin;
+
 //@formatter:off
 /**
-* Item for Tab Component, which usually contains icons, links or other navigation component.
-
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code 
-
-<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
-
-}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
-* @author kevzlou7979
-*/
-public class MaterialTabItem extends ComplexWidget implements HasWaves {
-
-	private final WavesMixin<MaterialTabItem> wavesMixin = new WavesMixin<>(this);
+ * Item for Tab Component, which usually contains icons, links or other navigation component.
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>}
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
+ * @author kevzlou7979
+ */
+public class MaterialTabItem extends ComplexWidget {
 
 	public MaterialTabItem() {
 		super(Document.get().createLIElement());
 		setStyleName("tab");
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 }

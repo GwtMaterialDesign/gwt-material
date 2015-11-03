@@ -20,11 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasAvatar;
 import gwt.material.design.client.base.HasDismissable;
-import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.constants.CollectionType;
 
 import com.google.gwt.dom.client.Document;
@@ -34,7 +32,6 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -43,9 +40,7 @@ import gwt.material.design.client.base.mixin.WavesMixin;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 *///@formatter:on
 public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable,
-		HasWaves, HasAvatar {
-
-	private final WavesMixin<MaterialCollectionItem> wavesMixin = new WavesMixin<>(this);
+		HasAvatar {
 
 	public MaterialCollectionItem() {
 		super(Document.get().createLIElement());
@@ -92,16 +87,6 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 		if(dismissable) {
 			addStyleName("dismissable");
 		}
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 
 	@Override

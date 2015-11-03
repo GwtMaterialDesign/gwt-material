@@ -20,20 +20,20 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.RadioButtonType;
-import gwt.material.design.client.base.HasGrid;
-
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
+import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.TypeWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.constants.RadioButtonType;
 
 //@formatter:off
+
 /**
 * Material Radio button has two types 
 * - NO-GAP <br>
@@ -56,6 +56,11 @@ public class MaterialRadioButton extends RadioButton implements HasGrid, HasType
 	
 	public MaterialRadioButton() {
 		super("");
+
+		// Since the input element handles the type
+		// styles we need to override the mixin.
+		typeMixin = new CssTypeMixin<>(
+			new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
 	}
 
 	public MaterialRadioButton(String name, SafeHtml label, Direction dir) {
@@ -88,16 +93,6 @@ public class MaterialRadioButton extends RadioButton implements HasGrid, HasType
 
 	public MaterialRadioButton(String name) {
 		super(name);
-	}
-
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-
-		// Since the input element handles the type
-		// styles we need to override the mixin.
-		typeMixin = new CssTypeMixin<>(
-			new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
 	}
 
 	@Override

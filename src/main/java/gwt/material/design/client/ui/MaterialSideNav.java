@@ -21,21 +21,19 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.constants.SideNavType;
-
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 
 //@formatter:off
+
 /**
 * SideNav is a material component that gives you a lists of menus and other navigation components.
 * 
@@ -58,13 +56,12 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
 */
 //@formatter:on
-public class MaterialSideNav extends UnorderedList implements HasWaves, HasType<SideNavType> {
+public class MaterialSideNav extends UnorderedList implements HasType<SideNavType> {
 
 	private boolean closeOnClick;
 	private int width;
 
 	private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
-	private final WavesMixin<MaterialSideNav> wavesMixin = new WavesMixin<>(this);
 	
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -104,22 +101,21 @@ public class MaterialSideNav extends UnorderedList implements HasWaves, HasType<
 
 	@Override
 	public void add(Widget child) {
-		ListItem item = new ListItem(child);
 		if(child instanceof MaterialImage) {
-			item.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
-			item.getElement().getStyle().setProperty("textAlign", "center");
+			child.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
+			child.getElement().getStyle().setProperty("textAlign", "center");
 		}
+
+		if(!(child instanceof ListItem)) {
+			ListItem listItem = new ListItem();
+			if(child instanceof MaterialCollapsible) {
+				listItem.getElement().getStyle().setBackgroundColor("transparent");
+			}
+			listItem.add(child);
+			child = listItem;
+		}
+		child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
 		super.add(child);
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 
 	public void setWidth(int width){

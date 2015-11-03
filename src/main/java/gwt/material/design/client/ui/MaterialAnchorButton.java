@@ -23,6 +23,8 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.AbstractIconButton;
+import gwt.material.design.client.constants.ButtonType;
+import gwt.material.design.client.constants.IconType;
 
 //@formatter:off
 
@@ -56,11 +58,19 @@ import gwt.material.design.client.base.AbstractIconButton;
 //@formatter:on
 public class MaterialAnchorButton extends AbstractIconButton {
 
-	/**
-	 * Creates an empty anchor button.
-	 */
+	public MaterialAnchorButton(ButtonType type, String text, MaterialIcon icon) {
+		super(type, text, icon);
+	}
+
+	public MaterialAnchorButton(IconType iconType) {
+		super(iconType);
+	}
+
+	public MaterialAnchorButton(ButtonType type) {
+		super(type);
+	}
+
 	public MaterialAnchorButton() {
-		super();
 	}
 
 	@Override

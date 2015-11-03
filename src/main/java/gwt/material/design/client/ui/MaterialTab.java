@@ -21,13 +21,10 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasWaves;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -58,11 +55,9 @@ import gwt.material.design.client.base.mixin.WavesMixin;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
 * @author kevzlou7979
 */
-public class MaterialTab extends ComplexWidget implements HasWaves {
+public class MaterialTab extends ComplexWidget {
 
 	private int tabIndex;
-
-	private final WavesMixin<MaterialTab> wavesMixin = new WavesMixin<>(this);
 	
 	public MaterialTab() {
 		super(Document.get().createULElement());
@@ -91,16 +86,6 @@ public class MaterialTab extends ComplexWidget implements HasWaves {
 			}
 			i++;
 		}
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 
 	private native void initTab(Element e) /*-{

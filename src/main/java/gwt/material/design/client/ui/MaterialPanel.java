@@ -20,29 +20,21 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.mixin.WavesMixin;
 
 import com.google.gwt.dom.client.Document;
 
 //@formatter:off
 /**
-* A normal panel that has some material features like : shadow and ripple effect
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* <m:MaterialPanel color="white" waves="blue" shadow="3"/>
-}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
-* @author kevzlou7979
-*/
-public class MaterialPanel extends ComplexWidget implements HasWaves {
-
-	private final WavesMixin<MaterialPanel> wavesMixin = new WavesMixin<>(this);
+ * A normal panel that has some material features like : shadow and ripple effect
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code<m:MaterialPanel color="white" waves="blue" shadow="3"/>}
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
+ * @author kevzlou7979
+ */
+public class MaterialPanel extends ComplexWidget {
 
 	public MaterialPanel() {
 		super(Document.get().createDivElement());
@@ -51,15 +43,5 @@ public class MaterialPanel extends ComplexWidget implements HasWaves {
 	@Override
 	public void setBackgroundColor(String bgColor) {
 		addStyleName(bgColor);
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 }
