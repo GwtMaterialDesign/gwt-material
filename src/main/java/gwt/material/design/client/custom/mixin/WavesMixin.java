@@ -43,12 +43,12 @@ public class WavesMixin<T extends Widget & HasWaves> extends AbstractMixin<T> im
     public void setWaves(WavesType waves) {
         uiObject.removeStyleName(Waves.WAVES_STYLE);
         if(this.waves != null) {
-            uiObject.removeStyleName("waves-" + this.waves.getCssName());
+            uiObject.removeStyleName(this.waves.getCssName());
         }
 
         this.waves = waves;
 
-        if(waves != null) {
+        if(waves != null && !waves.equals(WavesType.DEFAULT)) {
             uiObject.addStyleName(Waves.WAVES_STYLE);
             uiObject.addStyleName(waves.getCssName());
             Waves.detectAndApply(uiObject);
