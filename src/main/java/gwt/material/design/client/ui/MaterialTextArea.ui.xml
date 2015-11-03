@@ -20,7 +20,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:c="urn:import:gwt.material.design.client.custom"
+             xmlns:m.html="urn:import:gwt.material.design.client.ui.html"
              xmlns:m="urn:import:gwt.material.design.client.ui">
 	<ui:style>
     .important {
@@ -30,6 +30,6 @@
 	<g:HTMLPanel ui:field="panel" addStyleNames="input-field">
 		<m:MaterialIcon ui:field="icon" />
     <g:TextArea ui:field="txtBox" addStyleNames="materialize-textarea"/>
-    <c:CustomLabel ui:field="customLabel"><g:Label ui:field="lblName"/></c:CustomLabel>
+    <m.html:Label ui:field="label"><m:MaterialLabel ui:field="lblName"/></m.html:Label>
 	</g:HTMLPanel>
 </ui:UiBinder> 

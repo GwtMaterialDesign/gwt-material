@@ -24,8 +24,8 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.custom.CustomLabel;
-import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.client.base.HasError;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -44,13 +44,12 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.HasIcon;
-import gwt.material.design.client.custom.HasPlaceholder;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.custom.mixin.ErrorMixin;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 
 public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyPressHandlers,
 		HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder {
@@ -68,8 +67,9 @@ public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyP
 
 	private final ErrorMixin<MaterialTextArea, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 	
-	@UiField CustomLabel customLabel;
-	@UiField Label lblName;
+	@UiField
+	Label label;
+	@UiField MaterialLabel lblName;
 	@UiField TextArea txtBox;
 	@UiField MaterialIcon icon;
 	@UiField HTMLPanel panel;
@@ -122,7 +122,7 @@ public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyP
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-		customLabel.getElement().setAttribute("for", "field");
+		label.getElement().setAttribute("for", "field");
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyP
 	@Override
 	public void setText(String text) {
 		txtBox.setText(text);
-		customLabel.addStyleName("active");
+		label.addStyleName("active");
 	}
 
 	@Override

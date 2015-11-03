@@ -21,10 +21,11 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.custom.ComplexWidget;
+import gwt.material.design.client.base.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
 /**

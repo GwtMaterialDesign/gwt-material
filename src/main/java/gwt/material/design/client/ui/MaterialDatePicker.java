@@ -20,8 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.base.HasGrid;
+import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.constants.Orientation;
 
 import java.util.Date;
@@ -30,9 +30,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import gwt.material.design.client.custom.HasOrientation;
-import gwt.material.design.client.custom.mixin.ErrorMixin;
-import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.base.HasOrientation;
+import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
 
 //@formatter:off
 /**

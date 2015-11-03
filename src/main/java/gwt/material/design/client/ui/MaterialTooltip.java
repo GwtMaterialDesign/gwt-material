@@ -32,8 +32,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.custom.HasId;
-import gwt.material.design.client.custom.HasPosition;
+import gwt.material.design.client.base.HasId;
+import gwt.material.design.client.base.HasPosition;
 
 /**
  * Basic implementation for the Material Design tooltip.

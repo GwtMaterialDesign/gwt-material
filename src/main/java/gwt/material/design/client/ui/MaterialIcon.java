@@ -25,13 +25,13 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.custom.AbstractButton;
-import gwt.material.design.client.custom.HasIcon;
-import gwt.material.design.client.custom.HasSeparator;
+import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasSeparator;
 import gwt.material.design.client.constants.IconType;
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.custom.helper.StyleHelper;
+import gwt.material.design.client.base.helper.StyleHelper;
 
 //@formatter:off
 /**

@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 public class MaterialPagination<T> extends MaterialWidget {
 
@@ -50,7 +51,8 @@ public class MaterialPagination<T> extends MaterialWidget {
 	private List<T> objects = new ArrayList<>();
 	
 	@UiField MaterialLink next, prev, lblName;
-	@UiField UnorderedList pager;
+	@UiField
+	UnorderedList pager;
 
 	public MaterialPagination() {
 		initWidget(uiBinder.createAndBindUi(this));

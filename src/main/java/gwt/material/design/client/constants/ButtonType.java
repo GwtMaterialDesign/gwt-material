@@ -20,7 +20,7 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import gwt.material.design.client.custom.helper.EnumHelper;
+import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
  * Types of Button.<br>

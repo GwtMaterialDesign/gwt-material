@@ -24,7 +24,6 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.custom.CustomInput;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasKeyUpHandlers;
@@ -36,9 +35,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.HasIcon;
-import gwt.material.design.client.custom.HasPlaceholder;
-import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 /**
@@ -65,7 +64,7 @@ public class MaterialSearch extends MaterialWidget implements HasText, HasKeyUpH
 	interface MaterialSearchUiBinder extends UiBinder<Widget, MaterialSearch> {
 	}
 	
-	@UiField CustomInput searchInput;
+	@UiField MaterialInput searchInput;
 	@UiField MaterialIcon icon;
 	@UiField MaterialPanel panel;
 

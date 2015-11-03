@@ -26,12 +26,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.HasFontSize;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.custom.helper.StyleHelper;
-import gwt.material.design.client.custom.mixin.FontSizeMixin;
+import gwt.material.design.client.base.HasFontSize;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
 
 public class MaterialTitle extends MaterialWidget implements HasText, HasFontSize {
 

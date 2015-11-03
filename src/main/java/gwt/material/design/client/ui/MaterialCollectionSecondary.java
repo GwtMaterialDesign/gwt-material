@@ -22,8 +22,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasHref;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasHref;
 
 //@formatter:off
 /**

@@ -21,10 +21,9 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.CustomInput;
-import gwt.material.design.client.custom.CustomParagraph;
-import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Paragraph;
+import gwt.material.design.client.base.HasError;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -34,7 +33,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.custom.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 
 //@formatter:off
 /**
@@ -52,8 +51,8 @@ import gwt.material.design.client.custom.mixin.ErrorMixin;
 //@formatter:on
 public class MaterialRange extends ComplexWidget implements HasChangeHandlers, HasError {
 
-	private CustomParagraph paragraph = new CustomParagraph();
-	private CustomInput input = new CustomInput();
+	private Paragraph paragraph = new Paragraph();
+	private MaterialInput input = new MaterialInput();
 	
     private static String VALUE = "value";
     private static String MAX = "max";

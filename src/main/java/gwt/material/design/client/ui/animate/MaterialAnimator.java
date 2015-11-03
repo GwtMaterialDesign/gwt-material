@@ -20,8 +20,8 @@ package gwt.material.design.client.ui.animate;
  * #L%
  */
 
-import gwt.material.design.client.ui.ListItem;
-import gwt.material.design.client.ui.UnorderedList;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;

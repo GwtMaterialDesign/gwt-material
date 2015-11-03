@@ -21,8 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.custom.CustomInput;
-import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.constants.Orientation;
 
 import com.google.gwt.core.client.GWT;
@@ -30,10 +29,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.HasOrientation;
-import gwt.material.design.client.custom.HasPlaceholder;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.custom.mixin.ErrorMixin;
+import gwt.material.design.client.base.HasOrientation;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 
 public class MaterialTimePicker extends MaterialWidget implements HasError, HasPlaceholder, HasOrientation {
 
@@ -44,7 +43,8 @@ public class MaterialTimePicker extends MaterialWidget implements HasError, HasP
 	}
 
 	@UiField HTMLPanel panel;
-	@UiField CustomInput input;
+	@UiField
+	MaterialInput input;
 
 	private String time;
 	private String placeholder;

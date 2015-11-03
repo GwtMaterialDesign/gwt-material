@@ -21,17 +21,17 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.custom.HasColors;
-import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.base.HasColors;
+import gwt.material.design.client.base.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ListBox;
-import gwt.material.design.client.custom.HasId;
-import gwt.material.design.client.custom.mixin.ColorsMixin;
-import gwt.material.design.client.custom.mixin.GridMixin;
-import gwt.material.design.client.custom.mixin.IdMixin;
+import gwt.material.design.client.base.HasId;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.base.mixin.IdMixin;
 
 //@formatter:off
 /**

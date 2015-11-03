@@ -20,11 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.CustomH4;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.constants.HeadingSize;
+import gwt.material.design.client.ui.html.Heading;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
 /**
@@ -85,7 +87,7 @@ Secondary Content
 //@formatter:on
 public class MaterialCollection extends ComplexWidget {
 	
-	private CustomH4 span = new CustomH4();
+	private Heading span = new Heading(HeadingSize.H4);
 	private int index;
 	
 	/**

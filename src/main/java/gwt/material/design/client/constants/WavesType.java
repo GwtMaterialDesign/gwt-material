@@ -21,7 +21,7 @@ package gwt.material.design.client.constants;
  */
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.custom.helper.EnumHelper;
+import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
  * @author Ben DOl

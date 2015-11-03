@@ -20,19 +20,19 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasColors;
-import gwt.material.design.client.custom.HasFontSize;
-import gwt.material.design.client.custom.HasGrid;
-import gwt.material.design.client.custom.HasSeparator;
+import gwt.material.design.client.base.HasColors;
+import gwt.material.design.client.base.HasFontSize;
+import gwt.material.design.client.base.HasGrid;
+import gwt.material.design.client.base.HasSeparator;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.user.client.ui.Label;
-import gwt.material.design.client.custom.mixin.ColorsMixin;
-import gwt.material.design.client.custom.mixin.FontSizeMixin;
-import gwt.material.design.client.custom.mixin.GridMixin;
-import gwt.material.design.client.custom.mixin.SeparatorMixin;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.base.mixin.SeparatorMixin;
 
 //@formatter:off
 /**

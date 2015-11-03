@@ -28,7 +28,7 @@ import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 /**

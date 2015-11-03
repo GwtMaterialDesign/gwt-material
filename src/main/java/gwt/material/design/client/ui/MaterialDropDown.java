@@ -19,10 +19,9 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-import gwt.material.design.client.custom.ComplexNav;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
 /**
@@ -42,14 +41,14 @@ import com.google.gwt.uibinder.client.UiConstructor;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
  */
 //@formatter:on
-public class MaterialDropDown extends ComplexNav {
+public class MaterialDropDown extends UnorderedList {
 
 	private String name;
 	private boolean belowOrigin;
 	private boolean constraintWidth;
 
 	public MaterialDropDown(){
-		setElement(Document.get().createULElement());
+		super();
 		setStyleName("dropdown-content");
 	}
 	

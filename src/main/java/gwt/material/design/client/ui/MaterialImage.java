@@ -20,16 +20,15 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasCaption;
-import gwt.material.design.client.custom.HasGrid;
+import gwt.material.design.client.base.HasCaption;
+import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.user.client.ui.Image;
-import gwt.material.design.client.custom.HasOpacity;
-import gwt.material.design.client.custom.HasType;
-import gwt.material.design.client.custom.helper.StyleHelper;
-import gwt.material.design.client.custom.mixin.CssTypeMixin;
-import gwt.material.design.client.custom.mixin.GridMixin;
+import gwt.material.design.client.base.HasOpacity;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
 
 //@formatter:off
 /**

@@ -24,11 +24,10 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.CustomInput;
-import gwt.material.design.client.custom.CustomLabel;
-import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasError;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.client.ui.html.Span;
+import gwt.material.design.client.base.HasError;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
@@ -36,7 +35,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.custom.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 
 //@formatter:off
 /**
@@ -55,9 +54,9 @@ import gwt.material.design.client.custom.mixin.ErrorMixin;
 //@formatter:on
 public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
 
-	private CustomInput input = new CustomInput();
-	private CustomSpan span = new CustomSpan();
-	private CustomLabel label = new CustomLabel();
+	private MaterialInput input = new MaterialInput();
+	private Span span = new Span();
+	private Label label = new Label();
 	private MaterialLabel lblError = new MaterialLabel();
 
 	private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
@@ -143,42 +142,42 @@ public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, 
 	/**
 	 * @return the input
 	 */
-	public CustomInput getInput() {
+	public MaterialInput getInput() {
 		return input;
 	}
 
 	/**
 	 * @param input the input to set
 	 */
-	public void setInput(CustomInput input) {
+	public void setInput(MaterialInput input) {
 		this.input = input;
 	}
 
 	/**
 	 * @return the span
 	 */
-	public CustomSpan getSpan() {
+	public Span getSpan() {
 		return span;
 	}
 
 	/**
 	 * @param span the span to set
 	 */
-	public void setSpan(CustomSpan span) {
+	public void setSpan(Span span) {
 		this.span = span;
 	}
 
 	/**
 	 * @return the label
 	 */
-	public CustomLabel getLabel() {
+	public Label getLabel() {
 		return label;
 	}
 
 	/**
 	 * @param label the label to set
 	 */
-	public void setLabel(CustomLabel label) {
+	public void setLabel(Label label) {
 		this.label = label;
 	}
 

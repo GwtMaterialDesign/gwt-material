@@ -23,7 +23,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Document;
 
-import gwt.material.design.client.custom.AbstractIconButton;
+import gwt.material.design.client.base.AbstractIconButton;
 
 //@formatter:off
 /**

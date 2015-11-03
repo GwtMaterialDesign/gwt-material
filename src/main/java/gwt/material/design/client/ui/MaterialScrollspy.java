@@ -25,7 +25,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.MaterialWidget;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
 /**
@@ -78,7 +80,8 @@ public class MaterialScrollspy extends MaterialWidget {
 	interface MaterialScrollspyUiBinder extends UiBinder<Widget, MaterialScrollspy> {
 	}
 	
-	@UiField UnorderedList ulPanel;
+	@UiField
+	UnorderedList ulPanel;
 	
 	public MaterialScrollspy() {
 		initWidget(uiBinder.createAndBindUi(this));

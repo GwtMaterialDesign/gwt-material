@@ -32,7 +32,7 @@
 			width: 100%;
 		}
 	</ui:style>
-	<m:MaterialPanel ui:field="panel" align="CENTER"  addStyleNames="{style.panel} valign-wrapper">
+	<m:MaterialPanel ui:field="panel" textAlign="CENTER"  addStyleNames="{style.panel} valign-wrapper">
 		<m:MaterialPanel addStyleNames="valign center {style.container}"> 	
 			<m:MaterialIcon ui:field="icon" />
 		<m:MaterialTitle ui:field="title" addStyleNames="{style.title}" />

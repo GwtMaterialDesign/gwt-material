@@ -22,17 +22,17 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.custom.ComplexNav;
-import gwt.material.design.client.custom.HasType;
-import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.constants.SideNavType;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.mixin.CssTypeMixin;
-import gwt.material.design.client.custom.mixin.WavesMixin;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 
 //@formatter:off
@@ -58,7 +58,7 @@ import gwt.material.design.client.custom.mixin.WavesMixin;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
 */
 //@formatter:on
-public class MaterialSideNav extends ComplexNav implements HasWaves, HasType<SideNavType> {
+public class MaterialSideNav extends UnorderedList implements HasWaves, HasType<SideNavType> {
 
 	private boolean closeOnClick;
 	private int width;
@@ -67,10 +67,11 @@ public class MaterialSideNav extends ComplexNav implements HasWaves, HasType<Sid
 	private final WavesMixin<MaterialSideNav> wavesMixin = new WavesMixin<>(this);
 	
 	/**
-	 * Container for App Toolbar and App Sidebar , contains Material Links, Icons or any other material components
+	 * Container for App Toolbar and App Sidebar , contains Material Links,
+	 * Icons or any other material components.
 	 */
 	public MaterialSideNav() {
-		setElement(Document.get().createULElement());
+		super();
 		setStyleName("side-nav");
 	}
 	

@@ -21,11 +21,11 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasWaves;
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.custom.mixin.WavesMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
 //@formatter:off
 /**
 * Item for Tab Component, which usually contains icons, links or other navigation component.

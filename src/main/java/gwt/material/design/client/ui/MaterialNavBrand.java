@@ -20,9 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.CustomDiv;
-import gwt.material.design.client.custom.HasHref;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Div;
+import gwt.material.design.client.base.HasHref;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
@@ -47,7 +47,7 @@ import com.google.gwt.user.client.ui.HasText;
 //@formatter:on
 public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref {
 
-	private CustomDiv div = new CustomDiv();
+	private Div div = new Div();
 
 	/**
 	 * Material NavBrand is a component wherein you can pass a text / logo branding of your app

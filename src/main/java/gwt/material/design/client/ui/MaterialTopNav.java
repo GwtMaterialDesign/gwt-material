@@ -20,9 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.HasFontSize;
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.custom.mixin.FontSizeMixin;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.HasFontSize;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.core.client.GWT;
