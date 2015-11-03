@@ -25,6 +25,19 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.custom.MaterialWidget;
 
+//@formatter:off
+/**
+* Material Progress indicator to define intermediate and determinate progress bars
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+* <m:MaterialProgress />
+}
+* </pre>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
+* @author kevzlou7979
+*/
 public class MaterialProgress extends MaterialWidget {
 
 	private static MaterialProgressUiBinder uiBinder = GWT.create(MaterialProgressUiBinder.class);

@@ -29,6 +29,35 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.custom.mixin.WavesMixin;
 
+//@formatter:off
+/**
+* The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.
+
+* <h3>UiBinder Usage:</h3>
+* <pre>
+*{@code 
+
+<m:MaterialTab ui:field="tab"  backgroundColor="blue">
+	<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
+	<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
+	<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
+</m:MaterialTab>
+		
+<i:Panel name="tab1">
+	<i:Title title="Tab 1" description="Tab 1 Content"/>
+</i:Panel>
+<i:Panel name="tab2">
+	<i:Title title="Tab 2" description="Tab 2 Content"/>
+</i:Panel>
+<i:Panel name="tab3">
+	<i:Title title="Tab 3" description="Tab 3 Content"/>
+</i:Panel>
+
+}
+* </pre>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
+* @author kevzlou7979
+*/
 public class MaterialTab extends ComplexWidget implements HasWaves {
 
 	private int tabIndex;
