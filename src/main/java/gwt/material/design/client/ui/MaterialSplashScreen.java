@@ -30,6 +30,26 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+//@formatter:off
+/**
+* Material Splashcreen - a initial screen that act as a loading screen in order for your apps to load fully
+*
+* <p>
+* <h3>Java Code Usage:</h3>
+* <pre>
+* {@code 
+* 
+* MyComposite main = new MyComposite();
+* new MaterialSplashScreen(splashTime, main, logo, appName, appDescription, color, textColor);
+* 
+* }
+* </pre>
+* </p>
+*
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
+*/
+//@formatter:on
 public class MaterialSplashScreen extends Composite {
 
 	private static MaterialSplashScreenUiBinder uiBinder = GWT.create(MaterialSplashScreenUiBinder.class);

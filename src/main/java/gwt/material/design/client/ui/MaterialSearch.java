@@ -40,6 +40,23 @@ import gwt.material.design.client.custom.HasIcon;
 import gwt.material.design.client.custom.HasPlaceholder;
 import gwt.material.design.client.custom.MaterialWidget;
 
+//@formatter:off
+/**
+* Material Search is a value box component that returs a result based on your search
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* <pre>
+* {@code 
+* <m:MaterialSearch placeholder="Sample"/>
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+*/
+//@formatter:on
 public class MaterialSearch extends MaterialWidget implements HasText, HasKeyUpHandlers, HasIcon, HasPlaceholder {
 
 	private static MaterialSearchUiBinder uiBinder = GWT

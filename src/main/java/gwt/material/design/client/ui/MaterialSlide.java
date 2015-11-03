@@ -26,6 +26,40 @@ import gwt.material.design.client.custom.ComplexWidget;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
+//@formatter:off
+/**
+* Our slider is a simple and elegant image carousel. You can also have captions that will be transitioned on their own depending on their alignment. You can also have indicators that show up on the bottom of the slider. Note: This is also Hammer.js compatible! Try swiping with your finger to scroll through the slider.
+*
+* <h3>UiBinder Usage:</h3>
+* <pre>
+*{@code<m:MaterialSection>
+* 	<m:MaterialSlide um:Materialfield="sliderPanel" fullScreen="false">
+		<m:MaterialSlideItem>
+			<m:MaterialImage url="http://lorempixel.com/580/250/nature/1"/>
+			<m:MaterialSlideCaption align="left">
+			    <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+			</m:MaterialSlideCaption>
+		</m:MaterialSlideItem>
+		<m:MaterialSlideItem>
+			<m:MaterialImage url="http://lorempixel.com/580/250/nature/2"/>
+			<m:MaterialSlideCaption align="center">
+			    <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+			</m:MaterialSlideCaption>
+		</m:MaterialSlideItem>
+		<m:MaterialSlideItem>
+			<m:MaterialImage url="http://lorempixel.com/580/250/nature/3"/>
+			<m:MaterialSlideCaption align="right">
+			 	<m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+			</m:MaterialSlideCaption>
+		</m:MaterialSlideItem>
+	</m:MaterialSlide>
+* }
+* </pre>
+*
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
+*/
+//@formatter:on
 public class MaterialSlide extends ComplexWidget {
 
 	private UnorderedList ul = new UnorderedList();
