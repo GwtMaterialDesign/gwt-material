@@ -22,7 +22,6 @@ package gwt.material.design.client.base;
 
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
 import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.WavesType;
@@ -48,15 +47,13 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.HasText;
 
 /**
  * @author Ben Dol
  */
 public abstract class AbstractButton extends ComplexWidget implements HasHref, HasGrid, HasActivates,
-		HasWaves, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasText, HasDoubleClickHandlers {
+		HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasDoubleClickHandlers {
 
-	private final WavesMixin<AbstractButton> wavesMixin = new WavesMixin<>(this);
 	private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
 	private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
 
@@ -65,11 +62,31 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	/** Creates button with RAISED type.
 	 */
 	protected AbstractButton() {
-		this(ButtonType.RAISED);
+		setElement(createElement());
+	}
+
+	protected AbstractButton(String text, String bgColor, WavesType waves) {
+		this(null, text, bgColor);
+		setWaves(waves);
+	}
+
+	protected AbstractButton(final ButtonType type, String text, String bgColor, WavesType waves) {
+		this(type, text, bgColor);
+		setWaves(waves);
+	}
+
+	protected AbstractButton(final ButtonType type, String text, String bgColor) {
+		this(type, text);
+		setBackgroundColor(bgColor);
+	}
+
+	protected AbstractButton(final ButtonType type, String text) {
+		this(type);
+		setText(text);
 	}
 
 	protected AbstractButton(final ButtonType type) {
-		setElement(createElement());
+		this();
 		setType(type);
 	}
 
@@ -93,16 +110,6 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	@Override
 	public String getTarget() {
 		return getElement().getAttribute("target");
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 
 	@Override
@@ -142,12 +149,10 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 		return size;
 	}
 
-	@Override
 	public String getText() {
 		return getElement().getInnerText();
 	}
 
-	@Override
 	public void setText(String text) {
 		getElement().setInnerText(text);
 	}
@@ -189,9 +194,6 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 
 	@Override
 	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
-		// TODO Auto-generated method stub
 		return addDomHandler(handler, DoubleClickEvent.getType());
 	}
-	
-	
 }

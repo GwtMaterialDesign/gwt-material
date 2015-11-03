@@ -1,4 +1,4 @@
-package gwt.material.design.client.constants;
+package gwt.material.design.client.base.mixin;
 
 /*
  * #%L
@@ -20,29 +20,30 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import gwt.material.design.client.base.helper.EnumHelper;
+import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.helper.StyleHelper;
 
 /**
- * @author kevzlou7979
  * @author Ben Dol
  */
-public enum ImageType implements CssType {
-	DEFAULT(""),
-	CIRCLE("circle"),
-	MATERIALBOXED("materialboxed");
+public class ToggleStyleMixin<H extends UIObject> extends AbstractMixin<H> {
 
-	private final String cssClass;
+    private String style;
 
-	ImageType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    public ToggleStyleMixin(final H widget, String style) {
+        super(widget);
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+        this.style = style;
+    }
 
-	public static ImageType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, ImageType.class, DEFAULT);
-	}
+    public void setOn(boolean on) {
+        uiObject.removeStyleName(style);
+        if(on) {
+            uiObject.addStyleName(style);
+        }
+    }
+
+    public boolean isOn() {
+        return StyleHelper.containsStyle(uiObject.getStyleName(), style);
+    }
 }

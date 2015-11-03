@@ -45,11 +45,11 @@ import com.google.gwt.dom.client.Style.Unit;
 * @author kevzlou7979
 */
 //@formatter:on
-public class MaterialTitle extends ComplexWidget implements HasTitle{
+public class MaterialTitle extends ComplexWidget implements HasTitle {
 
 	Heading header = new Heading(HeadingSize.H4);
 	Paragraph paragraph = new Paragraph();
-	
+
 	public MaterialTitle(){
 		setElement(Document.get().createDivElement());
 		header.setFontWeight(300);
@@ -57,24 +57,24 @@ public class MaterialTitle extends ComplexWidget implements HasTitle{
 		add(header);
 		add(paragraph);
 	}
-	
-	public MaterialTitle(String title, String description){
+
+	public MaterialTitle(String title, String description) {
 		this();
 		setTitle(title);
 		setDescription(description);
 	}
-	
-	public MaterialTitle(String title){
+
+	public MaterialTitle(String title) {
 		setTitle(title);
 	}
 
 	@Override
-	public void setDescription(String description){
+	public void setDescription(String description) {
 		paragraph.setText(description);
 	}
-	
+
 	@Override
-	public void setTitle(String title){
+	public void setTitle(String title) {
 		header.getElement().setInnerHTML(title);
 	}
 }

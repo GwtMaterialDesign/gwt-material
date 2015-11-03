@@ -38,11 +38,11 @@ import com.google.gwt.user.client.ui.Widget;
 <m:MaterialFooter backgroundColor="blue">
 	<m:MaterialRow>
 		<m:MaterialColumn grid="s12 m6 l6">
-			<m:MaterialTitle fontSize="0.7" color="white" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+			<m:MaterialTitle fontSize="0.7em" color="white" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
 			<m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="blue lighten-2" waves="light"/>
 		</m:MaterialColumn>
 		<m:MaterialColumn grid="s12 m6 l6">
-			<m:MaterialTitle fontSize="0.7" color="white" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+			<m:MaterialTitle fontSize="0.7em" color="white" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
 			<m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="blue lighten-2" waves="light"/>
 		</m:MaterialColumn>
 	</m:MaterialRow>

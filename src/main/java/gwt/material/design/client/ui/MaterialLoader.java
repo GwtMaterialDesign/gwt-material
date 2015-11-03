@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.RootPanel;
 
 //@formatter:off
+
 /**
 * 
 * <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.

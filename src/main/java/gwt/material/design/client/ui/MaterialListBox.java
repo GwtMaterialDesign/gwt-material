@@ -20,20 +20,19 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.base.HasColors;
-import gwt.material.design.client.base.HasGrid;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ListBox;
+import gwt.material.design.client.base.HasColors;
+import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.IdMixin;
 
 //@formatter:off
+
 /**
  * <p>Material ListBox is another dropdown component that will set / get the value depends on the selected index
  * <h3>UiBinder Usage:</h3>
@@ -98,7 +97,9 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 	public void setOld(boolean old) {
 		this.old = old;
 		if (old) {
-			this.addStyleName("browser-default input-field");
+			addStyleName("browser-default input-field");
+		} else {
+			removeStyleName("browser-default input-field");
 		}
 	}
 
@@ -126,7 +127,7 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 	public void onLoad() {
 		super.onLoad();
 		if (!old) {
-			createInternalChangeHandler(getElement());
+			createInternalChangeHandler(getId());
 		}
 		initializeMaterial();
 	}
@@ -148,20 +149,20 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 	}
 
 	public void initializeMaterial() {
-		initializeMaterial(getElement());
+		initializeMaterial(getId());
 	}
 	
 	/**
 	 * Creates the internal change handler needed to trigger change events for
 	 * Materialize CSS change events.
 	 */
-	protected native void createInternalChangeHandler(Element e) /*-{
+	protected native void createInternalChangeHandler(String id) /*-{
 		var that = this;
 		var callback = $entry(function() {
             that.@gwt.material.design.client.ui.MaterialListBox::onChangeInternal()();
 		});
 		
-		$wnd.jQuery(e).change(callback);
+		$wnd.jQuery('#' + id).change(callback);
 	}-*/;
 	
 	/**
@@ -169,9 +170,9 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 	 * called every time the contents of the list box
 	 * changes, to keep the Materialize CSS design updated.
 	 */
-	protected native void initializeMaterial(Element e) /*-{
-		$wnd.jQuery(document).ready(function(){
-			$wnd.jQuery(e).material_select();
+	protected native void initializeMaterial(String id) /*-{
+		$wnd.jQuery(document).ready(function() {
+			$wnd.jQuery('#' + id).material_select();
 		})
 	}-*/;
 }

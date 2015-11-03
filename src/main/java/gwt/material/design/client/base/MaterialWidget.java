@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.CenterOn;
 import gwt.material.design.client.constants.HideOn;
@@ -42,7 +43,7 @@ import gwt.material.design.client.base.mixin.ShadowMixin;
 import gwt.material.design.client.base.mixin.WavesMixin;
 
 public class MaterialWidget extends Composite implements Focusable, HasId, HasWaves, HasColors, HasTextAlign, HasEnabled,
-		HasGrid, HasInlineStyle, HasShadow, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn {
+		HasGrid, HasInlineStyle, HasShadow, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle {
 
 	private final IdMixin<MaterialWidget> idMixin = new IdMixin<>(this);
 	private final EnabledMixin<MaterialWidget> enabledMixin = new EnabledMixin<>(this);
@@ -58,6 +59,7 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	private final CssNameMixin<MaterialWidget, CenterOn> centerOnMixin = new CssNameMixin<>(this);
 	private final WavesMixin<MaterialWidget> wavesMixin = new WavesMixin<>(this);
 	private final FontSizeMixin<MaterialWidget> fontSizeMixin = new FontSizeMixin<>(this);
+	private final ToggleStyleMixin<MaterialWidget> circleMixin = new ToggleStyleMixin<>(this, "circle");
 
 	@Override
 	public void setId(String id) {
@@ -260,6 +262,11 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	}
 
 	@Override
+	public void setDisplay(Style.Display display) {
+		getElement().getStyle().setDisplay(display);
+	}
+
+	@Override
 	public void setOpacity(double opacity) {
 		getElement().getStyle().setOpacity(opacity);
 	}
@@ -282,5 +289,15 @@ public class MaterialWidget extends Composite implements Focusable, HasId, HasWa
 	@Override
 	public void setFontSize(double fontSize, Style.Unit unit) {
 		fontSizeMixin.setFontSize(fontSize, unit);
+	}
+
+	@Override
+	public void setCircle(boolean circle) {
+		circleMixin.setOn(circle);
+	}
+
+	@Override
+	public boolean isCircle() {
+		return circleMixin.isOn();
 	}
 }

@@ -20,7 +20,6 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-
 import gwt.material.design.client.base.HasColors;
 
 import com.google.gwt.user.client.ui.UIObject;
@@ -57,12 +56,12 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
     @Override
     public void setTextColor(String textColor) {
         if(this.textColor != null && !this.textColor.isEmpty()) {
-            uiObject.removeStyleName(this.textColor);
+            uiObject.removeStyleName(this.textColor + "-text");
         }
         this.textColor = textColor;
 
         if(textColor != null && !textColor.isEmpty()) {
-            uiObject.addStyleName(textColor);
+            uiObject.addStyleName(textColor + "-text");
         }
     }
 

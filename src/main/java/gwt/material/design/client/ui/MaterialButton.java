@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Document;
 
 import gwt.material.design.client.base.AbstractIconButton;
+import gwt.material.design.client.constants.ButtonType;
 
 //@formatter:off
 /**
@@ -55,12 +56,17 @@ import gwt.material.design.client.base.AbstractIconButton;
  */
 //@formatter:on
 public class MaterialButton extends AbstractIconButton {
-	
-	/**
-	 * Creates an empty button.
-	 */
+
+	public MaterialButton(ButtonType type, String text, MaterialIcon icon) {
+		super(type, text, icon);
+	}
+
+	public MaterialButton(ButtonType type) {
+		super(type);
+	}
+
 	public MaterialButton() {
-		super();
+		super(ButtonType.RAISED);
 	}
 
 	@Override

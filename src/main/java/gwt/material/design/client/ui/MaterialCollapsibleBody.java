@@ -20,24 +20,22 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasWaves;
-
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
+
 /**
 * CollapsibleItem element to define the body 
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleBody extends ComplexWidget implements HasWaves {
-
-	private final WavesMixin<MaterialCollapsibleBody> wavesMixin = new WavesMixin<>(this);
+public class MaterialCollapsibleBody extends ComplexWidget {
 	
 	/**
 	 * Creates empty collapsible body.
@@ -58,12 +56,16 @@ public class MaterialCollapsibleBody extends ComplexWidget implements HasWaves {
 	}
 
 	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
+	public void add(Widget child) {
+		if(child instanceof UnorderedList) {
+			for(Widget w : (UnorderedList) child) {
+				if(w instanceof ListItem) {
+					w.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+				}
+			}
+		} else if(child instanceof ListItem) {
+			child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+		}
+		super.add(child);
 	}
 }

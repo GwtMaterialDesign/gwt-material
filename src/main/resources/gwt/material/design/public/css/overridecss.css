@@ -746,3 +746,11 @@ a:hover,a:visited {
 .pull{
 	margin-top: -150px !important;
 }
+
+i[class*="waves-"].material-icons {
+	vertical-align: top;
+	width: initial;
+	height: auto;
+	text-align: center;
+	padding: 0.2em;
+}

@@ -20,14 +20,17 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.MaterialWindowHeader;
-import gwt.material.design.client.constants.ModalType;
-
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.MaterialWindowHeader;
+import gwt.material.design.client.constants.ModalType;
 
 //@formatter:off
+
 /**
 * Dialogs are content that are not original visible on a page but show up with extra information if needed. The transitions should make the appearance of the dialog make sense and not jarring to the user.
 * 
@@ -58,20 +61,24 @@ public class MaterialModal extends Widget {
 
 	private static HTMLPanel panel = new HTMLPanel("");
 
-	private boolean fixedFooter;
-
 	/**
 	 * Show the modal with composite as a content of the modal
 	 * @param type - Type of modal: FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW
 	 * @param composite - the content of the modal could be any kind of widgets
 	 * @param autoHideEnabled - set true if you want to be your modal closable when clicking outside
 	 */
-	public static void showModal(Widget composite, ModalType type, boolean autoHideEnabled) {
+	public static void showModal(Widget composite, ModalType type, final boolean autoHideEnabled) {
 		panel.clear();
 		confirmType(type);
 		panel.add(composite);
 		RootPanel.get().add(panel);
-		showModal(panel.getElement().getId(), autoHideEnabled);
+
+		Scheduler.get().scheduleDeferred(new Command() {
+			@Override
+			public void execute() {
+				showModal(panel.getElement(), autoHideEnabled);
+			}
+		});
 	}
 
 	/**
@@ -83,7 +90,8 @@ public class MaterialModal extends Widget {
 	 * @param headerColor - the color theme of the modal 
 	 * @param autoHideEnabled - set true if you want to be your modal closable when clicking outside
 	 */
-	public static void showWindow(Widget composite, ModalType type, String title, String headerColor, boolean autoHideEnabled) {
+	public static void showWindow(Widget composite, ModalType type, String title,
+								  String headerColor, final boolean autoHideEnabled) {
 		panel.clear();
 		switch (type) {
 			case WINDOW:
@@ -97,7 +105,13 @@ public class MaterialModal extends Widget {
 		}
 		panel.add(composite);
 		RootPanel.get().add(panel);
-		showModal(panel.getElement().getId(), autoHideEnabled);
+
+		Scheduler.get().scheduleDeferred(new Command() {
+			@Override
+			public void execute() {
+				showModal(panel.getElement(), autoHideEnabled);
+			}
+		});
 	}
 
 	/**
@@ -112,6 +126,7 @@ public class MaterialModal extends Widget {
 			break;
 		case BOTTOM_SHEET:
 			panel.getElement().setId("modalBottom");
+			panel.getElement().getStyle().setProperty("transform", "");
 			panel.setStyleName("modal bottom-sheet");
 			break;
 		case DEFAULT:
@@ -134,8 +149,8 @@ public class MaterialModal extends Widget {
 	/**
 	 * Show the modal with provided id.
 	 */
-	private static native void showModal(String id, boolean autoHideEnabled) /*-{
-		$wnd.jQuery('#' + id).openModal({
+	private static native void showModal(Element e, boolean autoHideEnabled) /*-{
+		$wnd.jQuery(e).openModal({
 			dismissible: autoHideEnabled
 		});
 	}-*/;
@@ -143,8 +158,8 @@ public class MaterialModal extends Widget {
 	/**
 	 * Closing the modal with provided id.
 	 */
-	public static native void closeModal(String id) /*-{
-		$wnd.jQuery('#' + id).closeModal();
+	public static native void closeModal(Element e) /*-{
+		$wnd.jQuery(e).closeModal();
 	}-*/;
 
 	/**
@@ -152,6 +167,6 @@ public class MaterialModal extends Widget {
 	 */
 	public static void closeModal() {
 		panel.clear();
-		closeModal(panel.getElement().getId());
+		closeModal(panel.getElement());
 	}
 }

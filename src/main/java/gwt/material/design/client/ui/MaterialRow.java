@@ -20,12 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasWaves;
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.mixin.WavesMixin;
 
 //@formatter:off
 /**
@@ -47,22 +44,10 @@ import gwt.material.design.client.base.mixin.WavesMixin;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialRow extends ComplexWidget implements HasWaves {
-
-	private final WavesMixin<MaterialRow> wavesMixin = new WavesMixin<>(this);
+public class MaterialRow extends ComplexWidget {
 
 	public MaterialRow(){
 		super(Document.get().createDivElement());
 		setStyleName("row");
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
 	}
 }

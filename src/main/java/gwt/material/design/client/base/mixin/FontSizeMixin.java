@@ -37,6 +37,8 @@ public class FontSizeMixin<T extends Widget & HasFontSize> extends AbstractMixin
     public void setFontSize(String fontSize) {
         double value = StyleHelper.getMeasurementValue(fontSize);
         Style.Unit unit = StyleHelper.getMeasurementUnit(fontSize);
+
+        assert unit != null : "Font size did not contain a unit.";
         setFontSize(value, unit);
     }
 

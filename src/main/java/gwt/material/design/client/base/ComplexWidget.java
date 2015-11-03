@@ -27,6 +27,8 @@ import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.CenterOn;
 import gwt.material.design.client.constants.HideOn;
@@ -40,9 +42,11 @@ import gwt.material.design.client.base.mixin.ScrollspyMixin;
 import gwt.material.design.client.base.mixin.SeparatorMixin;
 import gwt.material.design.client.base.mixin.ShadowMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.WavesType;
 
 public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
-        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn {
+        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
+        HasCircle, HasWaves {
 
     private final IdMixin<ComplexWidget> idMixin = new IdMixin<>(this);
     private final EnabledMixin<ComplexWidget> enabledMixin = new EnabledMixin<>(this);
@@ -57,6 +61,8 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     private final CssNameMixin<ComplexWidget, ShowOn> showOnMixin = new CssNameMixin<>(this);
     private final CssNameMixin<ComplexWidget, CenterOn> centerOnMixin = new CssNameMixin<>(this);
     private final FontSizeMixin<ComplexWidget> fontSizeMixin = new FontSizeMixin<>(this);
+    private final ToggleStyleMixin<ComplexWidget> circleMixin = new ToggleStyleMixin<>(this, "circle");
+    private final WavesMixin<ComplexWidget> wavesMixin = new WavesMixin<>(this);
 
     public ComplexWidget() {
     }
@@ -221,6 +227,11 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     }
 
     @Override
+    public void setDisplay(Style.Display display) {
+        getElement().getStyle().setDisplay(display);
+    }
+
+    @Override
     public void setOpacity(double opacity) {
         getElement().getStyle().setOpacity(opacity);
     }
@@ -293,5 +304,25 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     @Override
     public void setFontSize(double fontSize, Style.Unit unit) {
         fontSizeMixin.setFontSize(fontSize, unit);
+    }
+
+    @Override
+    public void setCircle(boolean circle) {
+        circleMixin.setOn(circle);
+    }
+
+    @Override
+    public boolean isCircle() {
+        return circleMixin.isOn();
+    }
+
+    @Override
+    public void setWaves(WavesType waves) {
+        wavesMixin.setWaves(waves);
+    }
+
+    @Override
+    public WavesType getWaves() {
+        return wavesMixin.getWaves();
     }
 }

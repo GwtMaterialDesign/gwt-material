@@ -19,11 +19,12 @@
   -->
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:m="urn:import:gwt.material.design.client.ui">
+             xmlns:m="urn:import:gwt.material.design.client.ui"
+             xmlns:m.html="urn:import:gwt.material.design.client.ui.html">
 	<ui:style>
 	
 	</ui:style>
-	<m:UnorderedList ui:field="ulPanel" addStyleNames="section table-of-contents">
+	<m.html:UnorderedList ui:field="ulPanel" addStyleNames="section table-of-contents">
 		 
-	</m:UnorderedList>
+	</m.html:UnorderedList>
 </ui:UiBinder> 

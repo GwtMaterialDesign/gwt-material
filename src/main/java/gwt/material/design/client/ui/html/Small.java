@@ -1,10 +1,10 @@
-package gwt.material.design.client.constants;
+package gwt.material.design.client.ui.html;
 
 /*
  * #%L
- * GwtMaterial
+ * GwtBootstrap3
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2013 GwtBootstrap3
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,27 +20,17 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import gwt.material.design.client.base.helper.EnumHelper;
+import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.base.AbstractTextWidget;
 
-/**
- * @author Ben Dol
- */
-public enum RadioButtonType implements CssType {
-	NO_GAP(""),
-	GAP("with-gap");
+public class Small extends AbstractTextWidget {
 
-	private final String cssClass;
+    public Small() {
+        super(Document.get().createElement("small"));
+    }
 
-	RadioButtonType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
-
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
-
-	public static RadioButtonType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, RadioButtonType.class, NO_GAP);
-	}
+    public Small(final String text) {
+        this();
+        setHTML(text);
+    }
 }

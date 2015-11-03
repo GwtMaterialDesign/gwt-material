@@ -1,4 +1,4 @@
-package gwt.material.design.client.constants;
+package gwt.material.design.client.base;
 
 /*
  * #%L
@@ -20,29 +20,9 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import gwt.material.design.client.base.helper.EnumHelper;
+public interface HasCircle {
 
-/**
- * @author kevzlou7979
- * @author Ben Dol
- */
-public enum ImageType implements CssType {
-	DEFAULT(""),
-	CIRCLE("circle"),
-	MATERIALBOXED("materialboxed");
+    void setCircle(boolean circle);
 
-	private final String cssClass;
-
-	ImageType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
-
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
-
-	public static ImageType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, ImageType.class, DEFAULT);
-	}
+    boolean isCircle();
 }

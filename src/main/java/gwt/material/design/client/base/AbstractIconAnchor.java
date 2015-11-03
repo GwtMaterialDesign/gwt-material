@@ -56,7 +56,6 @@ public abstract class AbstractIconAnchor extends AbstractAnchor implements HasIc
 
 	public AbstractIconAnchor() {
 		super();
-		setHref("#");
 	}
 
 	@Override

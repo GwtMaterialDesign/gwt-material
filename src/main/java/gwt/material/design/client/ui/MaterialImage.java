@@ -59,7 +59,8 @@ public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpac
 	/**
 	 * Creates an empty image.
 	 */
-	public MaterialImage() {}
+	public MaterialImage() {
+	}
 
 	/**
 	 * Creates a simple image.

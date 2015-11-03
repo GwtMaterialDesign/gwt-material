@@ -38,18 +38,14 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
-import gwt.material.design.client.constants.WavesType;
 
 /**
  * @author Ben Dol
  */
 public abstract class AbstractAnchor extends ComplexWidget implements HasHref, HasGrid, HasActivates,
-		HasWaves, HasClickHandlers, HasAllMouseHandlers, HasText {
+		HasClickHandlers, HasAllMouseHandlers {
 
-	private final WavesMixin<AbstractAnchor> wavesMixin = new WavesMixin<>(this);
 	private final ActivatesMixin<AbstractAnchor> activatesMixin = new ActivatesMixin<>(this);
 
 	protected AbstractAnchor() {
@@ -77,16 +73,6 @@ public abstract class AbstractAnchor extends ComplexWidget implements HasHref, H
 	}
 
 	@Override
-	public void setWaves(WavesType waves) {
-		wavesMixin.setWaves(waves);
-	}
-
-	@Override
-	public WavesType getWaves() {
-		return wavesMixin.getWaves();
-	}
-
-	@Override
 	public void setActivates(String activates) {
 		removeStyleName(getActivates() + " dropdown-button");
 		activatesMixin.setActivates(activates);
@@ -98,12 +84,10 @@ public abstract class AbstractAnchor extends ComplexWidget implements HasHref, H
 		return activatesMixin.getActivates();
 	}
 
-	@Override
 	public String getText() {
 		return getElement().getInnerText();
 	}
 
-	@Override
 	public void setText(String text) {
 		getElement().setInnerText(text);
 	}
