@@ -20,7 +20,6 @@ package gwt.material.design.client.ui.animate;
  * #L%
  */
 
-import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.ui.ListItem;
 import gwt.material.design.client.ui.UnorderedList;
 
@@ -78,8 +77,8 @@ public class MaterialAnimator {
 				}
 			}
 		}.schedule(delayMillis);
-		w.removeStyleName(MaterialResources.INSTANCE.materialcss().pull());
-		w.removeStyleName(MaterialResources.INSTANCE.materialcss().materialScale());
+		w.removeStyleName("materialcss");
+		w.removeStyleName("materialcss");
 	}
 	
 	protected static native void closeGrid(String name) /*-{

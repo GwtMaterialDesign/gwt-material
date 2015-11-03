@@ -20,10 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.mixin.GridMixin;
-import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.constants.CheckBoxType;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
@@ -127,7 +126,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
 	 */
 	public void setOld(String old) {
 		this.old = old;
-		this.addStyleName(MaterialResources.INSTANCE.materialcss().oldCheckBox());
+		this.addStyleName("oldCheckBox");
 	}
 
 	/**

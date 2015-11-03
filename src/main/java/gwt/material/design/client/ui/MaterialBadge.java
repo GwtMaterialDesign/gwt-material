@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.resources.MaterialResources;
 
 import com.google.gwt.user.client.ui.HasText;
 
@@ -47,7 +46,6 @@ public class MaterialBadge extends CustomSpan implements HasText {
 	 */
 	public MaterialBadge() {
 		setStyleName("badge sideBarBadge");
-		addStyleName(MaterialResources.INSTANCE.materialcss().badge());
 	}
 
 	/**

@@ -240,7 +240,7 @@ table .gwt-CheckBox label {
  	-webkit-transition: 1s all;
  	-moz-transition: 1s all;
 }
-/**RESPONSIVE DATAGRID **/
+/**RESPONSIVE QUERIES **/
 @media only screen and (max-width: 992px) {
 	.responsive-table table {
 		width: 100%;
@@ -281,29 +281,31 @@ table .gwt-CheckBox label {
   		width: 80% !important;
   		height: 100% !important;
 	}
-	
-}
-
-@media only screen and (max-width: 992px) {
 	.responsive-table	table thead {
 		border: 0;
 		border-right: 1px solid #d0d0d0;
 	}
-}
-
-@media only screen and (max-width: 992px) {
 	.responsive-table	table thead tr {
 		display: block;
 		padding: 0 10px 0 0;
 	}
-}
-
-@media only screen and (max-width: 992px) {
 	.responsive-table table thead {
 		display: block;
 		float: left;
 	}
+	.loginPanel {
+		width: 90% !important;
+	}
+	
+	header,main,footer {
+		padding-left: 0;
+	}
+	
+	.mobileNav{
+		overflow: auto !important;
+	}
 }
+
 
 /** Image Slider **/
 .slider .indicators .indicator-item.active {
@@ -665,6 +667,11 @@ a,a:visited {
 	background-repeat: no-repeat;
 }
 
+.oldCheckBox input{
+	position: initial !important;
+  	opacity: 0 !important;
+}
+
 .floatingButtonsItem ul li div {
 	transform: scale(0.4) translateY(40px);
 	-moz-transform: scale(0.4) translateY(40px);
@@ -750,3 +757,31 @@ a:hover,a:visited {
 	-moz-box-shadow: none !important;
 }
 
+/** Animations */
+.materialScaleInitial, .pullInitial{
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+}
+
+.materialScaleInitial{
+	transform: scale(0);
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	transform-origin: 50% 10%;
+	-webkit-transform-origin: 50% 10%;
+	-moz-transform-origin: 50% 10%;
+}
+
+.materialScale{
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+}
+
+.pullInitial{
+	margin-top: 500px !important;
+}
+.pull{
+	margin-top: -150px !important;
+}

@@ -20,9 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.custom.MaterialWidget;
-import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.constants.ImageType;
+import gwt.material.design.client.custom.MaterialWidget;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -46,7 +45,6 @@ public class MaterialTopNav extends MaterialWidget {
 	@UiField HTMLPanel panel, customPanel;
 	@UiField MaterialColumn menuPanel;
 
-	private String color = "blue";
 	private String type, url, fontSize = "";
 	private ImageResource resource;
 	
@@ -119,7 +117,7 @@ public class MaterialTopNav extends MaterialWidget {
 	}
 	
 	private void generateBackground(String url) {
-		panel.addStyleName(MaterialResources.INSTANCE.materialcss().fullBackground());
+		panel.addStyleName("fullBackground");
 		panel.getElement().setAttribute("style", "background-image: url(" + url + "); background-size: 100%;" );
 	}
 
