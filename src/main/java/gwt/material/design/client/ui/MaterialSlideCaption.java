@@ -24,6 +24,14 @@ import gwt.material.design.client.custom.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
 
+//@formatter:off
+/**
+* Material Slide Caption is a child component of Material Slide Item that contains title and description labels
+*
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
+*/
+//@formatter:on
 public class MaterialSlideCaption extends ComplexWidget {
 
 	public MaterialSlideCaption() {

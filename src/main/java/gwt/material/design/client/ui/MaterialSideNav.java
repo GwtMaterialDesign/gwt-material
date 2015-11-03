@@ -34,12 +34,30 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.custom.mixin.CssTypeMixin;
 import gwt.material.design.client.custom.mixin.WavesMixin;
 
+
+//@formatter:off
 /**
- * SideNav is a material component that gives you a lists
- * of menus and other navigation components.
- *
- * @author Ben Dol
- */
+* SideNav is a material component that gives you a lists of menus and other navigation components.
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* <pre>
+* {@code 
+* 
+* <m:MaterialSideNav ui:field="sideNav" width="280" name="mysidebar"  type="OPEN" closeOnClick="false">
+* 	<m:MaterialLink href="#about" iconPosition="left" icon="info_outline" text="About" textColor="blue"  />
+* 	<m:MaterialLink href="#gettingStarted" iconPosition="left" icon="cloud_download" text="Getting Started" textColor="blue"  >		
+* </m:MaterialSideNav>
+* 
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+* @author Ben Dol
+* @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
+*/
+//@formatter:on
 public class MaterialSideNav extends ComplexNav implements HasWaves, HasType<SideNavType> {
 
 	private boolean closeOnClick;

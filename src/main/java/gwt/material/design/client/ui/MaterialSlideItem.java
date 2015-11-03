@@ -24,6 +24,14 @@ import gwt.material.design.client.custom.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
 
+//@formatter:off
+/**
+* Material Slide Item is a child component of Material Slide that contains Image and Material Slide Caption components
+*
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
+*/
+//@formatter:on
 public class MaterialSlideItem extends ComplexWidget {
 
 	public MaterialSlideItem(){

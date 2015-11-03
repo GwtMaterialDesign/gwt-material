@@ -27,7 +27,7 @@ import gwt.material.design.client.custom.helper.EnumHelper;
  * @author Ben DOl
  */
 public enum WavesType implements Type, Style.HasCssName {
-	DEFAULT(""),
+	DEFAULT("default"),
 	LIGHT("waves-light"),
 	RED("waves-red"),
 	YELLOW("waves-yellow"),

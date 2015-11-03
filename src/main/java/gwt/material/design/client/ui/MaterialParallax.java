@@ -30,6 +30,26 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.custom.MaterialWidget;
 
+//@formatter:off
+/**
+* Mateiral Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling. Check out the demo to get a better idea of it.
+*
+* <h3>UiBinder Usage:</h3>
+* <pre>
+* {@code
+
+<m:MaterialParallax url="http://mayastepien.nl/googlecalendar/google-drinks.jpg" height="400">
+	<m:content>
+		<m:MaterialTitle title="Parallax" description="Parallax is an effect where the background content orimage in this case, is moved at a different speed than the foreground content while scrolling."/>
+	</m:content>
+</m:MaterialParallax>
+
+* }
+*<pre>
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#showcase">Material Parallax</a>
+*/
+//@formatter:on
 public class MaterialParallax extends MaterialWidget {
 
 	private static MaterialParallaxUiBinder uiBinder = GWT.create(MaterialParallaxUiBinder.class);

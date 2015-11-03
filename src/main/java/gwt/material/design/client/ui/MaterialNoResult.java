@@ -31,6 +31,23 @@ import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.custom.HasIcon;
 import gwt.material.design.client.custom.MaterialWidget;
 
+//@formatter:off
+/**
+* 
+* <p>Material No result is a component that will have to display once content is empty.
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+<m:MaterialNoResult icon="polymer" title="No Inbox" description="You dont have new message" backgroundColor="blue"/>
+}
+</pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#no-result">Material No Result</a>
+*/
+//@formatter:on
 public class MaterialNoResult extends MaterialWidget implements HasIcon {
 
 	private static MaterialNoResultUiBinder uiBinder = GWT

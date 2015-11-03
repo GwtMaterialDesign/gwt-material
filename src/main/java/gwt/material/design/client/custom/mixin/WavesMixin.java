@@ -50,7 +50,7 @@ public class WavesMixin<T extends Widget & HasWaves> extends AbstractMixin<T> im
 
         if(waves != null) {
             uiObject.addStyleName(Waves.WAVES_STYLE);
-            uiObject.addStyleName("waves-" + waves.getCssName());
+            uiObject.addStyleName(waves.getCssName());
             Waves.detectAndApply(uiObject);
 
             // Scan the top layer for more Wave widgets
