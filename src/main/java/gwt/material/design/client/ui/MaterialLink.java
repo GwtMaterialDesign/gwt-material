@@ -37,11 +37,11 @@ import com.google.gwt.dom.client.Style.Display;
 * <pre>
 * {@code 
 * Links
-* <m:MaterialLink2 href="#normal" text="Normal Link" textColor="red" icon="polymer" iconPosition="left" grid=" "/>
+* <m:MaterialLink href="#normal" text="Normal Link" textColor="red" icon="polymer" iconPosition="left" grid=" "/>
 * 
-* <m:MaterialLink2 href="#material" text="Link with Href" textColor="red" icon="polymer" iconPosition="left" grid=" "/>
+* <m:MaterialLink href="#material" text="Link with Href" textColor="red" icon="polymer" iconPosition="left" grid=" "/>
 * 
-* <m:MaterialLink2 href="#design" text="Link with Different Icon color" textColor="black" icon="polymer" iconPosition="left" iconColor="red" grid=" "/>}
+* <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="black" icon="polymer" iconPosition="left" iconColor="red" grid=" "/>}
 * </pre>
 * </p>
 * 

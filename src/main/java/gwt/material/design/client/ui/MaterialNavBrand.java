@@ -28,6 +28,23 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.HasText;
 
+//@formatter:off
+/**
+* 
+* <p>Material NavBrand is a child of MaterialNavBar that will contain text or image logo
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+<m:MaterialNavBrand href="#Test" align="left">Title</m:MaterialNavBrand>
+}
+</pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
+*/
+//@formatter:on
 public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref {
 
 	private CustomDiv div = new CustomDiv();

@@ -25,6 +25,28 @@ import gwt.material.design.client.custom.ComplexNav;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
+//@formatter:off
+/**
+* 
+* <p>Material NavSection is a child of MaterialNavBar that will contain toolbar items such as link, icon and other components
+* <h3>UiBinder Usage:</h3>
+* 
+* <pre>
+* {@code 
+<m:MaterialNavSection align="right">
+	<m:MaterialLink  icon="mdi-action-account-circle" iconPosition="left" text="Account"  textColor="white" waves="light"/>
+	<m:MaterialLink  icon="mdi-action-autorenew" iconPosition="left" text="Refresh" textColor="white" waves="light"/>
+	<m:MaterialLink  icon="mdi-action-search" tooltip="Menu" textColor="white" waves="light"/>
+	<m:MaterialLink  icon="mdi-navigation-more-vert" tooltip="Starter" textColor="white" waves="light"/>
+</m:MaterialNavSection>
+}
+</pre>
+* </p>
+* 
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
+*/
+//@formatter:on
 public class MaterialNavSection extends ComplexNav {
 
 	/**
