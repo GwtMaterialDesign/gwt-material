@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasColors;
 
 import com.google.gwt.dom.client.Document;
 

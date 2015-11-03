@@ -21,9 +21,9 @@ package gwt.material.design.client.custom.mixin;
  */
 
 
-import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.custom.HasActivates;
-import gwt.material.design.client.custom.HasGrid;
+
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author Ben Dol

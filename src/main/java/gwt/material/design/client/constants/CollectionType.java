@@ -20,7 +20,6 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.custom.helper.EnumHelper;
 
 /**

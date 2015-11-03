@@ -20,8 +20,6 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.UIObject;
 
 public interface HasError {
 

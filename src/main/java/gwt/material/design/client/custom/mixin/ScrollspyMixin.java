@@ -21,10 +21,10 @@ package gwt.material.design.client.custom.mixin;
  */
 
 
-import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.custom.HasGrid;
 import gwt.material.design.client.custom.HasScrollspy;
 import gwt.material.design.client.custom.helper.StyleHelper;
+
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author Ben Dol

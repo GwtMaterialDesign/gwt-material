@@ -21,11 +21,10 @@ package gwt.material.design.client.custom.mixin;
  */
 
 
-import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.ShowOn;
-import gwt.material.design.client.custom.HasHideOn;
 import gwt.material.design.client.custom.HasShowOn;
+
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author Ben Dol

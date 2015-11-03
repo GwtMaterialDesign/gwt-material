@@ -23,13 +23,11 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
 import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.Waves;
-import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
 /**

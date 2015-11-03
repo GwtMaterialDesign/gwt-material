@@ -22,17 +22,10 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.ComplexWidget;
-import gwt.material.design.client.custom.HasAlign;
-import gwt.material.design.client.custom.HasColors;
-import gwt.material.design.client.custom.HasShadow;
 import gwt.material.design.client.custom.HasWaves;
+import gwt.material.design.client.custom.mixin.WavesMixin;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.HasName;
-import com.google.gwt.user.client.ui.HasVisibility;
-import gwt.material.design.client.custom.Waves;
-import gwt.material.design.client.custom.mixin.WavesMixin;
 
 //@formatter:off
 /**

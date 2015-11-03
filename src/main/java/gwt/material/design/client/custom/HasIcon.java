@@ -20,12 +20,12 @@ package gwt.material.design.client.custom;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.MaterialIcon;
+
+import com.google.gwt.dom.client.Style;
 
 public interface HasIcon {
 

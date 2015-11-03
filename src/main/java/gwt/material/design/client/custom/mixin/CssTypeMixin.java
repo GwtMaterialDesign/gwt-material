@@ -21,10 +21,10 @@ package gwt.material.design.client.custom.mixin;
  */
 
 
-import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.constants.CssType;
-import gwt.material.design.client.constants.Type;
 import gwt.material.design.client.custom.HasType;
+
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author Ben Dol

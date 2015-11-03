@@ -21,12 +21,9 @@ package gwt.material.design.client.custom.mixin;
  */
 
 
-import com.google.gwt.user.client.ui.UIObject;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.custom.HasColors;
-import gwt.material.design.client.custom.HasWaves;
-import gwt.material.design.client.custom.Waves;
+
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author Ben Dol

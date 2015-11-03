@@ -21,10 +21,9 @@ package gwt.material.design.client.custom.mixin;
  */
 
 
-import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.constants.Alignment;
-import gwt.material.design.client.custom.HasAlign;
 import gwt.material.design.client.custom.HasId;
+
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author Ben Dol

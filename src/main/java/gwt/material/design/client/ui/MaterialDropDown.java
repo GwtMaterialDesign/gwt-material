@@ -20,7 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 import gwt.material.design.client.custom.ComplexNav;
-import gwt.material.design.client.custom.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;

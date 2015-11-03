@@ -20,12 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.constants.NavBarType;
 import gwt.material.design.client.custom.CustomAnchor;
 import gwt.material.design.client.custom.CustomHeader;
 import gwt.material.design.client.custom.CustomNav;
-import gwt.material.design.client.custom.HasColors;
 import gwt.material.design.client.custom.HasLoader;
-import gwt.material.design.client.constants.NavBarType;
+import gwt.material.design.client.custom.HasType;
+import gwt.material.design.client.custom.MaterialWidget;
 
 import java.util.Iterator;
 
@@ -33,11 +34,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.custom.HasType;
-import gwt.material.design.client.custom.MaterialWidget;
 
 public class MaterialNavBar extends MaterialWidget implements HasWidgets, HasLoader, HasType<NavBarType> {
 

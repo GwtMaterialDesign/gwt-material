@@ -20,9 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import gwt.material.design.client.custom.ComplexWidget;
+
+import com.google.gwt.dom.client.Document;
 //@formatter:off
 /**
  * The section class is used for simple top and bottom padding. Just add

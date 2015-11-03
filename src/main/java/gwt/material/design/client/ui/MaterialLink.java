@@ -20,19 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.custom.AbstractButton;
 import gwt.material.design.client.custom.AbstractIconButton;
-import gwt.material.design.client.custom.CustomSpan;
-import gwt.material.design.client.custom.HasIcon;
-import gwt.material.design.client.custom.HasSeparator;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
