@@ -26,4 +26,6 @@ public interface HasDismissable {
 	 * Set dismissable when swiping left / right using hammer.js.
 	 */
 	void setDismissable(boolean dismissable);
+
+	boolean isDismissable();
 }

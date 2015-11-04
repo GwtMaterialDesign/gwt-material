@@ -24,27 +24,26 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasSeparator;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.base.helper.StyleHelper;
 
 //@formatter:off
 
 /**
- * We have included 740 Material Design Icons courtesy of Google. You can download them directly from the Material Design specs.
- * <h3>UiBinder Usage:</h3>
+ * We have included 740 Material Design Icons courtesy of Google.
+ * You can download them directly from the Material Design specs.
  *
+ * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code
- * <m:MaterialIcon waves="light" icon="polymer"/>
+ *{@code<m:MaterialIcon waves="light" icon="polymer"/>
  * <m:MaterialIcon waves="light" icon="polymer" textColor="blue" type="CIRCLE"/>
- * <m:MaterialIcon waves="light" icon="polymer" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="bottom"/>
- * }
+ * <m:MaterialIcon waves="light" icon="polymer" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="bottom"/>}
  * </pre>
  *
  * @author kevzlou7979
@@ -55,19 +54,20 @@ import gwt.material.design.client.base.helper.StyleHelper;
 //@formatter:on
 public class MaterialIcon extends AbstractButton implements HasSeparator, HasIcon {
 
-	private IconSize size;
-	private IconPosition position;
+	private final CssNameMixin<MaterialIcon, IconPosition> posMixin = new CssNameMixin<>(this);
+	private final CssNameMixin<MaterialIcon, IconSize> sizeMixin = new CssNameMixin<>(this);
+	private final ToggleStyleMixin<MaterialIcon> prefixMixin = new ToggleStyleMixin<>(this, "prefix");
 
 	/**
 	 * Creates an empty icon.
 	 */
 	public MaterialIcon() {
 		super();
-		addStyleName("material-icons circle");
+		addStyleName("material-icons");
 	}
-	
+
 	/**
-	 * Sets a simple icon with black textcolor.
+	 * Sets a simple icon with a given type.
 	 */
 	public MaterialIcon(IconType icon) {
 		this();
@@ -101,26 +101,12 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 
 	@Override
 	public void setIconPosition(IconPosition position) {
-		if(this.position != null) {
-			removeStyleName(this.position.getCssName());
-		}
-		this.position = position;
-
-		if(position != null) {
-			addStyleName(position.getCssName());
-		}
+		posMixin.setCssName(position);
 	}
 
 	@Override
 	public void setIconSize(IconSize size) {
-		if(this.size != null) {
-			removeStyleName(this.size.getCssName());
-		}
-		this.size = size;
-
-		if(size != null) {
-			addStyleName(size.getCssName());
-		}
+		sizeMixin.setCssName(size);
 	}
 
 	@Override
@@ -135,25 +121,11 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 
 	@Override
 	public void setIconPrefix(boolean prefix) {
-		removeStyleName("prefix");
-
-		if(prefix) {
-			addStyleName("prefix");
-		}
+		prefixMixin.setOn(prefix);
 	}
 
 	@Override
 	public boolean isIconPrefix() {
-		return StyleHelper.containsStyle(getStyleName(), "prefix");
-	}
-
-	@Override
-	public void setWaves(WavesType waves) {
-		super.setWaves(waves);
-	}
-
-	@Override
-	public void setEnabled(boolean enabled) {
-		super.setEnabled(enabled);
+		return prefixMixin.isOn();
 	}
 }

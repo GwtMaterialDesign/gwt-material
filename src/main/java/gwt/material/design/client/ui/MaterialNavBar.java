@@ -24,6 +24,7 @@ import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasLoader;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.NavBarType;
 import gwt.material.design.client.ui.html.Div;
@@ -61,9 +62,11 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 	
 	private Nav nav = new Nav();
 	private Div div = new Div();
+
 	private MaterialIcon navMenu = new MaterialIcon(IconType.MENU);
-	private NavBarType type;
 	private MaterialProgress progress = new MaterialProgress();
+
+	private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
 	
 	public MaterialNavBar() {
 		super(Document.get().createElement("header"));
@@ -77,7 +80,6 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 
 	@Override
 	public void setBackgroundColor(String bgColor) {
-		// TODO Auto-generated method stub
 		div.setBackgroundColor(bgColor);
 	}
 	
@@ -88,23 +90,12 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 	
 	@Override
 	public void setType(NavBarType type) {
-		this.type = type;
-		switch (type) {
-		case TALL:
-			addStyleName(type.getCssName());
-			break;
-		case FIXED:
-			addStyleName(type.getCssName());
-			break;
-		default:
-			break;
-		}
+		typeMixin.setType(type);
 	}
 
 	@Override
 	public NavBarType getType() {
-		// TODO Auto-generated method stub
-		return type;
+		return typeMixin.getType();
 	}
 
 	@Override
@@ -114,7 +105,6 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 
 	@Override
 	public void hideLoader() {
-		// TODO Auto-generated method stub
 		progress.removeFromParent();
 	}
 	

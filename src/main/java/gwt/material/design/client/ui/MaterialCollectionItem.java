@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasAvatar;
 import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
 
 import com.google.gwt.dom.client.Document;
@@ -31,16 +32,18 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.helper.StyleHelper;
 
 //@formatter:off
 /**
-* Collection element to define every items
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
-*///@formatter:on
-public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable,
-		HasAvatar {
+ * Collection element to define every items
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
+ */
+//@formatter:on
+public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable, HasAvatar {
+
+	private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
+	private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
 
 	public MaterialCollectionItem() {
 		super(Document.get().createLIElement());
@@ -83,23 +86,22 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 
 	@Override
 	public void setDismissable(boolean dismissable) {
-		removeStyleName("dismissable");
-		if(dismissable) {
-			addStyleName("dismissable");
-		}
+		dismissableMixin.setOn(dismissable);
+	}
+
+	@Override
+	public boolean isDismissable() {
+		return dismissableMixin.isOn();
 	}
 
 	@Override
 	public void setAvatar(boolean avatar) {
-		removeStyleName("avatar");
-		if(avatar) {
-			addStyleName("avatar");
-		}
+		avatarMixin.setOn(avatar);
 	}
 
 	@Override
 	public boolean isAvatar() {
-		return StyleHelper.containsStyle(getStyleName(), "avatar");
+		return avatarMixin.isOn();
 	}
 
 	@Override
