@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.base.HasHref;
 import gwt.material.design.client.constants.Position;
@@ -47,10 +48,11 @@ import com.google.gwt.user.client.ui.HasText;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
 */
 //@formatter:on
-public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref, HasPosition{
+public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref, HasPosition {
 
 	private Div div = new Div();
-	private Position position;
+
+	private final CssNameMixin<MaterialNavBrand, Position> posMixin = new CssNameMixin<>(this);
 
 	/**
 	 * Material NavBrand is a component wherein you can pass a text / logo branding of your app
@@ -97,13 +99,11 @@ public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref,
 
 	@Override
 	public Position getPosition() {
-		// TODO Auto-generated method stub
-		return position;
+		return posMixin.getCssName();
 	}
 
 	@Override
 	public void setPosition(Position position) {
-		this.position = position;
-		addStyleName(position.getCssName());
+		posMixin.setCssName(position);
 	}
 }
