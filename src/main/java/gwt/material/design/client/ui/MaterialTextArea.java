@@ -20,14 +20,18 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.html.Label;
-import gwt.material.design.client.base.HasError;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
@@ -41,23 +45,10 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.ErrorMixin;
 
-public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyPressHandlers,
+public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPressHandlers,
 		HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder {
-
-	private static UiBinder uiBinder = GWT.create(UiBinder.class);
-
-	interface UiBinder extends com.google.gwt.uibinder.client.UiBinder<Widget, MaterialTextArea> {
-	}
 
 	private String length;
 	private String placeholder;
@@ -67,39 +58,41 @@ public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyP
 
 	private final ErrorMixin<MaterialTextArea, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 	
-	@UiField
-	Label label;
-	@UiField MaterialLabel lblName;
-	@UiField TextArea txtBox;
-	@UiField MaterialIcon icon;
-	@UiField HTMLPanel panel;
+	private Label label = new Label();
+	private MaterialLabel lblName = new MaterialLabel();
+	private ComplexWidget textArea = new ComplexWidget(Document.get().createElement("textarea"));
+	private MaterialIcon icon = new MaterialIcon();
 
 	public MaterialTextArea() {
-		initWidget(uiBinder.createAndBindUi(this));
-
+		super(Document.get().createDivElement());
+		setStyleName("input-field");
+		add(icon);
+		add(textArea);
+		textArea.setStyleName("materialize-textarea");
+		add(label);
+		label.add(lblName);
 		icon.setIconPrefix(true);
-		txtBox.addStyleName("materialize-textarea");
 		lblError.setVisible(false);
-		panel.add(lblError);
+		add(lblError);
 	}
 
 	public void setInvalid() {
 		removeErrorModifiers();
 		lblName.setStyleName("red-text");
-		txtBox.getElement().addClassName("invalid");
+		textArea.getElement().addClassName("invalid");
 		isValid = false;
 	}
 
 	public void setValid() {
 		removeErrorModifiers();
 		lblName.setStyleName("green-text");
-		txtBox.getElement().addClassName("valid");
+		textArea.getElement().addClassName("valid");
 		isValid = true;
 	}
 
 	public void removeErrorModifiers() {
-		txtBox.getElement().removeClassName("valid");
-		txtBox.getElement().removeClassName("invalid");
+		textArea.getElement().removeClassName("valid");
+		textArea.getElement().removeClassName("invalid");
 	}
 
 	public boolean isValid() {
@@ -116,7 +109,7 @@ public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyP
 
 	public void setLength(String length) {
 		this.length = length;
-		txtBox.getElement().setAttribute("length", length);
+		textArea.getElement().setAttribute("length", length);
 	}
 	
 	@Override
@@ -127,12 +120,12 @@ public class MaterialTextArea extends MaterialWidget implements HasText, HasKeyP
 
 	@Override
 	public String getText() {
-		return txtBox.getText();
+		return textArea.getElement().getInnerHTML();
 	}
 
 	@Override
 	public void setText(String text) {
-		txtBox.setText(text);
+		textArea.getElement().setInnerHTML(text);
 		label.addStyleName("active");
 	}
 

@@ -20,16 +20,20 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasInputType;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Label;
-import gwt.material.design.client.base.HasError;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -78,30 +82,18 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.AutoDirectionHandler;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasInputType;
-import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.ErrorMixin;
 
-public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
+public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
 		HasValue<String>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>, HasKeyUpHandlers,
 		HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
 		HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
 		HasPlaceholder {
 
-	private static MaterialTextBoxUiBinder uiBinder = GWT.create(MaterialTextBoxUiBinder.class);
-
-	interface MaterialTextBoxUiBinder extends UiBinder<Widget, MaterialTextBox> {
-	}
 
 	private String placeholder;
 	private InputType type = InputType.TEXT;
@@ -110,21 +102,24 @@ public class MaterialTextBox extends MaterialWidget implements HasChangeHandlers
 
 	private MaterialLabel lblError = new MaterialLabel();
 
-	@UiField
-	Label label;
-	@UiField MaterialLabel lblName;
-	@UiField TextBox txtBox;
-	@UiField MaterialIcon icon;
-	@UiField HTMLPanel panel;
+	private Label label = new Label();
+	private MaterialLabel lblName = new MaterialLabel();
+	private TextBox txtBox = new TextBox();
+	private MaterialIcon icon = new MaterialIcon();
 
 	private final ErrorMixin<MaterialTextBox, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, txtBox);
 
 	public MaterialTextBox() {
-		initWidget(uiBinder.createAndBindUi(this));
-
+		super(Document.get().createDivElement());
+		setStyleName("input-field");
+		add(icon);
+		add(txtBox);
+		txtBox.setStyleName("validate");
+		add(label);
+		label.add(lblName);
 		icon.setIconPrefix(true);
 		lblError.setVisible(false);
-		panel.add(lblError);
+		add(lblError);
 	}
 
 	@Override

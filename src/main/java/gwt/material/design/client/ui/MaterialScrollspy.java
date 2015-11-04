@@ -20,13 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
@@ -73,30 +66,15 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
 */
 //@formatter:on
-public class MaterialScrollspy extends MaterialWidget {
+public class MaterialScrollspy extends UnorderedList {
 
-	private static MaterialScrollspyUiBinder uiBinder = GWT.create(MaterialScrollspyUiBinder.class);
-
-	interface MaterialScrollspyUiBinder extends UiBinder<Widget, MaterialScrollspy> {
-	}
-	
-	@UiField
-	UnorderedList ulPanel;
-	
 	public MaterialScrollspy() {
-		initWidget(uiBinder.createAndBindUi(this));
+		setStyleName("section table-of-contents");
 	}
 	
-	@UiChild(tagname = "item")
-	public void onAddItem(Widget w) {
-		ListItem item = new ListItem(w);
-		ulPanel.add(item);
-	}
-
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-
 		initScrollspy();
 	}
 

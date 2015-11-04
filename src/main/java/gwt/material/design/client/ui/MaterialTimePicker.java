@@ -20,31 +20,22 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.constants.Orientation;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasOrientation;
 import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.constants.Orientation;
 
-public class MaterialTimePicker extends MaterialWidget implements HasError, HasPlaceholder, HasOrientation {
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 
-	private static MaterialTimePickerUiBinder uiBinder = GWT
-		.create(MaterialTimePickerUiBinder.class);
+public class MaterialTimePicker extends ComplexWidget implements HasError, HasPlaceholder, HasOrientation {
 
-	interface MaterialTimePickerUiBinder extends UiBinder<Widget, MaterialTimePicker> {
-	}
 
-	@UiField HTMLPanel panel;
-	@UiField
-	MaterialInput input;
+	MaterialPanel panel = new MaterialPanel();
+	MaterialInput input = new MaterialInput();
 
 	private String time;
 	private String placeholder;
@@ -56,18 +47,19 @@ public class MaterialTimePicker extends MaterialWidget implements HasError, HasP
 	private final ErrorMixin<MaterialTimePicker, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, panel);
 	
 	public MaterialTimePicker() {
-		initWidget(uiBinder.createAndBindUi(this));
-
+		super(Document.get().createElement("div"));
 		lblError.setVisible(false);
+		
 		panel.add(lblError);
+		input.setType(InputType.TEXT);
+		panel.add(input);
+		add(panel);
 	}
 
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-
 		input.getElement().setAttribute("type", "text");
-
 		initTimePicker();
 	}
 
