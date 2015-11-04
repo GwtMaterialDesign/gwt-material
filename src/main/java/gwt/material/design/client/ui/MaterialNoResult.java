@@ -20,16 +20,17 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasTitle;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.ui.html.Div;
+
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style.Unit;
 
 //@formatter:off
 /**
@@ -48,26 +49,29 @@ import gwt.material.design.client.base.MaterialWidget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#no-result">Material No Result</a>
 */
 //@formatter:on
-public class MaterialNoResult extends MaterialWidget implements HasIcon {
+public class MaterialNoResult extends ComplexWidget implements HasIcon, HasTitle{
 
-	private static MaterialNoResultUiBinder uiBinder = GWT
-		.create(MaterialNoResultUiBinder.class);
-
-	interface MaterialNoResultUiBinder extends UiBinder<Widget, MaterialNoResult> {
-	}
-
-	@UiField MaterialPanel panel;
-	@UiField MaterialIcon icon;
-	@UiField MaterialTitle title;
-
+	
+	private MaterialIcon icon = new MaterialIcon();
+	private MaterialTitle title = new MaterialTitle();
+	private Div div = new Div();
+	
 	public MaterialNoResult() {
-		initWidget(uiBinder.createAndBindUi(this));
+		super(Document.get().createDivElement());
+		setStyleName("valign-wrapper");
+		setTextAlign(TextAlign.CENTER);
+		setHeight("100%");
+		add(div);
+		div.setWidth("100%");
+		div.setStyleName("valign center");
+		div.add(title);
+		icon.setIconSize(IconSize.LARGE);
+		title.insert(icon, 0);
+		title.setMarginTop(-100);
 	}
 
-	public MaterialNoResult(String bgColor, String textColor, IconType iconType,
-			String title, String description) {
+	public MaterialNoResult(String bgColor, String textColor, IconType iconType, String title, String description) {
 		this();
-
 		setBackgroundColor(bgColor);
 		setTextColor(textColor);
 		setIconType(iconType);
@@ -76,71 +80,62 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon {
 	}
 
 	@Override
-	public void setBackgroundColor(String bgColor) {
-		super.setBackgroundColor(bgColor);
-		panel.setBackgroundColor(bgColor);
+	public void setDescription(String description) {
+		title.setDescription(description);
 	}
-
+	
 	@Override
-	public void setTextColor(String textColor) {
-		super.setTextColor(textColor);
-		icon.setTextColor(textColor);
-		title.setTextColor(textColor);
+	public void setTitle(String titleText) {
+		title.setTitle(titleText);
 	}
 
 	@Override
 	public MaterialIcon getIcon() {
+		// TODO Auto-generated method stub
 		return icon;
 	}
 
 	@Override
 	public void setIconType(IconType iconType) {
+		// TODO Auto-generated method stub
 		icon.setIconType(iconType);
 	}
 
 	@Override
 	public void setIconPosition(IconPosition position) {
+		// TODO Auto-generated method stub
 		icon.setIconPosition(position);
 	}
 
 	@Override
 	public void setIconSize(IconSize size) {
+		// TODO Auto-generated method stub
 		icon.setIconSize(size);
 	}
 
 	@Override
-	public void setIconFontSize(double size, Style.Unit unit) {
+	public void setIconFontSize(double size, Unit unit) {
+		// TODO Auto-generated method stub
 		icon.setIconFontSize(size, unit);
 	}
 
 	@Override
 	public void setIconColor(String iconColor) {
+		// TODO Auto-generated method stub
 		icon.setIconColor(iconColor);
 	}
 
 	@Override
 	public void setIconPrefix(boolean prefix) {
+		// TODO Auto-generated method stub
 		icon.setIconPrefix(prefix);
 	}
 
 	@Override
 	public boolean isIconPrefix() {
+		// TODO Auto-generated method stub
 		return icon.isIconPrefix();
 	}
 
-	public String getTitle() {
-		return title.getTitle();
-	}
-
-	public void setTitle(String title) {
-		this.title.setTitle(title);
-	}
-
-	public String getDescription() {
-		return title.getDescription();
-	}
-
-	public void setDescription(String description) {
-		title.setDescription(description);
-	}
+	
 }

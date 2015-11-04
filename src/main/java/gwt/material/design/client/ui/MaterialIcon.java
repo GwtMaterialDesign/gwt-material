@@ -22,6 +22,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+
+import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.WavesType;
@@ -31,6 +33,7 @@ import gwt.material.design.client.base.HasSeparator;
 import gwt.material.design.client.constants.IconType;
 
 import com.google.gwt.dom.client.Document;
+
 import gwt.material.design.client.base.helper.StyleHelper;
 
 //@formatter:off
@@ -61,6 +64,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 	 * Creates an empty icon.
 	 */
 	public MaterialIcon() {
+		removeStyleName(ButtonType.RAISED.getCssName());
 		addStyleName("material-icons");
 	}
 	

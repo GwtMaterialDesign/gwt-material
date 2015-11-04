@@ -20,24 +20,18 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasPlaceholder;
 import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.ui.html.Label;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 /**
@@ -56,103 +50,59 @@ import gwt.material.design.client.base.MaterialWidget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialSearch extends MaterialWidget implements HasText, HasKeyUpHandlers, HasIcon, HasPlaceholder {
+public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHandlers,  HasPlaceholder {
 
-	private static MaterialSearchUiBinder uiBinder = GWT
-		.create(MaterialSearchUiBinder.class);
-
-	interface MaterialSearchUiBinder extends UiBinder<Widget, MaterialSearch> {
-	}
 	
-	@UiField MaterialInput searchInput;
-	@UiField MaterialIcon icon;
-	@UiField MaterialPanel panel;
+	private MaterialInput searchInput = new MaterialInput();
+	private Label label = new Label();
+	private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
+	private MaterialIcon iconClose = new MaterialIcon(IconType.CLOSE);
+	private String placeholder;
+	private String text;
 
+	
+	
 	public MaterialSearch() {
-		initWidget(uiBinder.createAndBindUi(this));
-
-		icon.setIconPrefix(true);
+		super(Document.get().createDivElement());
+		setStyleName("input-field");
+		searchInput.setType(InputType.SEARCH);
+		searchInput.setRequired(true);
+		add(searchInput);
+		add(label);
+		label.add(iconSearch);
+		add(iconClose);
 	}
 
 	@Override
-	protected void onAttach() {
-		super.onAttach();
+	public String getPlaceholder() {
+		// TODO Auto-generated method stub
+		return placeholder;
+	}
 
-		searchInput.setId(DOM.createUniqueId());
+	@Override
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+		searchInput.getElement().setAttribute("placeholder", placeholder);
 	}
 
 	@Override
 	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+		// TODO Auto-generated method stub
 		return addDomHandler(handler, KeyUpEvent.getType());
 	}
 
 	@Override
 	public String getText() {
-		return searchInput.getText();
+		// TODO Auto-generated method stub
+		return text;
 	}
 
 	@Override
 	public void setText(String text) {
-		searchInput.setText(text);
+		searchInput.getElement().setInnerHTML(text);
 	}
 
-	@Override
-	public void setTextColor(String textColor) {
-		super.setTextColor(textColor);
-
-		searchInput.setTextColor(textColor);
-		icon.setTextColor(textColor);
-	}
-
-	@Override
-	public MaterialIcon getIcon() {
-		return icon;
-	}
-
-	@Override
-	public void setIconType(IconType iconType) {
-		icon.setIconType(iconType);
-	}
-
-	@Override
-	public void setIconPosition(IconPosition position) {
-		icon.setIconPosition(position);
-	}
-
-	@Override
-	public void setIconSize(IconSize size) {
-		icon.setIconSize(size);
-	}
-
-	@Override
-	public void setIconFontSize(double size, Style.Unit unit) {
-		icon.setIconFontSize(size, unit);
-	}
-
-	@Override
-	public void setIconColor(String iconColor) {
-		icon.setIconColor(iconColor);
-	}
-
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		icon.setIconPrefix(prefix);
-	}
-
-	@Override
-	public boolean isIconPrefix() {
-		return icon.isIconPrefix();
-	}
-
-	@Override
-	public String getPlaceholder() {
-		return searchInput.getPlaceholder();
-	}
-
-	@Override
-	public void setPlaceholder(String placeholder) {
-		searchInput.setPlaceholder(placeholder);
-	}
+	
 }
 
 

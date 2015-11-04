@@ -20,9 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
+
+import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
@@ -46,7 +49,9 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
 */
 //@formatter:on
-public class MaterialNavSection extends UnorderedList {
+public class MaterialNavSection extends UnorderedList implements HasPosition{
+
+	private Position position;
 
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material
@@ -57,14 +62,25 @@ public class MaterialNavSection extends UnorderedList {
 		setStyleName("hide-on-med-and-down");
 	}
 	
-	/**
-	 *  Creates a list and adds the given widgets.
-	 */
-	public MaterialNavSection(final Widget... widgets) {
-		this();
-		for (final Widget item : widgets) {
-			ListItem li = new ListItem(item);
-            add(li);
-        }
+	
+
+	@Override
+	public void add(Widget child) {
+		// TODO Auto-generated method stub
+		super.add(new ListItem(child));
+	}
+
+
+
+	@Override
+	public Position getPosition() {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public void setPosition(Position position) {
+		this.position = position;
+		addStyleName(position.getCssName());
 	}
 }

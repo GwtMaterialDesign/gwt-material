@@ -20,11 +20,21 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import gwt.material.design.client.base.mixin.ActivatesMixin;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.constants.ButtonSize;
+import gwt.material.design.client.constants.ButtonType;
+import gwt.material.design.client.constants.WavesType;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
@@ -39,18 +49,12 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
-import gwt.material.design.client.constants.ButtonSize;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.base.mixin.ActivatesMixin;
-import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
 
 /**
  * @author Ben Dol
  */
 public abstract class AbstractButton extends ComplexWidget implements HasHref, HasGrid, HasActivates,
-		HasWaves, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasText {
+		HasWaves, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasText, HasDoubleClickHandlers {
 
 	private final WavesMixin<AbstractButton> wavesMixin = new WavesMixin<>(this);
 	private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
@@ -182,4 +186,12 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
 		return addDomHandler(handler, MouseWheelEvent.getType());
 	}
+
+	@Override
+	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+		// TODO Auto-generated method stub
+		return addDomHandler(handler, DoubleClickEvent.getType());
+	}
+	
+	
 }

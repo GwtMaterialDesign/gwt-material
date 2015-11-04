@@ -50,7 +50,7 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
 */
 //@formatter:on
-public class MaterialSplashScreen extends Composite {
+public class MaterialSplashScreen extends Composite{
 
 	private static MaterialSplashScreenUiBinder uiBinder = GWT.create(MaterialSplashScreenUiBinder.class);
 
@@ -186,7 +186,7 @@ public class MaterialSplashScreen extends Composite {
 	 */
 	public void setTextColor(String textColor) {
 		this.textColor = textColor;
-		title.setColor(textColor);
+		title.setTextColor(textColor);
 	}
 
 	/**
@@ -224,4 +224,5 @@ public class MaterialSplashScreen extends Composite {
 	public void setMain(Composite main) {
 		this.main = main;
 	}
+
 }

@@ -20,21 +20,16 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.NavBarType;
-import gwt.material.design.client.ui.html.Anchor;
-import gwt.material.design.client.ui.html.Header;
-import gwt.material.design.client.ui.html.Nav;
+import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasLoader;
 import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.NavBarType;
+import gwt.material.design.client.constants.ShowOn;
+import gwt.material.design.client.ui.html.Div;
+import gwt.material.design.client.ui.html.Nav;
 
-import java.util.Iterator;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
@@ -62,93 +57,52 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
 */
 //@formatter:on
-public class MaterialNavBar extends MaterialWidget implements HasWidgets, HasLoader, HasType<NavBarType> {
-
-	private static NavBarUiBinder uiBinder = GWT.create(NavBarUiBinder.class);
-
-	interface NavBarUiBinder extends UiBinder<Widget, MaterialNavBar> {
-	}
+public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<NavBarType>{
 	
-	@UiField MaterialPanel panel;
-	@UiField Anchor navMenu;
-	@UiField Nav nav;
-	@UiField Header header;
-
-	private MaterialProgress progress = new MaterialProgress();
-
+	private Nav nav = new Nav();
+	private Div div = new Div();
+	private MaterialIcon navMenu = new MaterialIcon(IconType.MENU);
 	private NavBarType type;
+	private MaterialProgress progress = new MaterialProgress();
 	
-	/**
-	 * Nav Bar is a component which contains your app tool bar and app sidebar
-	 */
-	@UiConstructor
 	public MaterialNavBar() {
-		initWidget(uiBinder.createAndBindUi(this));
-
-		setType(NavBarType.FIXED);
+		super(Document.get().createElement("header"));
+		super.add(nav);
+		div.setStyleName("nav-wrapper");
+		nav.add(div);
+		div.add(navMenu);
+		navMenu.addStyleName("button-collapse");
+		navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
 	}
+
 	
-	/**
-	 * Set the sidebar name to activate it.
-	 */
-	public void setSideBar(String sideBar) {
-		navMenu.addStyleName(sideBar);
-		navMenu.getElement().setAttribute("data-activates", sideBar);
-	}
 	
-	/**
-	 * Will add a child widget into your nav bar
-	 */
 	@Override
-	public void add(Widget w) {
-		panel.add(w);
+	public void add(Widget child) {
+		div.add(child);
 	}
 
-	/**
-	 * This will clear all the child of your nav bar
-	 */
-	@Override
-	public void clear() {
-		panel.clear();
-	}
 
-	@Override
-	public Iterator<Widget> iterator() {
-		return null;
-	}
-
-	@Override
-	public boolean remove(Widget w) {
-		return false;
-	}
-
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		panel.addStyleName(bgColor);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		panel.addStyleName(textColor + "-text");
-	}
-
-	@Override
-	public NavBarType getType() {
-		return type;
-	}
 
 	@Override
 	public void setType(NavBarType type) {
+		this.type = type;
 		switch (type) {
-		case FIXED:
-			header.addStyleName(type.getCssName());
-			break;
 		case TALL:
-			panel.addStyleName(type.getCssName());
+			addStyleName(type.getCssName());
+			break;
+		case FIXED:
+			addStyleName(type.getCssName());
 			break;
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public NavBarType getType() {
+		// TODO Auto-generated method stub
+		return type;
 	}
 
 	@Override
@@ -158,6 +112,8 @@ public class MaterialNavBar extends MaterialWidget implements HasWidgets, HasLoa
 
 	@Override
 	public void hideLoader() {
+		// TODO Auto-generated method stub
 		progress.removeFromParent();
 	}
+	
 }

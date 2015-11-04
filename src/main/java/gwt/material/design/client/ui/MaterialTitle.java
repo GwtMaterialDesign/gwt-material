@@ -20,96 +20,61 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasTitle;
+import gwt.material.design.client.constants.HeadingSize;
+import gwt.material.design.client.ui.html.Heading;
+import gwt.material.design.client.ui.html.Paragraph;
+
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasFontSize;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
 
-public class MaterialTitle extends MaterialWidget implements HasText, HasFontSize {
+//@formatter:off
+/**
+* Title is a component that will easily add Title and description widgets
+* 
+* <p>
+* <h3>UiBinder Usage:</h3>
+* <pre>
+* {@code 
+* <m:MaterialTitle title="I love Material Design" description="This is sample description" />
+* }
+* </pre>
+* </p>
+* 
+* @author kevzlou7979
+*/
+//@formatter:on
+public class MaterialTitle extends ComplexWidget implements HasTitle{
 
-	private static MaterialTitleUiBinder uiBinder = GWT.create(MaterialTitleUiBinder.class);
-
-	interface MaterialTitleUiBinder extends UiBinder<Widget, MaterialTitle> {
+	Heading header = new Heading(HeadingSize.H4);
+	Paragraph paragraph = new Paragraph();
+	
+	public MaterialTitle(){
+		setElement(Document.get().createDivElement());
+		header.setFontWeight(300);
+		header.getElement().getStyle().setMarginTop(60, Unit.PX);
+		add(header);
+		add(paragraph);
 	}
 	
-	@UiField HTMLPanel titlePanel;
-	@UiField MaterialLabel lblTitle, lblDescription;
-
-	private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(lblTitle);
-	
 	public MaterialTitle(String title, String description){
-		initWidget(uiBinder.createAndBindUi(this));
+		this();
 		setTitle(title);
 		setDescription(description);
 	}
 	
 	public MaterialTitle(String title){
-		initWidget(uiBinder.createAndBindUi(this));
 		setTitle(title);
 	}
+
+	@Override
+	public void setDescription(String description){
+		paragraph.setText(description);
+	}
 	
-	public MaterialTitle() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
-
-	public String getDescription() {
-		return lblDescription.getText();
-	}
-
-	public void setDescription(String description) {
-		lblDescription.setText(description);
-	}
-
-	public String getTitle() {
-		return lblTitle.getText();
-	}
-
-	public void setTitle(String title) {
-		lblTitle.setText(title);
-	}
-
 	@Override
-	public String getText() {
-		return getTitle();
-	}
-
-	@Override
-	public void setText(String text) {
-		setTitle(text);
-	}
-
-	@Override
-	public void setTextColor(String textColor) {
-		super.setTextColor(textColor);
-	}
-
-	public String getColor() {
-		return lblTitle.getElement().getStyle().getColor();
-	}
-
-	public void setColor(String color) {
-		lblTitle.getElement().getStyle().setColor(color);
-		lblDescription.getElement().getStyle().setColor(color);
-	}
-
-	@Override
-	public void setFontSize(String fontSize) {
-		fontSizeMixin.setFontSize(fontSize);
-	}
-
-	@Override
-	public String getFontSize() {
-		return fontSizeMixin.getFontSize();
-	}
-
-	@Override
-	public void setFontSize(double fontSize, Unit unit) {
-		fontSizeMixin.setFontSize(fontSize, unit);
+	public void setTitle(String title){
+		header.getElement().setInnerHTML(title);
 	}
 }

@@ -20,15 +20,20 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.constants.HeadingSize;
+
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
-import gwt.material.design.client.constants.HeadingSize;
-import gwt.material.design.client.base.ComplexWidget;
 
 public class Heading extends ComplexWidget {
 
 	@UiConstructor
 	public Heading(HeadingSize size) {
 		super(Document.get().createElement(size.getSize()));
+	}
+	
+	public void setFontWeight(int fontWeight){
+		getElement().getStyle().setProperty("fontWeight", String.valueOf(fontWeight));
 	}
 }

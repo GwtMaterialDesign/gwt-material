@@ -20,15 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.AbstractIconAnchor;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.base.AbstractIconButton;
-
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Display;
 
 //@formatter:off
 /**

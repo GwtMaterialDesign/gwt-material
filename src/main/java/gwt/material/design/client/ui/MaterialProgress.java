@@ -20,10 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Div;
+
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style.Unit;
 
 //@formatter:off
 /**
@@ -38,14 +39,15 @@ import gwt.material.design.client.base.MaterialWidget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
 * @author kevzlou7979
 */
-public class MaterialProgress extends MaterialWidget {
+public class MaterialProgress extends ComplexWidget {
 
-	private static MaterialProgressUiBinder uiBinder = GWT.create(MaterialProgressUiBinder.class);
-
-	interface MaterialProgressUiBinder extends UiBinder<Widget, MaterialProgress> {
-	}
-
+	private Div div = new Div();
+	
 	public MaterialProgress() {
-		initWidget(uiBinder.createAndBindUi(this));
+		super(Document.get().createDivElement());
+		setStyleName("progress");
+		getElement().getStyle().setMargin(0, Unit.PX);
+		add(div);
+		div.setStyleName("indeterminate");
 	}
 }
