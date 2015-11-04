@@ -52,15 +52,10 @@ import com.google.gwt.user.client.ui.HasText;
 //@formatter:on
 public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHandlers,  HasPlaceholder {
 
-	
 	private MaterialInput searchInput = new MaterialInput();
 	private Label label = new Label();
 	private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
 	private MaterialIcon iconClose = new MaterialIcon(IconType.CLOSE);
-	private String placeholder;
-	private String text;
-
-	
 	
 	public MaterialSearch() {
 		super(Document.get().createDivElement());
@@ -75,34 +70,28 @@ public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHa
 
 	@Override
 	public String getPlaceholder() {
-		// TODO Auto-generated method stub
-		return placeholder;
+		return searchInput.getElement().getAttribute("placeholder");
 	}
 
 	@Override
 	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
 		searchInput.getElement().setAttribute("placeholder", placeholder);
 	}
 
 	@Override
 	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-		// TODO Auto-generated method stub
 		return addDomHandler(handler, KeyUpEvent.getType());
 	}
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return text;
+		return searchInput.getElement().getInnerHTML();
 	}
 
 	@Override
 	public void setText(String text) {
 		searchInput.getElement().setInnerHTML(text);
 	}
-
-	
 }
 
 

@@ -91,51 +91,41 @@ public class MaterialNoResult extends ComplexWidget implements HasIcon, HasTitle
 
 	@Override
 	public MaterialIcon getIcon() {
-		// TODO Auto-generated method stub
 		return icon;
 	}
 
 	@Override
 	public void setIconType(IconType iconType) {
-		// TODO Auto-generated method stub
 		icon.setIconType(iconType);
 	}
 
 	@Override
 	public void setIconPosition(IconPosition position) {
-		// TODO Auto-generated method stub
 		icon.setIconPosition(position);
 	}
 
 	@Override
 	public void setIconSize(IconSize size) {
-		// TODO Auto-generated method stub
 		icon.setIconSize(size);
 	}
 
 	@Override
 	public void setIconFontSize(double size, Unit unit) {
-		// TODO Auto-generated method stub
 		icon.setIconFontSize(size, unit);
 	}
 
 	@Override
 	public void setIconColor(String iconColor) {
-		// TODO Auto-generated method stub
 		icon.setIconColor(iconColor);
 	}
 
 	@Override
 	public void setIconPrefix(boolean prefix) {
-		// TODO Auto-generated method stub
 		icon.setIconPrefix(prefix);
 	}
 
 	@Override
 	public boolean isIconPrefix() {
-		// TODO Auto-generated method stub
 		return icon.isIconPrefix();
 	}
-
-	
 }

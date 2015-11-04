@@ -64,7 +64,6 @@ public class MaterialParallax extends ComplexWidget {
 
 	@Override
 	protected void onLoad() {
-		// TODO Auto-generated method stub
 		super.onLoad();
 		initParallax();
 	}
@@ -74,5 +73,4 @@ public class MaterialParallax extends ComplexWidget {
 	      $wnd.jQuery('.parallax').parallax();
 	    });
 	}-*/;
-	
 }
