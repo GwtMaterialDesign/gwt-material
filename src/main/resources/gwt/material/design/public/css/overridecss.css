@@ -755,3 +755,16 @@ i[class*="waves-"].material-icons {
 	padding: 0.2em;
 }
 
+/** Loader */
+.loader-wrapper {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.701961);
+    text-align: center;
+    height: 100%;
+    position: fixed;
+    z-index: 999;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+}

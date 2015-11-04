@@ -20,6 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.ui.html.Div;
+
 import com.google.gwt.user.client.ui.RootPanel;
 
 //@formatter:off
@@ -44,6 +46,7 @@ MaterialLoader.showProgress(true);
 */
 //@formatter:on
 public class MaterialLoader {
+	private static Div div = new Div();
 	private static MaterialPreLoader preLoader = new MaterialPreLoader();
 	private static MaterialProgress progress = new MaterialProgress();
 
@@ -51,14 +54,18 @@ public class MaterialLoader {
 	 * Show a circular loader.
 	 */
 	public static void showLoading(boolean isShow) {
+		
 		if (isShow) {
+			div.setStyleName("valign-wrapper loader-wrapper");
+			preLoader.getElement().getStyle().setProperty("margin", "auto");
 			preLoader.add(new MaterialSpinner("blue"));
 			preLoader.add(new MaterialSpinner("red"));
 			preLoader.add(new MaterialSpinner("yellow"));
-			preLoader.add(new MaterialSpinner("red"));
-			RootPanel.get().add(preLoader);
+			preLoader.add(new MaterialSpinner("green"));
+			div.add(preLoader);
+			RootPanel.get().add(div);
 		} else {
-			preLoader.removeFromParent();
+			div.removeFromParent();
 		}
 	}
 	
@@ -67,9 +74,12 @@ public class MaterialLoader {
 	 */
 	public static void showProgress(boolean isShow) {
 		if (isShow) {
-			RootPanel.get().add(progress);
+			div.setStyleName("valign-wrapper");
+			progress.getElement().getStyle().setProperty("margin", "auto");
+			div.add(progress);
+			RootPanel.get().add(div);
 		} else {
-			progress.removeFromParent();
+			div.removeFromParent();
 		}
 	}	
 }

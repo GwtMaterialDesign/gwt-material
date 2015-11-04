@@ -35,6 +35,7 @@ public class MaterialSpinner extends ComplexWidget{
 	}
 	
 	public MaterialSpinner(String color) {
+		this();
 		setColor(color);
 	}
 	
