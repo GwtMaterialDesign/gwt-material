@@ -20,19 +20,19 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.ComplexWidget;
 
-public class PreLoader extends Composite {
+import com.google.gwt.dom.client.Document;
 
-	private static PreLoaderUiBinder uiBinder = GWT.create(PreLoaderUiBinder.class);
+public class MaterialPreLoader extends ComplexWidget {
 
-	interface PreLoaderUiBinder extends UiBinder<Widget, PreLoader> {
+
+	public MaterialPreLoader() {
+		super(Document.get().createDivElement());
+		setStyleName("preloader-wrapper active");
 	}
-
-	public PreLoader() {
-		initWidget(uiBinder.createAndBindUi(this));
+	
+	public void setSize(String size){
+		addStyleName(size);
 	}
 }

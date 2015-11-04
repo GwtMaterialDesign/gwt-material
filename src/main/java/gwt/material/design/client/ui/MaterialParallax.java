@@ -20,15 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Image;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Div;
+
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 /**
@@ -50,73 +46,33 @@ import gwt.material.design.client.base.MaterialWidget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#showcase">Material Parallax</a>
 */
 //@formatter:on
-public class MaterialParallax extends MaterialWidget {
+public class MaterialParallax extends ComplexWidget {
 
-	private static MaterialParallaxUiBinder uiBinder = GWT.create(MaterialParallaxUiBinder.class);
-
-	interface MaterialParallaxUiBinder extends UiBinder<Widget, MaterialParallax> {
-	}
-
-	@UiField MaterialRow container;
-	@UiField MaterialPanel imageContainer;
-	@UiField Image image;
-
-	private ImageResource resource;
-
+	private Div div = new Div();
+	
 	public MaterialParallax() {
-		initWidget(uiBinder.createAndBindUi(this));
+		setElement(Document.get().createDivElement());
+		setStyleName("parallax-container");
+		super.add(div);
+		div.setStyleName("parallax");
 	}
-
-	public MaterialParallax(String url) {
-		super();
-		setUrl(url);
-	}
-
-	public MaterialParallax(ImageResource resource) {
-		super();
-		setResource(resource);
+	
+	@Override
+	public void add(Widget child) {
+		div.add(child);
 	}
 
 	@Override
-	protected void onAttach() {
-		super.onAttach();
+	protected void onLoad() {
+		// TODO Auto-generated method stub
+		super.onLoad();
 		initParallax();
 	}
-
-	@UiChild(tagname = "content")
-	public void onAddContent(Widget w) {
-		container.add(w);
-	}
-
-	public native void initParallax() /*-{
-		$wnd.jQuery(document).ready(function() {
-			$wnd.jQuery('.parallax').parallax();
-		});
+	
+	public native void initParallax()/*-{
+		$wnd.jQuery(document).ready(function(){
+	      $wnd.jQuery('.parallax').parallax();
+	    });
 	}-*/;
-
-	public String getUrl() {
-		return image.getUrl();
-	}
-
-	public void setUrl(String url) {
-		image.setUrl(url);
-	}
-
-	public ImageResource getResource() {
-		return resource;
-	}
-
-	public void setResource(ImageResource resource) {
-		this.resource = resource;
-		image.setResource(resource);
-	}
-
-	public double getHeight() {
-		return Double.parseDouble(
-			imageContainer.getElement().getStyle().getHeight());
-	}
-
-	public void setHeight(double height) {
-		imageContainer.getElement().getStyle().setHeight(height, Unit.PX);
-	}
+	
 }
