@@ -20,6 +20,15 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasImage;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.ui.html.Span;
+
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -41,14 +50,6 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasImage;
-
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Image;
 
@@ -78,6 +79,7 @@ public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, Ha
 		HasAllMouseHandlers, HasDoubleClickHandlers {
 
 	private MaterialIcon icon = new MaterialIcon();
+	private Span span = new Span();
 
 	private ImageResource resource;
 	private Image image = new Image();
@@ -91,7 +93,8 @@ public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, Ha
 	}
 
 	public void setText(String text){
-		getElement().setInnerText(text);
+		span.setText(text);
+		add(span);
 	}
 	
 	public String getText(){
@@ -143,6 +146,7 @@ public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, Ha
 	@Override
 	public void setIconType(IconType iconType) {
 		icon.setIconType(iconType);
+		add(icon);
 	}
 
 	@Override

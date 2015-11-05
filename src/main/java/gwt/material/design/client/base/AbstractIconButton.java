@@ -20,13 +20,13 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.MaterialIcon;
+
+import com.google.gwt.dom.client.Style;
 
 public abstract class AbstractIconButton extends AbstractButton implements HasIcon {
 

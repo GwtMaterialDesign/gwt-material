@@ -128,7 +128,7 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
 
     @Override
     public void setTextColor(String textColor) {
-        colorsMixin.setTextColor(textColor + "-text");
+        colorsMixin.setTextColor(textColor);
     }
 
     @Override

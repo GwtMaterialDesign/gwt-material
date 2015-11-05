@@ -40,8 +40,10 @@ import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
+
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -192,9 +194,9 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
             	chip.setUrl(imageChip);
             	textChip = textChip.replaceAll("[<](/)?img[^>]*[>]", "");
             }
-
+            chip.setIconType(IconType.CLOSE);
             chip.setText(textChip);
-            chip.getIcon().addClickHandler(new ClickHandler() {
+            chip.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent clickEvent) {
 					if (itemsHighlighted.contains(displayItem)) {
 						chip.removeStyleName("blue white-text");
