@@ -21,6 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -49,9 +51,9 @@ import com.google.gwt.user.client.ui.Widget;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
  */
 //@formatter:on
-public class MaterialNavSection extends UnorderedList implements HasPosition{
+public class MaterialNavSection extends UnorderedList implements HasPosition {
 
-	private Position position;
+	private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
 
 	/**
 	 * Container for App Toolbar and App Sidebar , contains Material
@@ -59,7 +61,7 @@ public class MaterialNavSection extends UnorderedList implements HasPosition{
 	 */
 	public MaterialNavSection() {
 		super();
-		setStyleName("hide-on-med-and-down");
+		setHideOn(HideOn.HIDE_ON_MED_DOWN);
 	}
 
 	@Override
@@ -69,12 +71,11 @@ public class MaterialNavSection extends UnorderedList implements HasPosition{
 
 	@Override
 	public Position getPosition() {
-		return position;
+		return posMixin.getCssName();
 	}
 
 	@Override
 	public void setPosition(Position position) {
-		this.position = position;
-		addStyleName(position.getCssName());
+		posMixin.setCssName(position);
 	}
 }

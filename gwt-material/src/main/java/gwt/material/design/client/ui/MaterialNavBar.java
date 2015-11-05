@@ -20,13 +20,20 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasLoader;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.NavBarType;
+import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
@@ -54,26 +61,33 @@ import gwt.material.design.client.ui.html.Nav;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
 */
 //@formatter:on
-public class MaterialNavBar extends Nav implements HasLoader, HasType<NavBarType> {
+public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasType<NavBarType> {
 
 	private Div div = new Div();
 
-	private MaterialIcon navMenu = new MaterialIcon(IconType.MENU);
+	private MaterialAnchorButton navMenu = new MaterialAnchorButton(IconType.MENU);
 	private MaterialProgress progress = new MaterialProgress();
 
 	private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
+	private final ActivatesMixin<MaterialAnchorButton> activatesMixin = new ActivatesMixin<>(navMenu);
 	
 	public MaterialNavBar() {
-		div.setStyleName("nav-wrapper");
+		div.setStyleName("nav-wrapper container");
 		div.add(navMenu);
 		super.add(div);
+		navMenu.setFontSize(2.7, Style.Unit.EM);
 		navMenu.addStyleName("button-collapse");
 		navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
-	}
+		navMenu.setCircle(true);
+		navMenu.setWaves(WavesType.LIGHT);
+		navMenu.setWidth("64px");
+		navMenu.setTextAlign(TextAlign.CENTER);
+		navMenu.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
 
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		div.setBackgroundColor(bgColor);
+			}
+		});
 	}
 	
 	@Override
@@ -99,5 +113,15 @@ public class MaterialNavBar extends Nav implements HasLoader, HasType<NavBarType
 	@Override
 	public void hideLoader() {
 		progress.removeFromParent();
+	}
+
+	@Override
+	public void setActivates(String activates) {
+		activatesMixin.setActivates(activates);
+	}
+
+	@Override
+	public String getActivates() {
+		return activatesMixin.getActivates();
 	}
 }

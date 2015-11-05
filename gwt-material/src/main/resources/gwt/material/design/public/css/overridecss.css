@@ -445,7 +445,7 @@ nav .brand-logo {
 	padding-left: 16px;
 }
 .side-nav li {
-	padding: 0;
+	padding: 0 !important;
 }
 
 nav .navbar-tall {

@@ -27,6 +27,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.html.ListItem;
@@ -138,12 +139,18 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 	}
 
 	public void initNavBar() {
-		initNavBar(getElement(), width, closeOnClick);
+		Element activator = DOMHelper.getElementByAttribute("data-activates", getId());
+		if(activator.getClassName().contains("button-collapse")) {
+			initNavBar(activator, width, closeOnClick);
+		} else {
+			throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
+				"please ensure you have a MaterialNavBar with an activator setup to match this widgets id.");
+		}
 	}
 
-	private native void initNavBar(Element e, int width, boolean closeOnClick)/*-{
+	private static native void initNavBar(Element e, int width, boolean closeOnClick)/*-{
         $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(e).find(".button-collapse").sideNav({
+            $wnd.jQuery(e).sideNav({
                 menuWidth: width,
                 closeOnClick: closeOnClick
             });
