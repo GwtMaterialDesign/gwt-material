@@ -33,6 +33,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class MaterialToast {
 
+	public static final int DEFAULT_LIFE = 4000;
+
 	private Runnable callback;
 	private Widget[] widgets;
 
@@ -46,10 +48,30 @@ public class MaterialToast {
 	}
 
 	/**
+	 * Quick fire your toast.
 	 * @param msg Message text for your toast.
 	 */
 	public static void fireToast(String msg) {
-		fireToast(msg, null);
+		fireToast(msg, DEFAULT_LIFE, null);
+	}
+
+	/**
+	 * Quick fire your toast.
+	 * @param msg Message text for your toast.
+	 * @param lifeMillis how long it should present itself before being removed.
+	 */
+	public static void fireToast(String msg, int lifeMillis) {
+		fireToast(msg, lifeMillis, null);
+	}
+
+	/**
+	 * Quick fire your toast.
+	 * @param msg Message text for your toast.
+	 * @param lifeMillis how long it should present itself before being removed.
+	 * @param className class name to custom style your toast.
+	 */
+	public static void fireToast(String msg, int lifeMillis, String className) {
+		new MaterialToast().toast(msg, lifeMillis, className);
 	}
 
 	/**
@@ -58,14 +80,22 @@ public class MaterialToast {
 	 * @param className class name to custom style your toast.
 	 */
 	public static void fireToast(String msg, String className) {
-		new MaterialToast().toast(msg, className);
+		new MaterialToast().toast(msg, DEFAULT_LIFE, className);
 	}
 
 	/**
 	 * @param msg Message text for your toast.
 	 */
 	public void toast(String msg) {
-		toast(msg, null);
+		toast(msg, DEFAULT_LIFE, null);
+	}
+
+	/**
+	 * @param msg Message text for your toast.
+	 * @param lifeMillis how long it should present itself before being removed.
+	 */
+	public void toast(String msg, int lifeMillis) {
+		toast(msg, lifeMillis, null);
 	}
 
 	/**
@@ -73,11 +103,20 @@ public class MaterialToast {
 	 * @param className class name to custom style your toast.
 	 */
 	public void toast(String msg, String className) {
+		toast(msg, DEFAULT_LIFE, className);
+	}
+
+	/**
+	 * @param msg Message text for your toast.
+	 * @param lifeMillis how long it should present itself before being removed.
+	 * @param className class name to custom style your toast.
+	 */
+	public void toast(String msg, int lifeMillis, String className) {
 		String genId = DOM.createUniqueId();
 		if(className == null) {
 			className = genId;
 		}
-		toast(msg, genId, className);
+		toast(msg, lifeMillis, genId, className);
 
 		if(widgets != null) {
 			for (Widget widget : widgets) {
@@ -87,9 +126,9 @@ public class MaterialToast {
 		}
 	}
 
-	private static native void toast(String msg, String id, String className)/*-{
+	private static native void toast(String msg, int delay, String id, String className)/*-{
         var that = this;
-        $wnd.Materialize.toast(msg, 4000, className, function() {
+        $wnd.Materialize.toast(msg, delay, className, function() {
             if(that.callback != null) {
                 that.callback.@java.lang.Runnable::run()();
             }
