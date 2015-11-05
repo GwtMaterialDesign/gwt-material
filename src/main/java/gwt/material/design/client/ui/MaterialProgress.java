@@ -39,16 +39,15 @@ import com.google.gwt.dom.client.Style.Unit;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
 * @author kevzlou7979
 */
-public class MaterialProgress extends ComplexWidget{
+public class MaterialProgress extends Div {
 
 	private Div div = new Div();
 
 	public MaterialProgress() {
-		super(Document.get().createDivElement());
+		super();
 		setStyleName("progress");
 		getElement().getStyle().setMargin(0, Unit.PX);
 		add(div);
 		div.setStyleName("indeterminate");
 	}
-	
 }

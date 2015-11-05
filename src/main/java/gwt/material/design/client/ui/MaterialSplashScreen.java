@@ -1,5 +1,3 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,58 +17,51 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.ComplexWidget;
 
 //@formatter:off
 /**
-* Material Splashcreen - a initial screen that act as a loading screen in order for your apps to load fully
-*
-* <p>
-* <h3>Java Code Usage:</h3>
-* <pre>
-* {@code 
-* 
-* MyComposite main = new MyComposite();
-* new MaterialSplashScreen(splashTime, main, logo, appName, appDescription, color, textColor);
-* 
-* }
-* </pre>
-* </p>
-*
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
-*/
+ * An initial screen that act as a loading screen
+ * in order for your apps to load fully.
+ *
+ * <h3>Java Code Usage:</h3>
+ * <pre>
+ *{@code
+ * MyComposite main = new MyComposite();
+ * new MaterialSplashScreen(splashTime, main, logo, appName, appDescription, color, textColor);}
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
+ */
 //@formatter:on
-public class MaterialSplashScreen extends Composite{
-
-	private static MaterialSplashScreenUiBinder uiBinder = GWT.create(MaterialSplashScreenUiBinder.class);
+public class MaterialSplashScreen extends ComplexWidget {
 
 	interface MaterialSplashScreenUiBinder extends UiBinder<Widget, MaterialSplashScreen> {
 	}
 	
-	@UiField MaterialImage imgLogo;
-	@UiField MaterialTitle title;
-	@UiField MaterialPanel panel;
+	MaterialImage imgLogo;
+	MaterialTitle title;
+	MaterialPanel panel;
 
 	private ImageResource logo;
 	private String appName;
 	private String appDescription;
-	private String color;
-	private String textColor;
 	private int splashTime = 5000;
-	private Composite main;
+	private Widget main;
 	
 	public MaterialSplashScreen() {
-		initWidget(uiBinder.createAndBindUi(this));
+		imgLogo = new MaterialImage();
+		title = new MaterialTitle();
+		panel = new MaterialPanel();
 	}
 	
 	/**
@@ -80,22 +71,22 @@ public class MaterialSplashScreen extends Composite{
 	 * @param logo - The logo of your app
 	 * @param appName - The Name of your app
 	 * @param appDescription - The Description of your app
-	 * @param color - The background color of your app
+	 * @param bgColor - The background color of your app
 	 * @param textColor - The text color of your app
 	 */
 	public MaterialSplashScreen(int splashTime,
-								Composite main,
+								Widget main,
 								ImageResource logo,
 								String appName,
 								String appDescription,
-								String color,
+								String bgColor,
 								String textColor) {
-		initWidget(uiBinder.createAndBindUi(this));
+		this();
 		setSplashTime(splashTime);
 		setLogo(logo);
 		setAppName(appName);
 		setAppDescription(appDescription);
-		setColor(color);
+		setBackgroundColor(bgColor);
 		setTextColor(textColor);
 		setMain(main);
 	}
@@ -161,31 +152,23 @@ public class MaterialSplashScreen extends Composite{
 		title.setDescription(appDescription);
 	}
 
-	public String getColor() {
-		return color;
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		panel.setBackgroundColor(bgColor);
 	}
 
-	/**
-	 * Background Color of your splash screen
-	 * @param color Color string
-	 */
-	public void setColor(String color) {
-		this.color = color;
-		panel.setBackgroundColor(color);
+	@Override
+	public String getBackgroundColor() {
+		return panel.getBackgroundColor();
 	}
 
-	/**
-	 * @return the textColor
-	 */
+	@Override
 	public String getTextColor() {
-		return textColor;
+		return title.getTextColor();
 	}
 
-	/**
-	 * @param textColor the textColor to set
-	 */
+	@Override
 	public void setTextColor(String textColor) {
-		this.textColor = textColor;
 		title.setTextColor(textColor);
 	}
 
@@ -214,14 +197,14 @@ public class MaterialSplashScreen extends Composite{
 	/**
 	 * @return the main
 	 */
-	public Composite getMain() {
+	public Widget getMain() {
 		return main;
 	}
 
 	/**
 	 * @param main the main to set
 	 */
-	public void setMain(Composite main) {
+	public void setMain(Widget main) {
 		this.main = main;
 	}
 

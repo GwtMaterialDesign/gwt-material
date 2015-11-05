@@ -26,7 +26,7 @@ import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
 
-public class MaterialSpinner extends ComplexWidget{
+public class MaterialSpinner extends ComplexWidget {
 
 	private Div circleClipperLeft = new Div();
 	private Div circleClipperRight = new Div();
@@ -34,8 +34,7 @@ public class MaterialSpinner extends ComplexWidget{
 	private Div circle2 = new Div();
 	private Div circle3 = new Div();
 	private Div gapPatch = new Div();
-	
-	
+
 	public MaterialSpinner() {
 		super(Document.get().createDivElement());
 		setStyleName("spinner-layer");

@@ -35,23 +35,21 @@ import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
-* Material NavBar represents as a app tool bar, that contains NavBrand, NavSection and initialize 
-* Material Sidenav
-*
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code
-
-<m:MaterialNavBar backgroundColor="blue" >
-	<m:MaterialNavBrand href="#Test" align="left">Title</m:MaterialNavBrand>
-	<m:MaterialNavSection align="right">
-		<m:MaterialLink  icon="mdi-action-account-circle" iconPosition="left" text="Account"  textColor="white" waves="light"/>
-		<m:MaterialLink  icon="mdi-action-autorenew" iconPosition="left" text="Refresh" textColor="white" waves="light"/>
-		<m:MaterialLink  icon="mdi-action-search" tooltip="Menu" textColor="white" waves="light"/>
-	 	<m:MaterialLink  icon="mdi-navigation-more-vert" tooltip="Starter" textColor="white" waves="light"/>
-	</m:MaterialNavSection>
-</m:MaterialNavBar>
-
+ * Material NavBar represents as a app tool bar, that contains NavBrand,
+ * NavSection and initialize Material Sidenav.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialNavBar backgroundColor="blue" >
+ * 	<m:MaterialNavBrand href="#Test" align="left">Title</m:MaterialNavBrand>
+ * 	<m:MaterialNavSection align="right">
+ * 		<m:MaterialLink  icon="mdi-action-account-circle" iconPosition="left" text="Account"  textColor="white" waves="light"/>
+ * 		<m:MaterialLink  icon="mdi-action-autorenew" iconPosition="left" text="Refresh" textColor="white" waves="light"/>
+ * 		<m:MaterialLink  icon="mdi-action-search" tooltip="Menu" textColor="white" waves="light"/>
+ * 	 	<m:MaterialLink  icon="mdi-navigation-more-vert" tooltip="Starter" textColor="white" waves="light"/>
+ * 	</m:MaterialNavSection>
+ * </m:MaterialNavBar>
 * }
 *<pre>
 * @author kevzlou7979

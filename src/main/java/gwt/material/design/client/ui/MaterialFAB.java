@@ -40,8 +40,7 @@ import com.google.gwt.dom.client.Document;
  *     <m:MaterialButton type="FLOATING" backgroundColor="orange" icon="polymer"/>
  *     <m:MaterialButton type="FLOATING" backgroundColor="white" icon="polymer" iconColor="black"/>
  *   </m:MaterialFABList>
- * </m:MaterialFAB>
- * }
+ * </m:MaterialFAB>}
  * </pre>
  * </p>
  *

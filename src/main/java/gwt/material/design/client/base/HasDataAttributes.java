@@ -1,10 +1,10 @@
-package gwt.material.design.client.ui.animate;
+package gwt.material.design.client.base;
 
 /*
  * #%L
- * GwtMaterialDesign
+ * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterial
+ * Copyright (C) 2015 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,15 @@ package gwt.material.design.client.ui.animate;
  * #L%
  */
 
-public enum Transition {
+public interface HasDataAttributes {
+	/**
+	 * Set data attribute of an {@link com.google.gwt.dom.client.Element}.
+	 * E.g. data-position="left".
+	 */
+	void setDataAttribute(String dataAttr, String value);
 
-	SHOW_STAGGERED_LIST, FADE_IN_IMAGE, SHOW_GRID, CLOSE_GRID
+	/**
+	 * Get a data attribute of the {@link com.google.gwt.dom.client.Element}.
+	 */
+	String getDataAttribute(String dataAttr);
 }

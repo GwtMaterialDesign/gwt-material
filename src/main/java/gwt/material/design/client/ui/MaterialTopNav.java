@@ -20,15 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Div;
 
-import com.google.gwt.dom.client.Document;
-
-public class MaterialTopNav extends ComplexWidget{
-
-	public MaterialTopNav() {
-		setElement(Document.get().createDivElement());
-	}
-
+public class MaterialTopNav extends Div {
 
 }

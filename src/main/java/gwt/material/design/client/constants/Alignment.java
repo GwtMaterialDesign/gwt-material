@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,26 +20,27 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.base.helper.EnumHelper;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.ui.html.ListItem;
+public enum Alignment implements Style.HasCssName {
+    DEFAULT(""),
+    LEFT("left"),
+    RIGHT("right"),
+    CENTER("center");
 
-//@formatter:off
-/**
-* FABList container element to define every FAB items
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
-*///@formatter:on
-public class MaterialFABList extends ComplexWidget {
+    private final String cssClass;
 
-	public MaterialFABList() {
-		super(Document.get().createULElement());
-	}
-	
-	@Override
-	public void add(Widget child) {
-		super.add(new ListItem(child));
-	}
+    private Alignment(final String cssClass) {
+        this.cssClass = cssClass;
+    }
+
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static Alignment fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, Alignment.class, DEFAULT);
+    }
 }

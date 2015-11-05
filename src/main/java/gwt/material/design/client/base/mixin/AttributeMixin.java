@@ -43,7 +43,31 @@ public class AttributeMixin<T extends UIObject> extends AbstractMixin<T> {
         }
     }
 
+    public void setAttribute(int value) {
+       setAttribute(String.valueOf(value));
+    }
+
+    public void setAttribute(double value) {
+        setAttribute(String.valueOf(value));
+    }
+
+    public void setAttribute(boolean value) {
+        setAttribute(String.valueOf(value));
+    }
+
     public String getAttribute() {
         return uiObject.getElement().getAttribute(attribute);
+    }
+
+    public int getAttributeAsInteger() {
+        return Integer.parseInt(getAttribute());
+    }
+
+    public double getAttributeAsDouble() {
+        return Double.parseDouble(getAttribute());
+    }
+
+    public boolean getAttributeAsBoolean() {
+        return Boolean.parseBoolean(getAttribute());
     }
 }

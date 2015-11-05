@@ -20,7 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.helper.DOMHelper;
+import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
@@ -43,56 +47,159 @@ import gwt.material.design.client.ui.html.UnorderedList;
 //@formatter:on
 public class MaterialDropDown extends UnorderedList {
 
-	private String name;
-	private boolean belowOrigin;
-	private boolean constraintWidth;
+	private String activator;
+	private Element activatorElem;
 
-	public MaterialDropDown(){
-		super();
+	// Options
+	private int inDuration = 300;
+	private int outDuration = 225;
+	private boolean constrainWidth = true;
+	private boolean hover = false;
+	private boolean belowOrigin = false;
+	private int gutter = 0;
+	private String alignment = Alignment.LEFT.getCssName();
+
+	public MaterialDropDown() {
 		setStyleName("dropdown-content");
 	}
-	
+
 	/**
-	 * Material Dropdown - adds a list item selection when button , link , icon button pressed
-	 * @param name - name of your dropdown, a unique name
-	 * @param constraintWidth - Does not change width of dropdown to that of the activator
-	 * @param belowOrigin - displays dropdown below the button
+	 * Material Dropdown - adds a list item selection when button, link, icon button pressed.
+	 * @param activator - data-activates attribute name of your dropdown activator.
+	 * @param belowOrigin - displays dropdown below the button.
 	 */
 	@UiConstructor
-	public MaterialDropDown(String name,boolean belowOrigin, boolean constraintWidth) {
+	public MaterialDropDown(String activator, boolean belowOrigin) {
 		this();
-		this.name = name;
+		this.activator = activator;
 		this.belowOrigin = belowOrigin;
-		this.constraintWidth = constraintWidth;
-		getElement().setId(name);
+
+		getElement().setId(this.activator);
 	}
 
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-		initDropDown(name, belowOrigin,  constraintWidth);
-	}
 
-	@Override
-	protected void onUnload() {
-		super.onUnload();
+		initialize();
 	}
 
 	/**
-	 * Initialize the dropdown components
+	 * The duration of the transition enter in milliseconds. Default: 300
 	 */
-	private native void initDropDown(String name,boolean belowOrigin, boolean constraintWidth)/*-{
-		$wnd.jQuery(document).ready(function(){
-			$wnd.jQuery('.'+name).dropdown({
-			  inDuration: 300,
-			  outDuration: 225,
-			  constrain_width: constraintWidth, // Does not change width of dropdown to that of the activator
-			  hover: false, // Activate on hover
-			  gutter: 0, // Spacing from edge
-			  belowOrigin: belowOrigin, // Displays dropdown below the button
-			  alignment: 'right' // Displays dropdown with edge aligned to the left of button
-			  // Displays dropdown below the button
-			});
-		});
-	}-*/;
+	public void setInDuration(int durationMillis) {
+		this.inDuration = durationMillis;
+	}
+
+	public int getInDuration() {
+		return inDuration;
+	}
+
+	/**
+	 * The duration of the transition out in milliseconds. Default: 225
+	 */
+	public void setOutDuration(int durationMillis) {
+		this.outDuration = durationMillis;
+	}
+
+	public int getOutDuration() {
+		return outDuration;
+	}
+
+	/**
+	 * If true, constrainWidth to the size of the dropdown activator. Default: true
+	 */
+	public void setConstrainWidth(boolean constrainWidth) {
+		this.constrainWidth = constrainWidth;
+	}
+
+	public boolean isConstrainWidth() {
+		return constrainWidth;
+	}
+
+	/**
+	 * If true, the dropdown will open on hover. Default: false
+	 */
+	public void setHover(boolean hover) {
+		this.hover = hover;
+	}
+
+	public boolean isHover() {
+		return hover;
+	}
+
+	/**
+	 * This defines the spacing from the aligned edge. Default: 0
+	 */
+	public void setGutter(int gutter) {
+		this.gutter = gutter;
+	}
+
+	public int getGutter() {
+		return gutter;
+	}
+
+	/**
+	 * If true, the dropdown will show below the activator. Default: false
+	 */
+	public void setBelowOrigin(boolean belowOrigin) {
+		this.belowOrigin = belowOrigin;
+	}
+
+	public boolean isBelowOrigin() {
+		return belowOrigin;
+	}
+
+	/**
+	 * Defines the edge the menu is aligned to. Default: 'left'
+	 */
+	public void setAlignment(Alignment alignment) {
+		this.alignment = alignment.getCssName();
+	}
+
+	public Alignment getAlignment() {
+		return Alignment.fromStyleName(alignment);
+	}
+
+	protected void initialize() {
+		Element activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
+		if(activatorElem == null) {
+			throw new IllegalStateException("There is no activator element with id: '" + activator
+				+ "' in the DOM, cannot instantiate MaterialDropDown without an activator.");
+		} else {
+			this.activatorElem = activatorElem;
+		}
+
+		initialize(activatorElem);
+	}
+
+	/**
+	 * Must be called after changing any options.
+	 */
+	public void reinitialize() {
+		remove(activatorElem);
+		initialize(activatorElem);
+	}
+
+	/**
+	 * Initialize the dropdown components.
+	 */
+	private native void initialize(Element activator)/*-{
+        var that = this;
+        $wnd.jQuery(document).ready(function(){
+            $wnd.jQuery(activator).dropdown({
+                inDuration: that.@gwt.material.design.client.ui.MaterialDropDown::inDuration,
+                outDuration: that.@gwt.material.design.client.ui.MaterialDropDown::outDuration,
+                constrain_width: that.@gwt.material.design.client.ui.MaterialDropDown::constrainWidth, // Does not change width of dropdown to that of the activator
+                hover: that.@gwt.material.design.client.ui.MaterialDropDown::hover, // Activate on hover
+                gutter: that.@gwt.material.design.client.ui.MaterialDropDown::gutter, // Spacing from edge
+                belowOrigin: that.@gwt.material.design.client.ui.MaterialDropDown::belowOrigin, // Displays dropdown below the button
+                alignment: that.@gwt.material.design.client.ui.MaterialDropDown::alignment // Displays dropdown with edge aligned to the left of button
+            });
+        });
+    }-*/;
+
+	private native void remove(Element activator)/*-{
+        $wnd.jQuery(activator).dropdown("remove");
+    }-*/;
 }

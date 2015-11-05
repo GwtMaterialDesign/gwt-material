@@ -80,7 +80,7 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
             if(mainColor) {
                 // the main color
                 if(!style.endsWith("-text")) {
-                    style += "text";
+                    style += "-text";
                 }
                 mainColor = false;
             } else {

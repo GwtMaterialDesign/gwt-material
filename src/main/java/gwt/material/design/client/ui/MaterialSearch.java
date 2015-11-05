@@ -50,7 +50,7 @@ import com.google.gwt.user.client.ui.HasText;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHandlers,  HasPlaceholder {
+public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHandlers, HasPlaceholder {
 
 	private MaterialInput searchInput = new MaterialInput();
 	private Label label = new Label();

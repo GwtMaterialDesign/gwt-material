@@ -66,6 +66,7 @@ public class MaterialFooter extends ComplexWidget {
 		super(Document.get().createElement("footer"));
 		setStyleName("page-footer");
 		container.setStyleName("container");
+		super.add(container);
 	}
 
 	@Override
@@ -74,7 +75,6 @@ public class MaterialFooter extends ComplexWidget {
 			super.add(child);
 		} else {
 			container.add(child);
-			super.add(container);
 		}
 	}
 }

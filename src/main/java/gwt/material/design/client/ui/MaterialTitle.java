@@ -20,38 +20,36 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasTitle;
 import gwt.material.design.client.constants.HeadingSize;
+import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Heading;
 import gwt.material.design.client.ui.html.Paragraph;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 
 //@formatter:off
 /**
-* Title is a component that will easily add Title and description widgets
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code 
-* <m:MaterialTitle title="I love Material Design" description="This is sample description" />
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-*/
+ * Title is a component that will easily add Title and description widgets
+ *
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialTitle title="I love Material Design" description="This is sample description" />
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ */
 //@formatter:on
-public class MaterialTitle extends ComplexWidget implements HasTitle {
+public class MaterialTitle extends Div implements HasTitle {
 
 	Heading header = new Heading(HeadingSize.H4);
 	Paragraph paragraph = new Paragraph();
 
-	public MaterialTitle(){
-		setElement(Document.get().createDivElement());
+	public MaterialTitle() {
 		header.setFontWeight(300);
 		header.getElement().getStyle().setMarginTop(60, Unit.PX);
 		add(header);

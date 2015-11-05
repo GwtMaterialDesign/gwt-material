@@ -36,20 +36,16 @@ import gwt.material.design.client.ui.html.UnorderedList;
 
 /**
 * SideNav is a material component that gives you a lists of menus and other navigation components.
-* 
-* <p>
+*
 * <h3>UiBinder Usage:</h3>
 * <pre>
-* {@code 
-* 
+* {@code
 * <m:MaterialSideNav ui:field="sideNav" width="280" name="mysidebar"  type="OPEN" closeOnClick="false">
 * 	<m:MaterialLink href="#about" iconPosition="left" icon="info_outline" text="About" textColor="blue"  />
 * 	<m:MaterialLink href="#gettingStarted" iconPosition="left" icon="cloud_download" text="Getting Started" textColor="blue"  >		
 * </m:MaterialSideNav>
-* 
 * }
 * </pre>
-* </p>
 * 
 * @author kevzlou7979
 * @author Ben Dol

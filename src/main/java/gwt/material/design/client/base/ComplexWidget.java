@@ -46,7 +46,7 @@ import gwt.material.design.client.constants.WavesType;
 
 public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves {
+        HasCircle, HasWaves, HasDataAttributes {
 
     private final IdMixin<ComplexWidget> idMixin = new IdMixin<>(this);
     private final EnabledMixin<ComplexWidget> enabledMixin = new EnabledMixin<>(this);
@@ -324,5 +324,21 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     @Override
     public WavesType getWaves() {
         return wavesMixin.getWaves();
+    }
+
+    @Override
+    public void setDataAttribute(String dataAttr, String value) {
+        if(!dataAttr.startsWith("data-")) {
+            dataAttr = "data-" + dataAttr;
+        }
+        getElement().setAttribute(dataAttr, value);
+    }
+
+    @Override
+    public String getDataAttribute(String dataAttr) {
+        if(!dataAttr.startsWith("data-")) {
+            dataAttr = "data-" + dataAttr;
+        }
+        return getElement().getAttribute(dataAttr);
     }
 }

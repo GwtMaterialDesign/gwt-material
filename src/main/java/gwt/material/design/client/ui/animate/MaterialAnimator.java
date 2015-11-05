@@ -31,11 +31,11 @@ public class MaterialAnimator {
 	public static void animate(final Transition transition,final Widget w, int delayMillis) {
 		switch (transition) {
 		case SHOW_STAGGERED_LIST:
-			if(w instanceof UnorderedList){
+			if(w instanceof UnorderedList) {
 				UnorderedList ul = (UnorderedList) w;
-				
-				for(Widget li : ul){
-					if(li instanceof ListItem){
+
+				for(Widget li : ul) {
+					if(li instanceof ListItem) {
 						li.getElement().getStyle().setOpacity(0);
 					}
 				}
@@ -51,29 +51,25 @@ public class MaterialAnimator {
 		new Timer() {
 			@Override
 			public void run() {
-				applyAnimation(transition, w);
-			}
-
-			private void applyAnimation(Transition transition, Widget w) {
 				String name = String.valueOf(this.hashCode());
 				w.getElement().setId(name);
 				switch (transition) {
-				case SHOW_STAGGERED_LIST:
-					showStaggeredList(name);
-					break;
-				case FADE_IN_IMAGE:
-					fadeInImage(name);
-					break;
-				case SHOW_GRID:
-					w.addStyleName("display-animation");
-					showGrid(name);
-					break;
-				case CLOSE_GRID:
-					w.addStyleName("display-animation");
-					closeGrid(name);
-					break;
-				default:
-					break;
+					case SHOW_STAGGERED_LIST:
+						showStaggeredList(name);
+						break;
+					case FADE_IN_IMAGE:
+						fadeInImage(name);
+						break;
+					case SHOW_GRID:
+						w.addStyleName("display-animation");
+						showGrid(name);
+						break;
+					case CLOSE_GRID:
+						w.addStyleName("display-animation");
+						closeGrid(name);
+						break;
+					default:
+						break;
 				}
 			}
 		}.schedule(delayMillis);
@@ -93,7 +89,7 @@ public class MaterialAnimator {
 		$wnd.Materialize.fadeInImage('#' + name);
 	}-*/;
 
-	public static native void showStaggeredList(String name)/*-{
+	public static native void showStaggeredList(String name) /*-{
 		$wnd.Materialize.showStaggeredList('#' + name);
 	}-*/;
 }
