@@ -1,0 +1,26 @@
+/** Blockquote **/
+blockquote {
+	border-left: 5px solid #42A5F5 !important;
+}
+
+.multiValueSuggestBox-panel:focus {
+	border-bottom: 2px solid #42A5F5 !important;
+}
+
+/** Image Slider **/
+.slider .indicators .indicator-item.active {
+	background-color: #2196f3;
+}
+
+/**SCROLLSPY**/
+.table-of-contents a.active {
+	border-left: 2px solid #2196f3 !important;
+}
+
+.table-of-contents a:hover {
+	border-left: 1px solid #2196f3 !important;
+}
+
+.progress div {
+	background-color: #0090D9;
+}
