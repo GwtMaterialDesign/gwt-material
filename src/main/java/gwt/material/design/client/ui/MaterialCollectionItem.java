@@ -20,20 +20,21 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasAvatar;
 import gwt.material.design.client.base.HasDismissable;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Widget;
-
 //@formatter:off
+
 /**
  * Collection element to define every items
  * @author kevzlou7979
@@ -44,6 +45,8 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 
 	private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
 	private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
+
+	private HandlerRegistration handlerReg;
 
 	public MaterialCollectionItem() {
 		super(Document.get().createLIElement());
@@ -59,18 +62,26 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
 			if(getWidgetCount() > 0) {
 				getWidget(0).getElement().getStyle().setProperty("display" , "inline");
 			}
-			addClickHandler(new ClickHandler() {
+			if(handlerReg != null) {
+				handlerReg.removeHandler();
+			}
+			handlerReg = addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
 					for(Widget w : MaterialCollectionItem.this) {
 						if(w instanceof MaterialCollectionSecondary) {
 							for(Widget a : (MaterialCollectionSecondary)w) {
-								if(a instanceof MaterialCheckBox) {
-									MaterialCheckBox  cb = (MaterialCheckBox)a;
-									if(cb.getValue()) {
-										cb.setValue(false);
-									} else {
-										cb.setValue(true);
+								if(a instanceof HasValue) {
+									try {
+										@SuppressWarnings("unchecked")
+										HasValue<Boolean> cb = (HasValue<Boolean>) a;
+										if (cb.getValue()) {
+											cb.setValue(false);
+										} else {
+											cb.setValue(true);
+										}
+									} catch (ClassCastException ex) {
+										// Ignore non-boolean has value handlers.
 									}
 								}
 							}

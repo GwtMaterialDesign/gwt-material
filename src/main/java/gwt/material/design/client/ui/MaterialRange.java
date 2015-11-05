@@ -20,11 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.ui.html.Paragraph;
-import gwt.material.design.client.base.HasError;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
@@ -33,9 +28,15 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.ui.html.Paragraph;
+import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
+
 /**
  * Material Range - a slider that initialize the minimum and maximum values.
  *
@@ -53,6 +54,7 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 
 	private Paragraph paragraph = new Paragraph();
 	private MaterialInput input = new MaterialInput();
+	private Span thumb = new Span();
 	
     private static String VALUE = "value";
     private static String MAX = "max";
@@ -70,13 +72,23 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
 	 */
 	public MaterialRange() {
 		super(Document.get().createElement("form"));
+		getElement().setAttribute("action", "#");
 		lblError.setVisible(false);
 		paragraph.setStyleName("range-field");
+
 		input.setType(InputType.RANGE);
 		paragraph.add(input);
+
+		thumb.getElement().setClassName("thumb");
+		Span value = new Span();
+		value.getElement().setClassName("value");
+		thumb.add(value);
+
+		paragraph.add(thumb);
 		add(paragraph);
-		add(lblError);
+
 		lblError.getElement().getStyle().setMarginTop(-10, Unit.PX);
+		add(lblError);
 	}
 	
 	/**

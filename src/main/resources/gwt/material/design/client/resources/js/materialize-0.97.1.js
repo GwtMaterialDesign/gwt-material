@@ -40,6 +40,8 @@
  *
  */
 
+// Contains hotfix: https://github.com/Dogfalo/materialize/commit/53246af05228e16335a84f97f727f01fdf8f8f37
+
 // t: current time, b: begInnIng value, c: change In value, d: duration
 jQuery.easing['jswing'] = jQuery.easing['swing'];
 
@@ -2677,6 +2679,7 @@ else {
 
         $(document).on('input mousedown touchstart', range_type, function(e) {
             var thumb = $(this).siblings('.thumb');
+            var width = $(this).outerWidth();
 
             // If thumb indicator does not exist yet, create it
             if (thumb.length <= 0) {
@@ -2694,21 +2697,22 @@ else {
                 thumb.velocity({ height: "30px", width: "30px", top: "-20px", marginLeft: "-15px"}, { duration: 300, easing: 'easeOutExpo' });
             }
 
-            if(e.pageX === undefined || e.pageX === null){//mobile
-                left = e.originalEvent.touches[0].pageX - $(this).offset().left;
+            if (e.type !== 'input') {
+                if(e.pageX === undefined || e.pageX === null){//mobile
+                    left = e.originalEvent.touches[0].pageX - $(this).offset().left;
+                }
+                else{ // desktop
+                    left = e.pageX - $(this).offset().left;
+                }
+                if (left < 0) {
+                    left = 0;
+                }
+                else if (left > width) {
+                    left = width;
+                }
+                thumb.addClass('active').css('left', left);
             }
-            else{ // desktop
-                left = e.pageX - $(this).offset().left;
-            }
-            var width = $(this).outerWidth();
 
-            if (left < 0) {
-                left = 0;
-            }
-            else if (left > width) {
-                left = width;
-            }
-            thumb.addClass('active').css('left', left);
             thumb.find('.value').html($(this).val());
 
 
