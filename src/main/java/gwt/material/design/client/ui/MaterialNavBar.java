@@ -23,9 +23,9 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasLoader;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.NavBarType;
-import gwt.material.design.client.constants.ShowOn;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
@@ -72,7 +72,7 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 		nav.add(div);
 		div.add(navMenu);
 		navMenu.addStyleName("button-collapse");
-		navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
+		navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
 	}
 
 	@Override
