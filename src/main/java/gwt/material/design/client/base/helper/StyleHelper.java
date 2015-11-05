@@ -31,6 +31,11 @@ import com.google.gwt.user.client.ui.UIObject;
  */
 public final class StyleHelper {
 
+    public static <F extends Enum<? extends Style.HasCssName>> F fromStyleName(final Class<F> enumClass,
+                                                                               final Style.HasCssName styleName) {
+        return EnumHelper.fromStyleName(styleName.getCssName(), enumClass, null);
+    }
+
     /**
      * Convenience method for first removing all enum style constants and then adding the single one.
      *

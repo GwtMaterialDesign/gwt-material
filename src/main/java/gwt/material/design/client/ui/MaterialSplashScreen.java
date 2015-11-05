@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -59,6 +60,7 @@ public class MaterialSplashScreen extends ComplexWidget {
 	private Widget main;
 	
 	public MaterialSplashScreen() {
+		super(DOM.createDiv());
 		imgLogo = new MaterialImage();
 		title = new MaterialTitle();
 		panel = new MaterialPanel();

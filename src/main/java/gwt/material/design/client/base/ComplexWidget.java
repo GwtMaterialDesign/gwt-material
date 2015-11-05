@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.base.mixin.WavesMixin;
@@ -46,7 +47,7 @@ import gwt.material.design.client.constants.WavesType;
 
 public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat {
 
     private final IdMixin<ComplexWidget> idMixin = new IdMixin<>(this);
     private final EnabledMixin<ComplexWidget> enabledMixin = new EnabledMixin<>(this);
@@ -63,6 +64,7 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     private final FontSizeMixin<ComplexWidget> fontSizeMixin = new FontSizeMixin<>(this);
     private final ToggleStyleMixin<ComplexWidget> circleMixin = new ToggleStyleMixin<>(this, "circle");
     private final WavesMixin<ComplexWidget> wavesMixin = new WavesMixin<>(this);
+    private final CssNameMixin<ComplexWidget, Style.Float> floatMixin = new CssNameMixin<>(this);
 
     public ComplexWidget() {
     }
@@ -340,5 +342,15 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
             dataAttr = "data-" + dataAttr;
         }
         return getElement().getAttribute(dataAttr);
+    }
+
+    @Override
+    public void setFloat(Style.Float floatAlign) {
+        floatMixin.setCssName(floatAlign);
+    }
+
+    @Override
+    public Style.Float getFloat() {
+        return StyleHelper.fromStyleName(Style.Float.class, floatMixin.getCssName());
     }
 }

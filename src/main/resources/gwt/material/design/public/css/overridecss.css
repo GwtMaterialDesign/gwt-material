@@ -14,6 +14,11 @@
 	font-weight: normal;
 	color: rgba(0, 0, 0, 0.87);
 }
+
+footer {
+	font-size: .9rem;
+}
+
 /**Switch**/
 .switch label input[type=checkbox]:checked + .lever.disabled {
     background-color: #D4D4D4;
@@ -128,7 +133,7 @@ ul.multiValueSuggestBox-list {
 
 ul.multiValueSuggestBox-list li input {
     border: 0;
-    width: 200px;
+    width: 200;
     padding: 0 8px;
     background-color: transparent;
     margin: 2px 0;
@@ -228,7 +233,7 @@ table tr {
 }
 
 table .gwt-CheckBox label {
-	 margin-bottom: -10px;
+	 margin-bottom: -10;
 } 
 
 .hoverable table > tbody > tr:hover {
@@ -315,9 +320,9 @@ table .gwt-CheckBox label {
 .auto_suggest {
 	z-index: 20;
 	background-color: white;
-	padding: 10px;
-	width: 400px;
-	height: 230px;
+	padding: 10;
+	width: 400;
+	height: 230;
 }
 
 .original-token-input {
@@ -333,7 +338,7 @@ ul.token-input-list-facebook {
 	overflow: hidden;
 	height: auto !important;
 	height: 1%;
-	width: 400px;
+	width: 400;
 	border: 1px solid #8496ba;
 	cursor: text;
 	font-size: 12px;
@@ -351,7 +356,7 @@ ul.token-input-list-facebook {
 
 ul.token-input-list-facebook li input {
 	border: 0;
-	width: 100px;
+	width: 100;
 	padding: 3px 8px;
 	background-color: white;
 	margin: 2px 0;
@@ -446,7 +451,7 @@ li.token-input-input-token-facebook {
     -moz-box-shadow: none;
 }
 .side-nav.card {
-	margin: 20px;
+	margin: 20;
     height: auto !important;
     padding-bottom: 0;
 }
@@ -455,8 +460,8 @@ li.token-input-input-token-facebook {
 	text-align: center;
 }
 .side-nav.mini li div {
-	padding-bottom: 10px;
-    padding-top: 10px;
+	padding-bottom: 10;
+    padding-top: 10;
 }
 .side-nav a {
 	width: 100%;
@@ -514,7 +519,7 @@ ul.side-nav.fixed li:hover,ul.side-nav.fixed li.active {
 		padding: 0 !important;
 	}
 	.side-nav.clip {
-		top: 50px;
+		top: 50;
 	}
 	.side-nav.mini {
 		top: 55px;
@@ -528,7 +533,7 @@ ul.side-nav.fixed li:hover,ul.side-nav.fixed li.active {
 	.side-nav.card {
 		height: 100% !important;
 		margin: initial;
-		padding-bottom: 60px;
+		padding-bottom: 60;
 	}
 }
 
@@ -637,7 +642,7 @@ a,a:visited {
 	transition: 400ms all;
 	-webkit-transition: 400ms all;
 	-moz-transition: 400ms all;
-	margin-bottom: -10px;
+	margin-bottom: -10;
 }
 
 .floatingButtonsItem:hover ul li div {
@@ -759,14 +764,14 @@ i[class*="waves-"].material-icons {
     height: 100%;
     position: fixed;
     z-index: 999;
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .progress-wrapper{
-    top: 0px;
+    top: 0;
     position: fixed;
     z-index: 999;
     width: 100%;

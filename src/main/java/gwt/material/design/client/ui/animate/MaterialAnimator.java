@@ -28,7 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialAnimator {
 
-	public static void animate(final Transition transition,final Widget w, int delayMillis) {
+	public static void animate(final Transition transition, final Widget w, int delayMillis) {
 		switch (transition) {
 		case SHOW_STAGGERED_LIST:
 			if(w instanceof UnorderedList) {
