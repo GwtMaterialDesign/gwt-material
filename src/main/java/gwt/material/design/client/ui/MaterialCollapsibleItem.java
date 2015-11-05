@@ -1,10 +1,10 @@
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.base.ComplexWidget;
-
-import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.ui.html.ListItem;
 
 /*
  * #%L
@@ -27,19 +27,20 @@ import com.google.gwt.user.client.ui.Widget;
  */
 
 //@formatter:off
+
 /**
 * Collapsible element to define every items
 * @author kevzlou7979
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets {
+public class MaterialCollapsibleItem extends ListItem implements HasWidgets {
 
 	/**
 	 * Creates an empty collapsible item.
 	 */
 	public MaterialCollapsibleItem() {
-		super(Document.get().createLIElement());
+		super();
 	}
 	
 	/**
@@ -50,5 +51,13 @@ public class MaterialCollapsibleItem extends ComplexWidget implements HasWidgets
 		for(Widget w : widgets){
 			add(w);
 		}
+	}
+
+	@Override
+	public void setWaves(WavesType waves) {
+		super.setWaves(waves);
+
+		// Waves change to inline block
+		setDisplay(Style.Display.BLOCK);
 	}
 }

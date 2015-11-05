@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasWaves;
 
 public class UnorderedList extends ComplexWidget {
 	
@@ -36,7 +37,12 @@ public class UnorderedList extends ComplexWidget {
 		if(child instanceof ListItem) {
 			add(child, (Element) getElement());
 		} else {
-			add(new ListItem(child), (Element) getElement());
+			ListItem li = new ListItem(child);
+			if(child instanceof HasWaves) {
+				li.setWaves(((HasWaves) child).getWaves());
+				((HasWaves) child).setWaves(null);
+			}
+			add(li, (Element) getElement());
 		}
 	}
 }

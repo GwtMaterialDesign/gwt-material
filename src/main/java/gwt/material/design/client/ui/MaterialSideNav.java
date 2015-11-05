@@ -26,6 +26,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.html.ListItem;
@@ -106,6 +107,10 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 			ListItem listItem = new ListItem();
 			if(child instanceof MaterialCollapsible) {
 				listItem.getElement().getStyle().setBackgroundColor("transparent");
+			}
+			if(child instanceof HasWaves) {
+				listItem.setWaves(((HasWaves) child).getWaves());
+				((HasWaves) child).setWaves(null);
 			}
 			listItem.add(child);
 			child = listItem;

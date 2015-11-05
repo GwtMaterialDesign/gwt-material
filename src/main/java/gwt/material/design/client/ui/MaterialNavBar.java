@@ -20,20 +20,18 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasLoader;
 import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.NavBarType;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.Widget;
-
 //@formatter:off
+
 /**
  * Material NavBar represents as a app tool bar, that contains NavBrand,
  * NavSection and initialize Material Sidenav.
@@ -56,9 +54,8 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
 */
 //@formatter:on
-public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<NavBarType>{
-	
-	private Nav nav = new Nav();
+public class MaterialNavBar extends Nav implements HasLoader, HasType<NavBarType> {
+
 	private Div div = new Div();
 
 	private MaterialIcon navMenu = new MaterialIcon(IconType.MENU);
@@ -67,11 +64,9 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 	private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
 	
 	public MaterialNavBar() {
-		super(Document.get().createElement("header"));
-		super.add(nav);
 		div.setStyleName("nav-wrapper");
-		nav.add(div);
 		div.add(navMenu);
+		super.add(div);
 		navMenu.addStyleName("button-collapse");
 		navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
 	}
@@ -98,12 +93,11 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 
 	@Override
 	public void showLoader() {
-		nav.add(progress);
+		add(progress);
 	}
 
 	@Override
 	public void hideLoader() {
 		progress.removeFromParent();
 	}
-	
 }
