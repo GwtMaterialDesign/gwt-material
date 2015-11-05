@@ -5,7 +5,7 @@ function showGrid(id, duration){
     var elements = $(this).children();
     elements.each(function() {      
       var elementOffset = $(this).offset(); 
-      var offset = elementOffset.left*0.75 + elementOffset.top;
+      var offset = elementOffset.left*0.5 + elementOffset.top;
       var delay = parseFloat(offset/speed).toFixed(2);
       $(this)
         .css("-webkit-transition-delay", delay+'s')

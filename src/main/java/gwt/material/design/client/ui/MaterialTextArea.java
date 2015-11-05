@@ -71,7 +71,6 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
 		textArea.setStyleName("materialize-textarea");
 		add(label);
 		label.add(lblName);
-		icon.setIconPrefix(true);
 		lblError.setVisible(false);
 		add(lblError);
 	}
@@ -180,6 +179,7 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
 	@Override
 	public void setIconType(IconType iconType) {
 		icon.setIconType(iconType);
+		icon.setIconPrefix(true);
 	}
 
 	@Override

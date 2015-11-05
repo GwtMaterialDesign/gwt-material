@@ -117,7 +117,6 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
 		txtBox.setStyleName("validate");
 		add(label);
 		label.add(lblName);
-		icon.setIconPrefix(true);
 		lblError.setVisible(false);
 		add(lblError);
 	}
@@ -449,6 +448,7 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
 	@Override
 	public void setIconType(IconType iconType) {
 		icon.setIconType(iconType);
+		icon.setIconPrefix(true);
 	}
 
 	@Override

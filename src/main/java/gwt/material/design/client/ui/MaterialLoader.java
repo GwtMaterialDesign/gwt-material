@@ -66,6 +66,7 @@ public class MaterialLoader {
 			RootPanel.get().add(div);
 		} else {
 			div.removeFromParent();
+			preLoader.removeFromParent();
 		}
 	}
 	
@@ -74,12 +75,13 @@ public class MaterialLoader {
 	 */
 	public static void showProgress(boolean isShow) {
 		if (isShow) {
-			div.setStyleName("valign-wrapper");
+			div.setStyleName("valign-wrapper  progress-wrapper");
 			progress.getElement().getStyle().setProperty("margin", "auto");
 			div.add(progress);
 			RootPanel.get().add(div);
 		} else {
 			div.removeFromParent();
+			progress.removeFromParent();
 		}
 	}	
 }

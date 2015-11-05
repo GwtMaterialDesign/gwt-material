@@ -25,6 +25,7 @@ import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.ui.html.Span;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -57,6 +58,7 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
 	private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
 
+	private Span span = new Span();
 	private ButtonSize size;
 
 	/** Creates button with RAISED type.
@@ -150,11 +152,12 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	}
 
 	public String getText() {
-		return getElement().getInnerText();
+		return span.getText();
 	}
 
 	public void setText(String text) {
-		getElement().setInnerText(text);
+		span.setText(text);
+		add(span);
 	}
 
 	@Override

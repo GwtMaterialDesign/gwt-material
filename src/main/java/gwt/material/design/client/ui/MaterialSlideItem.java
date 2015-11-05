@@ -35,6 +35,6 @@ import com.google.gwt.dom.client.Document;
 public class MaterialSlideItem extends ComplexWidget {
 
 	public MaterialSlideItem(){
-		super(Document.get().createLIElement());
+		super(Document.get().createElement("paragraph"));
 	}
 }

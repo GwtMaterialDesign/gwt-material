@@ -75,15 +75,17 @@ public class MaterialNavBar extends ComplexWidget implements HasLoader, HasType<
 		navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
 	}
 
-	
+	@Override
+	public void setBackgroundColor(String bgColor) {
+		// TODO Auto-generated method stub
+		div.setBackgroundColor(bgColor);
+	}
 	
 	@Override
 	public void add(Widget child) {
 		div.add(child);
 	}
-
-
-
+	
 	@Override
 	public void setType(NavBarType type) {
 		this.type = type;

@@ -20,15 +20,16 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.ui.html.Span;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.ui.HasText;
 
 //@formatter:off
 /**
@@ -40,6 +41,7 @@ import com.google.gwt.dom.client.Document;
 public class MaterialCardTitle extends ComplexWidget implements HasIcon, HasText {
 
 	private MaterialIcon icon = new MaterialIcon();
+	private Span span = new Span();
 	
 	public MaterialCardTitle() {
 		super(Document.get().createSpanElement());
@@ -48,12 +50,13 @@ public class MaterialCardTitle extends ComplexWidget implements HasIcon, HasText
 
 	@Override
 	public String getText() {
-		return getElement().getInnerText();
+		return span.getText();
 	}
 
 	@Override
 	public void setText(String text) {
-		getElement().setInnerText(text);
+		span.setText(text);
+		add(span);
 	}
 
 	@Override
@@ -64,6 +67,7 @@ public class MaterialCardTitle extends ComplexWidget implements HasIcon, HasText
 	@Override
 	public void setIconType(IconType iconType) {
 		icon.setIconType(iconType);
+		add(icon);
 	}
 
 	@Override

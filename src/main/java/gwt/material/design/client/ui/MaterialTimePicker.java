@@ -44,12 +44,10 @@ public class MaterialTimePicker extends ComplexWidget implements HasError, HasPl
 
 	private MaterialLabel lblError = new MaterialLabel();
 
-	private final ErrorMixin<MaterialTimePicker, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, panel);
+	private final ErrorMixin<MaterialTimePicker, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, input);
 	
 	public MaterialTimePicker() {
 		super(Document.get().createElement("div"));
-		lblError.setVisible(false);
-		
 		panel.add(lblError);
 		input.setType(InputType.TEXT);
 		panel.add(input);

@@ -20,6 +20,9 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import gwt.material.design.client.base.mixin.ActivatesMixin;
+import gwt.material.design.client.ui.html.Span;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
@@ -38,7 +41,6 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.base.mixin.ActivatesMixin;
 
 /**
  * @author Ben Dol
@@ -48,6 +50,8 @@ public abstract class AbstractAnchor extends ComplexWidget implements HasHref, H
 
 	private final ActivatesMixin<AbstractAnchor> activatesMixin = new ActivatesMixin<>(this);
 
+	private Span span = new Span();
+	
 	protected AbstractAnchor() {
 		super(DOM.createAnchor());
 	}
@@ -85,11 +89,12 @@ public abstract class AbstractAnchor extends ComplexWidget implements HasHref, H
 	}
 
 	public String getText() {
-		return getElement().getInnerText();
+		return span.getText();
 	}
 
 	public void setText(String text) {
-		getElement().setInnerText(text);
+		span.setText(text);
+		add(span);
 	}
 
 	@Override
