@@ -15,10 +15,6 @@
 	color: rgba(0, 0, 0, 0.87);
 }
 
-footer {
-	font-size: .9rem;
-}
-
 /**Switch**/
 .switch label input[type=checkbox]:checked + .lever.disabled {
     background-color: #D4D4D4;

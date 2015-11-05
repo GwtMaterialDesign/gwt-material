@@ -30,6 +30,7 @@ import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.IdMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 
 //@formatter:off
 
@@ -63,8 +64,7 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 	private final IdMixin<MaterialListBox> idMixin = new IdMixin<>(this);
 	private final GridMixin<MaterialListBox> gridMixin = new GridMixin<>(this);
 	private final ColorsMixin<MaterialListBox> colorsMixin = new ColorsMixin<>(this);
-
-	private boolean old = false;
+	private final ToggleStyleMixin<MaterialListBox> oldMixin = new ToggleStyleMixin<>(this, "browser-default input-field");
 
 	public MaterialListBox() {
 		setId(DOM.createUniqueId());
@@ -91,16 +91,11 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 	}
 
 	public boolean isOld() {
-		return old;
+		return oldMixin.isOn();
 	}
 
 	public void setOld(boolean old) {
-		this.old = old;
-		if (old) {
-			addStyleName("browser-default input-field");
-		} else {
-			removeStyleName("browser-default input-field");
-		}
+		oldMixin.setOn(old);
 	}
 
 	@Override
@@ -126,7 +121,7 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 	@Override
 	public void onLoad() {
 		super.onLoad();
-		if (!old) {
+		if (!isOld()) {
 			createInternalChangeHandler(getId());
 		}
 		initializeMaterial();

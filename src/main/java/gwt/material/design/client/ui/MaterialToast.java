@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * GWT Material provides an easy way for you to send unobtrusive alerts
@@ -32,43 +33,67 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class MaterialToast {
 
-	public MaterialToast() {
+	private Runnable callback;
+	private Widget[] widgets;
+
+	public MaterialToast(Widget... widgets) {
+		this.widgets = widgets;
 	}
-	
-	/**
-	 * Provides a simple toast display for a specific message
-	 * @param msg - Message text for your toast
-	 */
-	public static native void alert(String msg) /*-{
-		 $wnd.Materialize.toast(msg, 4000);
-	}-*/;
+
+	public MaterialToast(Runnable callback, Widget... widgets) {
+		this.callback = callback;
+		this.widgets = widgets;
+	}
 
 	/**
-	 * Provides an advance toast with any widget (MaterialLink) for declaration of actions when toast is applied.
-	 * @param msg - Message text for your toast
-	 * @param link - A MaterialLink Widget to have some specific function when clicked.
+	 * @param msg Message text for your toast.
 	 */
-	public static void alert(String msg, MaterialLink link) {
-		String genId = DOM.createUniqueId();
-		alertWithAction(msg, genId);
-		link.getElement().getStyle().setPaddingLeft(30, Unit.PX);
-		RootPanel.get(genId).add(link);
+	public static void fireToast(String msg) {
+		fireToast(msg, null);
 	}
-	
-	public static native void alertWithAction(String msg, String id)/*-{
-		$wnd.Materialize.toast(msg, 4000);
-		 $wnd.jQuery(".toast").attr('id',  id);
-	}-*/;
-	
+
 	/**
-	 * Provides specific style in your toast for better clarity e.g Rounded,
-	 * any class name is acceptable for some specific design. Just add it in to
-	 * parameter type.
-	 * @param msg - Message text for your toast
-	 * @param type - Specific class name for styling your toast
+	 * Quick fire your toast.
+	 * @param msg Message text for your toast.
+	 * @param className class name to custom style your toast.
 	 */
-	public static native void alert(String msg, String type) /*-{
-		 $wnd.Materialize.toast(msg, 4000, type);
-		 $wnd.jQuery(".toast").attr('id',  'toast');
-	}-*/;
+	public static void fireToast(String msg, String className) {
+		new MaterialToast().toast(msg, className);
+	}
+
+	/**
+	 * @param msg Message text for your toast.
+	 */
+	public void toast(String msg) {
+		toast(msg, null);
+	}
+
+	/**
+	 * @param msg Message text for your toast.
+	 * @param className class name to custom style your toast.
+	 */
+	public void toast(String msg, String className) {
+		String genId = DOM.createUniqueId();
+		if(className == null) {
+			className = genId;
+		}
+		toast(msg, genId, className);
+
+		if(widgets != null) {
+			for (Widget widget : widgets) {
+				widget.getElement().getStyle().setPaddingLeft(30, Unit.PX);
+				RootPanel.get(genId).add(widget);
+			}
+		}
+	}
+
+	private static native void toast(String msg, String id, String className)/*-{
+        var that = this;
+        $wnd.Materialize.toast(msg, 4000, className, function() {
+            if(that.callback != null) {
+                that.callback.@java.lang.Runnable::run()();
+            }
+        });
+        $wnd.jQuery(".toast." + className).attr('id',  id);
+    }-*/;
 }
