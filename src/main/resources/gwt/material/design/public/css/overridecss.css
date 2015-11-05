@@ -491,10 +491,6 @@ nav .nav-wrapper .collapsible-body {
 	padding: 0 !important;
 }
 
-.side-nav .collapsible-body li a {
-    margin: 0 1rem 0 5rem;
-}
-
 .collapsible-body {
 	margin: 0;
 	padding: 2rem;

@@ -20,7 +20,6 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.IsEditor;
@@ -31,6 +30,9 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.IdMixin;
 
+/**
+ * @author Ben Dol
+ */
 public abstract class AbstractTextWidget extends Widget implements HasId, HasHTML, HasInlineStyle,
         IsEditor<LeafValueEditor<String>> {
 

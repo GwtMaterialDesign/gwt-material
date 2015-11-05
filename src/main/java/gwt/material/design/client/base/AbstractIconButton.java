@@ -28,6 +28,9 @@ import gwt.material.design.client.ui.MaterialIcon;
 
 import com.google.gwt.dom.client.Style;
 
+/**
+ * @author Ben Dol
+ */
 public abstract class AbstractIconButton extends AbstractButton implements HasIcon {
 
 	private MaterialIcon icon = new MaterialIcon();

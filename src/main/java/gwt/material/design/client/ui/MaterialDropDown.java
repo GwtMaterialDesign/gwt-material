@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -42,6 +41,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * }
  * </pre>
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
  */
 //@formatter:on
@@ -66,13 +66,11 @@ public class MaterialDropDown extends UnorderedList {
 	/**
 	 * Material Dropdown - adds a list item selection when button, link, icon button pressed.
 	 * @param activator - data-activates attribute name of your dropdown activator.
-	 * @param belowOrigin - displays dropdown below the button.
 	 */
 	@UiConstructor
-	public MaterialDropDown(String activator, boolean belowOrigin) {
+	public MaterialDropDown(String activator) {
 		this();
 		this.activator = activator;
-		this.belowOrigin = belowOrigin;
 
 		getElement().setId(this.activator);
 	}

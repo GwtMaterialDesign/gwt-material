@@ -53,7 +53,7 @@ public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibi
 	}
 
 	public MaterialColumn(int small, int medium, int large) {
-		setStyleName("col");
-		this.addStyleName("s"+small+" m"+medium + " l" + large);
+		this();
+		addStyleName("s"+small+" m"+medium + " l" + large);
 	}
 }

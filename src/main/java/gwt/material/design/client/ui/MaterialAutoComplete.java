@@ -71,7 +71,6 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     private UnorderedList list = new UnorderedList();
     private MultiWordSuggestOracle suggestions;
     private TextBox itemBox = new TextBox();
-    private String placeholder = "";
     private int limit = 0;
     private MaterialLabel lblError = new MaterialLabel();
 
@@ -224,7 +223,6 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
             } else {
             	itemBox.setValue("");
             }
-            
         } else {
         	itemBox.setValue("");
         }
@@ -295,12 +293,11 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
 	@Override
 	public String getPlaceholder() {
-		return placeholder;
+		return itemBox.getElement().getAttribute("placeholder");
 	}
 
 	@Override
 	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
 		itemBox.getElement().setAttribute("placeholder", placeholder);
 	}
 
