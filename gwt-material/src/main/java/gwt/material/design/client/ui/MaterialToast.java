@@ -116,7 +116,7 @@ public class MaterialToast {
 		if(className == null) {
 			className = genId;
 		}
-		toast(msg, lifeMillis, genId, className);
+		toast(msg, lifeMillis, genId, className, callback);
 
 		if(widgets != null) {
 			for (Widget widget : widgets) {
@@ -126,11 +126,10 @@ public class MaterialToast {
 		}
 	}
 
-	private static native void toast(String msg, int lifeMillis, String id, String className)/*-{
-        var that = this;
+	private static native void toast(String msg, int lifeMillis, String id, String className, Runnable callback)/*-{
         $wnd.Materialize.toast(msg, lifeMillis, className, function() {
-            if(that.callback != null) {
-                that.callback.@java.lang.Runnable::run()();
+            if(callback != null) {
+                callback.@java.lang.Runnable::run()();
             }
         });
         $wnd.jQuery(".toast." + className).attr('id',  id);
