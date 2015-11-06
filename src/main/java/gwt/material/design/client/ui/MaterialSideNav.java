@@ -144,7 +144,8 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 			initNavBar(activator, width, closeOnClick);
 		} else {
 			throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-				"please ensure you have a MaterialNavBar with an activator setup to match this widgets id.");
+				"please ensure you have a MaterialNavBar with an activator setup to match " +
+				"this widgets id.");
 		}
 	}
 
