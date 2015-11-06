@@ -4,7 +4,7 @@
 
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>1.3.4-SNAPSHOT</version>
 
     <name>Gwt Material Design</name>
