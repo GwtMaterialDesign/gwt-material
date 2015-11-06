@@ -20,10 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.ui.html.Div;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 
 //@formatter:off

@@ -67,7 +67,6 @@ public class MaterialTab extends ComplexWidget {
 	@Override
 	public void onLoad() {
 		super.onLoad();
-
 		initTab(getElement());
 	}
 

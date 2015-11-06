@@ -40,8 +40,4 @@ public class MaterialPanel extends ComplexWidget {
 		super(Document.get().createDivElement());
 	}
 
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		addStyleName(bgColor);
-	}
 }

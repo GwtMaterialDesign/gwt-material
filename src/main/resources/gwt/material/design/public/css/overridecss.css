@@ -772,3 +772,7 @@ i[class*="waves-"].material-icons {
     z-index: 999;
     width: 100%;
 }
+
+.side-nav .badge{
+	float: right;
+}
