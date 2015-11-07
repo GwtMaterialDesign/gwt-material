@@ -28,6 +28,7 @@ import com.google.gwt.dom.client.Document;
 /**
 * Card Element for revealed content once title is triggered. 
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on

@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
 * Footer specific zone for copyright text
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
 *///@formatter:on
 public class MaterialFooterCopyright extends ComplexWidget {

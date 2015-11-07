@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
 * Card Element for card image. 
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on

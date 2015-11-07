@@ -33,12 +33,13 @@ import com.google.gwt.dom.client.Document;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialFAB>
- *   <m:MaterialButton type="FLOATING" backgroundColor="blue" icon="polymer" size="large"/>
+ *{@code
+ *<m:MaterialFAB>
+ *   <m:MaterialButton type="FLOATING" backgroundColor="blue" icon="POLYMER" size="LARGE"/>
  *   <m:MaterialFABList>
- *     <m:MaterialButton type="FLOATING" backgroundColor="red" icon="polymer"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="orange" icon="polymer"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="white" icon="polymer" iconColor="black"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="red" icon="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="orange" icon="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="white" icon="POLYMER" iconColor="black"/>
  *   </m:MaterialFABList>
  * </m:MaterialFAB>}
  * </pre>

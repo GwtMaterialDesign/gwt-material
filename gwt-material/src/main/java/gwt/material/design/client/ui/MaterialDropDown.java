@@ -33,7 +33,8 @@ import gwt.material.design.client.ui.html.UnorderedList;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialDropDown>
+ *{@code
+ *<m:MaterialDropDown>
  *   <m:MaterialLink text="First" />
  *   <m:MaterialLink text="Second" />
  *   <m:MaterialLink text="Third" />

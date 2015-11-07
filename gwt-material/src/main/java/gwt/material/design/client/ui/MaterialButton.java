@@ -28,32 +28,33 @@ import gwt.material.design.client.constants.ButtonType;
 
 //@formatter:off
 /**
- * There are 3 main button types described in material design. The raised
- * button is a standard button that signify actions and seek to give depth
- * to a mostly flat page. The floating circular action button is meant for
- * very important functions. Flat buttons are usually used within elements
- * that already have depth like cards or modals.
- * <h3>UiBinder Usage:</h3>
- * <pre>
- *{@code// Raised (Default) Button
- * <m:MaterialButton text="Button" waves="light" backgroundColor="blue" />
- *
- * // Adding icon
- * <m:MaterialButton text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="left"/>
- *
- * // Floating Button
- * <m:MaterialButton type="floating" waves="light" size="large"  icon="add"/>
- *
- * // Flat Button
- * <m:MaterialButton text="Button" type="flat" waves="grey" />
- *
- * // Large Button
- * <m:MaterialButton size="large" text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="right"/>}
- * </pre>
- *
- * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Button</a>
- */
+* There are 3 main button types described in material design. The raised
+* button is a standard button that signify actions and seek to give depth
+* to a mostly flat page. The floating circular action button is meant for
+* very important functions. Flat buttons are usually used within elements
+* that already have depth like cards or modals.
+* <h3>UiBinder Usage:</h3>
+* <pre>
+*{@code
+* //Raised (Default) Button
+* <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="blue" />
+*
+* // Adding icon
+* <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="blue" icon="CLOUD" iconPosition="LEFT"/>
+*
+* // FLOATING+ Button
+* <m:MaterialButton type="FLOATING" waves="LIGHT" size="LARGE"  icon="ADD"/>
+*
+* // FLAT Button
+* <m:MaterialButton text="Button" type="FLAT" waves="GREY" />
+*
+* // LARGE Button
+* <m:MaterialButton size="LARGE" text="Button" waves="LIGHT" backgroundColor="blue" icon="CLOUD" iconPosition="RIGHT"/>}
+* </pre>
+*
+* @author kevzlou7979
+* @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Button</a>
+*/
 //@formatter:on
 public class MaterialButton extends AbstractIconButton {
 

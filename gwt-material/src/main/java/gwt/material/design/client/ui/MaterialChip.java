@@ -67,11 +67,12 @@ import com.google.gwt.user.client.ui.Image;
  * <m:MaterialChip text="Apple" />
  *
  * // Contact Chips
- * <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" icon="close"/>
+ * <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" icon="CLOSE"/>
  * }
  * </pre>
  *
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
  */
 //@formatter:on

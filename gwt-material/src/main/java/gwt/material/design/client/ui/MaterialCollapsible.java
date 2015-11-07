@@ -35,12 +35,13 @@ import com.google.gwt.user.client.ui.Widget;
  * <h3>UiBinder Usage:</h3>
  *
  * <pre>
- *{@code// Accordion
+ *{@code
+ * // Accordion
  * <m:MaterialCollapsible type="ACCORDION" grid="s12 m6 l8">
  *   <!-- ITEM 1 -->
  *   <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
- *       <m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+ *       <m:MaterialLink text="First" icon="POLYMER" iconPosition="LEFT" textColor="black"/>
  *     </m:MaterialCollapsibleHeader>
  *     <m:MaterialCollapsibleBody>
  *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
@@ -53,7 +54,7 @@ import com.google.gwt.user.client.ui.Widget;
  *   <!-- ITEM 1 -->
  *   <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
- *       <m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+ *       <m:MaterialLink text="First" icon="POLYMER" iconPosition="LEFT" textColor="black"/>
  *     </m:MaterialCollapsibleHeader>
  *     <m:MaterialCollapsibleBody>
  *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
@@ -66,7 +67,7 @@ import com.google.gwt.user.client.ui.Widget;
  *   <!-- ITEM 1 -->
  *	 <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
- *       <m:MaterialLink text="First" icon="polymer" iconPosition="left" textColor="black"/>
+ *       <m:MaterialLink text="First" icon="POLYMER" iconPosition="LEFT" textColor="black"/>
  *     </m:MaterialCollapsibleHeader>
  *     <m:MaterialCollapsibleBody>
  *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
@@ -77,6 +78,7 @@ import com.google.gwt.user.client.ui.Widget;
  * </pre>
  *
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
  */
 //@formatter:on

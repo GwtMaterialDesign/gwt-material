@@ -31,7 +31,7 @@ import gwt.material.design.client.ui.html.ListItem;
 //@formatter:off
 /**
 * Collections allow you to group list objects together.
-* @author kevzlou7979
+* 
 *<p>
 *<h3>UiBinder Usage:</h3>
 *<pre>
@@ -64,24 +64,26 @@ Secondary Content
 <m:MaterialCollection header="Header Title">
 	<m:MaterialCollectionItem>
 		<m:MaterialLink text="Collecton 1"/>
-		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
 	</m:MaterialCollectionItem>
 	<m:MaterialCollectionItem>
 		<m:MaterialLink text="Collecton 2"/>
-		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
 	</m:MaterialCollectionItem>
 	<m:MaterialCollectionItem>
 		<m:MaterialLink text="Collecton 3"/>
-		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>	
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>	
 	</m:MaterialCollectionItem>
 	<m:MaterialCollectionItem>
 		<m:MaterialLink text="Collecton 4"/>
-		<m:MaterialSecondaryContent><m:MaterialIcon icon="polymer" iconPosition="right" waves="default"/></m:MaterialSecondaryContent>
+		<m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
 	</m:MaterialCollectionItem>
 </m:MaterialCollection>
 *}
 *</pre>
 * </p>
+* @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 */
 //@formatter:on

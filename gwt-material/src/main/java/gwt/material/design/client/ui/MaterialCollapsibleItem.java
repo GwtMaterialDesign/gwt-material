@@ -31,6 +31,7 @@ import gwt.material.design.client.ui.html.ListItem;
 /**
 * Collapsible element to define every items
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on

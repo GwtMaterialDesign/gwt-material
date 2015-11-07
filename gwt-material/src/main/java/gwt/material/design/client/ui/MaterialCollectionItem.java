@@ -38,6 +38,7 @@ import gwt.material.design.client.constants.CollectionType;
 /**
  * Collection element to define every items
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
  */
 //@formatter:on

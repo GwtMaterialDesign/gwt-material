@@ -48,6 +48,7 @@ import gwt.material.design.client.base.mixin.GridMixin;
  * }
  *
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
  */
 //@formatter:on

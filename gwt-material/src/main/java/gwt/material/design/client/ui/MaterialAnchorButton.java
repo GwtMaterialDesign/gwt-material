@@ -27,7 +27,6 @@ import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconType;
 
 //@formatter:off
-
 /**
  * There are 3 main button types described in material design. The raised
  * button is a standard button that signify actions and seek to give depth
@@ -36,20 +35,21 @@ import gwt.material.design.client.constants.IconType;
  * that already have depth like cards or modals.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code// Raised (Default) Button
- * <m:MaterialButton text="Button" waves="light" backgroundColor="blue" />
+ *{@code
+ * //Raised (Default) Button
+ * <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="blue" />
  *
  * // Adding icon
- * <m:MaterialButton text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="left"/>
+ * <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="blue" icon="CLOUD" iconPosition="LEFT"/>
  *
- * // Floating Button
- * <m:MaterialButton type="floating" waves="light" size="large"  icon="add"/>
+ * // FLOATING+ Button
+ * <m:MaterialButton type="FLOATING" waves="LIGHT" size="LARGE"  icon="ADD"/>
  *
- * // Flat Button
- * <m:MaterialButton text="Button" type="flat" waves="grey" />
+ * // FLAT Button
+ * <m:MaterialButton text="Button" type="FLAT" waves="GREY" />
  *
- * // Large Button
- * <m:MaterialButton size="large" text="Button" waves="light" backgroundColor="blue" icon="cloud" iconPosition="right"/>}
+ * // LARGE Button
+ * <m:MaterialButton size="LARGE" text="Button" waves="LIGHT" backgroundColor="blue" icon="CLOUD" iconPosition="RIGHT"/>}
  * </pre>
  *
  * @author kevzlou7979

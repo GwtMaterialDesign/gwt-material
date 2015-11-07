@@ -30,6 +30,7 @@ import gwt.material.design.client.ui.html.ListItem;
 /**
 * FABList container element to define every FAB items
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
 *///@formatter:on
 public class MaterialFABList extends ComplexWidget {

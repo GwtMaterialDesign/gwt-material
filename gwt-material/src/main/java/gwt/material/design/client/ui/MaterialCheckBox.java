@@ -54,6 +54,7 @@ import com.google.gwt.user.client.ui.CheckBox;
  * </p>
  *
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">CheckBox</a>
  */
 public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid {
