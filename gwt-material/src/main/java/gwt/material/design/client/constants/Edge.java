@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,17 +20,27 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.ui.html.ListItem;
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.base.helper.EnumHelper;
 
-//@formatter:off
-/**
-* Material Slide Item is a child component of Material Slide that contains Image and Material Slide Caption components
-*
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
-*/
-//@formatter:on
-public class MaterialSlideItem extends ListItem {
+public enum Edge implements Style.HasCssName {
+    LEFT("left"),
+    RIGHT("right"),
+    TOP("top"),
+    BOTTOM("bottom");
 
+    private final String cssClass;
+
+    private Edge(final String cssClass) {
+        this.cssClass = cssClass;
+    }
+
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static Edge fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, Edge.class, RIGHT);
+    }
 }

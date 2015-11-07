@@ -50,7 +50,7 @@ public class MaterialContainer extends ComplexWidget {
 	 * Creates an empty collapsible item.
 	 */
 	public MaterialContainer() {
-		super(Document.get().createElement("MAIN"));
+		super(Document.get().createElement("main"));
 	}
 	
 	/**

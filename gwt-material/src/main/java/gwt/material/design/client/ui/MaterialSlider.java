@@ -25,6 +25,7 @@ import gwt.material.design.client.base.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
@@ -34,7 +35,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * <h3>UiBinder Usage:</h3>
 * <pre>
 *{@code<m:MaterialSection>
-* 	<m:MaterialSlide fullScreen="false">
+* 	<m:MaterialSlider fullScreen="false">
 		<m:MaterialSlideItem>
 			<m:MaterialImage url="http://lorempixel.com/580/250/nature/1"/>
 			<m:MaterialSlideCaption align="LEFT">
@@ -53,20 +54,26 @@ import gwt.material.design.client.ui.html.UnorderedList;
 			 	<m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
 			</m:MaterialSlideCaption>
 		</m:MaterialSlideItem>
-	</m:MaterialSlide>
+	</m:MaterialSlider>
 * }
 * </pre>
 *
 * @author kevzlou7979
+<<<<<<< HEAD:gwt-material/src/main/java/gwt/material/design/client/ui/MaterialSlide.java
 * @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
+=======
+* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slider</a>
+>>>>>>> Add edge to the side nav bar & a few fixes.:gwt-material/src/main/java/gwt/material/design/client/ui/MaterialSlider.java
 */
 //@formatter:on
-public class MaterialSlide extends ComplexWidget {
+public class MaterialSlider extends ComplexWidget {
 
 	private UnorderedList ul = new UnorderedList();
 
-	public MaterialSlide() {
+	private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, "fullscreen");
+
+	public MaterialSlider() {
 		super(Document.get().createDivElement());
 		setStyleName("slider");
 		ul.setStyleName("slides");
@@ -77,7 +84,7 @@ public class MaterialSlide extends ComplexWidget {
 	protected void onLoad() {
 		super.onLoad();
 
-		initializeSlider();
+		initialize();
 	}
 
 	@Override
@@ -88,25 +95,46 @@ public class MaterialSlide extends ComplexWidget {
 	/**
 	 * Set the image slider to fullscreen view.
 	 */
-	public void setFullScreen(boolean isFullscreen) {
-		removeStyleName("fullscreen");
-		if(isFullscreen){
-			addStyleName("fullscreen");
-		}
+	public void setFullScreen(boolean fullscreen) {
+		fsMixin.setOn(fullscreen);
+	}
+
+	public boolean isFullScreen() {
+		return fsMixin.isOn();
+	}
+
+	/**
+	 * Reinitialize the slider when the widget is attached.
+	 */
+	public void reinitialize() {
+		remove(getElement());
+		initialize(getElement());
 	}
 
 	/**
 	 * Initialize the slider when the widget is attached.
 	 */
-	private void initializeSlider() {
-		initializeSlider(getElement());
+	private void initialize() {
+		initialize(getElement());
 	}
 
-	private native void initializeSlider(Element e)/*-{
+	private native void initialize(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).slider({
                 full_width : true
             });
         });
+    }-*/;
+
+	private native void pause(Element e)/*-{
+        $wnd.jQuery(e).slider("pause")
+	}-*/;
+
+	private native void start(Element e)/*-{
+        $wnd.jQuery(e).slider("start")
+    }-*/;
+
+	private native void remove(Element e)/*-{
+        $wnd.jQuery(e).slider("remove")
     }-*/;
 }

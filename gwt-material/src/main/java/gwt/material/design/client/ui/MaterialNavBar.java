@@ -83,12 +83,6 @@ public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasT
 		navMenu.setWaves(WavesType.LIGHT);
 		navMenu.setWidth("64px");
 		navMenu.setTextAlign(TextAlign.CENTER);
-		navMenu.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-
-			}
-		});
 	}
 	
 	@Override

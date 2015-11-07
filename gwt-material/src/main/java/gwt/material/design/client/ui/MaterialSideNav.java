@@ -29,6 +29,7 @@ import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -56,8 +57,9 @@ import gwt.material.design.client.ui.html.UnorderedList;
 //@formatter:on
 public class MaterialSideNav extends UnorderedList implements HasType<SideNavType> {
 
-	private boolean closeOnClick;
-	private int width;
+	private int width = 240;
+	private Edge edge = Edge.RIGHT;
+	private boolean closeOnClick = false;
 
 	private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
 	
@@ -79,13 +81,11 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
             add(w);
         }
 	}
-	
+
 	@UiConstructor
-	public MaterialSideNav(int width, boolean closeOnClick, SideNavType type){
+	public MaterialSideNav(SideNavType type){
 		this();
 		setId("nav-mobile");
-		setWidth(width);
-		setCloseOnClick(closeOnClick);
 		setType(type);
 	}
 	
@@ -141,7 +141,7 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 	public void initNavBar() {
 		Element activator = DOMHelper.getElementByAttribute("data-activates", getId());
 		if(activator.getClassName().contains("button-collapse")) {
-			initNavBar(activator, width, closeOnClick);
+			initialize(activator, width, closeOnClick, edge.getCssName());
 		} else {
 			throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
 				"please ensure you have a MaterialNavBar with an activator setup to match " +
@@ -149,10 +149,11 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 		}
 	}
 
-	private static native void initNavBar(Element e, int width, boolean closeOnClick)/*-{
+	private static native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav({
                 menuWidth: width,
+                edge: edge,
                 closeOnClick: closeOnClick
             });
         })

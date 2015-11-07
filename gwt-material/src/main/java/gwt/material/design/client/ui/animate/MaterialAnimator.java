@@ -73,7 +73,7 @@ public class MaterialAnimator {
 				}
 			}
 		}.schedule(delayMillis);
-		w.removeStyleName("materialcss");
+
 		w.removeStyleName("materialcss");
 	}
 	

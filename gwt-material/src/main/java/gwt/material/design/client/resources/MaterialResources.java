@@ -48,5 +48,4 @@ public interface MaterialResources extends ClientBundle {
 	
 	@Source("js/script.js")
 	TextResource scriptJs();
-
 }
