@@ -56,6 +56,7 @@ import gwt.material.design.client.base.mixin.ToggleStyleMixin;
  * </p>
  *
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material ListBoxt</a>
  */
 //@formatter:on

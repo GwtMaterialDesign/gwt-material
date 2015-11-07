@@ -47,17 +47,18 @@ import gwt.material.design.client.ui.html.Nav;
  * <pre>
  * {@code
  * <m:MaterialNavBar backgroundColor="blue" >
- * 	<m:MaterialNavBrand href="#Test" align="left">Title</m:MaterialNavBrand>
- * 	<m:MaterialNavSection align="right">
- * 		<m:MaterialLink  icon="mdi-action-account-circle" iconPosition="left" text="Account"  textColor="white" waves="light"/>
- * 		<m:MaterialLink  icon="mdi-action-autorenew" iconPosition="left" text="Refresh" textColor="white" waves="light"/>
- * 		<m:MaterialLink  icon="mdi-action-search" tooltip="Menu" textColor="white" waves="light"/>
- * 	 	<m:MaterialLink  icon="mdi-navigation-more-vert" tooltip="Starter" textColor="white" waves="light"/>
+ * 	<m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
+ * 	<m:MaterialNavSection position="RIGHT">
+ * 		<m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="white" waves="LIGHT"/>
+ * 		<m:MaterialLink  icon="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="white" waves="LIGHT"/>
+ * 		<m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
+ * 	 	<m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
  * 	</m:MaterialNavSection>
  * </m:MaterialNavBar>
 * }
 *<pre>
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
 */
 //@formatter:on

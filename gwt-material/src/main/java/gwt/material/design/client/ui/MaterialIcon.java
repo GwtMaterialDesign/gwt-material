@@ -41,9 +41,9 @@ import gwt.material.design.client.constants.IconType;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialIcon waves="light" icon="polymer"/>
- * <m:MaterialIcon waves="light" icon="polymer" textColor="blue" type="CIRCLE"/>
- * <m:MaterialIcon waves="light" icon="polymer" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="bottom"/>}
+ *{@code <m:MaterialIcon waves="LIGHT" icon="POLYMER"/>
+ * <m:MaterialIcon waves="LIGHT" icon="POLYMER" textColor="blue" type="CIRCLE"/>
+ * <m:MaterialIcon waves="LIGHT" icon="POLYMER" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>}
  * </pre>
  *
  * @author kevzlou7979

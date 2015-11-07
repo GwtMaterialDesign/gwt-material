@@ -33,16 +33,28 @@ import com.google.gwt.user.client.ui.Widget;
 * <h3>UiBinder Usage:</h3>
 * <pre>
 * {@code
-
-<m:MaterialParallax url="http://mayastepien.nl/googlecalendar/google-drinks.jpg" height="400">
-	<m:content>
-		<m:MaterialTitle title="Parallax" description="Parallax is an effect where the background content orimage in this case, is moved at a different speed than the foreground content while scrolling."/>
-	</m:content>
-</m:MaterialParallax>
-
+* 
+*<m:MaterialParallax>
+* 	<m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
+*</m:MaterialParallax>
+*
+*<m:MaterialTitle title="Sample" description="SADASD ASD DAS "/>
+*
+*<m:MaterialParallax>
+*	<m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
+*</m:MaterialParallax>
+*
+*<m:MaterialTitle title="Sample" description="SADASD ASD DAS "/>
+*
+*<m:MaterialParallax>
+*	<m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
+*</m:MaterialParallax>
+*
+*<m:MaterialTitle title="Sample" description="SADASD ASD DAS "/>
 * }
 *<pre>
 * @author kevzlou7979
+* @author Ben Pol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#showcase">Material Parallax</a>
 */
 //@formatter:on

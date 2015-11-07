@@ -39,13 +39,14 @@ import com.google.gwt.user.client.ui.HasText;
 * 
 * <pre>
 * {@code 
-<m:MaterialNavBrand href="#Test" align="left">Title</m:MaterialNavBrand>
+<m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
 }
 </pre>
 * </p>
 * 
 * @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
+* @author Ben Dol
+* @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material NavBrand</a>
 */
 //@formatter:on
 public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref, HasPosition {

@@ -40,12 +40,13 @@ import com.google.gwt.dom.client.Style.Unit;
 * 
 * <pre>
 * {@code 
-<m:MaterialNoResult icon="polymer" title="No Inbox" description="You dont have new message" backgroundColor="blue"/>
+<m:MaterialNoResult icon="POLYMER" title="No Inbox" description="You dont have new message" backgroundColor="blue"/>
 }
 </pre>
 * </p>
 * 
 * @author kevzlou7979
+* @author Ben Pol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#no-result">Material No Result</a>
 */
 //@formatter:on

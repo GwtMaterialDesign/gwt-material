@@ -32,15 +32,16 @@ import gwt.material.design.client.constants.IconType;
 * <pre>
 * {@code 
 * Links
-* <m:MaterialLink href="#normal" text="Normal Link" textColor="red" icon="polymer" iconPosition="left" grid=" "/>
+* <m:MaterialLink href="#normal" text="Normal Link" textColor="red" icon="POLYMER" iconPosition="LEFT"/>
 * 
-* <m:MaterialLink href="#material" text="Link with Href" textColor="red" icon="polymer" iconPosition="left" grid=" "/>
+* <m:MaterialLink href="#material" text="Link with Href" textColor="red" icon="POLYMER" iconPosition="LEFT"/>
 * 
-* <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="black" icon="polymer" iconPosition="left" iconColor="red" grid=" "/>}
+* <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="black" icon="POLYMER" iconPosition="LEFT" iconColor="red"/>}
 * </pre>
 * </p>
 * 
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
 */
 //@formatter:on

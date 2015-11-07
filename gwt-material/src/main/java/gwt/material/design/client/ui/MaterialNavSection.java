@@ -37,18 +37,19 @@ import com.google.gwt.user.client.ui.Widget;
  *
  * <pre>
  * {@code
- * <m:MaterialNavSection align="right">
- * 	<m:MaterialLink  icon="mdi-action-account-circle" iconPosition="left" text="Account"  textColor="white" waves="light"/>
- * 	<m:MaterialLink  icon="mdi-action-autorenew" iconPosition="left" text="Refresh" textColor="white" waves="light"/>
- * 	<m:MaterialLink  icon="mdi-action-search" tooltip="Menu" textColor="white" waves="light"/>
- * 	<m:MaterialLink  icon="mdi-navigation-more-vert" tooltip="Starter" textColor="white" waves="light"/>
+ * <m:MaterialNavSection align="RIGHT">
+ * 	<m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="white" waves="LIGHT"/>
+ * 	<m:MaterialLink  icon="AUTORENEW" iconPosition="left" text="Refresh" textColor="white" waves="LIGHT"/>
+ * 	<m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
+ * 	<m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
  * </m:MaterialNavSection>
  * }
  * </pre>
  * </p>
  *
  * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
+ * @author Ben Pol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material NavSection</a>
  */
 //@formatter:on
 public class MaterialNavSection extends UnorderedList implements HasPosition {

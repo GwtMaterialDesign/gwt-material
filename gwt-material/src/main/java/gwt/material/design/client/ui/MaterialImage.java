@@ -48,6 +48,7 @@ import gwt.material.design.client.base.mixin.GridMixin;
  * </pre>
  *
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
  */
 //@formatter:on
