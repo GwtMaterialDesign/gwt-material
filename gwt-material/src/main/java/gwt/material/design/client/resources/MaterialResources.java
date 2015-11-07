@@ -45,5 +45,8 @@ public interface MaterialResources extends ClientBundle {
 
 	@Source("js/materialize-0.97.1.min.js")
 	TextResource materializeJs();
+	
+	@Source("js/script.js")
+	TextResource scriptJs();
 
 }

@@ -1,6 +1,6 @@
 * html,body {
-	margin: 0;
-	padding: 0;
+	margin: 0 !important;
+	padding: 0 !important;
 	height: 100%;
 	width: 100%;
 	-webkit-background-size: cover;
@@ -753,4 +753,13 @@ i[class*="waves-"].material-icons {
 
 .side-nav .badge{
 	float: right;
+}
+
+/** Sub Header */
+.subheader {
+  	padding: 10px 20px;
+ 	position: relative;
+  	z-index: 1;
+	background: #fff;
+	font-weight: bold;
 }
