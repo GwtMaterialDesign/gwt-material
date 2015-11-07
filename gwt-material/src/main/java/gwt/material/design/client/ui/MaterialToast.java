@@ -25,12 +25,24 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+
+//@formatter:off
 /**
- * GWT Material provides an easy way for you to send unobtrusive alerts
- * to your users through toasts. These toasts are also placed and sized
- * responsively, try it out by clicking the button below on different
- * device sizes.
- */
+* GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts. These toasts are also placed and sized responsively, try it out by clicking the button below on different device sizes.
+*
+* <p>
+* <h3>Java Usage:</h3>
+* <pre>
+* {@code
+* MaterialToast.fireToast("I love Material Design");
+* }
+* </pre>
+* </p>
+*
+* @author kevzlou7979
+* @author Ben Dol
+*/
+//@formatter:on
 public class MaterialToast {
 
 	public static final int DEFAULT_LIFE = 4000;

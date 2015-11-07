@@ -35,18 +35,18 @@ import com.google.gwt.user.client.ui.Widget;
 *{@code 
 
 <m:MaterialTab ui:field="tab"  backgroundColor="blue">
-	<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
-	<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
-	<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
+	<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
+	<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
+	<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
 </m:MaterialTab>
 		
-<i:Panel name="tab1">
+<i:Panel m:id="tab1">
 	<i:Title title="Tab 1" description="Tab 1 Content"/>
 </i:Panel>
-<i:Panel name="tab2">
+<i:Panel m:id="tab2">
 	<i:Title title="Tab 2" description="Tab 2 Content"/>
 </i:Panel>
-<i:Panel name="tab3">
+<i:Panel m:id="tab3">
 	<i:Title title="Tab 3" description="Tab 3 Content"/>
 </i:Panel>
 
@@ -54,7 +54,9 @@ import com.google.gwt.user.client.ui.Widget;
 * </pre>
 * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
 * @author kevzlou7979
+* @author Ben Dol
 */
+//@formatter:on
 public class MaterialTab extends ComplexWidget {
 
 	private int tabIndex;

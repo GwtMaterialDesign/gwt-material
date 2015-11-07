@@ -47,6 +47,18 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
 
+//@formatter:off
+/**
+* Material Text Area represents a multiple line textbox where users can define comment, detail and etc.
+* <h3>UiBinder Usage:</h3>
+* <pre>
+*{@code <m:MaterialTextArea placeholder="Your Comment" />
+* </pre>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextArea</a>
+* @author kevzlou7979
+* @author Ben Dol
+*/
+//@formatter:on
 public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPressHandlers,
 		HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder {
 

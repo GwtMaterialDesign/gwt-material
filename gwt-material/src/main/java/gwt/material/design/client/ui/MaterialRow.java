@@ -41,7 +41,8 @@ import com.google.gwt.dom.client.Document;
 * </p>
 * 
 * @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+* @author Ben Dol
+* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Row</a>
 */
 //@formatter:on
 public class MaterialRow extends ComplexWidget {

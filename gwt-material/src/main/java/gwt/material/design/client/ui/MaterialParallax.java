@@ -54,7 +54,7 @@ import com.google.gwt.user.client.ui.Widget;
 * }
 *<pre>
 * @author kevzlou7979
-* @author Ben Pol
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#showcase">Material Parallax</a>
 */
 //@formatter:on

@@ -42,6 +42,7 @@ import com.google.gwt.dom.client.Style.Unit;
  * </p>
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
 //@formatter:on
 public class MaterialTitle extends Div implements HasTitle {

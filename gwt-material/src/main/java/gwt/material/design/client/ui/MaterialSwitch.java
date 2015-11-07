@@ -44,7 +44,7 @@ import gwt.material.design.client.ui.html.Span;
 * <h3>UiBinder Usage:</h3>
 * <pre>
 *{@code<m:MaterialSwitch value="true"/>
-* <m:MaterialSwitch value="true" disabled="true"/>
+*<m:MaterialSwitch value="true" disabled="true"/>
 * }
 * </pre>
  *

@@ -26,6 +26,23 @@ import gwt.material.design.client.base.HasGrid;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Frame;
 
+//@formatter:off
+/**
+* Material Video get any youtube url that will inherit responsive design
+*
+* <p>
+* <h3>UiBinder Usage:</h3>
+* <pre>
+* {@code
+* 	<m:MaterialVideo url="someurl" />
+* }
+* </pre>
+* </p>
+*
+* @author kevzlou7979
+* @author Ben Dol
+*/
+//@formatter:on
 public class MaterialVideo extends ComplexWidget implements HasGrid{
 
 	private Frame frame =  new Frame();

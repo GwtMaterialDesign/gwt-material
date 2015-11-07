@@ -31,6 +31,18 @@ import gwt.material.design.client.constants.Orientation;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 
+//@formatter:off
+/**
+* Material Time Picker -  provide a simple way to select a single value from a pre-determined set.
+* <h3>UiBinder Usage:</h3>
+* <pre>
+*{@code <m:MaterialTimePicker placeholder="Time Arrival" />
+* </pre>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Pickers</a>
+* @author kevzlou7979
+* @author Ben Dol
+*/
+//@formatter:on
 public class MaterialTimePicker extends ComplexWidget implements HasError, HasPlaceholder, HasOrientation {
 
 

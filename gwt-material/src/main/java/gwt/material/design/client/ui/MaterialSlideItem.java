@@ -29,6 +29,7 @@ import com.google.gwt.dom.client.Document;
 * Material Slide Item is a child component of Material Slide that contains Image and Material Slide Caption components
 *
 * @author kevzlou7979
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
 */
 //@formatter:on

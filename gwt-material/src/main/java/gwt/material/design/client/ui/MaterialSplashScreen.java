@@ -41,6 +41,7 @@ import gwt.material.design.client.base.ComplexWidget;
  * </pre>
  *
  * @author kevzlou7979
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
  */
 //@formatter:on

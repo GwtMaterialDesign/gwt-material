@@ -37,7 +37,7 @@ import com.google.gwt.dom.client.Document;
 * }
 *<pre>
 * @author kevzlou7979
-* @author Ben Pol
+* @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material PreLoader</a>
 */
 //@formatter:on

@@ -88,6 +88,18 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
 
+//@formatter:off
+/**
+* Material Text Box is an input field that accepts any text based string from user.
+* <h3>UiBinder Usage:</h3>
+* <pre>
+*{@code <m:MaterialTextBox placeholder="First Name" />
+* </pre>
+* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
+* @author kevzlou7979
+* @author Ben Dol
+*/
+//@formatter:on
 public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
 		HasValue<String>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>, HasKeyUpHandlers,
 		HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,

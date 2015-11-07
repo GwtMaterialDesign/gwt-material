@@ -33,7 +33,7 @@ import com.google.gwt.dom.client.Document;
  * </pre>
  * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
  * @author kevzlou7979
- * @author Ben Pol
+ * @author Ben Dol
  */
 public class MaterialPanel extends ComplexWidget {
 

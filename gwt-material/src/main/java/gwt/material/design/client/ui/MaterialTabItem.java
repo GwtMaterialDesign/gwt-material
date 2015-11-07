@@ -28,11 +28,13 @@ import com.google.gwt.dom.client.Document;
  * Item for Tab Component, which usually contains icons, links or other navigation component.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialTabItem waves="yellow" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>}
+ *{@code<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>}
  * </pre>
  * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
  * @author kevzlou7979
+ * @author Ben Dol
  */
+//@formatter:on
 public class MaterialTabItem extends ComplexWidget {
 
 	public MaterialTabItem() {

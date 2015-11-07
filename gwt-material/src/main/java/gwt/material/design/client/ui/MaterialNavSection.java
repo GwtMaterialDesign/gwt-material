@@ -48,7 +48,7 @@ import com.google.gwt.user.client.ui.Widget;
  * </p>
  *
  * @author kevzlou7979
- * @author Ben Pol
+ * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material NavSection</a>
  */
 //@formatter:on

@@ -30,7 +30,8 @@ import com.google.gwt.dom.client.Document;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialSection>
+ *{@code
+ *<m:MaterialSection>
  * 	<m:MaterialTitle title="Title" description="Description"/>
  * </m:MaterialSection>
  * }

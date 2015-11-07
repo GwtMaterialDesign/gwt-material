@@ -47,7 +47,8 @@ import com.google.gwt.user.client.ui.HasText;
 * </p>
 * 
 * @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+* @author Ben Dol
+* @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Search</a>
 */
 //@formatter:on
 public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHandlers, HasPlaceholder {

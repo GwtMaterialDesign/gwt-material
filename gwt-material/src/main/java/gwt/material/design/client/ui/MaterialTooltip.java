@@ -43,7 +43,7 @@ import gwt.material.design.client.base.HasPosition;
  * </b:MaterialTooltip>
  *}
  * </pre>
- *
+ * @author kevzlou7979
  * @author Ben Dol
  */
 public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition {
