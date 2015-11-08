@@ -33,6 +33,8 @@ public class ToggleStyleMixin<H extends UIObject> extends AbstractMixin<H> {
     public ToggleStyleMixin(final H widget, String style) {
         super(widget);
 
+        assert !style.isEmpty() : "Style name cannot be empty";
+
         this.style = style;
     }
 

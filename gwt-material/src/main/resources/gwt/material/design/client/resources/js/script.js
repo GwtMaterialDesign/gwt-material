@@ -4,7 +4,6 @@ var stickyHeaders = (function() {
   var $stickies;
 
   var load = function(stickies, target) {
-
     if (typeof stickies === "object" && stickies instanceof jQuery && stickies.length > 0) {
 
       $stickies = stickies.each(function() {
@@ -12,7 +11,7 @@ var stickyHeaders = (function() {
         var $thisSticky = $(this);
         $thisSticky
             .data('originalPosition', $thisSticky.offset().top)
-            .data('originalHeight', $thisSticky.outerHeight()); 			  
+            .data('originalHeight', $thisSticky.outerHeight());
       });
 
       target.off("scroll.stickies").on("scroll.stickies", function(event) {
@@ -22,7 +21,7 @@ var stickyHeaders = (function() {
   };
 
   var _whenScrolling = function(event) {
-    
+
     var $scrollTop = $(event.currentTarget).scrollTop();
 
     $stickies.each(function(i) {			
@@ -39,7 +38,8 @@ var stickyHeaders = (function() {
         
         if($nextSticky.length > 0) {
           
-          $newPosition = Math.min($newPosition, ($nextSticky.data('originalPosition') - $stickyPosition) - $thisSticky.data('originalHeight'));
+          $newPosition = Math.min($newPosition,
+              ($nextSticky.data('originalPosition') - $stickyPosition) - $thisSticky.data('originalHeight'));
         }
         $thisSticky.addClass('z-depth-1');
       } else {	

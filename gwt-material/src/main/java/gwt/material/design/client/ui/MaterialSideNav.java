@@ -38,27 +38,27 @@ import gwt.material.design.client.ui.html.UnorderedList;
 //@formatter:off
 
 /**
-* SideNav is a material component that gives you a lists of menus and other navigation components.
-*
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code
-* <m:MaterialSideNav ui:field="sideNav" width="280" m:id="mysidebar"  type="OPEN" closeOnClick="false">
-* 	<m:MaterialLink href="#about" iconPosition="LEFT" icon="OUTLINE" text="About" textColor="blue"  />
-* 	<m:MaterialLink href="#gettingStarted" iconPosition="LEFT" icon="DOWNLOAD" text="Getting Started" textColor="blue"  >		
-* </m:MaterialSideNav>
-* }
-* </pre>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
-*/
+ * SideNav is a material component that gives you a lists of menus and other navigation components.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialSideNav ui:field="sideNav" width="280" m:id="mysidebar"  type="OPEN" closeOnClick="false">
+ * 	<m:MaterialLink href="#about" iconPosition="LEFT" icon="OUTLINE" text="About" textColor="blue"  />
+ * 	<m:MaterialLink href="#gettingStarted" iconPosition="LEFT" icon="DOWNLOAD" text="Getting Started" textColor="blue"  >
+ * </m:MaterialSideNav>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
+ */
 //@formatter:on
 public class MaterialSideNav extends UnorderedList implements HasType<SideNavType> {
 
 	private int width = 240;
-	private Edge edge = Edge.RIGHT;
+	private Edge edge = Edge.LEFT;
 	private boolean closeOnClick = false;
 
 	private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
@@ -94,7 +94,7 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 		super.onLoad();
 
 		// Initialize the side nav
-		initNavBar();
+		initialize();
 	}
 
 	@Override
@@ -120,13 +120,34 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 		super.add(child);
 	}
 
+	@Override
+	public void setWidth(String width) {
+		setWidth(Integer.parseInt(width));
+	}
+
 	public void setWidth(int width){
 		this.width = width;
 		getElement().getStyle().setWidth(width, Unit.PX);
 	}
-	
+
+	public int getWidth() {
+		return width;
+	}
+
+	public boolean isCloseOnClick() {
+		return closeOnClick;
+	}
+
 	public void setCloseOnClick(boolean closeOnClick){
 		this.closeOnClick = closeOnClick;
+	}
+
+	public Edge getEdge() {
+		return edge;
+	}
+
+	public void setEdge(Edge edge) {
+		this.edge = edge;
 	}
 
 	public void setType(SideNavType type) {
@@ -138,9 +159,9 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
 		return typeMixin.getType();
 	}
 
-	public void initNavBar() {
+	public void initialize() {
 		Element activator = DOMHelper.getElementByAttribute("data-activates", getId());
-		if(activator.getClassName().contains("button-collapse")) {
+		if(activator != null && activator.getClassName().contains("button-collapse")) {
 			initialize(activator, width, closeOnClick, edge.getCssName());
 		} else {
 			throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +

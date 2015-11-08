@@ -37,7 +37,12 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 
 	public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
 		super(type, text);
+
 		this.icon = icon;
+	}
+
+	public AbstractIconButton(ButtonType type, String text) {
+		super(type, text);
 	}
 
 	public AbstractIconButton(IconType iconType) {

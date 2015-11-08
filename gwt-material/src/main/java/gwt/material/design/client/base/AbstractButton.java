@@ -20,6 +20,7 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import com.google.gwt.user.client.History;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ButtonSize;
@@ -53,13 +54,15 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * @author Ben Dol
  */
 public abstract class AbstractButton extends ComplexWidget implements HasHref, HasGrid, HasActivates,
-		HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasDoubleClickHandlers {
+		HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasDoubleClickHandlers {
 
 	private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
 	private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
 
 	private Span span = new Span();
 	private ButtonSize size;
+
+	private String targetHistoryToken;
 
 	/** Creates button with RAISED type.
 	 */
@@ -158,6 +161,30 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	public void setText(String text) {
 		span.setText(text);
 		add(span);
+	}
+
+	/**
+	 * Set the target history token for the widget. Note, that you should use either
+	 * {@link #setTargetHistoryToken(String)}or {@link #setHref(String)}, but not both as
+	 * {@link #setHref(String)} resets the target history token.
+	 * @param targetHistoryToken String target history token of the widget
+	 */
+	@Override
+	public void setTargetHistoryToken(final String targetHistoryToken) {
+		this.targetHistoryToken = targetHistoryToken;
+		if (targetHistoryToken != null) {
+			setHref("#" + History.encodeHistoryToken(targetHistoryToken));
+		}
+	}
+
+	/**
+	 * Get the target history token for the widget. May return {@code null} if no
+	 * history token has been set or if it has been reset by {@link #setHref(String)}.
+	 * @return String the widget's target history token.
+	 */
+	@Override
+	public String getTargetHistoryToken() {
+		return targetHistoryToken;
 	}
 
 	@Override

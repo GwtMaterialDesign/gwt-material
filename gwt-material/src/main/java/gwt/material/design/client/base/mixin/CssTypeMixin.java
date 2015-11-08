@@ -38,12 +38,12 @@ public class CssTypeMixin<T extends CssType, H extends UIObject & HasType<T>> ex
 
     @Override
     public void setType(T type) {
-        if(this.type != null) {
+        if(this.type != null && !this.type.getCssName().isEmpty()) {
             uiObject.removeStyleName(this.type.getCssName());
         }
         this.type = type;
 
-        if(type != null) {
+        if(type != null && !type.getCssName().isEmpty()) {
             uiObject.addStyleName(type.getCssName());
         }
     }

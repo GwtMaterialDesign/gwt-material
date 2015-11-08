@@ -21,8 +21,6 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasLoader;
@@ -55,22 +53,22 @@ import gwt.material.design.client.ui.html.Nav;
  * 	 	<m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
  * 	</m:MaterialNavSection>
  * </m:MaterialNavBar>
-* }
-*<pre>
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
-*/
+ * }
+ *<pre>
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
+ */
 //@formatter:on
 public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasType<NavBarType> {
 
 	private Div div = new Div();
 
-	private MaterialAnchorButton navMenu = new MaterialAnchorButton(IconType.MENU);
+	private MaterialLink navMenu = new MaterialLink(IconType.MENU);
 	private MaterialProgress progress = new MaterialProgress();
 
 	private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
-	private final ActivatesMixin<MaterialAnchorButton> activatesMixin = new ActivatesMixin<>(navMenu);
+	private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
 	
 	public MaterialNavBar() {
 		div.setStyleName("nav-wrapper container");
@@ -102,7 +100,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasT
 
 	@Override
 	public void showLoader() {
-		add(progress);
+		super.add(progress);
 	}
 
 	@Override

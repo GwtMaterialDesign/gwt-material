@@ -1,4 +1,4 @@
-package gwt.material.design.client.constants;
+package gwt.material.design.client.base;
 
 /*
  * #%L
@@ -20,31 +20,19 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import gwt.material.design.client.base.helper.EnumHelper;
 
-/**
- * Types of Button.<br>
- * @author kevzlou7979
- * @author Ben Dol
- */
-public enum ButtonType implements CssType {
-	LINK(""),
-	RAISED("btn"),
-	FLAT("btn-flat"),
-	FLOATING("btn-floating");
+public interface HasTargetHistoryToken {
+    /**
+     * Set the target history token for the widget
+     *
+     * @param targetHistoryToken String target history token of the widget
+     */
+    void setTargetHistoryToken(String targetHistoryToken);
 
-	private final String cssClass;
-
-	ButtonType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
-
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
-
-	public static ButtonType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, ButtonType.class, FLAT);
-	}
+    /**
+     * Get the target history token for the widget
+     *
+     * @return String the widget's target history token
+     */
+    String getTargetHistoryToken();
 }

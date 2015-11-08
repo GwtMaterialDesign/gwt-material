@@ -20,15 +20,17 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.AbstractIconAnchor;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.AbstractIconButton;
+import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconType;
 
 //@formatter:off
 /**
 * 
-* <p>Using Material Link you can easily add href functionality into your app for navigation
+* Using Material Link you can easily add href functionality into your app for navigation
 * <h3>UiBinder Usage:</h3>
-* 
 * <pre>
 * {@code 
 * Links
@@ -38,32 +40,36 @@ import gwt.material.design.client.constants.IconType;
 * 
 * <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="black" icon="POLYMER" iconPosition="LEFT" iconColor="red"/>}
 * </pre>
-* </p>
 * 
 * @author kevzlou7979
 * @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
 */
 //@formatter:on
-public class MaterialLink extends AbstractIconAnchor {
+public class MaterialLink extends AbstractIconButton {
 
-	public MaterialLink(String text, String href, IconType iconType) {
-		super(text, href, iconType);
+	public MaterialLink(ButtonType type, String text, MaterialIcon icon) {
+		super(type, text, icon);
 	}
 
-	public MaterialLink(String text, IconType iconType) {
-		super(text, iconType);
-	}
-
-	public MaterialLink(String text) {
-		super(text);
+	public MaterialLink(String text, MaterialIcon icon) {
+		super(ButtonType.LINK, text, icon);
 	}
 
 	public MaterialLink(IconType iconType) {
 		super(iconType);
 	}
 
+	public MaterialLink(String text) {
+		super(ButtonType.LINK, text);
+	}
+
 	public MaterialLink() {
-		super();
+		super(ButtonType.LINK);
+	}
+
+	@Override
+	protected Element createElement() {
+		return DOM.createAnchor();
 	}
 }

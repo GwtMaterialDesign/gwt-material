@@ -20,10 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
-import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.base.HasHref;
+import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
+
 /**
  * Item for Tab Component, which usually contains icons, links or other navigation component.
  * <h3>UiBinder Usage:</h3>
@@ -35,10 +36,36 @@ import com.google.gwt.dom.client.Document;
  * @author Ben Dol
  */
 //@formatter:on
-public class MaterialTabItem extends ComplexWidget {
+public class MaterialTabItem extends ListItem {
+
+	private MaterialTab parent;
 
 	public MaterialTabItem() {
-		super(Document.get().createLIElement());
+		super();
 		setStyleName("tab");
+	}
+
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+
+		try {
+			parent = (MaterialTab)getParent();
+		} catch (ClassCastException ex) {
+			throw new ClassCastException(
+				"MaterialTabItem must be within a MaterialTab widget.");
+		}
+	}
+
+	public void selectTab() {
+		if(getChildren().size() > 0) {
+			try {
+				HasHref child = (HasHref) getChildren().get(0);
+				parent.selectTab(child.getHref().replaceAll("[^a-zA-Z\\d\\s:]", ""));
+			} catch (ClassCastException ex) {
+				throw new ClassCastException(
+					"MaterialTabItem must be compatible with HasHref.");
+			}
+		}
 	}
 }
