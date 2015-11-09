@@ -20,15 +20,8 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-import com.google.gwt.user.client.History;
-import gwt.material.design.client.base.mixin.ActivatesMixin;
-import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.constants.ButtonSize;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.ui.html.Span;
-
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
@@ -49,12 +42,20 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.History;
+import gwt.material.design.client.base.mixin.ActivatesMixin;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.ButtonSize;
+import gwt.material.design.client.constants.ButtonType;
+import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.ui.html.Span;
 
 /**
  * @author Ben Dol
  */
 public abstract class AbstractButton extends ComplexWidget implements HasHref, HasGrid, HasActivates,
-		HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers, HasDoubleClickHandlers {
+		HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
+		HasDoubleClickHandlers {
 
 	private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
 	private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
@@ -68,6 +69,8 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 	 */
 	protected AbstractButton() {
 		setElement(createElement());
+
+		getElement().getStyle().setCursor(Style.Cursor.POINTER);
 	}
 
 	protected AbstractButton(String text, String bgColor, WavesType waves) {
@@ -160,7 +163,10 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 
 	public void setText(String text) {
 		span.setText(text);
-		add(span);
+
+		if(!span.isAttached()) {
+			add(span);
+		}
 	}
 
 	/**

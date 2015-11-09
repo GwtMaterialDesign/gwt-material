@@ -21,12 +21,17 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
+import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
+
 /**
  * You can add dropdown easily by specifying it's item
  * content and add a UiHandler on it to implement any event.
@@ -158,6 +163,22 @@ public class MaterialDropDown extends UnorderedList {
 
 	public Alignment getAlignment() {
 		return Alignment.fromStyleName(alignment);
+	}
+
+	@Override
+	public void add(Widget child) {
+		if(child instanceof ListItem) {
+			child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+			add(child, (Element) getElement());
+		} else {
+			ListItem li = new ListItem(child);
+			if(child instanceof HasWaves) {
+				li.setWaves(((HasWaves) child).getWaves());
+				((HasWaves) child).setWaves(null);
+			}
+			li.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+			add(li, (Element) getElement());
+		}
 	}
 
 	protected void initialize() {
