@@ -16,12 +16,12 @@ Support documentation can be found [here](https://github.com/GwtMaterialDesign/g
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>1.3.3</version>
+    <version>1.4</version>
 </dependency>
 ```
 
 ## Current Snapshot
-1.3.4-SNAPSHOT
+1.5-SNAPSHOT
 
 ## License
 [Apache 2.0 License](https://github.com/GwtMaterialDesign/gwt-material/blob/master/LICENSE)
