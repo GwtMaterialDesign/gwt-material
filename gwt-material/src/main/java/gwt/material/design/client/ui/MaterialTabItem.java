@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasHref;
 import gwt.material.design.client.ui.html.ListItem;
 
@@ -58,13 +59,13 @@ public class MaterialTabItem extends ListItem {
 	}
 
 	public void selectTab() {
-		if(getChildren().size() > 0) {
-			try {
-				HasHref child = (HasHref) getChildren().get(0);
-				parent.selectTab(child.getHref().replaceAll("[^a-zA-Z\\d\\s:]", ""));
-			} catch (ClassCastException ex) {
-				throw new ClassCastException(
-					"MaterialTabItem must be compatible with HasHref.");
+		for(Widget child : getChildren()) {
+			if(child instanceof HasHref) {
+				String href = ((HasHref) child).getHref();
+				if(!href.isEmpty()) {
+					parent.selectTab(href.replaceAll("[^a-zA-Z\\d\\s:]", ""));
+					break;
+				}
 			}
 		}
 	}
