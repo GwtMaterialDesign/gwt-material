@@ -4,8 +4,6 @@
 <br/>
 A Google Material Design wrapper for GWT<br/>
 
-[Support us on Bountysource](https://www.bountysource.com/teams/gwtmaterialdesign/members)
-
 ## Demo
 * [1.4 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
 * [1.5 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
@@ -21,6 +19,9 @@ Support documentation can be found [here](https://github.com/GwtMaterialDesign/g
     <version>1.4</version>
 </dependency>
 ```
+
+## Chagelog
+You can find lists of features by version <a href="https://github.com/GwtMaterialDesign/gwt-material/wiki/Changelog">here</a>.
 
 ## Current Snapshot
 1.5-SNAPSHOT
