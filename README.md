@@ -2,7 +2,7 @@
 
 <img src="http://gwt-material-demo.herokuapp.com/bin/ic_gwt_logo.png" />
 <br/>
-A Google Material Design wrapper for GWT<br/><br/>
+A Google Material Design wrapper for GWT<br/>
 
 [Support us on Bountysource](https://www.bountysource.com/teams/gwtmaterialdesign/members)
 
