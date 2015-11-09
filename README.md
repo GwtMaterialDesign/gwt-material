@@ -2,11 +2,13 @@
 
 <img src="http://gwt-material-demo.herokuapp.com/bin/ic_gwt_logo.png" />
 <br/>
-A Google Material Design wrapper for GWT <br>
-<a href="https://www.bountysource.com/teams/gwtmaterialdesign/members"> Support us on Bountysource </a>
+A Google Material Design wrapper for GWT<br/><br/>
+
+[Support us on Bountysource](https://www.bountysource.com/teams/gwtmaterialdesign/members)
 
 ## Demo
-<a href="www.gwt-material.appspot.com">http://gwt-material-demo.herokuapp.com</a><br/>
+* [1.4 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
+* [1.5 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki)
