@@ -1,4 +1,4 @@
-# GwtMaterial
+# GwtMaterial [![Build Status](https://travis-ci.org/GwtMaterialDesign/gwt-material.svg?branch=master)](https://travis-ci.org/GwtMaterialDesign/gwt-material)
 
 <img src="http://gwt-material-demo.herokuapp.com/bin/ic_gwt_logo.png" />
 <br/>
