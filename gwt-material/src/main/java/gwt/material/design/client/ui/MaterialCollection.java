@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.ui.html.Heading;
 
@@ -107,7 +108,7 @@ public class MaterialCollection extends ComplexWidget {
 		span.getElement().setInnerHTML(header);
 		addStyleName("with-header");
 		ListItem item = new ListItem(span);
-		MaterialUiHelper.addMousePressedHandlers(item);
+		UiHelper.addMousePressedHandlers(item);
 		item.setStyleName("collection-header");
 		insert(item, 0);
 	}

@@ -67,9 +67,7 @@ public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref,
 
 	@Override
 	public void setText(String text) {
-		if(!div.isAttached()) {
-			add(div);
-		}
+		add(div);
 		div.getElement().setInnerText(text);
 	}
 

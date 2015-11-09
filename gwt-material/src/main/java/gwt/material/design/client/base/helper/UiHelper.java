@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui;
+package gwt.material.design.client.base.helper;
 
 /*
  * #%L
@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.Widget;
  *  It is defined as abstract to prohibit 
  *
  */
-public final class MaterialUiHelper {
+public final class UiHelper {
 
 	private static String PRESSED_CSS_STYLE_NAME = "pressed";
 

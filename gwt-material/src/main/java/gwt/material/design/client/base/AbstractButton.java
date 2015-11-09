@@ -163,10 +163,7 @@ public abstract class AbstractButton extends ComplexWidget implements HasHref, H
 
 	public void setText(String text) {
 		span.setText(text);
-
-		if(!span.isAttached()) {
-			add(span);
-		}
+		add(span);
 	}
 
 	/**

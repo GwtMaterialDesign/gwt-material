@@ -20,15 +20,15 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.base.ComplexWidget;
-
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
+
 /**
 * Our slider is a simple and elegant image carousel. You can also have captions that will be transitioned on their own depending on their alignment. You can also have indicators that show up on the bottom of the slider. Note: This is also Hammer.js compatible! Try swiping with your finger to scroll through the slider.
 *
@@ -59,12 +59,8 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * </pre>
 *
 * @author kevzlou7979
-<<<<<<< HEAD:gwt-material/src/main/java/gwt/material/design/client/ui/MaterialSlide.java
 * @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
-=======
-* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slider</a>
->>>>>>> Add edge to the side nav bar & a few fixes.:gwt-material/src/main/java/gwt/material/design/client/ui/MaterialSlider.java
 */
 //@formatter:on
 public class MaterialSlider extends ComplexWidget {
@@ -91,24 +87,22 @@ public class MaterialSlider extends ComplexWidget {
 	public void add(Widget child) {
 		ul.add(child);
 	}
-	
+
+	@Override
+	public void setHeight(String height) {
+		super.setHeight(height);
+		ul.setHeight(height);
+	}
+
 	/**
 	 * Set the image slider to fullscreen view.
 	 */
-	public void setFullScreen(boolean fullscreen) {
+	public void setFullscreen(boolean fullscreen) {
 		fsMixin.setOn(fullscreen);
 	}
 
-	public boolean isFullScreen() {
+	public boolean isFullscreen() {
 		return fsMixin.isOn();
-	}
-
-	/**
-	 * Reinitialize the slider when the widget is attached.
-	 */
-	public void reinitialize() {
-		remove(getElement());
-		initialize(getElement());
 	}
 
 	/**
@@ -132,9 +126,5 @@ public class MaterialSlider extends ComplexWidget {
 
 	private native void start(Element e)/*-{
         $wnd.jQuery(e).slider("start")
-    }-*/;
-
-	private native void remove(Element e)/*-{
-        $wnd.jQuery(e).slider("remove")
     }-*/;
 }
