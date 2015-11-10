@@ -20,7 +20,7 @@ Support documentation can be found [here](https://github.com/GwtMaterialDesign/g
 </dependency>
 ```
 
-## Chagelog
+## Changelog
 You can find lists of features by version <a href="https://github.com/GwtMaterialDesign/gwt-material/wiki/Changelog">here</a>.
 
 ## Current Snapshot
