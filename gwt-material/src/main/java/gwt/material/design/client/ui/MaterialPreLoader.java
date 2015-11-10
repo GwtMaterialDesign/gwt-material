@@ -23,6 +23,8 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.ComplexWidget;
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.LoaderSize;
 
 //@formatter:off
 /**
@@ -43,6 +45,8 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialPreLoader extends ComplexWidget {
 
+    private final CssNameMixin<MaterialPreLoader, LoaderSize> sizeMixin = new CssNameMixin<>(this);
+
 
     public MaterialPreLoader() {
         super(Document.get().createDivElement());
@@ -50,10 +54,13 @@ public class MaterialPreLoader extends ComplexWidget {
     }
 
     /**
-     * Sets the size of the pre loader
-     * @param size
+     * Sets the size of the pre loader.
      */
-    public void setSize(String size){
-        addStyleName(size);
+    public void setSize(LoaderSize size){
+        sizeMixin.setCssName(size);
+    }
+    
+    public LoaderSize getSize() {
+        return sizeMixin.getCssName();
     }
 }
