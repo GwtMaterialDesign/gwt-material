@@ -22,14 +22,14 @@ package gwt.material.design.client.base;
 
 public interface HasTitle {
 
-	/**
-	 * Sets the title of the component.
-	 */
-	void setTitle(String title);
-	
-	/**
-	 * Sets the description of the component.
-	 */
-	void setDescription(String description);
-	
+    /**
+     * Sets the title of the component.
+     */
+    void setTitle(String title);
+
+    /**
+     * Sets the description of the component.
+     */
+    void setDescription(String description);
+
 }

@@ -23,7 +23,7 @@ package gwt.material.design.client.base;
 
 public interface HasId {
 
-	void setId(String id);
-	
-	String getId();
+    void setId(String id);
+
+    String getId();
 }

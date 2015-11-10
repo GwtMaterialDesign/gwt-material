@@ -22,14 +22,14 @@ package gwt.material.design.client.base;
 
 
 public interface HasSeparator {
-	
-	/**
-	 * Border line separator of any material components.
-	 */
-	void setSeparator(boolean separator);
 
-	/**
-	 * Is separated using border.
-	 */
-	boolean isSeparator();
+    /**
+     * Border line separator of any material components.
+     */
+    void setSeparator(boolean separator);
+
+    /**
+     * Is separated using border.
+     */
+    boolean isSeparator();
 }

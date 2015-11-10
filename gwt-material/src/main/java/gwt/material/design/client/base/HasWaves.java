@@ -25,13 +25,13 @@ import gwt.material.design.client.constants.WavesType;
 
 public interface HasWaves {
 
-	/**
-	 * Sets the ripple effect of any material elements
-	 */
-	void setWaves(WavesType waves);
+    /**
+     * Sets the ripple effect of any material elements
+     */
+    void setWaves(WavesType waves);
 
-	/**
-	 * Get the waves type.
-	 */
-	WavesType getWaves();
+    /**
+     * Get the waves type.
+     */
+    WavesType getWaves();
 }

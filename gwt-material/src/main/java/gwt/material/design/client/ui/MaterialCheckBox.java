@@ -59,103 +59,103 @@ import com.google.gwt.user.client.ui.CheckBox;
  */
 public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid {
 
-	private Object object;
-	private String old;
+    private Object object;
+    private String old;
 
-	private final GridMixin<MaterialCheckBox> gridMixin = new GridMixin<>(this);
-	
-	public MaterialCheckBox() {
-	}
+    private final GridMixin<MaterialCheckBox> gridMixin = new GridMixin<>(this);
 
-	public MaterialCheckBox(Element elem) {
-		super(elem);
-	}
+    public MaterialCheckBox() {
+    }
 
-	public MaterialCheckBox(SafeHtml label, Direction dir) {
-		super(label, dir);
-	}
+    public MaterialCheckBox(Element elem) {
+        super(elem);
+    }
 
-	public MaterialCheckBox(SafeHtml label, DirectionEstimator directionEstimator) {
-		super(label, directionEstimator);
-	}
+    public MaterialCheckBox(SafeHtml label, Direction dir) {
+        super(label, dir);
+    }
 
-	public MaterialCheckBox(SafeHtml label) {
-		super(label);
-	}
+    public MaterialCheckBox(SafeHtml label, DirectionEstimator directionEstimator) {
+        super(label, directionEstimator);
+    }
 
-	public MaterialCheckBox(String label, boolean asHTML) {
-		super(label, asHTML);
-	}
+    public MaterialCheckBox(SafeHtml label) {
+        super(label);
+    }
 
-	public MaterialCheckBox(String label, Direction dir) {
-		super(label, dir);
-	}
+    public MaterialCheckBox(String label, boolean asHTML) {
+        super(label, asHTML);
+    }
 
-	public MaterialCheckBox(String label, DirectionEstimator directionEstimator) {
-		super(label, directionEstimator);
-	}
+    public MaterialCheckBox(String label, Direction dir) {
+        super(label, dir);
+    }
 
-	public MaterialCheckBox(String label) {
-		super(label);
-	}
+    public MaterialCheckBox(String label, DirectionEstimator directionEstimator) {
+        super(label, directionEstimator);
+    }
 
-	public Object getObject() {
-		return object;
-	}
+    public MaterialCheckBox(String label) {
+        super(label);
+    }
 
-	public void setObject(Object object) {
-		this.object = object;
-	}
-	
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
+    public Object getObject() {
+        return object;
+    }
 
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		this.getElement().getStyle().setDisplay(Display.BLOCK);
-	}
+    public void setObject(Object object) {
+        this.object = object;
+    }
 
-	public String getOld() {
-		return old;
-	}
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 
-	/**
-	 * Used the old checkbox.
-	 */
-	public void setOld(String old) {
-		this.old = old;
-		this.addStyleName("oldCheckBox");
-	}
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        this.getElement().getStyle().setDisplay(Display.BLOCK);
+    }
 
-	/**
-	 * Setting the type of Checkbox.
-	 */
-	public void setType(CheckBoxType type) {
-		switch (type) {
-		case FILLED:
-			Element e_cb = this.getElement(); 
-	        Element e_input = DOM.getChild(e_cb, 0); 
-	        e_input.setAttribute("class", "filled-in");
-			break;
-		case INTERMEDIATE:
-			this.addStyleName(type + "-checkbox");
-			break;
-		default:
-			this.addStyleName(type.getCssName());
-			break;
-		}
-	}
+    public String getOld() {
+        return old;
+    }
 
-	@Override
-	public void setGrid(String grid) {
-		gridMixin.setGrid(grid);
-	}
-	
-	@Override
-	public void setOffset(String offset) {
-		gridMixin.setOffset(offset);
-	}
+    /**
+     * Used the old checkbox.
+     */
+    public void setOld(String old) {
+        this.old = old;
+        this.addStyleName("oldCheckBox");
+    }
+
+    /**
+     * Setting the type of Checkbox.
+     */
+    public void setType(CheckBoxType type) {
+        switch (type) {
+        case FILLED:
+            Element e_cb = this.getElement();
+            Element e_input = DOM.getChild(e_cb, 0);
+            e_input.setAttribute("class", "filled-in");
+            break;
+        case INTERMEDIATE:
+            this.addStyleName(type + "-checkbox");
+            break;
+        default:
+            this.addStyleName(type.getCssName());
+            break;
+        }
+    }
+
+    @Override
+    public void setGrid(String grid) {
+        gridMixin.setGrid(grid);
+    }
+
+    @Override
+    public void setOffset(String offset) {
+        gridMixin.setOffset(offset);
+    }
 }

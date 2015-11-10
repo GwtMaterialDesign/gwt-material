@@ -33,8 +33,8 @@ import com.google.gwt.dom.client.Document;
 * <pre>
 * {@code 
 * <m:MaterialRow>
-* 	<m:MaterialColumn grid='s12 m6 l6'/>
-* 	<m:MaterialColumn grid='s12 m6 l6'/>
+*     <m:MaterialColumn grid='s12 m6 l6'/>
+*     <m:MaterialColumn grid='s12 m6 l6'/>
 * </m:MaterialRow>
 * }
 * </pre>
@@ -47,8 +47,8 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialRow extends ComplexWidget {
 
-	public MaterialRow(){
-		super(Document.get().createDivElement());
-		setStyleName("row");
-	}
+    public MaterialRow(){
+        super(Document.get().createDivElement());
+        setStyleName("row");
+    }
 }

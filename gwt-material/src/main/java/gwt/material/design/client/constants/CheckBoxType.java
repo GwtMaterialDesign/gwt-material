@@ -30,21 +30,21 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum CheckBoxType implements CssType {
-	FILLED("filled"),
-	INTERMEDIATE("intermediate");
+    FILLED("filled"),
+    INTERMEDIATE("intermediate");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	CheckBoxType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    CheckBoxType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static CheckBoxType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, CheckBoxType.class, FILLED);
-	}
+    public static CheckBoxType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, CheckBoxType.class, FILLED);
+    }
 }

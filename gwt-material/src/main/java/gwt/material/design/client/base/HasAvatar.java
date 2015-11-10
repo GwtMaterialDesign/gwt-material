@@ -21,14 +21,14 @@ package gwt.material.design.client.base;
  */
 
 public interface HasAvatar {
-	/**
-	 * Mark the widget as avatar.
-	 */
-	void setAvatar(boolean avatar);
+    /**
+     * Mark the widget as avatar.
+     */
+    void setAvatar(boolean avatar);
 
-	/**
-	 * Gets the type of the widget.
-	 * @return type of the widget
-	 */
-	boolean isAvatar();
+    /**
+     * Gets the type of the widget.
+     * @return type of the widget
+     */
+    boolean isAvatar();
 }

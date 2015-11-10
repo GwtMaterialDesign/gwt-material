@@ -30,21 +30,21 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum NavBarType implements CssType {
-	FIXED("navbar-fixed"),
-	TALL("navbar-tall");
+    FIXED("navbar-fixed"),
+    TALL("navbar-tall");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	NavBarType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    NavBarType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static NavBarType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, NavBarType.class, FIXED);
-	}
+    public static NavBarType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, NavBarType.class, FIXED);
+    }
 }

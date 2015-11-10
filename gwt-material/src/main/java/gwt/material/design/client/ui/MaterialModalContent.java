@@ -29,11 +29,11 @@ package gwt.material.design.client.ui;
 *///@formatter:on
 public class MaterialModalContent extends MaterialPanel {
 
-	public MaterialModalContent() {
-		setStyleName("modal-content");
-	}
+    public MaterialModalContent() {
+        setStyleName("modal-content");
+    }
 
-	public void setHeight(String height) {
-		super.setHeight(height + "px");
-	}
+    public void setHeight(String height) {
+        super.setHeight(height + "px");
+    }
 }

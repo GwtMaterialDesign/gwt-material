@@ -39,35 +39,35 @@ import com.google.gwt.user.client.ui.HasText;
  */
 //@formatter:on
 public class MaterialBadge extends Span implements HasText {
-	
-	/**
-	 * Creates a badge component that can be added to Link,
-	 * Collection, DropDown, SideNav and any other Material components.
-	 */
-	public MaterialBadge() {
-		setStyleName("badge sideBarBadge");
-	}
 
-	/**
-	 * Badge with text and color
-	 * @param text - text of the badge
-	 * @param textColor - text color of the badge
-	 * @param bgColor - background color of the badge
-	 */
-	public MaterialBadge(String text, String textColor, String bgColor) {
-		this();
-		setText(text);
-		setTextColor(textColor);
-		setBackgroundColor(bgColor);
-	}
+    /**
+     * Creates a badge component that can be added to Link,
+     * Collection, DropDown, SideNav and any other Material components.
+     */
+    public MaterialBadge() {
+        setStyleName("badge sideBarBadge");
+    }
 
-	@Override
-	public String getText() {
-		return getElement().getInnerHTML();
-	}
+    /**
+     * Badge with text and color
+     * @param text - text of the badge
+     * @param textColor - text color of the badge
+     * @param bgColor - background color of the badge
+     */
+    public MaterialBadge(String text, String textColor, String bgColor) {
+        this();
+        setText(text);
+        setTextColor(textColor);
+        setBackgroundColor(bgColor);
+    }
 
-	@Override
-	public void setText(String text) {
-		getElement().setInnerHTML(text);
-	}
+    @Override
+    public String getText() {
+        return getElement().getInnerHTML();
+    }
+
+    @Override
+    public void setText(String text) {
+        getElement().setInnerHTML(text);
+    }
 }

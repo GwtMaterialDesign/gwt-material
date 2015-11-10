@@ -91,21 +91,21 @@ import com.google.gwt.dom.client.Style.Unit;
 //@formatter:on
 public class MaterialCard extends ComplexWidget {
 
-	/**
-	 * Creates and empty card.
-	 */
-	public MaterialCard(){
-		super(Document.get().createDivElement());
-		setStyleName("card");
-	}
+    /**
+     * Creates and empty card.
+     */
+    public MaterialCard(){
+        super(Document.get().createDivElement());
+        setStyleName("card");
+    }
 
-	@Override
-	public void setGrid(String grid) {
-		super.setGrid(grid);
+    @Override
+    public void setGrid(String grid) {
+        super.setGrid(grid);
 
-		removeStyleName("no-padding");
-		addStyleName("no-padding");
+        removeStyleName("no-padding");
+        addStyleName("no-padding");
 
-		getElement().getStyle().setMargin(10, Unit.PX);
-	}
+        getElement().getStyle().setMargin(10, Unit.PX);
+    }
 }

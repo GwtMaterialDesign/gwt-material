@@ -28,26 +28,26 @@ import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.ComplexWidget;
 
 public class Label extends ComplexWidget implements HasClickHandlers {
-	
-	public Label() {
-		super(DOM.createLabel());
-	}
 
-	public Label(String text) {
-		this();
-		setText(text);
-	}
+    public Label() {
+        super(DOM.createLabel());
+    }
 
-	public String getText() {
-		return getElement().getInnerText();
-	}
+    public Label(String text) {
+        this();
+        setText(text);
+    }
 
-	public void setText(String text) {
-		getElement().setInnerText(text);
-	}
+    public String getText() {
+        return getElement().getInnerText();
+    }
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
+    public void setText(String text) {
+        getElement().setInnerText(text);
+    }
+
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 }

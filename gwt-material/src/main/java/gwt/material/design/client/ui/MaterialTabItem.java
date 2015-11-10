@@ -39,34 +39,34 @@ import gwt.material.design.client.ui.html.ListItem;
 //@formatter:on
 public class MaterialTabItem extends ListItem {
 
-	private MaterialTab parent;
+    private MaterialTab parent;
 
-	public MaterialTabItem() {
-		super();
-		setStyleName("tab");
-	}
+    public MaterialTabItem() {
+        super();
+        setStyleName("tab");
+    }
 
-	@Override
-	protected void onLoad() {
-		super.onLoad();
+    @Override
+    protected void onLoad() {
+        super.onLoad();
 
-		try {
-			parent = (MaterialTab)getParent();
-		} catch (ClassCastException ex) {
-			throw new ClassCastException(
-				"MaterialTabItem must be within a MaterialTab widget.");
-		}
-	}
+        try {
+            parent = (MaterialTab)getParent();
+        } catch (ClassCastException ex) {
+            throw new ClassCastException(
+                "MaterialTabItem must be within a MaterialTab widget.");
+        }
+    }
 
-	public void selectTab() {
-		for(Widget child : getChildren()) {
-			if(child instanceof HasHref) {
-				String href = ((HasHref) child).getHref();
-				if(!href.isEmpty()) {
-					parent.selectTab(href.replaceAll("[^a-zA-Z\\d\\s:]", ""));
-					break;
-				}
-			}
-		}
-	}
+    public void selectTab() {
+        for(Widget child : getChildren()) {
+            if(child instanceof HasHref) {
+                String href = ((HasHref) child).getHref();
+                if(!href.isEmpty()) {
+                    parent.selectTab(href.replaceAll("[^a-zA-Z\\d\\s:]", ""));
+                    break;
+                }
+            }
+        }
+    }
 }

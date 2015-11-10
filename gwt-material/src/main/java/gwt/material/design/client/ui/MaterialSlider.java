@@ -35,26 +35,26 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * <h3>UiBinder Usage:</h3>
 * <pre>
 *{@code<m:MaterialSection>
-* 	<m:MaterialSlider fullScreen="false">
-		<m:MaterialSlideItem>
-			<m:MaterialImage url="http://lorempixel.com/580/250/nature/1"/>
-			<m:MaterialSlideCaption align="LEFT">
-			    <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
-			</m:MaterialSlideCaption>
-		</m:MaterialSlideItem>
-		<m:MaterialSlideItem>
-			<m:MaterialImage url="http://lorempixel.com/580/250/nature/2"/>
-			<m:MaterialSlideCaption align="CENTER">
-			    <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
-			</m:MaterialSlideCaption>
-		</m:MaterialSlideItem>
-		<m:MaterialSlideItem>
-			<m:MaterialImage url="http://lorempixel.com/580/250/nature/3"/>
-			<m:MaterialSlideCaption align="RIGHT">
-			 	<m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
-			</m:MaterialSlideCaption>
-		</m:MaterialSlideItem>
-	</m:MaterialSlider>
+*     <m:MaterialSlider fullScreen="false">
+        <m:MaterialSlideItem>
+            <m:MaterialImage url="http://lorempixel.com/580/250/nature/1"/>
+            <m:MaterialSlideCaption align="LEFT">
+                <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+            </m:MaterialSlideCaption>
+        </m:MaterialSlideItem>
+        <m:MaterialSlideItem>
+            <m:MaterialImage url="http://lorempixel.com/580/250/nature/2"/>
+            <m:MaterialSlideCaption align="CENTER">
+                <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+            </m:MaterialSlideCaption>
+        </m:MaterialSlideItem>
+        <m:MaterialSlideItem>
+            <m:MaterialImage url="http://lorempixel.com/580/250/nature/3"/>
+            <m:MaterialSlideCaption align="RIGHT">
+                 <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+            </m:MaterialSlideCaption>
+        </m:MaterialSlideItem>
+    </m:MaterialSlider>
 * }
 * </pre>
 *
@@ -65,54 +65,54 @@ import gwt.material.design.client.ui.html.UnorderedList;
 //@formatter:on
 public class MaterialSlider extends ComplexWidget {
 
-	private UnorderedList ul = new UnorderedList();
+    private UnorderedList ul = new UnorderedList();
 
-	private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, "fullscreen");
+    private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, "fullscreen");
 
-	public MaterialSlider() {
-		super(Document.get().createDivElement());
-		setStyleName("slider");
-		ul.setStyleName("slides");
-		super.add(ul);
-	}
+    public MaterialSlider() {
+        super(Document.get().createDivElement());
+        setStyleName("slider");
+        ul.setStyleName("slides");
+        super.add(ul);
+    }
 
-	@Override
-	protected void onLoad() {
-		super.onLoad();
+    @Override
+    protected void onLoad() {
+        super.onLoad();
 
-		initialize();
-	}
+        initialize();
+    }
 
-	@Override
-	public void add(Widget child) {
-		ul.add(child);
-	}
+    @Override
+    public void add(Widget child) {
+        ul.add(child);
+    }
 
-	@Override
-	public void setHeight(String height) {
-		super.setHeight(height);
-		ul.setHeight(height);
-	}
+    @Override
+    public void setHeight(String height) {
+        super.setHeight(height);
+        ul.setHeight(height);
+    }
 
-	/**
-	 * Set the image slider to fullscreen view.
-	 */
-	public void setFullscreen(boolean fullscreen) {
-		fsMixin.setOn(fullscreen);
-	}
+    /**
+     * Set the image slider to fullscreen view.
+     */
+    public void setFullscreen(boolean fullscreen) {
+        fsMixin.setOn(fullscreen);
+    }
 
-	public boolean isFullscreen() {
-		return fsMixin.isOn();
-	}
+    public boolean isFullscreen() {
+        return fsMixin.isOn();
+    }
 
-	/**
-	 * Initialize the slider when the widget is attached.
-	 */
-	private void initialize() {
-		initialize(getElement());
-	}
+    /**
+     * Initialize the slider when the widget is attached.
+     */
+    private void initialize() {
+        initialize(getElement());
+    }
 
-	private native void initialize(Element e)/*-{
+    private native void initialize(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).slider({
                 full_width : true
@@ -120,11 +120,11 @@ public class MaterialSlider extends ComplexWidget {
         });
     }-*/;
 
-	private native void pause(Element e)/*-{
+    private native void pause(Element e)/*-{
         $wnd.jQuery(e).slider("pause")
-	}-*/;
+    }-*/;
 
-	private native void start(Element e)/*-{
+    private native void start(Element e)/*-{
         $wnd.jQuery(e).slider("start")
     }-*/;
 }

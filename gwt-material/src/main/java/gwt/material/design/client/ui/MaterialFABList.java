@@ -35,12 +35,12 @@ import gwt.material.design.client.ui.html.ListItem;
 *///@formatter:on
 public class MaterialFABList extends ComplexWidget {
 
-	public MaterialFABList() {
-		super(Document.get().createULElement());
-	}
-	
-	@Override
-	public void add(Widget child) {
-		super.add(new ListItem(child));
-	}
+    public MaterialFABList() {
+        super(Document.get().createULElement());
+    }
+
+    @Override
+    public void add(Widget child) {
+        super.add(new ListItem(child));
+    }
 }

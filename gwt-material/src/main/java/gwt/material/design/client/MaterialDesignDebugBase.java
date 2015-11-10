@@ -25,11 +25,11 @@ import gwt.material.design.client.resources.MaterialResources;
 
 public class MaterialDesignDebugBase extends MaterialDesignBase {
 
-	@Override
-	public void load() {
-		injectDebug(MaterialDebugResources.INSTANCE.materializeJsDebug());
-		injectDebug(MaterialDebugResources.INSTANCE.timepickerJsDebug());
-		injectDebug(MaterialResources.INSTANCE.animationJs());
-		injectDebug(MaterialResources.INSTANCE.scriptJs());
-	}
+    @Override
+    public void load() {
+        injectDebug(MaterialDebugResources.INSTANCE.materializeJsDebug());
+        injectDebug(MaterialDebugResources.INSTANCE.timepickerJsDebug());
+        injectDebug(MaterialResources.INSTANCE.animationJs());
+        injectDebug(MaterialResources.INSTANCE.scriptJs());
+    }
 }

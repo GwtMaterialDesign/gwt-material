@@ -25,7 +25,7 @@ import gwt.material.design.client.base.ComplexWidget;
 
 public class Nav extends ComplexWidget {
 
-	public Nav() {
-		super(Document.get().createElement("nav"));
-	}
+    public Nav() {
+        super(Document.get().createElement("nav"));
+    }
 }

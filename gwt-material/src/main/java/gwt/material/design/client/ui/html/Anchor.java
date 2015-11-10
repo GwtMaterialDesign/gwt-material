@@ -24,8 +24,8 @@ import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.ComplexWidget;
 
 public class Anchor extends ComplexWidget {
-	
-	public Anchor() {
-		super(Document.get().createElement("a"));
-	}
+
+    public Anchor() {
+        super(Document.get().createElement("a"));
+    }
 }

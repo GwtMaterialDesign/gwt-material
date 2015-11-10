@@ -38,10 +38,10 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
  * {@code
  * <m:MaterialNavSection align="RIGHT">
- * 	<m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="white" waves="LIGHT"/>
- * 	<m:MaterialLink  icon="AUTORENEW" iconPosition="left" text="Refresh" textColor="white" waves="LIGHT"/>
- * 	<m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
- * 	<m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  icon="AUTORENEW" iconPosition="left" text="Refresh" textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
  * </m:MaterialNavSection>
  * }
  * </pre>
@@ -54,29 +54,29 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:on
 public class MaterialNavSection extends UnorderedList implements HasPosition {
 
-	private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
+    private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
 
-	/**
-	 * Container for App Toolbar and App Sidebar , contains Material
-	 * Links, Icons or any other material components.
-	 */
-	public MaterialNavSection() {
-		super();
-		setHideOn(HideOn.HIDE_ON_MED_DOWN);
-	}
+    /**
+     * Container for App Toolbar and App Sidebar , contains Material
+     * Links, Icons or any other material components.
+     */
+    public MaterialNavSection() {
+        super();
+        setHideOn(HideOn.HIDE_ON_MED_DOWN);
+    }
 
-	@Override
-	public void add(Widget child) {
-		super.add(new ListItem(child));
-	}
+    @Override
+    public void add(Widget child) {
+        super.add(new ListItem(child));
+    }
 
-	@Override
-	public Position getPosition() {
-		return posMixin.getCssName();
-	}
+    @Override
+    public Position getPosition() {
+        return posMixin.getCssName();
+    }
 
-	@Override
-	public void setPosition(Position position) {
-		posMixin.setCssName(position);
-	}
+    @Override
+    public void setPosition(Position position) {
+        posMixin.setCssName(position);
+    }
 }

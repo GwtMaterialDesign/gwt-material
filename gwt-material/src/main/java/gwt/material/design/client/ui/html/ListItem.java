@@ -26,13 +26,13 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.ComplexWidget;
 
 public class ListItem extends ComplexWidget {
-	
-	public ListItem() {
-		setElement((Element)DOM.createElement("li"));
-	}
 
-	public ListItem(Widget item) {
-		this();
-		add(item);
-	}
+    public ListItem() {
+        setElement((Element)DOM.createElement("li"));
+    }
+
+    public ListItem(Widget item) {
+        this();
+        add(item);
+    }
 }

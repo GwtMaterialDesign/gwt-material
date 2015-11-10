@@ -47,168 +47,168 @@ import gwt.material.design.client.base.ComplexWidget;
 //@formatter:on
 public class MaterialSplashScreen extends ComplexWidget {
 
-	interface MaterialSplashScreenUiBinder extends UiBinder<Widget, MaterialSplashScreen> {
-	}
-	
-	MaterialImage imgLogo;
-	MaterialTitle title;
-	MaterialPanel panel;
+    interface MaterialSplashScreenUiBinder extends UiBinder<Widget, MaterialSplashScreen> {
+    }
 
-	private ImageResource logo;
-	private String appName;
-	private String appDescription;
-	private int splashTime = 5000;
-	private Widget main;
-	
-	public MaterialSplashScreen() {
-		super(DOM.createDiv());
-		imgLogo = new MaterialImage();
-		title = new MaterialTitle();
-		panel = new MaterialPanel();
-	}
-	
-	/**
-	 * Material Splashscreen implementation on GWT Apps, its good for loading purposes
-	 * @param splashTime - The delay time in millisecond to show the splash screen
-	 * @param main - The Main Composite or landing page after the splash screen
-	 * @param logo - The logo of your app
-	 * @param appName - The Name of your app
-	 * @param appDescription - The Description of your app
-	 * @param bgColor - The background color of your app
-	 * @param textColor - The text color of your app
-	 */
-	public MaterialSplashScreen(int splashTime,
-								Widget main,
-								ImageResource logo,
-								String appName,
-								String appDescription,
-								String bgColor,
-								String textColor) {
-		this();
-		setSplashTime(splashTime);
-		setLogo(logo);
-		setAppName(appName);
-		setAppDescription(appDescription);
-		setBackgroundColor(bgColor);
-		setTextColor(textColor);
-		setMain(main);
-	}
-	
-	/**
-	 * Show the splash screen 
-	 */
-	public void show() {
-		RootPanel.get().add(this);
-		RootPanel.get().add(main);
-		main.getElement().getStyle().setDisplay(Display.NONE);
+    MaterialImage imgLogo;
+    MaterialTitle title;
+    MaterialPanel panel;
 
-		new Timer() {
-			@Override
-			public void run() {
-				MaterialSplashScreen.this.removeFromParent();
-				main.getElement().getStyle().setDisplay(Display.BLOCK);
-			}
-			@Override
-			public void cancel() {
-				super.cancel();
-			}
-		}
-		.schedule(splashTime);
-	}
+    private ImageResource logo;
+    private String appName;
+    private String appDescription;
+    private int splashTime = 5000;
+    private Widget main;
 
-	public ImageResource getLogo() {
-		return logo;
-	}
+    public MaterialSplashScreen() {
+        super(DOM.createDiv());
+        imgLogo = new MaterialImage();
+        title = new MaterialTitle();
+        panel = new MaterialPanel();
+    }
 
-	/**
-	 * The logo of the Splash screen .
-	 * @param logo ImageResource object
-	 */
-	public void setLogo(ImageResource logo) {
-		this.logo = logo;
-		imgLogo.setResource(logo);
-	}
+    /**
+     * Material Splashscreen implementation on GWT Apps, its good for loading purposes
+     * @param splashTime - The delay time in millisecond to show the splash screen
+     * @param main - The Main Composite or landing page after the splash screen
+     * @param logo - The logo of your app
+     * @param appName - The Name of your app
+     * @param appDescription - The Description of your app
+     * @param bgColor - The background color of your app
+     * @param textColor - The text color of your app
+     */
+    public MaterialSplashScreen(int splashTime,
+                                Widget main,
+                                ImageResource logo,
+                                String appName,
+                                String appDescription,
+                                String bgColor,
+                                String textColor) {
+        this();
+        setSplashTime(splashTime);
+        setLogo(logo);
+        setAppName(appName);
+        setAppDescription(appDescription);
+        setBackgroundColor(bgColor);
+        setTextColor(textColor);
+        setMain(main);
+    }
 
-	public String getAppName() {
-		return appName;
-	}
+    /**
+     * Show the splash screen
+     */
+    public void show() {
+        RootPanel.get().add(this);
+        RootPanel.get().add(main);
+        main.getElement().getStyle().setDisplay(Display.NONE);
 
-	/**
-	 * The app name displayed on Splash Screen.
-	 * @param appName Application name string
-	 */
-	public void setAppName(String appName) {
-		this.appName = appName;
-		title.setTitle(appName);
-	}
-	
-	public String getAppDescription() {
-		return appDescription;
-	}
+        new Timer() {
+            @Override
+            public void run() {
+                MaterialSplashScreen.this.removeFromParent();
+                main.getElement().getStyle().setDisplay(Display.BLOCK);
+            }
+            @Override
+            public void cancel() {
+                super.cancel();
+            }
+        }
+        .schedule(splashTime);
+    }
 
-	/**
-	 * Optional , you can add your app description on Splash Screen.
-	 * @param appDescription Description string
-	 */
-	public void setAppDescription(String appDescription) {
-		this.appDescription = appDescription;
-		title.setDescription(appDescription);
-	}
+    public ImageResource getLogo() {
+        return logo;
+    }
 
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		panel.setBackgroundColor(bgColor);
-	}
+    /**
+     * The logo of the Splash screen .
+     * @param logo ImageResource object
+     */
+    public void setLogo(ImageResource logo) {
+        this.logo = logo;
+        imgLogo.setResource(logo);
+    }
 
-	@Override
-	public String getBackgroundColor() {
-		return panel.getBackgroundColor();
-	}
+    public String getAppName() {
+        return appName;
+    }
 
-	@Override
-	public String getTextColor() {
-		return title.getTextColor();
-	}
+    /**
+     * The app name displayed on Splash Screen.
+     * @param appName Application name string
+     */
+    public void setAppName(String appName) {
+        this.appName = appName;
+        title.setTitle(appName);
+    }
 
-	@Override
-	public void setTextColor(String textColor) {
-		title.setTextColor(textColor);
-	}
+    public String getAppDescription() {
+        return appDescription;
+    }
 
-	/**
-	 * @return the logo
-	 */
-	public MaterialImage getImgLogo() {
-		return imgLogo;
-	}
-	
-	/**
-	 * @return the splashtime
-	 */
-	public int getSplashTime() {
-		return splashTime;
-	}
+    /**
+     * Optional , you can add your app description on Splash Screen.
+     * @param appDescription Description string
+     */
+    public void setAppDescription(String appDescription) {
+        this.appDescription = appDescription;
+        title.setDescription(appDescription);
+    }
 
-	/**
-	 * How long it will take to show your splash screen, by default 5 seconds or 5000 ms
-	 * @param splashTime Splash time in milliseconds
-	 */
-	public void setSplashTime(int splashTime) {
-		this.splashTime = splashTime;
-	}
+    @Override
+    public void setBackgroundColor(String bgColor) {
+        panel.setBackgroundColor(bgColor);
+    }
 
-	/**
-	 * @return the main
-	 */
-	public Widget getMain() {
-		return main;
-	}
+    @Override
+    public String getBackgroundColor() {
+        return panel.getBackgroundColor();
+    }
 
-	/**
-	 * @param main the main to set
-	 */
-	public void setMain(Widget main) {
-		this.main = main;
-	}
+    @Override
+    public String getTextColor() {
+        return title.getTextColor();
+    }
+
+    @Override
+    public void setTextColor(String textColor) {
+        title.setTextColor(textColor);
+    }
+
+    /**
+     * @return the logo
+     */
+    public MaterialImage getImgLogo() {
+        return imgLogo;
+    }
+
+    /**
+     * @return the splashtime
+     */
+    public int getSplashTime() {
+        return splashTime;
+    }
+
+    /**
+     * How long it will take to show your splash screen, by default 5 seconds or 5000 ms
+     * @param splashTime Splash time in milliseconds
+     */
+    public void setSplashTime(int splashTime) {
+        this.splashTime = splashTime;
+    }
+
+    /**
+     * @return the main
+     */
+    public Widget getMain() {
+        return main;
+    }
+
+    /**
+     * @param main the main to set
+     */
+    public void setMain(Widget main) {
+        this.main = main;
+    }
 
 }

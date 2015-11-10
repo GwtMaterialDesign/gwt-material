@@ -25,8 +25,8 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
 public interface WithJQueryDebugResources extends ClientBundle {
-	WithJQueryDebugResources INSTANCE = GWT.create(WithJQueryDebugResources.class);
+    WithJQueryDebugResources INSTANCE = GWT.create(WithJQueryDebugResources.class);
 
-	@Source("js/jquery-2.1.1.js")
-	TextResource jQueryDebug();
+    @Source("js/jquery-2.1.1.js")
+    TextResource jQueryDebug();
 }

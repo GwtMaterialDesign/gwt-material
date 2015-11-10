@@ -35,9 +35,9 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * <pre>
 * {@code
 * <m:MaterialColumn grid='s12 m6 l4'/>
-* 	Small Device - 12 grid
-* 	Medium Device - 6 grid
-* 	Large Device - 4 grid
+*     Small Device - 12 grid
+*     Medium Device - 6 grid
+*     Large Device - 4 grid
 * }
 * </pre>
 * 
@@ -48,13 +48,13 @@ import com.google.gwt.user.client.ui.HasVisibility;
 //@formatter:on
 public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibility {
 
-	public MaterialColumn() {
-		super(Document.get().createDivElement());
-		setStyleName("col");
-	}
+    public MaterialColumn() {
+        super(Document.get().createDivElement());
+        setStyleName("col");
+    }
 
-	public MaterialColumn(int small, int medium, int large) {
-		this();
-		addStyleName("s"+small+" m"+medium + " l" + large);
-	}
+    public MaterialColumn(int small, int medium, int large) {
+        this();
+        addStyleName("s"+small+" m"+medium + " l" + large);
+    }
 }

@@ -47,33 +47,33 @@ import com.google.gwt.dom.client.Style.Unit;
 //@formatter:on
 public class MaterialTitle extends Div implements HasTitle {
 
-	Heading header = new Heading(HeadingSize.H4);
-	Paragraph paragraph = new Paragraph();
+    Heading header = new Heading(HeadingSize.H4);
+    Paragraph paragraph = new Paragraph();
 
-	public MaterialTitle() {
-		header.setFontWeight(300);
-		header.getElement().getStyle().setMarginTop(60, Unit.PX);
-		add(header);
-		add(paragraph);
-	}
+    public MaterialTitle() {
+        header.setFontWeight(300);
+        header.getElement().getStyle().setMarginTop(60, Unit.PX);
+        add(header);
+        add(paragraph);
+    }
 
-	public MaterialTitle(String title, String description) {
-		this();
-		setTitle(title);
-		setDescription(description);
-	}
+    public MaterialTitle(String title, String description) {
+        this();
+        setTitle(title);
+        setDescription(description);
+    }
 
-	public MaterialTitle(String title) {
-		setTitle(title);
-	}
+    public MaterialTitle(String title) {
+        setTitle(title);
+    }
 
-	@Override
-	public void setDescription(String description) {
-		paragraph.setText(description);
-	}
+    @Override
+    public void setDescription(String description) {
+        paragraph.setText(description);
+    }
 
-	@Override
-	public void setTitle(String title) {
-		header.getElement().setInnerHTML(title);
-	}
+    @Override
+    public void setTitle(String title) {
+        header.getElement().setInnerHTML(title);
+    }
 }

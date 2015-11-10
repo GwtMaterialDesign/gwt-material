@@ -22,10 +22,10 @@ package gwt.material.design.client.base;
 
 public interface HasActivates {
 
-	/**
-	 * Sets an attribute data-activates to any material components
-	 */
-	void setActivates(String activates);
+    /**
+     * Sets an attribute data-activates to any material components
+     */
+    void setActivates(String activates);
 
-	String getActivates();
+    String getActivates();
 }

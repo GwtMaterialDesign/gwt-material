@@ -31,22 +31,22 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum CollapsibleType implements CssType {
-	ACCORDION("accordion"), 
-	EXPANDABLE("expandable"),
-	POPOUT("popout");
+    ACCORDION("accordion"),
+    EXPANDABLE("expandable"),
+    POPOUT("popout");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	CollapsibleType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    CollapsibleType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static CollapsibleType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, CollapsibleType.class, ACCORDION);
-	}
+    public static CollapsibleType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, CollapsibleType.class, ACCORDION);
+    }
 }

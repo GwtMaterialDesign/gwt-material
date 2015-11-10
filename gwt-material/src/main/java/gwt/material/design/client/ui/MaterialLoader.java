@@ -47,42 +47,42 @@ MaterialLoader.showProgress(true);
 */
 //@formatter:on
 public class MaterialLoader {
-	private static Div div = new Div();
-	private static MaterialPreLoader preLoader = new MaterialPreLoader();
-	private static MaterialProgress progress = new MaterialProgress();
+    private static Div div = new Div();
+    private static MaterialPreLoader preLoader = new MaterialPreLoader();
+    private static MaterialProgress progress = new MaterialProgress();
 
-	/**
-	 * Show a circular loader.
-	 */
-	public static void showLoading(boolean isShow) {
-		
-		if (isShow) {
-			div.setStyleName("valign-wrapper loader-wrapper");
-			preLoader.getElement().getStyle().setProperty("margin", "auto");
-			preLoader.add(new MaterialSpinner("blue"));
-			preLoader.add(new MaterialSpinner("red"));
-			preLoader.add(new MaterialSpinner("yellow"));
-			preLoader.add(new MaterialSpinner("green"));
-			div.add(preLoader);
-			RootPanel.get().add(div);
-		} else {
-			div.removeFromParent();
-			preLoader.removeFromParent();
-		}
-	}
-	
-	/**
-	 * Show a progress loader.
-	 */
-	public static void showProgress(boolean isShow) {
-		if (isShow) {
-			div.setStyleName("valign-wrapper  progress-wrapper");
-			progress.getElement().getStyle().setProperty("margin", "auto");
-			div.add(progress);
-			RootPanel.get().add(div);
-		} else {
-			div.removeFromParent();
-			progress.removeFromParent();
-		}
-	}	
+    /**
+     * Show a circular loader.
+     */
+    public static void showLoading(boolean isShow) {
+
+        if (isShow) {
+            div.setStyleName("valign-wrapper loader-wrapper");
+            preLoader.getElement().getStyle().setProperty("margin", "auto");
+            preLoader.add(new MaterialSpinner("blue"));
+            preLoader.add(new MaterialSpinner("red"));
+            preLoader.add(new MaterialSpinner("yellow"));
+            preLoader.add(new MaterialSpinner("green"));
+            div.add(preLoader);
+            RootPanel.get().add(div);
+        } else {
+            div.removeFromParent();
+            preLoader.removeFromParent();
+        }
+    }
+
+    /**
+     * Show a progress loader.
+     */
+    public static void showProgress(boolean isShow) {
+        if (isShow) {
+            div.setStyleName("valign-wrapper  progress-wrapper");
+            progress.getElement().getStyle().setProperty("margin", "auto");
+            div.add(progress);
+            RootPanel.get().add(div);
+        } else {
+            div.removeFromParent();
+            progress.removeFromParent();
+        }
+    }
 }

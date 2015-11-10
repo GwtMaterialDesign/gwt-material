@@ -35,8 +35,8 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialSlideCaption extends ComplexWidget {
 
-	public MaterialSlideCaption() {
-		super(Document.get().createDivElement());
-		setStyleName("caption");
-	}
+    public MaterialSlideCaption() {
+        super(Document.get().createDivElement());
+        setStyleName("caption");
+    }
 }

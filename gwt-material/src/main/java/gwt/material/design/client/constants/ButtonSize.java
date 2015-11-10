@@ -27,21 +27,21 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum ButtonSize implements Type, Style.HasCssName {
-	MEDIUM(""),
-	LARGE("btn-large");
+    MEDIUM(""),
+    LARGE("btn-large");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	ButtonSize(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    ButtonSize(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static ButtonSize fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, ButtonSize.class, MEDIUM);
-	}
+    public static ButtonSize fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, ButtonSize.class, MEDIUM);
+    }
 }

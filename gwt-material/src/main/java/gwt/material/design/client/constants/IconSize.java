@@ -27,23 +27,23 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum IconSize implements Type, Style.HasCssName {
-	TINY("tiny"),
-	SMALL("small"),
-	MEDIUM("medium"),
-	LARGE("large");
+    TINY("tiny"),
+    SMALL("small"),
+    MEDIUM("medium"),
+    LARGE("large");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	IconSize(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    IconSize(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static IconSize fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, IconSize.class, SMALL);
-	}
+    public static IconSize fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, IconSize.class, SMALL);
+    }
 }

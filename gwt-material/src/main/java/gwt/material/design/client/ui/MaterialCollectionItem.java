@@ -44,80 +44,80 @@ import gwt.material.design.client.constants.CollectionType;
 //@formatter:on
 public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable, HasAvatar {
 
-	private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
-	private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
+    private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
+    private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
 
-	private HandlerRegistration handlerReg;
+    private HandlerRegistration handlerReg;
 
-	public MaterialCollectionItem() {
-		super(Document.get().createLIElement());
-		setStyleName("collection-item");
-	}
+    public MaterialCollectionItem() {
+        super(Document.get().createLIElement());
+        setStyleName("collection-item");
+    }
 
-	public void setType(CollectionType type) {
-		switch (type) {
-		case AVATAR:
-			addStyleName(type.getCssName());
-			break;
-		case CHECKBOX:
-			if(getWidgetCount() > 0) {
-				getWidget(0).getElement().getStyle().setProperty("display" , "inline");
-			}
-			if(handlerReg != null) {
-				handlerReg.removeHandler();
-			}
-			handlerReg = addClickHandler(new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					for(Widget w : MaterialCollectionItem.this) {
-						if(w instanceof MaterialCollectionSecondary) {
-							for(Widget a : (MaterialCollectionSecondary)w) {
-								if(a instanceof HasValue) {
-									try {
-										@SuppressWarnings("unchecked")
-										HasValue<Boolean> cb = (HasValue<Boolean>) a;
-										if (cb.getValue()) {
-											cb.setValue(false);
-										} else {
-											cb.setValue(true);
-										}
-									} catch (ClassCastException ex) {
-										// Ignore non-boolean has value handlers.
-									}
-								}
-							}
-						}
-					}
-				}
-			});
-			break;
-		default:
-			break;
-		}
-	}
+    public void setType(CollectionType type) {
+        switch (type) {
+        case AVATAR:
+            addStyleName(type.getCssName());
+            break;
+        case CHECKBOX:
+            if(getWidgetCount() > 0) {
+                getWidget(0).getElement().getStyle().setProperty("display" , "inline");
+            }
+            if(handlerReg != null) {
+                handlerReg.removeHandler();
+            }
+            handlerReg = addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent event) {
+                    for(Widget w : MaterialCollectionItem.this) {
+                        if(w instanceof MaterialCollectionSecondary) {
+                            for(Widget a : (MaterialCollectionSecondary)w) {
+                                if(a instanceof HasValue) {
+                                    try {
+                                        @SuppressWarnings("unchecked")
+                                        HasValue<Boolean> cb = (HasValue<Boolean>) a;
+                                        if (cb.getValue()) {
+                                            cb.setValue(false);
+                                        } else {
+                                            cb.setValue(true);
+                                        }
+                                    } catch (ClassCastException ex) {
+                                        // Ignore non-boolean has value handlers.
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            break;
+        default:
+            break;
+        }
+    }
 
-	@Override
-	public void setDismissable(boolean dismissable) {
-		dismissableMixin.setOn(dismissable);
-	}
+    @Override
+    public void setDismissable(boolean dismissable) {
+        dismissableMixin.setOn(dismissable);
+    }
 
-	@Override
-	public boolean isDismissable() {
-		return dismissableMixin.isOn();
-	}
+    @Override
+    public boolean isDismissable() {
+        return dismissableMixin.isOn();
+    }
 
-	@Override
-	public void setAvatar(boolean avatar) {
-		avatarMixin.setOn(avatar);
-	}
+    @Override
+    public void setAvatar(boolean avatar) {
+        avatarMixin.setOn(avatar);
+    }
 
-	@Override
-	public boolean isAvatar() {
-		return avatarMixin.isOn();
-	}
+    @Override
+    public boolean isAvatar() {
+        return avatarMixin.isOn();
+    }
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 }

@@ -40,17 +40,17 @@ import gwt.material.design.client.base.mixin.ToggleStyleMixin;
  *
  * <pre>
  * {@code
- *	<m:MaterialListBox ui:field="lstBox" />
+ *    <m:MaterialListBox ui:field="lstBox" />
  * }
  * </pre>
  * <h3>Java Usage:</h3>
  *
  * <pre>
  * {@code
- * 	// functions
- *	lstBox.setSelectedIndex(2);
- *	lstBox.getSelectedIndex();
- *	lstBox.addChangeHandler(handler);
+ *     // functions
+ *    lstBox.setSelectedIndex(2);
+ *    lstBox.getSelectedIndex();
+ *    lstBox.addChangeHandler(handler);
  * }
  * </pre>
  * </p>
@@ -62,113 +62,113 @@ import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 //@formatter:on
 public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColors {
 
-	private final IdMixin<MaterialListBox> idMixin = new IdMixin<>(this);
-	private final GridMixin<MaterialListBox> gridMixin = new GridMixin<>(this);
-	private final ColorsMixin<MaterialListBox> colorsMixin = new ColorsMixin<>(this);
-	private final ToggleStyleMixin<MaterialListBox> oldMixin = new ToggleStyleMixin<>(this, "browser-default input-field");
+    private final IdMixin<MaterialListBox> idMixin = new IdMixin<>(this);
+    private final GridMixin<MaterialListBox> gridMixin = new GridMixin<>(this);
+    private final ColorsMixin<MaterialListBox> colorsMixin = new ColorsMixin<>(this);
+    private final ToggleStyleMixin<MaterialListBox> oldMixin = new ToggleStyleMixin<>(this, "browser-default input-field");
 
-	public MaterialListBox() {
-		setId(DOM.createUniqueId());
-	}
+    public MaterialListBox() {
+        setId(DOM.createUniqueId());
+    }
 
-	@Override
-	public void setId(String id) {
-		idMixin.setId(id);
-	}
+    @Override
+    public void setId(String id) {
+        idMixin.setId(id);
+    }
 
-	@Override
-	public String getId() {
-		return idMixin.getId();
-	}
+    @Override
+    public String getId() {
+        return idMixin.getId();
+    }
 
-	@Override
-	public void setGrid(String grid) {
-		gridMixin.setGrid(grid);
-	}
+    @Override
+    public void setGrid(String grid) {
+        gridMixin.setGrid(grid);
+    }
 
-	@Override
-	public void setOffset(String offset) {
-		gridMixin.setOffset(offset);
-	}
+    @Override
+    public void setOffset(String offset) {
+        gridMixin.setOffset(offset);
+    }
 
-	public boolean isOld() {
-		return oldMixin.isOn();
-	}
+    public boolean isOld() {
+        return oldMixin.isOn();
+    }
 
-	public void setOld(boolean old) {
-		oldMixin.setOn(old);
-	}
+    public void setOld(boolean old) {
+        oldMixin.setOn(old);
+    }
 
-	@Override
-	public void setBackgroundColor(String bgColor) {
-		colorsMixin.setBackgroundColor(bgColor);
-	}
+    @Override
+    public void setBackgroundColor(String bgColor) {
+        colorsMixin.setBackgroundColor(bgColor);
+    }
 
-	@Override
-	public String getBackgroundColor() {
-		return colorsMixin.getBackgroundColor();
-	}
+    @Override
+    public String getBackgroundColor() {
+        return colorsMixin.getBackgroundColor();
+    }
 
-	@Override
-	public String getTextColor() {
-		return colorsMixin.getTextColor();
-	}
+    @Override
+    public String getTextColor() {
+        return colorsMixin.getTextColor();
+    }
 
-	@Override
-	public void setTextColor(String textColor) {
-		colorsMixin.setTextColor(textColor);
-	}
+    @Override
+    public void setTextColor(String textColor) {
+        colorsMixin.setTextColor(textColor);
+    }
 
-	@Override
-	public void onLoad() {
-		super.onLoad();
-		if (!isOld()) {
-			createInternalChangeHandler(getId());
-		}
-		initializeMaterial();
-	}
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (!isOld()) {
+            createInternalChangeHandler(getId());
+        }
+        initializeMaterial();
+    }
 
-	@Override
-	public void insertItem(String item, Direction dir, String value, int index) {
-		super.insertItem(item, dir, value, index);
-		initializeMaterial();
-	}
-	
-	@Override
-	public void clear() {
-		super.clear();
-		initializeMaterial();
-	}
-	
-	private void onChangeInternal() {
-		Document.get().createChangeEvent();
-	}
+    @Override
+    public void insertItem(String item, Direction dir, String value, int index) {
+        super.insertItem(item, dir, value, index);
+        initializeMaterial();
+    }
 
-	public void initializeMaterial() {
-		initializeMaterial(getId());
-	}
-	
-	/**
-	 * Creates the internal change handler needed to trigger change events for
-	 * Materialize CSS change events.
-	 */
-	protected native void createInternalChangeHandler(String id) /*-{
-		var that = this;
-		var callback = $entry(function() {
+    @Override
+    public void clear() {
+        super.clear();
+        initializeMaterial();
+    }
+
+    private void onChangeInternal() {
+        Document.get().createChangeEvent();
+    }
+
+    public void initializeMaterial() {
+        initializeMaterial(getId());
+    }
+
+    /**
+     * Creates the internal change handler needed to trigger change events for
+     * Materialize CSS change events.
+     */
+    protected native void createInternalChangeHandler(String id) /*-{
+        var that = this;
+        var callback = $entry(function() {
             that.@gwt.material.design.client.ui.MaterialListBox::onChangeInternal()();
-		});
-		
-		$wnd.jQuery('#' + id).change(callback);
-	}-*/;
-	
-	/**
-	 * Initializes the Materialize CSS list box. Should be
-	 * called every time the contents of the list box
-	 * changes, to keep the Materialize CSS design updated.
-	 */
-	protected native void initializeMaterial(String id) /*-{
-		$wnd.jQuery(document).ready(function() {
-			$wnd.jQuery('#' + id).material_select();
-		})
-	}-*/;
+        });
+
+        $wnd.jQuery('#' + id).change(callback);
+    }-*/;
+
+    /**
+     * Initializes the Materialize CSS list box. Should be
+     * called every time the contents of the list box
+     * changes, to keep the Materialize CSS design updated.
+     */
+    protected native void initializeMaterial(String id) /*-{
+        $wnd.jQuery(document).ready(function() {
+            $wnd.jQuery('#' + id).material_select();
+        })
+    }-*/;
 }

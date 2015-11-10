@@ -44,8 +44,8 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * <pre>
  * {@code
  * <m:MaterialSideNav ui:field="sideNav" width="280" m:id="mysidebar"  type="OPEN" closeOnClick="false">
- * 	<m:MaterialLink href="#about" iconPosition="LEFT" icon="OUTLINE" text="About" textColor="blue"  />
- * 	<m:MaterialLink href="#gettingStarted" iconPosition="LEFT" icon="DOWNLOAD" text="Getting Started" textColor="blue"  >
+ *     <m:MaterialLink href="#about" iconPosition="LEFT" icon="OUTLINE" text="About" textColor="blue"  />
+ *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" icon="DOWNLOAD" text="Getting Started" textColor="blue"  >
  * </m:MaterialSideNav>
  * }
  * </pre>
@@ -57,120 +57,120 @@ import gwt.material.design.client.ui.html.UnorderedList;
 //@formatter:on
 public class MaterialSideNav extends UnorderedList implements HasType<SideNavType> {
 
-	private int width = 240;
-	private Edge edge = Edge.LEFT;
-	private boolean closeOnClick = false;
+    private int width = 240;
+    private Edge edge = Edge.LEFT;
+    private boolean closeOnClick = false;
 
-	private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
-	
-	/**
-	 * Container for App Toolbar and App Sidebar , contains Material Links,
-	 * Icons or any other material components.
-	 */
-	public MaterialSideNav() {
-		super();
-		setStyleName("side-nav");
-	}
-	
-	/**
-	 *  Creates a list and adds the given widgets.
-	 */
-	public MaterialSideNav(final Widget... widgets){
-		this();
-		for (final Widget w : widgets) {
+    private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
+
+    /**
+     * Container for App Toolbar and App Sidebar , contains Material Links,
+     * Icons or any other material components.
+     */
+    public MaterialSideNav() {
+        super();
+        setStyleName("side-nav");
+    }
+
+    /**
+     *  Creates a list and adds the given widgets.
+     */
+    public MaterialSideNav(final Widget... widgets){
+        this();
+        for (final Widget w : widgets) {
             add(w);
         }
-	}
+    }
 
-	@UiConstructor
-	public MaterialSideNav(SideNavType type){
-		this();
-		setId("nav-mobile");
-		setType(type);
-	}
-	
-	@Override
-	public void onLoad() {
-		super.onLoad();
+    @UiConstructor
+    public MaterialSideNav(SideNavType type){
+        this();
+        setId("nav-mobile");
+        setType(type);
+    }
 
-		// Initialize the side nav
-		initialize();
-	}
+    @Override
+    public void onLoad() {
+        super.onLoad();
 
-	@Override
-	public void add(Widget child) {
-		if(child instanceof MaterialImage) {
-			child.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
-			child.getElement().getStyle().setProperty("textAlign", "center");
-		}
+        // Initialize the side nav
+        initialize();
+    }
 
-		if(!(child instanceof ListItem)) {
-			ListItem listItem = new ListItem();
-			if(child instanceof MaterialCollapsible) {
-				listItem.getElement().getStyle().setBackgroundColor("transparent");
-			}
-			if(child instanceof HasWaves) {
-				listItem.setWaves(((HasWaves) child).getWaves());
-				((HasWaves) child).setWaves(null);
-			}
-			listItem.add(child);
-			child = listItem;
-		}
-		child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
-		super.add(child);
-	}
+    @Override
+    public void add(Widget child) {
+        if(child instanceof MaterialImage) {
+            child.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
+            child.getElement().getStyle().setProperty("textAlign", "center");
+        }
 
-	@Override
-	public void setWidth(String width) {
-		setWidth(Integer.parseInt(width));
-	}
+        if(!(child instanceof ListItem)) {
+            ListItem listItem = new ListItem();
+            if(child instanceof MaterialCollapsible) {
+                listItem.getElement().getStyle().setBackgroundColor("transparent");
+            }
+            if(child instanceof HasWaves) {
+                listItem.setWaves(((HasWaves) child).getWaves());
+                ((HasWaves) child).setWaves(null);
+            }
+            listItem.add(child);
+            child = listItem;
+        }
+        child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+        super.add(child);
+    }
 
-	public void setWidth(int width){
-		this.width = width;
-		getElement().getStyle().setWidth(width, Unit.PX);
-	}
+    @Override
+    public void setWidth(String width) {
+        setWidth(Integer.parseInt(width));
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public void setWidth(int width){
+        this.width = width;
+        getElement().getStyle().setWidth(width, Unit.PX);
+    }
 
-	public boolean isCloseOnClick() {
-		return closeOnClick;
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public void setCloseOnClick(boolean closeOnClick){
-		this.closeOnClick = closeOnClick;
-	}
+    public boolean isCloseOnClick() {
+        return closeOnClick;
+    }
 
-	public Edge getEdge() {
-		return edge;
-	}
+    public void setCloseOnClick(boolean closeOnClick){
+        this.closeOnClick = closeOnClick;
+    }
 
-	public void setEdge(Edge edge) {
-		this.edge = edge;
-	}
+    public Edge getEdge() {
+        return edge;
+    }
 
-	public void setType(SideNavType type) {
-		typeMixin.setType(type);
-	}
+    public void setEdge(Edge edge) {
+        this.edge = edge;
+    }
 
-	@Override
-	public SideNavType getType() {
-		return typeMixin.getType();
-	}
+    public void setType(SideNavType type) {
+        typeMixin.setType(type);
+    }
 
-	public void initialize() {
-		Element activator = DOMHelper.getElementByAttribute("data-activates", getId());
-		if(activator != null && activator.getClassName().contains("button-collapse")) {
-			initialize(activator, width, closeOnClick, edge.getCssName());
-		} else {
-			throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-				"please ensure you have a MaterialNavBar with an activator setup to match " +
-				"this widgets id.");
-		}
-	}
+    @Override
+    public SideNavType getType() {
+        return typeMixin.getType();
+    }
 
-	private static native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
+    public void initialize() {
+        Element activator = DOMHelper.getElementByAttribute("data-activates", getId());
+        if(activator != null && activator.getClassName().contains("button-collapse")) {
+            initialize(activator, width, closeOnClick, edge.getCssName());
+        } else {
+            throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
+                "please ensure you have a MaterialNavBar with an activator setup to match " +
+                "this widgets id.");
+        }
+    }
+
+    private static native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav({
                 menuWidth: width,
@@ -179,27 +179,27 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
             });
         })
     }-*/;
-	
-	/**
-	 * Hide the overlay menu
-	 */
-	public native void hideOverlay()/*-{
-		$wnd.jQuery(document).ready(function(){
-			$wnd.jQuery('#sidenav-overlay').css('z-index', '994');
-		})
-	}-*/;
-	
-	/**
-	 * Shoe the sidenav.
-	 */
-	public native void show(Element e)/*-{
-		$wnd.jQuery(e).sideNav('show');
-	}-*/;
-	
-	/**
-	 * Hide the sidenav.
-	 */
-	public native void hide(Element e)/*-{
-		$wnd.jQuery(e).sideNav('hide');
-	}-*/;
+
+    /**
+     * Hide the overlay menu
+     */
+    public native void hideOverlay()/*-{
+        $wnd.jQuery(document).ready(function(){
+            $wnd.jQuery('#sidenav-overlay').css('z-index', '994');
+        })
+    }-*/;
+
+    /**
+     * Shoe the sidenav.
+     */
+    public native void show(Element e)/*-{
+        $wnd.jQuery(e).sideNav('show');
+    }-*/;
+
+    /**
+     * Hide the sidenav.
+     */
+    public native void hide(Element e)/*-{
+        $wnd.jQuery(e).sideNav('hide');
+    }-*/;
 }

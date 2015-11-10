@@ -24,23 +24,23 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface HasImage {
 
-	/**
-	 * Sets the url of an image.
-	 */
-	void setUrl(String url);
-	
-	/**
-	 * Gets the image url.
-	 */
-	String getUrl();
-	
-	/**
-	 * Sets the resource image.
-	 */
-	void setResource(ImageResource resource);
-	
-	/**
-	 * Gets the resource image.
-	 */
-	ImageResource getResource();
+    /**
+     * Sets the url of an image.
+     */
+    void setUrl(String url);
+
+    /**
+     * Gets the image url.
+     */
+    String getUrl();
+
+    /**
+     * Sets the resource image.
+     */
+    void setResource(ImageResource resource);
+
+    /**
+     * Gets the resource image.
+     */
+    ImageResource getResource();
 }

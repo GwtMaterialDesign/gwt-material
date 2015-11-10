@@ -37,8 +37,8 @@ import com.google.gwt.dom.client.Document;
  */
 public class MaterialPanel extends ComplexWidget {
 
-	public MaterialPanel() {
-		super(Document.get().createDivElement());
-	}
+    public MaterialPanel() {
+        super(Document.get().createDivElement());
+    }
 
 }

@@ -22,13 +22,13 @@ package gwt.material.design.client.base;
 
 public interface HasLoader {
 
-	/**
-	 * Sets the loader of every Material Components.
-	 */
-	void showLoader();
-	
-	/**
-	 * Hide the loader defined on Material Components.
-	 */
-	void hideLoader();
+    /**
+     * Sets the loader of every Material Components.
+     */
+    void showLoader();
+
+    /**
+     * Hide the loader defined on Material Components.
+     */
+    void hideLoader();
 }

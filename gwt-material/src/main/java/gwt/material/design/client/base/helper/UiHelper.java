@@ -42,75 +42,75 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public final class UiHelper {
 
-	private static String PRESSED_CSS_STYLE_NAME = "pressed";
+    private static String PRESSED_CSS_STYLE_NAME = "pressed";
 
-	/**
-	 * Adds a mouse pressed handler to a widget. Adds a CSS style ('pressed',
-	 * {@link #PRESSED_CSS_STYLE_NAME}) to the widget as long as the mouse is
-	 * pressed (or the user touches the widget). See
-	 * {@link #addMousePressedHandlers(Widget, String)}.
-	 *
-	 * @param widget The widget to which the "pressed" style musst be applied
-	 */
-	public static void addMousePressedHandlers(final Widget widget) {
-		addMousePressedHandlers(widget, PRESSED_CSS_STYLE_NAME);
-	}
+    /**
+     * Adds a mouse pressed handler to a widget. Adds a CSS style ('pressed',
+     * {@link #PRESSED_CSS_STYLE_NAME}) to the widget as long as the mouse is
+     * pressed (or the user touches the widget). See
+     * {@link #addMousePressedHandlers(Widget, String)}.
+     *
+     * @param widget The widget to which the "pressed" style musst be applied
+     */
+    public static void addMousePressedHandlers(final Widget widget) {
+        addMousePressedHandlers(widget, PRESSED_CSS_STYLE_NAME);
+    }
 
-	/**
-	 * Adds a mouse pressed handler to a widget. Adds a CSS style to the widget
-	 * as long as the mouse is pressed (or the user touches the widget on mobile browser).
-	 *
-	 * @param widget The widget to which the style must be applied for mouse/touch event
-	 * @param cssStyleName CSS style name to be applied
-	 */
-	public static void addMousePressedHandlers(final Widget widget, final String cssStyleName) {
-		widget.sinkEvents(Event.ONMOUSEDOWN);
-		widget.sinkEvents(Event.ONMOUSEUP);
-		widget.sinkEvents(Event.ONMOUSEOUT);
-		widget.sinkEvents(Event.TOUCHEVENTS);
+    /**
+     * Adds a mouse pressed handler to a widget. Adds a CSS style to the widget
+     * as long as the mouse is pressed (or the user touches the widget on mobile browser).
+     *
+     * @param widget The widget to which the style must be applied for mouse/touch event
+     * @param cssStyleName CSS style name to be applied
+     */
+    public static void addMousePressedHandlers(final Widget widget, final String cssStyleName) {
+        widget.sinkEvents(Event.ONMOUSEDOWN);
+        widget.sinkEvents(Event.ONMOUSEUP);
+        widget.sinkEvents(Event.ONMOUSEOUT);
+        widget.sinkEvents(Event.TOUCHEVENTS);
 
-		widget.addHandler(new MouseDownHandler() {
-			@Override
-			public void onMouseDown(MouseDownEvent event) {
-				widget.addStyleName(cssStyleName);
-			}
-		}, MouseDownEvent.getType());
+        widget.addHandler(new MouseDownHandler() {
+            @Override
+            public void onMouseDown(MouseDownEvent event) {
+                widget.addStyleName(cssStyleName);
+            }
+        }, MouseDownEvent.getType());
 
-		widget.addHandler(new MouseUpHandler() {
-			@Override
-			public void onMouseUp(MouseUpEvent event) {
-				widget.removeStyleName(cssStyleName);
-			}
-		}, MouseUpEvent.getType());
+        widget.addHandler(new MouseUpHandler() {
+            @Override
+            public void onMouseUp(MouseUpEvent event) {
+                widget.removeStyleName(cssStyleName);
+            }
+        }, MouseUpEvent.getType());
 
-		widget.addHandler(new MouseOutHandler() {
-			@Override
-			public void onMouseOut(MouseOutEvent event) {
-				widget.removeStyleName(cssStyleName);
-			}
-		}, MouseOutEvent.getType());
+        widget.addHandler(new MouseOutHandler() {
+            @Override
+            public void onMouseOut(MouseOutEvent event) {
+                widget.removeStyleName(cssStyleName);
+            }
+        }, MouseOutEvent.getType());
 
-		// Touch Events
-		widget.addHandler(new TouchStartHandler() {
-			@Override
-			public void onTouchStart(TouchStartEvent event) {
-				widget.addStyleName(cssStyleName);
-			}
-		}, TouchStartEvent.getType());
+        // Touch Events
+        widget.addHandler(new TouchStartHandler() {
+            @Override
+            public void onTouchStart(TouchStartEvent event) {
+                widget.addStyleName(cssStyleName);
+            }
+        }, TouchStartEvent.getType());
 
-		widget.addHandler(new TouchEndHandler() {
-			@Override
-			public void onTouchEnd(TouchEndEvent event) {
-				widget.removeStyleName(cssStyleName);
+        widget.addHandler(new TouchEndHandler() {
+            @Override
+            public void onTouchEnd(TouchEndEvent event) {
+                widget.removeStyleName(cssStyleName);
 
-			}
-		}, TouchEndEvent.getType());
+            }
+        }, TouchEndEvent.getType());
 
-		widget.addHandler(new TouchCancelHandler() {
-			@Override
-			public void onTouchCancel(TouchCancelEvent event) {
-				widget.removeStyleName(cssStyleName);
-			}
-		}, TouchCancelEvent.getType());
-	}
+        widget.addHandler(new TouchCancelHandler() {
+            @Override
+            public void onTouchCancel(TouchCancelEvent event) {
+                widget.removeStyleName(cssStyleName);
+            }
+        }, TouchCancelEvent.getType());
+    }
 }

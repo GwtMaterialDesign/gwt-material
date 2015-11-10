@@ -25,7 +25,7 @@ import gwt.material.design.client.constants.Orientation;
 
 public interface HasOrientation {
 
-	void setOrientation(Orientation orientation);
+    void setOrientation(Orientation orientation);
 
-	Orientation getOrientation();
+    Orientation getOrientation();
 }

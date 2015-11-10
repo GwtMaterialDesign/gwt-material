@@ -27,10 +27,10 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 public class MaterialImageCell extends AbstractCell<MaterialImage> {
 
-	@Override
-	public void render(com.google.gwt.cell.client.Cell.Context context,
-			MaterialImage value, SafeHtmlBuilder sb) {
-		 sb.appendHtmlConstant(value.getElement().getString());
-	}
+    @Override
+    public void render(com.google.gwt.cell.client.Cell.Context context,
+            MaterialImage value, SafeHtmlBuilder sb) {
+         sb.appendHtmlConstant(value.getElement().getString());
+    }
 
 }

@@ -26,38 +26,38 @@ import gwt.material.design.client.resources.MaterialResources;
 
 public class MaterialDesignBase {
 
-	public void load() {
-		inject(MaterialResources.INSTANCE.materializeJs());
-		inject(MaterialResources.INSTANCE.timepickerJs());
-		inject(MaterialResources.INSTANCE.animationJs());
-		inject(MaterialResources.INSTANCE.scriptJs());
-	}
+    public void load() {
+        inject(MaterialResources.INSTANCE.materializeJs());
+        inject(MaterialResources.INSTANCE.timepickerJs());
+        inject(MaterialResources.INSTANCE.animationJs());
+        inject(MaterialResources.INSTANCE.scriptJs());
+    }
 
-	protected void inject(TextResource resource) {
-		inject(resource, true, false);
-	}
+    protected void inject(TextResource resource) {
+        inject(resource, true, false);
+    }
 
-	protected void injectDebug(TextResource resource) {
-		inject(resource, false, true);
-	}
+    protected void injectDebug(TextResource resource) {
+        inject(resource, false, true);
+    }
 
-	protected void inject(TextResource resource, boolean removeTag, boolean sourceUrl) {
-		String text = resource.getText() +
-			(sourceUrl ? "//# sourceURL="+resource.getName()+".js" : "");
+    protected void inject(TextResource resource, boolean removeTag, boolean sourceUrl) {
+        String text = resource.getText() +
+            (sourceUrl ? "//# sourceURL="+resource.getName()+".js" : "");
 
-		// Inject the script resource
-		ScriptInjector.fromString(text)
-			.setWindow(ScriptInjector.TOP_WINDOW)
-			.setRemoveTag(removeTag)
-			.inject();
-	}
+        // Inject the script resource
+        ScriptInjector.fromString(text)
+            .setWindow(ScriptInjector.TOP_WINDOW)
+            .setRemoveTag(removeTag)
+            .inject();
+    }
 
-	/**
-	 * Check to see if jQuery is loaded already
-	 *
-	 * @return true is jQuery is loaded, false otherwise
-	 */
-	public static native boolean isjQueryLoaded() /*-{
+    /**
+     * Check to see if jQuery is loaded already
+     *
+     * @return true is jQuery is loaded, false otherwise
+     */
+    public static native boolean isjQueryLoaded() /*-{
         return (typeof $wnd['jQuery'] !== 'undefined');
     }-*/;
 }

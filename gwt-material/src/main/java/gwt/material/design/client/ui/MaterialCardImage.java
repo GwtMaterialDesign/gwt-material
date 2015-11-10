@@ -36,18 +36,18 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:on
 public class MaterialCardImage extends ComplexWidget {
 
-	public MaterialCardImage(){
-		super(Document.get().createDivElement());
-	}
+    public MaterialCardImage(){
+        super(Document.get().createDivElement());
+    }
 
-	/**
+    /**
      * {@inheritDoc}
      */
     @Override
     public void add(final Widget child) {
-    	if(child instanceof MaterialImage) {
-    		child.addStyleName("activator");
-    	}
+        if(child instanceof MaterialImage) {
+            child.addStyleName("activator");
+        }
         add(child, (Element) getElement());
     }
 }

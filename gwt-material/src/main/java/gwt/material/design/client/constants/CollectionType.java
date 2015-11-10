@@ -30,21 +30,21 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum CollectionType implements CssType {
-	AVATAR("avatar"),
-	CHECKBOX("checkbox");
+    AVATAR("avatar"),
+    CHECKBOX("checkbox");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	CollectionType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    CollectionType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static CollectionType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, CollectionType.class, AVATAR);
-	}
+    public static CollectionType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, CollectionType.class, AVATAR);
+    }
 }

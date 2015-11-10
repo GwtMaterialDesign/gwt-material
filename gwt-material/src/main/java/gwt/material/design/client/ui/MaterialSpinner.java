@@ -43,39 +43,39 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialSpinner extends ComplexWidget {
 
-	private Div circleClipperLeft = new Div();
-	private Div circleClipperRight = new Div();
-	private Div circle1 = new Div();
-	private Div circle2 = new Div();
-	private Div circle3 = new Div();
-	private Div gapPatch = new Div();
+    private Div circleClipperLeft = new Div();
+    private Div circleClipperRight = new Div();
+    private Div circle1 = new Div();
+    private Div circle2 = new Div();
+    private Div circle3 = new Div();
+    private Div gapPatch = new Div();
 
-	public MaterialSpinner() {
-		super(Document.get().createDivElement());
-		setStyleName("spinner-layer");
-		add(circleClipperLeft);
-		circleClipperLeft.add(circle1);
-		add(gapPatch);
-		gapPatch.add(circle2);
-		add(circleClipperRight);
-		circleClipperRight.add(circle3);
-		
-		circleClipperLeft.setStyleName("circle-clipper left");
-		gapPatch.setStyleName("gap-patch");
-		circleClipperRight.setStyleName("circle-clipper right");
-		
-		circle1.setStyleName("circle");
-		circle2.setStyleName("circle");
-		circle3.setStyleName("circle");
-	}
-	
-	public MaterialSpinner(String color) {
-		this();
-		setColor(color);
-	}
-	
-	public void setColor(String color){
-		addStyleName("spinner-" + color);
-	}
-	
+    public MaterialSpinner() {
+        super(Document.get().createDivElement());
+        setStyleName("spinner-layer");
+        add(circleClipperLeft);
+        circleClipperLeft.add(circle1);
+        add(gapPatch);
+        gapPatch.add(circle2);
+        add(circleClipperRight);
+        circleClipperRight.add(circle3);
+
+        circleClipperLeft.setStyleName("circle-clipper left");
+        gapPatch.setStyleName("gap-patch");
+        circleClipperRight.setStyleName("circle-clipper right");
+
+        circle1.setStyleName("circle");
+        circle2.setStyleName("circle");
+        circle3.setStyleName("circle");
+    }
+
+    public MaterialSpinner(String color) {
+        this();
+        setColor(color);
+    }
+
+    public void setColor(String color){
+        addStyleName("spinner-" + color);
+    }
+
 }

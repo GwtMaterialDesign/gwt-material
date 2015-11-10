@@ -29,7 +29,7 @@ package gwt.material.design.client.ui;
 *///@formatter:on
 public class MaterialModalFooter extends MaterialPanel {
 
-	public MaterialModalFooter() {
-		setStyleName("modal-footer");
-	}
+    public MaterialModalFooter() {
+        setStyleName("modal-footer");
+    }
 }

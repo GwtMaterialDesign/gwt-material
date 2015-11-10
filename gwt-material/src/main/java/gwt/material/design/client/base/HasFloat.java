@@ -24,14 +24,14 @@ import com.google.gwt.dom.client.Style;
 
 public interface HasFloat {
 
-	/**
-	 * Sets the shadow depth of a material panel.
-	 * - depth range are from 1 - 4
-	 */
-	void setFloat(Style.Float floatAlign);
+    /**
+     * Sets the shadow depth of a material panel.
+     * - depth range are from 1 - 4
+     */
+    void setFloat(Style.Float floatAlign);
 
-	/**
-	 * Get the shadow depth.
-	 */
-	Style.Float getFloat();
+    /**
+     * Get the shadow depth.
+     */
+    Style.Float getFloat();
 }

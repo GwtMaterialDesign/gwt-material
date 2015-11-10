@@ -22,17 +22,17 @@ package gwt.material.design.client.base;
 
 public interface HasHref {
 
-	/**
-	 * Set the href parameter on material components.
-	 */
-	void setHref(String href);
+    /**
+     * Set the href parameter on material components.
+     */
+    void setHref(String href);
 
-	String getHref();
-	
-	/**
-	 * Set the target of the href.
-	 */
-	void setTarget(String target);
+    String getHref();
 
-	String getTarget();
+    /**
+     * Set the target of the href.
+     */
+    void setTarget(String target);
+
+    String getTarget();
 }

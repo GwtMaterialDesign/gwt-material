@@ -50,62 +50,62 @@ import com.google.gwt.user.client.ui.HasText;
 //@formatter:on
 public class MaterialSubHeader extends Div implements HasText, HasIcon{
 
-	private MaterialIcon icon = new MaterialIcon();
-	private Span span = new Span();
-	
-	public MaterialSubHeader() {
-		setStyleName("subheader");
-	}
-	
-	@Override
-	public MaterialIcon getIcon() {
-		return icon;
-	}
+    private MaterialIcon icon = new MaterialIcon();
+    private Span span = new Span();
 
-	@Override
-	public void setIconType(IconType iconType) {
-		icon.setIconType(iconType);
-		add(icon);
-	}
+    public MaterialSubHeader() {
+        setStyleName("subheader");
+    }
 
-	@Override
-	public void setIconPosition(IconPosition position) {
-		icon.setIconPosition(position);
-	}
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
 
-	@Override
-	public void setIconSize(IconSize size) {
-		icon.setIconSize(size);
-	}
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        add(icon);
+    }
 
-	@Override
-	public void setIconFontSize(double size, Unit unit) {
-		icon.setIconFontSize(size, unit);
-	}
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
 
-	@Override
-	public void setIconColor(String iconColor) {
-		icon.setIconColor(iconColor);
-	}
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
 
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		icon.setIconPrefix(prefix);
-	}
+    @Override
+    public void setIconFontSize(double size, Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
 
-	@Override
-	public boolean isIconPrefix() {
-		return icon.isIconPrefix();
-	}
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
 
-	@Override
-	public String getText() {
-		return span.getText();
-	}
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
 
-	@Override
-	public void setText(String text) {
-		span.setText(text);
-		add(span);
-	}
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
+    }
+
+    @Override
+    public String getText() {
+        return span.getText();
+    }
+
+    @Override
+    public void setText(String text) {
+        span.setText(text);
+        add(span);
+    }
 }

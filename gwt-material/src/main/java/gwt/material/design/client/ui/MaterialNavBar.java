@@ -45,13 +45,13 @@ import gwt.material.design.client.ui.html.Nav;
  * <pre>
  * {@code
  * <m:MaterialNavBar backgroundColor="blue" >
- * 	<m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
- * 	<m:MaterialNavSection position="RIGHT">
- * 		<m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="white" waves="LIGHT"/>
- * 		<m:MaterialLink  icon="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="white" waves="LIGHT"/>
- * 		<m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
- * 	 	<m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
- * 	</m:MaterialNavSection>
+ *     <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
+ *     <m:MaterialNavSection position="RIGHT">
+ *         <m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="white" waves="LIGHT"/>
+ *         <m:MaterialLink  icon="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="white" waves="LIGHT"/>
+ *         <m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
+ *          <m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
+ *     </m:MaterialNavSection>
  * </m:MaterialNavBar>
  * }
  *<pre>
@@ -62,59 +62,59 @@ import gwt.material.design.client.ui.html.Nav;
 //@formatter:on
 public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasType<NavBarType> {
 
-	private Div div = new Div();
+    private Div div = new Div();
 
-	private MaterialLink navMenu = new MaterialLink(IconType.MENU);
-	private MaterialProgress progress = new MaterialProgress();
+    private MaterialLink navMenu = new MaterialLink(IconType.MENU);
+    private MaterialProgress progress = new MaterialProgress();
 
-	private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
-	private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
-	
-	public MaterialNavBar() {
-		div.setStyleName("nav-wrapper container");
-		div.add(navMenu);
-		super.add(div);
-		navMenu.setFontSize(2.7, Style.Unit.EM);
-		navMenu.addStyleName("button-collapse");
-		navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
-		navMenu.setCircle(true);
-		navMenu.setWaves(WavesType.LIGHT);
-		navMenu.setWidth("64px");
-		navMenu.setTextAlign(TextAlign.CENTER);
-	}
-	
-	@Override
-	public void add(Widget child) {
-		div.add(child);
-	}
-	
-	@Override
-	public void setType(NavBarType type) {
-		typeMixin.setType(type);
-	}
+    private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
+    private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
 
-	@Override
-	public NavBarType getType() {
-		return typeMixin.getType();
-	}
+    public MaterialNavBar() {
+        div.setStyleName("nav-wrapper container");
+        div.add(navMenu);
+        super.add(div);
+        navMenu.setFontSize(2.7, Style.Unit.EM);
+        navMenu.addStyleName("button-collapse");
+        navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
+        navMenu.setCircle(true);
+        navMenu.setWaves(WavesType.LIGHT);
+        navMenu.setWidth("64px");
+        navMenu.setTextAlign(TextAlign.CENTER);
+    }
 
-	@Override
-	public void showLoader() {
-		super.add(progress);
-	}
+    @Override
+    public void add(Widget child) {
+        div.add(child);
+    }
 
-	@Override
-	public void hideLoader() {
-		progress.removeFromParent();
-	}
+    @Override
+    public void setType(NavBarType type) {
+        typeMixin.setType(type);
+    }
 
-	@Override
-	public void setActivates(String activates) {
-		activatesMixin.setActivates(activates);
-	}
+    @Override
+    public NavBarType getType() {
+        return typeMixin.getType();
+    }
 
-	@Override
-	public String getActivates() {
-		return activatesMixin.getActivates();
-	}
+    @Override
+    public void showLoader() {
+        super.add(progress);
+    }
+
+    @Override
+    public void hideLoader() {
+        progress.removeFromParent();
+    }
+
+    @Override
+    public void setActivates(String activates) {
+        activatesMixin.setActivates(activates);
+    }
+
+    @Override
+    public String getActivates() {
+        return activatesMixin.getActivates();
+    }
 }

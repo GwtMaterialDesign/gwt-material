@@ -24,13 +24,13 @@ import gwt.material.design.client.constants.TextAlign;
 
 public interface HasTextAlign {
 
-	/**
-	 * Set the text alignment.
-	 */
-	void setTextAlign(TextAlign align);
+    /**
+     * Set the text alignment.
+     */
+    void setTextAlign(TextAlign align);
 
-	/**
-	 * Get the text alignment.
-	 */
-	TextAlign getTextAlign();
+    /**
+     * Get the text alignment.
+     */
+    TextAlign getTextAlign();
 }

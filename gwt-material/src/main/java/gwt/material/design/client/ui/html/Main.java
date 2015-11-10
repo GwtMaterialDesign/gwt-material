@@ -25,7 +25,7 @@ import gwt.material.design.client.base.ComplexWidget;
 
 public class Main extends ComplexWidget {
 
-	public Main() {
-		super(Document.get().createElement("main"));
-	}
+    public Main() {
+        super(Document.get().createElement("main"));
+    }
 }

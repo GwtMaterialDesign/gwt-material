@@ -53,158 +53,158 @@ import gwt.material.design.client.ui.html.UnorderedList;
 //@formatter:on
 public class MaterialDropDown extends UnorderedList {
 
-	private String activator;
-	private Element activatorElem;
+    private String activator;
+    private Element activatorElem;
 
-	// Options
-	private int inDuration = 300;
-	private int outDuration = 225;
-	private boolean constrainWidth = true;
-	private boolean hover = false;
-	private boolean belowOrigin = false;
-	private int gutter = 0;
-	private String alignment = Alignment.LEFT.getCssName();
+    // Options
+    private int inDuration = 300;
+    private int outDuration = 225;
+    private boolean constrainWidth = true;
+    private boolean hover = false;
+    private boolean belowOrigin = false;
+    private int gutter = 0;
+    private String alignment = Alignment.LEFT.getCssName();
 
-	public MaterialDropDown() {
-		setStyleName("dropdown-content");
-	}
+    public MaterialDropDown() {
+        setStyleName("dropdown-content");
+    }
 
-	/**
-	 * Material Dropdown - adds a list item selection when button, link, icon button pressed.
-	 * @param activator - data-activates attribute name of your dropdown activator.
-	 */
-	@UiConstructor
-	public MaterialDropDown(String activator) {
-		this();
-		this.activator = activator;
+    /**
+     * Material Dropdown - adds a list item selection when button, link, icon button pressed.
+     * @param activator - data-activates attribute name of your dropdown activator.
+     */
+    @UiConstructor
+    public MaterialDropDown(String activator) {
+        this();
+        this.activator = activator;
 
-		getElement().setId(this.activator);
-	}
+        getElement().setId(this.activator);
+    }
 
-	@Override
-	protected void onLoad() {
-		super.onLoad();
+    @Override
+    protected void onLoad() {
+        super.onLoad();
 
-		initialize();
-	}
+        initialize();
+    }
 
-	/**
-	 * The duration of the transition enter in milliseconds. Default: 300
-	 */
-	public void setInDuration(int durationMillis) {
-		this.inDuration = durationMillis;
-	}
+    /**
+     * The duration of the transition enter in milliseconds. Default: 300
+     */
+    public void setInDuration(int durationMillis) {
+        this.inDuration = durationMillis;
+    }
 
-	public int getInDuration() {
-		return inDuration;
-	}
+    public int getInDuration() {
+        return inDuration;
+    }
 
-	/**
-	 * The duration of the transition out in milliseconds. Default: 225
-	 */
-	public void setOutDuration(int durationMillis) {
-		this.outDuration = durationMillis;
-	}
+    /**
+     * The duration of the transition out in milliseconds. Default: 225
+     */
+    public void setOutDuration(int durationMillis) {
+        this.outDuration = durationMillis;
+    }
 
-	public int getOutDuration() {
-		return outDuration;
-	}
+    public int getOutDuration() {
+        return outDuration;
+    }
 
-	/**
-	 * If true, constrainWidth to the size of the dropdown activator. Default: true
-	 */
-	public void setConstrainWidth(boolean constrainWidth) {
-		this.constrainWidth = constrainWidth;
-	}
+    /**
+     * If true, constrainWidth to the size of the dropdown activator. Default: true
+     */
+    public void setConstrainWidth(boolean constrainWidth) {
+        this.constrainWidth = constrainWidth;
+    }
 
-	public boolean isConstrainWidth() {
-		return constrainWidth;
-	}
+    public boolean isConstrainWidth() {
+        return constrainWidth;
+    }
 
-	/**
-	 * If true, the dropdown will open on hover. Default: false
-	 */
-	public void setHover(boolean hover) {
-		this.hover = hover;
-	}
+    /**
+     * If true, the dropdown will open on hover. Default: false
+     */
+    public void setHover(boolean hover) {
+        this.hover = hover;
+    }
 
-	public boolean isHover() {
-		return hover;
-	}
+    public boolean isHover() {
+        return hover;
+    }
 
-	/**
-	 * This defines the spacing from the aligned edge. Default: 0
-	 */
-	public void setGutter(int gutter) {
-		this.gutter = gutter;
-	}
+    /**
+     * This defines the spacing from the aligned edge. Default: 0
+     */
+    public void setGutter(int gutter) {
+        this.gutter = gutter;
+    }
 
-	public int getGutter() {
-		return gutter;
-	}
+    public int getGutter() {
+        return gutter;
+    }
 
-	/**
-	 * If true, the dropdown will show below the activator. Default: false
-	 */
-	public void setBelowOrigin(boolean belowOrigin) {
-		this.belowOrigin = belowOrigin;
-	}
+    /**
+     * If true, the dropdown will show below the activator. Default: false
+     */
+    public void setBelowOrigin(boolean belowOrigin) {
+        this.belowOrigin = belowOrigin;
+    }
 
-	public boolean isBelowOrigin() {
-		return belowOrigin;
-	}
+    public boolean isBelowOrigin() {
+        return belowOrigin;
+    }
 
-	/**
-	 * Defines the edge the menu is aligned to. Default: 'left'
-	 */
-	public void setAlignment(Alignment alignment) {
-		this.alignment = alignment.getCssName();
-	}
+    /**
+     * Defines the edge the menu is aligned to. Default: 'left'
+     */
+    public void setAlignment(Alignment alignment) {
+        this.alignment = alignment.getCssName();
+    }
 
-	public Alignment getAlignment() {
-		return Alignment.fromStyleName(alignment);
-	}
+    public Alignment getAlignment() {
+        return Alignment.fromStyleName(alignment);
+    }
 
-	@Override
-	public void add(Widget child) {
-		if(child instanceof ListItem) {
-			child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
-			add(child, (Element) getElement());
-		} else {
-			ListItem li = new ListItem(child);
-			if(child instanceof HasWaves) {
-				li.setWaves(((HasWaves) child).getWaves());
-				((HasWaves) child).setWaves(null);
-			}
-			li.getElement().getStyle().setDisplay(Style.Display.BLOCK);
-			add(li, (Element) getElement());
-		}
-	}
+    @Override
+    public void add(Widget child) {
+        if(child instanceof ListItem) {
+            child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+            add(child, (Element) getElement());
+        } else {
+            ListItem li = new ListItem(child);
+            if(child instanceof HasWaves) {
+                li.setWaves(((HasWaves) child).getWaves());
+                ((HasWaves) child).setWaves(null);
+            }
+            li.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+            add(li, (Element) getElement());
+        }
+    }
 
-	protected void initialize() {
-		Element activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
-		if(activatorElem == null) {
-			throw new IllegalStateException("There is no activator element with id: '" + activator
-				+ "' in the DOM, cannot instantiate MaterialDropDown without an activator.");
-		} else {
-			this.activatorElem = activatorElem;
-		}
+    protected void initialize() {
+        Element activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
+        if(activatorElem == null) {
+            throw new IllegalStateException("There is no activator element with id: '" + activator
+                + "' in the DOM, cannot instantiate MaterialDropDown without an activator.");
+        } else {
+            this.activatorElem = activatorElem;
+        }
 
-		initialize(activatorElem);
-	}
+        initialize(activatorElem);
+    }
 
-	/**
-	 * Must be called after changing any options.
-	 */
-	public void reinitialize() {
-		remove(activatorElem);
-		initialize(activatorElem);
-	}
+    /**
+     * Must be called after changing any options.
+     */
+    public void reinitialize() {
+        remove(activatorElem);
+        initialize(activatorElem);
+    }
 
-	/**
-	 * Initialize the dropdown components.
-	 */
-	private native void initialize(Element activator)/*-{
+    /**
+     * Initialize the dropdown components.
+     */
+    private native void initialize(Element activator)/*-{
         var that = this;
         $wnd.jQuery(document).ready(function(){
             $wnd.jQuery(activator).dropdown({
@@ -219,7 +219,7 @@ public class MaterialDropDown extends UnorderedList {
         });
     }-*/;
 
-	private native void remove(Element activator)/*-{
+    private native void remove(Element activator)/*-{
         $wnd.jQuery(activator).dropdown("remove");
     }-*/;
 }

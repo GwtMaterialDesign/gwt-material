@@ -36,20 +36,20 @@ import com.google.gwt.user.client.ui.Widget;
 * <pre>
 * {@code 
 <m:MaterialFooter backgroundColor="blue">
-	<m:MaterialRow>
-		<m:MaterialColumn grid="s12 m6 l6">
-			<m:MaterialTitle fontSize="0.7em" color="white" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
-			<m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="blue lighten-2" waves="LIGHT"/>
-		</m:MaterialColumn>
-		<m:MaterialColumn grid="s12 m6 l6">
-			<m:MaterialTitle fontSize="0.7em" color="white" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
-			<m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="blue lighten-2" waves="LIGHT"/>
-		</m:MaterialColumn>
-	</m:MaterialRow>
-					
-	<m:MaterialFooterCopyright backgroundColor="blue darken-1">
-		<m:MaterialLabel text=" © 2014 Copyright Text"/>
-	</m:MaterialFooterCopyright>
+    <m:MaterialRow>
+        <m:MaterialColumn grid="s12 m6 l6">
+            <m:MaterialTitle fontSize="0.7em" color="white" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+            <m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="blue lighten-2" waves="LIGHT"/>
+        </m:MaterialColumn>
+        <m:MaterialColumn grid="s12 m6 l6">
+            <m:MaterialTitle fontSize="0.7em" color="white" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+            <m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="blue lighten-2" waves="LIGHT"/>
+        </m:MaterialColumn>
+    </m:MaterialRow>
+
+    <m:MaterialFooterCopyright backgroundColor="blue darken-1">
+        <m:MaterialLabel text=" © 2014 Copyright Text"/>
+    </m:MaterialFooterCopyright>
 </m:MaterialFooter> }
 * </pre>
 * </p>
@@ -61,21 +61,21 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:on
 public class MaterialFooter extends ComplexWidget {
 
-	private Div container = new Div();
-	
-	public MaterialFooter() {
-		super(Document.get().createElement("footer"));
-		setStyleName("page-footer");
-		container.setStyleName("container");
-		super.add(container);
-	}
+    private Div container = new Div();
 
-	@Override
-	public void add(Widget child) {
-		if(child.getElement().getClassName().contains("footer-copyright")){
-			super.add(child);
-		} else {
-			container.add(child);
-		}
-	}
+    public MaterialFooter() {
+        super(Document.get().createElement("footer"));
+        setStyleName("page-footer");
+        container.setStyleName("container");
+        super.add(container);
+    }
+
+    @Override
+    public void add(Widget child) {
+        if(child.getElement().getClassName().contains("footer-copyright")){
+            super.add(child);
+        } else {
+            container.add(child);
+        }
+    }
 }

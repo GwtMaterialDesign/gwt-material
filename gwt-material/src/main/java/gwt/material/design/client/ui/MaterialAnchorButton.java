@@ -58,28 +58,28 @@ import gwt.material.design.client.constants.ButtonType;
 //@formatter:on
 public class MaterialAnchorButton extends AbstractIconButton {
 
-	public MaterialAnchorButton(ButtonType type, String text, MaterialIcon icon) {
-		super(type, text, icon);
-	}
+    public MaterialAnchorButton(ButtonType type, String text, MaterialIcon icon) {
+        super(type, text, icon);
+    }
 
-	public MaterialAnchorButton(String text, MaterialIcon icon) {
-		super(ButtonType.RAISED, text, icon);
-	}
+    public MaterialAnchorButton(String text, MaterialIcon icon) {
+        super(ButtonType.RAISED, text, icon);
+    }
 
-	public MaterialAnchorButton(String text) {
-		super(ButtonType.RAISED, text);
-	}
+    public MaterialAnchorButton(String text) {
+        super(ButtonType.RAISED, text);
+    }
 
-	public MaterialAnchorButton(ButtonType type) {
-		super(type);
-	}
+    public MaterialAnchorButton(ButtonType type) {
+        super(type);
+    }
 
-	public MaterialAnchorButton() {
-		super(ButtonType.RAISED);
-	}
+    public MaterialAnchorButton() {
+        super(ButtonType.RAISED);
+    }
 
-	@Override
-	protected Element createElement() {
-		return Document.get().createAnchorElement();
-	}
+    @Override
+    protected Element createElement() {
+        return Document.get().createAnchorElement();
+    }
 }

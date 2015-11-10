@@ -27,22 +27,22 @@ import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasWaves;
 
 public class UnorderedList extends ComplexWidget {
-	
-	public UnorderedList() {
-		super(Document.get().createULElement());
-	}
 
-	@Override
-	public void add(Widget child) {
-		if(child instanceof ListItem) {
-			add(child, (Element) getElement());
-		} else {
-			ListItem li = new ListItem(child);
-			if(child instanceof HasWaves) {
-				li.setWaves(((HasWaves) child).getWaves());
-				((HasWaves) child).setWaves(null);
-			}
-			add(li, (Element) getElement());
-		}
-	}
+    public UnorderedList() {
+        super(Document.get().createULElement());
+    }
+
+    @Override
+    public void add(Widget child) {
+        if(child instanceof ListItem) {
+            add(child, (Element) getElement());
+        } else {
+            ListItem li = new ListItem(child);
+            if(child instanceof HasWaves) {
+                li.setWaves(((HasWaves) child).getWaves());
+                ((HasWaves) child).setWaves(null);
+            }
+            add(li, (Element) getElement());
+        }
+    }
 }

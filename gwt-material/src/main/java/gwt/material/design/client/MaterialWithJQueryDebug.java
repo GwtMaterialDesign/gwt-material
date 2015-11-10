@@ -28,16 +28,16 @@ import gwt.material.design.client.resources.WithJQueryDebugResources;
  */
 public class MaterialWithJQueryDebug extends MaterialDesignDebugBase implements EntryPoint {
 
-	@Override
-	public void onModuleLoad() {
-		load();
-	}
+    @Override
+    public void onModuleLoad() {
+        load();
+    }
 
-	@Override
-	public void load() {
-		if(!isjQueryLoaded()) {
-			injectDebug(WithJQueryDebugResources.INSTANCE.jQueryDebug());
-		}
-		super.load();
-	}
+    @Override
+    public void load() {
+        if(!isjQueryLoaded()) {
+            injectDebug(WithJQueryDebugResources.INSTANCE.jQueryDebug());
+        }
+        super.load();
+    }
 }

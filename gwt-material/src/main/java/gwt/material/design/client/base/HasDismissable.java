@@ -22,10 +22,10 @@ package gwt.material.design.client.base;
 
 public interface HasDismissable {
 
-	/**
-	 * Set dismissable when swiping left / right using hammer.js.
-	 */
-	void setDismissable(boolean dismissable);
+    /**
+     * Set dismissable when swiping left / right using hammer.js.
+     */
+    void setDismissable(boolean dismissable);
 
-	boolean isDismissable();
+    boolean isDismissable();
 }

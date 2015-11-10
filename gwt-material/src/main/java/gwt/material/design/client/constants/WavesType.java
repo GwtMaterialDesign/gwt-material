@@ -27,27 +27,27 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben DOl
  */
 public enum WavesType implements Type, Style.HasCssName {
-	DEFAULT("waves-default"),
-	LIGHT("waves-light"),
-	RED("waves-red"),
-	YELLOW("waves-yellow"),
-	ORANGE("waves-orange"),
-	PURPLE("waves-purple"),
-	GREEN("waves-green"),
-	TEAL("waves-teal");
+    DEFAULT("waves-default"),
+    LIGHT("waves-light"),
+    RED("waves-red"),
+    YELLOW("waves-yellow"),
+    ORANGE("waves-orange"),
+    PURPLE("waves-purple"),
+    GREEN("waves-green"),
+    TEAL("waves-teal");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	WavesType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    WavesType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static WavesType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, WavesType.class, DEFAULT);
-	}
+    public static WavesType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, WavesType.class, DEFAULT);
+    }
 }

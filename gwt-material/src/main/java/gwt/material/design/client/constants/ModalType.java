@@ -31,5 +31,5 @@ package gwt.material.design.client.constants;
  *
  */
 public enum ModalType {
-	FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW;
+    FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW;
 }

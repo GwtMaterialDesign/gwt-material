@@ -34,8 +34,8 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialCardReveal extends ComplexWidget {
 
-	public MaterialCardReveal(){
-		super(Document.get().createDivElement());
-		setStyleName("card-reveal");
-	}
+    public MaterialCardReveal(){
+        super(Document.get().createDivElement());
+        setStyleName("card-reveal");
+    }
 }

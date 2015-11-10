@@ -25,7 +25,7 @@ import gwt.material.design.client.base.ComplexWidget;
 
 public class Header extends ComplexWidget {
 
-	public Header() {
-		super(Document.get().createElement("header"));
-	}
+    public Header() {
+        super(Document.get().createElement("header"));
+    }
 }

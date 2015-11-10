@@ -58,20 +58,20 @@ import gwt.material.design.client.constants.ButtonType;
 //@formatter:on
 public class MaterialButton extends AbstractIconButton {
 
-	public MaterialButton(ButtonType type, String text, MaterialIcon icon) {
-		super(type, text, icon);
-	}
+    public MaterialButton(ButtonType type, String text, MaterialIcon icon) {
+        super(type, text, icon);
+    }
 
-	public MaterialButton(ButtonType type) {
-		super(type);
-	}
+    public MaterialButton(ButtonType type) {
+        super(type);
+    }
 
-	public MaterialButton() {
-		super(ButtonType.RAISED);
-	}
+    public MaterialButton() {
+        super(ButtonType.RAISED);
+    }
 
-	@Override
-	protected Element createElement() {
-		return Document.get().createPushButtonElement();
-	}
+    @Override
+    protected Element createElement() {
+        return Document.get().createPushButtonElement();
+    }
 }

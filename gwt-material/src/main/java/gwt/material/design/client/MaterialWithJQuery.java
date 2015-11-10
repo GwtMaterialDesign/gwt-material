@@ -25,16 +25,16 @@ import gwt.material.design.client.resources.WithJQueryResources;
 
 public class MaterialWithJQuery extends MaterialDesignBase implements EntryPoint {
 
-	@Override
-	public void onModuleLoad() {
-		load();
-	}
+    @Override
+    public void onModuleLoad() {
+        load();
+    }
 
-	@Override
-	public void load() {
-		if(!isjQueryLoaded()) {
-			inject(WithJQueryResources.INSTANCE.jQuery());
-		}
-		super.load();
-	}
+    @Override
+    public void load() {
+        if(!isjQueryLoaded()) {
+            inject(WithJQueryResources.INSTANCE.jQuery());
+        }
+        super.load();
+    }
 }

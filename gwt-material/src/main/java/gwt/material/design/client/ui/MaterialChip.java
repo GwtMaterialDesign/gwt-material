@@ -77,146 +77,146 @@ import com.google.gwt.user.client.ui.Image;
  */
 //@formatter:on
 public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, HasClickHandlers,
-		HasAllMouseHandlers, HasDoubleClickHandlers {
+        HasAllMouseHandlers, HasDoubleClickHandlers {
 
-	private MaterialIcon icon = new MaterialIcon();
-	private Span span = new Span();
+    private MaterialIcon icon = new MaterialIcon();
+    private Span span = new Span();
 
-	private ImageResource resource;
-	private Image image = new Image();
-	
-	/**
-	 * Creates an empty chip.
-	 */
-	public MaterialChip() {
-		super(Document.get().createDivElement());
-		setStyleName("chip");
-	}
+    private ImageResource resource;
+    private Image image = new Image();
 
-	public void setText(String text){
-		span.setText(text);
-		add(span);
-	}
-	
-	public String getText(){
-		return getElement().getInnerText();
-	}
+    /**
+     * Creates an empty chip.
+     */
+    public MaterialChip() {
+        super(Document.get().createDivElement());
+        setStyleName("chip");
+    }
 
-	@Override
-	public void setUrl(String url) {
-		image.setUrl(url);
-		add(image);
-	}
+    public void setText(String text){
+        span.setText(text);
+        add(span);
+    }
 
-	@Override
-	public String getUrl() {
-		return image.getUrl();
-	}
+    public String getText(){
+        return getElement().getInnerText();
+    }
 
-	@Override
-	public void setResource(ImageResource resource) {
-		this.resource = resource;
-		image.setResource(resource);
-		add(image);
-	}
+    @Override
+    public void setUrl(String url) {
+        image.setUrl(url);
+        add(image);
+    }
 
-	@Override
-	public ImageResource getResource() {
-		return resource;
-	}
+    @Override
+    public String getUrl() {
+        return image.getUrl();
+    }
 
-	/**
-	 * @return the image
-	 */
-	public Image getImage() {
-		return image;
-	}
+    @Override
+    public void setResource(ImageResource resource) {
+        this.resource = resource;
+        image.setResource(resource);
+        add(image);
+    }
 
-	/**
-	 * @param image the image to set
-	 */
-	public void setImage(Image image) {
-		this.image = image;
-	}
+    @Override
+    public ImageResource getResource() {
+        return resource;
+    }
 
-	@Override
-	public MaterialIcon getIcon() {
-		return icon;
-	}
+    /**
+     * @return the image
+     */
+    public Image getImage() {
+        return image;
+    }
 
-	@Override
-	public void setIconType(IconType iconType) {
-		icon.setIconType(iconType);
-		add(icon);
-	}
+    /**
+     * @param image the image to set
+     */
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
-	@Override
-	public void setIconPosition(IconPosition position) {
-		icon.setIconPosition(position);
-	}
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
 
-	@Override
-	public void setIconSize(IconSize size) {
-		icon.setIconSize(size);
-	}
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        add(icon);
+    }
 
-	@Override
-	public void setIconFontSize(double size, Style.Unit unit) {
-		icon.setIconFontSize(size, unit);
-	}
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
 
-	@Override
-	public void setIconColor(String iconColor) {
-		icon.setIconColor(iconColor);
-	}
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
 
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		icon.setIconPrefix(prefix);
-	}
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
 
-	@Override
-	public boolean isIconPrefix() {
-		return icon.isIconPrefix();
-	}
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
 
-	@Override
-	public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-		return addDomHandler(handler, MouseDownEvent.getType());
-	}
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
+    }
 
-	@Override
-	public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-		return addDomHandler(handler, MouseMoveEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-		return addDomHandler(handler, MouseOutEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+        return addDomHandler(handler, MouseDownEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-		return addDomHandler(handler, MouseOverEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+        return addDomHandler(handler, MouseMoveEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-		return addDomHandler(handler, MouseUpEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+        return addDomHandler(handler, MouseOutEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-		return addDomHandler(handler, MouseWheelEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+        return addDomHandler(handler, MouseOverEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
-		return addDomHandler(handler, DoubleClickEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+        return addDomHandler(handler, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+        return addDomHandler(handler, MouseWheelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+        return addDomHandler(handler, DoubleClickEvent.getType());
+    }
 }

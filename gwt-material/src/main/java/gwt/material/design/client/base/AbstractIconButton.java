@@ -33,73 +33,73 @@ import com.google.gwt.dom.client.Style;
  */
 public abstract class AbstractIconButton extends AbstractButton implements HasIcon {
 
-	private MaterialIcon icon = new MaterialIcon();
+    private MaterialIcon icon = new MaterialIcon();
 
-	public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
-		super(type, text);
+    public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
+        super(type, text);
 
-		this.icon = icon;
-	}
+        this.icon = icon;
+    }
 
-	public AbstractIconButton(ButtonType type, String text) {
-		super(type, text);
-		setIconPosition(IconPosition.LEFT);
-	}
+    public AbstractIconButton(ButtonType type, String text) {
+        super(type, text);
+        setIconPosition(IconPosition.LEFT);
+    }
 
-	public AbstractIconButton(IconType iconType) {
-		super();
-		setIconType(iconType);
-		setIconPosition(IconPosition.LEFT);
-	}
+    public AbstractIconButton(IconType iconType) {
+        super();
+        setIconType(iconType);
+        setIconPosition(IconPosition.LEFT);
+    }
 
-	public AbstractIconButton(ButtonType type) {
-		super(type);
-		setIconPosition(IconPosition.LEFT);
-	}
+    public AbstractIconButton(ButtonType type) {
+        super(type);
+        setIconPosition(IconPosition.LEFT);
+    }
 
-	public AbstractIconButton() {
-		super();
-		setIconPosition(IconPosition.LEFT);
-	}
+    public AbstractIconButton() {
+        super();
+        setIconPosition(IconPosition.LEFT);
+    }
 
-	@Override
-	public MaterialIcon getIcon() {
-		return icon;
-	}
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
 
-	@Override
-	public void setIconType(IconType iconType) {
-		icon.setIconType(iconType);
-		add(icon);
-	}
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        add(icon);
+    }
 
-	@Override
-	public void setIconPosition(IconPosition position) {
-		icon.setIconPosition(position);
-	}
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
 
-	@Override
-	public void setIconSize(IconSize size) {
-		icon.setIconSize(size);
-	}
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
 
-	@Override
-	public void setIconFontSize(double size, Style.Unit unit) {
-		icon.setIconFontSize(size, unit);
-	}
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
 
-	@Override
-	public void setIconColor(String iconColor) {
-		icon.setIconColor(iconColor);
-	}
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
 
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		icon.setIconPrefix(prefix);
-	}
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
 
-	@Override
-	public boolean isIconPrefix() {
-		return icon.isIconPrefix();
-	}
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
+    }
 }

@@ -27,22 +27,22 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum ImageType implements CssType {
-	DEFAULT(""),
-	CIRCLE("circle"),
-	MATERIALBOXED("materialboxed");
+    DEFAULT(""),
+    CIRCLE("circle"),
+    MATERIALBOXED("materialboxed");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	ImageType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    ImageType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static ImageType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, ImageType.class, DEFAULT);
-	}
+    public static ImageType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, ImageType.class, DEFAULT);
+    }
 }

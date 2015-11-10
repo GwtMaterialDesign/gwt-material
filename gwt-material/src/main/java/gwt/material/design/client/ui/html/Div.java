@@ -24,8 +24,8 @@ import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.ComplexWidget;
 
 public class Div extends ComplexWidget {
-	
-	public Div() {
-		super(Document.get().createElement("div"));
-	}
+
+    public Div() {
+        super(Document.get().createElement("div"));
+    }
 }

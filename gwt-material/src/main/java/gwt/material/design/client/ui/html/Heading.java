@@ -28,12 +28,12 @@ import com.google.gwt.uibinder.client.UiConstructor;
 
 public class Heading extends ComplexWidget {
 
-	@UiConstructor
-	public Heading(HeadingSize size) {
-		super(Document.get().createElement(size.getSize()));
-	}
-	
-	public void setFontWeight(int fontWeight){
-		getElement().getStyle().setProperty("fontWeight", String.valueOf(fontWeight));
-	}
+    @UiConstructor
+    public Heading(HeadingSize size) {
+        super(Document.get().createElement(size.getSize()));
+    }
+
+    public void setFontWeight(int fontWeight){
+        getElement().getStyle().setProperty("fontWeight", String.valueOf(fontWeight));
+    }
 }

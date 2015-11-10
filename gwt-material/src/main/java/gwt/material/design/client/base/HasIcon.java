@@ -29,44 +29,44 @@ import com.google.gwt.dom.client.Style;
 
 public interface HasIcon {
 
-	/**
-	 * Get the icon widget.
-	 */
-	MaterialIcon getIcon();
-	
-	/**
-	 * Set Material Design icon.
-	 * {@link https://www.google.com/design/icons/}
-	 */
-	void setIconType(IconType iconType);
-	
-	/**
-	 * Set the position of the icon.
-	 */	
-	void setIconPosition(IconPosition position);
-	
-	/**
-	 * Size of icon.
-	 */
-	void setIconSize(IconSize size);
+    /**
+     * Get the icon widget.
+     */
+    MaterialIcon getIcon();
 
-	/**
-	 * Set the font size of the icon.
-	 */
-	void setIconFontSize(double size, Style.Unit unit);
+    /**
+     * Set Material Design icon.
+     * {@link https://www.google.com/design/icons/}
+     */
+    void setIconType(IconType iconType);
 
-	/**
-	 * Sets the color of the icon.
-	 */
-	void setIconColor(String iconColor);
+    /**
+     * Set the position of the icon.
+     */
+    void setIconPosition(IconPosition position);
 
-	/**
-	 * Make the icon prefix in its container.
-	 */
-	void setIconPrefix(boolean prefix);
+    /**
+     * Size of icon.
+     */
+    void setIconSize(IconSize size);
 
-	/**
-	 * Is the icon prefix in the container.
-	 */
-	boolean isIconPrefix();
+    /**
+     * Set the font size of the icon.
+     */
+    void setIconFontSize(double size, Style.Unit unit);
+
+    /**
+     * Sets the color of the icon.
+     */
+    void setIconColor(String iconColor);
+
+    /**
+     * Make the icon prefix in its container.
+     */
+    void setIconPrefix(boolean prefix);
+
+    /**
+     * Is the icon prefix in the container.
+     */
+    boolean isIconPrefix();
 }

@@ -26,21 +26,21 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum RadioButtonType implements CssType {
-	NO_GAP(""),
-	GAP("with-gap");
+    NO_GAP(""),
+    GAP("with-gap");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	RadioButtonType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    RadioButtonType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static RadioButtonType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, RadioButtonType.class, NO_GAP);
-	}
+    public static RadioButtonType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, RadioButtonType.class, NO_GAP);
+    }
 }

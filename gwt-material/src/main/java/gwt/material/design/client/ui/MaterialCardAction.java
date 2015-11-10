@@ -34,8 +34,8 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialCardAction extends ComplexWidget {
 
-	public MaterialCardAction(){
-		super(Document.get().createDivElement());
-		setStyleName("card-action");
-	}
+    public MaterialCardAction(){
+        super(Document.get().createDivElement());
+        setStyleName("card-action");
+    }
 }

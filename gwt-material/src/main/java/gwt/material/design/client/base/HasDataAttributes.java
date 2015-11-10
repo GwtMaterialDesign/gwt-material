@@ -21,14 +21,14 @@ package gwt.material.design.client.base;
  */
 
 public interface HasDataAttributes {
-	/**
-	 * Set data attribute of an {@link com.google.gwt.dom.client.Element}.
-	 * E.g. data-position="left".
-	 */
-	void setDataAttribute(String dataAttr, String value);
+    /**
+     * Set data attribute of an {@link com.google.gwt.dom.client.Element}.
+     * E.g. data-position="left".
+     */
+    void setDataAttribute(String dataAttr, String value);
 
-	/**
-	 * Get a data attribute of the {@link com.google.gwt.dom.client.Element}.
-	 */
-	String getDataAttribute(String dataAttr);
+    /**
+     * Get a data attribute of the {@link com.google.gwt.dom.client.Element}.
+     */
+    String getDataAttribute(String dataAttr);
 }

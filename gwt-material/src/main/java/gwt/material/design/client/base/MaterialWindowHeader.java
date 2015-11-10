@@ -36,39 +36,39 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class MaterialWindowHeader extends Composite {
 
-	private static MaterialWindowHeaderUiBinder uiBinder = GWT.create(MaterialWindowHeaderUiBinder.class);
+    private static MaterialWindowHeaderUiBinder uiBinder = GWT.create(MaterialWindowHeaderUiBinder.class);
 
-	interface MaterialWindowHeaderUiBinder extends UiBinder<Widget, MaterialWindowHeader> {}
+    interface MaterialWindowHeaderUiBinder extends UiBinder<Widget, MaterialWindowHeader> {}
 
-	private HTMLPanel windowPanel;
-	@UiField MaterialLabel lblTitle;
-	@UiField MaterialPanel headerPanel;
-	@UiField MaterialLink btnRestore, btnMaximize, btnClose;
+    private HTMLPanel windowPanel;
+    @UiField MaterialLabel lblTitle;
+    @UiField MaterialPanel headerPanel;
+    @UiField MaterialLink btnRestore, btnMaximize, btnClose;
 
-	public MaterialWindowHeader(HTMLPanel windowPanel, String title, String headerColor) {
-		initWidget(uiBinder.createAndBindUi(this));
-		this.windowPanel = windowPanel;
-		lblTitle.setText(title);
-		headerPanel.addStyleName(headerColor);
-		btnRestore.setVisible(false);
-	}
+    public MaterialWindowHeader(HTMLPanel windowPanel, String title, String headerColor) {
+        initWidget(uiBinder.createAndBindUi(this));
+        this.windowPanel = windowPanel;
+        lblTitle.setText(title);
+        headerPanel.addStyleName(headerColor);
+        btnRestore.setVisible(false);
+    }
 
-	@UiHandler("btnMaximize")
-	public void onMaximize(ClickEvent e){
-		windowPanel.addStyleName("material-window-maximize");
-		btnMaximize.setVisible(false);
-		btnRestore.setVisible(true);
-	}
-	
-	@UiHandler("btnRestore")
-	public void onRestore(ClickEvent e){
-		windowPanel.removeStyleName("material-window-maximize");
-		btnMaximize.setVisible(true);
-		btnRestore.setVisible(false);
-	}
-	
-	@UiHandler("btnClose")
-	public void onClose(ClickEvent e){
-		MaterialModal.closeModal();
-	}
+    @UiHandler("btnMaximize")
+    public void onMaximize(ClickEvent e){
+        windowPanel.addStyleName("material-window-maximize");
+        btnMaximize.setVisible(false);
+        btnRestore.setVisible(true);
+    }
+
+    @UiHandler("btnRestore")
+    public void onRestore(ClickEvent e){
+        windowPanel.removeStyleName("material-window-maximize");
+        btnMaximize.setVisible(true);
+        btnRestore.setVisible(false);
+    }
+
+    @UiHandler("btnClose")
+    public void onClose(ClickEvent e){
+        MaterialModal.closeModal();
+    }
 }

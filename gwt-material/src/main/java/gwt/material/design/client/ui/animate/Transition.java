@@ -22,5 +22,5 @@ package gwt.material.design.client.ui.animate;
 
 public enum Transition {
 
-	SHOW_STAGGERED_LIST, FADE_IN_IMAGE, SHOW_GRID, CLOSE_GRID
+    SHOW_STAGGERED_LIST, FADE_IN_IMAGE, SHOW_GRID, CLOSE_GRID
 }

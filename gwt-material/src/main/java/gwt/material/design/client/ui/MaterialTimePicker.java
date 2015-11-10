@@ -46,104 +46,104 @@ import com.google.gwt.dom.client.Element;
 public class MaterialTimePicker extends ComplexWidget implements HasError, HasPlaceholder, HasOrientation {
 
 
-	MaterialPanel panel = new MaterialPanel();
-	MaterialInput input = new MaterialInput();
+    MaterialPanel panel = new MaterialPanel();
+    MaterialInput input = new MaterialInput();
 
-	private String time;
-	private String placeholder;
-	private boolean autoClose;
-	private Orientation orientation = Orientation.PORTRAIT;
+    private String time;
+    private String placeholder;
+    private boolean autoClose;
+    private Orientation orientation = Orientation.PORTRAIT;
 
-	private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel lblError = new MaterialLabel();
 
-	private final ErrorMixin<MaterialTimePicker, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, input);
-	
-	public MaterialTimePicker() {
-		super(Document.get().createElement("div"));
-		panel.add(lblError);
-		input.setType(InputType.TEXT);
-		panel.add(input);
-		add(panel);
-	}
+    private final ErrorMixin<MaterialTimePicker, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, input);
 
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		input.getElement().setAttribute("type", "text");
-		initTimePicker();
-	}
+    public MaterialTimePicker() {
+        super(Document.get().createElement("div"));
+        panel.add(lblError);
+        input.setType(InputType.TEXT);
+        panel.add(input);
+        add(panel);
+    }
 
-	/**
-	 * @return the time
-	 */
-	public String getTime() {
-		return time;
-	}
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        input.getElement().setAttribute("type", "text");
+        initTimePicker();
+    }
 
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
-		input.getElement().setAttribute("value", time.toUpperCase());
-	}
+    /**
+     * @return the time
+     */
+    public String getTime() {
+        return time;
+    }
 
-	public boolean isAutoClose() {
-		return autoClose;
-	}
+    /**
+     * @param time the time to set
+     */
+    public void setTime(String time) {
+        this.time = time;
+        input.getElement().setAttribute("value", time.toUpperCase());
+    }
 
-	public void setAutoClose(boolean autoClose) {
-		this.autoClose = autoClose;
-	}
+    public boolean isAutoClose() {
+        return autoClose;
+    }
 
-	/**
-	 * @return the placeholder
-	 */
-	@Override
-	public String getPlaceholder() {
-		return placeholder;
-	}
+    public void setAutoClose(boolean autoClose) {
+        this.autoClose = autoClose;
+    }
 
-	/**
-	 * @param placeholder the placeholder to set
-	 */
-	@Override
-	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
-		input.getElement().setAttribute("placeholder", "Time");
-	}
+    /**
+     * @return the placeholder
+     */
+    @Override
+    public String getPlaceholder() {
+        return placeholder;
+    }
 
-	/**
-	 * @return the orientation
-	 */
-	@Override
-	public Orientation getOrientation() {
-		return orientation;
-	}
+    /**
+     * @param placeholder the placeholder to set
+     */
+    @Override
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+        input.getElement().setAttribute("placeholder", "Time");
+    }
 
-	/**
-	 * @param orientation the orientation to set : can be Horizontal or Vertical
-	 */
-	@Override
-	public void setOrientation(Orientation orientation) {
-		this.orientation = orientation;
-	}
+    /**
+     * @return the orientation
+     */
+    @Override
+    public Orientation getOrientation() {
+        return orientation;
+    }
 
-	@Override
-	public void setError(String error) {
-		errorMixin.setError(error);
-	}
+    /**
+     * @param orientation the orientation to set : can be Horizontal or Vertical
+     */
+    @Override
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
 
-	@Override
-	public void setSuccess(String success) {
-		errorMixin.setSuccess(success);
-	}
+    @Override
+    public void setError(String error) {
+        errorMixin.setError(error);
+    }
 
-	public void initTimePicker() {
-		initTimePicker(input.getElement(), getOrientation().getCssName(), isAutoClose());
-	}
+    @Override
+    public void setSuccess(String success) {
+        errorMixin.setSuccess(success);
+    }
 
-	protected native void initTimePicker(Element e, String orientation, boolean autoClose) /*-{
+    public void initTimePicker() {
+        initTimePicker(input.getElement(), getOrientation().getCssName(), isAutoClose());
+    }
+
+    protected native void initTimePicker(Element e, String orientation, boolean autoClose) /*-{
         $wnd.jQuery(e).lolliclock({
             autoclose: autoClose,
             orientation: orientation

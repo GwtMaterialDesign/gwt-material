@@ -30,23 +30,23 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum DatePickerType implements CssType {
-	DAY("day"),
-	MONTH_DAY("month_day"),
-	YEAR_MONTH_DAY("year_month_day"),
-	YEAR("year");
+    DAY("day"),
+    MONTH_DAY("month_day"),
+    YEAR_MONTH_DAY("year_month_day"),
+    YEAR("year");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	DatePickerType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    DatePickerType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static DatePickerType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, DatePickerType.class, DAY);
-	}
+    public static DatePickerType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, DatePickerType.class, DAY);
+    }
 }

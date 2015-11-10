@@ -27,17 +27,17 @@ import com.google.gwt.user.client.ui.Label;
 
 public class MaterialInfo {
 
-	public MaterialInfo() {
-	}
-	
-	public  void showInfo(HTMLPanel panel, ImageResource resource, String message){
-		panel.clear();
-		
-		HTMLPanel container = new HTMLPanel("");
-		container.addStyleName("materialInfo");
-		Label label = new Label(message);
-		container.add(new Image(resource));
-		container.add(label);
-		panel.add(container);
-	}
+    public MaterialInfo() {
+    }
+
+    public  void showInfo(HTMLPanel panel, ImageResource resource, String message){
+        panel.clear();
+
+        HTMLPanel container = new HTMLPanel("");
+        container.addStyleName("materialInfo");
+        Label label = new Label(message);
+        container.add(new Image(resource));
+        container.add(label);
+        panel.add(container);
+    }
 }

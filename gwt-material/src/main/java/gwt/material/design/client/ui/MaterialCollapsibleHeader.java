@@ -37,34 +37,34 @@ import gwt.material.design.client.ui.html.UnorderedList;
  */
 //@formatter:on
 public class MaterialCollapsibleHeader extends ComplexWidget {
-	
-	/** Creates empty collapsible header.
-	 */
-	public MaterialCollapsibleHeader() {
-		super(Document.get().createDivElement());
-		setStyleName("collapsible-header");
-	}
-	
-	/** Adds other components as header.
-	 */
-	public MaterialCollapsibleHeader(final Widget... widgets) {
-		this();
-		for(Widget w : widgets){
-			add(w);
-		}
-	}
 
-	@Override
-	public void add(Widget child) {
-		if(child instanceof UnorderedList) {
-			for(Widget w : (UnorderedList) child) {
-				if(w instanceof ListItem) {
-					w.getElement().getStyle().setDisplay(Style.Display.BLOCK);
-				}
-			}
-		} else if(child instanceof ListItem) {
-			child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
-		}
-		super.add(child);
-	}
+    /** Creates empty collapsible header.
+     */
+    public MaterialCollapsibleHeader() {
+        super(Document.get().createDivElement());
+        setStyleName("collapsible-header");
+    }
+
+    /** Adds other components as header.
+     */
+    public MaterialCollapsibleHeader(final Widget... widgets) {
+        this();
+        for(Widget w : widgets){
+            add(w);
+        }
+    }
+
+    @Override
+    public void add(Widget child) {
+        if(child instanceof UnorderedList) {
+            for(Widget w : (UnorderedList) child) {
+                if(w instanceof ListItem) {
+                    w.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+                }
+            }
+        } else if(child instanceof ListItem) {
+            child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+        }
+        super.add(child);
+    }
 }

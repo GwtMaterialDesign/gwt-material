@@ -51,67 +51,67 @@ import gwt.material.design.client.constants.RadioButtonType;
 */
 public class MaterialRadioButton extends RadioButton implements HasGrid, HasType<RadioButtonType> {
 
-	private CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> typeMixin;
-	private final GridMixin<MaterialRadioButton> gridMixin = new GridMixin<>(this);
-	
-	public MaterialRadioButton() {
-		super("");
+    private CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> typeMixin;
+    private final GridMixin<MaterialRadioButton> gridMixin = new GridMixin<>(this);
 
-		// Since the input element handles the type
-		// styles we need to override the mixin.
-		typeMixin = new CssTypeMixin<>(
-			new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
-	}
+    public MaterialRadioButton() {
+        super("");
 
-	public MaterialRadioButton(String name, SafeHtml label, Direction dir) {
-		super(name, label, dir);
-	}
+        // Since the input element handles the type
+        // styles we need to override the mixin.
+        typeMixin = new CssTypeMixin<>(
+            new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
+    }
 
-	public MaterialRadioButton(String name, SafeHtml label, DirectionEstimator directionEstimator) {
-		super(name, label, directionEstimator);
-	}
+    public MaterialRadioButton(String name, SafeHtml label, Direction dir) {
+        super(name, label, dir);
+    }
 
-	public MaterialRadioButton(String name, SafeHtml label) {
-		super(name, label);
-	}
+    public MaterialRadioButton(String name, SafeHtml label, DirectionEstimator directionEstimator) {
+        super(name, label, directionEstimator);
+    }
 
-	public MaterialRadioButton(String name, String label, boolean asHTML) {
-		super(name, label, asHTML);
-	}
+    public MaterialRadioButton(String name, SafeHtml label) {
+        super(name, label);
+    }
 
-	public MaterialRadioButton(String name, String label, Direction dir) {
-		super(name, label, dir);
-	}
+    public MaterialRadioButton(String name, String label, boolean asHTML) {
+        super(name, label, asHTML);
+    }
 
-	public MaterialRadioButton(String name, String label, DirectionEstimator directionEstimator) {
-		super(name, label, directionEstimator);
-	}
+    public MaterialRadioButton(String name, String label, Direction dir) {
+        super(name, label, dir);
+    }
 
-	public MaterialRadioButton(String name, String label) {
-		super(name, label);
-	}
+    public MaterialRadioButton(String name, String label, DirectionEstimator directionEstimator) {
+        super(name, label, directionEstimator);
+    }
 
-	public MaterialRadioButton(String name) {
-		super(name);
-	}
+    public MaterialRadioButton(String name, String label) {
+        super(name, label);
+    }
 
-	@Override
-	public RadioButtonType getType() {
-		return typeMixin.getType();
-	}
+    public MaterialRadioButton(String name) {
+        super(name);
+    }
 
-	@Override
-	public void setType(RadioButtonType type) {
-		typeMixin.setType(type);
-	}
+    @Override
+    public RadioButtonType getType() {
+        return typeMixin.getType();
+    }
 
-	@Override
-	public void setGrid(String grid) {
-		gridMixin.setGrid(grid);
-	}
-	
-	@Override
-	public void setOffset(String offset) {
-		gridMixin.setOffset(offset);
-	}
+    @Override
+    public void setType(RadioButtonType type) {
+        typeMixin.setType(type);
+    }
+
+    @Override
+    public void setGrid(String grid) {
+        gridMixin.setGrid(grid);
+    }
+
+    @Override
+    public void setOffset(String offset) {
+        gridMixin.setOffset(offset);
+    }
 }

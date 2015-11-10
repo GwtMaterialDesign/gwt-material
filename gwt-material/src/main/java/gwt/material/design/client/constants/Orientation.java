@@ -24,21 +24,21 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.helper.EnumHelper;
 
 public enum Orientation implements Style.HasCssName {
-	LANDSCAPE("landscape"), 
-	PORTRAIT("portrait");
+    LANDSCAPE("landscape"),
+    PORTRAIT("portrait");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	Orientation(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    Orientation(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static Orientation fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, Orientation.class, PORTRAIT);
-	}
+    public static Orientation fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, Orientation.class, PORTRAIT);
+    }
 }

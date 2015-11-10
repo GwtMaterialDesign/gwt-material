@@ -54,154 +54,154 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:on
 public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
 
-	private MaterialInput input = new MaterialInput();
-	private Span span = new Span();
-	private Label label = new Label();
-	private MaterialLabel lblError = new MaterialLabel();
+    private MaterialInput input = new MaterialInput();
+    private Span span = new Span();
+    private Label label = new Label();
+    private MaterialLabel lblError = new MaterialLabel();
 
-	private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
+    private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
-	/**
-	 * Creates a switch element
-	 */
-	public MaterialSwitch() {
-		super(Document.get().createDivElement());
-		setStyleName("switch");
-		span.setStyleName("lever");
-		input.setType(InputType.CHECKBOX);
-		label.add(input);
-		label.add(span);
-		add(label);
-		add(lblError);
-		lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
-	}
+    /**
+     * Creates a switch element
+     */
+    public MaterialSwitch() {
+        super(Document.get().createDivElement());
+        setStyleName("switch");
+        span.setStyleName("lever");
+        input.setType(InputType.CHECKBOX);
+        label.add(input);
+        label.add(span);
+        add(label);
+        add(lblError);
+        lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
+    }
 
-	/**
-	 * Creates a material switch with default value.
-	 */
-	public MaterialSwitch(boolean value) {
-		this();
-		setValue(value);
-	}
+    /**
+     * Creates a material switch with default value.
+     */
+    public MaterialSwitch(boolean value) {
+        this();
+        setValue(value);
+    }
 
-	@Override
-	protected void onLoad() {
-		super.onLoad();
+    @Override
+    protected void onLoad() {
+        super.onLoad();
 
-		addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				setValue(!getValue());
-				event.preventDefault();
-			}
-		});
-	}
+        addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                setValue(!getValue());
+                event.preventDefault();
+            }
+        });
+    }
 
-	@Override
-	public void setEnabled(boolean enabled) {
-		super.setEnabled(enabled);
-		getElement().setAttribute("style", "background-color:transparent !important");
-		label.getElement().setAttribute("style", "background-color:transparent !important");
-		span.setEnabled(enabled);
-		input.setEnabled(enabled);
-	}
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        getElement().setAttribute("style", "background-color:transparent !important");
+        label.getElement().setAttribute("style", "background-color:transparent !important");
+        span.setEnabled(enabled);
+        input.setEnabled(enabled);
+    }
 
-	/**
-	 * Set the value of switch component.
-	 */
-	@Override
-	public void setValue(Boolean value, boolean fireEvents) {
-		boolean oldValue = getValue();
-		if(value) {
-			input.getElement().setAttribute("checked", "true");
-		} else {
-			input.getElement().removeAttribute("checked");
-		}
+    /**
+     * Set the value of switch component.
+     */
+    @Override
+    public void setValue(Boolean value, boolean fireEvents) {
+        boolean oldValue = getValue();
+        if(value) {
+            input.getElement().setAttribute("checked", "true");
+        } else {
+            input.getElement().removeAttribute("checked");
+        }
 
-		if(fireEvents && oldValue != value) {
-			ValueChangeEvent.fire(this, getValue());
-		}
-	}
+        if(fireEvents && oldValue != value) {
+            ValueChangeEvent.fire(this, getValue());
+        }
+    }
 
-	@Override
-	public void setValue(Boolean value) {
-		setValue(value, true);
-	}
+    @Override
+    public void setValue(Boolean value) {
+        setValue(value, true);
+    }
 
-	/**
-	 * Gets the value of switch component.
-	 */
-	@Override
-	public Boolean getValue() {
-		return input.getElement().hasAttribute("checked");
-	}
+    /**
+     * Gets the value of switch component.
+     */
+    @Override
+    public Boolean getValue() {
+        return input.getElement().hasAttribute("checked");
+    }
 
-	@Override
-	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Boolean> handler) {
-		return addHandler(handler, ValueChangeEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Boolean> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
 
-	/**
-	 * @return the input
-	 */
-	public MaterialInput getInput() {
-		return input;
-	}
+    /**
+     * @return the input
+     */
+    public MaterialInput getInput() {
+        return input;
+    }
 
-	/**
-	 * @param input the input to set
-	 */
-	public void setInput(MaterialInput input) {
-		this.input = input;
-	}
+    /**
+     * @param input the input to set
+     */
+    public void setInput(MaterialInput input) {
+        this.input = input;
+    }
 
-	/**
-	 * @return the span
-	 */
-	public Span getSpan() {
-		return span;
-	}
+    /**
+     * @return the span
+     */
+    public Span getSpan() {
+        return span;
+    }
 
-	/**
-	 * @param span the span to set
-	 */
-	public void setSpan(Span span) {
-		this.span = span;
-	}
+    /**
+     * @param span the span to set
+     */
+    public void setSpan(Span span) {
+        this.span = span;
+    }
 
-	/**
-	 * @return the label
-	 */
-	public Label getLabel() {
-		return label;
-	}
+    /**
+     * @return the label
+     */
+    public Label getLabel() {
+        return label;
+    }
 
-	/**
-	 * @param label the label to set
-	 */
-	public void setLabel(Label label) {
-		this.label = label;
-	}
+    /**
+     * @param label the label to set
+     */
+    public void setLabel(Label label) {
+        this.label = label;
+    }
 
-	@Override
-	public HandlerRegistration addClickHandler(final ClickHandler handler) {
-		return addDomHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				if(isEnabled()) {
-					handler.onClick(event);
-				}
-			}
-		}, ClickEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        return addDomHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                if(isEnabled()) {
+                    handler.onClick(event);
+                }
+            }
+        }, ClickEvent.getType());
+    }
 
-	@Override
-	public void setError(String error) {
-		errorMixin.setError(error);
-	}
+    @Override
+    public void setError(String error) {
+        errorMixin.setError(error);
+    }
 
-	@Override
-	public void setSuccess(String success) {
-		errorMixin.setSuccess(success);
-	}
+    @Override
+    public void setSuccess(String success) {
+        errorMixin.setSuccess(success);
+    }
 }

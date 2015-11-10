@@ -23,21 +23,21 @@ package gwt.material.design.client.base;
 
 public interface HasColors {
 
-	/**
-	 * Sets the background color of material components, for example:<br/><br/>
-	 * <pre>panel.setBackgroundColor("blue");</pre><br/>
-	 * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
-	 */
-	void setBackgroundColor(String bgColor);
+    /**
+     * Sets the background color of material components, for example:<br/><br/>
+     * <pre>panel.setBackgroundColor("blue");</pre><br/>
+     * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
+     */
+    void setBackgroundColor(String bgColor);
 
-	String getBackgroundColor();
+    String getBackgroundColor();
 
-	/**
-	 * Set the text color of material components, for example:<br/><br/>
-	 * <pre>panel.setTextColor("blue darken-2");</pre><br/>
-	 * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
-	 */
-	void setTextColor(String textColor);
+    /**
+     * Set the text color of material components, for example:<br/><br/>
+     * <pre>panel.setTextColor("blue darken-2");</pre><br/>
+     * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
+     */
+    void setTextColor(String textColor);
 
-	String getTextColor();
+    String getTextColor();
 }

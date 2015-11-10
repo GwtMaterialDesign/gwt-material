@@ -28,23 +28,23 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum ButtonType implements CssType {
-	LINK(""),
-	RAISED("btn"),
-	FLAT("btn-flat"),
-	FLOATING("btn-floating");
+    LINK(""),
+    RAISED("btn"),
+    FLAT("btn-flat"),
+    FLOATING("btn-floating");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	ButtonType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    ButtonType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static ButtonType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, ButtonType.class, FLAT);
-	}
+    public static ButtonType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, ButtonType.class, FLAT);
+    }
 }

@@ -22,14 +22,14 @@ package gwt.material.design.client.base;
 
 public interface HasShadow {
 
-	/**
-	 * Sets the shadow depth of a material panel.
-	 * - depth range are from 1 - 4
-	 */
-	void setShadow(int shadow);
+    /**
+     * Sets the shadow depth of a material panel.
+     * - depth range are from 1 - 4
+     */
+    void setShadow(int shadow);
 
-	/**
-	 * Get the shadow depth.
-	 */
-	int getShadow();
+    /**
+     * Get the shadow depth.
+     */
+    int getShadow();
 }

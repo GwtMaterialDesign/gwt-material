@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Frame;
 * <h3>UiBinder Usage:</h3>
 * <pre>
 * {@code
-* 	<m:MaterialVideo url="someurl" />
+*     <m:MaterialVideo url="someurl" />
 * }
 * </pre>
 * </p>
@@ -45,27 +45,27 @@ import com.google.gwt.user.client.ui.Frame;
 //@formatter:on
 public class MaterialVideo extends ComplexWidget implements HasGrid{
 
-	private Frame frame =  new Frame();
-	
-	public MaterialVideo() {
-		super(Document.get().createElement("div"));
-		add(frame);
-	}
+    private Frame frame =  new Frame();
 
-	public String getUrl() {
-		return frame.getUrl();
-	}
+    public MaterialVideo() {
+        super(Document.get().createElement("div"));
+        add(frame);
+    }
 
-	public void setUrl(String url) {
-		frame.setUrl(url);
-		this.addStyleName("video-container");
-		this.add(frame);
-	}
+    public String getUrl() {
+        return frame.getUrl();
+    }
 
-	/**
-	 * @param fullscreen the fullscreen to set.
-	 */
-	public void setFullscreen(boolean fullscreen) {
-		frame.getElement().setAttribute("allowfullscreen", "true");
-	}
+    public void setUrl(String url) {
+        frame.setUrl(url);
+        this.addStyleName("video-container");
+        this.add(frame);
+    }
+
+    /**
+     * @param fullscreen the fullscreen to set.
+     */
+    public void setFullscreen(boolean fullscreen) {
+        frame.getElement().setAttribute("allowfullscreen", "true");
+    }
 }

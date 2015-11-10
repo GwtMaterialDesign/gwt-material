@@ -32,7 +32,7 @@ import com.google.gwt.dom.client.Document;
  * <pre>
  *{@code
  *<m:MaterialSection>
- * 	<m:MaterialTitle title="Title" description="Description"/>
+ *     <m:MaterialTitle title="Title" description="Description"/>
  * </m:MaterialSection>
  * }
  * </pre>
@@ -43,8 +43,8 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialSection extends ComplexWidget {
 
-	public MaterialSection() {
-		super(Document.get().createElement("div"));
-		setStyleName("section");
-	}
+    public MaterialSection() {
+        super(Document.get().createElement("div"));
+        setStyleName("section");
+    }
 }

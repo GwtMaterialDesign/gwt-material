@@ -24,8 +24,8 @@ import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.ComplexWidget;
 
 public class Footer extends ComplexWidget {
-	
-	public Footer() {
-		super(Document.get().createElement("footer"));
-	}
+
+    public Footer() {
+        super(Document.get().createElement("footer"));
+    }
 }

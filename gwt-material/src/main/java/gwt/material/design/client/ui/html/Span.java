@@ -29,30 +29,30 @@ import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.ComplexWidget;
 
 public class Span extends ComplexWidget implements HasClickHandlers, HasText {
-	private String text;
+    private String text;
 
-	public Span() {
-		super(Document.get().createElement("span"));
-	}
+    public Span() {
+        super(Document.get().createElement("span"));
+    }
 
-	public Span(String string) {
-		this();
-		getElement().setInnerHTML(string);
-	}
+    public Span(String string) {
+        this();
+        getElement().setInnerHTML(string);
+    }
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 
-	@Override
-	public String getText() {
-		return text;
-	}
+    @Override
+    public String getText() {
+        return text;
+    }
 
-	@Override
-	public void setText(String text) {
-		this.text = text;
-		getElement().setInnerHTML(text);
-	}
+    @Override
+    public void setText(String text) {
+        this.text = text;
+        getElement().setInnerHTML(text);
+    }
 }

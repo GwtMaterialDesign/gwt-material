@@ -27,25 +27,25 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum SideNavType implements CssType {
-	CLOSE("close"),
-	OPEN("fixed open"),
-	MINI("fixed mini"),
-	CLIP("fixed clip"),
-	FLOAT("fixed clip float"),
-	CARD("fixed clip card");
+    CLOSE("close"),
+    OPEN("fixed open"),
+    MINI("fixed mini"),
+    CLIP("fixed clip"),
+    FLOAT("fixed clip float"),
+    CARD("fixed clip card");
 
-	private final String cssClass;
+    private final String cssClass;
 
-	SideNavType(final String cssClass) {
-		this.cssClass = cssClass;
-	}
+    SideNavType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
 
-	@Override
-	public String getCssName() {
-		return cssClass;
-	}
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
 
-	public static SideNavType fromStyleName(final String styleName) {
-		return EnumHelper.fromStyleName(styleName, SideNavType.class, CLOSE);
-	}
+    public static SideNavType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, SideNavType.class, CLOSE);
+    }
 }

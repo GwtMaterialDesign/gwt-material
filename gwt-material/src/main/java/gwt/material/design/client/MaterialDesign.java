@@ -24,8 +24,8 @@ import com.google.gwt.core.client.EntryPoint;
 
 public class MaterialDesign extends MaterialDesignBase implements EntryPoint {
 
-	@Override
-	public void onModuleLoad() {
-		load();
-	}
+    @Override
+    public void onModuleLoad() {
+        load();
+    }
 }

@@ -22,14 +22,14 @@ package gwt.material.design.client.base;
 
 public interface HasGrid {
 
-	/**
-	 * Setting the grid for responsiveness don't forget to build rows first before setting
-	 * the grid on each material widgets.
-	 */
-	void setGrid(String grid);
-	
-	/**
-	 * Setting the offset.
-	 */
-	void setOffset(String offset);
+    /**
+     * Setting the grid for responsiveness don't forget to build rows first before setting
+     * the grid on each material widgets.
+     */
+    void setGrid(String grid);
+
+    /**
+     * Setting the offset.
+     */
+    void setOffset(String offset);
 }

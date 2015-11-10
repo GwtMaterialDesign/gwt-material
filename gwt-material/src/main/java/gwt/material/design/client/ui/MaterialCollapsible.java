@@ -65,7 +65,7 @@ import com.google.gwt.user.client.ui.Widget;
  * // Popout
  * <m:MaterialCollapsible type="POPOUT" grid="s12 m6 l8">
  *   <!-- ITEM 1 -->
- *	 <m:MaterialCollapsibleItem>
+ *     <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
  *       <m:MaterialLink text="First" icon="POLYMER" iconPosition="LEFT" textColor="black"/>
  *     </m:MaterialCollapsibleHeader>
@@ -84,78 +84,78 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:on
 public class MaterialCollapsible extends ComplexWidget {
 
-	private int index;
+    private int index;
 
-	/**
-	 * Creates an empty collapsible
-	 */
-	public MaterialCollapsible() {
-		super(Document.get().createULElement());
-		setStyleName("collapsible");
-	}
-	
-	/**
-	 *  Creates a list and adds the given widgets.
-	 */
-	public MaterialCollapsible(final MaterialCollapsibleItem... widgets){
-		this();
-		for (final MaterialCollapsibleItem item : widgets) {
+    /**
+     * Creates an empty collapsible
+     */
+    public MaterialCollapsible() {
+        super(Document.get().createULElement());
+        setStyleName("collapsible");
+    }
+
+    /**
+     *  Creates a list and adds the given widgets.
+     */
+    public MaterialCollapsible(final MaterialCollapsibleItem... widgets){
+        this();
+        for (final MaterialCollapsibleItem item : widgets) {
             add(item);
         }
-	}
+    }
 
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		onInitCollapsible(getElement());
-	}
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        onInitCollapsible(getElement());
+    }
 
-	@Override
-	protected void onUnload() {
-		super.onUnload();
-	}
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+    }
 
-	@Override
-	public void add(Widget child) {
-		super.add(child);
-		onInitCollapsible(getElement());
-	}
+    @Override
+    public void add(Widget child) {
+        super.add(child);
+        onInitCollapsible(getElement());
+    }
 
-	/**
-	 * Initialize the collapsible material component.
-	 */
-	private native void onInitCollapsible(final com.google.gwt.dom.client.Element e) /*-{
-		$wnd.jQuery(document).ready(function(){
-			$wnd.jQuery(e).collapsible();	
-		})
-	}-*/;
+    /**
+     * Initialize the collapsible material component.
+     */
+    private native void onInitCollapsible(final com.google.gwt.dom.client.Element e) /*-{
+        $wnd.jQuery(document).ready(function(){
+            $wnd.jQuery(e).collapsible();
+        })
+    }-*/;
 
-	public void setType(CollapsibleType type) {
-		switch (type) {
-		case POPOUT:
-			this.getElement().setAttribute("data-collapsible", "accordion");
-			this.addStyleName(type.getCssName());
-			break;
-		default:
-			getElement().setAttribute("data-collapsible", type.getCssName());
-			break;
-		}
-	}
+    public void setType(CollapsibleType type) {
+        switch (type) {
+        case POPOUT:
+            this.getElement().setAttribute("data-collapsible", "accordion");
+            this.addStyleName(type.getCssName());
+            break;
+        default:
+            getElement().setAttribute("data-collapsible", type.getCssName());
+            break;
+        }
+    }
 
-	public void setActive(int index) {
-		this.index = index;
-		Widget activeWidget = getActive();
-		if(activeWidget != null) {
-			activeWidget.removeStyleName("active");
-			activeWidget.addStyleName("active");
-		}
-	}
+    public void setActive(int index) {
+        this.index = index;
+        Widget activeWidget = getActive();
+        if(activeWidget != null) {
+            activeWidget.removeStyleName("active");
+            activeWidget.addStyleName("active");
+        }
+    }
 
-	public Widget getActive() {
-		try {
-			return getWidget(index);
-		} catch (IndexOutOfBoundsException ex) {
-			return null;
-		}
-	}
+    public Widget getActive() {
+        try {
+            return getWidget(index);
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
+    }
 }

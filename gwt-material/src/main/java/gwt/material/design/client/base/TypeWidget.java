@@ -29,16 +29,16 @@ import gwt.material.design.client.constants.Type;
  */
 public class TypeWidget<T extends Type> extends ComplexWidget implements HasType<T> {
 
-	public TypeWidget(Element element) {
-		super(element);
-	}
+    public TypeWidget(Element element) {
+        super(element);
+    }
 
-	@Override
-	public void setType(T type) {
-	}
+    @Override
+    public void setType(T type) {
+    }
 
-	@Override
-	public T getType() {
-		return null;
-	}
+    @Override
+    public T getType() {
+        return null;
+    }
 }

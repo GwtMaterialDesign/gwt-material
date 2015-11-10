@@ -23,8 +23,8 @@ package gwt.material.design.client.base;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 
 public class Suggestion extends MultiWordSuggestion {
-	private String suggestion;
-	private String display;
+    private String suggestion;
+    private String display;
 
     public Suggestion(){}
 
@@ -42,31 +42,31 @@ public class Suggestion extends MultiWordSuggestion {
         return display;
     }
 
-	/**
-	 * @return the display
-	 */
-	public String getDisplay() {
-		return display;
-	}
+    /**
+     * @return the display
+     */
+    public String getDisplay() {
+        return display;
+    }
 
-	/**
-	 * @param display the display to set
-	 */
-	public void setDisplay(String display) {
-		this.display = display;
-	}
+    /**
+     * @param display the display to set
+     */
+    public void setDisplay(String display) {
+        this.display = display;
+    }
 
-	/**
-	 * @return the suggestion
-	 */
-	public String getSuggestion() {
-		return suggestion;
-	}
+    /**
+     * @return the suggestion
+     */
+    public String getSuggestion() {
+        return suggestion;
+    }
 
-	/**
-	 * @param suggestion the suggestion to set
-	 */
-	public void setSuggestion(String suggestion) {
-		this.suggestion = suggestion;
-	}
+    /**
+     * @param suggestion the suggestion to set
+     */
+    public void setSuggestion(String suggestion) {
+        this.suggestion = suggestion;
+    }
 }

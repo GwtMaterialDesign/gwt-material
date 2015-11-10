@@ -48,28 +48,28 @@ import gwt.material.design.client.constants.IconType;
 //@formatter:on
 public class MaterialLink extends AbstractIconButton {
 
-	public MaterialLink(ButtonType type, String text, MaterialIcon icon) {
-		super(type, text, icon);
-	}
+    public MaterialLink(ButtonType type, String text, MaterialIcon icon) {
+        super(type, text, icon);
+    }
 
-	public MaterialLink(String text, MaterialIcon icon) {
-		super(ButtonType.LINK, text, icon);
-	}
+    public MaterialLink(String text, MaterialIcon icon) {
+        super(ButtonType.LINK, text, icon);
+    }
 
-	public MaterialLink(IconType iconType) {
-		super(iconType);
-	}
+    public MaterialLink(IconType iconType) {
+        super(iconType);
+    }
 
-	public MaterialLink(String text) {
-		super(ButtonType.LINK, text);
-	}
+    public MaterialLink(String text) {
+        super(ButtonType.LINK, text);
+    }
 
-	public MaterialLink() {
-		super(ButtonType.LINK);
-	}
+    public MaterialLink() {
+        super(ButtonType.LINK);
+    }
 
-	@Override
-	protected Element createElement() {
-		return DOM.createAnchor();
-	}
+    @Override
+    protected Element createElement() {
+        return DOM.createAnchor();
+    }
 }

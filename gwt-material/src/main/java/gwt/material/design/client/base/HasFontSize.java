@@ -24,9 +24,9 @@ import com.google.gwt.dom.client.Style;
 
 public interface HasFontSize {
 
-	void setFontSize(String fontSize);
+    void setFontSize(String fontSize);
 
-	String getFontSize();
+    String getFontSize();
 
-	void setFontSize(double fontSize, Style.Unit unit);
+    void setFontSize(double fontSize, Style.Unit unit);
 }

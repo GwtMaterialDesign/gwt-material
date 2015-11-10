@@ -54,85 +54,85 @@ import gwt.material.design.client.base.mixin.GridMixin;
 //@formatter:on
 public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpacity, HasType<ImageType> {
 
-	private final GridMixin<MaterialImage> gridMixin = new GridMixin<>(this);
-	private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
+    private final GridMixin<MaterialImage> gridMixin = new GridMixin<>(this);
+    private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
 
-	/**
-	 * Creates an empty image.
-	 */
-	public MaterialImage() {
-	}
+    /**
+     * Creates an empty image.
+     */
+    public MaterialImage() {
+    }
 
-	/**
-	 * Creates a simple image.
-	 */
-	public MaterialImage(String url) {
-		this();
-		setUrl(url);
-	}
+    /**
+     * Creates a simple image.
+     */
+    public MaterialImage(String url) {
+        this();
+        setUrl(url);
+    }
 
-	/**
-	 * Creates an image with Specific type.
-	 */
-	public MaterialImage(String url, ImageType type) {
-		setUrl(url);
-		setType(type);
-	}
+    /**
+     * Creates an image with Specific type.
+     */
+    public MaterialImage(String url, ImageType type) {
+        setUrl(url);
+        setType(type);
+    }
 
-	@Override
-	public void onLoad() {
-		super.onLoad();
+    @Override
+    public void onLoad() {
+        super.onLoad();
 
-		addStyleName("responsive-img");
-		onInitMaterialDesign();
-	}
+        addStyleName("responsive-img");
+        onInitMaterialDesign();
+    }
 
-	@Override
-	protected void onUnload() {
-		super.onUnload();
-	}
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+    }
 
-	@Override
-	public void setType(ImageType type) {
-		typeMixin.setType(type);
-	}
+    @Override
+    public void setType(ImageType type) {
+        typeMixin.setType(type);
+    }
 
-	@Override
-	public ImageType getType() {
-		return typeMixin.getType();
-	}
+    @Override
+    public ImageType getType() {
+        return typeMixin.getType();
+    }
 
-	@Override
-	public String getCaption() {
-		return getElement().getAttribute("caption");
-	}
+    @Override
+    public String getCaption() {
+        return getElement().getAttribute("caption");
+    }
 
-	@Override
-	public void setCaption(String caption) {
-		getElement().setAttribute("data-caption", caption);
-	}
+    @Override
+    public void setCaption(String caption) {
+        getElement().setAttribute("data-caption", caption);
+    }
 
-	@Override
-	public double getOpacity() {
-		return Double.parseDouble(getElement().getStyle().getOpacity());
-	}
+    @Override
+    public double getOpacity() {
+        return Double.parseDouble(getElement().getStyle().getOpacity());
+    }
 
-	@Override
-	public void setOpacity(double opacity) {
-		getElement().getStyle().setOpacity(opacity);
-	}
+    @Override
+    public void setOpacity(double opacity) {
+        getElement().getStyle().setOpacity(opacity);
+    }
 
-	@Override
-	public void setGrid(String grid) {
-		gridMixin.setGrid(grid);
-	}
+    @Override
+    public void setGrid(String grid) {
+        gridMixin.setGrid(grid);
+    }
 
-	@Override
-	public void setOffset(String offset) {
-		gridMixin.setOffset(offset);
-	}
+    @Override
+    public void setOffset(String offset) {
+        gridMixin.setOffset(offset);
+    }
 
-	public native void onInitMaterialDesign() /*-{
+    public native void onInitMaterialDesign() /*-{
         $wnd.jQuery(document).ready(function(){
             $wnd.jQuery('.materialboxed').materialbox();
         });

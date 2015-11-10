@@ -35,19 +35,19 @@ import com.google.gwt.user.client.ui.Widget;
 * {@code
 * 
 *<m:MaterialParallax>
-* 	<m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
+*     <m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
 *</m:MaterialParallax>
 *
 *<m:MaterialTitle title="Sample" description="SADASD ASD DAS "/>
 *
 *<m:MaterialParallax>
-*	<m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
+*    <m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
 *</m:MaterialParallax>
 *
 *<m:MaterialTitle title="Sample" description="SADASD ASD DAS "/>
 *
 *<m:MaterialParallax>
-*	<m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
+*    <m:MaterialImage url="http://i.imgur.com/CiPPh6h.jpg" />
 *</m:MaterialParallax>
 *
 *<m:MaterialTitle title="Sample" description="SADASD ASD DAS "/>
@@ -60,29 +60,29 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:on
 public class MaterialParallax extends ComplexWidget {
 
-	private Div div = new Div();
-	
-	public MaterialParallax() {
-		setElement(Document.get().createDivElement());
-		setStyleName("parallax-container");
-		super.add(div);
-		div.setStyleName("parallax");
-	}
-	
-	@Override
-	public void add(Widget child) {
-		div.add(child);
-	}
+    private Div div = new Div();
 
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		initParallax();
-	}
-	
-	public native void initParallax()/*-{
-		$wnd.jQuery(document).ready(function(){
-	      $wnd.jQuery('.parallax').parallax();
-	    });
-	}-*/;
+    public MaterialParallax() {
+        setElement(Document.get().createDivElement());
+        setStyleName("parallax-container");
+        super.add(div);
+        div.setStyleName("parallax");
+    }
+
+    @Override
+    public void add(Widget child) {
+        div.add(child);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        initParallax();
+    }
+
+    public native void initParallax()/*-{
+        $wnd.jQuery(document).ready(function(){
+          $wnd.jQuery('.parallax').parallax();
+        });
+    }-*/;
 }

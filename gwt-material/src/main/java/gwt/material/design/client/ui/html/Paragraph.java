@@ -27,33 +27,33 @@ import gwt.material.design.client.base.ComplexWidget;
 
 public class Paragraph extends ComplexWidget implements HasText {
 
-	public Paragraph() {
-		super(Document.get().createElement("p"));
-	}
+    public Paragraph() {
+        super(Document.get().createElement("p"));
+    }
 
-	public Paragraph(Widget item) {
-		this();
-		add(item);
-	}
+    public Paragraph(Widget item) {
+        this();
+        add(item);
+    }
 
-	public Paragraph(String text) {
-		this();
-		setText(text);
-	}
+    public Paragraph(String text) {
+        this();
+        setText(text);
+    }
 
-	/**
-	 * @return the text
-	 */
-	@Override
-	public String getText() {
-		return getElement().getInnerText();
-	}
+    /**
+     * @return the text
+     */
+    @Override
+    public String getText() {
+        return getElement().getInnerText();
+    }
 
-	/**
-	 * @param text the text to set
-	 */
-	@Override
-	public void setText(String text) {
-		getElement().setInnerText(text);
-	}
+    /**
+     * @param text the text to set
+     */
+    @Override
+    public void setText(String text) {
+        getElement().setInnerText(text);
+    }
 }

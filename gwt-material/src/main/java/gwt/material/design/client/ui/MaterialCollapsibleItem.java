@@ -37,28 +37,28 @@ import gwt.material.design.client.ui.html.ListItem;
 //@formatter:on
 public class MaterialCollapsibleItem extends ListItem implements HasWidgets {
 
-	/**
-	 * Creates an empty collapsible item.
-	 */
-	public MaterialCollapsibleItem() {
-		super();
-	}
-	
-	/**
-	 * Adds MaterialCollapsible contents.
-	 */
-	public MaterialCollapsibleItem(final Widget... widgets) {
-		this();
-		for(Widget w : widgets){
-			add(w);
-		}
-	}
+    /**
+     * Creates an empty collapsible item.
+     */
+    public MaterialCollapsibleItem() {
+        super();
+    }
 
-	@Override
-	public void setWaves(WavesType waves) {
-		super.setWaves(waves);
+    /**
+     * Adds MaterialCollapsible contents.
+     */
+    public MaterialCollapsibleItem(final Widget... widgets) {
+        this();
+        for(Widget w : widgets){
+            add(w);
+        }
+    }
 
-		// Waves change to inline block
-		setDisplay(Style.Display.BLOCK);
-	}
+    @Override
+    public void setWaves(WavesType waves) {
+        super.setWaves(waves);
+
+        // Waves change to inline block
+        setDisplay(Style.Display.BLOCK);
+    }
 }

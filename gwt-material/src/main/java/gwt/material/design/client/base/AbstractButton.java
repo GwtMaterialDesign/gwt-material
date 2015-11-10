@@ -54,179 +54,179 @@ import gwt.material.design.client.ui.html.Span;
  * @author Ben Dol
  */
 public abstract class AbstractButton extends ComplexWidget implements HasHref, HasGrid, HasActivates,
-		HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
-		HasDoubleClickHandlers {
+        HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
+        HasDoubleClickHandlers {
 
-	private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
-	private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
+    private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
+    private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
 
-	private Span span = new Span();
-	private ButtonSize size;
+    private Span span = new Span();
+    private ButtonSize size;
 
-	private String targetHistoryToken;
+    private String targetHistoryToken;
 
-	/** Creates button with RAISED type.
-	 */
-	protected AbstractButton() {
-		setElement(createElement());
+    /** Creates button with RAISED type.
+     */
+    protected AbstractButton() {
+        setElement(createElement());
 
-		getElement().getStyle().setCursor(Style.Cursor.POINTER);
-	}
+        getElement().getStyle().setCursor(Style.Cursor.POINTER);
+    }
 
-	protected AbstractButton(String text, String bgColor, WavesType waves) {
-		this(null, text, bgColor);
-		setWaves(waves);
-	}
+    protected AbstractButton(String text, String bgColor, WavesType waves) {
+        this(null, text, bgColor);
+        setWaves(waves);
+    }
 
-	protected AbstractButton(final ButtonType type, String text, String bgColor, WavesType waves) {
-		this(type, text, bgColor);
-		setWaves(waves);
-	}
+    protected AbstractButton(final ButtonType type, String text, String bgColor, WavesType waves) {
+        this(type, text, bgColor);
+        setWaves(waves);
+    }
 
-	protected AbstractButton(final ButtonType type, String text, String bgColor) {
-		this(type, text);
-		setBackgroundColor(bgColor);
-	}
+    protected AbstractButton(final ButtonType type, String text, String bgColor) {
+        this(type, text);
+        setBackgroundColor(bgColor);
+    }
 
-	protected AbstractButton(final ButtonType type, String text) {
-		this(type);
-		setText(text);
-	}
+    protected AbstractButton(final ButtonType type, String text) {
+        this(type);
+        setText(text);
+    }
 
-	protected AbstractButton(final ButtonType type) {
-		this();
-		setType(type);
-	}
+    protected AbstractButton(final ButtonType type) {
+        this();
+        setType(type);
+    }
 
-	protected abstract Element createElement();
+    protected abstract Element createElement();
 
-	@Override
-	public void setHref(String href) {
-		getElement().setAttribute("href", href);
-	}
+    @Override
+    public void setHref(String href) {
+        getElement().setAttribute("href", href);
+    }
 
-	@Override
-	public String getHref() {
-		return getElement().getAttribute("href");
-	}
+    @Override
+    public String getHref() {
+        return getElement().getAttribute("href");
+    }
 
-	@Override
-	public void setTarget(String target) {
-		getElement().setAttribute("target", target);
-	}
+    @Override
+    public void setTarget(String target) {
+        getElement().setAttribute("target", target);
+    }
 
-	@Override
-	public String getTarget() {
-		return getElement().getAttribute("target");
-	}
+    @Override
+    public String getTarget() {
+        return getElement().getAttribute("target");
+    }
 
-	@Override
-	public void setActivates(String activates) {
-		removeStyleName(getActivates() + " dropdown-button");
-		activatesMixin.setActivates(activates);
-		addStyleName(activates + " dropdown-button");
-	}
+    @Override
+    public void setActivates(String activates) {
+        removeStyleName(getActivates() + " dropdown-button");
+        activatesMixin.setActivates(activates);
+        addStyleName(activates + " dropdown-button");
+    }
 
-	@Override
-	public String getActivates() {
-		return activatesMixin.getActivates();
-	}
+    @Override
+    public String getActivates() {
+        return activatesMixin.getActivates();
+    }
 
-	@Override
-	public void setType(ButtonType type) {
-		cssTypeMixin.setType(type);
-	}
+    @Override
+    public void setType(ButtonType type) {
+        cssTypeMixin.setType(type);
+    }
 
-	@Override
-	public ButtonType getType() {
-		return cssTypeMixin.getType();
-	}
+    @Override
+    public ButtonType getType() {
+        return cssTypeMixin.getType();
+    }
 
-	public void setSize(ButtonSize size) {
-		if(this.size != null) {
-			removeStyleName(this.size.getCssName());
-		}
-		this.size = size;
+    public void setSize(ButtonSize size) {
+        if(this.size != null) {
+            removeStyleName(this.size.getCssName());
+        }
+        this.size = size;
 
-		if(size != null) {
-			addStyleName(size.getCssName());
-		}
-	}
+        if(size != null) {
+            addStyleName(size.getCssName());
+        }
+    }
 
-	public ButtonSize getSize() {
-		return size;
-	}
+    public ButtonSize getSize() {
+        return size;
+    }
 
-	public String getText() {
-		return span.getText();
-	}
+    public String getText() {
+        return span.getText();
+    }
 
-	public void setText(String text) {
-		span.setText(text);
-		add(span);
-	}
+    public void setText(String text) {
+        span.setText(text);
+        add(span);
+    }
 
-	/**
-	 * Set the target history token for the widget. Note, that you should use either
-	 * {@link #setTargetHistoryToken(String)}or {@link #setHref(String)}, but not both as
-	 * {@link #setHref(String)} resets the target history token.
-	 * @param targetHistoryToken String target history token of the widget
-	 */
-	@Override
-	public void setTargetHistoryToken(final String targetHistoryToken) {
-		this.targetHistoryToken = targetHistoryToken;
-		if (targetHistoryToken != null) {
-			setHref("#" + History.encodeHistoryToken(targetHistoryToken));
-		}
-	}
+    /**
+     * Set the target history token for the widget. Note, that you should use either
+     * {@link #setTargetHistoryToken(String)}or {@link #setHref(String)}, but not both as
+     * {@link #setHref(String)} resets the target history token.
+     * @param targetHistoryToken String target history token of the widget
+     */
+    @Override
+    public void setTargetHistoryToken(final String targetHistoryToken) {
+        this.targetHistoryToken = targetHistoryToken;
+        if (targetHistoryToken != null) {
+            setHref("#" + History.encodeHistoryToken(targetHistoryToken));
+        }
+    }
 
-	/**
-	 * Get the target history token for the widget. May return {@code null} if no
-	 * history token has been set or if it has been reset by {@link #setHref(String)}.
-	 * @return String the widget's target history token.
-	 */
-	@Override
-	public String getTargetHistoryToken() {
-		return targetHistoryToken;
-	}
+    /**
+     * Get the target history token for the widget. May return {@code null} if no
+     * history token has been set or if it has been reset by {@link #setHref(String)}.
+     * @return String the widget's target history token.
+     */
+    @Override
+    public String getTargetHistoryToken() {
+        return targetHistoryToken;
+    }
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-		return addDomHandler(handler, MouseDownEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+        return addDomHandler(handler, MouseDownEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-		return addDomHandler(handler, MouseMoveEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+        return addDomHandler(handler, MouseMoveEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-		return addDomHandler(handler, MouseOutEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+        return addDomHandler(handler, MouseOutEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-		return addDomHandler(handler, MouseOverEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+        return addDomHandler(handler, MouseOverEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-		return addDomHandler(handler, MouseUpEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+        return addDomHandler(handler, MouseUpEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-		return addDomHandler(handler, MouseWheelEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+        return addDomHandler(handler, MouseWheelEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
-		return addDomHandler(handler, DoubleClickEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+        return addDomHandler(handler, DoubleClickEvent.getType());
+    }
 }

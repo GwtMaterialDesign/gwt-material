@@ -53,46 +53,46 @@ import com.google.gwt.user.client.ui.HasText;
 //@formatter:on
 public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHandlers, HasPlaceholder {
 
-	private MaterialInput searchInput = new MaterialInput();
-	private Label label = new Label();
-	private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
-	private MaterialIcon iconClose = new MaterialIcon(IconType.CLOSE);
-	
-	public MaterialSearch() {
-		super(Document.get().createDivElement());
-		setStyleName("input-field");
-		searchInput.setType(InputType.SEARCH);
-		searchInput.setRequired(true);
-		add(searchInput);
-		add(label);
-		label.add(iconSearch);
-		add(iconClose);
-	}
+    private MaterialInput searchInput = new MaterialInput();
+    private Label label = new Label();
+    private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
+    private MaterialIcon iconClose = new MaterialIcon(IconType.CLOSE);
 
-	@Override
-	public String getPlaceholder() {
-		return searchInput.getElement().getAttribute("placeholder");
-	}
+    public MaterialSearch() {
+        super(Document.get().createDivElement());
+        setStyleName("input-field");
+        searchInput.setType(InputType.SEARCH);
+        searchInput.setRequired(true);
+        add(searchInput);
+        add(label);
+        label.add(iconSearch);
+        add(iconClose);
+    }
 
-	@Override
-	public void setPlaceholder(String placeholder) {
-		searchInput.getElement().setAttribute("placeholder", placeholder);
-	}
+    @Override
+    public String getPlaceholder() {
+        return searchInput.getElement().getAttribute("placeholder");
+    }
 
-	@Override
-	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-		return addDomHandler(handler, KeyUpEvent.getType());
-	}
+    @Override
+    public void setPlaceholder(String placeholder) {
+        searchInput.getElement().setAttribute("placeholder", placeholder);
+    }
 
-	@Override
-	public String getText() {
-		return searchInput.getElement().getInnerHTML();
-	}
+    @Override
+    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+        return addDomHandler(handler, KeyUpEvent.getType());
+    }
 
-	@Override
-	public void setText(String text) {
-		searchInput.getElement().setInnerHTML(text);
-	}
+    @Override
+    public String getText() {
+        return searchInput.getElement().getInnerHTML();
+    }
+
+    @Override
+    public void setText(String text) {
+        searchInput.getElement().setInnerHTML(text);
+    }
 }
 
 

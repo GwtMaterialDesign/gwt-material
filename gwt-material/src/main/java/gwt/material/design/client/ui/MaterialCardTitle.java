@@ -41,63 +41,63 @@ import com.google.gwt.user.client.ui.HasText;
 //@formatter:on
 public class MaterialCardTitle extends ComplexWidget implements HasIcon, HasText {
 
-	private MaterialIcon icon = new MaterialIcon();
-	private Span span = new Span();
-	
-	public MaterialCardTitle() {
-		super(Document.get().createSpanElement());
-		setStyleName("card-title activator");
-	}
+    private MaterialIcon icon = new MaterialIcon();
+    private Span span = new Span();
 
-	@Override
-	public String getText() {
-		return span.getText();
-	}
+    public MaterialCardTitle() {
+        super(Document.get().createSpanElement());
+        setStyleName("card-title activator");
+    }
 
-	@Override
-	public void setText(String text) {
-		span.setText(text);
-		add(span);
-	}
+    @Override
+    public String getText() {
+        return span.getText();
+    }
 
-	@Override
-	public MaterialIcon getIcon() {
-		return icon;
-	}
+    @Override
+    public void setText(String text) {
+        span.setText(text);
+        add(span);
+    }
 
-	@Override
-	public void setIconType(IconType iconType) {
-		icon.setIconType(iconType);
-		add(icon);
-	}
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
 
-	@Override
-	public void setIconPosition(IconPosition position) {
-		icon.setIconPosition(position);
-	}
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        add(icon);
+    }
 
-	@Override
-	public void setIconSize(IconSize size) {
-		icon.setIconSize(size);
-	}
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
 
-	@Override
-	public void setIconFontSize(double size, Style.Unit unit) {
-		icon.setIconFontSize(size, unit);
-	}
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
 
-	@Override
-	public void setIconColor(String iconColor) {
-		icon.setIconColor(iconColor);
-	}
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
 
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		icon.setIconPrefix(prefix);
-	}
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
 
-	@Override
-	public boolean isIconPrefix() {
-		return icon.isIconPrefix();
-	}
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
+
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
+    }
 }

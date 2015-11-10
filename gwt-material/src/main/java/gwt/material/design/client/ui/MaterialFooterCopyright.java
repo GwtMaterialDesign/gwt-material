@@ -35,17 +35,17 @@ import com.google.gwt.user.client.ui.Widget;
 *///@formatter:on
 public class MaterialFooterCopyright extends ComplexWidget {
 
-	private Div container = new Div();
-	
-	public MaterialFooterCopyright() {
-		super(Document.get().createDivElement());
-		setStyleName("footer-copyright");
-		container.setStyleName("container");
-		super.add(container);
-	}
-	
-	@Override
-	public void add(Widget child) {
-		container.add(child);
-	}
+    private Div container = new Div();
+
+    public MaterialFooterCopyright() {
+        super(Document.get().createDivElement());
+        setStyleName("footer-copyright");
+        container.setStyleName("container");
+        super.add(container);
+    }
+
+    @Override
+    public void add(Widget child) {
+        container.add(child);
+    }
 }

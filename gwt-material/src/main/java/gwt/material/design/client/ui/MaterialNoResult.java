@@ -52,81 +52,81 @@ import com.google.gwt.dom.client.Style.Unit;
 //@formatter:on
 public class MaterialNoResult extends ComplexWidget implements HasIcon, HasTitle{
 
-	
-	private MaterialIcon icon = new MaterialIcon();
-	private MaterialTitle title = new MaterialTitle();
-	private Div div = new Div();
-	
-	public MaterialNoResult() {
-		super(Document.get().createDivElement());
-		setStyleName("valign-wrapper");
-		setTextAlign(TextAlign.CENTER);
-		setHeight("100%");
-		add(div);
-		div.setWidth("100%");
-		div.setStyleName("valign center");
-		div.add(title);
-		icon.setIconSize(IconSize.LARGE);
-		title.insert(icon, 0);
-		title.setMarginTop(-100);
-	}
 
-	public MaterialNoResult(String bgColor, String textColor, IconType iconType, String title, String description) {
-		this();
-		setBackgroundColor(bgColor);
-		setTextColor(textColor);
-		setIconType(iconType);
-		setTitle(title);
-		setDescription(description);
-	}
+    private MaterialIcon icon = new MaterialIcon();
+    private MaterialTitle title = new MaterialTitle();
+    private Div div = new Div();
 
-	@Override
-	public void setDescription(String description) {
-		title.setDescription(description);
-	}
-	
-	@Override
-	public void setTitle(String titleText) {
-		title.setTitle(titleText);
-	}
+    public MaterialNoResult() {
+        super(Document.get().createDivElement());
+        setStyleName("valign-wrapper");
+        setTextAlign(TextAlign.CENTER);
+        setHeight("100%");
+        add(div);
+        div.setWidth("100%");
+        div.setStyleName("valign center");
+        div.add(title);
+        icon.setIconSize(IconSize.LARGE);
+        title.insert(icon, 0);
+        title.setMarginTop(-100);
+    }
 
-	@Override
-	public MaterialIcon getIcon() {
-		return icon;
-	}
+    public MaterialNoResult(String bgColor, String textColor, IconType iconType, String title, String description) {
+        this();
+        setBackgroundColor(bgColor);
+        setTextColor(textColor);
+        setIconType(iconType);
+        setTitle(title);
+        setDescription(description);
+    }
 
-	@Override
-	public void setIconType(IconType iconType) {
-		icon.setIconType(iconType);
-	}
+    @Override
+    public void setDescription(String description) {
+        title.setDescription(description);
+    }
 
-	@Override
-	public void setIconPosition(IconPosition position) {
-		icon.setIconPosition(position);
-	}
+    @Override
+    public void setTitle(String titleText) {
+        title.setTitle(titleText);
+    }
 
-	@Override
-	public void setIconSize(IconSize size) {
-		icon.setIconSize(size);
-	}
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
 
-	@Override
-	public void setIconFontSize(double size, Unit unit) {
-		icon.setIconFontSize(size, unit);
-	}
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+    }
 
-	@Override
-	public void setIconColor(String iconColor) {
-		icon.setIconColor(iconColor);
-	}
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
 
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		icon.setIconPrefix(prefix);
-	}
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
 
-	@Override
-	public boolean isIconPrefix() {
-		return icon.isIconPrefix();
-	}
+    @Override
+    public void setIconFontSize(double size, Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
+
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
+
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
+    }
 }

@@ -32,50 +32,50 @@ import gwt.material.design.client.base.ValueBoxBase;
 
 public class MaterialInput extends ValueBoxBase<String> implements HasInputType {
 
-	private static final String MIN = "min";
-	private static final String MAX = "max";
+    private static final String MIN = "min";
+    private static final String MAX = "max";
 
-	public MaterialInput() {
-		this(PassthroughRenderer.instance(), PassthroughParser.instance());
-	}
+    public MaterialInput() {
+        this(PassthroughRenderer.instance(), PassthroughParser.instance());
+    }
 
-	public MaterialInput(Renderer<String> renderer, Parser<String> parser) {
-		super(Document.get().createElement("input"), renderer, parser);
-	}
+    public MaterialInput(Renderer<String> renderer, Parser<String> parser) {
+        super(Document.get().createElement("input"), renderer, parser);
+    }
 
-	@UiConstructor
-	public MaterialInput(final InputType type) {
-		this();
-		setType(type);
-	}
+    @UiConstructor
+    public MaterialInput(final InputType type) {
+        this();
+        setType(type);
+    }
 
-	public void setMin(final String min) {
-		getElement().setAttribute(MIN, min);
-	}
+    public void setMin(final String min) {
+        getElement().setAttribute(MIN, min);
+    }
 
-	public void setMax(final String max) {
-		getElement().setAttribute(MAX, max);
-	}
+    public void setMax(final String max) {
+        getElement().setAttribute(MAX, max);
+    }
 
-	@Override
-	public void setType(final InputType inputType) {
-		getElement().setAttribute(TYPE, inputType.getType());
-	}
+    @Override
+    public void setType(final InputType inputType) {
+        getElement().setAttribute(TYPE, inputType.getType());
+    }
 
-	@Override
-	public InputType getType() {
-		if (getElement().getAttribute(TYPE) == null || getElement().getAttribute(TYPE).isEmpty()) { return null; }
-		return InputType.valueOf(getElement().getAttribute(TYPE));
-	}
+    @Override
+    public InputType getType() {
+        if (getElement().getAttribute(TYPE) == null || getElement().getAttribute(TYPE).isEmpty()) { return null; }
+        return InputType.valueOf(getElement().getAttribute(TYPE));
+    }
 
-	public void setRequired(boolean required) {
-		getElement().removeAttribute("required");
-		if(required) {
-			getElement().setAttribute("required", "");
-		}
-	}
+    public void setRequired(boolean required) {
+        getElement().removeAttribute("required");
+        if(required) {
+            getElement().setAttribute("required", "");
+        }
+    }
 
-	public boolean isRequired() {
-		return getElement().hasAttribute("required");
-	}
+    public boolean isRequired() {
+        return getElement().hasAttribute("required");
+    }
 }

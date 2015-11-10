@@ -44,16 +44,16 @@ import com.google.gwt.dom.client.Document;
 public class MaterialPreLoader extends ComplexWidget {
 
 
-	public MaterialPreLoader() {
-		super(Document.get().createDivElement());
-		setStyleName("preloader-wrapper active");
-	}
-	
-	/**
-	 * Sets the size of the pre loader
-	 * @param size
-	 */
-	public void setSize(String size){
-		addStyleName(size);
-	}
+    public MaterialPreLoader() {
+        super(Document.get().createDivElement());
+        setStyleName("preloader-wrapper active");
+    }
+
+    /**
+     * Sets the size of the pre loader
+     * @param size
+     */
+    public void setSize(String size){
+        addStyleName(size);
+    }
 }

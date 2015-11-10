@@ -25,7 +25,7 @@ import gwt.material.design.client.base.ComplexWidget;
 
 public class Icon extends ComplexWidget {
 
-	public Icon() {
-		super(Document.get().createElement("i"));
-	}
+    public Icon() {
+        super(Document.get().createElement("i"));
+    }
 }

@@ -54,78 +54,78 @@ import gwt.material.design.client.constants.IconType;
 //@formatter:on
 public class MaterialIcon extends AbstractButton implements HasSeparator, HasIcon {
 
-	private final CssNameMixin<MaterialIcon, IconPosition> posMixin = new CssNameMixin<>(this);
-	private final CssNameMixin<MaterialIcon, IconSize> sizeMixin = new CssNameMixin<>(this);
-	private final ToggleStyleMixin<MaterialIcon> prefixMixin = new ToggleStyleMixin<>(this, "prefix");
+    private final CssNameMixin<MaterialIcon, IconPosition> posMixin = new CssNameMixin<>(this);
+    private final CssNameMixin<MaterialIcon, IconSize> sizeMixin = new CssNameMixin<>(this);
+    private final ToggleStyleMixin<MaterialIcon> prefixMixin = new ToggleStyleMixin<>(this, "prefix");
 
-	/**
-	 * Creates an empty icon.
-	 */
-	public MaterialIcon() {
-		super();
-		addStyleName("material-icons");
-	}
+    /**
+     * Creates an empty icon.
+     */
+    public MaterialIcon() {
+        super();
+        addStyleName("material-icons");
+    }
 
-	/**
-	 * Sets a simple icon with a given type.
-	 */
-	public MaterialIcon(IconType icon) {
-		this();
-		setIconType(icon);
-	}
-	
-	/**
-	 * Sets an icon with textColor and backgroundColor.
-	 */
-	public MaterialIcon(IconType icon, String textColor, String bgColor) {
-		this();
-		setIconType(icon);
-		setTextColor(textColor);
-		setBackgroundColor(bgColor);
-	}
+    /**
+     * Sets a simple icon with a given type.
+     */
+    public MaterialIcon(IconType icon) {
+        this();
+        setIconType(icon);
+    }
 
-	@Override
-	protected Element createElement() {
-		return Document.get().createElement("i");
-	}
+    /**
+     * Sets an icon with textColor and backgroundColor.
+     */
+    public MaterialIcon(IconType icon, String textColor, String bgColor) {
+        this();
+        setIconType(icon);
+        setTextColor(textColor);
+        setBackgroundColor(bgColor);
+    }
 
-	@Override
-	public MaterialIcon getIcon() {
-		return this;
-	}
+    @Override
+    protected Element createElement() {
+        return Document.get().createElement("i");
+    }
 
-	@Override
-	public void setIconType(IconType icon) {
-		getElement().setInnerText(icon.getCssName());
-	}
+    @Override
+    public MaterialIcon getIcon() {
+        return this;
+    }
 
-	@Override
-	public void setIconPosition(IconPosition position) {
-		posMixin.setCssName(position);
-	}
+    @Override
+    public void setIconType(IconType icon) {
+        getElement().setInnerText(icon.getCssName());
+    }
 
-	@Override
-	public void setIconSize(IconSize size) {
-		sizeMixin.setCssName(size);
-	}
+    @Override
+    public void setIconPosition(IconPosition position) {
+        posMixin.setCssName(position);
+    }
 
-	@Override
-	public void setIconColor(String iconColor) {
-		getElement().getStyle().setColor(iconColor);
-	}
+    @Override
+    public void setIconSize(IconSize size) {
+        sizeMixin.setCssName(size);
+    }
 
-	@Override
-	public void setIconFontSize(double size, Style.Unit unit) {
-		getElement().getStyle().setFontSize(size, unit);
-	}
+    @Override
+    public void setIconColor(String iconColor) {
+        getElement().getStyle().setColor(iconColor);
+    }
 
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		prefixMixin.setOn(prefix);
-	}
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        getElement().getStyle().setFontSize(size, unit);
+    }
 
-	@Override
-	public boolean isIconPrefix() {
-		return prefixMixin.isOn();
-	}
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        prefixMixin.setOn(prefix);
+    }
+
+    @Override
+    public boolean isIconPrefix() {
+        return prefixMixin.isOn();
+    }
 }

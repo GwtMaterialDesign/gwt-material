@@ -39,13 +39,13 @@ import com.google.gwt.dom.client.Style.Unit;
 */
 public class MaterialProgress extends Div {
 
-	private Div div = new Div();
+    private Div div = new Div();
 
-	public MaterialProgress() {
-		super();
-		setStyleName("progress");
-		getElement().getStyle().setMargin(0, Unit.PX);
-		add(div);
-		div.setStyleName("indeterminate");
-	}
+    public MaterialProgress() {
+        super();
+        setStyleName("progress");
+        getElement().getStyle().setMargin(0, Unit.PX);
+        add(div);
+        div.setStyleName("indeterminate");
+    }
 }

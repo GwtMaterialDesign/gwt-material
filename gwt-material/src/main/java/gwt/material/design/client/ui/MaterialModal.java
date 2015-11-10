@@ -40,10 +40,10 @@ import gwt.material.design.client.constants.ModalType;
 * 
 * <pre>
 * {@code 
-	MaterialModal.showModal(new ModalContent(), ModalType.DEFAULT, false);
-	MaterialModal.showModal(new ModalContent(), ModalType.FIXED_FOOTER, false);
-	MaterialModal.showModal(new ModalContent(), ModalType.BOTTOM_SHEET, false);
-	MaterialModal.showModal(new ModalContent(), ModalType.WINDOW, false);
+    MaterialModal.showModal(new ModalContent(), ModalType.DEFAULT, false);
+    MaterialModal.showModal(new ModalContent(), ModalType.FIXED_FOOTER, false);
+    MaterialModal.showModal(new ModalContent(), ModalType.BOTTOM_SHEET, false);
+    MaterialModal.showModal(new ModalContent(), ModalType.WINDOW, false);
 }
 * </pre>
 * 
@@ -60,114 +60,114 @@ import gwt.material.design.client.constants.ModalType;
 //@formatter:on
 public class MaterialModal extends Widget {
 
-	private static HTMLPanel panel = new HTMLPanel("");
+    private static HTMLPanel panel = new HTMLPanel("");
 
-	/**
-	 * Show the modal with composite as a content of the modal
-	 * @param type - Type of modal: FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW
-	 * @param composite - the content of the modal could be any kind of widgets
-	 * @param autoHideEnabled - set true if you want to be your modal closable when clicking outside
-	 */
-	public static void showModal(Widget composite, ModalType type, final boolean autoHideEnabled) {
-		panel.clear();
-		confirmType(type);
-		panel.add(composite);
-		RootPanel.get().add(panel);
+    /**
+     * Show the modal with composite as a content of the modal
+     * @param type - Type of modal: FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW
+     * @param composite - the content of the modal could be any kind of widgets
+     * @param autoHideEnabled - set true if you want to be your modal closable when clicking outside
+     */
+    public static void showModal(Widget composite, ModalType type, final boolean autoHideEnabled) {
+        panel.clear();
+        confirmType(type);
+        panel.add(composite);
+        RootPanel.get().add(panel);
 
-		Scheduler.get().scheduleDeferred(new Command() {
-			@Override
-			public void execute() {
-				showModal(panel.getElement(), autoHideEnabled);
-			}
-		});
-	}
+        Scheduler.get().scheduleDeferred(new Command() {
+            @Override
+            public void execute() {
+                showModal(panel.getElement(), autoHideEnabled);
+            }
+        });
+    }
 
-	/**
-	 * Show the window with composite as a content of the modal
-	 * Its an advance modal with advance features to be added inside like MaterialNavBar, MaterialTabs etc.
-	 * @param composite - the content of the modal could be any kind of widgets 
-	 * @param type - Type of modal:  WINDOW
-	 * @param title - Window title of the modal
-	 * @param headerColor - the color theme of the modal 
-	 * @param autoHideEnabled - set true if you want to be your modal closable when clicking outside
-	 */
-	public static void showWindow(Widget composite, ModalType type, String title,
-								  String headerColor, final boolean autoHideEnabled) {
-		panel.clear();
-		switch (type) {
-			case WINDOW:
-				panel.getElement().setId("modal1");
-				panel.setStyleName("modal material-window");
-				panel.getElement().getStyle().clearBottom();
-				panel.add(new MaterialWindowHeader(panel, title, headerColor));
-				break;
-			default:
-				break;
-		}
-		panel.add(composite);
-		RootPanel.get().add(panel);
+    /**
+     * Show the window with composite as a content of the modal
+     * Its an advance modal with advance features to be added inside like MaterialNavBar, MaterialTabs etc.
+     * @param composite - the content of the modal could be any kind of widgets
+     * @param type - Type of modal:  WINDOW
+     * @param title - Window title of the modal
+     * @param headerColor - the color theme of the modal
+     * @param autoHideEnabled - set true if you want to be your modal closable when clicking outside
+     */
+    public static void showWindow(Widget composite, ModalType type, String title,
+                                  String headerColor, final boolean autoHideEnabled) {
+        panel.clear();
+        switch (type) {
+            case WINDOW:
+                panel.getElement().setId("modal1");
+                panel.setStyleName("modal material-window");
+                panel.getElement().getStyle().clearBottom();
+                panel.add(new MaterialWindowHeader(panel, title, headerColor));
+                break;
+            default:
+                break;
+        }
+        panel.add(composite);
+        RootPanel.get().add(panel);
 
-		Scheduler.get().scheduleDeferred(new Command() {
-			@Override
-			public void execute() {
-				showModal(panel.getElement(), autoHideEnabled);
-			}
-		});
-	}
+        Scheduler.get().scheduleDeferred(new Command() {
+            @Override
+            public void execute() {
+                showModal(panel.getElement(), autoHideEnabled);
+            }
+        });
+    }
 
-	/**
-	 * Setting the modal type for styles and behaviours.
-	 */
-	private static void confirmType(ModalType type) {
-		switch (type) {
-		case FIXED_FOOTER:
-			panel.getElement().setId("modalFix");
-			panel.setStyleName("modal modal-fixed-footer");
-			panel.getElement().getStyle().clearBottom();
-			break;
-		case BOTTOM_SHEET:
-			panel.getElement().setId("modalBottom");
-			panel.getElement().getStyle().setProperty("transform", "");
-			panel.setStyleName("modal bottom-sheet");
-			break;
-		case DEFAULT:
-			panel.getElement().setId("modal");
-			panel.setStyleName("modal");
-			break;
-		default:
-			break;
-		}
-	}
+    /**
+     * Setting the modal type for styles and behaviours.
+     */
+    private static void confirmType(ModalType type) {
+        switch (type) {
+        case FIXED_FOOTER:
+            panel.getElement().setId("modalFix");
+            panel.setStyleName("modal modal-fixed-footer");
+            panel.getElement().getStyle().clearBottom();
+            break;
+        case BOTTOM_SHEET:
+            panel.getElement().setId("modalBottom");
+            panel.getElement().getStyle().setProperty("transform", "");
+            panel.setStyleName("modal bottom-sheet");
+            break;
+        case DEFAULT:
+            panel.getElement().setId("modal");
+            panel.setStyleName("modal");
+            break;
+        default:
+            break;
+        }
+    }
 
-	/**
-	 * Hide the modal.
-	 */
-	public void hide() {
-		panel.getElement().removeAttribute("style");
-		closeModal();
-	}
+    /**
+     * Hide the modal.
+     */
+    public void hide() {
+        panel.getElement().removeAttribute("style");
+        closeModal();
+    }
 
-	/**
-	 * Show the modal with provided id.
-	 */
-	private static native void showModal(Element e, boolean autoHideEnabled) /*-{
-		$wnd.jQuery(e).openModal({
-			dismissible: autoHideEnabled
-		});
-	}-*/;
+    /**
+     * Show the modal with provided id.
+     */
+    private static native void showModal(Element e, boolean autoHideEnabled) /*-{
+        $wnd.jQuery(e).openModal({
+            dismissible: autoHideEnabled
+        });
+    }-*/;
 
-	/**
-	 * Closing the modal with provided id.
-	 */
-	public static native void closeModal(Element e) /*-{
-		$wnd.jQuery(e).closeModal();
-	}-*/;
+    /**
+     * Closing the modal with provided id.
+     */
+    public static native void closeModal(Element e) /*-{
+        $wnd.jQuery(e).closeModal();
+    }-*/;
 
-	/**
-	 * Close the modal.
-	 */
-	public static void closeModal() {
-		panel.clear();
-		closeModal(panel.getElement());
-	}
+    /**
+     * Close the modal.
+     */
+    public static void closeModal() {
+        panel.clear();
+        closeModal(panel.getElement());
+    }
 }

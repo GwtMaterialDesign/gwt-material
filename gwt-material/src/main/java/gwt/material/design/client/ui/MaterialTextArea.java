@@ -60,167 +60,167 @@ import com.google.gwt.user.client.ui.HasText;
 */
 //@formatter:on
 public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPressHandlers,
-		HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder {
+        HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder {
 
-	private String length;
-	private String placeholder;
-	private boolean isValid = true;
+    private String length;
+    private String placeholder;
+    private boolean isValid = true;
 
-	private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel lblError = new MaterialLabel();
 
-	private final ErrorMixin<MaterialTextArea, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
-	
-	private Label label = new Label();
-	private MaterialLabel lblName = new MaterialLabel();
-	private ComplexWidget textArea = new ComplexWidget(Document.get().createElement("textarea"));
-	private MaterialIcon icon = new MaterialIcon();
+    private final ErrorMixin<MaterialTextArea, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
-	public MaterialTextArea() {
-		super(Document.get().createDivElement());
-		setStyleName("input-field");
-		add(icon);
-		add(textArea);
-		textArea.setStyleName("materialize-textarea");
-		add(label);
-		label.add(lblName);
-		lblError.setVisible(false);
-		add(lblError);
-	}
+    private Label label = new Label();
+    private MaterialLabel lblName = new MaterialLabel();
+    private ComplexWidget textArea = new ComplexWidget(Document.get().createElement("textarea"));
+    private MaterialIcon icon = new MaterialIcon();
 
-	public void setInvalid() {
-		removeErrorModifiers();
-		lblName.setStyleName("red-text");
-		textArea.getElement().addClassName("invalid");
-		isValid = false;
-	}
+    public MaterialTextArea() {
+        super(Document.get().createDivElement());
+        setStyleName("input-field");
+        add(icon);
+        add(textArea);
+        textArea.setStyleName("materialize-textarea");
+        add(label);
+        label.add(lblName);
+        lblError.setVisible(false);
+        add(lblError);
+    }
 
-	public void setValid() {
-		removeErrorModifiers();
-		lblName.setStyleName("green-text");
-		textArea.getElement().addClassName("valid");
-		isValid = true;
-	}
+    public void setInvalid() {
+        removeErrorModifiers();
+        lblName.setStyleName("red-text");
+        textArea.getElement().addClassName("invalid");
+        isValid = false;
+    }
 
-	public void removeErrorModifiers() {
-		textArea.getElement().removeClassName("valid");
-		textArea.getElement().removeClassName("invalid");
-	}
+    public void setValid() {
+        removeErrorModifiers();
+        lblName.setStyleName("green-text");
+        textArea.getElement().addClassName("valid");
+        isValid = true;
+    }
 
-	public boolean isValid() {
-		return isValid;
-	}
+    public void removeErrorModifiers() {
+        textArea.getElement().removeClassName("valid");
+        textArea.getElement().removeClassName("invalid");
+    }
 
-	public void setValid(boolean isValid) {
-		this.isValid = isValid;
-	}
+    public boolean isValid() {
+        return isValid;
+    }
 
-	public String getLength() {
-		return length;
-	}
+    public void setValid(boolean isValid) {
+        this.isValid = isValid;
+    }
 
-	public void setLength(String length) {
-		this.length = length;
-		textArea.getElement().setAttribute("length", length);
-	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		label.getElement().setAttribute("for", "field");
-	}
+    public String getLength() {
+        return length;
+    }
 
-	@Override
-	public String getText() {
-		return textArea.getElement().getInnerHTML();
-	}
+    public void setLength(String length) {
+        this.length = length;
+        textArea.getElement().setAttribute("length", length);
+    }
 
-	@Override
-	public void setText(String text) {
-		textArea.getElement().setInnerHTML(text);
-		label.addStyleName("active");
-	}
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        label.getElement().setAttribute("for", "field");
+    }
 
-	@Override
-	public String getPlaceholder() {
-		return placeholder;
-	}
+    @Override
+    public String getText() {
+        return textArea.getElement().getInnerHTML();
+    }
 
-	@Override
-	public void setPlaceholder(String placeholder) {
-		this.placeholder = placeholder;
-		lblName.setText(placeholder);
-	}
+    @Override
+    public void setText(String text) {
+        textArea.getElement().setInnerHTML(text);
+        label.addStyleName("active");
+    }
 
-	@Override
-	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
-		return addDomHandler(handler, KeyDownEvent.getType());
-	}
+    @Override
+    public String getPlaceholder() {
+        return placeholder;
+    }
 
-	@Override
-	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-		return addDomHandler(handler, KeyUpEvent.getType());
-	}
+    @Override
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+        lblName.setText(placeholder);
+    }
 
-	@Override
-	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
-		return addDomHandler(handler, KeyPressEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+        return addDomHandler(handler, KeyDownEvent.getType());
+    }
 
-	@Override
-	public HandlerRegistration addChangeHandler(ChangeHandler handler) {
-		return addDomHandler(handler, ChangeEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+        return addDomHandler(handler, KeyUpEvent.getType());
+    }
 
-	@Override
-	public void setError(String error) {
-		errorMixin.setError(error);
-		setInvalid();
-	}
+    @Override
+    public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+        return addDomHandler(handler, KeyPressEvent.getType());
+    }
 
-	@Override
-	public void setSuccess(String success) {
-		errorMixin.setSuccess(success);
-		setValid();
-	}
+    @Override
+    public HandlerRegistration addChangeHandler(ChangeHandler handler) {
+        return addDomHandler(handler, ChangeEvent.getType());
+    }
 
-	@Override
-	public MaterialIcon getIcon() {
-		return icon;
-	}
+    @Override
+    public void setError(String error) {
+        errorMixin.setError(error);
+        setInvalid();
+    }
 
-	@Override
-	public void setIconType(IconType iconType) {
-		icon.setIconType(iconType);
-		icon.setIconPrefix(true);
-	}
+    @Override
+    public void setSuccess(String success) {
+        errorMixin.setSuccess(success);
+        setValid();
+    }
 
-	@Override
-	public void setIconPosition(IconPosition position) {
-		icon.setIconPosition(position);
-	}
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
 
-	@Override
-	public void setIconSize(IconSize size) {
-		icon.setIconSize(size);
-	}
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        icon.setIconPrefix(true);
+    }
 
-	@Override
-	public void setIconFontSize(double size, Style.Unit unit) {
-		icon.setIconFontSize(size, unit);
-	}
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
 
-	@Override
-	public void setIconColor(String iconColor) {
-		icon.setIconColor(iconColor);
-	}
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
 
-	@Override
-	public void setIconPrefix(boolean prefix) {
-		icon.setIconPrefix(prefix);
-	}
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
 
-	@Override
-	public boolean isIconPrefix() {
-		return icon.isIconPrefix();
-	}
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
+
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
+    }
 }

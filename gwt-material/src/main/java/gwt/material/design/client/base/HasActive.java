@@ -22,13 +22,13 @@ package gwt.material.design.client.base;
 
 public interface HasActive {
 
-	/**
-	 * Set active element.
-	 */
-	void setActive(boolean active);
-	
-	/**
-	 * Get the active element.
-	 */
-	boolean isActive();
+    /**
+     * Set active element.
+     */
+    void setActive(boolean active);
+
+    /**
+     * Get the active element.
+     */
+    boolean isActive();
 }

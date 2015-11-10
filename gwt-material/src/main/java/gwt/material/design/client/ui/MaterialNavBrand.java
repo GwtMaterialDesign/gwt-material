@@ -51,58 +51,58 @@ import com.google.gwt.user.client.ui.HasText;
 //@formatter:on
 public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref, HasPosition {
 
-	private Div div = new Div();
+    private Div div = new Div();
 
-	private final CssNameMixin<MaterialNavBrand, Position> posMixin = new CssNameMixin<>(this);
+    private final CssNameMixin<MaterialNavBrand, Position> posMixin = new CssNameMixin<>(this);
 
-	/**
-	 * Material NavBrand is a component wherein you can pass a text / logo branding of your app
-	 */
-	@UiConstructor
-	public MaterialNavBrand() {
-		super(Document.get().createElement("a"));
-		this.addStyleName("brand-logo");
+    /**
+     * Material NavBrand is a component wherein you can pass a text / logo branding of your app
+     */
+    @UiConstructor
+    public MaterialNavBrand() {
+        super(Document.get().createElement("a"));
+        this.addStyleName("brand-logo");
 
-	}
+    }
 
-	@Override
-	public void setText(String text) {
-		add(div);
-		div.getElement().setInnerText(text);
-	}
+    @Override
+    public void setText(String text) {
+        add(div);
+        div.getElement().setInnerText(text);
+    }
 
-	@Override
-	public String getText() {
-		return div.getElement().getInnerText();
-	}
+    @Override
+    public String getText() {
+        return div.getElement().getInnerText();
+    }
 
-	@Override
-	public String getHref() {
-		return getElement().getAttribute("href");
-	}
+    @Override
+    public String getHref() {
+        return getElement().getAttribute("href");
+    }
 
-	@Override
-	public void setHref(String href) {
-		getElement().setAttribute("href", href);
-	}
+    @Override
+    public void setHref(String href) {
+        getElement().setAttribute("href", href);
+    }
 
-	@Override
-	public String getTarget() {
-		return getElement().getAttribute("target");
-	}
+    @Override
+    public String getTarget() {
+        return getElement().getAttribute("target");
+    }
 
-	@Override
-	public void setTarget(String target) {
-		getElement().setAttribute("target", target);
-	}
+    @Override
+    public void setTarget(String target) {
+        getElement().setAttribute("target", target);
+    }
 
-	@Override
-	public Position getPosition() {
-		return posMixin.getCssName();
-	}
+    @Override
+    public Position getPosition() {
+        return posMixin.getCssName();
+    }
 
-	@Override
-	public void setPosition(Position position) {
-		posMixin.setCssName(position);
-	}
+    @Override
+    public void setPosition(Position position) {
+        posMixin.setCssName(position);
+    }
 }
