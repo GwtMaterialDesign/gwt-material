@@ -19,14 +19,17 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
 /**
@@ -45,170 +48,30 @@ import gwt.material.design.client.base.ComplexWidget;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
  */
 //@formatter:on
-public class MaterialSplashScreen extends ComplexWidget {
+public class MaterialSplashScreen extends ComplexWidget implements HasVisibility{
 
-    interface MaterialSplashScreenUiBinder extends UiBinder<Widget, MaterialSplashScreen> {
-    }
+    private Div div = new Div();
+    private MaterialProgress progress = new MaterialProgress();
 
-    MaterialImage imgLogo;
-    MaterialTitle title;
-    MaterialPanel panel;
-
-    private ImageResource logo;
-    private String appName;
-    private String appDescription;
-    private int splashTime = 5000;
-    private Widget main;
-
-    public MaterialSplashScreen() {
-        super(DOM.createDiv());
-        imgLogo = new MaterialImage();
-        title = new MaterialTitle();
-        panel = new MaterialPanel();
-    }
-
-    /**
-     * Material Splashscreen implementation on GWT Apps, its good for loading purposes
-     * @param splashTime - The delay time in millisecond to show the splash screen
-     * @param main - The Main Composite or landing page after the splash screen
-     * @param logo - The logo of your app
-     * @param appName - The Name of your app
-     * @param appDescription - The Description of your app
-     * @param bgColor - The background color of your app
-     * @param textColor - The text color of your app
-     */
-    public MaterialSplashScreen(int splashTime,
-                                Widget main,
-                                ImageResource logo,
-                                String appName,
-                                String appDescription,
-                                String bgColor,
-                                String textColor) {
-        this();
-        setSplashTime(splashTime);
-        setLogo(logo);
-        setAppName(appName);
-        setAppDescription(appDescription);
-        setBackgroundColor(bgColor);
-        setTextColor(textColor);
-        setMain(main);
-    }
-
-    /**
-     * Show the splash screen
-     */
-    public void show() {
-        RootPanel.get().add(this);
-        RootPanel.get().add(main);
-        main.getElement().getStyle().setDisplay(Display.NONE);
-
-        new Timer() {
-            @Override
-            public void run() {
-                MaterialSplashScreen.this.removeFromParent();
-                main.getElement().getStyle().setDisplay(Display.BLOCK);
-            }
-            @Override
-            public void cancel() {
-                super.cancel();
-            }
-        }
-        .schedule(splashTime);
-    }
-
-    public ImageResource getLogo() {
-        return logo;
-    }
-
-    /**
-     * The logo of the Splash screen .
-     * @param logo ImageResource object
-     */
-    public void setLogo(ImageResource logo) {
-        this.logo = logo;
-        imgLogo.setResource(logo);
-    }
-
-    public String getAppName() {
-        return appName;
-    }
-
-    /**
-     * The app name displayed on Splash Screen.
-     * @param appName Application name string
-     */
-    public void setAppName(String appName) {
-        this.appName = appName;
-        title.setTitle(appName);
-    }
-
-    public String getAppDescription() {
-        return appDescription;
-    }
-
-    /**
-     * Optional , you can add your app description on Splash Screen.
-     * @param appDescription Description string
-     */
-    public void setAppDescription(String appDescription) {
-        this.appDescription = appDescription;
-        title.setDescription(appDescription);
+    public MaterialSplashScreen(){
+        super(Document.get().createDivElement());
+        setStyleName("splash-screen");
+        div.setWidth("100%");
+        super.add(div);
+        super.add(progress);
     }
 
     @Override
-    public void setBackgroundColor(String bgColor) {
-        panel.setBackgroundColor(bgColor);
+    public void add(Widget child) {
+        div.add(child);
     }
 
-    @Override
-    public String getBackgroundColor() {
-        return panel.getBackgroundColor();
+    public void show(){
+        getElement().getStyle().setDisplay(Display.BLOCK);
     }
 
-    @Override
-    public String getTextColor() {
-        return title.getTextColor();
-    }
-
-    @Override
-    public void setTextColor(String textColor) {
-        title.setTextColor(textColor);
-    }
-
-    /**
-     * @return the logo
-     */
-    public MaterialImage getImgLogo() {
-        return imgLogo;
-    }
-
-    /**
-     * @return the splashtime
-     */
-    public int getSplashTime() {
-        return splashTime;
-    }
-
-    /**
-     * How long it will take to show your splash screen, by default 5 seconds or 5000 ms
-     * @param splashTime Splash time in milliseconds
-     */
-    public void setSplashTime(int splashTime) {
-        this.splashTime = splashTime;
-    }
-
-    /**
-     * @return the main
-     */
-    public Widget getMain() {
-        return main;
-    }
-
-    /**
-     * @param main the main to set
-     */
-    public void setMain(Widget main) {
-        this.main = main;
+    public void hide(){
+        getElement().getStyle().setDisplay(Display.NONE);
     }
 
 }
