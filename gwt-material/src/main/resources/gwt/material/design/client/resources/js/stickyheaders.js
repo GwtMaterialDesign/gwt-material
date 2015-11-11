@@ -16,8 +16,8 @@ var stickyHeaders = (function() {
             .data('originalHeight', $thisSticky.outerHeight());
       });
 
-      target.off("scroll.stickies").on("scroll.stickies", function(event) {
-		    _whenScrolling(event);		
+      $(window).off("scroll.stickies").on("scroll.stickies", function(event) {
+        _whenScrolling(event);
       });
     }
   };
@@ -34,23 +34,23 @@ var stickyHeaders = (function() {
           $nextSticky;
 
       if ($stickyPosition <= $scrollTop) {
-       
+
         $newPosition = Math.max(0, $scrollTop - $stickyPosition);
         $nextSticky = $stickies.eq(i + 1);
-        
+
         if($nextSticky.length > 0) {
-          
+
           $newPosition = Math.min($newPosition,
               ($nextSticky.data('originalPosition') - $stickyPosition) - $thisSticky.data('originalHeight'));
         }
         $thisSticky.addClass('z-depth-1');
-      } else {	
+      } else {
         $newPosition = 0;
         $thisSticky.removeClass('z-depth-1');
       }
-      
+
       $thisSticky.css('transform', 'translateY(' + $newPosition + 'px)');
-      
+
       //could just as easily use top instead of transform
       //$thisSticky.css('top', $newPosition + 'px');
     });
