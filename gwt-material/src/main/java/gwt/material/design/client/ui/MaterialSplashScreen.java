@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -56,7 +57,9 @@ public class MaterialSplashScreen extends ComplexWidget implements HasVisibility
     public MaterialSplashScreen(){
         super(Document.get().createDivElement());
         setStyleName("splash-screen");
+        setDisplay(Display.NONE);
         div.setWidth("100%");
+        div.getElement().getStyle().setMarginTop(15, Style.Unit.PCT);
         super.add(div);
         super.add(progress);
     }
