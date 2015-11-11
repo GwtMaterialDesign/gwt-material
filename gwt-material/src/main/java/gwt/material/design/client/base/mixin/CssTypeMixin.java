@@ -20,17 +20,16 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-import gwt.material.design.client.constants.CssType;
-import gwt.material.design.client.base.HasType;
-
 import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.constants.CssType;
 
 /**
  * @author Ben Dol
  */
 public class CssTypeMixin<T extends CssType, H extends UIObject & HasType<T>> extends AbstractMixin<H> implements HasType<T> {
 
-    private CssType type;
+    private T type;
 
     public CssTypeMixin(final H widget) {
         super(widget);
@@ -50,6 +49,6 @@ public class CssTypeMixin<T extends CssType, H extends UIObject & HasType<T>> ex
 
     @Override
     public T getType() {
-        return null;
+        return type;
     }
 }

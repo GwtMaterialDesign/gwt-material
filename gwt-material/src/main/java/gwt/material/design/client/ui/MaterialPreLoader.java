@@ -59,7 +59,7 @@ public class MaterialPreLoader extends ComplexWidget {
     public void setSize(LoaderSize size){
         sizeMixin.setCssName(size);
     }
-    
+
     public LoaderSize getSize() {
         return sizeMixin.getCssName();
     }

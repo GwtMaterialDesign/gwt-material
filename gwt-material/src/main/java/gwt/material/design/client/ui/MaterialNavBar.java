@@ -28,6 +28,7 @@ import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.NavBarType;
 import gwt.material.design.client.constants.TextAlign;
@@ -81,6 +82,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasT
         navMenu.setWaves(WavesType.LIGHT);
         navMenu.setWidth("64px");
         navMenu.setTextAlign(TextAlign.CENTER);
+        navMenu.setIconPosition(IconPosition.NONE);
     }
 
     @Override

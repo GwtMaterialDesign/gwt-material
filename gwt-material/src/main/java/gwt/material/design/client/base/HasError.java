@@ -20,14 +20,13 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-
 public interface HasError {
 
     /**
      * Errors occur when an app fails to complete what is expected, such as:
      *  - The app does not understand user input
-     *    - The system or app fails
-     *    - A user intends to run incompatible operations concurrently
+     *  - The system or app fails
+     *  - A user intends to run incompatible operations concurrently
      */
     void setError(String error);
 

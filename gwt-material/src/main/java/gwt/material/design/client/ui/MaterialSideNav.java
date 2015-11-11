@@ -25,15 +25,19 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.events.ObservedEvent;
+import gwt.material.design.client.base.StyleAttributeObserver;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
+import gwt.material.design.client.events.SideNavHiddenEvent;
+import gwt.material.design.client.events.SideNavShownEvent;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
-
 
 //@formatter:off
 
@@ -60,6 +64,10 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
     private int width = 240;
     private Edge edge = Edge.LEFT;
     private boolean closeOnClick = false;
+    private Element activator;
+    private HandlerRegistration observedHandler;
+
+    private StyleAttributeObserver observer = new StyleAttributeObserver(this, "left");
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
 
@@ -159,14 +167,64 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
         return typeMixin.getType();
     }
 
+    private void processType(SideNavType type) {
+        if(activator != null && type != null) {
+            switch (type) {
+                case MINI:
+                    setWidth(64);
+                case CLOSE: {
+                    String style = activator.getAttribute("style");
+                    activator.setAttribute("style", style + "; display: block !important");
+                    break;
+                }
+            }
+        }
+    }
+
+    public void reinitialize() {
+        activator = null;
+        initialize(false);
+    }
+
     public void initialize() {
-        Element activator = DOMHelper.getElementByAttribute("data-activates", getId());
-        if(activator != null && activator.getClassName().contains("button-collapse")) {
-            initialize(activator, width, closeOnClick, edge.getCssName());
-        } else {
-            throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                "please ensure you have a MaterialNavBar with an activator setup to match " +
-                "this widgets id.");
+        initialize(true);
+    }
+
+    public void initialize(boolean strict) {
+        if(activator == null) {
+            activator = DOMHelper.getElementByAttribute("data-activates", getId());
+            if (activator != null && activator.getClassName().contains("button-collapse")) {
+                processType(getType());
+
+                if(observedHandler != null) {
+                    observedHandler.removeHandler();
+                }
+                observedHandler = observer.addObservedHandler(new ObservedEvent.ObservedHandler() {
+                    @Override
+                    public void onObserved(ObservedEvent event) {
+                        /*switch (getType()) {
+                            case MINI:
+                            case CLOSE: {
+                                hideOverlay();
+                                RootPanel.getBodyElement().getStyle().clearOverflow();
+                                break;
+                            }
+                        }*/
+                        if(event.getValue().equals("0px")) {
+                            SideNavShownEvent.fire(MaterialSideNav.this);
+                        } else if(event.getValue().equals("-250px")) {
+                            SideNavHiddenEvent.fire(MaterialSideNav.this);
+                        }
+                    }
+                });
+                observer.observe(getElement());
+
+                initialize(activator, width, closeOnClick, edge.getCssName());
+            } else if(strict) {
+                throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
+                    "please ensure you have a MaterialNavBar with an activator setup to match " +
+                    "this widgets id.");
+            }
         }
     }
 
@@ -181,11 +239,11 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
     }-*/;
 
     /**
-     * Hide the overlay menu
+     * Hide the overlay menu.
      */
     public native void hideOverlay()/*-{
         $wnd.jQuery(document).ready(function(){
-            $wnd.jQuery('#sidenav-overlay').css('z-index', '994');
+            $wnd.jQuery('#sidenav-overlay').remove();
         })
     }-*/;
 

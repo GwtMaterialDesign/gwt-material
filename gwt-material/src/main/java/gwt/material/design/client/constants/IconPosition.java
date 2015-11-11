@@ -20,7 +20,6 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.helper.EnumHelper;
 
@@ -28,6 +27,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum IconPosition implements Style.HasCssName {
+    NONE(""),
     LEFT("left"),
     RIGHT("right");
 
