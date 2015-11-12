@@ -54,6 +54,8 @@ public class MaterialSubHeader extends Div implements HasText, HasIcon {
     private MaterialIcon icon = new MaterialIcon();
     private Span span = new Span();
 
+    private boolean initialized = false;
+
     public MaterialSubHeader() {
         setStyleName("subheader");
     }
@@ -118,7 +120,10 @@ public class MaterialSubHeader extends Div implements HasText, HasIcon {
     }
 
     private void initialize() {
-        initialize(getElement());
+        if(!initialized) {
+            initialize(getElement());
+            initialized = true;
+        }
     }
 
     private native void initialize(Element e) /*-{
