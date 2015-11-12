@@ -9,7 +9,9 @@ A Google Material Design wrapper for GWT<br/>
 * [1.5 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
-Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki)
+Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
+We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs" > Java Docs </a> for developers 
+
 
 ## Maven
 ```xml
