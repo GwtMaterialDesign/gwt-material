@@ -755,12 +755,23 @@ i[class*="waves-"].material-icons {
 }
 
 /** Sub Header */
+/** Sub Header */
 .subheader {
-  	padding: 10px 20px;
- 	position: relative;
-  	z-index: 1;
 	background: #fff;
-	font-weight: bold;
+	padding: 10px 20px;
+	position: relative;
+	z-index: 1;
+	color: #fff;
+}
+.subheader.fixed {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 999;
+}
+.subheader.fixed.absolute {
+	position: absolute;
 }
 
 /** Splashscreen */
