@@ -28,6 +28,9 @@ You can find lists of features by version <a href="https://github.com/GwtMateria
 ## Current Snapshot
 1.5-SNAPSHOT
 
+### Migration
+[Migrating from 1.3 to 1.4](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-1.3-to-1.4)
+
 ## License
 [Apache 2.0 License](https://github.com/GwtMaterialDesign/gwt-material/blob/master/LICENSE)
 
