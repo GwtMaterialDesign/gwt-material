@@ -23,17 +23,24 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.StyleAttributeObserver;
 import gwt.material.design.client.base.helper.DOMHelper;
+import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
+import gwt.material.design.client.events.ClearActiveEvent;
+import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 import gwt.material.design.client.events.ObservedEvent;
 import gwt.material.design.client.events.SideNavHiddenEvent;
 import gwt.material.design.client.events.SideNavHiddenEvent.SideNavHiddenHandler;
@@ -62,7 +69,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
  */
 //@formatter:on
-public class MaterialSideNav extends UnorderedList implements HasType<SideNavType> {
+public class MaterialSideNav extends UnorderedList implements HasType<SideNavType>, HasSelectables {
 
     private int width = 240;
     private Edge edge = Edge.LEFT;
@@ -130,8 +137,20 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
             child.getElement().getStyle().setProperty("textAlign", "center");
         }
 
+        boolean collapsible = child instanceof MaterialCollapsible;
+        if(collapsible) {
+            // Since the collapsible is separ
+            ((MaterialCollapsible)child).addClearActiveHandler(new ClearActiveHandler() {
+                @Override
+                public void onClearActive(ClearActiveEvent event) {
+                    clearActive();
+                }
+            });
+        }
+
         if(!(child instanceof ListItem)) {
-            ListItem listItem = new ListItem();
+            // Direct list item not collapsible
+            final ListItem listItem = new ListItem();
             if(child instanceof MaterialCollapsible) {
                 listItem.getElement().getStyle().setBackgroundColor("transparent");
             }
@@ -140,7 +159,21 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
                 ((HasWaves) child).setWaves(null);
             }
             listItem.add(child);
+
             child = listItem;
+        }
+
+        // Collapsible's should not be selectable
+        final Widget finalChild = child;
+        if(!collapsible) {
+            // Active click handler
+            finalChild.addDomHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent event) {
+                    clearActive();
+                    finalChild.addStyleName("active");
+                }
+            }, ClickEvent.getType());
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
         super.add(child);
@@ -168,8 +201,9 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
     }
 
     /**
-     * Close the side nav menu when an \<a\> tag is clicked from inside it.
-     * Note that if you want this to work you must wrap your item within a {@link MaterialLink}.
+     * Close the side nav menu when an \<a\> tag is clicked
+     * from inside it. Note that if you want this to work you
+     * must wrap your item within a {@link MaterialLink}.
      */
     public void setCloseOnClick(boolean closeOnClick){
         this.closeOnClick = closeOnClick;
@@ -191,8 +225,8 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
     }
 
     /**
-     * When the menu is fixed the
-     * @param fixed
+     * Fixed determines its display state on loading
+     * (fixed being visible on load).
      */
     public void setFixed(boolean fixed) {
         fixedMixin.setOn(fixed);
@@ -216,6 +250,26 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
                 case MINI:
                     setWidth(64);
                     break;
+            }
+        }
+    }
+
+    @Override
+    public void clearActive() {
+        clearActive(this);
+
+        ClearActiveEvent.fire(this);
+    }
+
+    private void clearActive(HasWidgets widget) {
+        for(Widget child : widget) {
+            Element element = child.getElement();
+            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
+                element.removeClassName("active");
+            }
+
+            if(child instanceof HasWidgets) {
+                clearActive((HasWidgets)child);
             }
         }
     }
@@ -246,14 +300,6 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
                 observedHandler = observer.addObservedHandler(new ObservedEvent.ObservedHandler() {
                     @Override
                     public void onObserved(ObservedEvent event) {
-                        /*switch (getType()) {
-                            case MINI:
-                            case CLOSE: {
-                                hideOverlay();
-                                RootPanel.getBodyElement().getStyle().clearOverflow();
-                                break;
-                            }
-                        }*/
                         if(event.getValue().equals("0px")) {
                             SideNavShownEvent.fire(MaterialSideNav.this);
                         } else if(event.getValue().equals("-"+getWidth()+"px")) {
@@ -278,7 +324,7 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
     }
 
     private static native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
-        $wnd.jQuery(document).ready(function() {
+        $wnd.jQuery(e).ready(function() {
             $wnd.jQuery(e).sideNav({
                 menuWidth: width,
                 edge: edge,

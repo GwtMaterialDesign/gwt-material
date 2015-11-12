@@ -465,7 +465,7 @@ nav .nav-wrapper .side-nav i {
 	line-height: inherit;
 }
 
-.side-nav .collapsible-header , .side-nav .collapsible-body {
+.side-nav .collapsible-header, .side-nav .collapsible-body {
 	padding: 0 !important;
 	margin: 0 !important;
 }
@@ -486,10 +486,6 @@ nav .nav-wrapper .collapsible-body {
 
 .collection .collection-item .secondary-content i {
 	margin-top: -5px;
-}
-
-ul.side-nav.fixed li:hover,ul.side-nav.fixed li.active {
-	background-color: rgba(0, 0, 0, 0.05);
 }
 
 @media only screen and (max-width : 992px) {

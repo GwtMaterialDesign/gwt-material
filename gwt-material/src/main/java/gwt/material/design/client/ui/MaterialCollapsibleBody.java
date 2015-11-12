@@ -22,8 +22,13 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -36,7 +41,9 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleBody extends ComplexWidget {
+public class MaterialCollapsibleBody extends ComplexWidget implements HasCollapsibleParent {
+
+    private MaterialCollapsible parent;
 
     /**
      * Creates empty collapsible body.
@@ -57,16 +64,108 @@ public class MaterialCollapsibleBody extends ComplexWidget {
     }
 
     @Override
-    public void add(Widget child) {
+    public void setParent(MaterialCollapsible parent) {
+        this.parent = parent;
+
+        for(Widget child : this) {
+            checkActiveState(child);
+
+            if(child instanceof HasCollapsibleParent) {
+                ((HasCollapsibleParent) child).setParent(parent);
+            }
+        }
+    }
+
+    @Override
+    public void add(final Widget child) {
         if(child instanceof UnorderedList) {
             for(Widget w : (UnorderedList) child) {
                 if(w instanceof ListItem) {
                     w.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+
+                    provideActiveClickHandler(w);
                 }
             }
         } else if(child instanceof ListItem) {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+
+            provideActiveClickHandler(child);
         }
         super.add(child);
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        if(w instanceof HasCollapsibleParent) {
+            ((HasCollapsibleParent)w).setParent(null);
+        }
+        return super.remove(w);
+    }
+
+    public void makeActive(Widget child) {
+        parent.clearActive();
+
+        // mark the collapsible item as active
+        MaterialCollapsibleItem item = findCollapsibleItemParent(child);
+        if(item != null) {
+            item.expand();
+        }
+
+        child.addStyleName("active");
+    }
+
+    private void provideActiveClickHandler(final Widget child) {
+        // Active click handler
+        child.addDomHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                makeActive(child);
+            }
+        }, ClickEvent.getType());
+    }
+
+    /**
+     * Checks if this child holds the current active state.
+     * If the child is or contains the active state it is applied.
+     */
+    private void checkActiveState(Widget child) {
+        // Check if this widget has a valid href
+        String href = child.getElement().getAttribute("href");
+        String url = Window.Location.getHref();
+        String location = url.substring(url.indexOf("#"), url.length());
+
+        if(!href.isEmpty() && location.startsWith(href)) {
+            ListItem li = findListItemParent(child);
+            if(li != null) {
+                makeActive(li);
+            }
+        } else if(child instanceof HasWidgets) {
+            // Recursive check
+            for(Widget w : (HasWidgets)child) {
+                checkActiveState(w);
+            }
+        }
+    }
+
+    private MaterialCollapsibleItem findCollapsibleItemParent(Widget widget) {
+        if(widget != null) {
+            if (widget instanceof MaterialCollapsibleItem) {
+                return (MaterialCollapsibleItem) widget;
+            } else {
+                return findCollapsibleItemParent(widget.getParent());
+            }
+        }
+        return null;
+    }
+
+    private ListItem findListItemParent(Widget widget) {
+        if(widget != null) {
+            if (widget instanceof ListItem) {
+                return (ListItem) widget;
+            } else {
+                return findListItemParent(widget.getParent());
+            }
+        }
+        return null;
     }
 }

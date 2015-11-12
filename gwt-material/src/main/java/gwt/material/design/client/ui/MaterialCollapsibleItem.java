@@ -1,9 +1,10 @@
 package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 import gwt.material.design.client.ui.html.ListItem;
 
 /*
@@ -35,7 +36,11 @@ import gwt.material.design.client.ui.html.ListItem;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleItem extends ListItem implements HasWidgets {
+public class MaterialCollapsibleItem extends ListItem implements HasWidgets, HasCollapsibleParent {
+
+    private MaterialCollapsible parent;
+    private MaterialCollapsibleBody body;
+    private MaterialCollapsibleHeader header;
 
     /**
      * Creates an empty collapsible item.
@@ -55,10 +60,75 @@ public class MaterialCollapsibleItem extends ListItem implements HasWidgets {
     }
 
     @Override
+    public void add(Widget child) {
+        if(child instanceof MaterialCollapsibleBody) {
+            body = (MaterialCollapsibleBody)child;
+        }
+        else if(child instanceof MaterialCollapsibleHeader) {
+            header = (MaterialCollapsibleHeader)child;
+        }
+        super.add(child);
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        if(w instanceof HasCollapsibleParent) {
+            ((HasCollapsibleParent)w).setParent(null);
+        }
+
+        if(w.equals(body)) {
+            body = null;
+        } else if(w.equals(header)) {
+            header = null;
+        }
+        return super.remove(w);
+    }
+
+    public void setParent(MaterialCollapsible parent) {
+        this.parent = parent;
+
+        for(Widget child : this) {
+            if(child instanceof HasCollapsibleParent) {
+                ((HasCollapsibleParent) child).setParent(parent);
+            }
+        }
+    }
+
+    @Override
     public void setWaves(WavesType waves) {
         super.setWaves(waves);
 
         // Waves change to inline block
-        setDisplay(Style.Display.BLOCK);
+        setDisplay(Display.BLOCK);
+    }
+
+    /**
+     * Expand the body panel.
+     */
+    public void expand() {
+        if(body != null) {
+            setActive(true);
+            body.setDisplay(Display.BLOCK);
+        }
+    }
+
+    public void collapse() {
+        if(body != null) {
+            setActive(false);
+            body.setDisplay(Display.NONE);
+        }
+    }
+
+    public void setActive(boolean active) {
+        removeStyleName("active");
+        if(active) {
+            parent.clearActive();
+            addStyleName("active");
+
+            if(header != null) {
+                header.removeStyleName("active");
+                header.addStyleName("active");
+            }
+        }
     }
 }

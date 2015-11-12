@@ -20,13 +20,20 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.CollapsibleType;
-import gwt.material.design.client.base.ComplexWidget;
-
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.web.bindery.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasSelectables;
+import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.constants.CollapsibleType;
+import gwt.material.design.client.events.ClearActiveEvent;
+import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 
 //@formatter:off
+
 /**
  * Collapsibles are accordion elements that expand when clicked on.
  * They allow you to hide content that is not immediately relevant
@@ -82,9 +89,11 @@ import com.google.gwt.user.client.ui.Widget;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends ComplexWidget {
+public class MaterialCollapsible extends ComplexWidget implements HasSelectables {
 
-    private int index;
+    protected interface HasCollapsibleParent {
+        void setParent(MaterialCollapsible parent);
+    }
 
     /**
      * Creates an empty collapsible
@@ -107,24 +116,35 @@ public class MaterialCollapsible extends ComplexWidget {
     @Override
     protected void onLoad() {
         super.onLoad();
+
         onInitCollapsible(getElement());
     }
 
     @Override
-    protected void onUnload() {
-        super.onUnload();
-    }
+    public void add(final Widget child) {
+        if(child instanceof MaterialCollapsibleItem) {
+            ((MaterialCollapsibleItem) child).setParent(this);
+        }
 
-    @Override
-    public void add(Widget child) {
+        onInitCollapsible(getElement());
+
         super.add(child);
-        onInitCollapsible(getElement());
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        if(w instanceof MaterialCollapsibleItem) {
+            ((MaterialCollapsibleItem) w).setParent(null);
+        }
+        w.removeStyleName("active");
+
+        return super.remove(w);
     }
 
     /**
      * Initialize the collapsible material component.
      */
-    private native void onInitCollapsible(final com.google.gwt.dom.client.Element e) /*-{
+    protected native void onInitCollapsible(final Element e) /*-{
         $wnd.jQuery(document).ready(function(){
             $wnd.jQuery(e).collapsible();
         })
@@ -132,30 +152,45 @@ public class MaterialCollapsible extends ComplexWidget {
 
     public void setType(CollapsibleType type) {
         switch (type) {
-        case POPOUT:
-            this.getElement().setAttribute("data-collapsible", "accordion");
-            this.addStyleName(type.getCssName());
-            break;
-        default:
-            getElement().setAttribute("data-collapsible", type.getCssName());
-            break;
+            case POPOUT:
+                this.getElement().setAttribute("data-collapsible", "accordion");
+                this.addStyleName(type.getCssName());
+                break;
+            default:
+                getElement().setAttribute("data-collapsible", type.getCssName());
+                break;
         }
     }
 
     public void setActive(int index) {
-        this.index = index;
-        Widget activeWidget = getActive();
+        clearActive();
+        Widget activeWidget = getWidget(index);
         if(activeWidget != null) {
-            activeWidget.removeStyleName("active");
             activeWidget.addStyleName("active");
         }
     }
 
-    public Widget getActive() {
-        try {
-            return getWidget(index);
-        } catch (IndexOutOfBoundsException ex) {
-            return null;
+    public HandlerRegistration addClearActiveHandler(ClearActiveHandler handler) {
+        return addHandler(handler, ClearActiveEvent.TYPE);
+    }
+
+    @Override
+    public void clearActive() {
+        clearActive(this);
+
+        ClearActiveEvent.fire(this);
+    }
+
+    private void clearActive(HasWidgets widget) {
+        for(Widget child : widget) {
+            Element element = child.getElement();
+            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
+                element.removeClassName("active");
+            }
+
+            if(child instanceof HasWidgets) {
+                clearActive((HasWidgets)child);
+            }
         }
     }
 }
