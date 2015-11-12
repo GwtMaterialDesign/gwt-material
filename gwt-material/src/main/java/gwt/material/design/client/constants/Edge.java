@@ -25,13 +25,11 @@ import gwt.material.design.client.base.helper.EnumHelper;
 
 public enum Edge implements Style.HasCssName {
     LEFT("left"),
-    RIGHT("right"),
-    TOP("top"),
-    BOTTOM("bottom");
+    RIGHT("right");
 
     private final String cssClass;
 
-    private Edge(final String cssClass) {
+    Edge(final String cssClass) {
         this.cssClass = cssClass;
     }
 

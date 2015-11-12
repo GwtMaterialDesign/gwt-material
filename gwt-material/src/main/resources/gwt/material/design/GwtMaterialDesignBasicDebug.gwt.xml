@@ -9,7 +9,7 @@
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
   
-       http://www.apache.org/licenses/LICENSE-2.0
+     http://www.apache.org/licenses/LICENSE-2.0
   
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,10 +24,10 @@
   so that your app can take advantage of the latest GWT module capabilities.
 -->
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
-        "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
+    "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module>
   <inherits name='gwt.material.design.GwtMaterialDesignBase'/>
-  <inherits name='gwt.material.design.Resources'/>
+  <inherits name='gwt.material.design.ResourcesBasic'/>
 
   <!-- Specify the app entry point class -->
   <entry-point class='gwt.material.design.client.MaterialDesignDebug'/>

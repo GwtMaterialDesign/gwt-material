@@ -28,14 +28,17 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.events.ObservedEvent;
 import gwt.material.design.client.base.StyleAttributeObserver;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
+import gwt.material.design.client.events.ObservedEvent;
 import gwt.material.design.client.events.SideNavHiddenEvent;
+import gwt.material.design.client.events.SideNavHiddenEvent.SideNavHiddenHandler;
 import gwt.material.design.client.events.SideNavShownEvent;
+import gwt.material.design.client.events.SideNavShownEvent.SideNavShownHandler;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -70,6 +73,7 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
     private StyleAttributeObserver observer = new StyleAttributeObserver(this, "left");
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
+    private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, "fixed");
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -105,6 +109,20 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
         initialize();
     }
 
+    /**
+     * This handler will be triggered when the side nav is shown.
+     */
+    public HandlerRegistration addShownHandler(SideNavShownHandler handler) {
+        return addHandler(handler, SideNavShownEvent.TYPE);
+    }
+
+    /**
+     * This handler will be triggered when the side nav is hidden.
+     */
+    public HandlerRegistration addHiddenHandler(SideNavHiddenHandler handler) {
+        return addHandler(handler, SideNavHiddenEvent.TYPE);
+    }
+
     @Override
     public void add(Widget child) {
         if(child instanceof MaterialImage) {
@@ -133,6 +151,9 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
         setWidth(Integer.parseInt(width));
     }
 
+    /**
+     * Set the menu's width in pixels.
+     */
     public void setWidth(int width){
         this.width = width;
         getElement().getStyle().setWidth(width, Unit.PX);
@@ -146,6 +167,10 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
         return closeOnClick;
     }
 
+    /**
+     * Close the side nav menu when an \<a\> tag is clicked from inside it.
+     * Note that if you want this to work you must wrap your item within a {@link MaterialLink}.
+     */
     public void setCloseOnClick(boolean closeOnClick){
         this.closeOnClick = closeOnClick;
     }
@@ -154,10 +179,28 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
         return edge;
     }
 
+    /**
+     * Set which edge of the window the menu should attach to.
+     */
     public void setEdge(Edge edge) {
         this.edge = edge;
     }
 
+    public boolean isFixed() {
+        return fixedMixin.isOn();
+    }
+
+    /**
+     * When the menu is fixed the
+     * @param fixed
+     */
+    public void setFixed(boolean fixed) {
+        fixedMixin.setOn(fixed);
+    }
+
+    /**
+     * Define the menu's type specification.
+     */
     public void setType(SideNavType type) {
         typeMixin.setType(type);
     }
@@ -172,29 +215,30 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
             switch (type) {
                 case MINI:
                     setWidth(64);
-                case CLOSE: {
-                    String style = activator.getAttribute("style");
-                    activator.setAttribute("style", style + "; display: block !important");
                     break;
-                }
             }
         }
     }
 
+    /**
+     * reinitialize the side nav configurations when changing
+     * properties.
+     */
     public void reinitialize() {
         activator = null;
         initialize(false);
     }
 
-    public void initialize() {
+    protected void initialize() {
         initialize(true);
     }
 
-    public void initialize(boolean strict) {
+    protected void initialize(boolean strict) {
         if(activator == null) {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             if (activator != null && activator.getClassName().contains("button-collapse")) {
-                processType(getType());
+                SideNavType type = getType();
+                processType(type);
 
                 if(observedHandler != null) {
                     observedHandler.removeHandler();
@@ -212,7 +256,7 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
                         }*/
                         if(event.getValue().equals("0px")) {
                             SideNavShownEvent.fire(MaterialSideNav.this);
-                        } else if(event.getValue().equals("-250px")) {
+                        } else if(event.getValue().equals("-"+getWidth()+"px")) {
                             SideNavHiddenEvent.fire(MaterialSideNav.this);
                         }
                     }
@@ -220,6 +264,11 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
                 observer.observe(getElement());
 
                 initialize(activator, width, closeOnClick, edge.getCssName());
+
+                if(!isFixed()) {
+                    String style = activator.getAttribute("style");
+                    activator.setAttribute("style", style + "; display: block !important");
+                }
             } else if(strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
                     "please ensure you have a MaterialNavBar with an activator setup to match " +
@@ -248,7 +297,7 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
     }-*/;
 
     /**
-     * Shoe the sidenav.
+     * Show the sidenav.
      */
     public native void show(Element e)/*-{
         $wnd.jQuery(e).sideNav('show');
