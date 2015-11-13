@@ -30,6 +30,6 @@ public interface MaterialDebugResources extends ClientBundle {
     @Source("js/timepicker-0.1.0.js")
     TextResource timepickerJsDebug();
 
-    @Source("js/materialize-0.97.1.js")
+    @Source("js/materialize-0.97.2.js")
     TextResource materializeJsDebug();
 }
