@@ -20,11 +20,15 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
-
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.FABType;
 
 //@formatter:off
+
 /**
  * Floating action buttons are used for a promoted action. They
  * are distinguished by a circled icon floating above the UI and
@@ -49,10 +53,43 @@ import com.google.gwt.dom.client.Document;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends ComplexWidget {
+public class MaterialFAB extends ComplexWidget implements HasType<FABType>{
 
+    CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     public MaterialFAB() {
         super(Document.get().createDivElement());
         setStyleName("fixed-action-btn");
     }
+
+    @Override
+    public void setType(FABType type) {
+        typeMixin.setType(type);
+    }
+
+    @Override
+    public FABType getType() {
+        return typeMixin.getType();
+    }
+
+    /**
+     * Open the FAB programmatically
+     */
+    public void openFAB(){
+        openFAB(getElement());
+    }
+
+    public native void openFAB(Element e)/*-{
+        $wnd.jQuery(e).openFAB();
+    }-*/;
+
+    /**
+     * Close the FAB programmatically
+     */
+    public void closeFAB(){
+        closeFAB(getElement());
+    }
+
+    public native void closeFAB(Element e)/*-{
+        $wnd.jQuery(e).closeFAB();
+    }-*/;
 }
