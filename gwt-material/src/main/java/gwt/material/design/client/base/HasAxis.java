@@ -1,4 +1,4 @@
-package gwt.material.design.client.constants;
+package gwt.material.design.client.base;
 
 /*
  * #%L
@@ -20,24 +20,12 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum FABType implements CssType{
-    HOVER(""),
-    CLICK_ONLY("click-to-toggle");
+import gwt.material.design.client.constants.Axis;
 
-    private final String cssClass;
+public interface HasAxis {
 
-    FABType(final String cssClass) {
-        this.cssClass = cssClass;
-    }
+    void setAxis(Axis axis);
 
-    @Override
-    public String getCssName() {
-        return cssClass;
-    }
-
-    public static FABType fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, FABType.class, HOVER);
-    }
+    Axis getAxis();
 }

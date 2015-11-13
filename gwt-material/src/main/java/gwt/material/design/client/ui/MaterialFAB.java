@@ -23,8 +23,11 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.constants.FABType;
 
 //@formatter:off
@@ -53,9 +56,11 @@ import gwt.material.design.client.constants.FABType;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends ComplexWidget implements HasType<FABType>{
+public class MaterialFAB extends ComplexWidget implements HasType<FABType>, HasAxis {
 
-    CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
+    private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
+    private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
+
     public MaterialFAB() {
         super(Document.get().createDivElement());
         setStyleName("fixed-action-btn");
@@ -71,25 +76,35 @@ public class MaterialFAB extends ComplexWidget implements HasType<FABType>{
         return typeMixin.getType();
     }
 
+    @Override
+    public void setAxis(Axis axis) {
+        axisMixin.setCssName(axis);
+    }
+
+    @Override
+    public Axis getAxis() {
+        return axisMixin.getCssName();
+    }
+
     /**
      * Open the FAB programmatically
      */
-    public void openFAB(){
+    public void openFAB() {
         openFAB(getElement());
     }
 
-    public native void openFAB(Element e)/*-{
+    public native void openFAB(Element e) /*-{
         $wnd.jQuery(e).openFAB();
     }-*/;
 
     /**
      * Close the FAB programmatically
      */
-    public void closeFAB(){
+    public void closeFAB() {
         closeFAB(getElement());
     }
 
-    public native void closeFAB(Element e)/*-{
+    public native void closeFAB(Element e) /*-{
         $wnd.jQuery(e).closeFAB();
     }-*/;
 }

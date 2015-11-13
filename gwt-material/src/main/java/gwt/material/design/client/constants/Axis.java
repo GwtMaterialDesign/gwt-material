@@ -20,15 +20,16 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum FABType implements CssType{
-    HOVER(""),
-    CLICK_ONLY("click-to-toggle");
+public enum Axis implements Style.HasCssName {
+    VERTICAL("vertical"),
+    HORIZONTAL("horizontal");
 
     private final String cssClass;
 
-    FABType(final String cssClass) {
+    Axis(final String cssClass) {
         this.cssClass = cssClass;
     }
 
@@ -37,7 +38,7 @@ public enum FABType implements CssType{
         return cssClass;
     }
 
-    public static FABType fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, FABType.class, HOVER);
+    public static Axis fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, Axis.class, VERTICAL);
     }
 }
