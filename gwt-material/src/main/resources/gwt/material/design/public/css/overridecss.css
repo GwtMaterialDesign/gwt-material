@@ -39,6 +39,18 @@ button.btn-flat:focus {
 	margin: 0;
 	visibility: hidden;
 }
+.fixed-action-btn.horizontal ul li {
+	display: inline-block;
+	margin: 15px 15px 0 0;
+}
+.fixed-action-btn.horizontal ul {
+	text-align: right;
+	right: 54px;
+	transform: translateY(106%);
+	height: 100%;
+	left: initial;
+	width: 500px;
+}
 
 /** Errors **/
 .field-error, .field-error-picker input {
