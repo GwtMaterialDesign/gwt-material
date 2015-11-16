@@ -37,9 +37,14 @@ public class GridMixin<T extends UIObject & HasGrid> extends AbstractMixin<T> im
 
     @Override
     public void setGrid(String grid) {
-        uiObject.removeStyleName("col " + this.grid);
+        if(this.grid != null && !this.grid.isEmpty()) {
+            uiObject.removeStyleName("col " + this.grid);
+        }
+
         this.grid = grid;
-        uiObject.addStyleName("col " + grid);
+        if(grid != null) {
+            uiObject.addStyleName("col " + grid);
+        }
     }
 
     @Override

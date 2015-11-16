@@ -69,6 +69,7 @@ public class MaterialModal extends Widget {
      * @param autoHideEnabled - set true if you want to be your modal closable when clicking outside
      */
     public static void showModal(Widget composite, ModalType type, final boolean autoHideEnabled) {
+        hideOverlay(panel.getElement());
         panel.clear();
         confirmType(type);
         panel.add(composite);
@@ -93,6 +94,7 @@ public class MaterialModal extends Widget {
      */
     public static void showWindow(Widget composite, ModalType type, String title,
                                   String headerColor, final boolean autoHideEnabled) {
+        hideOverlay(panel.getElement());
         panel.clear();
         switch (type) {
             case WINDOW:
@@ -161,6 +163,18 @@ public class MaterialModal extends Widget {
      */
     public static native void closeModal(Element e) /*-{
         $wnd.jQuery(e).closeModal();
+    }-*/;
+
+    public static native void hideOverlay(Element e) /*-{
+        var $modal = $wnd.jQuery(e),
+        overlayID = $modal.data('overlay-id'),
+        $overlay = $wnd.jQuery('#' + overlayID);
+
+        $overlay.velocity( { opacity: 0}, {
+            duration: 500, queue: false, ease: "easeOutQuart"
+        });
+        $overlay.css({display:"none"});
+        $overlay.remove();
     }-*/;
 
     /**

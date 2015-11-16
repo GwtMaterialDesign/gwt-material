@@ -94,7 +94,7 @@ public class MaterialCard extends ComplexWidget {
     /**
      * Creates and empty card.
      */
-    public MaterialCard(){
+    public MaterialCard() {
         super(Document.get().createDivElement());
         setStyleName("card");
     }
