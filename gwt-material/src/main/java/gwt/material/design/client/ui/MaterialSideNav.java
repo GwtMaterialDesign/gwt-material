@@ -58,8 +58,8 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * <pre>
  * {@code
  * <m:MaterialSideNav ui:field="sideNav" width="280" m:id="mysidebar"  type="OPEN" closeOnClick="false">
- *     <m:MaterialLink href="#about" iconPosition="LEFT" icon="OUTLINE" text="About" textColor="blue"  />
- *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" icon="DOWNLOAD" text="Getting Started" textColor="blue"  >
+ *     <m:MaterialLink href="#about" iconPosition="LEFT" iconType="OUTLINE" text="About" textColor="blue"  />
+ *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" iconType="DOWNLOAD" text="Getting Started" textColor="blue"  >
  * </m:MaterialSideNav>
  * }
  * </pre>

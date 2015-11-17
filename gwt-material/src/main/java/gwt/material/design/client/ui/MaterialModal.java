@@ -44,13 +44,13 @@ import gwt.material.design.client.constants.Type;
  *
  * <pre>
  * {@code
-<m:MaterialModal m:id="modalFirst" ui:field="modal" type="FIXED_FOOTER" dismissable="true" inDuration="500" outDuration="800">
-<m:MaterialModalContent>
-<m:MaterialTitle title="Title" description="Description" />
-</m:MaterialModalContent>
-<m:MaterialModalFooter>
-<m:MaterialButton text="Close Modal" type="FLAT"/>
-</m:MaterialModalFooter>
+<m:MaterialModal ui:field="modal" type="FIXED_FOOTER" dismissable="true" inDuration="500" outDuration="800">
+    <m:MaterialModalContent>
+        <m:MaterialTitle title="Title" description="Description" />
+    </m:MaterialModalContent>
+    <m:MaterialModalFooter>
+        <m:MaterialButton text="Close Modal" type="FLAT"/>
+    </m:MaterialModalFooter>
 </m:MaterialModal>
 }
  * </pre>

@@ -65,19 +65,19 @@ Secondary Content
 <m:MaterialCollection header="Header Title">
     <m:MaterialCollectionItem>
         <m:MaterialLink text="Collecton 1"/>
-        <m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
+        <m:MaterialSecondaryContent><m:MaterialIcon iconType="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
     </m:MaterialCollectionItem>
     <m:MaterialCollectionItem>
         <m:MaterialLink text="Collecton 2"/>
-        <m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
+        <m:MaterialSecondaryContent><m:MaterialIcon iconType="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
     </m:MaterialCollectionItem>
     <m:MaterialCollectionItem>
         <m:MaterialLink text="Collecton 3"/>
-        <m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
+        <m:MaterialSecondaryContent><m:MaterialIcon iconType="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
     </m:MaterialCollectionItem>
     <m:MaterialCollectionItem>
         <m:MaterialLink text="Collecton 4"/>
-        <m:MaterialSecondaryContent><m:MaterialIcon icon="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
+        <m:MaterialSecondaryContent><m:MaterialIcon iconType="POLYMER" iconPosition="RIGHT" waves="DEFAULT"/></m:MaterialSecondaryContent>
     </m:MaterialCollectionItem>
 </m:MaterialCollection>
 *}

@@ -61,13 +61,13 @@ import com.google.gwt.user.client.ui.Image;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  *{@code// Simple Chips
- * <m:MaterialChip text="Default" icon="close"/>
+ * <m:MaterialChip text="Default" iconType="close"/>
  *
  * // Static Chip
  * <m:MaterialChip text="Apple" />
  *
  * // Contact Chips
- * <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" icon="CLOSE"/>
+ * <m:MaterialChip url="http://b.vimeocdn.com/ps/339/488/3394886_300.jpg" text="Yunalis Mat Zara'ai" iconType="CLOSE"/>
  * }
  * </pre>
  *
