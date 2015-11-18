@@ -20,16 +20,30 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
+import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
- * Types of Modal<br>
- * - FIXED_FOOTER<br>
- * - BOTTOM_SHEET<br>
- * - DEFAULT<br>
- * - WINDOW<br>
  * @author kevzlou7979
- *
+ * @author Ben Dol
  */
-public enum ModalType {
-    FIXED_FOOTER, BOTTOM_SHEET, DEFAULT, WINDOW;
+public enum ModalType implements CssType {
+    DEFAULT(""),
+    BOTTOM_SHEET("bottom-sheet"),
+    FIXED_FOOTER("modal-fixed-footer"),
+    WINDOW("material-window");
+
+    private final String cssClass;
+
+    ModalType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
+
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static ModalType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, ModalType.class, DEFAULT);
+    }
 }

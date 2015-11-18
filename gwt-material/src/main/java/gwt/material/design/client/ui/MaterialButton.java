@@ -40,16 +40,16 @@ import gwt.material.design.client.constants.ButtonType;
 * <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="blue" />
 *
 * // Adding icon
-* <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="blue" icon="CLOUD" iconPosition="LEFT"/>
+* <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="blue" iconType="CLOUD" iconPosition="LEFT"/>
 *
 * // FLOATING+ Button
-* <m:MaterialButton type="FLOATING" waves="LIGHT" size="LARGE"  icon="ADD"/>
+* <m:MaterialButton type="FLOATING" waves="LIGHT" size="LARGE"  iconType="ADD"/>
 *
 * // FLAT Button
 * <m:MaterialButton text="Button" type="FLAT" waves="GREY" />
 *
 * // LARGE Button
-* <m:MaterialButton size="LARGE" text="Button" waves="LIGHT" backgroundColor="blue" icon="CLOUD" iconPosition="RIGHT"/>}
+* <m:MaterialButton size="LARGE" text="Button" waves="LIGHT" backgroundColor="blue" iconType="CLOUD" iconPosition="RIGHT"/>}
 * </pre>
 *
 * @author kevzlou7979

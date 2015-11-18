@@ -104,6 +104,11 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
         setValue(value);
     }
 
+    public void reset() {
+        setValue(getMin());
+        clearErrorOrSuccess();
+    }
+
     /**
      * Try to identify the embedded range elements input field (see ui xml)
      * @return The found element or null if none found.
@@ -210,5 +215,10 @@ public class MaterialRange extends ComplexWidget implements HasChangeHandlers, H
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
+    }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        errorMixin.clearErrorOrSuccess();
     }
 }

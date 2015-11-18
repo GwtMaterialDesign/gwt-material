@@ -40,7 +40,7 @@ import com.google.gwt.dom.client.Style.Unit;
 * 
 * <pre>
 * {@code 
-<m:MaterialNoResult icon="POLYMER" title="No Inbox" description="You dont have new message" backgroundColor="blue"/>
+<m:MaterialNoResult iconType="POLYMER" title="No Inbox" description="You dont have new message" backgroundColor="blue"/>
 }
 </pre>
 * </p>

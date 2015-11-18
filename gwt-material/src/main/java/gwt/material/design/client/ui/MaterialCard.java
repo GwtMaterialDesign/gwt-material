@@ -36,12 +36,12 @@ import com.google.gwt.dom.client.Style.Unit;
  *{@code<!-- Basic Card -->
  * <m:MaterialCard backgroundColor="blue-grey darken-1" grid="l3">
  *   <m:MaterialCardContent textColor="white">
- *     <m:MaterialCardTitle text="Sample" icon="POLYMER" iconPosition="RIGHT"/>
+ *     <m:MaterialCardTitle text="Sample" iconType="POLYMER" iconPosition="RIGHT"/>
  *     <m:MaterialLabel text="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively." />
  *   </m:MaterialCardContent>
  *   <m:MaterialCardAction>
- *     <m:MaterialLink text="Link 1" icon="POLYMER" iconPosition="LEFT"/>
- *     <m:MaterialLink text="Link 1" icon="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" iconType="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" iconType="POLYMER" iconPosition="LEFT"/>
  *   </m:MaterialCardAction>
  * </m:MaterialCard>
  *
@@ -57,8 +57,8 @@ import com.google.gwt.dom.client.Style.Unit;
  *   </m:MaterialCardContent>
  *
  *   <m:MaterialCardAction>
- *     <m:MaterialLink text="Link 1" icon="POLYMER" iconPosition="LEFT"/>
- *     <m:MaterialLink text="Link 1" icon="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" iconType="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" iconType="POLYMER" iconPosition="LEFT"/>
  *   </m:MaterialCardAction>
  * </m:MaterialCard>
  *
@@ -69,17 +69,17 @@ import com.google.gwt.dom.client.Style.Unit;
  *   </m:MaterialCardImage>
  *
  *   <m:MaterialCardContent textColor="black">
- *     <m:MaterialCardTitle text="Sample" icon="MORE_VERT" iconPosition="RIGHT" textColor="black"/>
+ *     <m:MaterialCardTitle text="Sample" iconType="MORE_VERT" iconPosition="RIGHT" textColor="black"/>
  *   </m:MaterialCardContent>
  *
  *   <m:MaterialCardReveal>
- *     <m:MaterialCardTitle text="Sample" icon="CLOSE" iconPosition="RIGHT" textColor="black"/>
+ *     <m:MaterialCardTitle text="Sample" iconType="CLOSE" iconPosition="RIGHT" textColor="black"/>
  *     <m:MaterialLabel text="Here is some more information about this product that is only revealed once clicked on." />
  *   </m:MaterialCardReveal>
  *
  *   <m:MaterialCardAction>
- *     <m:MaterialLink text="Link 1" textColor="blue" icon="POLYMER" iconPosition="LEFT"/>
- *     <m:MaterialLink text="Link 1" textColor="blue" icon="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
  *   </m:MaterialCardAction>
  * </m:MaterialCard>}
 * </pre>
@@ -94,7 +94,7 @@ public class MaterialCard extends ComplexWidget {
     /**
      * Creates and empty card.
      */
-    public MaterialCard(){
+    public MaterialCard() {
         super(Document.get().createDivElement());
         setStyleName("card");
     }

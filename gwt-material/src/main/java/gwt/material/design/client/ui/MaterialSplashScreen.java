@@ -37,13 +37,31 @@ import gwt.material.design.client.ui.html.Div;
  * An initial screen that act as a loading screen
  * in order for your apps to load fully.
  *
- * <h3>Java Code Usage:</h3>
+ * <h3>UiBinder Usage:</h3>
  * <pre>
  *{@code
- * MyComposite main = new MyComposite();
- * new MaterialSplashScreen(splashTime, main, logo, appName, appDescription, color, textColor);}
- * </pre>
+
+<m:MaterialSplashScreen backgroundColor="blue" textColor="white" textAlign="CENTER">
+    <m:MaterialImage resource="{res.ic_splash}" width="300px"/>
+    <m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" />
+</m:MaterialSplashScreen>
+
+ * }</pre>
+ * <h3>Java Usage:</h3>
+ * <pre>
+ *{@code
  *
+@UiField MaterialSplashScreen splash;
+splash.show();
+Timer t = new Timer() {
+    @Override
+    public void run() {
+        splash.hide();
+    }
+};
+t.schedule(3000);
+
+ * }</pre>
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>

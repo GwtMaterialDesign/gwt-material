@@ -55,6 +55,17 @@ import gwt.material.design.client.base.mixin.GridMixin;
 public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError, HasOrientation {
 
     /**
+     * Enum for identifying various selection types for the picker.
+     *
+     */
+    public enum MaterialDatePickerType {
+        DAY,
+        MONTH_DAY,
+        YEAR_MONTH_DAY,
+        YEAR
+    }
+
+    /**
      * Delegate interface for handling picker events.
      */
     public interface MaterialDatePickerDelegate {
@@ -87,13 +98,19 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     protected void onAttach() {
         super.onAttach();
         id = String.valueOf(hashCode());
-        this.clear();
+        clear();
         panel = new HTMLPanel("<input placeholder='"+placeholder+"' type='date' id='"+id+"' class='datepicker'>");
         this.add(panel);
         panel.addStyleName(orientation.getCssName());
         initDatePicker(id, selectionType.name(), this);
         initClickHandler(id, this);
         panel.add(lblError);
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        clearErrorOrSuccess();
     }
 
     public static native void initDatePicker(String id, String typeName, MaterialDatePicker parent) /*-{
@@ -225,16 +242,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         this.placeholder = placeholder;
     }
 
-    /**
-     * Enum for identifying various selection types for the picker.
-     *
-     */
-    public enum MaterialDatePickerType {
-        DAY,
-        MONTH_DAY,
-        YEAR_MONTH_DAY,
-        YEAR
-    }
+
 
     public MaterialDatePickerType getSelectionType() {
         return selectionType;
@@ -278,5 +286,10 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
+    }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        errorMixin.clearErrorOrSuccess();
     }
 }

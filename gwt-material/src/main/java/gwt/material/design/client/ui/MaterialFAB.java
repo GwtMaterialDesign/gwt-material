@@ -42,11 +42,11 @@ import gwt.material.design.client.constants.FABType;
  * <pre>
  *{@code
  *<m:MaterialFAB>
- *   <m:MaterialButton type="FLOATING" backgroundColor="blue" icon="POLYMER" size="LARGE"/>
+ *   <m:MaterialButton type="FLOATING" backgroundColor="blue" iconType="POLYMER" size="LARGE"/>
  *   <m:MaterialFABList>
- *     <m:MaterialButton type="FLOATING" backgroundColor="red" icon="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="orange" icon="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="white" icon="POLYMER" iconColor="black"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="red" iconType="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="orange" iconType="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="white" iconType="POLYMER" iconColor="black"/>
  *   </m:MaterialFABList>
  * </m:MaterialFAB>}
  * </pre>

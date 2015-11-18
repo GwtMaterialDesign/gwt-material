@@ -48,10 +48,10 @@ import gwt.material.design.client.ui.html.Nav;
  * <m:MaterialNavBar backgroundColor="blue" >
  *     <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
  *     <m:MaterialNavSection position="RIGHT">
- *         <m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="white" waves="LIGHT"/>
- *         <m:MaterialLink  icon="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="white" waves="LIGHT"/>
- *         <m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
- *          <m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="white" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="white" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
+ *          <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
  *     </m:MaterialNavSection>
  * </m:MaterialNavBar>
  * }

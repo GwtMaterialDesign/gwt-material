@@ -204,4 +204,9 @@ public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, 
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
     }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        errorMixin.clearErrorOrSuccess();
+    }
 }

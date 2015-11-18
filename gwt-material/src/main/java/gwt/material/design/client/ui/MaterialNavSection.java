@@ -38,10 +38,10 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
  * {@code
  * <m:MaterialNavSection align="RIGHT">
- *     <m:MaterialLink  icon="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="white" waves="LIGHT"/>
- *     <m:MaterialLink  icon="AUTORENEW" iconPosition="left" text="Refresh" textColor="white" waves="LIGHT"/>
- *     <m:MaterialLink  icon="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
- *     <m:MaterialLink  icon="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="AUTORENEW" iconPosition="left" text="Refresh" textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
  * </m:MaterialNavSection>
  * }
  * </pre>
