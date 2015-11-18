@@ -556,6 +556,13 @@ nav .nav-wrapper .collapsible-body {
 ul.side-nav .sideBarBadge {
 	margin-top: 20px !important;
 }
+
+nav ul a span.badge {
+	margin-left: 8px !important;
+	float: right;
+	margin-top: 20px;
+}
+
 /** DROPDOWN **/
 .dropdown-content {
 	max-height: 70vh !important;
