@@ -45,7 +45,6 @@ import com.google.gwt.dom.client.Element;
 //@formatter:on
 public class MaterialTimePicker extends ComplexWidget implements HasError, HasPlaceholder, HasOrientation {
 
-
     MaterialPanel panel = new MaterialPanel();
     MaterialInput input = new MaterialInput();
 
@@ -71,6 +70,11 @@ public class MaterialTimePicker extends ComplexWidget implements HasError, HasPl
         super.onLoad();
         input.getElement().setAttribute("type", "text");
         initTimePicker();
+    }
+
+    public void reset() {
+        setTime("");
+        clearErrorOrSuccess();
     }
 
     /**
@@ -137,6 +141,11 @@ public class MaterialTimePicker extends ComplexWidget implements HasError, HasPl
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
+    }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        errorMixin.clearErrorOrSuccess();
     }
 
     public void initTimePicker() {

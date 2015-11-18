@@ -238,6 +238,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
             tagToRemove = ((ListItem)list.getWidget(i));
             tagToRemove.removeFromParent();
         }
+        clearErrorOrSuccess();
     }
  
     /**
@@ -309,5 +310,10 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
+    }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        errorMixin.clearErrorOrSuccess();
     }
 }

@@ -20,16 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.mixin.ErrorMixin;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.ui.html.Label;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -46,8 +36,18 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.ui.html.Label;
 
 //@formatter:off
+
 /**
 * Material Text Area represents a multiple line textbox where users can define comment, detail and etc.
 * <h3>UiBinder Usage:</h3>
@@ -87,23 +87,11 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
         add(lblError);
     }
 
-    public void setInvalid() {
-        removeErrorModifiers();
-        lblName.setStyleName("red-text");
-        textArea.getElement().addClassName("invalid");
-        isValid = false;
-    }
-
-    public void setValid() {
-        removeErrorModifiers();
-        lblName.setStyleName("green-text");
-        textArea.getElement().addClassName("valid");
-        isValid = true;
-    }
-
     public void removeErrorModifiers() {
         textArea.getElement().removeClassName("valid");
         textArea.getElement().removeClassName("invalid");
+        lblName.removeStyleName("green-text");
+        lblName.removeStyleName("red-text");
     }
 
     public boolean isValid() {
@@ -141,6 +129,13 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
     }
 
     @Override
+    public void clear() {
+        textArea.getElement().setInnerHTML("");
+        clearErrorOrSuccess();
+        label.removeStyleName("active");
+    }
+
+    @Override
     public String getPlaceholder() {
         return placeholder;
     }
@@ -174,13 +169,27 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
     @Override
     public void setError(String error) {
         errorMixin.setError(error);
-        setInvalid();
+
+        removeErrorModifiers();
+        lblName.setStyleName("red-text");
+        textArea.getElement().addClassName("invalid");
+        isValid = false;
     }
 
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
-        setValid();
+
+        removeErrorModifiers();
+        lblName.setStyleName("green-text");
+        textArea.getElement().addClassName("valid");
+        isValid = true;
+    }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        errorMixin.clearErrorOrSuccess();
+        removeErrorModifiers();
     }
 
     @Override

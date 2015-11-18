@@ -66,4 +66,16 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
         }
         textObject.setVisible(true);
     }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        textObject.setText("");
+        textObject.removeStyleName("field-error-label");
+        textObject.removeStyleName("field-success-label");
+        if(target != null) {
+            target.removeStyleName("field-error");
+            target.removeStyleName("field-success");
+        }
+        textObject.setVisible(false);
+    }
 }

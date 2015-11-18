@@ -20,18 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasInputType;
-import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.mixin.ErrorMixin;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.ui.html.Label;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.IsEditor;
@@ -87,8 +75,20 @@ import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasInputType;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.ui.html.Label;
 
 //@formatter:off
+
 /**
 * Material Text Box is an input field that accepts any text based string from user.
 * <h3>UiBinder Usage:</h3>
@@ -141,32 +141,20 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
         label.getElement().setAttribute("for", id);
     }
 
-    public void setInvalid() {
-        removeErrorModifiers();
-        lblName.setStyleName("red-text");
-        txtBox.getElement().addClassName("invalid");
-        isValid = false;
-    }
-
-    public void setValid() {
-        removeErrorModifiers();
-        lblName.setStyleName("green-text");
-        txtBox.getElement().addClassName("valid");
-        isValid = true;
-    }
-
     /**
      * Resets the textbox by removing its content and resetting visual state.
      */
     public void clear() {
         txtBox.setText("");
-        removeErrorModifiers();
+        clearErrorOrSuccess();
         label.removeStyleName("active");
     }
 
     public void removeErrorModifiers() {
         txtBox.getElement().removeClassName("valid");
         txtBox.getElement().removeClassName("invalid");
+        lblName.removeStyleName("green-text");
+        lblName.removeStyleName("red-text");
     }
 
     @Override
@@ -443,13 +431,27 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     @Override
     public void setError(String error) {
         errorMixin.setError(error);
-        setInvalid();
+
+        removeErrorModifiers();
+        lblName.setStyleName("red-text");
+        txtBox.getElement().addClassName("invalid");
+        isValid = false;
     }
 
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
-        setValid();
+
+        removeErrorModifiers();
+        lblName.setStyleName("green-text");
+        txtBox.getElement().addClassName("valid");
+        isValid = true;
+    }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        errorMixin.clearErrorOrSuccess();
+        removeErrorModifiers();
     }
 
     @Override
