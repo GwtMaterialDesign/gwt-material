@@ -9,6 +9,6 @@ install: true
 before_script:
  - chmod +x .utility/*
 script:
-- mvn clean install -DdryRun=true -Dlicense.failOnMissingHeader=true -Dlicense.failOnNotUptodateHeader=true
+- mvn clean install -DdryRun=true
 after_success:
 - .utility/deploy.sh
