@@ -1,4 +1,12 @@
+sudo: false
 language: java
 jdk:
-  - oraclejdk7
-  - oraclejdk8
+- oraclejdk7
+cache:
+  directories:
+  - $HOME/.m2
+install: true
+script:
+- mvn clean install -DdryRun=true -Dlicense.failOnMissingHeader=true -Dlicense.failOnNotUptodateHeader=true
+after_success:
+- .utility/deploy.sh

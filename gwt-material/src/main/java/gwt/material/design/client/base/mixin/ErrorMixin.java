@@ -20,12 +20,9 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasError;
-
-import java.util.List;
 
 /**
  * @author Ben Dol
