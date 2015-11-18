@@ -22,24 +22,11 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.HasChangeHandlers;
-import com.google.gwt.event.dom.client.HasKeyDownHandlers;
-import com.google.gwt.event.dom.client.HasKeyPressHandlers;
-import com.google.gwt.event.dom.client.HasKeyUpHandlers;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.CounterMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
@@ -60,9 +47,8 @@ import gwt.material.design.client.ui.html.Label;
 */
 //@formatter:on
 public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPressHandlers,
-        HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder {
+        HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder, HasCounter {
 
-    private String length;
     private String placeholder;
     private boolean isValid = true;
 
@@ -74,6 +60,7 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
     private MaterialLabel lblName = new MaterialLabel();
     private ComplexWidget textArea = new ComplexWidget(Document.get().createElement("textarea"));
     private MaterialIcon icon = new MaterialIcon();
+    private CounterMixin<MaterialTextArea> counterMixin = new CounterMixin<>(this);
 
     public MaterialTextArea() {
         super(Document.get().createDivElement());
@@ -100,15 +87,6 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
 
     public void setValid(boolean isValid) {
         this.isValid = isValid;
-    }
-
-    public String getLength() {
-        return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
-        textArea.getElement().setAttribute("length", length);
     }
 
     @Override
@@ -231,5 +209,19 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    @Override
+    public void setLength(int length) {
+        counterMixin.setLength(length);
+    }
+
+    @Override
+    public int getLength() {
+        return counterMixin.getLength();
+    }
+
+    public ComplexWidget getTextArea() {
+        return textArea;
     }
 }

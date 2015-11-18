@@ -24,47 +24,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.DragEndHandler;
-import com.google.gwt.event.dom.client.DragEnterHandler;
-import com.google.gwt.event.dom.client.DragHandler;
-import com.google.gwt.event.dom.client.DragLeaveHandler;
-import com.google.gwt.event.dom.client.DragOverHandler;
-import com.google.gwt.event.dom.client.DragStartHandler;
-import com.google.gwt.event.dom.client.DropHandler;
-import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.GestureChangeHandler;
-import com.google.gwt.event.dom.client.GestureEndHandler;
-import com.google.gwt.event.dom.client.GestureStartHandler;
-import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
-import com.google.gwt.event.dom.client.HasAllFocusHandlers;
-import com.google.gwt.event.dom.client.HasAllGestureHandlers;
-import com.google.gwt.event.dom.client.HasAllKeyHandlers;
-import com.google.gwt.event.dom.client.HasAllMouseHandlers;
-import com.google.gwt.event.dom.client.HasAllTouchHandlers;
-import com.google.gwt.event.dom.client.HasChangeHandlers;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
-import com.google.gwt.event.dom.client.HasKeyUpHandlers;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
-import com.google.gwt.event.dom.client.TouchCancelHandler;
-import com.google.gwt.event.dom.client.TouchEndHandler;
-import com.google.gwt.event.dom.client.TouchMoveHandler;
-import com.google.gwt.event.dom.client.TouchStartHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.AutoDirectionHandler;
@@ -75,11 +35,8 @@ import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasInputType;
-import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.CounterMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
@@ -104,13 +61,12 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
         HasValue<String>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>, HasKeyUpHandlers,
         HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
         HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
-        HasPlaceholder {
+        HasPlaceholder, HasCounter {
 
 
     private String placeholder;
     private InputType type = InputType.TEXT;
     private boolean isValid = true;
-    private String length;
 
     private MaterialLabel lblError = new MaterialLabel();
 
@@ -118,6 +74,7 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     private MaterialLabel lblName = new MaterialLabel();
     private TextBox txtBox = new TextBox();
     private MaterialIcon icon = new MaterialIcon();
+    private CounterMixin<MaterialTextBox> counterMixin = new CounterMixin<>(this);
 
     private final ErrorMixin<MaterialTextBox, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, txtBox);
 
@@ -213,15 +170,6 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
 
     public void setValid(boolean isValid) {
         this.isValid = isValid;
-    }
-
-    public String getLength() {
-        return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
-        txtBox.getElement().setAttribute("length", length);
     }
 
     @Override
@@ -493,5 +441,19 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    @Override
+    public void setLength(int length) {
+        counterMixin.setLength(length);
+    }
+
+    @Override
+    public int getLength() {
+        return counterMixin.getLength();
+    }
+
+    public TextBox getTxtBox() {
+        return txtBox;
     }
 }
