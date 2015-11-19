@@ -20,11 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style.Unit;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.Div;
 
-import com.google.gwt.dom.client.Style.Unit;
-
 //@formatter:off
+
 /**
 * Material Progress indicator to define intermediate and determinate progress bars
 * <h3>UiBinder Usage:</h3>
@@ -37,15 +39,43 @@ import com.google.gwt.dom.client.Style.Unit;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
 * @author kevzlou7979
 */
-public class MaterialProgress extends Div {
+public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     private Div div = new Div();
+    private double percent = 0;
 
     public MaterialProgress() {
         super();
         setStyleName("progress");
         getElement().getStyle().setMargin(0, Unit.PX);
         add(div);
-        div.setStyleName("indeterminate");
+        setType(ProgressType.INDETERMINATE);
+    }
+
+    @Override
+    public void setType(ProgressType type) {
+        div.setStyleName(type.getCssName());
+    }
+
+    @Override
+    public ProgressType getType() {
+        return ProgressType.fromStyleName(getType().getCssName());
+    }
+
+    /**
+     * Get progress width as percent unit
+     * @return
+     */
+    public double getPercent() {
+        return percent;
+    }
+
+    /**
+     * Set progress width as percent unit
+     * @param percent
+     */
+    public void setPercent(double percent) {
+        this.percent = percent;
+        div.getElement().getStyle().setWidth(percent, Unit.PCT);
     }
 }
