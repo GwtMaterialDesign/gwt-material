@@ -40,6 +40,7 @@ import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
 
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ErrorMixin;
@@ -232,12 +233,21 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
      * Clear the chip items on the autocomplete box
      */
     public void clear() {
-        ListItem tagToRemove;
+    	List<Widget> toRemove = new ArrayList<>();
         int num = list.getWidgetCount();
         for (int i=num-1; i>=0; i--) {
-            tagToRemove = ((ListItem)list.getWidget(i));
-            tagToRemove.removeFromParent();
+        	Widget widget = list.getWidget(i);
+        	
+        	// we shoulld only remove the list items, not the component textbox or decorations
+        	if (widget instanceof ListItem){
+        		toRemove.add(widget);
+        	}
         }
+        
+        for (Widget widget : toRemove) {
+        	widget.removeFromParent();        		
+        }
+			
         clearErrorOrSuccess();
     }
  
