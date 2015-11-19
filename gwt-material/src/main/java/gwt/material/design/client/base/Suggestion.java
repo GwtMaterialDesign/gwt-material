@@ -69,4 +69,23 @@ public class Suggestion extends MultiWordSuggestion {
     public void setSuggestion(String suggestion) {
         this.suggestion = suggestion;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj == this){
+    		return true;
+    	}
+    	if (obj instanceof Suggestion){
+    		Suggestion that = (Suggestion) obj;
+    		if (this.display != null && this.suggestion != null){
+    			return this.display.equals(that.display) && this.suggestion.equals(that.suggestion); 
+    		}
+    	}
+    	return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return String.valueOf(display).hashCode() + String.valueOf(suggestion).hashCode();
+    }
 }
