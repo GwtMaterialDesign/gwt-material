@@ -99,7 +99,7 @@ public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, Ha
     }
 
     public String getText(){
-        return getElement().getInnerText();
+        return span.getElement().getInnerText();
     }
 
     @Override
