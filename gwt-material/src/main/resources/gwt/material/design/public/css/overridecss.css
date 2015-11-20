@@ -835,3 +835,28 @@ i[class*="waves-"].material-icons {
 	bottom: 0;
 	height: 8px;
 }
+
+/** Side Profile **/
+.side-profile{
+	padding: 16px;
+}
+
+.side-profile a.dropdown-button{
+	cursor: pointer !important;
+	padding: 0px !important;;
+	line-height: inherit !important;;
+	height: 16px !important;;
+}
+
+.side-profile img{
+	width: 60px;
+	height: 60px;
+	margin-bottom: 16px;
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+}
+
+.side-profile i{
+	line-height: 16px;
+}
