@@ -20,15 +20,23 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-public interface HasLoader {
+import gwt.material.design.client.constants.ProgressType;
+
+public interface HasProgress {
 
     /**
-     * Sets the loader of every Material Components.
+     * Sets Indeterminate progress
      */
-    void showLoader();
+    void showProgress(ProgressType type);
 
     /**
-     * Hide the loader defined on Material Components.
+     * Use by determinate progress
+     * @param percent
      */
-    void hideLoader();
+    void setPercent(double percent);
+
+    /**
+     * Hides the progress
+     */
+    void hideProgress();
 }
