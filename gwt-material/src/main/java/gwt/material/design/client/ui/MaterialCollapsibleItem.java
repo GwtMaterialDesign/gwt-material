@@ -1,11 +1,16 @@
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.base.HasProgress;
+import gwt.material.design.client.base.mixin.ProgressMixin;
+import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
-import gwt.material.design.client.ui.html.ListItem;
 
 /*
  * #%L
@@ -36,17 +41,23 @@ import gwt.material.design.client.ui.html.ListItem;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleItem extends ListItem implements HasWidgets, HasCollapsibleParent {
+public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent, HasProgress {
 
     private MaterialCollapsible parent;
     private MaterialCollapsibleBody body;
     private MaterialCollapsibleHeader header;
+    private final ProgressMixin<MaterialCollapsibleItem> progressMixin = new ProgressMixin<>(this);
 
     /**
      * Creates an empty collapsible item.
      */
     public MaterialCollapsibleItem() {
         super();
+    }
+
+    @Override
+    protected Element createElement() {
+        return Document.get().createLIElement();
     }
 
     /**
@@ -130,5 +141,20 @@ public class MaterialCollapsibleItem extends ListItem implements HasWidgets, Has
                 header.addStyleName("active");
             }
         }
+    }
+
+    @Override
+    public void showProgress(ProgressType type) {
+        progressMixin.showProgress(type);
+    }
+
+    @Override
+    public void setPercent(double percent) {
+        progressMixin.setPercent(percent);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressMixin.hideProgress();
     }
 }

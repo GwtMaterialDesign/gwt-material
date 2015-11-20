@@ -23,16 +23,12 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
-import gwt.material.design.client.base.HasLoader;
+import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.constants.HideOn;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.NavBarType;
-import gwt.material.design.client.constants.TextAlign;
-import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.base.mixin.ProgressMixin;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
@@ -61,7 +57,7 @@ import gwt.material.design.client.ui.html.Nav;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
  */
 //@formatter:on
-public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasType<NavBarType> {
+public class MaterialNavBar extends Nav implements HasActivates, HasProgress, HasType<NavBarType> {
 
     private Div div = new Div();
 
@@ -70,6 +66,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasT
 
     private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
     private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
+    private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
 
     public MaterialNavBar() {
         div.setStyleName("nav-wrapper container");
@@ -101,13 +98,18 @@ public class MaterialNavBar extends Nav implements HasActivates, HasLoader, HasT
     }
 
     @Override
-    public void showLoader() {
-        super.add(progress);
+    public void showProgress(ProgressType type) {
+        progressMixin.showProgress(type);
     }
 
     @Override
-    public void hideLoader() {
-        progress.removeFromParent();
+    public void setPercent(double percent) {
+        progressMixin.setPercent(percent);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressMixin.hideProgress();
     }
 
     @Override
