@@ -33,7 +33,6 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.RootPanel;
 
 //@formatter:off
 
@@ -95,11 +94,28 @@ public class MaterialModal extends ComplexWidget implements HasType<ModalType>, 
 
     /**
      * Open the modal programatically
+     * 
+     * <p>
+     * Note: the MaterialModal component must be added to the document before
+     * calling this method. When declaring this modal on a UiBinder file, the
+     * MaterialModal is already added, but if you call it using pure Java, you
+     * must add it to a container before opening the modal. You can do it by
+     * calling, for example:
+     * </p>
+     * 
+     * <pre>
+     * MaterialModal modal = new MaterialModal();
+     * RootPanel.get().add(modal);
+     * </pre>
+     * 
+     * @throws IllegalStateException
+     *             If the MaterialModal is not added to the document
      */
     public void openModal() {
         // the modal must be added to the document before opening
         if (this.getParent() == null) {
-            RootPanel.get().add(this);
+            throw new IllegalStateException(
+                "The MaterialModal must be added to the document before calling openModal().");
         }
         openModal(getElement(), opacity, dismissable, inDuration, outDuration);
     }
@@ -130,14 +146,16 @@ public class MaterialModal extends ComplexWidget implements HasType<ModalType>, 
     }-*/;
 
     private void onNativeClose(boolean autoClosed) {
-        // removes from the document after closing the modal window
-        this.removeFromParent();
         CloseEvent.fire(this, this, autoClosed);
     }
 
     /**
      * Close the modal programatically. It is the same as calling
      * {@link #closeModal(boolean)} with <code>false</code> as parameter.
+     * <p>
+     * Note: you may need to remove it MaterialModal from the document if you
+     * are not using UiBinder. See {@link #openModal()}.
+     * </p>
      * 
      */
     public void closeModal() {
@@ -146,6 +164,10 @@ public class MaterialModal extends ComplexWidget implements HasType<ModalType>, 
 
     /**
      * Close the modal programatically.
+     * <p>
+     * Note: you may need to remove it MaterialModal from the document if you
+     * are not using UiBinder. See {@link #openModal()}.
+     * </p>
      * 
      * @param autoClosed
      *            Flag indicating if the modal was automatically dismissed
