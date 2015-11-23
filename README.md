@@ -38,4 +38,4 @@ You can find lists of features by version <a href="https://github.com/GwtMateria
 ## Contributing
 Contributions are welcomed by all! If you would like to submit changes be sure to fork this project and create a [Pull Request](https://yangsu.github.io/pull-request-tutorial/) for us to review. PR's will be reviewed by the team as soon as possible. You will also be listed as a contributor on our changelog notes.
 
-Please note that we use the [GWT code style conventions](http://www.gwtproject.org/makinggwtbetter.html#codestyle). If you use Eclipse, you can use the the [gwt-format.xml](https://gwt.googlesource.com/gwt/+/master/eclipse/settings/code-style/gwt-format.xml) template file  (Preferences | Java > Code Style > Formatter | Import…).
+Please follow the [contribution document](https://github.com/GwtMaterialDesign/gwt-material/wiki/Contributing) on the projects code style standards.
