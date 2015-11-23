@@ -21,8 +21,10 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.i18n.client.HasDirection;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.HasColors;
 import gwt.material.design.client.base.HasGrid;
@@ -116,6 +118,7 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 
     @Override
     public void setTextColor(String textColor) {
+        Window.alert("asd");
         colorsMixin.setTextColor(textColor);
     }
 
@@ -137,6 +140,90 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
     @Override
     public void clear() {
         super.clear();
+        initializeMaterial();
+    }
+
+    @Override
+    public void setValue(int index, String value) {
+        super.setValue(index, value);
+        initializeMaterial();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        super.setTitle(title);
+        initializeMaterial();
+    }
+
+    @Override
+    public void addItem(String item, Direction dir) {
+        super.addItem(item, dir);
+        initializeMaterial();
+    }
+
+    @Override
+    public void addItem(String item, String value) {
+        super.addItem(item, value);
+        initializeMaterial();
+    }
+
+    @Override
+    public void addItem(String item, Direction dir, String value) {
+        super.addItem(item, dir, value);
+        initializeMaterial();
+    }
+
+    @Override
+    public void insertItem(String item, int index) {
+        super.insertItem(item, index);
+        initializeMaterial();
+    }
+
+    @Override
+    public void insertItem(String item, Direction dir, int index) {
+        super.insertItem(item, dir, index);
+        initializeMaterial();
+    }
+
+    @Override
+    public void insertItem(String item, String value, int index) {
+        super.insertItem(item, value, index);
+        initializeMaterial();
+    }
+
+    @Override
+    public void setItemSelected(int index, boolean selected) {
+        super.setItemSelected(index, selected);
+        initializeMaterial();
+    }
+
+    @Override
+    public void setItemText(int index, String text) {
+        super.setItemText(index, text);
+        initializeMaterial();
+    }
+
+    @Override
+    public void setItemText(int index, String text, Direction dir) {
+        super.setItemText(index, text, dir);
+        initializeMaterial();
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+        initializeMaterial();
+    }
+
+    @Override
+    public void setSelectedIndex(int index) {
+        super.setSelectedIndex(index);
+        initializeMaterial();
+    }
+
+    @Override
+    public void setVisibleItemCount(int visibleItems) {
+        super.setVisibleItemCount(visibleItems);
         initializeMaterial();
     }
 
