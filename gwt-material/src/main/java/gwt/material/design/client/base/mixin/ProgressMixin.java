@@ -22,12 +22,10 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.constants.ProgressType;
-import gwt.material.design.client.ui.MaterialCollapsibleBody;
-import gwt.material.design.client.ui.MaterialCollapsibleItem;
-import gwt.material.design.client.ui.MaterialNavBar;
-import gwt.material.design.client.ui.MaterialProgress;
+import gwt.material.design.client.ui.*;
 
 /**
  * @author kevzlou7979
@@ -44,10 +42,12 @@ public class ProgressMixin<T extends UIObject & HasProgress>
 
     @Override
     public void showProgress(ProgressType type) {
-        if(uiObject instanceof MaterialNavBar){
-            ((MaterialNavBar) uiObject).add(progress);
-        }else if(uiObject instanceof MaterialCollapsibleItem){
+        if(uiObject instanceof MaterialCollapsibleItem){
             applyCollapsibleProgress(true);
+        }else if(uiObject  instanceof MaterialNavBar){
+            ((MaterialNavBar) uiObject).add(progress);
+        }else if(uiObject instanceof MaterialAutoComplete){
+            ((MaterialAutoComplete) uiObject).add(progress);
         }
     }
 
@@ -58,10 +58,10 @@ public class ProgressMixin<T extends UIObject & HasProgress>
 
     @Override
     public void hideProgress() {
-        if(uiObject instanceof MaterialNavBar) {
-            progress.removeFromParent();
-        }else if(uiObject instanceof MaterialCollapsibleItem){
+        if(uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(false);
+        }else {
+            progress.removeFromParent();
         }
 
     }
