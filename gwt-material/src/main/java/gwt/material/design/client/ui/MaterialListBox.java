@@ -118,7 +118,6 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
 
     @Override
     public void setTextColor(String textColor) {
-        Window.alert("asd");
         colorsMixin.setTextColor(textColor);
     }
 
