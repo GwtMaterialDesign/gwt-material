@@ -32,5 +32,5 @@
   <stylesheet src="css/overridecss.css"/>
   <stylesheet src="css/timepicker.css"/>
   <stylesheet src="css/animation.css"/>
-  <stylesheet src="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+  <stylesheet src="css/material-icons.css"/>
 </module>
