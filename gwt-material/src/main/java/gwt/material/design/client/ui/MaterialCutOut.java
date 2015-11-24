@@ -20,6 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasCircle;
+
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
@@ -37,8 +40,8 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.ScrollEvent;
 import com.google.gwt.user.client.Window.ScrollHandler;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
@@ -52,7 +55,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * <pre>
  * {@code
  * <m:MaterialCutOut ui:field="cutOut">
- *      <!-- add any components or html elements here -->
+ *      <!-- add any widgets here -->
  * </m:MaterialCutOut>
  * }
  * </pre>
@@ -60,11 +63,11 @@ import com.google.gwt.user.client.ui.RootPanel;
  * <h3>Java Usage:</h3>
  * {@code
  * MaterialCutOut cutOut = ... //create using new or using UiBinder
- * cutOut.setTarget(myTargetElement); //the element you want to focus
+ * cutOut.setTarget(myTargetWidget); //the widget or element you want to focus
  * cutOut.openCutOut(); //shows the modal over the page
  * }
  * 
- * <h3>Styling:</h3> You use change the cut out style by using the
+ * <h3>Custom styling:</h3> You use change the cut out style by using the
  * <code>material-cutout</code> class, and <code>material-cutout-focus</code>
  * class for the focus box.
  * 
@@ -72,9 +75,12 @@ import com.google.gwt.user.client.ui.RootPanel;
  *
  */
 // @formatter:on
-public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<MaterialCutOut> {
+public class MaterialCutOut extends ComplexWidget implements HasCloseHandlers<MaterialCutOut>, HasCircle {
 
-    private String backgroundColor = "rgba(30,136,229,0.85)";
+    private String backgroundColor = "blue";
+    private double opacity = 0.8;
+    
+    private String computedBackgroundColor;
     private int cutOutPadding = 10;
     private boolean circle = false;
     private boolean autoAddedToDocument = false;
@@ -82,7 +88,7 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
     private Element focus;
 
     public MaterialCutOut() {
-        super("");
+        super(Document.get().createDivElement());
         focus = Document.get().createDivElement();
         focus.setId(DOM.createUniqueId());
         getElement().appendChild(focus);
@@ -104,27 +110,27 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
         style.setPosition(Position.ABSOLUTE);
         style.setZIndex(-1);
     }
-
-    /**
-     * Sets the raw CSS background color of the cut out. All accepted CSS colors
-     * can be used, such as:
-     * <ul>
-     * <li>Named colors: white, blue, red</li>
-     * <li>HEX colors: #fff, #1e88e5</li>
-     * <li>RGB colors: rgb(255,255,255), rgb(140,200,50)</li>
-     * <li>RGBA colors (recommended): rgb(255,255,255,0.70),
-     * rgba(30,136,229,0.85)</li>
-     * </ul>
-     */
-    public void setBackgroundColor(String backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    
+    @Override
+    public void setBackgroundColor(String bgColor) {
+        backgroundColor = bgColor;
+        setupComputedBackgroundColor();
     }
-
-    /**
-     * @return The raw CSS background color
-     */
+    
+    @Override
     public String getBackgroundColor() {
         return backgroundColor;
+    }
+    
+    @Override
+    public void setOpacity(double opacity) {
+        this.opacity = opacity;
+        setupComputedBackgroundColor();
+    }
+    
+    @Override
+    public double getOpacity() {
+        return opacity;
     }
 
     /**
@@ -132,6 +138,7 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
      * Circle is better for targets with same width and height. The default is
      * <code>false</code> (is a rectangle).
      */
+    @Override
     public void setCircle(boolean circle) {
         this.circle = circle;
     }
@@ -140,6 +147,7 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
      * @return The if the cut out should be rendered as a circle or a simple
      *         rectangle
      */
+    @Override
     public boolean isCircle() {
         return circle;
     }
@@ -161,15 +169,20 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
     }
 
     /**
-     * Sets the target element to be focused by the cut out. To get the element
-     * from a Widget, you can use:
-     * 
-     * <pre>
-     * Element element = widget.getElement();
-     * </pre>
+     * Sets the target element to be focused by the cut out.
      */
-    public void setTargetElement(Element targetElement) {
+    public void setTarget(Element targetElement) {
         this.targetElement = targetElement;
+    }
+    
+    /**
+     * Sets the target widget to be focused by the cut out. Its the same as
+     * calling setTarget(widget.getElement());
+     * 
+     * @see #setTarget(Element)
+     */
+    public void setTarget(Widget widget) {
+        setTarget(widget.getElement());
     }
 
     /**
@@ -180,7 +193,7 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
     }
 
     /**
-     * Opens the modal cut out taking all the screen. The target lement should
+     * Opens the modal cut out taking all the screen. The target element should
      * be set before calling this method.
      * 
      * @throws IllegalStateException
@@ -193,8 +206,12 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
         }
         targetElement.scrollIntoView();
 
+        if (computedBackgroundColor == null){
+            setupComputedBackgroundColor();
+        }
+        
         String focusId = focus.getId();
-        setupAnimation(focusId + "-animation", backgroundColor);
+        setupAnimation(focusId + "-animation", computedBackgroundColor);
         focus.getStyle().setProperty("animation", focusId + "-animation 0.5s ease forwards");
 
         if (circle) {
@@ -203,6 +220,9 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
             focus.getStyle().clearProperty("borderRadius");
         }
         setupCutOutPosition(focus, targetElement, cutOutPadding);
+        
+        //disables scrolling
+        Window.enableScrolling(false);
 
         Window.addResizeHandler(new ResizeHandler() {
             @Override
@@ -242,6 +262,9 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
      *            action
      */
     public void closeCutOut(boolean autoClosed) {
+        //re-enables scrolling
+        Window.enableScrolling(true);
+        
         getElement().getStyle().setDisplay(Display.NONE);
 
         // if the component added himself to the document, it must remove
@@ -287,6 +310,31 @@ public class MaterialCutOut extends HTMLPanel implements HasCloseHandlers<Materi
              'to {box-shadow: 0px 0px 0px 100rem '+color+';}' +
         '}'
         sheet.insertRule(animationSelector + animationFrames, 0);
+    }-*/;
+    
+    /**
+     * Gets the computed background color, based on the backgroundColor CSS class.
+     */
+    private void setupComputedBackgroundColor() {
+        // temp is just a widget created to evaluate the computed background
+        // color
+        ComplexWidget temp = new ComplexWidget(Document.get().createDivElement());
+        temp.setBackgroundColor(backgroundColor);
+        computedBackgroundColor = getComputedBackgroundColor(temp.getElement()).toLowerCase();
+
+        // convert rgb to rgba, considering the opacity field
+        if (opacity < 1 && computedBackgroundColor.startsWith("rgb(")) {
+            computedBackgroundColor = computedBackgroundColor.replace("rgb(", "rgba(").replace(")",
+                ", " + opacity + ")");
+        }
+    }
+    
+    /**
+     * Native call to getComputedStyle.
+     */
+    private native String getComputedBackgroundColor(Element e)/*-{
+        var cs = $wnd.document.defaultView.getComputedStyle(e, null);
+        return cs.getPropertyValue('background-color');
     }-*/;
     
     @Override
