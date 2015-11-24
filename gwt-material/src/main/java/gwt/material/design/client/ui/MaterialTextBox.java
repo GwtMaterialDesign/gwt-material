@@ -22,6 +22,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.editor.client.EditorError;
+import com.google.gwt.editor.client.HasEditorErrors;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.event.dom.client.*;
@@ -44,6 +46,8 @@ import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Label;
 
+import java.util.List;
+
 //@formatter:off
 
 /**
@@ -61,7 +65,7 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
         HasValue<String>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<String>>, HasKeyUpHandlers,
         HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
         HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
-        HasPlaceholder, HasCounter {
+        HasPlaceholder, HasCounter, HasEditorErrors<String> {
 
 
     private String placeholder;
@@ -453,7 +457,28 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
         return counterMixin.getLength();
     }
 
+    @Ignore
     public TextBox getTxtBox() {
         return txtBox;
+    }
+
+    public void showErrors(List<EditorError> errors) {
+        if(errors.isEmpty()) {
+            setSuccess("");
+        }
+        else {
+            StringBuilder sb = new StringBuilder();
+            for (EditorError error : errors) {
+                if (error.getEditor().equals(this)) {
+                    sb.append("\n").append(error.getMessage());
+                }
+            }
+
+            if (sb.length() == 0) {
+                setSuccess("");
+                return;
+            }
+            setError(sb.substring(1));
+        }
     }
 }
