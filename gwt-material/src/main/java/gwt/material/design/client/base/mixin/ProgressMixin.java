@@ -47,6 +47,7 @@ public class ProgressMixin<T extends UIObject & HasProgress>
         }else if(uiObject  instanceof MaterialNavBar){
             ((MaterialNavBar) uiObject).add(progress);
         }else if(uiObject instanceof MaterialAutoComplete){
+            progress.getElement().getStyle().setMarginTop(-15, Style.Unit.PX);
             ((MaterialAutoComplete) uiObject).add(progress);
         }
     }
