@@ -24,8 +24,11 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
+import gwt.material.design.client.constants.AutocompleteType;
+import gwt.material.design.client.constants.CssType;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.ListItem;
@@ -54,7 +57,7 @@ import java.util.Map.Entry;
  */
 // @formatter:on
 public class MaterialAutoComplete extends ComplexWidget implements HasError, HasPlaceholder,
-        HasValue<List<? extends Suggestion>>, HasProgress, HasKeyUpHandlers {
+        HasValue<List<? extends Suggestion>>, HasProgress, HasKeyUpHandlers, HasType<AutocompleteType> {
 
     private Map<Suggestion, MaterialChip> suggestionMap = new LinkedHashMap<>();
 
@@ -72,6 +75,7 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
 
     private final ErrorMixin<MaterialAutoComplete, MaterialLabel> errorMixin = new ErrorMixin<>(this,
             lblError, list);
+    public final CssTypeMixin<AutocompleteType, MaterialAutoComplete> typeMixin = new CssTypeMixin<>(this);
 
     /**
      * Use MaterialAutocomplete to search for matches from local or remote data
@@ -80,6 +84,11 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
     public MaterialAutoComplete() {
         super(Document.get().createDivElement());
         add(panel);
+    }
+
+    public MaterialAutoComplete(AutocompleteType type){
+        this();
+        setType(type);
     }
 
     /**
@@ -245,7 +254,13 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
         });
 
         suggestionMap.put(suggestion, chip);
-        displayItem.add(chip);
+        if(getType() == AutocompleteType.TEXT) {
+            suggestionMap.clear();
+            itemBox.setText(suggestion.getDisplayString());
+            displayItem.add(itemBox);
+        }else{
+            displayItem.add(chip);
+        }
         list.insert(displayItem, list.getWidgetCount() - 1);
         return true;
     }
@@ -331,6 +346,11 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
     public void setSuggestions(SuggestOracle suggestions) {
         this.suggestions = suggestions;
         generateAutoComplete(suggestions);
+    }
+
+    public void setSuggestions(SuggestOracle suggestions, AutocompleteType type){
+        setType(type);
+        setSuggestions(suggestions);
     }
 
     public int getLimit() {
@@ -420,6 +440,16 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
         return itemBox.addKeyUpHandler(handler);
     }
 
+    @Override
+    public void setType(AutocompleteType type) {
+        typeMixin.setType(type);
+    }
+
+    @Override
+    public AutocompleteType getType() {
+        return typeMixin.getType();
+    }
+
     /**
      * Interface that defines how a {@link MaterialChip} is created, given a
      * {@link Suggestion}.
@@ -503,7 +533,4 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
             ValueChangeEvent.fire(this, getValue());
         }
     }
-
-
-
 }
