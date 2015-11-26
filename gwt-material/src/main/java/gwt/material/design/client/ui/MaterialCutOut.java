@@ -388,7 +388,8 @@ public class MaterialCutOut extends ComplexWidget implements HasCloseHandlers<Ma
 
         // convert rgb to rgba, considering the opacity field
         if (opacity < 1 && computed.startsWith("rgb(")) {
-            computed = computed.replace("rgb(", "rgba(").replace(")", ", " + opacity + ")");
+            computed = computed.replace("rgb(", "rgba(").replace(")", 
+            ", " + opacity + ")");
         }
 
         computedBackgroundColor = computed;
