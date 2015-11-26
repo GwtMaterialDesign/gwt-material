@@ -359,21 +359,38 @@ public class MaterialCutOut extends ComplexWidget implements HasCloseHandlers<Ma
     }-*/;
     
     /**
-     * Gets the computed background color, based on the backgroundColor CSS class.
+     * Gets the computed background color, based on the backgroundColor CSS
+     * class.
      */
     private void setupComputedBackgroundColor() {
         // temp is just a widget created to evaluate the computed background
         // color
         ComplexWidget temp = new ComplexWidget(Document.get().createDivElement());
         temp.setBackgroundColor(backgroundColor);
+
+        // setting a style to make it invisible for the user
+        Style style = temp.getElement().getStyle();
+        style.setPosition(Position.FIXED);
+        style.setWidth(1, Unit.PX);
+        style.setHeight(1, Unit.PX);
+        style.setLeft(-10, Unit.PX);
+        style.setTop(-10, Unit.PX);
+        style.setZIndex(-10000);
+
+        // adding it to the body (on Chrome the component must be added to the
+        // DOM before getting computed values).
+        RootPanel.get().add(temp);
+
         String computed = getComputedBackgroundColor(temp.getElement()).toLowerCase();
+
+        // remove from the DOM after the evaluation
+        temp.removeFromParent();
 
         // convert rgb to rgba, considering the opacity field
         if (opacity < 1 && computed.startsWith("rgb(")) {
-            computed = computed.replace("rgb(", "rgba(").replace(")",
-                ", " + opacity + ")");
+            computed = computed.replace("rgb(", "rgba(").replace(")", ", " + opacity + ")");
         }
-        
+
         computedBackgroundColor = computed;
     }
     
