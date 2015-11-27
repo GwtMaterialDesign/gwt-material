@@ -20,13 +20,12 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialIcon;
-
-import com.google.gwt.dom.client.Style;
 
 /**
  * @author Ben Dol
@@ -70,7 +69,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     @Override
     public void setIconType(IconType iconType) {
         icon.setIconType(iconType);
-        add(icon);
+        insert(icon, 0);
     }
 
     @Override
