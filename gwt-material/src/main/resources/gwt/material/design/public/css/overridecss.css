@@ -860,3 +860,12 @@ i[class*="waves-"].material-icons {
 .side-profile i{
 	line-height: 16px;
 }
+
+/** Tab item **/
+.tab a i{
+	margin-top: 12px;
+	padding-left: 36%;
+}
+.tab a span:nth-child(2){
+	float: left;
+}
