@@ -515,6 +515,10 @@ nav .nav-wrapper .collapsible-body {
 	margin-top: -5px;
 }
 
+ul.collection .collection-item .gwt-Label{
+	display: inline;
+}
+
 @media only screen and (max-width : 992px) {
 	header,main,footer {
 		padding: 0 !important;
