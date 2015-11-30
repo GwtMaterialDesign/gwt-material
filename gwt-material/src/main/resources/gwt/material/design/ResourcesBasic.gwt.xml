@@ -30,7 +30,6 @@
   <public path="public"/>
 
   <stylesheet src="css/overridecss.css"/>
-  <stylesheet src="css/timepicker.css"/>
   <stylesheet src="css/animation.css"/>
   <stylesheet src="css/material-icons.css"/>
 </module>
