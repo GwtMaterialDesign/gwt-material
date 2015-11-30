@@ -20,34 +20,37 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.EnabledMixin;
+import gwt.material.design.client.base.mixin.FocusableMixin;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.base.mixin.IdMixin;
+import gwt.material.design.client.base.mixin.ScrollspyMixin;
+import gwt.material.design.client.base.mixin.SeparatorMixin;
+import gwt.material.design.client.base.mixin.ShadowMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.TooltipMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.constants.CenterOn;
+import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.constants.ShowOn;
+import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.constants.WavesType;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
-import gwt.material.design.client.constants.TextAlign;
-import gwt.material.design.client.constants.CenterOn;
-import gwt.material.design.client.constants.HideOn;
-import gwt.material.design.client.constants.ShowOn;
-import gwt.material.design.client.base.mixin.ColorsMixin;
-import gwt.material.design.client.base.mixin.EnabledMixin;
-import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
-import gwt.material.design.client.base.mixin.IdMixin;
-import gwt.material.design.client.base.mixin.ScrollspyMixin;
-import gwt.material.design.client.base.mixin.SeparatorMixin;
-import gwt.material.design.client.base.mixin.ShadowMixin;
-import gwt.material.design.client.base.mixin.CssNameMixin;
-import gwt.material.design.client.constants.WavesType;
 
 public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip {
 
     private final IdMixin<ComplexWidget> idMixin = new IdMixin<>(this);
     private final EnabledMixin<ComplexWidget> enabledMixin = new EnabledMixin<>(this);
@@ -65,6 +68,7 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     private final ToggleStyleMixin<ComplexWidget> circleMixin = new ToggleStyleMixin<>(this, "circle");
     private final WavesMixin<ComplexWidget> wavesMixin = new WavesMixin<>(this);
     private final CssNameMixin<ComplexWidget, Style.Float> floatMixin = new CssNameMixin<>(this);
+    private final TooltipMixin<ComplexWidget> tooltipMixin = new TooltipMixin<>(this);
 
     public ComplexWidget() {
     }
@@ -352,5 +356,35 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     @Override
     public Style.Float getFloat() {
         return StyleHelper.fromStyleName(Style.Float.class, floatMixin.getCssName());
+    }
+
+    @Override
+    public String getTooltip() {
+        return tooltipMixin.getTooltip();
+    }
+
+    @Override
+    public void setTooltip(String tooltip) {
+        tooltipMixin.setTooltip(tooltip);
+    }
+
+    @Override
+    public Position getTooltipPosition() {
+        return tooltipMixin.getTooltipPosition();
+    }
+
+    @Override
+    public void setTooltipPosition(Position position) {
+        tooltipMixin.setTooltipPosition(position);
+    }
+
+    @Override
+    public int getTooltipDelayMs() {
+        return tooltipMixin.getTooltipDelayMs();
+    }
+
+    @Override
+    public void setTooltipDelayMs(int delayMs) {
+        tooltipMixin.setTooltipDelayMs(delayMs);
     }
 }
