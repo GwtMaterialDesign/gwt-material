@@ -853,3 +853,11 @@ i[class*="waves-"].material-icons {
 .tab a span:nth-child(2){
 	float: left;
 }
+
+/** Collasible **/
+.collapsible-header  > i {
+	font-size: 1.4rem;
+	line-height: 2.5rem;
+	width: 3rem !important;
+	margin: 0px;
+}
