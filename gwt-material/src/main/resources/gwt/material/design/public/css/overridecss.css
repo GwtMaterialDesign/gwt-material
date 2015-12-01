@@ -412,27 +412,6 @@ li.token-input-input-token-facebook {
 	float: left;
 }
 
-/**WINDOW**/
-.material-window nav .nav-wrapper {
-	width: 100% !important;
-}
-
-.material-window header,.material-window main {
-	padding: 0;
-}
-
-.material-window-maximize {
-	width: 100% !important;
-	height: 100% !important;
-	top: 0 !important;
-	max-height: 100% !important;
-}
-
-.material-window-maximize {
-	transition: 0.2s all;
-	-webkit-transition: 0.2s all;
-	-moz-transition: 0.2s all;
-}
 /**SIDEBAR **/
 .side-nav li > div {
 	width: 100%;
@@ -820,32 +799,7 @@ i[class*="waves-"].material-icons {
 	height: 8px;
 }
 
-/** Side Profile **/
-.side-profile{
-	padding: 16px;
-}
-
-.side-profile a.dropdown-button{
-	cursor: pointer !important;
-	padding: 0px !important;;
-	line-height: inherit !important;;
-	height: 16px !important;;
-}
-
-.side-profile img{
-	width: 60px;
-	height: 60px;
-	margin-bottom: 16px;
-	border-radius: 100%;
-	-webkit-border-radius: 100%;
-	-moz-border-radius: 100%;
-}
-
-.side-profile i{
-	line-height: 16px;
-}
-
-/** Tab item **/
+/** Tabs **/
 .tab a i{
 	margin-top: 12px;
 	padding-left: 36%;
@@ -854,7 +808,7 @@ i[class*="waves-"].material-icons {
 	float: left;
 }
 
-/** Collasible **/
+/** Collapsibles **/
 .collapsible-header  > i {
 	font-size: 1.4rem;
 	line-height: 2.5rem;
