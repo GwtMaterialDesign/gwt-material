@@ -810,8 +810,8 @@ i[class*="waves-"].material-icons {
 
 /** Collapsibles **/
 .collapsible-header  > i {
-	font-size: 1.4rem;
-	line-height: 2.5rem;
+	font-size: 1.4rem !important;
+	line-height: 2.5rem !important;
 	width: 3rem !important;
-	margin: 0px;
+	margin: 0px !important;
 }
