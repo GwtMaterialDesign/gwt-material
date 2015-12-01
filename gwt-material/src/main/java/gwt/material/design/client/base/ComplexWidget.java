@@ -22,10 +22,7 @@ package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
@@ -49,22 +46,22 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat {
 
-    private final IdMixin<ComplexWidget> idMixin = new IdMixin<>(this);
-    private final EnabledMixin<ComplexWidget> enabledMixin = new EnabledMixin<>(this);
-    private final CssNameMixin<ComplexWidget, TextAlign> textAlignMixin = new CssNameMixin<>(this);
-    private final ColorsMixin<ComplexWidget> colorsMixin = new ColorsMixin<>(this);
-    private final FocusableMixin<ComplexWidget> focusableMixin = new FocusableMixin<>(this);
-    private final GridMixin<ComplexWidget> gridMixin = new GridMixin<>(this);
-    private final ShadowMixin<ComplexWidget> shadowMixin = new ShadowMixin<>(this);
-    private final SeparatorMixin<ComplexWidget> separatorMixin = new SeparatorMixin<>(this);
-    private final ScrollspyMixin<ComplexWidget> scrollspyMixin = new ScrollspyMixin<>(this);
-    private final CssNameMixin<ComplexWidget, HideOn> hideOnMixin = new CssNameMixin<>(this);
-    private final CssNameMixin<ComplexWidget, ShowOn> showOnMixin = new CssNameMixin<>(this);
-    private final CssNameMixin<ComplexWidget, CenterOn> centerOnMixin = new CssNameMixin<>(this);
-    private final FontSizeMixin<ComplexWidget> fontSizeMixin = new FontSizeMixin<>(this);
-    private final ToggleStyleMixin<ComplexWidget> circleMixin = new ToggleStyleMixin<>(this, "circle");
-    private final WavesMixin<ComplexWidget> wavesMixin = new WavesMixin<>(this);
-    private final CssNameMixin<ComplexWidget, Style.Float> floatMixin = new CssNameMixin<>(this);
+    private IdMixin<ComplexWidget> idMixin;
+    private EnabledMixin<ComplexWidget> enabledMixin;
+    private CssNameMixin<ComplexWidget, TextAlign> textAlignMixin;
+    private ColorsMixin<ComplexWidget> colorsMixin;
+    private FocusableMixin<ComplexWidget> focusableMixin;
+    private GridMixin<ComplexWidget> gridMixin;
+    private ShadowMixin<ComplexWidget> shadowMixin;
+    private SeparatorMixin<ComplexWidget> separatorMixin;
+    private ScrollspyMixin<ComplexWidget> scrollspyMixin;
+    private CssNameMixin<ComplexWidget, HideOn> hideOnMixin;
+    private CssNameMixin<ComplexWidget, ShowOn> showOnMixin;
+    private CssNameMixin<ComplexWidget, CenterOn> centerOnMixin;
+    private FontSizeMixin<ComplexWidget> fontSizeMixin;
+    private ToggleStyleMixin<ComplexWidget> circleMixin;
+    private WavesMixin<ComplexWidget> wavesMixin;
+    private CssNameMixin<ComplexWidget, Style.Float> floatMixin;
 
     public ComplexWidget() {
     }
@@ -88,94 +85,174 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
         insert(child, (Element) getElement(), beforeIndex, true);
     }
 
+    private IdMixin<ComplexWidget> getIdMixin() {
+        if(idMixin == null) { idMixin = new IdMixin<>(this); }
+        return idMixin;
+    }
+
+    private EnabledMixin<ComplexWidget> getEnabledMixin() {
+        if(enabledMixin == null) { enabledMixin = new EnabledMixin<>(this); }
+        return enabledMixin;
+    }
+
+    private CssNameMixin<ComplexWidget, TextAlign> getTextAlignMixin() {
+        if(textAlignMixin == null) { textAlignMixin = new CssNameMixin<>(this); }
+        return textAlignMixin;
+    }
+
+    private ColorsMixin<ComplexWidget> getColorsMixin() {
+        if(colorsMixin == null) { colorsMixin = new ColorsMixin<>(this); }
+        return colorsMixin;
+    }
+
+    private FocusableMixin<ComplexWidget> getFocusableMixin() {
+        if(focusableMixin == null) { focusableMixin = new FocusableMixin<>(this); }
+        return focusableMixin;
+    }
+
+    private GridMixin<ComplexWidget> getGridMixin() {
+        if(gridMixin == null) { gridMixin = new GridMixin<>(this); }
+        return gridMixin;
+    }
+
+    private ShadowMixin<ComplexWidget> getShadowMixin() {
+        if(shadowMixin == null) { shadowMixin = new ShadowMixin<>(this); }
+        return shadowMixin;
+    }
+
+    private SeparatorMixin<ComplexWidget> getSeparatorMixin() {
+        if(separatorMixin == null) { separatorMixin = new SeparatorMixin<>(this); }
+        return separatorMixin;
+    }
+
+    private ScrollspyMixin<ComplexWidget> getScrollspyMixin() {
+        if(scrollspyMixin == null) { scrollspyMixin = new ScrollspyMixin<>(this); }
+        return scrollspyMixin;
+    }
+
+    private CssNameMixin<ComplexWidget, HideOn> getHideOnMixin() {
+        if(hideOnMixin == null) { hideOnMixin = new CssNameMixin<>(this); }
+        return hideOnMixin;
+    }
+
+    private CssNameMixin<ComplexWidget, ShowOn> getShowOnMixin() {
+        if(showOnMixin == null) { showOnMixin = new CssNameMixin<>(this); }
+        return showOnMixin;
+    }
+
+    private CssNameMixin<ComplexWidget, CenterOn> getCenterOnMixin() {
+        if(centerOnMixin == null) { centerOnMixin = new CssNameMixin<>(this); }
+        return centerOnMixin;
+    }
+
+    private FontSizeMixin<ComplexWidget> getFontSizeMixin() {
+        if(fontSizeMixin == null) { fontSizeMixin = new FontSizeMixin<>(this); }
+        return fontSizeMixin;
+    }
+
+    private ToggleStyleMixin<ComplexWidget> getCircleMixin() {
+        if(circleMixin == null) { circleMixin = new ToggleStyleMixin<>(this, "circle"); }
+        return circleMixin;
+    }
+
+    private WavesMixin<ComplexWidget> getWavesMixin() {
+        if(wavesMixin == null) { wavesMixin = new WavesMixin<>(this); }
+        return wavesMixin;
+    }
+
+    private CssNameMixin<ComplexWidget, Style.Float> getFloatMixin() {
+        if(floatMixin == null) { floatMixin = new CssNameMixin<>(this); }
+        return floatMixin;
+    }
+
     @Override
     public void setId(String id) {
-        idMixin.setId(id);
+        getIdMixin().setId(id);
     }
 
     @Override
     public String getId() {
-        return idMixin.getId();
+        return getIdMixin().getId();
     }
 
     @Override
     public boolean isEnabled() {
-        return enabledMixin.isEnabled();
+        return getEnabledMixin().isEnabled();
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-        enabledMixin.setEnabled(enabled);
+        getEnabledMixin().setEnabled(enabled);
     }
 
     @Override
     public TextAlign getTextAlign() {
-        return textAlignMixin.getCssName();
+        return getTextAlignMixin().getCssName();
     }
 
     @Override
     public void setTextAlign(TextAlign align) {
-        textAlignMixin.setCssName(align);
+        getTextAlignMixin().setCssName(align);
     }
 
     @Override
     public void setBackgroundColor(String bgColor) {
-        colorsMixin.setBackgroundColor(bgColor);
+        getColorsMixin().setBackgroundColor(bgColor);
     }
 
     @Override
     public String getBackgroundColor() {
-        return colorsMixin.getBackgroundColor();
+        return getColorsMixin().getBackgroundColor();
     }
 
     @Override
     public void setTextColor(String textColor) {
-        colorsMixin.setTextColor(textColor);
+        getColorsMixin().setTextColor(textColor);
     }
 
     @Override
     public String getTextColor() {
-        return colorsMixin.getTextColor();
+        return getColorsMixin().getTextColor();
     }
 
     @Override
     public int getTabIndex() {
-        return focusableMixin.getTabIndex();
+        return getFocusableMixin().getTabIndex();
     }
 
     @Override
     public void setAccessKey(char key) {
-        focusableMixin.setAccessKey(key);
+        getFocusableMixin().setAccessKey(key);
     }
 
     @Override
     public void setFocus(boolean focused) {
-        focusableMixin.setFocus(focused);
+        getFocusableMixin().setFocus(focused);
     }
 
     @Override
     public void setTabIndex(int index) {
-        focusableMixin.setTabIndex(index);
+        getFocusableMixin().setTabIndex(index);
     }
 
     @Override
     public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
+        getGridMixin().setGrid(grid);
     }
 
     @Override
     public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
+        getGridMixin().setOffset(offset);
     }
 
     @Override
     public void setShadow(int shadow) {
-        shadowMixin.setShadow(shadow);
+        getShadowMixin().setShadow(shadow);
     }
 
     @Override
     public int getShadow() {
-        return shadowMixin.getShadow();
+        return getShadowMixin().getShadow();
     }
 
     @Override
@@ -245,87 +322,87 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
 
     @Override
     public void setSeparator(boolean separator) {
-        separatorMixin.setSeparator(separator);
+        getSeparatorMixin().setSeparator(separator);
     }
 
     @Override
     public boolean isSeparator() {
-        return separatorMixin.isSeparator();
+        return getSeparatorMixin().isSeparator();
     }
 
     @Override
     public void setScrollspy(String scrollspy) {
-        scrollspyMixin.setScrollspy(scrollspy);
+        getScrollspyMixin().setScrollspy(scrollspy);
     }
 
     @Override
     public String getScrollspy() {
-        return scrollspyMixin.getScrollspy();
+        return getScrollspyMixin().getScrollspy();
     }
 
     @Override
     public void setCenterOn(CenterOn centerOn) {
-        centerOnMixin.setCssName(centerOn);
+        getCenterOnMixin().setCssName(centerOn);
     }
 
     @Override
     public CenterOn getCenterOn() {
-        return centerOnMixin.getCssName();
+        return getCenterOnMixin().getCssName();
     }
 
     @Override
     public void setHideOn(HideOn hideOn) {
-        hideOnMixin.setCssName(hideOn);
+        getHideOnMixin().setCssName(hideOn);
     }
 
     @Override
     public HideOn getHideOn() {
-        return hideOnMixin.getCssName();
+        return getHideOnMixin().getCssName();
     }
 
     @Override
     public void setShowOn(ShowOn showOn) {
-        showOnMixin.setCssName(showOn);
+        getShowOnMixin().setCssName(showOn);
     }
 
     @Override
     public ShowOn getShowOn() {
-        return showOnMixin.getCssName();
+        return getShowOnMixin().getCssName();
     }
 
     @Override
     public void setFontSize(String fontSize) {
-        fontSizeMixin.setFontSize(fontSize);
+        getFontSizeMixin().setFontSize(fontSize);
     }
 
     @Override
     public String getFontSize() {
-        return fontSizeMixin.getFontSize();
+        return getFontSizeMixin().getFontSize();
     }
 
     @Override
     public void setFontSize(double fontSize, Style.Unit unit) {
-        fontSizeMixin.setFontSize(fontSize, unit);
+        getFontSizeMixin().setFontSize(fontSize, unit);
     }
 
     @Override
     public void setCircle(boolean circle) {
-        circleMixin.setOn(circle);
+        getCircleMixin().setOn(circle);
     }
 
     @Override
     public boolean isCircle() {
-        return circleMixin.isOn();
+        return getCircleMixin().isOn();
     }
 
     @Override
     public void setWaves(WavesType waves) {
-        wavesMixin.setWaves(waves);
+        getWavesMixin().setWaves(waves);
     }
 
     @Override
     public WavesType getWaves() {
-        return wavesMixin.getWaves();
+        return getWavesMixin().getWaves();
     }
 
     @Override
@@ -346,11 +423,11 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
 
     @Override
     public void setFloat(Style.Float floatAlign) {
-        floatMixin.setCssName(floatAlign);
+        getFloatMixin().setCssName(floatAlign);
     }
 
     @Override
     public Style.Float getFloat() {
-        return StyleHelper.fromStyleName(Style.Float.class, floatMixin.getCssName());
+        return StyleHelper.fromStyleName(Style.Float.class, getFloatMixin().getCssName());
     }
 }
