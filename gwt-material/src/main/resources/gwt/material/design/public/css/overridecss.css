@@ -870,6 +870,19 @@ i[class*="waves-"].material-icons {
 	margin-top: 12px;
 	padding-left: 36%;
 }
-.tab a span:nth-child(2){
+.tab a span:nth-child(2) {
 	float: left;
+}
+
+/** Collapsibles **/
+.collapsible-header  > i {
+	font-size: 1.4rem !important;
+	line-height: 2.5rem !important;
+	width: 3rem !important;
+	margin: 0px !important;
+}
+
+/** Cards **/
+.card .card-action a{
+	display: inline-block;
 }
