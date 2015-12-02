@@ -815,3 +815,8 @@ i[class*="waves-"].material-icons {
 	width: 3rem !important;
 	margin: 0px !important;
 }
+
+/** Cards **/
+.card .card-action a{
+	display: inline-block;
+}
