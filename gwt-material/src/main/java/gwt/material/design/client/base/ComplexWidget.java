@@ -20,10 +20,17 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.EnabledMixin;
+import gwt.material.design.client.base.mixin.FlexboxMixin;
 import gwt.material.design.client.base.mixin.FocusableMixin;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
@@ -35,22 +42,23 @@ import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.base.mixin.TooltipMixin;
 import gwt.material.design.client.base.mixin.WavesMixin;
 import gwt.material.design.client.constants.CenterOn;
+import gwt.material.design.client.constants.Display;
+import gwt.material.design.client.constants.Flex;
+import gwt.material.design.client.constants.FlexAlignContent;
+import gwt.material.design.client.constants.FlexAlignItems;
+import gwt.material.design.client.constants.FlexAlignSelf;
+import gwt.material.design.client.constants.FlexDirection;
+import gwt.material.design.client.constants.FlexJustifyContent;
+import gwt.material.design.client.constants.FlexWrap;
 import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.constants.ShowOn;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.WavesType;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.Widget;
-
 public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox {
 
     private IdMixin<ComplexWidget> idMixin;
     private EnabledMixin<ComplexWidget> enabledMixin;
@@ -69,6 +77,7 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     private WavesMixin<ComplexWidget> wavesMixin;
     private CssNameMixin<ComplexWidget, Style.Float> floatMixin;
     private TooltipMixin<ComplexWidget> tooltipMixin;
+    private FlexboxMixin<ComplexWidget> flexboxMixin;
 
     public ComplexWidget() {
     }
@@ -176,7 +185,12 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
         if(tooltipMixin == null) { tooltipMixin = new TooltipMixin<>(this); }
         return tooltipMixin;
     }
-    
+
+    private FlexboxMixin<ComplexWidget> getFlexboxMixin() {
+        if(flexboxMixin == null) { flexboxMixin = new FlexboxMixin<>(this); }
+        return flexboxMixin;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -319,7 +333,7 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
 
     @Override
     public void setDisplay(Style.Display display) {
-        getElement().getStyle().setDisplay(display);
+        getFlexboxMixin().setDisplay(display);
     }
 
     @Override
@@ -471,5 +485,65 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     @Override
     public void setTooltipDelayMs(int delayMs) {
         getTooltipMixin().setTooltipDelayMs(delayMs);
+    }
+
+    @Override
+    public void setDisplay(Display display) {
+        getFlexboxMixin().setDisplay(display);
+    }
+
+    @Override
+    public void setFlexDirection(FlexDirection flexDirection) {
+        getFlexboxMixin().setFlexDirection(flexDirection);
+    }
+
+    @Override
+    public void setFlex(Flex flex) {
+        getFlexboxMixin().setFlex(flex);
+    }
+
+    @Override
+    public void setFlexGrow(Integer flexGrow) {
+        getFlexboxMixin().setFlexGrow(flexGrow);
+    }
+
+    @Override
+    public void setFlexShrink(Integer flexShrink) {
+        getFlexboxMixin().setFlexShrink(flexShrink);
+    }
+
+    @Override
+    public void setFlexBasis(String flexBasis) {
+        getFlexboxMixin().setFlexBasis(flexBasis);
+    }
+
+    @Override
+    public void setFlexOrder(Integer flexOrder) {
+        getFlexboxMixin().setFlexOrder(flexOrder);
+    }
+
+    @Override
+    public void setFlexWrap(FlexWrap flexWrap) {
+        getFlexboxMixin().setFlexWrap(flexWrap);
+    }
+
+    @Override
+    public void setFlexAlignContent(FlexAlignContent flexAlignContent) {
+        getFlexboxMixin().setFlexAlignContent(flexAlignContent);
+    }
+
+    @Override
+    public void setFlexAlignSelf(FlexAlignSelf flexAlignSelf) {
+        getFlexboxMixin().setFlexAlignSelf(flexAlignSelf);
+    }
+
+    @Override
+    public void setFlexAlignItems(FlexAlignItems flexAlignItems) {
+        getFlexboxMixin().setFlexAlignItems(flexAlignItems);
+    }
+
+    @Override
+    public void setFlexJustifyContent(FlexJustifyContent flexJustifyContent) {
+        getFlexboxMixin().setFlexJustifyContent(flexJustifyContent);
     }
 }
