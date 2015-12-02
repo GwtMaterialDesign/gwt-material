@@ -804,7 +804,7 @@ i[class*="waves-"].material-icons {
 	margin-top: 12px;
 	padding-left: 36%;
 }
-.tab a span:nth-child(2){
+.tab a span:nth-child(2) {
 	float: left;
 }
 
