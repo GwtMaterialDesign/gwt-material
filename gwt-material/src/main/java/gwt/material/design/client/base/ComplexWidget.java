@@ -20,31 +20,37 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
-import gwt.material.design.client.constants.TextAlign;
-import gwt.material.design.client.constants.CenterOn;
-import gwt.material.design.client.constants.HideOn;
-import gwt.material.design.client.constants.ShowOn;
 import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.EnabledMixin;
 import gwt.material.design.client.base.mixin.FocusableMixin;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.IdMixin;
 import gwt.material.design.client.base.mixin.ScrollspyMixin;
 import gwt.material.design.client.base.mixin.SeparatorMixin;
 import gwt.material.design.client.base.mixin.ShadowMixin;
-import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.TooltipMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.constants.CenterOn;
+import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.constants.ShowOn;
+import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.WavesType;
+
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.Widget;
 
 public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip {
 
     private IdMixin<ComplexWidget> idMixin;
     private EnabledMixin<ComplexWidget> enabledMixin;
@@ -62,6 +68,7 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     private ToggleStyleMixin<ComplexWidget> circleMixin;
     private WavesMixin<ComplexWidget> wavesMixin;
     private CssNameMixin<ComplexWidget, Style.Float> floatMixin;
+    private TooltipMixin<ComplexWidget> tooltipMixin;
 
     public ComplexWidget() {
     }
@@ -165,6 +172,11 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
         return floatMixin;
     }
 
+    private TooltipMixin<ComplexWidget> getTooltipMixin() {
+        if(tooltipMixin == null) { tooltipMixin = new TooltipMixin<>(this); }
+        return tooltipMixin;
+    }
+    
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -429,5 +441,35 @@ public class ComplexWidget extends ComplexPanel implements HasId, HasEnabled, Ha
     @Override
     public Style.Float getFloat() {
         return StyleHelper.fromStyleName(Style.Float.class, getFloatMixin().getCssName());
+    }
+
+    @Override
+    public String getTooltip() {
+        return getTooltipMixin().getTooltip();
+    }
+
+    @Override
+    public void setTooltip(String tooltip) {
+        getTooltipMixin().setTooltip(tooltip);
+    }
+
+    @Override
+    public Position getTooltipPosition() {
+        return getTooltipMixin().getTooltipPosition();
+    }
+
+    @Override
+    public void setTooltipPosition(Position position) {
+        getTooltipMixin().setTooltipPosition(position);
+    }
+
+    @Override
+    public int getTooltipDelayMs() {
+        return getTooltipMixin().getTooltipDelayMs();
+    }
+
+    @Override
+    public void setTooltipDelayMs(int delayMs) {
+        getTooltipMixin().setTooltipDelayMs(delayMs);
     }
 }
