@@ -195,7 +195,7 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     public void setValue(String value, boolean fireEvents) {
         txtBox.setValue(value, fireEvents);
 
-        if (!value.isEmpty()) {
+        if (value != null && !value.isEmpty()) {
             label.addStyleName("active");
         }
     }
@@ -463,7 +463,7 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     }
 
     public void showErrors(List<EditorError> errors) {
-        if(errors.isEmpty()) {
+        if(errors == null || errors.isEmpty()) {
             setSuccess("");
         }
         else {
