@@ -252,6 +252,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
             public void onClick(ClickEvent clickEvent) {
                 suggestionMap.remove(suggestion);
                 list.remove(displayItem);
+                ValueChangeEvent.fire(MaterialAutoComplete.this, getValue());
             }
         });
 
