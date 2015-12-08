@@ -458,7 +458,7 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     }
 
     @Ignore
-    public TextBox getTxtBox() {
+    public TextBox asGwtTextBox() {
         return txtBox;
     }
 
@@ -484,21 +484,21 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
 
     @Override
     public int getTabIndex() {
-        return getTxtBox().getTabIndex();
+        return txtBox.getTabIndex();
     }
 
     @Override
     public void setAccessKey(char key) {
-        getTxtBox().setAccessKey(key);
+        txtBox.setAccessKey(key);
     }
 
     @Override
     public void setFocus(boolean focused) {
-        getTxtBox().setFocus(focused);
+        txtBox.setFocus(focused);
     }
 
     @Override
     public void setTabIndex(int tabIndex) {
-        getTxtBox().setTabIndex(tabIndex);
+        txtBox.setTabIndex(tabIndex);
     }
 }

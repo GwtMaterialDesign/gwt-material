@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+// TODO: Replace with jQuery JSInterop
 public class DOMHelper {
 
     public static Element getChildElementById(Element parent, String id) {
