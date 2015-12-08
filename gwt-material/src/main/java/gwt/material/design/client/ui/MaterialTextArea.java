@@ -23,8 +23,12 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.TextArea;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CounterMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
@@ -46,21 +50,20 @@ import gwt.material.design.client.ui.html.Label;
 * @author Ben Dol
 */
 //@formatter:on
-public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPressHandlers,
+public class MaterialTextArea extends ComplexWidget implements HasText, HasValue<String>, HasKeyPressHandlers,
         HasKeyDownHandlers, HasKeyUpHandlers, HasChangeHandlers, HasError, HasIcon, HasPlaceholder, HasCounter {
 
     private String placeholder;
     private boolean isValid = true;
 
-    private MaterialLabel lblError = new MaterialLabel();
-
-    private final ErrorMixin<MaterialTextArea, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
-
     private Label label = new Label();
+    private MaterialLabel lblError = new MaterialLabel();
     private MaterialLabel lblName = new MaterialLabel();
-    private ComplexWidget textArea = new ComplexWidget(Document.get().createElement("textarea"));
+    private TextArea textArea = new TextArea();
     private MaterialIcon icon = new MaterialIcon();
+
     private CounterMixin<MaterialTextArea> counterMixin = new CounterMixin<>(this);
+    private final ErrorMixin<MaterialTextArea, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
     public MaterialTextArea() {
         super(Document.get().createDivElement());
@@ -75,18 +78,14 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
     }
 
     public void removeErrorModifiers() {
-        textArea.getElement().removeClassName("valid");
-        textArea.getElement().removeClassName("invalid");
+        textArea.removeStyleName("valid");
+        textArea.removeStyleName("invalid");
         lblName.removeStyleName("green-text");
         lblName.removeStyleName("red-text");
     }
 
     public boolean isValid() {
         return isValid;
-    }
-
-    public void setValid(boolean isValid) {
-        this.isValid = isValid;
     }
 
     @Override
@@ -97,18 +96,18 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
 
     @Override
     public String getText() {
-        return textArea.getElement().getInnerHTML();
+        return textArea.getText();
     }
 
     @Override
     public void setText(String text) {
-        textArea.getElement().setInnerHTML(text);
+        textArea.setText(text);
         label.addStyleName("active");
     }
 
     @Override
     public void clear() {
-        textArea.getElement().setInnerHTML("");
+        textArea.setText("");
         clearErrorOrSuccess();
         label.removeStyleName("active");
     }
@@ -150,7 +149,7 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
 
         removeErrorModifiers();
         lblName.setStyleName("red-text");
-        textArea.getElement().addClassName("invalid");
+        textArea.addStyleName("invalid");
         isValid = false;
     }
 
@@ -160,7 +159,7 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
 
         removeErrorModifiers();
         lblName.setStyleName("green-text");
-        textArea.getElement().addClassName("valid");
+        textArea.addStyleName("valid");
         isValid = true;
     }
 
@@ -221,7 +220,31 @@ public class MaterialTextArea extends ComplexWidget implements HasText, HasKeyPr
         return counterMixin.getLength();
     }
 
-    public ComplexWidget getTextArea() {
+    @Override
+    public String getValue() {
+        return getText();
+    }
+
+    @Override
+    public void setValue(String value) {
+        setValue(value, true);
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        setText(value);
+
+        if(fireEvents) {
+            ValueChangeEvent.fire(this, value);
+        }
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
+
+    public TextArea asGwtTextArea() {
         return textArea;
     }
 }

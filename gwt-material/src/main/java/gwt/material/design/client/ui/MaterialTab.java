@@ -70,9 +70,12 @@ public class MaterialTab extends UnorderedList {
     @Override
     public void onLoad() {
         super.onLoad();
+
         initialize();
+
         indicator = new ComplexWidget(getIndicatorElement(getElement()));
         indicatorColorMixin = new ColorsMixin<>(indicator);
+
         setIndicatorColor(indicatorColor);
     }
 

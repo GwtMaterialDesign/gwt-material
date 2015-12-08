@@ -195,7 +195,7 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     public void setValue(String value, boolean fireEvents) {
         txtBox.setValue(value, fireEvents);
 
-        if (!value.isEmpty()) {
+        if (value != null && !value.isEmpty()) {
             label.addStyleName("active");
         }
     }
@@ -458,12 +458,12 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
     }
 
     @Ignore
-    public TextBox getTxtBox() {
+    public TextBox asGwtTextBox() {
         return txtBox;
     }
 
     public void showErrors(List<EditorError> errors) {
-        if(errors.isEmpty()) {
+        if(errors == null || errors.isEmpty()) {
             setSuccess("");
         }
         else {
@@ -484,21 +484,21 @@ public class MaterialTextBox extends ComplexWidget implements HasChangeHandlers,
 
     @Override
     public int getTabIndex() {
-        return getTxtBox().getTabIndex();
+        return txtBox.getTabIndex();
     }
 
     @Override
     public void setAccessKey(char key) {
-        getTxtBox().setAccessKey(key);
+        txtBox.setAccessKey(key);
     }
 
     @Override
     public void setFocus(boolean focused) {
-        getTxtBox().setFocus(focused);
+        txtBox.setFocus(focused);
     }
 
     @Override
     public void setTabIndex(int tabIndex) {
-        getTxtBox().setTabIndex(tabIndex);
+        txtBox.setTabIndex(tabIndex);
     }
 }

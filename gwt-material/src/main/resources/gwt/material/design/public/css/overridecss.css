@@ -774,10 +774,10 @@ i[class*="waves-"].material-icons {
 /** Splashscreen */
 .splash-screen{
 	position: fixed;
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	left: 0px;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 	display: -webkit-box;
 	display: -moz-box;
 	display: -ms-flexbox;
@@ -791,7 +791,7 @@ i[class*="waves-"].material-icons {
 }
 
 .splash-screen .progress{
-	margin: 0px;
+	margin: 0;
 	position: absolute;
 	z-index: 9999;
 	left: 0;
@@ -813,7 +813,7 @@ i[class*="waves-"].material-icons {
 	font-size: 1.4rem !important;
 	line-height: 2.5rem !important;
 	width: 3rem !important;
-	margin: 0px !important;
+	margin: 0 !important;
 }
 
 /** Cards **/
