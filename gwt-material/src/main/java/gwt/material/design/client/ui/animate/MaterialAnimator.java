@@ -20,39 +20,42 @@ package gwt.material.design.client.ui.animate;
  * #L%
  */
 
-import gwt.material.design.client.ui.html.ListItem;
-import gwt.material.design.client.ui.html.UnorderedList;
-
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.Transition;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 
 public class MaterialAnimator {
 
     public static void animate(final Transition transition, final Widget w, int delayMillis) {
+        final String name = String.valueOf(DOM.createUniqueId());
+        w.getElement().setId(name);
         switch (transition) {
-        case SHOW_STAGGERED_LIST:
-            if(w instanceof UnorderedList) {
-                UnorderedList ul = (UnorderedList) w;
+            case SHOW_STAGGERED_LIST:
+                if(w instanceof UnorderedList) {
+                    UnorderedList ul = (UnorderedList) w;
 
-                for(Widget li : ul) {
-                    if(li instanceof ListItem) {
-                        li.getElement().getStyle().setOpacity(0);
+                    for(Widget li : ul) {
+                        if(li instanceof ListItem) {
+                            li.getElement().getStyle().setOpacity(0);
+                        }
                     }
                 }
-            }
-            break;
-        case SHOW_GRID:
-            w.getElement().getStyle().setOpacity(0);
-            break;
-        default:
-            break;
+                break;
+            case SHOW_GRID:
+                w.getElement().getStyle().setOpacity(0);
+                break;
+            default:
+                // For core animation components
+                w.addStyleName("animated " + transition.getCssName());
+                break;
         }
 
         new Timer() {
             @Override
             public void run() {
-                String name = String.valueOf(this.hashCode());
-                w.getElement().setId(name);
                 switch (transition) {
                     case SHOW_STAGGERED_LIST:
                         showStaggeredList(name);
@@ -69,6 +72,8 @@ public class MaterialAnimator {
                         closeGrid(name);
                         break;
                     default:
+                        // For core animation components
+                        w.removeStyleName("animated " + transition.getCssName());
                         break;
                 }
             }
@@ -89,7 +94,7 @@ public class MaterialAnimator {
         $wnd.Materialize.fadeInImage('#' + name);
     }-*/;
 
-    public static native void showStaggeredList(String name) /*-{
+    protected static native void showStaggeredList(String name) /*-{
         $wnd.Materialize.showStaggeredList('#' + name);
     }-*/;
 }
