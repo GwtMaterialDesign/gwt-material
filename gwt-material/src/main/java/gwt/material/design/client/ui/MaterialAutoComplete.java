@@ -250,6 +250,7 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
             public void onClick(ClickEvent clickEvent) {
                 suggestionMap.remove(suggestion);
                 list.remove(displayItem);
+                ValueChangeEvent.fire(MaterialAutoComplete.this, getValue());
             }
         });
 
