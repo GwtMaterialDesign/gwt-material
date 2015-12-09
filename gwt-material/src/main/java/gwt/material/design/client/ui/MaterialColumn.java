@@ -20,6 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasWaves;
 
@@ -46,7 +48,7 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibility {
+public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibility, HasClickHandlers, HasAllMouseHandlers, HasDoubleClickHandlers {
 
     public MaterialColumn() {
         super(Document.get().createDivElement());
@@ -56,5 +58,45 @@ public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibi
     public MaterialColumn(int small, int medium, int large) {
         this();
         addStyleName("s"+small+" m"+medium + " l" + large);
+    }
+
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+        return addDomHandler(handler, DoubleClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+        return addDomHandler(handler, MouseDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+        return addDomHandler(handler, MouseMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+        return addDomHandler(handler, MouseOutEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+        return addDomHandler(handler, MouseOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+        return addDomHandler(handler, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+        return addDomHandler(handler, MouseWheelEvent.getType());
     }
 }
