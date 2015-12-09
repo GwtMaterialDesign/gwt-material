@@ -76,6 +76,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     private UnorderedList list = new UnorderedList();
     private SuggestOracle suggestions;
     private TextBox itemBox = new TextBox();
+    private SuggestBox box;
     private int limit = 0;
     private MaterialLabel lblError = new MaterialLabel();
 
@@ -113,12 +114,19 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         final ListItem item = new ListItem();
 
         item.setStyleName("multiValueSuggestBox-input-token");
-        final SuggestBox box = new SuggestBox(suggestions, itemBox);
+        box = new SuggestBox(suggestions, itemBox);
         String autocompleteId = DOM.createUniqueId();
         itemBox.getElement().setId(autocompleteId);
 
         item.add(box);
         list.add(item);
+
+        list.addDomHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                box.showSuggestionList();
+            }
+        }, ClickEvent.getType());
 
         itemBox.addKeyDownHandler(new KeyDownHandler() {
             public void onKeyDown(KeyDownEvent event) {
@@ -253,6 +261,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                 suggestionMap.remove(suggestion);
                 list.remove(displayItem);
                 ValueChangeEvent.fire(MaterialAutoComplete.this, getValue());
+                box.showSuggestionList();
             }
         });
 
