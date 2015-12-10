@@ -20,31 +20,32 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.ui.html.Div;
-
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
 
 /**
-* 
-* <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.
-* <h3>Java Usage:</h3>
-* 
-* <pre>
-* {@code 
+ *
+ * <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.
+ * <h3>Java Usage:</h3>
+ *
+ * <pre>
+ * {@code
 // FOR CIRCULAR LOADER
 MaterialLoader.showLoading(true);
 // FOR PROGRESS LOADER
 MaterialLoader.showProgress(true);
 
 </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
-*/
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
+ */
 //@formatter:on
 public class MaterialLoader {
     private static Div div = new Div();
@@ -55,7 +56,10 @@ public class MaterialLoader {
      * Show a circular loader.
      */
     public static void showLoading(boolean isShow) {
+        showLoading(isShow, RootPanel.get());
+    }
 
+    public static void showLoading(boolean isShow, Panel con) {
         if (isShow) {
             div.setStyleName("valign-wrapper loader-wrapper");
             preLoader.getElement().getStyle().setProperty("margin", "auto");
@@ -63,8 +67,11 @@ public class MaterialLoader {
             preLoader.add(new MaterialSpinner("red"));
             preLoader.add(new MaterialSpinner("yellow"));
             preLoader.add(new MaterialSpinner("green"));
+            if(!(con instanceof RootPanel)) {
+                div.getElement().getStyle().setProperty("position", "absolute");
+            }
             div.add(preLoader);
-            RootPanel.get().add(div);
+            con.add(div);
         } else {
             div.removeFromParent();
             preLoader.removeFromParent();
