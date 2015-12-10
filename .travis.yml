@@ -1,0 +1,14 @@
+sudo: false
+language: java
+jdk:
+- oraclejdk7
+cache:
+  directories:
+  - $HOME/.m2
+install: true
+before_script:
+ - chmod +x .utility/*
+script:
+- mvn clean install -DdryRun=true
+after_success:
+- .utility/deploy.sh

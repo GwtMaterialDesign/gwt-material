@@ -101,3 +101,5 @@ crashlytics-build.properties
 
 
 /README.md
+/gwt-unitCache/
+/war/
