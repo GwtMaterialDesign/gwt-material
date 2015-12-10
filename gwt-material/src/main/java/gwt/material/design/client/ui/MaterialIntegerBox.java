@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.IntegerBox;
 import gwt.material.design.client.constants.InputType;
 
 //@formatter:off
@@ -36,10 +36,11 @@ import gwt.material.design.client.constants.InputType;
 * @author Ben Dol
 */
 //@formatter:on
-public class MaterialTextBox extends MaterialValueBox<String> {
+public class MaterialIntegerBox extends MaterialValueBox<Integer> {
 
-    public MaterialTextBox() {
-        super(new TextBox());
+
+    public MaterialIntegerBox() {
+        super(new IntegerBox());
         setType(InputType.TEXT);
 
     }
