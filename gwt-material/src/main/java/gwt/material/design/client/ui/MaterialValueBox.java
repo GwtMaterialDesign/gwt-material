@@ -74,6 +74,7 @@ public class MaterialValueBox<T> extends ComplexWidget implements HasChangeHandl
 
     private Label label = new Label();
     private MaterialLabel lblName = new MaterialLabel();
+    @Ignore
     protected ValueBoxBase<T> valueBoxBase;
     private MaterialIcon icon = new MaterialIcon();
     private CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
