@@ -84,17 +84,26 @@ public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, 
         setValue(value);
     }
 
+    /**
+     * Keep in mind when registration was invoked already as the onLoad() might be initiated multiple times
+     * but we do only want to register once.
+     * Should fix: https://github.com/GwtMaterialDesign/gwt-material/issues/192
+     */
+    private boolean clickHandlerRegistered = false;
+    
     @Override
     protected void onLoad() {
         super.onLoad();
-
-        addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                setValue(!getValue());
-                event.preventDefault();
-            }
-        });
+        if (!clickHandlerRegistered){
+          clickHandlerRegistered = true;
+          addClickHandler(new ClickHandler() {
+              @Override
+              public void onClick(ClickEvent event) {
+                  setValue(!getValue());
+                  event.preventDefault();
+              }
+          });
+        }
     }
 
     @Override
