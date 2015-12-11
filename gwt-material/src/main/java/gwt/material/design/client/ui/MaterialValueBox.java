@@ -57,7 +57,8 @@ import java.util.List;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
 * @author kevzlou7979
 * @author Ben Dol
-*/
+ * @author paulux84
+ */
 //@formatter:on
 public class MaterialValueBox<T> extends ComplexWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
         HasValue<T>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasKeyUpHandlers,
