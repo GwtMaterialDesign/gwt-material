@@ -41,7 +41,7 @@ public class MaterialIntegerBox extends MaterialValueBox<Integer> {
 
     public MaterialIntegerBox() {
         super(new IntegerBox());
-        setType(InputType.TEXT);
+        setType(InputType.NUMBER);
 
     }
 
