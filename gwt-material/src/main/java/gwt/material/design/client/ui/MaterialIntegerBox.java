@@ -44,6 +44,18 @@ public class MaterialIntegerBox extends MaterialValueBox<Integer> {
 
     }
 
+    /**
+     * Set step attribete to input element.
+     * @param step "any" or number like for example 1 or 2.5 or 100, etc...
+     */
+    public void setStep(String step){
+        valueBoxBase.getElement().setAttribute("step", step);
+    }
+
+    public String getStep(){
+        return valueBoxBase.getElement().getAttribute("step");
+    }
+
     @Override
     public String getText() {
         return valueBoxBase.getText();
