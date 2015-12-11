@@ -32,7 +32,9 @@ import com.google.gwt.user.client.ui.TextArea;
 *{@code <m:MaterialTextArea placeholder="Your Comment" />
 * </pre>
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextArea</a>
-* @author paulux84
+* @author kevzlou7979
+* @author Ben Dol
+ * @author paulux84
 */
 //@formatter:on
 public class MaterialTextArea extends MaterialValueBox<String>{

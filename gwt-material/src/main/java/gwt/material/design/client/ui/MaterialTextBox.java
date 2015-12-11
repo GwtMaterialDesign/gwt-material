@@ -34,6 +34,7 @@ import gwt.material.design.client.constants.InputType;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
 * @author kevzlou7979
 * @author Ben Dol
+ * @author paulux84
 */
 //@formatter:on
 public class MaterialTextBox extends MaterialValueBox<String> {
