@@ -27,9 +27,11 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
+
 import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasAvatar;
 import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
 
@@ -52,6 +54,7 @@ public class MaterialCollectionItem extends ComplexWidget implements HasClickHan
     public MaterialCollectionItem() {
         super(Document.get().createLIElement());
         setStyleName("collection-item");
+        UiHelper.addMousePressedHandlers(this);
     }
 
     public void setType(CollectionType type) {
