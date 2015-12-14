@@ -202,6 +202,15 @@ li.multiValueSuggestBox-input-token {
     filter: gray; /* IE6-9 */
     -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
+.letter{
+	float: left;
+	margin: 0px 8px 0px -12px;
+	height: 32px;
+	width: 32px;
+	border-radius: 50%;
+	font-size: 1.2em;
+	text-align: center;
+}
 
 /** Calendar **/
 .picker__table td {
