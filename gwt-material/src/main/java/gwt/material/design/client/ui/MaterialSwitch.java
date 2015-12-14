@@ -74,6 +74,16 @@ public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, 
         add(label);
         add(lblError);
         lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
+        //register click handler here in order to have it at first position
+        // and therefore it will deal with clicks as first and setup the value
+        // right before others get notified.
+        addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                setValue(!getValue());
+                event.preventDefault();
+            }
+        });
     }
 
     /**
@@ -84,17 +94,10 @@ public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, 
         setValue(value);
     }
 
+    
     @Override
     protected void onLoad() {
         super.onLoad();
-
-        addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                setValue(!getValue());
-                event.preventDefault();
-            }
-        });
     }
 
     @Override
