@@ -507,7 +507,7 @@ nav .nav-wrapper .collapsible-body {
 }
 
 .collection-item.waves-effect {
-	display: block !important;
+	display: block;
 	padding-bottom: 0;
 }
 
@@ -885,4 +885,8 @@ i[class*="waves-"].material-icons {
 /** Cards **/
 .card .card-action a{
 	display: inline-block;
+}
+
+.material-label{
+	display: block;
 }
