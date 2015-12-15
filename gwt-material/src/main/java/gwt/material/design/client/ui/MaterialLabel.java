@@ -20,10 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.HasColors;
-import gwt.material.design.client.base.HasFontSize;
-import gwt.material.design.client.base.HasGrid;
-import gwt.material.design.client.base.HasSeparator;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.*;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
@@ -48,7 +47,7 @@ import gwt.material.design.client.base.mixin.SeparatorMixin;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
  */
 //@formatter:on
-public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasColors, HasFontSize {
+public class MaterialLabel extends ComplexWidget implements HasGrid, HasSeparator, HasColors, HasFontSize, HasText {
 
     private final ColorsMixin<MaterialLabel> colorsMixin = new ColorsMixin<>(this);
     private final GridMixin<MaterialLabel> gridMixin = new GridMixin<>(this);
@@ -56,26 +55,12 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasCo
     private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
 
     public MaterialLabel() {
-    }
-
-    public MaterialLabel(Element element) {
-        super(element);
-    }
-
-    public MaterialLabel(String text, boolean wordWrap) {
-        super(text, wordWrap);
-    }
-
-    public MaterialLabel(String text, Direction dir) {
-        super(text, dir);
-    }
-
-    public MaterialLabel(String text, DirectionEstimator directionEstimator) {
-        super(text, directionEstimator);
+        super(Document.get().createSpanElement());
+        setStyleName("material-label");
     }
 
     public MaterialLabel(String text) {
-        super(text);
+        setText(text);
     }
 
     @Override
@@ -131,5 +116,15 @@ public class MaterialLabel extends Label implements HasGrid, HasSeparator, HasCo
     @Override
     public void setTextColor(String textColor) {
         colorsMixin.setTextColor(textColor);
+    }
+
+    @Override
+    public String getText() {
+        return getElement().getInnerHTML();
+    }
+
+    @Override
+    public void setText(String text) {
+        getElement().setInnerHTML(text);
     }
 }
