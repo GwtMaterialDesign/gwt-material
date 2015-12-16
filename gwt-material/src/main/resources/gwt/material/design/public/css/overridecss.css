@@ -833,3 +833,21 @@ i[class*="waves-"].material-icons {
 .material-label{
 	display: block;
 }
+.tabs .tab a i, .tabs .tab a span{
+	float: none !important;
+	display: inline-block;
+	vertical-align: top;
+}
+.tab a i{
+	padding-left: 0px;
+}
+
+@media only screen and (max-width: 992px) {
+	.tab a span{
+		display: none !important;
+	}
+	.tab a i{
+		margin: auto;
+		margin-top: 12px;
+	}
+}
