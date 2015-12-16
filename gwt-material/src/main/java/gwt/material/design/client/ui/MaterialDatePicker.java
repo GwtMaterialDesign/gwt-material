@@ -20,21 +20,22 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.HasGrid;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.HasGrid;
+import gwt.material.design.client.base.HasOrientation;
+import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.Orientation;
 
 import java.util.Date;
 
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import gwt.material.design.client.base.HasOrientation;
-import gwt.material.design.client.base.mixin.ErrorMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
-
 //@formatter:off
+
 /**
  * Material Date Picker will provide a visual calendar to your apps.
  *
@@ -79,6 +80,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     private String placeholder;
     private String id;
     private Date date;
+    private String format = "dd mmmm yyyy";
 
     private JavaScriptObject input;
     private HTMLPanel panel;
@@ -102,7 +104,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         panel = new HTMLPanel("<input placeholder='"+placeholder+"' type='date' id='"+id+"' class='datepicker'>");
         this.add(panel);
         panel.addStyleName(orientation.getCssName());
-        initDatePicker(id, selectionType.name(), this);
+        initDatePicker(id, selectionType.name(), this, format);
         initClickHandler(id, this);
         panel.add(lblError);
     }
@@ -112,34 +114,6 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         super.clear();
         clearErrorOrSuccess();
     }
-
-    public static native void initDatePicker(String id, String typeName, MaterialDatePicker parent) /*-{
-        var input;
-        if(typeName === "MONTH_DAY") {
-            input = $wnd.jQuery('#' + id).pickadate({
-                container: 'body',
-                selectYears: false,
-                selectMonths: true
-            });
-        } else if(typeName === "YEAR_MONTH_DAY") {
-            input = $wnd.jQuery('#' + id).pickadate({
-                container: 'body',
-                selectYears: true,
-                selectMonths: true
-            });
-        } else if(typeName === "YEAR"){
-            input = $wnd.jQuery('#' + id).pickadate({
-                container: 'body',
-                selectYears: true
-            });
-        } else {
-            input = $wnd.jQuery('#' + id).pickadate({
-                container: 'body'
-            });
-        }
-
-        parent.@gwt.material.design.client.ui.MaterialDatePicker::input = input;
-    }-*/;
 
     /**
      * Sets the type of selection options (date, month, year,...).
@@ -156,9 +130,9 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         var input = parent.@gwt.material.design.client.ui.MaterialDatePicker::input;
         var picker = input.pickadate('picker');
         picker.on({
-          close: function() {
-            parent.@gwt.material.design.client.ui.MaterialDatePicker::notifyDelegate()();
-          }
+            close: function() {
+                parent.@gwt.material.design.client.ui.MaterialDatePicker::notifyDelegate()();
+            }
         });
     }-*/;
 
@@ -177,24 +151,37 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         }
     }
 
-    public Date getDate() {
-        return getPickerDate();
-    }
-
-    public native void clearValues() /*-{
-        $wnd.jQuery('.datepicker').val("");
-    }-*/;
-
-    public Date getPickerDate() {
-        try {
-            DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
-            date = sdf.parse(getDatePickerValue(id));
-            return date;
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
+    public static native void initDatePicker(String id, String typeName, MaterialDatePicker parent, String format) /*-{
+        var input;
+        if(typeName === "MONTH_DAY") {
+            input = $wnd.jQuery('#' + id).pickadate({
+                container: 'body',
+                selectYears: false,
+                selectMonths: true,
+                format: format
+            });
+        } else if(typeName === "YEAR_MONTH_DAY") {
+            input = $wnd.jQuery('#' + id).pickadate({
+                container: 'body',
+                selectYears: true,
+                selectMonths: true,
+                format: format
+            });
+        } else if(typeName === "YEAR"){
+            input = $wnd.jQuery('#' + id).pickadate({
+                container: 'body',
+                selectYears: true,
+                format: format
+            });
+        } else {
+            input = $wnd.jQuery('#' + id).pickadate({
+                container: 'body',
+                format: format
+            });
         }
-    }
+
+        parent.@gwt.material.design.client.ui.MaterialDatePicker::input = input;
+    }-*/;
 
     /**
      * Sets the current date of the picker.
@@ -205,33 +192,48 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
             return;
         }
         this.date = date;
-        initDatePicker(id, selectionType.name(), this);
-        DateTimeFormat sdf = DateTimeFormat.getFormat("d MMM, yyyy");
-        setDatePickerValue(sdf.format(date), id);
-        /*DateTimeFormat sdfSetter = DateTimeFormat.getFormat("yyyy-MM-dd");
-        selectDate(sdfSetter.format(date), id, this);*/
+        DateTimeFormat sdf = DateTimeFormat.getFormat(format);
+        setPickerDate(sdf.format(date), id);
     }
 
-    private native void selectDate(String date, String id, MaterialDatePicker parent) /*-{
-        var input = parent.@gwt.material.design.client.ui.MaterialDatePicker::input;
+    public native void setPickerDate(String date, String id) /*-{
+        var input = $wnd.jQuery('#' + id).pickadate();
         var picker = input.pickadate('picker');
-        if(picker) {
-            picker.set('select', date, { format: 'yyyy-MM-dd' });
-        }
+        picker.set('select', date);
     }-*/;
+
+    public Date getDate() {
+        return getPickerDate();
+    }
+
+    public Date getPickerDate() {
+        try {
+            DateTimeFormat sdf = DateTimeFormat.getFormat("mm/dd/yyyy");
+            date = sdf.parse(getDatePickerValue(id));
+            return date;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static native String getDatePickerValue(String id)/*-{
-        return $wnd.jQuery('#' + id).val();
+
+        function pad(n) {
+            return (n < 10) ? ("0" + n) : n;
+        }
+
+        var picker = $wnd.jQuery('#' + id).pickadate('picker');
+        var formattedDate = new Date(picker.get('value'));
+        var d = pad(formattedDate.getDate());
+        var m =  pad(formattedDate.getMonth());
+        m += 1;  // JavaScript months are 0-11
+        var y = formattedDate.getFullYear();
+        return  m + "/" + d + "/" + y;
     }-*/;
 
-    private static native void setDatePickerValue(String value, String id)/*-{
-        var input = $wnd.jQuery('.datepicker').pickadate();
-
-        // Use the picker object directly.
-        var picker = input.pickadate('picker');
-        if(picker) {
-            picker.set('select', value, { format: 'yyyy-MM-dd' });
-        }
+    public native void clearValues() /*-{
+        $wnd.jQuery('.datepicker').val("");
     }-*/;
 
     public String getPlaceholder() {
@@ -241,8 +243,6 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
     }
-
-
 
     public MaterialDatePickerType getSelectionType() {
         return selectionType;
@@ -292,4 +292,13 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     public void clearErrorOrSuccess() {
         errorMixin.clearErrorOrSuccess();
     }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
 }
