@@ -26,6 +26,8 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
+import java.lang.Runnable;
+
 /**
  * Provides core and meaningful animation
  * @author kevzlou7979
@@ -33,6 +35,9 @@ import gwt.material.design.client.ui.html.UnorderedList;
 public class MaterialAnimator {
 
     public static void animate(final Transition transition, final Widget w, int delayMillis) {
+        animate(transition, w, delayMillis, null);
+    }
+    public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
         final String name = String.valueOf(DOM.createUniqueId());
         w.getElement().setId(name);
         switch (transition) {
@@ -53,7 +58,7 @@ public class MaterialAnimator {
             default:
                 // For core animation components
                 w.addStyleName("animated " + transition.getCssName());
-                animationFinishedCallback(name, "animated " + transition.getCssName());
+                animationFinishedCallback(name, "animated " + transition.getCssName(), callback);
                 break;
         }
 
@@ -84,9 +89,12 @@ public class MaterialAnimator {
         w.removeStyleName("materialcss");
     }
 
-    protected static native void animationFinishedCallback(String name, String oldClass) /*-{
+    protected static native void animationFinishedCallback(String name, String oldClass, Runnable callback) /*-{
         $wnd.jQuery('#' + name).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
             $wnd.jQuery('#' + name).removeClass(oldClass);
+            if(callback != null) {
+                callback.@java.lang.Runnable::run()();
+            }
         });
     }-*/;
 
