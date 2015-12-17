@@ -32,6 +32,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.AutoDirectionHandler;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
+import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.ValueBoxBase;
@@ -52,7 +53,7 @@ import java.util.List;
 * Material Text Box is an input field that accepts any text based string from user.
 * <h3>UiBinder Usage:</h3>
 * <pre>
-*{@code <m:MaterialTextBox placeholder="First Name" />
+*{@code <m:MaterialTextBox placeholder="First Name" />}
 * </pre>
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
 * @author kevzlou7979
@@ -84,15 +85,35 @@ public class MaterialValueBox<T> extends ComplexWidget implements HasChangeHandl
 
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
         super(Document.get().createDivElement());
-        valueBoxBase = tValueBox;
         setStyleName("input-field");
         add(icon);
-        add(valueBoxBase);
-        valueBoxBase.setStyleName("validate");
+        initValueBox(tValueBox);
         add(label);
         label.add(lblName);
         lblError.setVisible(false);
         add(lblError);
+    }
+
+//    public MaterialValueBox() {
+//        super(Document.get().createDivElement());
+//        setStyleName("input-field");
+//        add(icon);
+//        add(label);
+//        label.add(lblName);
+//        lblError.setVisible(false);
+//        add(lblError);
+//    }
+
+    private void initValueBox(ValueBoxBase<T> tValueBox) {
+        valueBoxBase = tValueBox;
+        add(valueBoxBase);
+        valueBoxBase.setStyleName("validate");
+    }
+
+    @Deprecated
+    @UiChild(limit = 1)
+    public void addValueBox(ValueBoxBase<T> widget) {
+        initValueBox(widget);
     }
 
     @Override

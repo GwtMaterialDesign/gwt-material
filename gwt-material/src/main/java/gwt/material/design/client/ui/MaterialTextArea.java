@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.TextArea;
  * @author paulux84
 */
 //@formatter:on
-public class MaterialTextArea extends MaterialValueBox<String>{
+public class MaterialTextArea extends MaterialValueBox<String> {
 
 
     public MaterialTextArea() {

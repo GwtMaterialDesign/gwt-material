@@ -22,22 +22,22 @@ package gwt.material.design.client.ui;
 
 //@formatter:off
 
-import com.google.gwt.user.client.ui.IntegerBox;
+import com.google.gwt.user.client.ui.LongBox;
 
 /**
-* Material Integer Box is an input field that accepts any Integer based string from user.
+* Material Integer Box is an input field that accepts any Long based string from user.
 * <h3>UiBinder Usage:</h3>
 * <pre>
-*{@code <m:MaterialIntegerBox placeholder="Your integer" step=100/>}
+*{@code <m:MaterialLongBox placeholder="Your Long" step=100/>}
 * </pre>
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material IntegerBox</a>
 * @author paulux84
 */
 //@formatter:on
-public class MaterialIntegerBox extends MaterialNumberBox<Integer> {
+public class MaterialLongBox extends MaterialNumberBox<Long> {
 
-    public MaterialIntegerBox() {
-        super(new IntegerBox());
+    public MaterialLongBox() {
+        super(new LongBox());
     }
 
 }

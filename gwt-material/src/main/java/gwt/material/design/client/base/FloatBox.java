@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui;
+package gwt.material.design.client.base;
 
 /*
  * #%L
@@ -20,24 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-//@formatter:off
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.ValueBox;
 
-import com.google.gwt.user.client.ui.IntegerBox;
-
-/**
-* Material Integer Box is an input field that accepts any Integer based string from user.
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code <m:MaterialIntegerBox placeholder="Your integer" step=100/>}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material IntegerBox</a>
-* @author paulux84
-*/
-//@formatter:on
-public class MaterialIntegerBox extends MaterialNumberBox<Integer> {
-
-    public MaterialIntegerBox() {
-        super(new IntegerBox());
-    }
-
+public class FloatBox extends ValueBox<Float>  {
+       
+	  public FloatBox() {
+		    super(Document.get().createTextInputElement(), FloatRenderer.instance(),
+		        FloatParser.instance());
+		  }
 }

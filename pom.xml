@@ -33,6 +33,12 @@
             <organization>Gwt Material</organization>
             <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
         </developer>
+        <developer>
+            <name>Paolo Pino</name>
+            <email>paulux84@gmail.com</email>
+            <organization>Gwt Material</organization>
+            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+        </developer>
     </developers>
     <properties>
         <project.encoding>UTF-8</project.encoding>
