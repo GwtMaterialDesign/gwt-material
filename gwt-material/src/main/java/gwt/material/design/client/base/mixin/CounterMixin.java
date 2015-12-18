@@ -23,8 +23,7 @@ package gwt.material.design.client.base.mixin;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasCounter;
-import gwt.material.design.client.ui.MaterialTextArea;
-import gwt.material.design.client.ui.MaterialTextBox;
+import gwt.material.design.client.ui.MaterialValueBox;
 
 public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin<T> implements HasCounter {
 
@@ -39,11 +38,8 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
         this.length = length;
         Element e = uiObject.getElement();
 
-        if(uiObject instanceof MaterialTextBox){
-            e = ((MaterialTextBox)uiObject).asGwtTextBox().getElement();
-
-        } else if(uiObject instanceof MaterialTextArea){
-            e = ((MaterialTextArea)uiObject).asGwtTextArea().getElement();
+        if(uiObject instanceof MaterialValueBox){
+            e = ((MaterialValueBox<T>)uiObject).asGwtValueBoxBase().getElement();
         }
 
         if(e != null){

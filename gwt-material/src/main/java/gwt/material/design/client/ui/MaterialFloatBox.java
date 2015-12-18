@@ -20,34 +20,25 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.user.client.ui.TextBox;
-import gwt.material.design.client.constants.InputType;
-
 //@formatter:off
 
+import gwt.material.design.client.base.FloatBox;
+
 /**
-* Material Text Box is an input field that accepts any text based string from user.
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code <m:MaterialTextBox placeholder="First Name" />
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
-* @author kevzlou7979
-* @author Ben Dol
+ * Material Integer Box is an input field that accepts any Float based string from user.
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code <m:MaterialFloatBox placeholder="Your integer" step=100/>}
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material FloatBox</a>
  * @author paulux84
-*/
+ */
 //@formatter:on
-public class MaterialTextBox extends MaterialValueBox<String> {
+//@formatter:on
+public class MaterialFloatBox extends MaterialNumberBox<Float> {
 
-    public MaterialTextBox() {
-        super(new TextBox());
-        setType(InputType.TEXT);
-
+    public MaterialFloatBox() {
+        super(new FloatBox());
+        setStep("any");
     }
-
-    @Override
-    public String getText() {
-        return valueBoxBase.getText();
-    }
-
 }

@@ -20,34 +20,24 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.user.client.ui.TextBox;
-import gwt.material.design.client.constants.InputType;
-
 //@formatter:off
 
+import com.google.gwt.user.client.ui.DoubleBox;
+
 /**
-* Material Text Box is an input field that accepts any text based string from user.
+* Material Integer Box is an input field that accepts any Double based string from user.
 * <h3>UiBinder Usage:</h3>
 * <pre>
-*{@code <m:MaterialTextBox placeholder="First Name" />
+*{@code <m:MaterialIntegerBox placeholder="Your doble" step=100/>}
 * </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
-* @author kevzlou7979
-* @author Ben Dol
- * @author paulux84
+* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material DoubleBox</a>
+* @author paulux84
 */
 //@formatter:on
-public class MaterialTextBox extends MaterialValueBox<String> {
+public class MaterialDoubleBox extends MaterialNumberBox<Double> {
 
-    public MaterialTextBox() {
-        super(new TextBox());
-        setType(InputType.TEXT);
-
-    }
-
-    @Override
-    public String getText() {
-        return valueBoxBase.getText();
+    public MaterialDoubleBox() {
+        super(new DoubleBox());
     }
 
 }
