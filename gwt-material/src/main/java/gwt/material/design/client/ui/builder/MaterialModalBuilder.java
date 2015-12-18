@@ -14,7 +14,7 @@ public class MaterialModalBuilder {
 
 	/**
 	 * Starts the builder for creating a MaterialModal.
-	 * <br>For e.g. <code>MaterialModalBuilder.create().withWidget(new Label("Test")).isDismissable(true).build())</code>
+	 * <br>For e.g. <pre>MaterialModalBuilder.create().withWidget(new Label("Test")).isDismissable(true).build())</pre>
 	 *
 	 * @return an instance of the builder.
 	 */
