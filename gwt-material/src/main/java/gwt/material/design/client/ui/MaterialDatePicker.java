@@ -82,8 +82,6 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     private Date dateMin;
     private Date dateMax;
     private String format = "dd mmmm yyyy";
-    private Date dateMin = null;
-    private Date dateMax = null;
     private Div panel;
     private Input dateInput;
     private Element pickatizedDateInput;
@@ -114,11 +112,6 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         super.onAttach();
 
         panel.addStyleName(orientation.getCssName());
-        if(dateMin != null && dateMax != null) {
-            initDatePicker(id, selectionType.name(), this, format, dateMin.toString(), dateMax.toString());
-        }else{
-            initDatePicker(id, selectionType.name(), this, format);
-        }
 
         pickatizedDateInput = initDatePicker(dateInput.getElement(), selectionType.name(), format);
         initClickHandler(pickatizedDateInput, this);
@@ -172,50 +165,10 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         }
     }
 
-    public static native void initDatePicker(String id, String typeName, MaterialDatePicker parent, String format, String dateMin, String dateMax) /*-{
+    public static native Element initDatePicker(Element inputSrc, String typeName, String format) /*-{
         var input;
         if (typeName === "MONTH_DAY") {
             input = $wnd.jQuery(inputSrc).pickadate({
-                container: 'body',
-                selectYears: false,
-                selectMonths: true,
-                format: format,
-                min: new Date(dateMin),
-                max: new Date(dateMax)
-            });
-        } else if(typeName === "YEAR_MONTH_DAY") {
-            input = $wnd.jQuery('#' + id).pickadate({
-                container: 'body',
-                selectYears: true,
-                selectMonths: true,
-                format: format,
-                min: new Date(dateMin),
-                max: new Date(dateMax)
-            });
-        } else if(typeName === "YEAR"){
-            input = $wnd.jQuery('#' + id).pickadate({
-                container: 'body',
-                selectYears: true,
-                format: format,
-                min: new Date(dateMin),
-                max: new Date(dateMax)
-            });
-        } else {
-            input = $wnd.jQuery('#' + id).pickadate({
-                container: 'body',
-                format: format,
-                min: new Date(dateMin),
-                max: new Date(dateMax)
-            });
-        }
-
-        parent.@gwt.material.design.client.ui.MaterialDatePicker::input = input;
-    }-*/;
-
-    public static native Element initDatePicker(Element inputSrc, String typeName, String format) /*-{
-        var input;
-        if(typeName === "MONTH_DAY") {
-            input = $wnd.jQuery('#' + id).pickadate({
                 container: 'body',
                 selectYears: false,
                 selectMonths: true,
@@ -384,11 +337,5 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         this.format = format;
         // TODO set format on picker picker.set('view', '2016-04-20', { format: 'yyyy-mm-dd' })
     }
-
-    public void setDateLimit(Date dateMin, Date dateMax) {
-        this.dateMin = dateMin;
-        this.dateMax = dateMax;
-    }
-
 
 }
