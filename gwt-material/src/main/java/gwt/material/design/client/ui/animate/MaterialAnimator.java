@@ -37,6 +37,7 @@ public class MaterialAnimator {
     public static void animate(final Transition transition, final Widget w, int delayMillis) {
         animate(transition, w, delayMillis, null);
     }
+
     public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
         final String name = String.valueOf(DOM.createUniqueId());
         w.getElement().setId(name);
