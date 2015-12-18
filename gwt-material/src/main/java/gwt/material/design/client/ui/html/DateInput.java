@@ -22,44 +22,18 @@ package gwt.material.design.client.ui.html;
 
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.ComplexWidget;
 
 
 /**
  * @author guaido79
  */
-public class Input extends ComplexWidget {
-
-    public enum TYPE {
-        TEXT,
-        HIDDEN,
-        DATE
-    }
-
-    private TYPE type;
-
-    private String placeholder;
-
-    public Input() {
-        super(Document.get().createElement("input"));
-    }
-
-    public TYPE getType() {
-        return type;
-    }
-
-    public void setType(TYPE type) {
-        this.type = type;
-        getElement().setAttribute("type", type.toString().toLowerCase());
-    }
-
-    public String getPlaceholder() {
-        return placeholder;
-    }
-
-    public void setPlaceholder(String placeholder) {
-        this.placeholder = placeholder;
-        getElement().setAttribute("placeholder", placeholder);
+public class DateInput extends ComplexWidget {
+    public DateInput() {
+        super(InputElement.as(Document.get().createTextInputElement()));
+        getElement().setAttribute("type", "date");
     }
 }
 

@@ -21,16 +21,14 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.JsDate;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.FocusPanel;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.HasGrid;
-import gwt.material.design.client.base.HasOrientation;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.Orientation;
-import gwt.material.design.client.ui.html.Div;
-import gwt.material.design.client.ui.html.Input;
+import gwt.material.design.client.ui.html.DateInput;
+import gwt.material.design.client.ui.html.Label;
 
 import java.util.Date;
 
@@ -53,7 +51,7 @@ import java.util.Date;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError, HasOrientation {
+public class MaterialDatePicker extends ComplexWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -82,8 +80,9 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     private Date dateMin;
     private Date dateMax;
     private String format = "dd mmmm yyyy";
-    private Div panel;
-    private Input dateInput;
+    private DateInput dateInput;
+    private Label label = new Label();
+    private MaterialLabel lblName = new MaterialLabel();
     private Element pickatizedDateInput;
     private MaterialLabel lblError = new MaterialLabel();
 
@@ -97,24 +96,29 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     private boolean initialized = false;
 
     public MaterialDatePicker() {
+        super(Document.get().createDivElement());
+        addStyleName("input-field");
 
-        dateInput = new Input();
-        dateInput.setType(Input.TYPE.DATE);
-        panel = new Div();
-        panel.add(dateInput);
-        panel.add(lblError);
+        dateInput = new DateInput();
+        add(dateInput);
+
+        label.add(lblName);
+        add(label);
+
+        add(lblError);
+
         errorMixin = new ErrorMixin<>(this, lblError, dateInput);
-        this.add(panel);
     }
 
     @Override
     protected void onAttach() {
         super.onAttach();
 
-        panel.addStyleName(orientation.getCssName());
-
+        addStyleName(orientation.getCssName());
         pickatizedDateInput = initDatePicker(dateInput.getElement(), selectionType.name(), format);
         initClickHandler(pickatizedDateInput, this);
+
+        label.getElement().setAttribute("for", getPickerId(pickatizedDateInput));
 
         this.initialized = true;
 
@@ -126,8 +130,17 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
 
     @Override
     public void clear() {
-        super.clear();
-        clearErrorOrSuccess();
+        if (initialized) {
+            clearErrorOrSuccess();
+            label.removeStyleName("active");
+        }
+    }
+
+    public void removeErrorModifiers() {
+        dateInput.addStyleName("valid");
+        dateInput.removeStyleName("invalid");
+        lblName.removeStyleName("green-text");
+        lblName.removeStyleName("red-text");
     }
 
     /**
@@ -144,7 +157,19 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     native void initClickHandler(Element picker, MaterialDatePicker parent) /*-{
         picker.pickadate('picker').on({
             close: function () {
-                parent.@gwt.material.design.client.ui.MaterialDatePicker::notifyDelegate()();
+                parent.@gwt.material.design.client.ui.MaterialDatePicker::onClose()();
+            },
+            open: function () {
+                parent.@gwt.material.design.client.ui.MaterialDatePicker::onOpen()();
+            },
+            set: function (thingSet) {
+
+                if (thingSet.hasOwnProperty('clear')) {
+                    parent.@gwt.material.design.client.ui.MaterialDatePicker::onClear()();
+                }
+                else if (thingSet.select) {
+                    parent.@gwt.material.design.client.ui.MaterialDatePicker::onSelect()();
+                }
             }
         });
     }-*/;
@@ -159,12 +184,30 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         this.delegate = delegate;
     }
 
-    void notifyDelegate() {
-        dateInput.setFocus(false);
+    void onClose() {
+
         if (delegate != null) {
             delegate.onCalendarClose(getDate());
         }
     }
+
+    void onOpen() {
+        label.addStyleName("active");
+        dateInput.setFocus(true);
+    }
+
+    void onSelect() {
+        label.addStyleName("active");
+        dateInput.addStyleName("valid");
+    }
+
+    void onClear() {
+        clear();
+    }
+
+    public static native String getPickerId(Element inputSrc) /*-{
+        return inputSrc.pickadate('picker').get("id");
+    }-*/;
 
     public static native Element initDatePicker(Element inputSrc, String typeName, String format) /*-{
         var input;
@@ -210,6 +253,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         this.date = date;
         if (initialized) {
             setPickerDate(JsDate.create((double) date.getTime()), pickatizedDateInput);
+            label.addStyleName("active");
         }
     }
 
@@ -277,7 +321,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         this.placeholder = placeholder;
 
         if (initialized && placeholder != null) {
-            dateInput.setPlaceholder(placeholder);
+            lblName.setText(placeholder);
         }
     }
 
@@ -322,16 +366,24 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
     @Override
     public void setError(String error) {
         errorMixin.setError(error);
+
+        removeErrorModifiers();
+        lblName.setStyleName("red-text");
+        dateInput.addStyleName("invalid");
+
     }
 
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
+        lblName.setStyleName("green-text");
+        dateInput.addStyleName("valid");
     }
 
     @Override
     public void clearErrorOrSuccess() {
         errorMixin.clearErrorOrSuccess();
+        removeErrorModifiers();
     }
 
     public String getFormat() {
@@ -342,5 +394,4 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         this.format = format;
         // TODO set format on picker picker.set('view', '2016-04-20', { format: 'yyyy-mm-dd' })
     }
-
 }
