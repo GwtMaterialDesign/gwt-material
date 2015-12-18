@@ -113,6 +113,7 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
 
         item.setStyleName("multiValueSuggestBox-input-token");
         box = new SuggestBox(suggestions, itemBox);
+        setLimit(this.limit);
         String autocompleteId = DOM.createUniqueId();
         itemBox.getElement().setId(autocompleteId);
 
@@ -369,6 +370,9 @@ public class MaterialAutoComplete extends ComplexWidget implements HasError, Has
 
     public void setLimit(int limit) {
         this.limit = limit;
+        if (this.box != null) {
+            this.box.setLimit(limit);
+        }
     }
 
     @Override
