@@ -121,6 +121,7 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
         setDate(this.date);
         setDateMin(this.dateMin);
         setDateMax(this.dateMin);
+        setPlaceholder(this.placeholder);
     }
 
     @Override
@@ -274,6 +275,10 @@ public class MaterialDatePicker extends FocusPanel implements HasGrid, HasError,
 
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
+
+        if (initialized && placeholder != null) {
+            dateInput.setPlaceholder(placeholder);
+        }
     }
 
     public MaterialDatePickerType getSelectionType() {
