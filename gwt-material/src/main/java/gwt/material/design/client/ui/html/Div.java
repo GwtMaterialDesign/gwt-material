@@ -25,9 +25,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class Div extends ComplexWidget implements HasClickHandlers {
+public class Div extends MaterialWidget implements HasClickHandlers {
 
     public Div() {
         super(Document.get().createElement("div"));

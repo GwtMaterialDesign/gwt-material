@@ -21,9 +21,9 @@ package gwt.material.design.client.ui.html;
  */
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class Main extends ComplexWidget {
+public class Main extends MaterialWidget {
 
     public Main() {
         super(Document.get().createElement("main"));

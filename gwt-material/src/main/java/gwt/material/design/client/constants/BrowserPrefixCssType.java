@@ -23,7 +23,7 @@ package gwt.material.design.client.constants;
 /**
  * @author chriswjones
  */
-public interface BrowserPrefixCssPropertyType {
+public interface BrowserPrefixCssType {
     String getValue();
 
     String getIeValue();

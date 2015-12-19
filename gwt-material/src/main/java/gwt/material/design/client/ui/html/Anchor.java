@@ -21,9 +21,9 @@ package gwt.material.design.client.ui.html;
  */
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class Anchor extends ComplexWidget {
+public class Anchor extends MaterialWidget {
 
     public Anchor() {
         super(Document.get().createElement("a"));

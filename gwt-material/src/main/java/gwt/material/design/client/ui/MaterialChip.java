@@ -26,10 +26,7 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Image;
-import gwt.material.design.client.base.ComplexWidget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasImage;
-import gwt.material.design.client.base.HasLetter;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
@@ -60,7 +57,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
  */
 //@formatter:on
-public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, HasClickHandlers,
+public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasClickHandlers,
         HasAllMouseHandlers, HasDoubleClickHandlers, HasLetter {
 
     private MaterialIcon icon = new MaterialIcon();

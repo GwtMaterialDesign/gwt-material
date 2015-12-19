@@ -23,7 +23,7 @@ package gwt.material.design.client.constants;
 /**
  * @author chriswjones
  */
-public enum FlexAlignSelf implements BrowserPrefixCssPropertyType {
+public enum FlexAlignSelf implements BrowserPrefixCssType {
     START("start", "flex-start"),
     CENTER("center", "center"),
     END("end", "flex-end"),

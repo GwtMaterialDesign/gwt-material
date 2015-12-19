@@ -61,7 +61,7 @@ import java.util.List;
  * @author paulux84
  */
 //@formatter:on
-public class MaterialValueBox<T> extends ComplexWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
+public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
         HasValue<T>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasKeyUpHandlers,
         HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
         HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,

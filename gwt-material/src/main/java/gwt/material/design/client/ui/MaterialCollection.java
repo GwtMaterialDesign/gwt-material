@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.ui.html.Heading;
@@ -88,7 +88,7 @@ Secondary Content
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 */
 //@formatter:on
-public class MaterialCollection extends ComplexWidget {
+public class MaterialCollection extends MaterialWidget {
 
     private Heading span = new Heading(HeadingSize.H4);
     private int index;

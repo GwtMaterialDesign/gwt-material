@@ -23,7 +23,7 @@ package gwt.material.design.client.constants;
 /**
  * @author chriswjones
  */
-public enum FlexJustifyContent implements BrowserPrefixCssPropertyType {
+public enum FlexJustifyContent implements BrowserPrefixCssType {
     SPACE_BETWEEN("justify", "space-between"),
     START("start", "flex-start"),
     CENTER("center", "center"),

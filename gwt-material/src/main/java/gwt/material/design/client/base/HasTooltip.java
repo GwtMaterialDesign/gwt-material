@@ -31,7 +31,7 @@ import gwt.material.design.client.ui.MaterialTooltip;
  * @author gilberto-torrezan
  * 
  * @see TooltipMixin
- * @see ComplexWidget
+ * @see MaterialWidget
  */
 public interface HasTooltip {
 

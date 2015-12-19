@@ -28,7 +28,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasAvatar;
 import gwt.material.design.client.base.HasDismissable;
 import gwt.material.design.client.base.helper.UiHelper;
@@ -44,7 +44,7 @@ import gwt.material.design.client.constants.CollectionType;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
  */
 //@formatter:on
-public class MaterialCollectionItem extends ComplexWidget implements HasClickHandlers, HasDismissable, HasAvatar {
+public class MaterialCollectionItem extends MaterialWidget implements HasClickHandlers, HasDismissable, HasAvatar {
 
     private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
     private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");

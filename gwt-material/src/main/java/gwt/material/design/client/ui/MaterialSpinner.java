@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
@@ -41,7 +41,7 @@ import com.google.gwt.dom.client.Document;
 * @author Ben Dol
 */
 //@formatter:on
-public class MaterialSpinner extends ComplexWidget {
+public class MaterialSpinner extends MaterialWidget {
 
     private Div circleClipperLeft = new Div();
     private Div circleClipperRight = new Div();

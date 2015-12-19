@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasDismissable;
 import gwt.material.design.client.base.HasTransition;
 import gwt.material.design.client.base.HasType;
@@ -78,7 +78,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  *      Modals</a>
  */
 // @formatter:on
-public class MaterialModal extends ComplexWidget implements HasType<ModalType>, HasTransition,
+public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
     HasDismissable, HasCloseHandlers<MaterialModal> {
 
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);

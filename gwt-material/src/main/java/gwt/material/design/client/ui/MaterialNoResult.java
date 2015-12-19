@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasTitle;
 import gwt.material.design.client.constants.IconPosition;
@@ -50,7 +50,7 @@ import com.google.gwt.dom.client.Style.Unit;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#no-result">Material No Result</a>
 */
 //@formatter:on
-public class MaterialNoResult extends ComplexWidget implements HasIcon, HasTitle{
+public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitle{
 
 
     private MaterialIcon icon = new MaterialIcon();

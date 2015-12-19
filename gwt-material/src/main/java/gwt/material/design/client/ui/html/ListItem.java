@@ -23,9 +23,9 @@ package gwt.material.design.client.ui.html;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class ListItem extends ComplexWidget {
+public class ListItem extends MaterialWidget {
 
     public ListItem() {
         setElement((Element)DOM.createElement("li"));

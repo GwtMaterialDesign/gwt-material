@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
@@ -59,7 +59,7 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
 */
 //@formatter:on
-public class MaterialFooter extends ComplexWidget {
+public class MaterialFooter extends MaterialWidget {
 
     private Div container = new Div();
 

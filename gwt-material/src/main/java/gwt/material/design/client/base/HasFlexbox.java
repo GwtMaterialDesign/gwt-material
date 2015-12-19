@@ -29,7 +29,7 @@ import gwt.material.design.client.constants.*;
  *
  * @author chriswjones
  * @see FlexboxMixin
- * @see ComplexWidget
+ * @see MaterialWidget
  */
 public interface HasFlexbox {
     void setDisplay(Style.Display display);

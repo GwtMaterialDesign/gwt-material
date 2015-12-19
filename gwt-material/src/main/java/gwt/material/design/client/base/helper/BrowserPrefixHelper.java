@@ -21,19 +21,19 @@ package gwt.material.design.client.base.helper;
  */
 
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.constants.BrowserPrefixCssPropertyType;
+import gwt.material.design.client.constants.BrowserPrefixCssType;
 
 /**
  * @author chriswjones
  */
 public final class BrowserPrefixHelper {
 
-    public static void updateStyleProperties(Element element, String ieProperty, String[] properties, BrowserPrefixCssPropertyType cssType) {
+    public static void updateStyleProperties(Element element, String ieProperty, String[] properties, BrowserPrefixCssType cssType) {
         updateStyleProperty(element, ieProperty, cssType.getIeValue());
         updateStyleProperties(element, properties, cssType.getValue());
     }
 
-    public static void updateStyleProperties(Element element, String[] properties, BrowserPrefixCssPropertyType cssType) {
+    public static void updateStyleProperties(Element element, String[] properties, BrowserPrefixCssType cssType) {
         updateStyleProperties(element, properties, cssType.getValue());
     }
 

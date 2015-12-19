@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
 
@@ -35,7 +35,7 @@ import com.google.gwt.dom.client.Document;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialPanel extends ComplexWidget {
+public class MaterialPanel extends MaterialWidget {
 
     public MaterialPanel() {
         super(Document.get().createDivElement());

@@ -53,7 +53,7 @@ import gwt.material.design.client.ui.html.Span;
 /**
  * @author Ben Dol
  */
-public abstract class AbstractButton extends ComplexWidget implements HasHref, HasGrid, HasActivates,
+public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
         HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
         HasDoubleClickHandlers {
 

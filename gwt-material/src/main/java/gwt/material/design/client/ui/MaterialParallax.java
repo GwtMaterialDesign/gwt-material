@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
@@ -58,7 +58,7 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#showcase">Material Parallax</a>
 */
 //@formatter:on
-public class MaterialParallax extends ComplexWidget {
+public class MaterialParallax extends MaterialWidget {
 
     private Div div = new Div();
 

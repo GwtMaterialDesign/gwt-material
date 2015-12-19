@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
 
@@ -32,7 +32,7 @@ import com.google.gwt.dom.client.Document;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on
-public class MaterialCardContent extends ComplexWidget {
+public class MaterialCardContent extends MaterialWidget {
 
     public MaterialCardContent() {
         super(Document.get().createDivElement());

@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -59,8 +59,8 @@ public class MaterialTab extends UnorderedList {
     private int tabIndex;
     private String indicatorColor;
 
-    private ComplexWidget indicator;
-    private ColorsMixin<ComplexWidget> indicatorColorMixin;
+    private MaterialWidget indicator;
+    private ColorsMixin<MaterialWidget> indicatorColorMixin;
 
     public MaterialTab() {
         super();
@@ -73,7 +73,7 @@ public class MaterialTab extends UnorderedList {
 
         initialize();
 
-        indicator = new ComplexWidget(getIndicatorElement(getElement()));
+        indicator = new MaterialWidget(getIndicatorElement(getElement()));
         indicatorColorMixin = new ColorsMixin<>(indicator);
 
         setIndicatorColor(indicatorColor);

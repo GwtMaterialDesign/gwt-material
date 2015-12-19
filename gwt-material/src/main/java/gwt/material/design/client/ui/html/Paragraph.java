@@ -23,9 +23,9 @@ package gwt.material.design.client.ui.html;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class Paragraph extends ComplexWidget implements HasText {
+public class Paragraph extends MaterialWidget implements HasText {
 
     public Paragraph() {
         super(Document.get().createElement("p"));

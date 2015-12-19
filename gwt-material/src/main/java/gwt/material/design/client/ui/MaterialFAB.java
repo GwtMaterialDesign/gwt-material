@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.CssNameMixin;
@@ -56,7 +56,7 @@ import gwt.material.design.client.constants.FABType;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends ComplexWidget implements HasType<FABType>, HasAxis {
+public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis {
 
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
