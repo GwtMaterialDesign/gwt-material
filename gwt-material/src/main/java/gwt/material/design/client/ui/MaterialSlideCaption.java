@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
 
@@ -33,7 +33,7 @@ import com.google.gwt.dom.client.Document;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
 */
 //@formatter:on
-public class MaterialSlideCaption extends ComplexWidget {
+public class MaterialSlideCaption extends MaterialWidget {
 
     public MaterialSlideCaption() {
         super(Document.get().createDivElement());

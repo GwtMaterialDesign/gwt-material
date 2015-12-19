@@ -24,7 +24,7 @@ package gwt.material.design.client.base.helper;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 /**
  * Created by Mark Kevin on 12/2/2015.
@@ -32,7 +32,7 @@ import gwt.material.design.client.base.ComplexWidget;
 public class ColorHelper {
 
     public static String setupComputedBackgroundColor(String color){
-        ComplexWidget temp = new ComplexWidget(Document.get().createDivElement());
+        MaterialWidget temp = new MaterialWidget(Document.get().createDivElement());
         temp.setBackgroundColor(color);
         RootPanel.get().add(temp);
         String computed = getComputedBackgroundColor(temp.getElement()).toLowerCase();

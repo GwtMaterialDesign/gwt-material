@@ -24,10 +24,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.*;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.i18n.shared.DirectionEstimator;
-import com.google.gwt.user.client.ui.Label;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
@@ -47,7 +44,7 @@ import gwt.material.design.client.base.mixin.SeparatorMixin;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
  */
 //@formatter:on
-public class MaterialLabel extends ComplexWidget implements HasGrid, HasSeparator, HasColors, HasFontSize, HasText {
+public class MaterialLabel extends MaterialWidget implements HasGrid, HasSeparator, HasColors, HasFontSize, HasText {
 
     private final ColorsMixin<MaterialLabel> colorsMixin = new ColorsMixin<>(this);
     private final GridMixin<MaterialLabel> gridMixin = new GridMixin<>(this);

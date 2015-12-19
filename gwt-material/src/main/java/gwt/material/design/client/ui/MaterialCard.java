@@ -21,8 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Unit;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 
@@ -89,7 +88,7 @@ import gwt.material.design.client.base.ComplexWidget;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
  */
 //@formatter:on
-public class MaterialCard extends ComplexWidget {
+public class MaterialCard extends MaterialWidget {
 
     /**
      * Creates and empty card.

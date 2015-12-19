@@ -28,7 +28,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.InputType;
@@ -50,7 +50,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
  */
 //@formatter:on
-public class MaterialRange extends ComplexWidget implements HasChangeHandlers, HasError {
+public class MaterialRange extends MaterialWidget implements HasChangeHandlers, HasError {
 
     private Paragraph paragraph = new Paragraph();
     private MaterialInput input = new MaterialInput();

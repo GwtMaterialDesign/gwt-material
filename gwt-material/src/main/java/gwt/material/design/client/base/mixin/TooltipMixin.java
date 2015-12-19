@@ -20,7 +20,7 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasTooltip;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.MaterialTooltip;
@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author gilberto-torrezan
  * 
  * @see HasTooltip
- * @see ComplexWidget
+ * @see MaterialWidget
  */
 public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H> implements HasTooltip {
 

@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui.html;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,12 +20,24 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.helper.EnumHelper;
 
-public class Nav extends MaterialWidget {
+public enum AutocompleteType implements CssType {
+    CHIP("autocomplete-chip"),
+    TEXT("autocomplete-text");
 
-    public Nav() {
-        super(Document.get().createElement("nav"));
+    private final String cssClass;
+
+    AutocompleteType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
+
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static AutocompleteType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, AutocompleteType.class, CHIP);
     }
 }

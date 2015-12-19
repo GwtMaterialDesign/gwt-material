@@ -22,14 +22,9 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HasVisibility;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
@@ -67,7 +62,7 @@ t.schedule(3000);
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
  */
 //@formatter:on
-public class MaterialSplashScreen extends ComplexWidget implements HasVisibility{
+public class MaterialSplashScreen extends MaterialWidget implements HasVisibility{
 
     private Div div = new Div();
     private MaterialProgress progress = new MaterialProgress();

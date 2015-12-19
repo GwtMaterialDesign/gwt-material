@@ -20,9 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasImage;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -76,7 +76,7 @@ import com.google.gwt.user.client.ui.Image;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#chips">Material Chips</a>
  */
 //@formatter:on
-public class MaterialChip extends ComplexWidget implements HasImage, HasIcon, HasClickHandlers,
+public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasClickHandlers,
         HasAllMouseHandlers, HasDoubleClickHandlers {
 
     private MaterialIcon icon = new MaterialIcon();

@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasPlaceholder;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
@@ -51,7 +51,7 @@ import com.google.gwt.user.client.ui.HasText;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Search</a>
 */
 //@formatter:on
-public class MaterialSearch extends ComplexWidget implements HasText, HasKeyUpHandlers, HasPlaceholder {
+public class MaterialSearch extends MaterialWidget implements HasText, HasKeyUpHandlers, HasPlaceholder {
 
     private MaterialInput searchInput = new MaterialInput();
     private Label label = new Label();

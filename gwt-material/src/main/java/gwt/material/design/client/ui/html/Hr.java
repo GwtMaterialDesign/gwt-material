@@ -21,12 +21,12 @@ package gwt.material.design.client.ui.html;
  */
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 /**
  * @author Ben Dol
  */
-public class Hr extends ComplexWidget {
+public class Hr extends MaterialWidget {
 
     public Hr() {
         setElement(Document.get().createHRElement());

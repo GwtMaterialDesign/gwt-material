@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.ui.html.Div;
@@ -49,7 +49,7 @@ import com.google.gwt.user.client.ui.HasText;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material NavBrand</a>
 */
 //@formatter:on
-public class MaterialNavBrand extends ComplexWidget implements HasText, HasHref, HasPosition {
+public class MaterialNavBrand extends MaterialWidget implements HasText, HasHref, HasPosition {
 
     private Div div = new Div();
 

@@ -26,9 +26,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class Span extends ComplexWidget implements HasClickHandlers, HasText {
+public class Span extends MaterialWidget implements HasClickHandlers, HasText {
     private String text;
 
     public Span() {

@@ -4,58 +4,61 @@ package gwt.material.design.client.ui;
  * #%L GwtMaterial %% Copyright (C) 2015 GwtMaterialDesign %% Licensed under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except in compliance with the License. You
  * may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License. #L%
  */
 
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.ErrorMixin;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.ui.html.ListItem;
-import gwt.material.design.client.ui.html.UnorderedList;
+/*
+ * #%L GwtMaterial %% Copyright (C) 2015 GwtMaterialDesign %% Licensed under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except in compliance with the License. You
+ * may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License. #L%
+ */
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.SuggestBox;
-import com.google.gwt.user.client.ui.SuggestOracle;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.ProgressMixin;
+import gwt.material.design.client.constants.AutocompleteType;
+import gwt.material.design.client.constants.CssType;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.ProgressType;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 // @formatter:off
+
 /**
  * Use GWT Autocomplete to search for matches from local or remote data sources.
  * We used MultiWordSuggestOracle to populate the list to be added on the
  * autocomplete values.
  *
  * <h3>UiBinder Usage:</h3>
- * 
+ *
  * <pre>
  * {@code
  *    <m:MaterialAutoComplete ui:field="autocomplete" placeholder="States" />}
@@ -67,7 +70,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 // @formatter:on
 public class MaterialAutoComplete extends MaterialWidget implements HasError, HasPlaceholder,
-    HasValue<List<? extends Suggestion>> {
+        HasValue<List<? extends Suggestion>>, HasProgress, HasKeyUpHandlers, HasType<AutocompleteType> {
 
     private Map<Suggestion, MaterialChip> suggestionMap = new LinkedHashMap<>();
 
@@ -79,29 +82,37 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     private SuggestBox box;
     private int limit = 0;
     private MaterialLabel lblError = new MaterialLabel();
+    private final ProgressMixin<MaterialAutoComplete> progressMixin = new ProgressMixin<>(this);
 
     private boolean directInputAllowed = true;
     private MaterialChipProvider chipProvider = new DefaultMaterialChipProvider();
 
     private final ErrorMixin<MaterialAutoComplete, MaterialLabel> errorMixin = new ErrorMixin<>(this,
-        lblError, list);
+            lblError, list);
+    public final CssTypeMixin<AutocompleteType, MaterialAutoComplete> typeMixin = new CssTypeMixin<>(this);
 
     /**
      * Use MaterialAutocomplete to search for matches from local or remote data
      * sources.
      */
     public MaterialAutoComplete() {
-        initWidget(panel);
+        super(Document.get().createDivElement());
+        add(panel);
+    }
+
+    public MaterialAutoComplete(AutocompleteType type){
+        this();
+        setType(type);
     }
 
     /**
      * Use MaterialAutocomplete to search for matches from local or remote data
      * sources.
-     * 
+     *
      * @see #setSuggestions(SuggestOracle)
      */
     public MaterialAutoComplete(SuggestOracle suggestions) {
-        initWidget(panel);
+        this();
         generateAutoComplete(suggestions);
     }
 
@@ -115,6 +126,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         item.setStyleName("multiValueSuggestBox-input-token");
         box = new SuggestBox(suggestions, itemBox);
+        setLimit(this.limit);
         String autocompleteId = DOM.createUniqueId();
         itemBox.getElement().setId(autocompleteId);
 
@@ -133,26 +145,46 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                 boolean itemsChanged = false;
 
                 switch (event.getNativeKeyCode()) {
-                case KeyCodes.KEY_ENTER:
-                    if (directInputAllowed) {
-                        String value = itemBox.getValue();
-                        if (value != null && !(value = value.trim()).isEmpty()) {
-                            gwt.material.design.client.base.Suggestion directInput = new gwt.material.design.client.base.Suggestion();
-                            directInput.setDisplay(value);
-                            directInput.setSuggestion(value);
-                            itemsChanged = addItem(directInput);
-                            itemBox.setValue("");
-                            itemBox.setFocus(true);
+                    case KeyCodes.KEY_ENTER:
+                        if (directInputAllowed) {
+                            String value = itemBox.getValue();
+                            if (value != null && !(value = value.trim()).isEmpty()) {
+                                gwt.material.design.client.base.Suggestion directInput = new gwt.material.design.client.base.Suggestion();
+                                directInput.setDisplay(value);
+                                directInput.setSuggestion(value);
+                                itemsChanged = addItem(directInput);
+                                itemBox.setValue("");
+                                itemBox.setFocus(true);
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case KeyCodes.KEY_BACKSPACE:
-                    if (itemBox.getValue().trim().isEmpty()) {
-                        if (itemsHighlighted.isEmpty()) {
-                            if (suggestionMap.size() > 0) {
+                    case KeyCodes.KEY_BACKSPACE:
+                        if (itemBox.getValue().trim().isEmpty()) {
+                            if (itemsHighlighted.isEmpty()) {
+                                if (suggestionMap.size() > 0) {
 
-                                ListItem li = (ListItem) list.getWidget(list.getWidgetCount() - 2);
+                                    ListItem li = (ListItem) list.getWidget(list.getWidgetCount() - 2);
+                                    MaterialChip p = (MaterialChip) li.getWidget(0);
+
+                                    Set<Entry<Suggestion, MaterialChip>> entrySet = suggestionMap.entrySet();
+                                    for (Entry<Suggestion, MaterialChip> entry : entrySet) {
+                                        if (p.equals(entry.getValue())) {
+                                            suggestionMap.remove(entry.getKey());
+                                            itemsChanged = true;
+                                            break;
+                                        }
+                                    }
+
+                                    list.remove(li);
+                                }
+                            }
+                        }
+
+                    case KeyCodes.KEY_DELETE:
+                        if (itemBox.getValue().trim().isEmpty()) {
+                            for (ListItem li : itemsHighlighted) {
+                                li.removeFromParent();
                                 MaterialChip p = (MaterialChip) li.getWidget(0);
 
                                 Set<Entry<Suggestion, MaterialChip>> entrySet = suggestionMap.entrySet();
@@ -163,31 +195,11 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                                         break;
                                     }
                                 }
-
-                                list.remove(li);
                             }
+                            itemsHighlighted.clear();
                         }
-                    }
-
-                case KeyCodes.KEY_DELETE:
-                    if (itemBox.getValue().trim().isEmpty()) {
-                        for (ListItem li : itemsHighlighted) {
-                            li.removeFromParent();
-                            MaterialChip p = (MaterialChip) li.getWidget(0);
-
-                            Set<Entry<Suggestion, MaterialChip>> entrySet = suggestionMap.entrySet();
-                            for (Entry<Suggestion, MaterialChip> entry : entrySet) {
-                                if (p.equals(entry.getValue())) {
-                                    suggestionMap.remove(entry.getKey());
-                                    itemsChanged = true;
-                                    break;
-                                }
-                            }
-                        }
-                        itemsHighlighted.clear();
-                    }
-                    itemBox.setFocus(true);
-                    break;
+                        itemBox.setFocus(true);
+                        break;
                 }
 
                 if (itemsChanged) {
@@ -203,8 +215,8 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
             }
         });
 
-        box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
-            public void onSelection(SelectionEvent<SuggestOracle.Suggestion> selectionEvent) {
+        box.addSelectionHandler(new SelectionHandler<Suggestion>() {
+            public void onSelection(SelectionEvent<Suggestion> selectionEvent) {
                 Suggestion selectedItem = selectionEvent.getSelectedItem();
                 itemBox.setValue("");
                 if (addItem(selectedItem)) {
@@ -216,7 +228,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         panel.add(list);
         panel.getElement().setAttribute("onclick",
-            "document.getElementById('" + autocompleteId + "').focus()");
+                "document.getElementById('" + autocompleteId + "').focus()");
         panel.add(lblError);
         box.setFocus(true);
     }
@@ -266,7 +278,13 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         });
 
         suggestionMap.put(suggestion, chip);
-        displayItem.add(chip);
+        if(getType() == AutocompleteType.TEXT) {
+            suggestionMap.clear();
+            itemBox.setText(suggestion.getDisplayString());
+            displayItem.add(itemBox);
+        }else{
+            displayItem.add(chip);
+        }
         list.insert(displayItem, list.getWidgetCount() - 1);
         return true;
     }
@@ -345,7 +363,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     /**
      * Sets the SuggestOracle to be used to provide suggestions. Also setups the
      * component with the needed event handlers and UI elements.
-     * 
+     *
      * @param suggestions
      *            the suggestion oracle to set
      */
@@ -354,12 +372,20 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         generateAutoComplete(suggestions);
     }
 
+    public void setSuggestions(SuggestOracle suggestions, AutocompleteType type){
+        setType(type);
+        setSuggestions(suggestions);
+    }
+
     public int getLimit() {
         return limit;
     }
 
     public void setLimit(int limit) {
         this.limit = limit;
+        if (this.box != null) {
+            this.box.setLimit(limit);
+        }
     }
 
     @Override
@@ -421,10 +447,40 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         return directInputAllowed;
     }
 
+    @Override
+    public void showProgress(ProgressType type) {
+        progressMixin.showProgress(ProgressType.INDETERMINATE);
+    }
+
+    @Override
+    public void setPercent(double percent) {
+        progressMixin.setPercent(percent);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressMixin.hideProgress();
+    }
+
+    @Override
+    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+        return itemBox.addKeyUpHandler(handler);
+    }
+
+    @Override
+    public void setType(AutocompleteType type) {
+        typeMixin.setType(type);
+    }
+
+    @Override
+    public AutocompleteType getType() {
+        return typeMixin.getType();
+    }
+
     /**
      * Interface that defines how a {@link MaterialChip} is created, given a
      * {@link Suggestion}.
-     * 
+     *
      * @see MaterialAutoComplete#setChipProvider(MaterialChipProvider)
      */
     public static interface MaterialChipProvider {
@@ -432,10 +488,10 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         /**
          * Creates and returns a {@link MaterialChip} based on the selected
          * {@link Suggestion}.
-         * 
+         *
          * @param suggestion
          *            the selected {@link Suggestion}
-         * 
+         *
          * @return the created MaterialChip, or <code>null</code> if the
          *         suggestion should be ignored.
          */
@@ -445,7 +501,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     /**
      * Default implementation of the {@link MaterialChipProvider} interface,
      * used by the {@link MaterialAutoComplete}.
-     * 
+     *
      * @see MaterialAutoComplete#setChipProvider(MaterialChipProvider)
      */
     public static class DefaultMaterialChipProvider implements MaterialChipProvider {
@@ -478,7 +534,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     /**
      * Returns the selected {@link Suggestion}s. Modifications to the list are
      * not propagated to the component.
-     * 
+     *
      * @return the list of selected {@link Suggestion}s, or empty if none was
      *         selected (never <code>null</code>).
      */

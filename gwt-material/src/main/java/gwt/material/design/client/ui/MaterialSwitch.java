@@ -29,7 +29,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.InputType;
@@ -52,7 +52,7 @@ import gwt.material.design.client.ui.html.Span;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Switch</a>
 */
 //@formatter:on
-public class MaterialSwitch extends ComplexWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
+public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
 
     private MaterialInput input = new MaterialInput();
     private Span span = new Span();
