@@ -22,7 +22,6 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.*;

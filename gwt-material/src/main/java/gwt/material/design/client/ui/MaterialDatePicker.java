@@ -51,7 +51,7 @@ import java.util.Date;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends ComplexWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder {
+public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder {
 
     /**
      * Enum for identifying various selection types for the picker.

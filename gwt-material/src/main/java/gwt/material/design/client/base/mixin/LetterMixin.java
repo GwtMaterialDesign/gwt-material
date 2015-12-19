@@ -20,12 +20,11 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasLetter;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.Span;
 
-public class LetterMixin<T extends UIObject & HasLetter> extends AbstractMixin<T> implements HasLetter {
+public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractMixin<T> implements HasLetter {
 
     private Span span = new Span();
     private char letter = 'A';
@@ -39,7 +38,7 @@ public class LetterMixin<T extends UIObject & HasLetter> extends AbstractMixin<T
     @Override
     public void setLetter(String letter) {
         span.setText(letter);
-        ((ComplexWidget)uiObject).insert(span, 0);
+        uiObject.insert(span, 0);
     }
 
     @Override

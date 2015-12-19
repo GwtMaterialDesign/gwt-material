@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off

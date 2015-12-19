@@ -20,20 +20,16 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.InputElement;
-import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.base.ComplexWidget;
-
+import gwt.material.design.client.base.MaterialWidget;
 
 /**
  * @author guaido79
  */
-public class DateInput extends ComplexWidget {
+public class DateInput extends MaterialWidget {
     public DateInput() {
         super(InputElement.as(Document.get().createTextInputElement()));
         getElement().setAttribute("type", "date");
     }
 }
-
