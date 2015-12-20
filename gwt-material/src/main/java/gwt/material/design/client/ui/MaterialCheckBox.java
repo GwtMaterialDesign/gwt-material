@@ -20,10 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.constants.CheckBoxType;
-import gwt.material.design.client.base.HasGrid;
-import gwt.material.design.client.base.mixin.GridMixin;
-
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,8 +31,12 @@ import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.CheckBox;
+import gwt.material.design.client.base.HasGrid;
+import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.constants.CheckBoxType;
 
 //@formatter:off
+
 /**
  * Checkbox component provides two types
  * - FILLED
@@ -44,7 +44,8 @@ import com.google.gwt.user.client.ui.CheckBox;
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code// Default
+ * {@code
+ * // Default
  * <m:MaterialCheckBox text="Option 1"/>
  *
  * // Filled
@@ -99,6 +100,12 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
         super(label);
     }
 
+    public MaterialCheckBox(String label, CheckBoxType type) {
+        super(label);
+
+        setType(type);
+    }
+
     public Object getObject() {
         return object;
     }
@@ -135,17 +142,17 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
      */
     public void setType(CheckBoxType type) {
         switch (type) {
-        case FILLED:
-            Element e_cb = this.getElement();
-            Element e_input = DOM.getChild(e_cb, 0);
-            e_input.setAttribute("class", "filled-in");
-            break;
-        case INTERMEDIATE:
-            this.addStyleName(type + "-checkbox");
-            break;
-        default:
-            this.addStyleName(type.getCssName());
-            break;
+            case FILLED:
+                Element cb = this.getElement();
+                Element input = DOM.getChild(cb, 0);
+                input.setAttribute("class", "filled-in");
+                break;
+            case INTERMEDIATE:
+                this.addStyleName(type + "-checkbox");
+                break;
+            default:
+                this.addStyleName(type.getCssName());
+                break;
         }
     }
 
