@@ -554,4 +554,24 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public void setOverflow(Style.Overflow overflow) {
         getElement().getStyle().setOverflow(overflow);
     }
+
+    public void setLayoutPosition(Style.Position position) {
+        getElement().getStyle().setPosition(position);
+    }
+
+    public void setLeft(double value) {
+        getElement().getStyle().setLeft(value, Style.Unit.PX);
+    }
+
+    public void setRight(double value) {
+        getElement().getStyle().setRight(value, Style.Unit.PX);
+    }
+
+    public void setTop(double value) {
+        getElement().getStyle().setTop(value, Style.Unit.PX);
+    }
+
+    public void setBottom(double value) {
+        getElement().getStyle().setBottom(value, Style.Unit.PX);
+    }
 }
