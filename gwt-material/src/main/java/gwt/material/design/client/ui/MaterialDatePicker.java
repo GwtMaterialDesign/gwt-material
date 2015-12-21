@@ -133,6 +133,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         if (initialized) {
             clearErrorOrSuccess();
             label.removeStyleName("active");
+            dateInput.removeStyleName("valid");
         }
     }
 
@@ -288,7 +289,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }-*/;
 
     public native void setPickerDate(JsDate date, Element picker) /*-{
-        picker.pickadate('picker').set('select', date);
+        picker.pickadate('picker').set('select', date, { muted: true });
     }-*/;
 
     public Date getDate() {
