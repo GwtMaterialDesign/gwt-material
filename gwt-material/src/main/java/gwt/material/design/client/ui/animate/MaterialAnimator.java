@@ -26,8 +26,6 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-import java.lang.Runnable;
-
 /**
  * Provides core and meaningful animation
  * @author kevzlou7979
@@ -59,7 +57,7 @@ public class MaterialAnimator {
             default:
                 // For core animation components
                 w.addStyleName("animated " + transition.getCssName());
-                animationFinishedCallback(name, "animated " + transition.getCssName(), callback);
+
                 break;
         }
 
@@ -82,6 +80,7 @@ public class MaterialAnimator {
                         closeGrid(name);
                         break;
                     default:
+                        w.removeStyleName("animated " + transition.getCssName());
                         break;
                 }
             }
