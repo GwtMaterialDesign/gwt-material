@@ -38,6 +38,7 @@ public class MaterialCardImage extends MaterialWidget {
 
     public MaterialCardImage(){
         super(Document.get().createDivElement());
+        setStyleName("card-image");
     }
 
     /**
