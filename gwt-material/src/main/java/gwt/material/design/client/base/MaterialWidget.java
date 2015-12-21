@@ -550,4 +550,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public void setFlexJustifyContent(FlexJustifyContent flexJustifyContent) {
         getFlexboxMixin().setFlexJustifyContent(flexJustifyContent);
     }
+
+    public void setOverflow(Style.Overflow overflow) {
+        getElement().getStyle().setOverflow(overflow);
+    }
 }
