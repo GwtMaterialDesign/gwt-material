@@ -133,7 +133,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         MaterialSuggestBox suggestDisplay = new MaterialSuggestBox();
         box = new SuggestBox(suggestions, itemBox, suggestDisplay);
         setLimit(this.limit);
-        suggestDisplay.setHeight(getSuggestHeight() != null ? getSuggestHeight() : "100px");
+        suggestDisplay.setHeight(getSuggestHeight() != null ? getSuggestHeight() : "200px");
         suggestDisplay.setWidth(getSuggestWidth() != null ? getSuggestWidth() : (this.getOffsetWidth()+"px"));
         String autocompleteId = DOM.createUniqueId();
         itemBox.getElement().setId(autocompleteId);
