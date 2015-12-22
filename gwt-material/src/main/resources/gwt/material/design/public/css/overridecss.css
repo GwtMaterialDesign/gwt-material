@@ -475,6 +475,9 @@ nav .nav-wrapper .side-nav i {
 	vertical-align: middle;
 	
 }
+nav.pinned{
+	z-index: 1000;
+}
 .side-nav i {
 	font-size: 2em !important;
 	line-height: inherit;
@@ -851,3 +854,4 @@ i[class*="waves-"].material-icons {
 		margin-top: 12px;
 	}
 }
+
