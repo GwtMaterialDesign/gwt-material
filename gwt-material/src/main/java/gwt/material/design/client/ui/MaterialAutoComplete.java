@@ -35,6 +35,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
@@ -43,6 +44,7 @@ import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.events.ActivateEvent;
+import gwt.material.design.client.ui.animate.MaterialAnimator;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.Span;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -693,24 +695,23 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                     this.setWidth(suggestBox.getOffsetWidth() + "px");
                 }
                 if (this.getHeight() == null) {
-
+                    setHeight("0px"); // Temporary default until calculation.
                     suggestionList.addAttachHandler(new AttachEvent.Handler() {
                         @Override
                         public void onAttachOrDetach(AttachEvent event) {
-                            int displayHeight = 0;
-                            List<SuggestionListItem> suggestionWidgets = suggestionList.getSuggestionWidgets();
-                            for (SuggestionListItem suggestionWidget : suggestionWidgets) {
-                                displayHeight += suggestionWidget.getOffsetHeight();
-                            }
-                            //int displayHeight = suggestBox.getOffsetHeight() * suggestions.size();
-                            int spaceToBottom = Window.getClientHeight() - suggestBox.getAbsoluteTop() - lastSuggestBox.getOffsetHeight();
-                            // Intentionally not calling setHeight, to calculate each time if not set by default.
-                            setHeight(Math.min(displayHeight, spaceToBottom) + "px");
+                            calculateDisplayHeight(suggestBox);
                         }
                     });
                 }
                 this.suggestionPopup.showRelativeTo((UIObject) (this.positionRelativeTo != null ? this.positionRelativeTo : suggestBox));
             }
+        }
+
+        private void calculateDisplayHeight(SuggestBox suggestBox) {
+            int displayHeight = suggestionList.getSuggestionWidgetsHeight();
+            int spaceToBottom = UiHelper.calculateSpaceToBottom(suggestBox);
+            int calculatedHeight = Math.max(Math.min(displayHeight, spaceToBottom), 50);
+            setHeight(calculatedHeight + "px");
         }
 
         public String getHeight() {
@@ -805,6 +806,14 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
             public List<SuggestionListItem> getSuggestionWidgets() {
                 return suggestionWidgets;
+            }
+
+            public int getSuggestionWidgetsHeight() {
+                int displayHeight = 0;
+                for (SuggestionListItem suggestionWidget : suggestionWidgets) {
+                    displayHeight += suggestionWidget.getOffsetHeight();
+                }
+                return displayHeight;
             }
 
             public void setSuggestionWidgets(List<SuggestionListItem> suggestionWidgets) {
