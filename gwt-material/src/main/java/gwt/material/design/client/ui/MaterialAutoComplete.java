@@ -74,7 +74,8 @@ import java.util.Map.Entry;
 public class MaterialAutoComplete extends MaterialWidget implements HasError, HasPlaceholder,
         HasValue<List<? extends Suggestion>>, HasProgress, HasKeyUpHandlers, HasType<AutocompleteType> {
 
-    private Map<Suggestion, MaterialChip> suggestionMap = new LinkedHashMap<>();
+    private Map<String, Entry<Suggestion, MaterialChip>> suggestionMap = new LinkedHashMap<>();
+
 
     private List<ListItem> itemsHighlighted = new ArrayList<>();
     private FlowPanel panel = new FlowPanel();
@@ -132,8 +133,8 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         MaterialSuggestBox suggestDisplay = new MaterialSuggestBox();
         box = new SuggestBox(suggestions, itemBox, suggestDisplay);
         setLimit(this.limit);
-        suggestDisplay.setHeight(getSuggestHeight());
-        suggestDisplay.setWidth(getSuggestWidth());
+        suggestDisplay.setHeight(getSuggestHeight() != null ? getSuggestHeight() : "100px");
+        suggestDisplay.setWidth(getSuggestWidth() != null ? getSuggestWidth() : (this.getOffsetWidth()+"px"));
         String autocompleteId = DOM.createUniqueId();
         itemBox.getElement().setId(autocompleteId);
 
@@ -174,9 +175,9 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                                     ListItem li = (ListItem) list.getWidget(list.getWidgetCount() - 2);
                                     MaterialChip p = (MaterialChip) li.getWidget(0);
 
-                                    Set<Entry<Suggestion, MaterialChip>> entrySet = suggestionMap.entrySet();
-                                    for (Entry<Suggestion, MaterialChip> entry : entrySet) {
-                                        if (p.equals(entry.getValue())) {
+                                    Set<Entry<String, Entry<Suggestion, MaterialChip>>> entrySet = suggestionMap.entrySet();
+                                    for (Entry<String, Entry<Suggestion, MaterialChip>> entry : entrySet) {
+                                        if (p.equals(entry.getValue().getValue())) {
                                             suggestionMap.remove(entry.getKey());
                                             itemsChanged = true;
                                             break;
@@ -194,9 +195,9 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                                 li.removeFromParent();
                                 MaterialChip p = (MaterialChip) li.getWidget(0);
 
-                                Set<Entry<Suggestion, MaterialChip>> entrySet = suggestionMap.entrySet();
-                                for (Entry<Suggestion, MaterialChip> entry : entrySet) {
-                                    if (p.equals(entry.getValue())) {
+                                Set<Entry<String, Entry<Suggestion, MaterialChip>>> entrySet = suggestionMap.entrySet();
+                                for (Entry<String, Entry<Suggestion, MaterialChip>> entry : entrySet) {
+                                    if (p.equals(entry.getValue().getValue())) {
                                         suggestionMap.remove(entry.getKey());
                                         itemsChanged = true;
                                         break;
@@ -252,7 +253,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         GWT.log("SUGGESTION DISPLAY STRING:" + suggestion.getDisplayString());
         GWT.log("SUGGESTION HASHCODE:" + suggestion.hashCode());
-        if (suggestionMap.containsKey(suggestion)) {
+        if (suggestionMap.containsKey(suggestion.getReplacementString())) {
             return false;
         }
 
@@ -279,14 +280,14 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         chip.getIcon().addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent clickEvent) {
-                suggestionMap.remove(suggestion);
+                suggestionMap.remove(suggestion.getReplacementString());
                 list.remove(displayItem);
                 ValueChangeEvent.fire(MaterialAutoComplete.this, getValue());
                 box.showSuggestionList();
             }
         });
 
-        suggestionMap.put(suggestion, chip);
+        suggestionMap.put(suggestion.getReplacementString(), new AbstractMap.SimpleEntry<Suggestion, MaterialChip>(suggestion, chip));
         if (getType() == AutocompleteType.TEXT) {
             suggestionMap.clear();
             itemBox.setText(suggestion.getDisplayString());
@@ -304,9 +305,10 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     public void clear() {
         itemBox.setValue("");
 
-        Collection<MaterialChip> values = suggestionMap.values();
-        for (MaterialChip chip : values) {
-            Widget parent = chip.getParent();
+        Collection<Entry<Suggestion, MaterialChip>> values = suggestionMap.values();
+
+        for (Entry<Suggestion, MaterialChip> chip : values) {
+            Widget parent = chip.getValue().getParent();
             if (parent instanceof ListItem) {
                 parent.removeFromParent();
             }
@@ -321,12 +323,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
      * @see #getValue()
      */
     public List<String> getItemValues() {
-        Set<Suggestion> keySet = suggestionMap.keySet();
-        List<String> values = new ArrayList<>(keySet.size());
-        for (Suggestion suggestion : keySet) {
-            values.add(suggestion.getReplacementString());
-        }
-        return values;
+        return new ArrayList<>(suggestionMap.keySet());
     }
 
     /**
@@ -560,7 +557,12 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
      */
     @Override
     public List<? extends Suggestion> getValue() {
-        return new ArrayList<>(suggestionMap.keySet());
+        Collection<Entry<Suggestion, MaterialChip>> values = suggestionMap.values();
+        List<Suggestion> retList = new ArrayList<>(values.size());
+        for (Entry<Suggestion, MaterialChip> value : values) {
+            retList.add(value.getKey());
+        }
+        return retList;
     }
 
     @Override
