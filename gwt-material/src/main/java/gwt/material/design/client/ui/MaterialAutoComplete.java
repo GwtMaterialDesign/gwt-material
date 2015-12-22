@@ -645,7 +645,8 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         protected void moveSelectionDown() {
             if (this.isSuggestionListShowing()) {
-                this.suggestionList.setSelectedIndex(suggestionList.getSelectedIndex() + 1);
+                boolean restart = suggestionList.getSelectedIndex() == this.suggestionList.getSuggestionWidgets().size();
+                this.suggestionList.setSelectedIndex((restart ? SuggestionList.UNSELECTED_INDEX : suggestionList.getSelectedIndex()) + 1);
             }
 
         }
