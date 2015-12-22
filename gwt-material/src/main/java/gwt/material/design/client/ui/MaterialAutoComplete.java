@@ -133,8 +133,8 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         MaterialSuggestBox suggestDisplay = new MaterialSuggestBox();
         box = new SuggestBox(suggestions, itemBox, suggestDisplay);
         setLimit(this.limit);
-        suggestDisplay.setHeight(getSuggestHeight() != null ? getSuggestHeight() : "200px");
-        suggestDisplay.setWidth(getSuggestWidth() != null ? getSuggestWidth() : (this.getOffsetWidth()+"px"));
+        suggestDisplay.setHeight(getSuggestHeight());
+        suggestDisplay.setWidth(getSuggestWidth());
         String autocompleteId = DOM.createUniqueId();
         itemBox.getElement().setId(autocompleteId);
 
@@ -693,6 +693,12 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                     this.suggestionPopup.addAutoHidePartner(suggestBox.getElement());
                 }
 
+                if (this.getWidth() == null) {
+                    this.setWidth(lastSuggestBox.getOffsetWidth() + "px");
+                }
+                if (this.getHeight() == null) {
+                    this.setHeight("200px");
+                }
                 this.suggestionPopup.showRelativeTo((UIObject) (this.positionRelativeTo != null ? this.positionRelativeTo : suggestBox));
             }
         }
@@ -703,7 +709,9 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         public void setHeight(String height) {
             this.height = height;
-            suggestionList.setHeight(height);
+            if (height != null) {
+                suggestionList.setHeight(height);
+            }
         }
 
         public String getWidth() {
@@ -712,7 +720,9 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         public void setWidth(String width) {
             this.width = width;
-            suggestionList.setWidth(width);
+            if (width != null) {
+                suggestionList.setWidth(width);
+            }
         }
 
         static class SuggestionList extends UnorderedList {
