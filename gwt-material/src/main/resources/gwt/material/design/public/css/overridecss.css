@@ -132,7 +132,7 @@ ul.multiValueSuggestBox-list {
     white-space: nowrap;
 }
 .gwt-SuggestBoxPopup .item-selected {
-	background: rgba(0,0,0,.03) !important;
+
 }
 .suggestPopupMiddleCenter {
 	width: 100%;
