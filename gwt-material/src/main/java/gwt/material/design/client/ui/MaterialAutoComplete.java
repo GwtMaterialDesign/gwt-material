@@ -26,14 +26,12 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import gwt.material.design.client.base.*;
@@ -251,8 +249,6 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
             }
         }
 
-        GWT.log("SUGGESTION DISPLAY STRING:" + suggestion.getDisplayString());
-        GWT.log("SUGGESTION HASHCODE:" + suggestion.hashCode());
         if (suggestionMap.containsKey(suggestion.getReplacementString())) {
             return false;
         }
@@ -663,7 +659,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         }
 
-        protected void showSuggestions(SuggestBox suggestBox, Collection<? extends Suggestion> suggestions, boolean isDisplayStringHTML, boolean isAutoSelectEnabled, final SuggestBox.SuggestionCallback callback) {
+        protected void showSuggestions(final SuggestBox suggestBox, final Collection<? extends Suggestion> suggestions, boolean isDisplayStringHTML, boolean isAutoSelectEnabled, final SuggestBox.SuggestionCallback callback) {
             boolean anySuggestions = suggestions != null && suggestions.size() > 0;
             if (!anySuggestions && this.hideWhenEmpty) {
                 this.hideSuggestions();
@@ -674,8 +670,8 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
                 this.suggestionList.clear();
 
+
                 for (final Suggestion suggestion : suggestions) {
-                    GWT.log("SUGGESTION ADDED HASHCODE:" + suggestion.hashCode());
                     SuggestionListItem suggestionListItem = suggestionList.add(suggestion);
                     suggestionListItem.setScheduledCommand(new Scheduler.ScheduledCommand() {
                         public void execute() {
@@ -694,10 +690,24 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                 }
 
                 if (this.getWidth() == null) {
-                    this.setWidth(lastSuggestBox.getOffsetWidth() + "px");
+                    this.setWidth(suggestBox.getOffsetWidth() + "px");
                 }
                 if (this.getHeight() == null) {
-                    this.setHeight("200px");
+
+                    suggestionList.addAttachHandler(new AttachEvent.Handler() {
+                        @Override
+                        public void onAttachOrDetach(AttachEvent event) {
+                            int displayHeight = 0;
+                            List<SuggestionListItem> suggestionWidgets = suggestionList.getSuggestionWidgets();
+                            for (SuggestionListItem suggestionWidget : suggestionWidgets) {
+                                displayHeight += suggestionWidget.getOffsetHeight();
+                            }
+                            //int displayHeight = suggestBox.getOffsetHeight() * suggestions.size();
+                            int spaceToBottom = Window.getClientHeight() - suggestBox.getAbsoluteTop() - lastSuggestBox.getOffsetHeight();
+                            // Intentionally not calling setHeight, to calculate each time if not set by default.
+                            setHeight(Math.min(displayHeight, spaceToBottom) + "px");
+                        }
+                    });
                 }
                 this.suggestionPopup.showRelativeTo((UIObject) (this.positionRelativeTo != null ? this.positionRelativeTo : suggestBox));
             }
