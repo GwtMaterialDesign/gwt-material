@@ -130,7 +130,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         final ListItem item = new ListItem();
 
         item.setStyleName("multiValueSuggestBox-input-token");
-        MaterialSuggestBox suggestDisplay = new MaterialSuggestBox();
+        MaterialSuggestBox suggestDisplay = new MaterialSuggestBox(this);
         box = new SuggestBox(suggestions, itemBox, suggestDisplay);
         setLimit(this.limit);
         suggestDisplay.setHeight(getSuggestHeight());
@@ -592,15 +592,27 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         private String height;
 
 
-        public MaterialSuggestBox() {
+        public MaterialSuggestBox(UIObject relativeTo) {
             suggestionList = new SuggestionList();
             suggestionList.addStyleName("dropdown-content");
             suggestionList.addStyleName("select-dropdown");
             suggestionList.setOpacity(1.0);
             suggestionList.setVisibility(Style.Visibility.VISIBLE);
             suggestionList.setDisplay(Display.BLOCK);
+            this.positionRelativeTo = relativeTo;
 
             this.suggestionPopup.setWidget(suggestionList);
+
+            suggestionList.addAttachHandler(new AttachEvent.Handler() {
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
+                    if (lastSuggestBox != null) {
+                        calculateDisplayHeight(lastSuggestBox);
+                        calculateDisplayWidth();
+                    }
+
+                }
+            });
         }
 
         public void hideSuggestions() {
@@ -692,18 +704,6 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
                     this.suggestionPopup.addAutoHidePartner(suggestBox.getElement());
                 }
 
-                if (this.getWidth() == null) {
-                    this.setWidth(suggestBox.getOffsetWidth() + "px");
-                }
-                if (this.getHeight() == null) {
-                    setHeight("0px"); // Temporary default until calculation.
-                    suggestionList.addAttachHandler(new AttachEvent.Handler() {
-                        @Override
-                        public void onAttachOrDetach(AttachEvent event) {
-                            calculateDisplayHeight(suggestBox);
-                        }
-                    });
-                }
                 this.suggestionPopup.showRelativeTo((UIObject) (this.positionRelativeTo != null ? this.positionRelativeTo : suggestBox));
             }
         }
@@ -713,6 +713,12 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
             int spaceToBottom = UiHelper.calculateSpaceToBottom(suggestBox);
             int calculatedHeight = Math.max(Math.min(displayHeight, spaceToBottom), 50);
             setHeight(calculatedHeight + "px");
+        }
+
+        private void calculateDisplayWidth() {
+            if (getWidth() == null) {
+                setWidth(this.positionRelativeTo.getOffsetWidth()+ "px");
+            }
         }
 
         public String getHeight() {
