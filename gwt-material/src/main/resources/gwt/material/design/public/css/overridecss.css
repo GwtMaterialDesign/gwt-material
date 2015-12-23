@@ -868,6 +868,11 @@ footer.fixed{
 	padding-top: 10px;
 }
 
+/** Sidenav Close **/
+.side-nav.close{
+	top: 0px !important;
+}
+
 .navmenu-permanent, .drag-target, #sidenav-overlay{
 	visibility: hidden !important;
 }
