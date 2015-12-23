@@ -450,7 +450,7 @@ nav .nav-wrapper .side-nav i {
 
 }
 nav.pinned{
-	z-index: 1000;
+	z-index: 996;
 }
 .side-nav i {
 	font-size: 2em !important;
@@ -880,5 +880,8 @@ footer.fixed{
 	}
 	.navmenu-permanent, .drag-target, #sidenav-overlay{
 		visibility: visible !important;
+	}
+	nav.pinned{
+		width: 100% !important;
 	}
 }
