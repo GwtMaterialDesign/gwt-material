@@ -908,3 +908,11 @@ i[class*="waves-"].material-icons {
 		margin-top: 12px;
 	}
 }
+
+/** Footer **/
+footer.fixed{
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	padding-top: 0px !important;
+}
