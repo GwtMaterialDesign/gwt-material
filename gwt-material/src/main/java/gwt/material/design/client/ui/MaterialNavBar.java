@@ -69,12 +69,13 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
 
     public MaterialNavBar() {
-        div.setStyleName("nav-wrapper container");
+        div.setStyleName("nav-wrapper");
         div.add(navMenu);
         super.add(div);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName("button-collapse");
         navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
+        navMenu.getElement().getStyle().clearDisplay();
         navMenu.setCircle(true);
         navMenu.setWaves(WavesType.LIGHT);
         navMenu.setWidth("64px");

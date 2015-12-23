@@ -20,24 +20,25 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasSelectables;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.StyleAttributeObserver;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Edge;
+import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
@@ -69,7 +70,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
  */
 //@formatter:on
-public class MaterialSideNav extends UnorderedList implements HasType<SideNavType>, HasSelectables {
+public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables {
 
     private int width = 240;
     private Edge edge = Edge.LEFT;
@@ -87,7 +88,7 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
      * Icons or any other material components.
      */
     public MaterialSideNav() {
-        super();
+        super(Document.get().createULElement());
         setStyleName("side-nav");
     }
 
@@ -250,6 +251,17 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
                 case MINI:
                     setWidth(64);
                     break;
+                case CARD:
+                case FLOAT:
+                    activator.addClassName("navmenu-permanent");
+                    Timer t = new Timer() {
+                        @Override
+                        public void run() {
+                            show();
+                        }
+                    };
+                    t.schedule(500);
+                    break;
             }
         }
     }
@@ -317,8 +329,8 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
                 }
             } else if(strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                    "please ensure you have a MaterialNavBar with an activator setup to match " +
-                    "this widgets id.");
+                        "please ensure you have a MaterialNavBar with an activator setup to match " +
+                        "this widgets id.");
             }
         }
     }
@@ -346,13 +358,31 @@ public class MaterialSideNav extends UnorderedList implements HasType<SideNavTyp
      * Show the sidenav.
      */
     public native void show(Element e)/*-{
-        $wnd.jQuery(e).sideNav('show');
+        $wnd.jQuery(document).ready(function() {
+            $wnd.jQuery(e).sideNav('show');
+        });
     }-*/;
 
     /**
      * Hide the sidenav.
      */
     public native void hide(Element e)/*-{
-        $wnd.jQuery(e).sideNav('hide');
+        $wnd.jQuery(document).ready(function() {
+            $wnd.jQuery(e).sideNav('hide');
+        });
     }-*/;
+
+    /**
+     * Show the sidenav using the activator element
+     */
+    public void show() {
+        show(activator);
+    }
+
+    /**
+     * Hide the sidenav using the activator element
+     */
+    public void hide() {
+        hide(activator);
+    }
 }
