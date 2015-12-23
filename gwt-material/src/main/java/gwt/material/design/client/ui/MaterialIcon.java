@@ -84,6 +84,10 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
         setBackgroundColor(bgColor);
     }
 
+    public void setInnerText(String innerText){
+        getElement().setInnerText(innerText);
+    }
+
     @Override
     protected Element createElement() {
         return Document.get().createElement("i");
