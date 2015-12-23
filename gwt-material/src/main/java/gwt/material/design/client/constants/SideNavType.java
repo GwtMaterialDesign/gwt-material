@@ -28,6 +28,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  */
 public enum SideNavType implements CssType {
     OPEN("fixed open"),
+    CLOSE("close"),
     MINI("mini"),
     CLIP("clip"),
     FLOAT("clip float"),

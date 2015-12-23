@@ -29,7 +29,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
@@ -38,7 +37,6 @@ import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Edge;
-import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
@@ -48,7 +46,6 @@ import gwt.material.design.client.events.SideNavHiddenEvent.SideNavHiddenHandler
 import gwt.material.design.client.events.SideNavShownEvent;
 import gwt.material.design.client.events.SideNavShownEvent.SideNavShownHandler;
 import gwt.material.design.client.ui.html.ListItem;
-import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
 
@@ -262,9 +259,38 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                     };
                     t.schedule(500);
                     break;
+                case CLOSE:
+                    initActivatorHandler(activator, width);
+                    break;
             }
         }
     }
+
+    private native void initActivatorHandler(Element activator, double width) /*-{
+        var toggle;
+        var _width;
+        var _duration;
+        $wnd.jQuery(activator).click(function (){
+            if(toggle){
+                _width = 0;
+                toggle = false;
+                _duration = 200;
+            }else{
+                _width = width;
+                toggle = true;
+                _duration = 300;
+            }
+            applyTransition($wnd.jQuery('header'), _width);
+            applyTransition($wnd.jQuery('main'), _width);
+            applyTransition($wnd.jQuery('footer'), _width);
+        });
+        function applyTransition(elem, _width){
+            $wnd.jQuery(elem).css('transition', _duration + 'ms');
+            $wnd.jQuery(elem).css('-moz-transition', _duration + 'ms');
+            $wnd.jQuery(elem).css('-webkit-transition', _duration + 'ms');
+            $wnd.jQuery(elem).css('margin-left', _width);
+        }
+    }-*/;
 
     @Override
     public void clearActive() {
@@ -342,7 +368,14 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 edge: edge,
                 closeOnClick: closeOnClick
             });
-        })
+        });
+        $wnd.jQuery($wnd.window).resize(function() {
+            var mq = window.matchMedia( "(min-width: 500px)" );
+            if (mq.matches) {
+                // window width is at least 500px
+                alert('test');
+            }
+        });
     }-*/;
 
     /**
