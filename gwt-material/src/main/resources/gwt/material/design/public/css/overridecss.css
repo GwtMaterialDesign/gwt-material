@@ -874,7 +874,7 @@ footer.fixed{
 @media screen and (max-width: 894px) {
 	.side-nav.card, .side-nav.float {
 		margin: 0;
-		top: 0;
+		top: 0 !important;
 		height: 100%;
 		background: #fff;
 	}
