@@ -18,49 +18,58 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-import com.google.gwt.core.client.GWT;
+
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.helper.UiHelper;
-import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.events.PageSelectionEvent;
 import gwt.material.design.client.ui.html.ListItem;
-import gwt.material.design.client.ui.html.UnorderedList;
 
-import static gwt.material.design.client.events.PageSelectionEvent.*;
+import static gwt.material.design.client.events.PageSelectionEvent.PageSelectionHandler;
+import static gwt.material.design.client.events.PageSelectionEvent.TYPE;
 
 //@formatter:off
+
 /**
  * Material Pager with page event
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialPager  ui:field='pager' />}
+ * {@code<m:MaterialPager  ui:field='pager' />}
  * </pre>
+ *
  * @author Guaido79
  */
-public class MaterialPager extends MaterialWidget  {
+public class MaterialPager extends MaterialWidget {
 
     private int total;
     private int pageSize = 10;
     private int currentPage = 1;
     private int maxPageElement = 10;
+    private boolean enableIndicator;
+    private String indicatorTemplate = "Page {page} of {total}";
 
     private int $totalPages;
+    private int $showingPageFrom;
+    private int $showingPageTo;
+    private boolean $initialized;
 
     private PagerListItem linkLeft;
     private PagerListItem linkRight;
+
+    private MaterialChip indicator;
 
     public MaterialPager() {
         super(Document.get().createULElement());
         addStyleName("pagination");
         setWaves(WavesType.DEFAULT);
+        removeStyleName("waves-effect");
     }
 
     public MaterialPager(int total, int pageSize) {
@@ -80,29 +89,60 @@ public class MaterialPager extends MaterialWidget  {
     }
 
     private void init() {
-        $totalPages = total / pageSize + (((double)total % (double)pageSize) > 0 ? 1 : 0);
+        $totalPages = total / pageSize + (((double) total % (double) pageSize) > 0 ? 1 : 0);
 
         add(getOrCreateLiElementLeft());
-        createPageNumberLinks();
+        moveNextPageWindow();
         add(getOrCreateLiElementRight());
-
+        if (enableIndicator) {
+            add(createLiElementIndicator());
+        }
         onPageSelection(1);
 
+        $initialized = true;
+    }
+
+    private void moveNextPageWindow() {
+        $showingPageFrom = currentPage;
+        $showingPageTo = Math.min(currentPage + maxPageElement - 1, $totalPages);
+        createPageNumberLinks();
+    }
+
+    private void movePreviousPageWindow() {
+        $showingPageFrom = currentPage - maxPageElement + 1;
+        $showingPageTo = currentPage;
+        createPageNumberLinks();
     }
 
     private void createPageNumberLinks() {
+
         for (int i = 0; i < getWidgetCount(); i++) {
-            PagerListItem widget = (PagerListItem) getWidget(i);
-            if (!widget.isFixed()) { remove(i); }
+            final PagerListItem widget = (PagerListItem) getWidget(i);
+            if (!widget.isFixed()) {
+                Scheduler.get().scheduleDeferred(new Command() {
+                    @Override
+                    public void execute() {
+                        widget.removeFromParent();
+                    }
+                });
+            }
         }
-        for (int i = 0; i < $totalPages; i++) {
-            add(createLiElementForPage(i + 1));
+        int insertionIndex = 1;
+        for (int i = $showingPageFrom; i <= $showingPageTo; i++) {
+            final PagerListItem liElementForPage = createLiElementForPage(i);
+
+            Scheduler.get().scheduleDeferred(new InsertElementAtPositionCommand(insertionIndex++) {
+                @Override
+                public void execute() {
+                    insert(liElementForPage, insertionIndex);
+                }
+            });
+
         }
     }
 
     private PagerListItem createLiElementForPage(final int page) {
         final PagerListItem pageLiElement = new PagerListItem();
-
         pageLiElement.setFixed(false);
         pageLiElement.add(createLinkPage(page));
 
@@ -175,11 +215,37 @@ public class MaterialPager extends MaterialWidget  {
         return this.linkRight;
     }
 
+    private PagerListItem createLiElementIndicator() {
+
+        PagerListItem indicatorLi = new PagerListItem(false);
+        indicatorLi.setFixed(true);
+        indicatorLi.add(getOrCreateIndicator());
+        return indicatorLi;
+    }
+
+    private MaterialChip getOrCreateIndicator() {
+        indicator = new MaterialChip();
+        indicator.getElement().getStyle().setBackgroundColor("inherit");
+        addPageSelectionHandler(new PageSelectionHandler() {
+            @Override
+            public void onPageSelected(PageSelectionEvent event) {
+                indicator.setText(
+                    indicatorTemplate
+                        .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
+                        .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
+                );
+            }
+        });
+
+        return indicator;
+    }
+
     private MaterialLink createLinkPage(final int page) {
         MaterialLink link = new MaterialLink(String.valueOf(page));
 
         return link;
     }
+
     private MaterialLink createLinkLeft() {
         final MaterialLink linkLeft = new MaterialLink(IconType.CHEVRON_LEFT);
         linkLeft.setIconPosition(IconPosition.NONE);
@@ -194,10 +260,19 @@ public class MaterialPager extends MaterialWidget  {
 
     private void onPageSelection(int page) {
         this.currentPage = page;
+
+        if (this.currentPage > $showingPageTo) {
+            moveNextPageWindow();
+        }
+        if (this.currentPage < $showingPageFrom) {
+            movePreviousPageWindow();
+        }
+
         PageSelectionEvent event = new PageSelectionEvent();
         event.setPageFrom(this.currentPage);
         event.setPageTo(page);
         event.setTotalPage(this.$totalPages);
+
         fireEvent(event);
     }
 
@@ -205,12 +280,26 @@ public class MaterialPager extends MaterialWidget  {
         this.addHandler(handler, TYPE);
     }
 
+    public boolean isEnableIndicator() {
+        return enableIndicator;
+    }
+
+    public void setEnableIndicator(boolean enableIndicator) {
+        this.enableIndicator = enableIndicator;
+    }
+
     public int getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(final int total) {
+        boolean needToClear = total != this.total;
         this.total = total;
+        currentPage = 1;
+        if ($initialized && needToClear) {
+            this.clear();
+            init();
+        }
     }
 
     public int getPageSize() {
@@ -237,15 +326,50 @@ public class MaterialPager extends MaterialWidget  {
         this.maxPageElement = maxPageElement;
     }
 
+    public String getIndicatorTemplate() {
+        return indicatorTemplate;
+    }
+
+    /**
+     * Set the paging indicator label with a custom template
+     * <ul>
+     * <li><strong>{page}</strong> is the current page</li>
+     * <li><strong>{total}</strong> is the total page</li>
+     * </ul>
+     * Example
+     * <pre>
+     *{@code
+     * Page {page} of {total}
+     * }</pre>
+     *
+     * @param indicatorTemplate
+     */
+    public void setIndicatorTemplate(String indicatorTemplate) {
+        this.indicatorTemplate = indicatorTemplate;
+    }
+
+    static abstract class InsertElementAtPositionCommand implements Scheduler.ScheduledCommand {
+        protected int insertionIndex;
+
+        InsertElementAtPositionCommand(int insertionIndex) {
+            this.insertionIndex = insertionIndex;
+        }
+    }
+
     static class PagerListItem extends ListItem {
 
         private boolean fixed;
         private boolean enabled;
 
         public PagerListItem() {
-            addStyleName("waves-effect");
-            sinkEvents(Event.ONCLICK | Event.TOUCHEVENTS);
+            this(true);
+        }
 
+        public PagerListItem(boolean clickable) {
+            if (clickable) {
+                addStyleName("waves-effect");
+                sinkEvents(Event.ONCLICK | Event.TOUCHEVENTS);
+            }
         }
 
         public boolean isFixed() {
@@ -259,8 +383,7 @@ public class MaterialPager extends MaterialWidget  {
         public void setActive(boolean active) {
             if (active) {
                 addStyleName("active");
-            }
-            else {
+            } else {
                 removeStyleName("active");
             }
         }
@@ -275,12 +398,9 @@ public class MaterialPager extends MaterialWidget  {
             this.enabled = enabled;
             if (!enabled) {
                 addStyleName("disabled");
-            }
-            else {
+            } else {
                 removeStyleName("disabled");
             }
-
-
         }
     }
 }
