@@ -883,7 +883,6 @@ public enum IconType implements CssType {
     RV_HOOKUP("rv_hookup"),
     SMOKE_FREE("smoke_free"),
     SMOKING_ROOMS("smoking_rooms"),
-    VIDEO_LIBRARY("video_library"),
     SPA("spa");
 
 
