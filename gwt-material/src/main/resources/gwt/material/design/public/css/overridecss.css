@@ -450,7 +450,7 @@ nav .nav-wrapper .side-nav i {
 
 }
 nav.pinned{
-	z-index: 1000;
+	z-index: 996;
 }
 .side-nav i {
 	font-size: 2em !important;
@@ -874,11 +874,14 @@ footer.fixed{
 @media screen and (max-width: 894px) {
 	.side-nav.card, .side-nav.float {
 		margin: 0;
-		top: 0;
+		top: 0 !important;
 		height: 100%;
 		background: #fff;
 	}
 	.navmenu-permanent, .drag-target, #sidenav-overlay{
 		visibility: visible !important;
+	}
+	nav.pinned{
+		width: 100% !important;
 	}
 }
