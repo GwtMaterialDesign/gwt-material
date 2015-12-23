@@ -848,9 +848,6 @@ footer.fixed{
 	padding-bottom: 0;
 	margin-top: 80px;
 }
-#sidenav-overlay{
-	visibility: hidden;
-}
 
 /** SideNav Float **/
 .side-nav.float {
@@ -871,19 +868,17 @@ footer.fixed{
 	padding-top: 10px;
 }
 
-.navmenu-permanent{
+.navmenu-permanent, .drag-target, #sidenav-overlay{
 	visibility: hidden !important;
 }
 @media screen and (max-width: 894px) {
-	#sidenav-overlay{
-		visibility: visible;
-	}
 	.side-nav.card, .side-nav.float {
 		margin: 0;
 		top: 0;
 		height: 100%;
+		background: #fff;
 	}
-	.navmenu-permanent{
+	.navmenu-permanent, .drag-target, #sidenav-overlay{
 		visibility: visible !important;
 	}
 }
