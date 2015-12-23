@@ -51,6 +51,15 @@ public class MaterialLoader {
     private static MaterialPreLoader preLoader = new MaterialPreLoader();
     private static MaterialProgress progress = new MaterialProgress();
 
+    static {
+        div.setStyleName("valign-wrapper loader-wrapper");
+        preLoader.getElement().getStyle().setProperty("margin", "auto");
+        preLoader.add(new MaterialSpinner("blue"));
+        preLoader.add(new MaterialSpinner("red"));
+        preLoader.add(new MaterialSpinner("yellow"));
+        preLoader.add(new MaterialSpinner("green"));
+    }
+
     /**
      * Show a circular loader.
      */
@@ -60,12 +69,6 @@ public class MaterialLoader {
 
     public static void showLoading(boolean isShow, Panel con) {
         if (isShow) {
-            div.setStyleName("valign-wrapper loader-wrapper");
-            preLoader.getElement().getStyle().setProperty("margin", "auto");
-            preLoader.add(new MaterialSpinner("blue"));
-            preLoader.add(new MaterialSpinner("red"));
-            preLoader.add(new MaterialSpinner("yellow"));
-            preLoader.add(new MaterialSpinner("green"));
             if(!(con instanceof RootPanel)) {
                 div.getElement().getStyle().setProperty("position", "absolute");
             }
