@@ -133,6 +133,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         if (initialized) {
             clearErrorOrSuccess();
             label.removeStyleName("active");
+            dateInput.removeStyleName("valid");
         }
     }
 
@@ -288,7 +289,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }-*/;
 
     public native void setPickerDate(JsDate date, Element picker) /*-{
-        picker.pickadate('picker').set('select', date);
+        picker.pickadate('picker').set('select', date, { muted: true });
     }-*/;
 
     public Date getDate() {
@@ -330,9 +331,10 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     public void setSelectionType(MaterialDatePickerType selectionType) {
+        if(initialized) {
+            throw new IllegalStateException("setSelectionType can be called only before initialization");
+        }
         this.selectionType = selectionType;
-
-        // todo inizialize with new select type
     }
 
     /**
@@ -348,9 +350,10 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
      */
     @Override
     public void setOrientation(Orientation orientation) {
+        if(initialized) {
+            throw new IllegalStateException("setOrientation can be called only before initialization");
+        }
         this.orientation = orientation;
-
-        // TODO set orientation on picker
     }
 
     @Override
@@ -390,8 +393,14 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         return format;
     }
 
+    /**
+     * To call before initialization
+     * @param format
+     */
     public void setFormat(String format) {
+        if(initialized) {
+            throw new IllegalStateException("setFormat can be called only before initialization");
+        }
         this.format = format;
-        // TODO set format on picker picker.set('view', '2016-04-20', { format: 'yyyy-mm-dd' })
     }
 }
