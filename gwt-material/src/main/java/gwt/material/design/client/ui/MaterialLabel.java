@@ -57,6 +57,7 @@ public class MaterialLabel extends MaterialWidget implements HasGrid, HasSeparat
     }
 
     public MaterialLabel(String text) {
+        this();
         setText(text);
     }
 
