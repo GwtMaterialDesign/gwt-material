@@ -254,31 +254,51 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                     Timer t = new Timer() {
                         @Override
                         public void run() {
-                            show();
+                            if(isSmall()){
+                                show();
+                            }
                         }
                     };
                     t.schedule(500);
                     break;
                 case CLOSE:
-                    initActivatorHandler(activator, width);
+                    applyCloseType(activator, width);
                     break;
             }
         }
     }
 
-    private native void initActivatorHandler(Element activator, double width) /*-{
+    private native boolean isSmall() /*-{
+        var mq = $wnd.window.matchMedia('all and (max-width: 894px)');
+        if(!mq.matches) {
+            return true;
+        }
+        return false;
+    }-*/;
+
+    /**
+     * Push the header, footer, and main to the right part when Close type is applied.
+     * @param activator
+     * @param width
+     */
+    private native void applyCloseType(Element activator, double width) /*-{
         var toggle;
         var _width;
         var _duration;
+
         $wnd.jQuery(activator).click(function (){
-            if(toggle){
-                _width = 0;
-                toggle = false;
-                _duration = 200;
-            }else{
-                _width = width;
-                toggle = true;
-                _duration = 300;
+
+            var mq = $wnd.window.matchMedia('all and (max-width: 894px)');
+            if(!mq.matches) {
+                if(toggle){
+                    _width = 0;
+                    toggle = false;
+                    _duration = 200;
+                }else{
+                    _width = width;
+                    toggle = true;
+                    _duration = 300;
+                }
             }
             applyTransition($wnd.jQuery('header'), _width);
             applyTransition($wnd.jQuery('main'), _width);
@@ -368,13 +388,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 edge: edge,
                 closeOnClick: closeOnClick
             });
-        });
-        $wnd.jQuery($wnd.window).resize(function() {
-            var mq = window.matchMedia( "(min-width: 500px)" );
-            if (mq.matches) {
-                // window width is at least 500px
-                alert('test');
-            }
         });
     }-*/;
 
