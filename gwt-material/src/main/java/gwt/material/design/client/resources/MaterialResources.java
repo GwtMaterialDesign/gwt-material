@@ -40,6 +40,6 @@ public interface MaterialResources extends ClientBundle {
     @Source("js/animation.js")
     TextResource animationJs();
 
-    @Source("js/materialize-0.97.2.min.js")
+    @Source("js/materialize-0.97.5.min.js")
     TextResource materializeJs();
 }
