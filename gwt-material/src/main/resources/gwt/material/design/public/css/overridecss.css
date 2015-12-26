@@ -450,7 +450,7 @@ nav .nav-wrapper .side-nav i {
 
 }
 nav.pinned{
-	z-index: 1000;
+	z-index: 996;
 }
 .side-nav i {
 	font-size: 2em !important;
@@ -892,5 +892,8 @@ footer.fixed{
 	}
 	header, footer, main{
 		margin-left: 0px !important;
+	}
+	nav.pinned{
+		width: 100% !important;
 	}
 }
