@@ -24,7 +24,10 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.constants.ProgressType;
-import gwt.material.design.client.ui.*;
+import gwt.material.design.client.ui.MaterialCollapsibleBody;
+import gwt.material.design.client.ui.MaterialCollapsibleItem;
+import gwt.material.design.client.ui.MaterialNavBar;
+import gwt.material.design.client.ui.MaterialProgress;
 
 /**
  * @author kevzlou7979
@@ -45,9 +48,6 @@ public class ProgressMixin<T extends UIObject & HasProgress>
             applyCollapsibleProgress(true);
         }else if(uiObject  instanceof MaterialNavBar){
             ((MaterialNavBar) uiObject).add(progress);
-        }else if(uiObject instanceof MaterialAutoComplete){
-            progress.getElement().getStyle().setMarginTop(-15, Style.Unit.PX);
-            ((MaterialAutoComplete) uiObject).add(progress);
         }
     }
 
