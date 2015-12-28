@@ -37,15 +37,9 @@ public interface MaterialResources extends ClientBundle {
     @Source("img/ic_progress_cancel.png")
     ImageResource ic_progress_cancel();
 
-    @Source("js/timepicker-0.1.0.min.js")
-    TextResource timepickerJs();
-
     @Source("js/animation.js")
     TextResource animationJs();
 
-    @Source("js/materialize-0.97.2.min.js")
+    @Source("js/materialize-0.97.5.min.js")
     TextResource materializeJs();
-
-    @Source("js/stickyheaders.js")
-    TextResource scriptJs();
 }
