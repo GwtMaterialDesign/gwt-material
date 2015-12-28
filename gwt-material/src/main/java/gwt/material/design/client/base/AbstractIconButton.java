@@ -26,6 +26,7 @@ import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialIcon;
+import gwt.material.design.client.ui.MaterialToast;
 
 /**
  * @author Ben Dol
@@ -36,7 +37,6 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 
     public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
         super(type, text);
-
         this.icon = icon;
     }
 
@@ -48,17 +48,17 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     public AbstractIconButton(IconType iconType) {
         super();
         setIconType(iconType);
-        setIconPosition(IconPosition.LEFT);
+        setIconPosition(IconPosition.NONE);
     }
 
     public AbstractIconButton(ButtonType type) {
         super(type);
-        setIconPosition(IconPosition.LEFT);
+        setIconPosition(IconPosition.NONE);
     }
 
     public AbstractIconButton() {
         super();
-        setIconPosition(IconPosition.LEFT);
+        setIconPosition(IconPosition.NONE);
     }
 
     @Override
@@ -100,5 +100,11 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    @Override
+    public void setText(String text) {
+        super.setText(text);
+        icon.setIconPosition(IconPosition.LEFT);
     }
 }
