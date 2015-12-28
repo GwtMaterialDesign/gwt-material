@@ -729,3 +729,17 @@ footer.fixed{
 		width: 100% !important;
 	}
 }
+/** Circle badge **/
+.badge.circle {
+	position: absolute;
+	min-width: 0px !important;
+	border-radius: 100% !important;
+	height: 24px !important;
+	top: -12px;
+	width: 24px;
+	font-size: 0.6rem !important;
+	text-align: center;
+	padding: 0px !important;
+	padding-top: 12px !important;
+	right: 8px;
+}
