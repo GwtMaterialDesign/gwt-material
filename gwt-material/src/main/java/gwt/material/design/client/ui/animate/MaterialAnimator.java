@@ -36,7 +36,7 @@ public class MaterialAnimator {
         animate(transition, w, delayMillis, null);
     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
+    public static void animate(final Transition transition, final Widget w, int delayMillis, final Runnable callback) {
         final String name = String.valueOf(DOM.createUniqueId());
         w.getElement().setId(name);
         switch (transition) {
@@ -57,7 +57,6 @@ public class MaterialAnimator {
             default:
                 // For core animation components
                 w.addStyleName("animated " + transition.getCssName());
-
                 break;
         }
 
@@ -81,6 +80,7 @@ public class MaterialAnimator {
                         break;
                     default:
                         w.removeStyleName("animated " + transition.getCssName());
+                        callback.run();
                         break;
                 }
             }
@@ -88,15 +88,6 @@ public class MaterialAnimator {
 
         w.removeStyleName("materialcss");
     }
-
-    protected static native void animationFinishedCallback(String name, String oldClass, Runnable callback) /*-{
-        $wnd.jQuery('#' + name).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-            $wnd.jQuery('#' + name).removeClass(oldClass);
-            if(callback != null) {
-                callback.@java.lang.Runnable::run()();
-            }
-        });
-    }-*/;
 
     protected static native void closeGrid(String name) /*-{
         $wnd.closeGrid('#' + name);
