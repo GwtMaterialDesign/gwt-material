@@ -38,6 +38,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
         super(type, text);
         this.icon = icon;
+        setIconPosition(IconPosition.LEFT);
     }
 
     public AbstractIconButton(ButtonType type, String text) {
@@ -55,6 +56,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 
     public AbstractIconButton() {
         super();
+        setIconPosition(IconPosition.LEFT);
     }
 
     @Override
