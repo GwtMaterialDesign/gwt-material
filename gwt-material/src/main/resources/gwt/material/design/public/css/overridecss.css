@@ -271,7 +271,7 @@ nav .brand-logo {
 .side-nav li {
 	padding: 0 !important;
 }
-
+/** NavBar tall **/
 nav .navbar-tall {
 	height: 128px;
 }
@@ -281,6 +281,44 @@ nav .nav-wrapper .side-nav i {
 	vertical-align: middle;
 
 }
+/** NavBar Shrink **/
+nav.navbar-shrink{
+	height: 200px;
+	line-height: 64px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	background-color: #0683c9;
+}
+nav .brand-logo img{
+	height: 100%;
+	padding: 12px;
+}
+nav.navbar-shrink, nav.navbar-shrink .brand-logo{
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+	transition: 0.3s;
+}
+nav.navbar-shrink .brand-logo{
+	line-height: 264px;
+	font-size: 4rem;
+	height: 200px;
+}
+nav.smaller {
+	height: 64px;
+}
+nav.smaller .brand-logo img{
+	width: auto;
+}
+nav.smaller .brand-logo{
+	line-height: 64px;
+	height: 64px;
+	font-size: 2.1rem;
+}
+/** NavBar fixed **/
 nav.pinned{
 	z-index: 996;
 }
@@ -336,6 +374,17 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 		height: 100% !important;
 		margin: initial;
 		padding-bottom: 60px;
+	}
+	nav.navbar-shrink{
+		height: 64px;
+	}
+	nav.navbar-shrink .brand-logo img{
+		width: auto;
+	}
+	nav.navbar-shrink .brand-logo{
+		line-height: 64px;
+		height: 64px;
+		font-size: 2.1rem;
 	}
 }
 

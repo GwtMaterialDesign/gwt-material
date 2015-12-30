@@ -29,6 +29,7 @@ public class MaterialDesignBase {
     public void load() {
         inject(MaterialResources.INSTANCE.materializeJs());
         inject(MaterialResources.INSTANCE.animationJs());
+        inject(MaterialResources.INSTANCE.shrinkJs());
     }
 
     protected void inject(TextResource resource) {

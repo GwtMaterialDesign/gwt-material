@@ -31,7 +31,8 @@ import gwt.material.design.client.base.helper.EnumHelper;
  */
 public enum NavBarType implements CssType {
     FIXED("navbar-fixed"),
-    TALL("navbar-tall");
+    TALL("navbar-tall"),
+    SHRINK("navbar-shrink");
 
     private final String cssClass;
 

@@ -29,4 +29,10 @@ public interface MaterialDebugResources extends ClientBundle {
 
     @Source("js/materialize-0.97.5.js")
     TextResource materializeJsDebug();
+
+    @Source("js/animation.js")
+    TextResource animationJsDebug();
+
+    @Source("js/shrink.js")
+    TextResource shrinkJsDebug();
 }
