@@ -87,7 +87,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     @Override
     protected void onLoad() {
         super.onLoad();
-        applyType(typeMixin.getType().getCssName(), getElement());
+        if (typeMixin.getType() != null) {
+            applyType(typeMixin.getType().getCssName(), getElement());
+        }
     }
 
     @Override
