@@ -20,11 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasWaves;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasVisibility;
+import gwt.material.design.client.base.MaterialWidget;
 //@formatter:off
 /**
 * MaterialColumn is panel that act as a fluid panel to easily sets your desired column.We are using 12 grid layout with screens small, medium and large.
@@ -46,7 +46,7 @@ import com.google.gwt.user.client.ui.HasVisibility;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialColumn extends ComplexWidget implements HasWaves, HasVisibility {
+public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisibility {
 
     public MaterialColumn() {
         super(Document.get().createDivElement());

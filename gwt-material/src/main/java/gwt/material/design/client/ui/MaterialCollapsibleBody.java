@@ -27,7 +27,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -41,7 +41,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
 */
 //@formatter:on
-public class MaterialCollapsibleBody extends ComplexWidget implements HasCollapsibleParent {
+public class MaterialCollapsibleBody extends MaterialWidget implements HasCollapsibleParent {
 
     private MaterialCollapsible parent;
 

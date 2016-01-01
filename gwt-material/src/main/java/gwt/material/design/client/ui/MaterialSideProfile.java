@@ -22,8 +22,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.resources.client.ImageResource;
-import gwt.material.design.client.base.ComplexWidget;
 import gwt.material.design.client.base.HasImage;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 
@@ -49,7 +49,7 @@ import gwt.material.design.client.base.HasImage;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#sidenavs">Material Side Profile</a>
  */
 //@formatter:on
-public class MaterialSideProfile extends ComplexWidget implements HasImage {
+public class MaterialSideProfile extends MaterialWidget implements HasImage {
 
     private String url;
     private ImageResource resource;

@@ -21,7 +21,10 @@ package gwt.material.design.client.ui;
  */
 
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.FooterType;
 import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
@@ -59,9 +62,10 @@ import com.google.gwt.user.client.ui.Widget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
 */
 //@formatter:on
-public class MaterialFooter extends ComplexWidget {
+public class MaterialFooter extends MaterialWidget implements HasType<FooterType> {
 
     private Div container = new Div();
+    private final CssTypeMixin<FooterType, MaterialFooter> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialFooter() {
         super(Document.get().createElement("footer"));
@@ -77,5 +81,15 @@ public class MaterialFooter extends ComplexWidget {
         } else {
             container.add(child);
         }
+    }
+
+    @Override
+    public void setType(FooterType type) {
+        typeMixin.setType(type);
+    }
+
+    @Override
+    public FooterType getType() {
+        return typeMixin.getType();
     }
 }

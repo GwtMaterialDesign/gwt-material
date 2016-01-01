@@ -23,7 +23,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 /**
@@ -44,7 +44,7 @@ import gwt.material.design.client.base.ComplexWidget;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
 */
 //@formatter:on
-public class MaterialContainer extends ComplexWidget {
+public class MaterialContainer extends MaterialWidget {
 
     /**
      * Creates an empty collapsible item.

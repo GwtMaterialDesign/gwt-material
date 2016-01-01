@@ -25,7 +25,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CollapsibleType;
@@ -89,7 +89,7 @@ import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends ComplexWidget implements HasSelectables {
+public class MaterialCollapsible extends MaterialWidget implements HasSelectables {
 
     protected interface HasCollapsibleParent {
         void setParent(MaterialCollapsible parent);

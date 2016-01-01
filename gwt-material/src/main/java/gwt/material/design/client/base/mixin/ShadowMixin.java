@@ -39,7 +39,7 @@ public class ShadowMixin<T extends UIObject & HasShadow> extends AbstractMixin<T
         uiObject.removeStyleName("z-depth-" + this.shadow);
         this.shadow = shadow;
 
-        if(shadow > 0) {
+        if(shadow >= 0) {
             uiObject.addStyleName("z-depth-" + shadow);
         }
     }

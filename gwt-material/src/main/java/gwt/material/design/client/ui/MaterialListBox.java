@@ -21,6 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.OptionElement;
+import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.i18n.client.HasDirection;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
@@ -130,6 +132,20 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
         initializeMaterial();
     }
 
+    public void setPlaceholder(String placeholder) {
+        super.insertItem(placeholder, 0);
+        setItemSelected(0, true);
+
+        OptionElement option = getOptionElement(0);
+        option.setAttribute("disabled", "");
+
+        initializeMaterial();
+    }
+
+    public OptionElement getOptionElement(int index) {
+        return getSelectElement().getOptions().getItem(index);
+    }
+
     @Override
     public void insertItem(String item, Direction dir, String value, int index) {
         super.insertItem(item, dir, value, index);
@@ -224,6 +240,10 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
     public void setVisibleItemCount(int visibleItems) {
         super.setVisibleItemCount(visibleItems);
         initializeMaterial();
+    }
+
+    protected SelectElement getSelectElement() {
+        return getElement().cast();
     }
 
     private void onChangeInternal() {

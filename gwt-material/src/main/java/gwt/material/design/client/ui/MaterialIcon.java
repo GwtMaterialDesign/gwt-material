@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 
+import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.IconPosition;
@@ -57,7 +58,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     private final CssNameMixin<MaterialIcon, IconPosition> posMixin = new CssNameMixin<>(this);
     private final CssNameMixin<MaterialIcon, IconSize> sizeMixin = new CssNameMixin<>(this);
     private final ToggleStyleMixin<MaterialIcon> prefixMixin = new ToggleStyleMixin<>(this, "prefix");
-
+    private final ColorsMixin<MaterialIcon> colorsMixin = new ColorsMixin<>(this);
     /**
      * Creates an empty icon.
      */
@@ -82,6 +83,10 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
         setIconType(iconType);
         setTextColor(textColor);
         setBackgroundColor(bgColor);
+    }
+
+    public void setInnerText(String innerText){
+        getElement().setInnerText(innerText);
     }
 
     @Override
@@ -111,7 +116,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 
     @Override
     public void setIconColor(String iconColor) {
-        getElement().getStyle().setColor(iconColor);
+        colorsMixin.setTextColor(iconColor);
     }
 
     @Override

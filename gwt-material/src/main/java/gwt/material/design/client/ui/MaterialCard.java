@@ -20,12 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
-
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Unit;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
+
 /**
  * Cards are a convenient means of displaying content composed of different types
  * of objects. They’re also well-suited for presenting similar objects whose size
@@ -82,14 +81,14 @@ import com.google.gwt.dom.client.Style.Unit;
  *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
  *   </m:MaterialCardAction>
  * </m:MaterialCard>}
-* </pre>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
-*/
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
+ */
 //@formatter:on
-public class MaterialCard extends ComplexWidget {
+public class MaterialCard extends MaterialWidget {
 
     /**
      * Creates and empty card.
@@ -102,10 +101,6 @@ public class MaterialCard extends ComplexWidget {
     @Override
     public void setGrid(String grid) {
         super.setGrid(grid);
-
-        removeStyleName("no-padding");
         addStyleName("no-padding");
-
-        getElement().getStyle().setMargin(10, Unit.PX);
     }
 }

@@ -22,44 +22,45 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
 
 /**
-* The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.
-
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code
-
+ * The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code
 <m:MaterialTab ui:field="tab"  backgroundColor="blue">
-    <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
-    <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
-    <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
 </m:MaterialTab>
-
 <i:Panel m:id="tab1">
-    <i:Title title="Tab 1" description="Tab 1 Content"/>
+<i:Title title="Tab 1" description="Tab 1 Content"/>
 </i:Panel>
 <i:Panel m:id="tab2">
-    <i:Title title="Tab 2" description="Tab 2 Content"/>
+<i:Title title="Tab 2" description="Tab 2 Content"/>
 </i:Panel>
 <i:Panel m:id="tab3">
-    <i:Title title="Tab 3" description="Tab 3 Content"/>
+<i:Title title="Tab 3" description="Tab 3 Content"/>
 </i:Panel>
-
 }
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
-* @author kevzlou7979
-* @author Ben Dol
-*/
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
 //@formatter:on
 public class MaterialTab extends UnorderedList {
 
     private int tabIndex;
-    private String indicatorColor = "white";
+    private String indicatorColor;
+
+    private MaterialWidget indicator;
+    private ColorsMixin<MaterialWidget> indicatorColorMixin;
 
     public MaterialTab() {
         super();
@@ -69,7 +70,13 @@ public class MaterialTab extends UnorderedList {
     @Override
     public void onLoad() {
         super.onLoad();
+
         initialize();
+
+        indicator = new MaterialWidget(getIndicatorElement(getElement()));
+        indicatorColorMixin = new ColorsMixin<>(indicator);
+
+        setIndicatorColor(indicatorColor);
     }
 
     public int getTabIndex() {
@@ -93,7 +100,9 @@ public class MaterialTab extends UnorderedList {
     public void setIndicatorColor(String indicatorColor){
         this.indicatorColor = indicatorColor;
 
-        applyIndicatorColor(getElement(), indicatorColor);
+        if(indicatorColorMixin != null && indicatorColor != null) {
+            indicatorColorMixin.setBackgroundColor(indicatorColor);
+        }
     }
 
     /**
@@ -106,8 +115,6 @@ public class MaterialTab extends UnorderedList {
 
     protected void initialize() {
         initialize(getElement());
-
-        applyIndicatorColor(getElement(), indicatorColor);
     }
 
     private native void initialize(Element e) /*-{
@@ -116,12 +123,8 @@ public class MaterialTab extends UnorderedList {
         });
     }-*/;
 
-    /**
-     * Line Indicator on Tab Navigation.
-     * @param color Color string
-     */
-    private native void applyIndicatorColor(Element e, String color)/*-{
-        $wnd.jQuery(e).find(".indicator").css("background-color", color);
+    private native Element getIndicatorElement(Element e)/*-{
+        return $wnd.jQuery(e).find(".indicator")[0];
     }-*/;
 
     private native void selectTab(Element e, String tabId)/*-{

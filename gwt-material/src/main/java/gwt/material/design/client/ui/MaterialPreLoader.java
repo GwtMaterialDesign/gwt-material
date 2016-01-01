@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.mixin.CssNameMixin;
@@ -43,7 +43,7 @@ import gwt.material.design.client.constants.LoaderSize;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material PreLoader</a>
 */
 //@formatter:on
-public class MaterialPreLoader extends ComplexWidget {
+public class MaterialPreLoader extends MaterialWidget {
 
     private final CssNameMixin<MaterialPreLoader, LoaderSize> sizeMixin = new CssNameMixin<>(this);
 

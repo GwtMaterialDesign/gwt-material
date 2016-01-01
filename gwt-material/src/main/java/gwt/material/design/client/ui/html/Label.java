@@ -25,9 +25,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class Label extends ComplexWidget implements HasClickHandlers {
+public class Label extends MaterialWidget implements HasClickHandlers {
 
     public Label() {
         super(DOM.createLabel());

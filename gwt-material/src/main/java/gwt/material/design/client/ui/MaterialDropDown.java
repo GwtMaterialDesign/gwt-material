@@ -23,6 +23,8 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
@@ -67,6 +69,7 @@ public class MaterialDropDown extends UnorderedList {
 
     public MaterialDropDown() {
         setStyleName("dropdown-content");
+        setId(DOM.createUniqueId());
     }
 
     /**
@@ -79,6 +82,16 @@ public class MaterialDropDown extends UnorderedList {
         this.activator = activator;
 
         getElement().setId(this.activator);
+    }
+
+    public MaterialDropDown(Element activatorElem) {
+        this();
+        activatorElem.setAttribute("data-activates", getId());
+        this.activatorElem = activatorElem;
+    }
+
+    public MaterialDropDown(UIObject activator) {
+        this(activator.getElement());
     }
 
     @Override
@@ -182,14 +195,13 @@ public class MaterialDropDown extends UnorderedList {
     }
 
     protected void initialize() {
-        Element activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
         if(activatorElem == null) {
-            throw new IllegalStateException("There is no activator element with id: '" + activator
-                + "' in the DOM, cannot instantiate MaterialDropDown without an activator.");
-        } else {
-            this.activatorElem = activatorElem;
+            activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
+            if (activatorElem == null) {
+                throw new IllegalStateException("There is no activator element with id: '" + activator
+                        + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.");
+            }
         }
-
         initialize(activatorElem);
     }
 

@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasHref;
 
 //@formatter:off
@@ -32,7 +32,7 @@ import gwt.material.design.client.base.HasHref;
 * @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
 *///@formatter:on
-public class MaterialCollectionSecondary extends ComplexWidget implements HasHref {
+public class MaterialCollectionSecondary extends MaterialWidget implements HasHref {
 
     public MaterialCollectionSecondary() {
         super(Document.get().createAnchorElement());

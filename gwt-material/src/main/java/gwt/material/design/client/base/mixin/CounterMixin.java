@@ -23,15 +23,10 @@ package gwt.material.design.client.base.mixin;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasCounter;
-import gwt.material.design.client.ui.MaterialTextArea;
-import gwt.material.design.client.ui.MaterialTextBox;
+import gwt.material.design.client.ui.MaterialValueBox;
 
-/**
- * @author kevzlou7979
- */
 public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin<T> implements HasCounter {
 
-    private final String LENGTH = "length";
     private int length = 0;
 
     public CounterMixin(final T widget) {
@@ -41,17 +36,14 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
     @Override
     public void setLength(int length) {
         this.length = length;
-        Element e = null;
+        Element e = uiObject.getElement();
 
-        if(uiObject instanceof MaterialTextBox){
-            e = ((MaterialTextBox)uiObject).getTxtBox().getElement();
-
-        }else if(uiObject instanceof MaterialTextArea){
-            e = ((MaterialTextArea)uiObject).getTextArea().getElement();
+        if(uiObject instanceof MaterialValueBox){
+            e = ((MaterialValueBox<T>)uiObject).asGwtValueBoxBase().getElement();
         }
 
         if(e != null){
-            e.setAttribute(LENGTH, String.valueOf(length));
+            e.setAttribute("length", String.valueOf(length));
             initCounter(e);
         }
     }
@@ -66,8 +58,6 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
      * @param e - element to initialize the feature
      */
     private native void initCounter(Element e) /*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(e).characterCounter();
-        });
+        $wnd.jQuery(e).characterCounter();
     }-*/;
 }

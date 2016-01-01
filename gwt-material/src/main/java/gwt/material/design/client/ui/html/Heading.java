@@ -20,13 +20,13 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.HeadingSize;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
 
-public class Heading extends ComplexWidget {
+public class Heading extends MaterialWidget {
 
     @UiConstructor
     public Heading(HeadingSize size) {

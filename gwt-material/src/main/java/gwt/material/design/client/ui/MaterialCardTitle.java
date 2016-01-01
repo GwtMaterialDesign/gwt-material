@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
@@ -39,7 +39,7 @@ import com.google.gwt.user.client.ui.HasText;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
 */
 //@formatter:on
-public class MaterialCardTitle extends ComplexWidget implements HasIcon, HasText {
+public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasText {
 
     private MaterialIcon icon = new MaterialIcon();
     private Span span = new Span();

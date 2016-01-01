@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
 /**
@@ -46,7 +46,7 @@ import gwt.material.design.client.base.ComplexWidget;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#navBar">Material Header</a>
  */
 //@formatter:on
-public class MaterialHeader extends ComplexWidget {
+public class MaterialHeader extends MaterialWidget {
 
     public MaterialHeader() {
         super(Document.get().createElement("header"));

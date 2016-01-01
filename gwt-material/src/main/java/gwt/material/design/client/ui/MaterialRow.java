@@ -20,7 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.ComplexWidget;
+import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
 
@@ -45,7 +45,7 @@ import com.google.gwt.dom.client.Document;
 * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Row</a>
 */
 //@formatter:on
-public class MaterialRow extends ComplexWidget {
+public class MaterialRow extends MaterialWidget {
 
     public MaterialRow(){
         super(Document.get().createDivElement());
