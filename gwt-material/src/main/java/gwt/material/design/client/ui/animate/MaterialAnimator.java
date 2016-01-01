@@ -94,6 +94,7 @@ public class MaterialAnimator {
             if(callback != null) {
                 callback.@java.lang.Runnable::run()();
             }
+            $wnd.jQuery('#' +  name).removeClass(oldClass);
         });
     }-*/;
 
