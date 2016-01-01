@@ -24,7 +24,7 @@ package gwt.material.design.client.constants;
 import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum Position implements Style.HasCssName {
+public enum Position implements CssType {
     BOTTOM("bottom"),
     TOP("top"),
     LEFT("left"),
