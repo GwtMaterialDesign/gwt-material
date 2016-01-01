@@ -20,13 +20,15 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.HasCaption;
-import gwt.material.design.client.base.HasGrid;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.resources.client.ImageResource;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.constants.ImageType;
 
 import com.google.gwt.user.client.ui.Image;
-import gwt.material.design.client.base.HasOpacity;
-import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 
@@ -52,15 +54,15 @@ import gwt.material.design.client.base.mixin.GridMixin;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
  */
 //@formatter:on
-public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpacity, HasType<ImageType> {
+public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage, HasClickHandlers, HasAllMouseHandlers {
 
-    private final GridMixin<MaterialImage> gridMixin = new GridMixin<>(this);
     private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
-
+    private final ImageMixin<MaterialImage> imageMixin = new ImageMixin<>(this);
     /**
      * Creates an empty image.
      */
     public MaterialImage() {
+        super(Document.get().createImageElement());
     }
 
     /**
@@ -88,11 +90,6 @@ public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpac
     }
 
     @Override
-    protected void onUnload() {
-        super.onUnload();
-    }
-
-    @Override
     public void setType(ImageType type) {
         typeMixin.setType(type);
     }
@@ -112,29 +109,64 @@ public class MaterialImage extends Image implements HasGrid, HasCaption, HasOpac
         getElement().setAttribute("data-caption", caption);
     }
 
-    @Override
-    public double getOpacity() {
-        return Double.parseDouble(getElement().getStyle().getOpacity());
-    }
-
-    @Override
-    public void setOpacity(double opacity) {
-        getElement().getStyle().setOpacity(opacity);
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
-    }
-
     public native void onInitMaterialDesign() /*-{
         $wnd.jQuery(document).ready(function(){
             $wnd.jQuery('.materialboxed').materialbox();
         });
     }-*/;
+
+    @Override
+    public void setUrl(String url) {
+        imageMixin.setUrl(url);
+    }
+
+    @Override
+    public String getUrl() {
+        return imageMixin.getUrl();
+    }
+
+    @Override
+    public void setResource(ImageResource resource) {
+        imageMixin.setResource(resource);
+    }
+
+    @Override
+    public ImageResource getResource() {
+        return imageMixin.getResource();
+    }
+
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+        return addDomHandler(handler, MouseDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+        return addDomHandler(handler, MouseMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+        return addDomHandler(handler, MouseOutEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+        return addDomHandler(handler, MouseOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+        return addDomHandler(handler, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+        return addDomHandler(handler, MouseWheelEvent.getType());
+    }
 }
