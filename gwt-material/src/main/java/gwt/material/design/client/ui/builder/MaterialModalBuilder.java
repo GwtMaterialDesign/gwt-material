@@ -25,6 +25,7 @@ public class MaterialModalBuilder {
 		if (materialModal == null) {
 			materialModal = new MaterialModal();
 		}
+		materialModal.setDismissable(false);
 		materialModal.clear();
 		return INSTANCE;
 	}
