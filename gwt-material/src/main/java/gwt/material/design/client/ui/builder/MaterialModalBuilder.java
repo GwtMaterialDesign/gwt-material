@@ -6,7 +6,7 @@ import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.MaterialModal;
 
 /**
- * Created by stefanwasserbauer (wassx) on 29.11.15.
+ * Created by stefanwasserbauer (https://github.com/wassx) on 29.11.15.
  */
 public class MaterialModalBuilder {
 
