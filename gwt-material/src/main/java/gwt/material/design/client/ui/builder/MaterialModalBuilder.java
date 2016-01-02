@@ -1,5 +1,6 @@
 package gwt.material.design.client.ui.builder;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.MaterialModal;
@@ -13,7 +14,7 @@ public class MaterialModalBuilder {
 	private static MaterialModal materialModal;
 
 	/**
-	 * Starts the builder for creating a MaterialModal.
+	 * Starts the builder for creating a MaterialModal. Ensures that the MaterialModal is added to the RootPanel.
 	 * <br>For e.g. <pre>MaterialModalBuilder.create().withWidget(new Label("Test")).isDismissable(true).build())</pre>
 	 *
 	 * @return an instance of the builder.
@@ -25,9 +26,24 @@ public class MaterialModalBuilder {
 		if (materialModal == null) {
 			materialModal = new MaterialModal();
 		}
+		ensureRootPanelAsParent();
 		materialModal.setDismissable(false);
 		materialModal.clear();
 		return INSTANCE;
+	}
+
+	private static void ensureRootPanelAsParent() {
+		int widgetCount = RootPanel.get().getWidgetCount();
+		boolean found = false;
+		for (int i = 0; i < widgetCount; i++) {
+			if (RootPanel.get().getWidget(i).equals(materialModal)) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			RootPanel.get().add(materialModal);
+		}
 	}
 
 	/**
