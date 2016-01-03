@@ -55,10 +55,11 @@ import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.constants.ShowOn;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.ui.animate.MaterialAnimator;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable {
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -78,6 +79,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private CssNameMixin<MaterialWidget, Style.Float> floatMixin;
     private TooltipMixin<MaterialWidget> tooltipMixin;
     private FlexboxMixin<MaterialWidget> flexboxMixin;
+    private ToggleStyleMixin<MaterialWidget> hoverableMixin;
 
     public MaterialWidget() {
     }
@@ -169,6 +171,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> getCircleMixin() {
         if(circleMixin == null) { circleMixin = new ToggleStyleMixin<>(this, "circle"); }
         return circleMixin;
+    }
+
+    private ToggleStyleMixin<MaterialWidget> getHoverableMixin() {
+        if(hoverableMixin == null) { hoverableMixin = new ToggleStyleMixin<>(this, "hoverable"); }
+        return hoverableMixin;
     }
 
     private WavesMixin<MaterialWidget> getWavesMixin() {
@@ -549,5 +556,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public void setFlexJustifyContent(FlexJustifyContent flexJustifyContent) {
         getFlexboxMixin().setFlexJustifyContent(flexJustifyContent);
+    }
+
+    @Override
+    public void setHoverable(boolean hoverable) {
+        getHoverableMixin().setOn(hoverable);
+    }
+
+    @Override
+    public boolean isHoverable() {
+        return getHoverableMixin().isOn();
     }
 }
