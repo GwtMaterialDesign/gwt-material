@@ -33,5 +33,5 @@ public interface HasFontWeight {
     /**
      * Get the font weight
      */
-    Style.FontWeight getFontWeight();
+    String getFontWeight();
 }

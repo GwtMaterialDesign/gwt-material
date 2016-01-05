@@ -576,11 +576,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public void setFontWeight(Style.FontWeight fontWeight) {
-        getFontWeightMixin().setCssName(fontWeight);
+        getElement().getStyle().setFontWeight(fontWeight);
     }
 
     @Override
-    public Style.FontWeight getFontWeight() {
-        return getFontWeightMixin().getCssName();
+    public String getFontWeight() {
+        return getElement().getStyle().getFontWeight();
     }
 }
