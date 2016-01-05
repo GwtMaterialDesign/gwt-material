@@ -886,7 +886,7 @@ public enum IconType implements CssType {
     VIDEO_LIBRARY("video_library"),
     SPA("spa"),
     SORT_BY_ALPHA("sort_by_alpha"),
-    PICTURE_BY_PDF("picture_by_pdf"),;
+    PICTURE_AS_PDF("picture_as_pdf"),;
     
     private final String cssClass;
 
