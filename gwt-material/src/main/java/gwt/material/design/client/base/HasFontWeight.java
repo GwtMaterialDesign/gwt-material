@@ -1,4 +1,4 @@
-package gwt.material.design.client.constants;
+package gwt.material.design.client.base;
 
 /*
  * #%L
@@ -20,28 +20,18 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum Position implements CssType {
-    BOTTOM("bottom"),
-    TOP("top"),
-    LEFT("left"),
-    RIGHT("right");
+public interface HasFontWeight {
 
-    private final String cssClass;
+    /**
+     * Sets the font weight
+     * @param fontWeight
+     */
+    void setFontWeight(Style.FontWeight fontWeight);
 
-    Position(final String cssClass) {
-        this.cssClass = cssClass;
-    }
-
-    @Override
-    public String getCssName() {
-        return cssClass;
-    }
-
-    public static Position fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, Position.class, BOTTOM);
-    }
+    /**
+     * Get the font weight
+     */
+    String getFontWeight();
 }

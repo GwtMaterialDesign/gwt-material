@@ -884,9 +884,10 @@ public enum IconType implements CssType {
     SMOKE_FREE("smoke_free"),
     SMOKING_ROOMS("smoking_rooms"),
     VIDEO_LIBRARY("video_library"),
-    SPA("spa");
-
-
+    SPA("spa"),
+    SORT_BY_ALPHA("sort_by_alpha"),
+    PICTURE_AS_PDF("picture_as_pdf"),;
+    
     private final String cssClass;
 
     IconType(final String cssClass) {

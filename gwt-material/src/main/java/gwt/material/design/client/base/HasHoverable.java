@@ -1,4 +1,4 @@
-package gwt.material.design.client.constants;
+package gwt.material.design.client.base;
 
 /*
  * #%L
@@ -20,28 +20,9 @@ package gwt.material.design.client.constants;
  * #L%
  */
 
+public interface HasHoverable {
 
-import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.base.helper.EnumHelper;
+    void setHoverable(boolean hoverable);
 
-public enum Position implements CssType {
-    BOTTOM("bottom"),
-    TOP("top"),
-    LEFT("left"),
-    RIGHT("right");
-
-    private final String cssClass;
-
-    Position(final String cssClass) {
-        this.cssClass = cssClass;
-    }
-
-    @Override
-    public String getCssName() {
-        return cssClass;
-    }
-
-    public static Position fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, Position.class, BOTTOM);
-    }
+    boolean isHoverable();
 }
