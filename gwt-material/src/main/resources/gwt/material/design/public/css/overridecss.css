@@ -880,7 +880,7 @@ footer.fixed{
 	.side-nav.card, .side-nav.float {
 		margin: 0;
 		top: 0 !important;
-		left: 0 !important;
+		left: 0;
 		height: 100%;
 		background: #fff;
 	}
