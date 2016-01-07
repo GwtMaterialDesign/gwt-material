@@ -839,7 +839,7 @@ footer.fixed{
 
 /** SideNav Card **/
 .side-nav.card, .side-nav.float{
-	position: absolute !important;
+	position: absolute;
 }
 .side-nav.card {
 	margin: 20px;
