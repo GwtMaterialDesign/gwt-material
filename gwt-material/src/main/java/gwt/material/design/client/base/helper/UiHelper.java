@@ -33,6 +33,7 @@ import com.google.gwt.event.dom.client.TouchEndHandler;
 import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -112,5 +113,9 @@ public final class UiHelper {
                 widget.removeStyleName(cssStyleName);
             }
         }, TouchCancelEvent.getType());
+    }
+
+    public static int calculateSpaceToBottom(Widget widget) {
+        return Window.getClientHeight() - widget.getAbsoluteTop() - widget.getOffsetHeight();
     }
 }
