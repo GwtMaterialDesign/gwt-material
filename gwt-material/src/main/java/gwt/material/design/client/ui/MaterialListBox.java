@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.i18n.client.HasDirection;
@@ -31,10 +32,12 @@ import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.HasColors;
 import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.HasId;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.IdMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.ui.html.Label;
 
 //@formatter:off
 
@@ -64,194 +67,181 @@ import gwt.material.design.client.base.mixin.ToggleStyleMixin;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material ListBoxt</a>
  */
 //@formatter:on
-public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColors {
+public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, HasColors {
 
-    private final IdMixin<MaterialListBox> idMixin = new IdMixin<>(this);
-    private final GridMixin<MaterialListBox> gridMixin = new GridMixin<>(this);
-    private final ColorsMixin<MaterialListBox> colorsMixin = new ColorsMixin<>(this);
-    private final ToggleStyleMixin<MaterialListBox> oldMixin = new ToggleStyleMixin<>(this, "browser-default input-field");
+    private final ListBox listBox = new ListBox();
+    private final Label lblName = new Label();
+
+    private boolean initialized;
+
 
     public MaterialListBox() {
-        setId(DOM.createUniqueId());
-    }
+        super(Document.get().createDivElement());
+        addStyleName("input-field");
+        add(listBox);
+        add(lblName);
 
-    @Override
-    public void setId(String id) {
-        idMixin.setId(id);
-    }
-
-    @Override
-    public String getId() {
-        return idMixin.getId();
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
-    }
-
-    public boolean isOld() {
-        return oldMixin.isOn();
-    }
-
-    public void setOld(boolean old) {
-        oldMixin.setOn(old);
-    }
-
-    @Override
-    public void setBackgroundColor(String bgColor) {
-        colorsMixin.setBackgroundColor(bgColor);
-    }
-
-    @Override
-    public String getBackgroundColor() {
-        return colorsMixin.getBackgroundColor();
-    }
-
-    @Override
-    public String getTextColor() {
-        return colorsMixin.getTextColor();
-    }
-
-    @Override
-    public void setTextColor(String textColor) {
-        colorsMixin.setTextColor(textColor);
     }
 
     @Override
     public void onLoad() {
-        super.onLoad();
-        if (!isOld()) {
-            createInternalChangeHandler(getId());
+        if (!initialized) {
+            initialized = true;
+            initializeMaterial(listBox.getElement());
         }
-        initializeMaterial();
     }
 
     public void setPlaceholder(String placeholder) {
-        super.insertItem(placeholder, 0);
-        setItemSelected(0, true);
+        lblName.setText(placeholder);
 
-        OptionElement option = getOptionElement(0);
-        option.setAttribute("disabled", "");
-
-        initializeMaterial();
+        if (initialized && placeholder != null) {
+            initializeMaterial(listBox.getElement());
+        }
     }
 
     public OptionElement getOptionElement(int index) {
-        return getSelectElement().getOptions().getItem(index);
+        return  getSelectElement().getOptions().getItem(index);
     }
 
-    @Override
+
     public void insertItem(String item, Direction dir, String value, int index) {
-        super.insertItem(item, dir, value, index);
-        initializeMaterial();
+        listBox.insertItem(item, dir, value, index);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
     @Override
     public void clear() {
-        super.clear();
-        initializeMaterial();
+        listBox.clear();
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
+
     public void setValue(int index, String value) {
-        super.setValue(index, value);
-        initializeMaterial();
+        listBox.setValue(index, value);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
     @Override
     public void setTitle(String title) {
-        super.setTitle(title);
-        initializeMaterial();
+        listBox.setTitle(title);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void addItem(String item, Direction dir) {
-        super.addItem(item, dir);
-        initializeMaterial();
+        listBox.addItem(item, dir);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
+
     public void addItem(String item, String value) {
-        super.addItem(item, value);
-        initializeMaterial();
+        listBox.addItem(item, value);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void addItem(String item, Direction dir, String value) {
-        super.addItem(item, dir, value);
-        initializeMaterial();
+        listBox.addItem(item, dir, value);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void insertItem(String item, int index) {
-        super.insertItem(item, index);
-        initializeMaterial();
+        listBox.insertItem(item, index);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void insertItem(String item, Direction dir, int index) {
-        super.insertItem(item, dir, index);
-        initializeMaterial();
+        listBox.insertItem(item, dir, index);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void insertItem(String item, String value, int index) {
-        super.insertItem(item, value, index);
-        initializeMaterial();
+        listBox.insertItem(item, value, index);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void setItemSelected(int index, boolean selected) {
-        super.setItemSelected(index, selected);
-        initializeMaterial();
+        listBox.setItemSelected(index, selected);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void setItemText(int index, String text) {
-        super.setItemText(index, text);
-        initializeMaterial();
+        listBox.setItemText(index, text);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void setItemText(int index, String text, Direction dir) {
-        super.setItemText(index, text, dir);
-        initializeMaterial();
+        listBox.setItemText(index, text, dir);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void setName(String name) {
-        super.setName(name);
-        initializeMaterial();
+        listBox.setName(name);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void setSelectedIndex(int index) {
-        super.setSelectedIndex(index);
-        initializeMaterial();
+        listBox.setSelectedIndex(index);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
-    @Override
     public void setVisibleItemCount(int visibleItems) {
-        super.setVisibleItemCount(visibleItems);
-        initializeMaterial();
+        listBox.setVisibleItemCount(visibleItems);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
     }
 
     protected SelectElement getSelectElement() {
-        return getElement().cast();
+        return listBox.getElement().cast();
     }
 
     private void onChangeInternal() {
         Document.get().createChangeEvent();
-    }
-
-    public void initializeMaterial() {
-        initializeMaterial(getId());
     }
 
     /**
@@ -272,9 +262,28 @@ public class MaterialListBox extends ListBox implements HasId, HasGrid, HasColor
      * called every time the contents of the list box
      * changes, to keep the Materialize CSS design updated.
      */
-    protected native void initializeMaterial(String id) /*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery('#' + id).material_select();
-        })
+    protected native void initializeMaterial(Element element) /*-{
+        $wnd.jQuery(element).material_select();
     }-*/;
+
+    public void setMultipleSelect(boolean multipleSelect) {
+        listBox.setMultipleSelect(multipleSelect);
+        if (initialized) {
+            initializeMaterial(listBox.getElement());
+        }
+    }
+
+    public boolean isMultipleSelect() {
+        return listBox.isMultipleSelect();
+    }
+
+    public void setEmptyPlaceHolder(String value) {
+        listBox.insertItem(value, 0);
+        listBox.setItemSelected(0, true);
+        getOptionElement(0).setDisabled(true);
+
+        if (initialized) {
+            initializeMaterial(listBox.getElement());
+        }
+    }
 }
