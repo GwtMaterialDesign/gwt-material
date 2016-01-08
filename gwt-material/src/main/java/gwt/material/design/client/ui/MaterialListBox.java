@@ -20,10 +20,13 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.OptionElement;
-import com.google.gwt.dom.client.SelectElement;
+import com.google.gwt.dom.client.*;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.HasDirection;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.DOM;
@@ -67,7 +70,7 @@ import gwt.material.design.client.ui.html.Label;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material ListBoxt</a>
  */
 //@formatter:on
-public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, HasColors {
+public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, HasColors, HasValueChangeHandlers<String> {
 
     private final ListBox listBox = new ListBox();
     private final Label lblName = new Label();
@@ -87,6 +90,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     public void onLoad() {
         if (!initialized) {
             initialized = true;
+            createInternalChangeHandler(listBox.getElement());
             initializeMaterial(listBox.getElement());
         }
     }
@@ -196,6 +200,16 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
         }
     }
 
+    public String[] getItemsSelected() {
+        String retVal = "";
+        for (int i = 0; i < listBox.getItemCount(); i++) {
+            if (listBox.isItemSelected(i)) {
+                retVal += listBox.getValue(i) + ",";
+            }
+        }
+        return retVal.split(",");
+    }
+
     public void setItemText(int index, String text) {
         listBox.setItemText(index, text);
         if (initialized) {
@@ -241,20 +255,21 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     }
 
     private void onChangeInternal() {
-        Document.get().createChangeEvent();
+        //initializeMaterial(listBox.getElement());
+        ValueChangeEvent.fire(this, getSelectElement().getValue());
     }
 
     /**
      * Creates the internal change handler needed to trigger change events for
      * Materialize CSS change events.
      */
-    protected native void createInternalChangeHandler(String id) /*-{
+    protected native void createInternalChangeHandler(Element element) /*-{
         var that = this;
         var callback = $entry(function() {
             that.@gwt.material.design.client.ui.MaterialListBox::onChangeInternal()();
         });
 
-        $wnd.jQuery('#' + id).change(callback);
+        $wnd.jQuery(element).change(callback);
     }-*/;
 
     /**
@@ -279,11 +294,16 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     public void setEmptyPlaceHolder(String value) {
         listBox.insertItem(value, 0);
-        listBox.setItemSelected(0, true);
+
         getOptionElement(0).setDisabled(true);
 
         if (initialized) {
             initializeMaterial(listBox.getElement());
         }
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 }
