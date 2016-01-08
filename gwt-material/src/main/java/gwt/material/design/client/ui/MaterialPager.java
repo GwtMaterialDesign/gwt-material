@@ -51,14 +51,14 @@ public class MaterialPager extends MaterialWidget {
     private int total;
     private int pageSize = 10;
     private int currentPage = 1;
-    private int maxPageElement = 10;
+    private int maxPageLinksShown = 10;
     private boolean enableIndicator;
     private String indicatorTemplate = "Page {page} of {total}";
 
-    private int $totalPages;
-    private int $showingPageFrom;
-    private int $showingPageTo;
-    private boolean $initialized;
+    private int calcTotalPages;
+    private int calcShowingPageFrom;
+    private int calcShowingPageTo;
+    private boolean calcInitialized;
 
     private PagerListItem linkLeft;
     private PagerListItem linkRight;
@@ -89,28 +89,30 @@ public class MaterialPager extends MaterialWidget {
     }
 
     private void init() {
-        $totalPages = total / pageSize + (((double) total % (double) pageSize) > 0 ? 1 : 0);
+        if (!calcInitialized) {
+            calcTotalPages = total / pageSize + (((double) total % (double) pageSize) > 0 ? 1 : 0);
 
-        add(getOrCreateLiElementLeft());
-        moveNextPageWindow();
-        add(getOrCreateLiElementRight());
-        if (enableIndicator) {
-            add(createLiElementIndicator());
+            add(getOrCreateLiElementLeft());
+            moveNextPagesRange();
+            add(getOrCreateLiElementRight());
+            if (enableIndicator) {
+                add(createLiElementIndicator());
+            }
+            onPageSelection(1);
+
+            calcInitialized = true;
         }
-        onPageSelection(1);
-
-        $initialized = true;
     }
 
-    private void moveNextPageWindow() {
-        $showingPageFrom = currentPage;
-        $showingPageTo = Math.min(currentPage + maxPageElement - 1, $totalPages);
+    private void moveNextPagesRange() {
+        calcShowingPageFrom = currentPage;
+        calcShowingPageTo = Math.min(currentPage + maxPageLinksShown - 1, calcTotalPages);
         createPageNumberLinks();
     }
 
-    private void movePreviousPageWindow() {
-        $showingPageFrom = currentPage - maxPageElement + 1;
-        $showingPageTo = currentPage;
+    private void movePreviousPagesRange() {
+        calcShowingPageFrom = currentPage - maxPageLinksShown + 1;
+        calcShowingPageTo = currentPage;
         createPageNumberLinks();
     }
 
@@ -128,7 +130,7 @@ public class MaterialPager extends MaterialWidget {
             }
         }
         int insertionIndex = 1;
-        for (int i = $showingPageFrom; i <= $showingPageTo; i++) {
+        for (int i = calcShowingPageFrom; i <= calcShowingPageTo; i++) {
             final PagerListItem liElementForPage = createLiElementForPage(i);
 
             Scheduler.get().scheduleDeferred(new InsertElementAtPositionCommand(insertionIndex++) {
@@ -208,7 +210,7 @@ public class MaterialPager extends MaterialWidget {
         addPageSelectionHandler(new PageSelectionHandler() {
             @Override
             public void onPageSelected(PageSelectionEvent event) {
-                MaterialPager.this.linkRight.setEnabled(event.getPageTo() < $totalPages);
+                MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages);
             }
         });
 
@@ -261,17 +263,17 @@ public class MaterialPager extends MaterialWidget {
     private void onPageSelection(int page) {
         this.currentPage = page;
 
-        if (this.currentPage > $showingPageTo) {
-            moveNextPageWindow();
+        if (this.currentPage > calcShowingPageTo) {
+            moveNextPagesRange();
         }
-        if (this.currentPage < $showingPageFrom) {
-            movePreviousPageWindow();
+        if (this.currentPage < calcShowingPageFrom) {
+            movePreviousPagesRange();
         }
 
         PageSelectionEvent event = new PageSelectionEvent();
         event.setPageFrom(this.currentPage);
         event.setPageTo(page);
-        event.setTotalPage(this.$totalPages);
+        event.setTotalPage(this.calcTotalPages);
 
         fireEvent(event);
     }
@@ -296,7 +298,7 @@ public class MaterialPager extends MaterialWidget {
         boolean needToClear = total != this.total;
         this.total = total;
         currentPage = 1;
-        if ($initialized && needToClear) {
+        if (calcInitialized && needToClear) {
             this.clear();
             init();
         }
@@ -318,12 +320,12 @@ public class MaterialPager extends MaterialWidget {
         this.currentPage = currentPage;
     }
 
-    public int getMaxPageElement() {
-        return maxPageElement;
+    public int getMaxPageLinksShown() {
+        return maxPageLinksShown;
     }
 
-    public void setMaxPageElement(int maxPageElement) {
-        this.maxPageElement = maxPageElement;
+    public void setMaxPageLinksShown(int maxPageLinksShown) {
+        this.maxPageLinksShown = maxPageLinksShown;
     }
 
     public String getIndicatorTemplate() {

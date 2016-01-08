@@ -32,7 +32,7 @@ import gwt.material.design.client.constants.*;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasDepth {
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -53,6 +53,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private TooltipMixin<MaterialWidget> tooltipMixin;
     private FlexboxMixin<MaterialWidget> flexboxMixin;
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
+    private CssNameMixin<MaterialWidget, Style.FontWeight> fontWeightMixin;
 
     public MaterialWidget() {
     }
@@ -169,6 +170,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private FlexboxMixin<MaterialWidget> getFlexboxMixin() {
         if(flexboxMixin == null) { flexboxMixin = new FlexboxMixin<>(this); }
         return flexboxMixin;
+    }
+
+    private CssNameMixin<MaterialWidget, Style.FontWeight> getFontWeightMixin() {
+        if(fontWeightMixin == null) { fontWeightMixin = new CssNameMixin<>(this); }
+        return fontWeightMixin;
     }
 
     @Override
@@ -563,5 +569,25 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public boolean isHoverable() {
         return getHoverableMixin().isOn();
+    }
+
+    @Override
+    public void setFontWeight(Style.FontWeight fontWeight) {
+        getElement().getStyle().setFontWeight(fontWeight);
+    }
+
+    @Override
+    public String getFontWeight() {
+        return getElement().getStyle().getFontWeight();
+    }
+
+    @Override
+    public void setDepth(int depth) {
+        getElement().getStyle().setZIndex(depth);
+    }
+
+    @Override
+    public int getDepth() {
+        return Integer.parseInt(getElement().getStyle().getZIndex());
     }
 }
