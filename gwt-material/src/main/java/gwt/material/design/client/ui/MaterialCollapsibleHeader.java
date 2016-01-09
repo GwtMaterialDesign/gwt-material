@@ -22,6 +22,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.ListItem;
@@ -36,7 +38,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsibleHeader extends MaterialWidget {
+public class MaterialCollapsibleHeader extends MaterialWidget implements HasAllMouseHandlers, HasClickHandlers {
 
     /** Creates empty collapsible header.
      */
@@ -66,5 +68,40 @@ public class MaterialCollapsibleHeader extends MaterialWidget {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
         }
         super.add(child);
+    }
+
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+        return addDomHandler(handler, MouseDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+        return addDomHandler(handler, MouseMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+        return addDomHandler(handler, MouseOutEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+        return addDomHandler(handler, MouseOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+        return addDomHandler(handler, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+        return addDomHandler(handler, MouseWheelEvent.getType());
     }
 }
