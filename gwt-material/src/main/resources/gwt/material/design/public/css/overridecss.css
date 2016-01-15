@@ -244,11 +244,6 @@ table td {
 	opacity: 0.87;
 }
 
-table tr {
-	border: none;
-	background: none !important;
-}
-
 .striped table tbody tr:nth-child(odd) {
 	background-color: #f2f2f2 !important;
 }
@@ -839,7 +834,7 @@ footer.fixed{
 
 /** SideNav Card **/
 .side-nav.card, .side-nav.float{
-	position: absolute !important;
+	position: absolute;
 }
 .side-nav.card {
 	margin: 20px;

@@ -59,7 +59,7 @@ import gwt.material.design.client.ui.animate.MaterialAnimator;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasDepth {
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -582,5 +582,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public String getFontWeight() {
         return getElement().getStyle().getFontWeight();
+    }
+
+    @Override
+    public void setDepth(int depth) {
+        getElement().getStyle().setZIndex(depth);
+    }
+
+    @Override
+    public int getDepth() {
+        return Integer.parseInt(getElement().getStyle().getZIndex());
     }
 }
