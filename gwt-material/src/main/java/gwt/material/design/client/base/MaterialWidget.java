@@ -20,15 +20,42 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.EnabledMixin;
+import gwt.material.design.client.base.mixin.FlexboxMixin;
+import gwt.material.design.client.base.mixin.FocusableMixin;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.base.mixin.IdMixin;
+import gwt.material.design.client.base.mixin.ScrollspyMixin;
+import gwt.material.design.client.base.mixin.SeparatorMixin;
+import gwt.material.design.client.base.mixin.ShadowMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.TooltipMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.constants.CenterOn;
+import gwt.material.design.client.constants.Display;
+import gwt.material.design.client.constants.Flex;
+import gwt.material.design.client.constants.FlexAlignContent;
+import gwt.material.design.client.constants.FlexAlignItems;
+import gwt.material.design.client.constants.FlexAlignSelf;
+import gwt.material.design.client.constants.FlexDirection;
+import gwt.material.design.client.constants.FlexJustifyContent;
+import gwt.material.design.client.constants.FlexWrap;
+import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.constants.ShowOn;
+import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.constants.WavesType;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.*;
-import gwt.material.design.client.constants.*;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
@@ -318,8 +345,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public void setDisplay(Style.Display display) {
-        getFlexboxMixin().setDisplay(display);
+    public void setGwtDisplay(Style.Display display) {
+        getFlexboxMixin().setGwtDisplay(display);
     }
 
     @Override

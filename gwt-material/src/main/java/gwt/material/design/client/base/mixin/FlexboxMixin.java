@@ -46,10 +46,12 @@ public class FlexboxMixin<T extends Widget & HasFlexbox> extends AbstractMixin<T
 
     private Display displayValueBeforeHidden;
 
-    public void setDisplay(Style.Display display) {
+    @Override
+    public void setGwtDisplay(Style.Display display) {
         setDisplay(Display.parse(display));
     }
 
+    @Override
     public void setDisplay(Display display) {
         if (display == null) {
             displayValueBeforeHidden = null;
@@ -76,6 +78,7 @@ public class FlexboxMixin<T extends Widget & HasFlexbox> extends AbstractMixin<T
         }
     }
 
+    @Override
     public void setVisible(boolean visible) {
         uiObject.setVisible(visible);
 
@@ -86,6 +89,7 @@ public class FlexboxMixin<T extends Widget & HasFlexbox> extends AbstractMixin<T
         }
     }
 
+    @Override
     public void setFlexDirection(FlexDirection flexDirection) {
         boolean isCurrentlyVisible = uiObject.isVisible();
 
@@ -101,6 +105,7 @@ public class FlexboxMixin<T extends Widget & HasFlexbox> extends AbstractMixin<T
         }
     }
 
+    @Override
     public void setFlex(Flex flex) {
         if (flex == null) {
             setFlexGrow(null);
@@ -114,38 +119,47 @@ public class FlexboxMixin<T extends Widget & HasFlexbox> extends AbstractMixin<T
         setFlexBasis(flex.getBasis());
     }
 
+    @Override
     public void setFlexGrow(Integer flexGrow) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), new String[]{"MsFlexGrow", "WebkitFlexGrow", "MozFlexGrow", "flexGrow"}, flexGrow != null ? flexGrow.toString() : null);
     }
 
+    @Override
     public void setFlexShrink(Integer flexShrink) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), new String[]{"MsFlexShrink", "WebkitFlexShrink", "MozFlexShrink", "flexShrink"}, flexShrink != null ? flexShrink.toString() : null);
     }
 
+    @Override
     public void setFlexBasis(String flexBasis) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), new String[]{"MsFlexBasis", "WebkitFlexBasis", "MozFlexBasis", "flexBasis"}, flexBasis);
     }
 
+    @Override
     public void setFlexOrder(Integer flexOrder) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), new String[]{"MsFlexOrder", "WebkitOrder", "MozFlexOrder", "order"}, flexOrder != null ? flexOrder.toString() : null);
     }
 
+    @Override
     public void setFlexWrap(FlexWrap flexWrap) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), new String[]{"MsFlexWrap", "WebkitFlexWrap", "MozFlexWrap", "flexWrap"}, flexWrap != null ? flexWrap.getValue() : null);
     }
 
+    @Override
     public void setFlexAlignContent(FlexAlignContent flexAlignContent) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), "MsFlexLinePack", new String[]{"WebkitAlignContent", "MozFlexAlignContent", "alignContent"}, flexAlignContent);
     }
 
+    @Override
     public void setFlexAlignSelf(FlexAlignSelf flexAlignSelf) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), "MsFlexItemAlign", new String[]{"WebkitAlignSelf", "MozFlexItemAlign", "alignSelf"}, flexAlignSelf);
     }
 
+    @Override
     public void setFlexAlignItems(FlexAlignItems flexAlignItems) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), "MsFlexAlign", new String[]{"WebkitAlignItems", "MozFlexAlign", "alignItems"}, flexAlignItems);
     }
 
+    @Override
     public void setFlexJustifyContent(FlexJustifyContent flexJustifyContent) {
         BrowserPrefixHelper.updateStyleProperties(uiObject.getElement(), "MsFlexPack", new String[]{"WebkitJustifyContent", "MozJustifyContent", "justifyContent"}, flexJustifyContent);
     }

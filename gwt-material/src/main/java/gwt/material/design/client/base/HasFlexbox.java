@@ -32,7 +32,7 @@ import gwt.material.design.client.constants.*;
  * @see MaterialWidget
  */
 public interface HasFlexbox {
-    void setDisplay(Style.Display display);
+    void setGwtDisplay(Style.Display display);
 
     void setDisplay(Display display);
 
