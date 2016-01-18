@@ -75,6 +75,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     private final ListBox listBox = new ListBox();
     private final Label lblName = new Label();
 
+    private ToggleStyleMixin<MaterialListBox> toggleOldMixin = new ToggleStyleMixin<>(this, "browser-default");
     private boolean initialized;
 
 
@@ -312,5 +313,13 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     @Override
     public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
         return addHandler(handler, ValueChangeEvent.getType());
+    }
+
+    public boolean isOld() {
+        return toggleOldMixin.isOn();
+    }
+
+    public void setOld(boolean old) {
+        toggleOldMixin.setOn(old);
     }
 }
