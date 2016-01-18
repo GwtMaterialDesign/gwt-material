@@ -151,6 +151,13 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
         }
     }
 
+    public void addItem(String item) {
+        listBox.addItem(item);
+        if (initialized) {
+            // reinitialize
+            initializeMaterial(listBox.getElement());
+        }
+    }
 
     public void addItem(String item, String value) {
         listBox.addItem(item, value);
