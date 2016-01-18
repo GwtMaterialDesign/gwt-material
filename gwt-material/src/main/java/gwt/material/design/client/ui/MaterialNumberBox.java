@@ -67,6 +67,22 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
         return valueBoxBase.getElement().getAttribute("step");
     }
 
+    public void setMin(String min){
+        valueBoxBase.getElement().setAttribute("min", min);
+    }
+
+    public String getMin(){
+        return valueBoxBase.getElement().getAttribute("min");
+    }
+
+    public void setMax(String max){
+        valueBoxBase.getElement().setAttribute("max", max);
+    }
+
+    public String getMax(){
+        return valueBoxBase.getElement().getAttribute("max");
+    }
+
     @Override
     public String getText() {
         return valueBoxBase.getText();
