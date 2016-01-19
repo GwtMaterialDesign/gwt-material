@@ -140,29 +140,9 @@ button.btn-flat:focus {
 
 
 /** DataGrid **/
-table th {
-	border-bottom: initial !important;
-	padding: 15px 5px !important;
-	text-align: left !important;
-	color: inherit !important;
-	text-shadow: none !important;
-	overflow: initial !important;
-	white-space: nowrap !important;
-	font-size: 12px;
-	font-family: "Roboto";
-	opacity: 0.54;
-}
 
 .CW3BUMB-ab-a {
 	overflow: hidden !important;
-}
-
-table td {
-	border: none !important;
-	padding: 15px 5px !important;
-	font-size: 13px;
-	font-family: "Roboto";
-	opacity: 0.87;
 }
 
 .striped table tbody tr:nth-child(odd) {
