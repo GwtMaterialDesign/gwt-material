@@ -50,14 +50,14 @@ import java.util.List;
 //@formatter:off
 
 /**
-* Material Text Box is an input field that accepts any text based string from user.
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code <m:MaterialTextBox placeholder="First Name" />}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
-* @author kevzlou7979
-* @author Ben Dol
+ * Material Text Box is an input field that accepts any text based string from user.
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code <m:MaterialTextBox placeholder="First Name" />}
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
+ * @author kevzlou7979
+ * @author Ben Dol
  * @author paulux84
  */
 //@formatter:on
@@ -86,28 +86,12 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
         super(Document.get().createDivElement());
         setStyleName("input-field");
-        add(icon);
         initValueBox(tValueBox);
-        add(label);
-        label.add(lblName);
-        lblError.setVisible(false);
-        add(lblError);
     }
-
-//    public MaterialValueBox() {
-//        super(Document.get().createDivElement());
-//        setStyleName("input-field");
-//        add(icon);
-//        add(label);
-//        label.add(lblName);
-//        lblError.setVisible(false);
-//        add(lblError);
-//    }
 
     private void initValueBox(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
-        valueBoxBase.setStyleName("validate");
     }
 
     @Deprecated
@@ -162,7 +146,11 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
-        lblName.setText(placeholder);
+        if(getType() != InputType.SEARCH) {
+            lblName.setText(placeholder);
+        }else{
+            valueBoxBase.getElement().setAttribute("placeholder", placeholder);
+        }
     }
 
     @Override
@@ -174,17 +162,23 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public void setType(InputType type) {
         this.type = type;
         valueBoxBase.getElement().setAttribute("type", type.getType());
-
+        if(getType() != InputType.SEARCH) {
+            valueBoxBase.setStyleName("validate");
+            add(label);
+            label.add(lblName);
+            lblError.setVisible(false);
+            add(lblError);
+        }
         if(type.equals(InputType.NUMBER)) {
             valueBoxBase.addKeyPressHandler(new KeyPressHandler() {
                 @Override
                 public void onKeyPress(KeyPressEvent event) {
-                     if (!Character.isDigit(event.getCharCode())
+                    if (!Character.isDigit(event.getCharCode())
                             && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
                             && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE
                             && event.getNativeEvent().getKeyCode() != 190) {
                         ((TextBox) event.getSource()).cancelKey();
-                     }
+                    }
                 }
             });
         }
@@ -425,6 +419,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public void clearErrorOrSuccess() {
         errorMixin.clearErrorOrSuccess();
+        isValid = true;
         removeErrorModifiers();
     }
 
@@ -437,6 +432,8 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public void setIconType(IconType iconType) {
         icon.setIconType(iconType);
         icon.setIconPrefix(true);
+        lblError.setPaddingLeft(44);
+        insert(icon, 0);
     }
 
     @Override

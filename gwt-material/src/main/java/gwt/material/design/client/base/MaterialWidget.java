@@ -22,40 +22,12 @@ package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.ColorsMixin;
-import gwt.material.design.client.base.mixin.CssNameMixin;
-import gwt.material.design.client.base.mixin.EnabledMixin;
-import gwt.material.design.client.base.mixin.FlexboxMixin;
-import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
-import gwt.material.design.client.base.mixin.IdMixin;
-import gwt.material.design.client.base.mixin.ScrollspyMixin;
-import gwt.material.design.client.base.mixin.SeparatorMixin;
-import gwt.material.design.client.base.mixin.ShadowMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.base.mixin.TooltipMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
-import gwt.material.design.client.constants.CenterOn;
-import gwt.material.design.client.constants.Display;
-import gwt.material.design.client.constants.Flex;
-import gwt.material.design.client.constants.FlexAlignContent;
-import gwt.material.design.client.constants.FlexAlignItems;
-import gwt.material.design.client.constants.FlexAlignSelf;
-import gwt.material.design.client.constants.FlexDirection;
-import gwt.material.design.client.constants.FlexJustifyContent;
-import gwt.material.design.client.constants.FlexWrap;
-import gwt.material.design.client.constants.HideOn;
-import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.constants.ShowOn;
-import gwt.material.design.client.constants.TextAlign;
-import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.ui.animate.MaterialAnimator;
+import gwt.material.design.client.base.mixin.*;
+import gwt.material.design.client.constants.*;
+
+import java.util.Iterator;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
@@ -564,6 +536,30 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getFlexboxMixin().setFlexJustifyContent(flexJustifyContent);
     }
 
+    public void setOverflow(Style.Overflow overflow) {
+        getElement().getStyle().setOverflow(overflow);
+    }
+
+    public void setLayoutPosition(Style.Position position) {
+        getElement().getStyle().setPosition(position);
+    }
+
+    public void setLeft(double value) {
+        getElement().getStyle().setLeft(value, Style.Unit.PX);
+    }
+
+    public void setRight(double value) {
+        getElement().getStyle().setRight(value, Style.Unit.PX);
+    }
+
+    public void setTop(double value) {
+        getElement().getStyle().setTop(value, Style.Unit.PX);
+    }
+
+    public void setBottom(double value) {
+        getElement().getStyle().setBottom(value, Style.Unit.PX);
+    }
+
     @Override
     public void setHoverable(boolean hoverable) {
         getHoverableMixin().setOn(hoverable);
@@ -592,5 +588,60 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public int getDepth() {
         return Integer.parseInt(getElement().getStyle().getZIndex());
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+    }
+
+    @Override
+    protected void insert(Widget child, Element container, int beforeIndex, boolean domInsert) {
+        super.insert(child, container, beforeIndex, domInsert);
+    }
+
+    @Override
+    public Widget getWidget(int index) {
+        return super.getWidget(index);
+    }
+
+    @Override
+    public int getWidgetCount() {
+        return super.getWidgetCount();
+    }
+
+    @Override
+    public int getWidgetIndex(Widget child) {
+        return super.getWidgetIndex(child);
+    }
+
+    @Override
+    public int getWidgetIndex(IsWidget child) {
+        return super.getWidgetIndex(child);
+    }
+
+    @Override
+    public Iterator<Widget> iterator() {
+        return super.iterator();
+    }
+
+    @Override
+    public boolean remove(int index) {
+        return super.remove(index);
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        return super.remove(w);
+    }
+
+    @Override
+    public void add(IsWidget child) {
+        super.add(child);
+    }
+
+    @Override
+    public boolean remove(IsWidget child) {
+        return super.remove(child);
     }
 }
