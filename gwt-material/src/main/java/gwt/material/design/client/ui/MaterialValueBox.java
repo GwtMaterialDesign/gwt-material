@@ -419,6 +419,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public void clearErrorOrSuccess() {
         errorMixin.clearErrorOrSuccess();
+        isValid = true;
         removeErrorModifiers();
     }
 
