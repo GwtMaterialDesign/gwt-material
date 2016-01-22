@@ -1,18 +1,18 @@
 function showGrid(id, duration){
   var speed = 900;
-  var container =  $(id);  
-  container.each(function() {   
+  var container =  $(id);
+  container.each(function() {
     var elements = $(this).children();
-    elements.each(function() {      
-      var elementOffset = $(this).offset(); 
+    elements.each(function() {
+      var elementOffset = $(this).offset();
       var offset = elementOffset.left*0.5 + elementOffset.top;
       var delay = parseFloat(offset/speed).toFixed(2);
       $(this)
-        .css("-webkit-transition-delay", delay+'s')
-        .css("-o-transition-delay", delay+'s')
-        .css("transition-delay", delay+'s')
-        .removeClass('closed')
-        .addClass('animated');
+          .css("-webkit-transition-delay", delay+'s')
+          .css("-o-transition-delay", delay+'s')
+          .css("transition-delay", delay+'s')
+          .removeClass('closed')
+          .addClass('animated');
     });
   });
 }
@@ -21,18 +21,18 @@ function closeGrid(id, duration){
   var speed = 900;
   var container =  $(id);
   container.each(function() {
-	var elements = $(this).children();
-	elements.each(function() {
-	  var elementOffset = $(this).offset();
-	  var offset = elementOffset.left*0.5 + elementOffset.top;
-	  var delay = parseFloat(offset/speed).toFixed(2);
-	  $(this)
-		.css("-webkit-transition-delay", delay+'s')
-		.css("-o-transition-delay", delay+'s')
-		.css("transition-delay", delay+'s')
-		.removeClass('animated')
-		.addClass('closed');
-	});
+    var elements = $(this).children();
+    elements.each(function() {
+      var elementOffset = $(this).offset();
+      var offset = elementOffset.left*0.5 + elementOffset.top;
+      var delay = parseFloat(offset/speed).toFixed(2);
+      $(this)
+          .css("-webkit-transition-delay", delay+'s')
+          .css("-o-transition-delay", delay+'s')
+          .css("transition-delay", delay+'s')
+          .removeClass('animated')
+          .addClass('closed');
+    });
   });
 }
 
@@ -40,16 +40,8 @@ var swipeLeft = false;
 var swipeRight = false;
 
 /* Hook the Dismissable Collection to includke the swipe left and swipe right
-   callback */
-function initDismissableCollection(swipeLeftCallback, swipeRightCallback) {
-  // Right On Remove callback
-  var rightCallbacks = $.Callbacks();
-  rightCallbacks.add(swipeRightCallback);
-
-  // Left on Remove callback
-  var leftCallbacks = $.Callbacks();
-  leftCallbacks.add(swipeLeftCallback);
-
+ callback */
+function initDismissableCollection() {
   // Dismissible Collections
   $('.dismissable').each(function() {
     $(this).hammer({
@@ -95,11 +87,6 @@ function initDismissableCollection(swipeLeftCallback, swipeRightCallback) {
                 $this.velocity({ height: 0, padding: 0,
                 }, {duration: 200, queue: false, easing: 'easeOutQuad', complete:
                     function() {
-                      if(swipeRight){
-                        rightCallbacks.fire();
-                      }else{
-                        leftCallbacks.fire();
-                      }
                       $this.remove();
                     }
                 });
