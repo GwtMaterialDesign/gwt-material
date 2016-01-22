@@ -50,12 +50,24 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
     private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
 
     private HandlerRegistration handlerReg;
+    private Runnable swipeLeftCallback;
+    private Runnable swipeRightCallback;
 
     public MaterialCollectionItem() {
         super(Document.get().createLIElement());
         setStyleName("collection-item");
         UiHelper.addMousePressedHandlers(this);
     }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        initDismissableCollection(getSwipeLeftCallback(), getSwipeRightCallback());
+    }
+
+    private native void initDismissableCollection(Runnable swipeLeftCallback, Runnable swipeRightCallback) /*-{
+        $wnd.initDismissableCollection(swipeLeftCallback, swipeRightCallback);
+    }-*/;
 
     public void setType(CollectionType type) {
         switch (type) {
@@ -122,5 +134,21 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
     @Override
     public HandlerRegistration addClickHandler(ClickHandler handler) {
         return addDomHandler(handler, ClickEvent.getType());
+    }
+
+    public Runnable getSwipeLeftCallback() {
+        return swipeLeftCallback;
+    }
+
+    public void setSwipeLeftCallback(Runnable swipeLeftCallback) {
+        this.swipeLeftCallback = swipeLeftCallback;
+    }
+
+    public Runnable getSwipeRightCallback() {
+        return swipeRightCallback;
+    }
+
+    public void setSwipeRightCallback(Runnable swipeRightCallback) {
+        this.swipeRightCallback = swipeRightCallback;
     }
 }
