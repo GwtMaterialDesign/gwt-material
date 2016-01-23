@@ -57,45 +57,55 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
         UiHelper.addMousePressedHandlers(this);
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        initDismissableCollection();
+    }
+
+    private native void initDismissableCollection() /*-{
+        $wnd.initDismissableCollection();
+    }-*/;
+
     public void setType(CollectionType type) {
         switch (type) {
-        case AVATAR:
-            addStyleName(type.getCssName());
-            break;
-        case CHECKBOX:
-            if(getWidgetCount() > 0) {
-                getWidget(0).getElement().getStyle().setProperty("display" , "inline");
-            }
-            if(handlerReg != null) {
-                handlerReg.removeHandler();
-            }
-            handlerReg = addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    for(Widget w : MaterialCollectionItem.this) {
-                        if(w instanceof MaterialCollectionSecondary) {
-                            for(Widget a : (MaterialCollectionSecondary)w) {
-                                if(a instanceof HasValue) {
-                                    try {
-                                        @SuppressWarnings("unchecked")
-                                        HasValue<Boolean> cb = (HasValue<Boolean>) a;
-                                        if (cb.getValue()) {
-                                            cb.setValue(false);
-                                        } else {
-                                            cb.setValue(true);
+            case AVATAR:
+                addStyleName(type.getCssName());
+                break;
+            case CHECKBOX:
+                if(getWidgetCount() > 0) {
+                    getWidget(0).getElement().getStyle().setProperty("display" , "inline");
+                }
+                if(handlerReg != null) {
+                    handlerReg.removeHandler();
+                }
+                handlerReg = addClickHandler(new ClickHandler() {
+                    @Override
+                    public void onClick(ClickEvent event) {
+                        for(Widget w : MaterialCollectionItem.this) {
+                            if(w instanceof MaterialCollectionSecondary) {
+                                for(Widget a : (MaterialCollectionSecondary)w) {
+                                    if(a instanceof HasValue) {
+                                        try {
+                                            @SuppressWarnings("unchecked")
+                                            HasValue<Boolean> cb = (HasValue<Boolean>) a;
+                                            if (cb.getValue()) {
+                                                cb.setValue(false);
+                                            } else {
+                                                cb.setValue(true);
+                                            }
+                                        } catch (ClassCastException ex) {
+                                            // Ignore non-boolean has value handlers.
                                         }
-                                    } catch (ClassCastException ex) {
-                                        // Ignore non-boolean has value handlers.
                                     }
                                 }
                             }
                         }
                     }
-                }
-            });
-            break;
-        default:
-            break;
+                });
+                break;
+            default:
+                break;
         }
     }
 
