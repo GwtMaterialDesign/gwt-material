@@ -752,12 +752,12 @@ footer.fixed{
 	}
 	/** Search Bar Responsive design **/
 	.input-field input[type=search] {
-		padding-left: 2rem;
-		width: calc(100% - 10rem);
-		margin-bottom: 0px;
+		padding-left: 2rem !important;
+		width: calc(100% - 10rem) !important;
+		margin-bottom: 0px !important;
 	}
 	.input-field input[type=search] + label {
-		z-index: 999;
+		z-index: 999 !important;
 	}
 	.search-result{
 		max-height: 400px;
