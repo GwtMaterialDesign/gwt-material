@@ -30,6 +30,7 @@ import gwt.material.design.client.base.HasActive;
 import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.events.SearchFinishEvent;
 import gwt.material.design.client.ui.html.Label;
 
 import java.util.ArrayList;
@@ -74,10 +75,32 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     private Label label = new Label();
     private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
     private MaterialIcon iconClose = new MaterialIcon(IconType.CLOSE);
+
+    /**
+     * The list of search objects added to MaterialSearchResult panel to
+     * display the lists of result items
+     */
     private List<SearchObject> listSearches = new ArrayList<>();
+    /**
+     * Used to determine the selected searches while matching the keyword to result
+     */
+    private List<SearchObject> tempSearches = new ArrayList<>();
+    /**
+     * Panel to display the result items
+     */
     private MaterialSearchResult searchResult;
+    /**
+     * Link selected to determine easily during the selection event (up / down key events)
+     */
     private MaterialLink selectedLink;
+    /**
+     * Gets the selected object after Search Finish event
+     */
     private SearchObject selectedObject;
+    /**
+     * -1 means that the selected index is not yet selected.
+     * It will increment or decrement once triggere by key up / down events
+     */
     private int curSel = -1;
 
     public MaterialSearch() {
@@ -106,7 +129,9 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
             @Override
             public void onKeyUp(KeyUpEvent event) {
                 String keyword = getText().toLowerCase();
+                // Clear the panel and temp objects
                 searchResult.clear();
+                tempSearches.clear();
 
                 // Populate the search result items
                 for(final SearchObject obj : getListSearches()) {
@@ -119,20 +144,26 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     link.addClickHandler(new ClickHandler() {
                         @Override
                         public void onClick(ClickEvent event) {
+                            setSelectedObject(obj);
                             reset(obj.getKeyword());
                         }
                     });
-                    // If matches add to search result container
+                    // If matches add to search result container and object to temp searches
                     if (obj.getKeyword().toLowerCase().contains(keyword)){
                         searchResult.add(link);
+                        tempSearches.add(obj);
                     }
                 }
 
                 // Apply selected search
                 if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER){
                     if(getCurSel()==-1){
+                        setSelectedObject(tempSearches.get(0));
                         setSelectedLink((MaterialLink) searchResult.getWidget(0));
+                    }else{
+                        setSelectedObject(tempSearches.get(curSel));
                     }
+
                     MaterialLink selLink = getSelectedLink();
                     locateSearch(selLink.getHref());
                     reset(selLink.getText());
@@ -164,6 +195,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
             // Resets the search result panel
             private void reset(String keyword){
+                SearchFinishEvent.fire(MaterialSearch.this);
                 curSel = -1;
                 setText(keyword);
                 searchResult.clear();
@@ -227,12 +259,26 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     }
 
     public SearchObject getSelectedObject() {
-        listSearches.get(curSel);
         return selectedObject;
     }
 
     public void setSelectedObject(SearchObject selectedObject) {
         this.selectedObject = selectedObject;
+    }
+
+    /**
+     * Gets the tempory search objects
+     * @return
+     */
+    public List<SearchObject> getTempSearches() {
+        return tempSearches;
+    }
+
+    /**
+     * This handler will be triggered when search is finish
+     */
+    public HandlerRegistration addSearchFinishHandler(SearchFinishEvent.SearchFinishHandler handler) {
+        return addHandler(handler, SearchFinishEvent.TYPE);
     }
 }
 

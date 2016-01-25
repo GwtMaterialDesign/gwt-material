@@ -31,7 +31,7 @@ public class SearchObject implements Serializable {
 
     private IconType icon;
     private String keyword;
-    private String link;
+    private String link = "";
     private Object o;
 
     public SearchObject() {}
@@ -65,6 +65,17 @@ public class SearchObject implements Serializable {
         this.link = link;
         this.keyword = keyword;
         this.icon = icon;
+    }
+
+    /**
+     * Plain search only, you may need to add searchfinish callback instead of redirecting
+     * to any links.
+     * @param icon
+     * @param keyword
+     */
+    public SearchObject(IconType icon, String keyword) {
+        this.icon = icon;
+        this.keyword = keyword;
     }
 
     public String getKeyword() {
