@@ -800,3 +800,27 @@ footer.fixed{
 .input-field input[type=search] {
 	margin-bottom: 0px;
 }
+/** Added support for horizontal cards **/
+.horizontal .card-action a{
+	margin-left: 20px;
+	margin-right: 0px !important;
+}
+.horizontal .card-action{
+	padding: 0px;
+	margin-top: 8px;
+}
+.horizontal .card-content{
+	width: 70% !important;
+	float: left;
+}
+.horizontal .card-image{
+	width: 30% !important;
+	float: left;
+}
+.horizontal .card-image img, .horizontal.card{
+	height: 120px;
+}
+
+.horizontal .card-image{
+	padding: 0;
+}
