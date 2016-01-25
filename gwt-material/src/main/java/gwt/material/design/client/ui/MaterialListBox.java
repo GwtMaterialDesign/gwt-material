@@ -27,6 +27,7 @@ import gwt.material.design.client.base.HasPlaceholder;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.client.ui.html.Option;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -85,6 +86,10 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
         addStyleName("input-field");
         add(listBox);
         add(lblName);
+    }
+    
+    public void add(Option option){
+        getSelectElement().add(OptionElement.as(option.getElement()), null);
     }
 
     @Override
