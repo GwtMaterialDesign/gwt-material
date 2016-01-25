@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 
 //@formatter:off
 
-import gwt.material.design.client.base.FloatBox;
 
 /**
  * Material Integer Box is an input field that accepts any Float based string from user.
@@ -38,11 +37,9 @@ import gwt.material.design.client.base.FloatBox;
  * @author paulux84
  */
 //@formatter:on
-//@formatter:on
 public class MaterialFloatBox extends MaterialNumberBox<Float> {
 
     public MaterialFloatBox() {
-        super(new FloatBox());
         setStep("any");
     }
     
