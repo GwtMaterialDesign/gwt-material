@@ -43,26 +43,33 @@ import com.google.gwt.text.shared.Renderer;
  * A localized renderer based on {@link NumberFormat#getDecimalFormat}.
  */
 public class FloatRenderer extends AbstractRenderer<Float> {
-  private static FloatRenderer INSTANCE;
+    private static FloatRenderer INSTANCE;
 
-  /**
-   * Returns the instance.
-   */
-  public static Renderer<Float> instance() {
-    if (INSTANCE == null) {
-      INSTANCE = new FloatRenderer();
-    }
-    return INSTANCE;
-  }
-
-  protected FloatRenderer() {
-  }
-
-  public String render(Float object) {
-    if (object == null) {
-      return "";
+    /**
+     * Returns the instance.
+     */
+    public static Renderer<Float> instance() {
+        if (INSTANCE == null) {
+            INSTANCE = new FloatRenderer();
+        }
+        return INSTANCE;
     }
 
-    return NumberFormat.getDecimalFormat().format(object);
-  }
+    protected FloatRenderer() {
+    }
+
+    public String render(Float object) {
+        if (object == null || object.isNaN()) {
+            return "";
+        }
+
+        /*
+         * When using the <input type="number"> the browser expects a number in
+         * american format (when using the API). The actual output is rendered
+         * by the browser using i18n configuration from the user, so the
+         * application doesn't have to take care about formatting.
+         */
+        return object.toString();
+
+    }
 }

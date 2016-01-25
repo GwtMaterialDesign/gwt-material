@@ -35,40 +35,43 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import java.text.ParseException;
+
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.text.shared.Parser;
-
-import java.text.ParseException;
 
 /**
  * A localized parser based on {@link NumberFormat#getDecimalFormat}.
  */
 public class FloatParser implements Parser<Float> {
 
-	private static FloatParser INSTANCE;
+    private static FloatParser INSTANCE;
 
-	/**
-	 * @return  the instance of the no-op renderer.
-	 */
-	public static Parser<Float> instance() {
-		if (INSTANCE == null) {
-			INSTANCE = new FloatParser();
-		}
-		return INSTANCE;
-	}
+    /**
+     * @return the instance of the no-op renderer.
+     */
+    public static Parser<Float> instance() {
+        if (INSTANCE == null) {
+            INSTANCE = new FloatParser();
+        }
+        return INSTANCE;
+    }
 
-	protected FloatParser() {
-	}
+    protected FloatParser() {
+    }
 
-	public Float parse(CharSequence object) throws ParseException {
-		if ("".equals(object.toString())) {
-			return null;
-		}
+    /*
+     * Note: this method is NOT called by MaterialFloatBox, the parsing is done by the browser
+     */
+    public Float parse(CharSequence object) throws ParseException {
+        if (object == null || object.length() == 0) {
+            return null;
+        }
 
-		try {
-			return new Float(object.toString().replaceFirst(",", "."));
-		} catch (NumberFormatException e) {
-			throw new ParseException(e.getMessage(), 0);
-		}
-	}
+        try {
+            return new Float(NumberFormat.getDecimalFormat().parse(object.toString()));
+        } catch (NumberFormatException e) {
+            throw new ParseException(e.getMessage(), 0);
+        }
+    }
 }

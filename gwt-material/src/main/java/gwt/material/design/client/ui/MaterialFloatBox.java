@@ -30,6 +30,10 @@ import gwt.material.design.client.base.FloatBox;
  * <pre>
  *{@code <m:MaterialFloatBox placeholder="Your integer" step=100/>}
  * </pre>
+ * 
+ * The parsing and formatting of the number are done natively by the browser, using the
+ * i18n settings from the user.
+ * 
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material FloatBox</a>
  * @author paulux84
  */
@@ -41,4 +45,14 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
         super(new FloatBox());
         setStep("any");
     }
+    
+    @Override
+    public Float getValue() {
+        double number = getValueAsNumber();
+        if (Double.isNaN(number)){
+            return null;
+        }
+        return Float.valueOf((float)number);
+    }
+    
 }

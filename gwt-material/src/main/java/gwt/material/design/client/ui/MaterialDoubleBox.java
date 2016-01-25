@@ -38,6 +38,16 @@ public class MaterialDoubleBox extends MaterialNumberBox<Double> {
 
     public MaterialDoubleBox() {
         super(new DoubleBox());
+        setStep("any");
+    }
+    
+    @Override
+    public Double getValue() {
+        double number = getValueAsNumber();
+        if (Double.isNaN(number)){
+            return null;
+        }
+        return number;
     }
 
 }

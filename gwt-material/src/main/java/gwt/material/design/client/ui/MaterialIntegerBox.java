@@ -38,6 +38,16 @@ public class MaterialIntegerBox extends MaterialNumberBox<Integer> {
 
     public MaterialIntegerBox() {
         super(new IntegerBox());
+        setStep("1");
+    }
+    
+    @Override
+    public Integer getValue() {
+        double number = getValueAsNumber();
+        if (Double.isNaN(number)){
+            return null;
+        }
+        return (int) Math.rint(number);
     }
 
 }

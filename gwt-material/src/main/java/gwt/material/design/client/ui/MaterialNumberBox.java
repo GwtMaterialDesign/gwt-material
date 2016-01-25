@@ -20,8 +20,10 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.ValueBoxBase;
+
 import gwt.material.design.client.constants.InputType;
 
 //@formatter:off
@@ -87,5 +89,21 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
     public String getText() {
         return valueBoxBase.getText();
     }
+    
+    /**
+     * Returns the value parsed natively by the browser.
+     * 
+     * @return the value set on the component, or NaN if none is set
+     */
+    public double getValueAsNumber(){
+        return getValueAsNumber(valueBoxBase.getElement());
+    }
+    
+    /**
+     * Native call to element.valueAsNumber.
+     */
+    protected native double getValueAsNumber(Element el)/*-{
+        return el.valueAsNumber;
+    }-*/;
 
 }
