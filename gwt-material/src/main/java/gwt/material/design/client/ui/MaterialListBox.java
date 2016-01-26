@@ -77,7 +77,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     private final ListBox listBox = new ListBox();
     private final Label lblName = new Label();
 
-    private ToggleStyleMixin<MaterialListBox> toggleOldMixin = new ToggleStyleMixin<>(this, "browser-default");
+    private ToggleStyleMixin<ListBox> toggleOldMixin;
     private boolean initialized;
 
 
@@ -86,8 +86,9 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
         addStyleName("input-field");
         add(listBox);
         add(lblName);
+        toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
     }
-    
+
     public void add(Option option){
         getSelectElement().add(OptionElement.as(option.getElement()), null);
     }
@@ -109,7 +110,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
             initializeMaterial(listBox.getElement());
         }
     }
-    
+
     @Override
     public String getPlaceholder() {
         return lblName.getText();
@@ -176,7 +177,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Gets whether this list allows multiple selection.
-     * 
+     *
      * @return <code>true</code> if multiple selection is allowed
      */
     public boolean isMultipleSelect() {
@@ -207,13 +208,13 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     }
 
     // delegate methods
-    
+
     /**
      * Inserts an item into the list box, specifying its direction and an
      * initial value for the item. If the index is less than zero, or greater
      * than or equal to the length of the list, then the item will be appended
      * to the end of the list.
-     * 
+     *
      * @param item
      *            the text of the item to be inserted
      * @param dir
@@ -238,7 +239,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
      * Sets the value associated with the item at a given index. This value can
      * be used for any purpose, but is also what is passed to the server when
      * the list box is submitted as part of a {@link FormPanel}.
-     * 
+     *
      * @param index
      *            the index of the item to be set
      * @param value
@@ -266,11 +267,11 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     /**
      * Adds an item to the list box, specifying its direction. This method has
      * the same effect as
-     * 
+     *
      * <pre>
      * addItem(item, dir, item)
      * </pre>
-     * 
+     *
      * @param item
      *            the text of the item to be added
      * @param dir
@@ -286,11 +287,11 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Adds an item to the list box. This method has the same effect as
-     * 
+     *
      * <pre>
      * addItem(item, item)
      * </pre>
-     * 
+     *
      * @param item
      *            the text of the item to be added
      */
@@ -304,7 +305,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Adds an item to the list box, specifying an initial value for the item.
-     * 
+     *
      * @param item
      *            the text of the item to be added
      * @param value
@@ -322,7 +323,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     /**
      * Adds an item to the list box, specifying its direction and an initial
      * value for the item.
-     * 
+     *
      * @param item
      *            the text of the item to be added
      * @param dir
@@ -341,11 +342,11 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Inserts an item into the list box. Has the same effect as
-     * 
+     *
      * <pre>
      * insertItem(item, item, index)
      * </pre>
-     * 
+     *
      * @param item
      *            the text of the item to be inserted
      * @param index
@@ -362,11 +363,11 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     /**
      * Inserts an item into the list box, specifying its direction. Has the same
      * effect as
-     * 
+     *
      * <pre>
      * insertItem(item, dir, item, index)
      * </pre>
-     * 
+     *
      * @param item
      *            the text of the item to be inserted
      * @param dir
@@ -389,7 +390,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
      * <pre>
      * insertItem(item, null, value, index)
      * </pre>
-     * 
+     *
      * @param item
      *            the text of the item to be inserted
      * @param value
@@ -408,7 +409,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Sets whether an individual list item is selected.
-     * 
+     *
      * @param index
      *            the index of the item to be selected or unselected
      * @param selected
@@ -426,7 +427,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Sets the text associated with the item at a given index.
-     * 
+     *
      * @param index
      *            the index of the item to be set
      * @param text
@@ -444,7 +445,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Sets the text associated with the item at a given index.
-     * 
+     *
      * @param index
      *            the index of the item to be set
      * @param text
@@ -472,7 +473,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Sets the currently selected index.
-     * 
+     *
      * After calling this method, only the specified item in the list will
      * remain selected. For a ListBox with multiple selection enabled, see
      * {@link #setItemSelected(int, boolean)} to select multiple items at a
@@ -492,7 +493,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     /**
      * Sets the number of items that are visible. If only one item is visible,
      * then the box will be displayed as a drop-down list.
-     * 
+     *
      * @param visibleItems
      *            the visible item count
      */
@@ -506,7 +507,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Gets the number of items present in the list box.
-     * 
+     *
      * @return the number of items
      */
     public int getItemCount() {
@@ -515,7 +516,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Gets the text associated with the item at the specified index.
-     * 
+     *
      * @param index
      *            the index of the item whose text is to be retrieved
      * @return the text associated with the item
@@ -544,7 +545,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
      * Gets the currently-selected item. If multiple items are selected, this
      * method will return the first selected item ({@link #isItemSelected(int)}
      * can be used to query individual items).
-     * 
+     *
      * @return the selected index, or <code>-1</code> if none is selected
      */
     public int getSelectedIndex() {
@@ -553,7 +554,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Gets the value associated with the item at a given index.
-     * 
+     *
      * @param index
      *            the index of the item to be retrieved
      * @return the item's associated value
@@ -577,7 +578,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     /**
      * Gets the number of items that are visible. If only one item is visible,
      * then the box will be displayed as a drop-down list.
-     * 
+     *
      * @return the visible item count
      */
     public int getVisibleItemCount() {
@@ -586,7 +587,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Determines whether an individual list item is selected.
-     * 
+     *
      * @param index
      *            the index of the item to be tested
      * @return <code>true</code> if the item is selected
@@ -616,7 +617,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Returns all selected values of the list box, or empty array if none.
-     * 
+     *
      * @return the selected values of the list box
      */
     public String[] getItemsSelected() {
@@ -631,7 +632,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Sets the currently selected value.
-     * 
+     *
      * After calling this method, only the specified item in the list will
      * remain selected. For a ListBox with multiple selection enabled, see
      * {@link #setValueSelected(String, boolean)} to select multiple items at a
@@ -649,7 +650,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Gets the index of the specified value.
-     * 
+     *
      * @param value
      *            the value of the item to be found
      * @return the index of the value
@@ -667,7 +668,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
     /**
      * Sets whether an individual list value is selected.
-     * 
+     *
      * @param value
      *            the value of the item to be selected or unselected
      * @param selected
@@ -683,7 +684,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     /**
      * Removes a value from the list box. Nothing is done if the value isn't on
      * the list box.
-     * 
+     *
      * @param value
      *            the value to be removed from the list
      */
