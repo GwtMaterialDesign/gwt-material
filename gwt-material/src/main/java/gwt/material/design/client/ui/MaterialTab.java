@@ -120,6 +120,10 @@ public class MaterialTab extends UnorderedList {
     private native void initialize(Element e) /*-{
         $wnd.jQuery(document).ready(function(){
             $wnd.jQuery(e).tabs();
+            for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++){
+                $wnd.jQuery(e).find('.indicator').eq(i).remove()
+            }
+
         });
     }-*/;
 
