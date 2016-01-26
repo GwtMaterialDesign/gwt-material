@@ -43,12 +43,13 @@ public class MaterialWeather extends MaterialPanel {
 
     private String location;
     private String color;
+    private String name;
 
     @Override
     protected void onLoad() {
         super.onLoad();
 
-        String name = "weatherContainer";
+        this.name = "weatherContainer";
         this.addStyleName(name);
         this.getElement().setId("weatherContainer");
         showWeather(location, name, color);
@@ -60,6 +61,7 @@ public class MaterialWeather extends MaterialPanel {
 
     public void setLocation(String location) {
         this.location = location;
+        showWeather(location, name, color);
     }
 
     public String getColor() {

@@ -78,8 +78,30 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     private MaterialLabel lblName = new MaterialLabel();
     @Ignore
     protected ValueBoxBase<T> valueBoxBase;
+    private ValueBoxEditor<T> editor;
     private MaterialIcon icon = new MaterialIcon();
     private CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
+
+    public class MaterialValueBoxEditor<T> extends ValueBoxEditor<T>{
+
+        private final ValueBoxBase<T> valueBoxBase;
+
+        private MaterialValueBoxEditor(ValueBoxBase<T> valueBoxBase){
+            super(valueBoxBase);
+            this.valueBoxBase=valueBoxBase;
+        }
+
+
+        @Override
+        public void setValue(T value) {
+            super.setValue(value);
+            if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
+                label.addStyleName("active");
+            }else
+                label.removeStyleName("active");
+        }
+
+    }
 
     private final ErrorMixin<MaterialValueBox<T>, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
 
@@ -228,7 +250,10 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public ValueBoxEditor<T> asEditor() {
-        return valueBoxBase.asEditor();
+        if (editor == null) {
+            editor = new MaterialValueBoxEditor(valueBoxBase);
+        }
+        return editor;
     }
 
     @Override
