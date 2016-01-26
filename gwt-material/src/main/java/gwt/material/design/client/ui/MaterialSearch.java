@@ -31,6 +31,7 @@ import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.events.SearchFinishEvent;
+import gwt.material.design.client.events.SearchNoResultEvent;
 import gwt.material.design.client.ui.html.Label;
 
 import java.util.ArrayList;
@@ -169,6 +170,11 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     reset(selLink.getText());
                 }
 
+                // Fire an event if theres no search result
+                if(searchResult.getWidgetCount() == 0){
+                    SearchNoResultEvent.fire(MaterialSearch.this);
+                }
+
                 // Selection logic using key down event to navigate the search results
                 int totalItems = searchResult.getWidgetCount();
                 if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN){
@@ -195,7 +201,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
             // Resets the search result panel
             private void reset(String keyword){
-                SearchFinishEvent.fire(MaterialSearch.this);
+                SearchNoResultEvent.fire(MaterialSearch.this);
                 curSel = -1;
                 setText(keyword);
                 searchResult.clear();
@@ -279,6 +285,13 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
      */
     public HandlerRegistration addSearchFinishHandler(SearchFinishEvent.SearchFinishHandler handler) {
         return addHandler(handler, SearchFinishEvent.TYPE);
+    }
+
+    /**
+     * This handler will be triggered when there's no search result
+     */
+    public HandlerRegistration addSearchNoResultHandler(SearchNoResultEvent.SearchNoResultHandler handler) {
+        return addHandler(handler, SearchNoResultEvent.TYPE);
     }
 }
 
