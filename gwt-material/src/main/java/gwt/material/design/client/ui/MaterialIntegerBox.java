@@ -22,22 +22,35 @@ package gwt.material.design.client.ui;
 
 //@formatter:off
 
-import com.google.gwt.user.client.ui.IntegerBox;
-
 /**
-* Material Integer Box is an input field that accepts any Integer based string from user.
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code <m:MaterialIntegerBox placeholder="Your integer" step=100/>}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material IntegerBox</a>
-* @author paulux84
-*/
-//@formatter:on
+ * Material Integer Box is an input field that accepts any Integer based string
+ * from user. <h3>UiBinder Usage:</h3>
+ * 
+ * <pre>
+ * {@code <m:MaterialIntegerBox placeholder="Your integer" step=100/>}
+ * </pre>
+ * 
+ * The parsing and formatting of the number are done natively by the browser,
+ * using the i18n settings from the user.
+ * 
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material
+ *      IntegerBox</a>
+ * @author paulux84
+ */
+// @formatter:on
 public class MaterialIntegerBox extends MaterialNumberBox<Integer> {
 
     public MaterialIntegerBox() {
-        super(new IntegerBox());
+        setStep("1");
+    }
+
+    @Override
+    public Integer getValue() {
+        double number = getValueAsNumber();
+        if (Double.isNaN(number)) {
+            return null;
+        }
+        return (int) Math.rint(number);
     }
 
 }
