@@ -348,7 +348,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void initialize(boolean strict) {
         if(activator == null) {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
-            if (activator != null && activator.getClassName().contains("button-collapse")) {
+            if (activator != null) {
                 SideNavType type = getType();
                 processType(type);
 
