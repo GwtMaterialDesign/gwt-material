@@ -19,7 +19,7 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>1.5</version>
+    <version>1.5-SNAPSHOT</version>
 </dependency>
 ```
 
