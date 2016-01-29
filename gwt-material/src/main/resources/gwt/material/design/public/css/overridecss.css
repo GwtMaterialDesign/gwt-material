@@ -918,6 +918,8 @@ footer.fixed{
 	background-color: #fff;
 	max-height: 500px;
 	overflow: auto;
+	z-index: 995;
+	position: relative;
 }
 .search-result a{
 	display: block;
@@ -932,4 +934,13 @@ footer.fixed{
 }
 .input-field input[type=search] {
 	margin-bottom: 0px;
+}
+.search-result a img{
+	width: 52px;
+	margin-top: 5px;
+	float: left;
+	border-radius: 100%;
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	height: 52px;
 }
