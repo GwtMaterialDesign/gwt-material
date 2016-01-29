@@ -139,8 +139,26 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     MaterialLink link = new MaterialLink();
                     link.setIconColor("grey");
                     link.setTextColor("black");
-                    link.setIconType(obj.getIcon());
-                    link.setHref(obj.getLink());
+                    // Generate an icon
+                    if(obj.getIcon()!=null) {
+                        link.setIconType(obj.getIcon());
+                    }
+
+                    // Generate an image
+                    MaterialImage image = new MaterialImage();
+                    if(obj.getResource() != null){
+                        image.setResource(obj.getResource());
+                        link.insert(image, 0);
+                    }
+
+                    if(obj.getImageUrl() != null){
+                        image.setUrl(obj.getImageUrl());
+                        link.insert(image, 0);
+                    }
+
+                    if(!obj.getLink().isEmpty()) {
+                        link.setHref(obj.getLink());
+                    }
                     link.setText(obj.getKeyword());
                     link.addClickHandler(new ClickHandler() {
                         @Override
@@ -166,7 +184,9 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     }
 
                     MaterialLink selLink = getSelectedLink();
-                    locateSearch(selLink.getHref());
+                    if(!selLink.getHref().isEmpty()) {
+                        locateSearch(selLink.getHref());
+                    }
                     reset(selLink.getText());
                 }
 
@@ -201,7 +221,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
             // Resets the search result panel
             private void reset(String keyword){
-                SearchNoResultEvent.fire(MaterialSearch.this);
+                SearchFinishEvent.fire(MaterialSearch.this);
                 curSel = -1;
                 setText(keyword);
                 searchResult.clear();

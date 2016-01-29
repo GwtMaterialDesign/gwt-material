@@ -20,6 +20,7 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import com.google.gwt.resources.client.ImageResource;
 import gwt.material.design.client.constants.IconType;
 
 import java.io.Serializable;
@@ -29,6 +30,8 @@ import java.io.Serializable;
  */
 public class SearchObject implements Serializable {
 
+    private ImageResource resource;
+    private String imageUrl;
     private IconType icon;
     private String keyword;
     private String link = "";
@@ -78,6 +81,50 @@ public class SearchObject implements Serializable {
         this.keyword = keyword;
     }
 
+    /**
+     * Search result with image resource component and link
+     * @param resource
+     * @param keyword
+     * @param link
+     */
+    public SearchObject(ImageResource resource, String keyword, String link) {
+        this.resource = resource;
+        this.keyword = keyword;
+        this.link = link;
+    }
+
+    /**
+     * Search result with image resource without link , you may require to use Search Finish callback to apply your search
+     * @param resource
+     * @param keyword
+     */
+    public SearchObject(ImageResource resource, String keyword) {
+        this.resource = resource;
+        this.keyword = keyword;
+    }
+
+    /**
+     * Search result with image url component and link
+     * @param imageUrl
+     * @param keyword
+     * @param link
+     */
+    public SearchObject(String imageUrl, String keyword, String link) {
+        this.imageUrl = imageUrl;
+        this.keyword = keyword;
+        this.link = link;
+    }
+
+    /**
+     * Search result with image url without link , you may require to use Search Finish callback to apply your search
+     * @param imageUrl
+     * @param keyword
+     */
+    public SearchObject(String imageUrl, String keyword) {
+        this.imageUrl = imageUrl;
+        this.keyword = keyword;
+    }
+
     public String getKeyword() {
         return keyword;
     }
@@ -108,5 +155,21 @@ public class SearchObject implements Serializable {
 
     public void setIcon(IconType icon) {
         this.icon = icon;
+    }
+
+    public ImageResource getResource() {
+        return resource;
+    }
+
+    public void setResource(ImageResource resource) {
+        this.resource = resource;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

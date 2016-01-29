@@ -15,6 +15,15 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
+### Current Version 1.4.1
+```xml
+<dependency>
+    <groupId>com.github.gwtmaterialdesign</groupId>
+    <artifactId>gwt-material</artifactId>
+    <version>1.4.1</version>
+</dependency>
+```
+### Snapshot Version 1.5-SNAPSHOT
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
