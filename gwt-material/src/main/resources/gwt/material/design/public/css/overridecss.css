@@ -590,6 +590,7 @@ i[class*="waves-"].material-icons {
 	width: initial;
 	height: auto;
 	text-align: center;
+	padding: 4px;
 }
 
 /** Loader */
