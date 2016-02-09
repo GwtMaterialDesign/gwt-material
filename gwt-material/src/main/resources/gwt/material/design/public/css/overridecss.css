@@ -845,3 +845,8 @@ footer.fixed{
 .horizontal .card-image {
 	padding: 0;
 }
+/** Fixed the anchor disabled style **/
+a.disabled.grey {
+	background: white !important;
+	color: #e0e0e0 !important;
+}
