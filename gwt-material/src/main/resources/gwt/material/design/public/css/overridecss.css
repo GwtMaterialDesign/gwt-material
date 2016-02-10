@@ -850,3 +850,10 @@ a.disabled.grey {
 	background: white !important;
 	color: #e0e0e0 !important;
 }
+/** Fixed for the size of list anchor item element on SideNav Card type **/
+.side-nav.card a {
+	line-height: 40px;
+}
+.side-nav.card i{
+	font-size: 1.2em !important;
+}
