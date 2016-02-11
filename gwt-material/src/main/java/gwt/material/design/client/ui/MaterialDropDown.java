@@ -32,9 +32,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.WidgetCollection;
 import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.ui.html.ListItem;
@@ -204,6 +202,21 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
                     SelectionEvent.fire(MaterialDropDown.this, child);
                 }
             }, ClickEvent.getType());
+
+            // Checks if there are sub dropdown components
+            if(child instanceof MaterialLink){
+                MaterialLink link = (MaterialLink) child;
+                for(int i = 0; i < link.getWidgetCount(); i++){
+                    if(link.getWidget(i) instanceof MaterialDropDown){
+                        link.addClickHandler(new ClickHandler() {
+                            @Override
+                            public void onClick(ClickEvent event) {
+                                event.stopPropagation();
+                            }
+                        });
+                    }
+                }
+            }
 
             if(child instanceof HasWaves) {
                 li.setWaves(((HasWaves) child).getWaves());
