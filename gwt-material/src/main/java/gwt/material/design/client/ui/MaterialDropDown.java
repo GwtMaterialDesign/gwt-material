@@ -22,15 +22,26 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.WidgetCollection;
 import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //@formatter:off
 
@@ -53,7 +64,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
  */
 //@formatter:on
-public class MaterialDropDown extends UnorderedList {
+public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget>{
 
     private String activator;
     private Element activatorElem;
@@ -66,6 +77,7 @@ public class MaterialDropDown extends UnorderedList {
     private boolean belowOrigin = false;
     private int gutter = 0;
     private String alignment = Alignment.LEFT.getCssName();
+    private List<Widget> children = new ArrayList<>();
 
     public MaterialDropDown() {
         setStyleName("dropdown-content");
@@ -179,12 +191,20 @@ public class MaterialDropDown extends UnorderedList {
     }
 
     @Override
-    public void add(Widget child) {
+    public void add(final Widget child) {
         if(child instanceof ListItem) {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             add(child, (Element) getElement());
         } else {
             ListItem li = new ListItem(child);
+            children.add(child);
+            child.addDomHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent event) {
+                    SelectionEvent.fire(MaterialDropDown.this, child);
+                }
+            }, ClickEvent.getType());
+
             if(child instanceof HasWaves) {
                 li.setWaves(((HasWaves) child).getWaves());
                 ((HasWaves) child).setWaves(null);
@@ -234,4 +254,13 @@ public class MaterialDropDown extends UnorderedList {
     private native void remove(Element activator)/*-{
         $wnd.jQuery(activator).dropdown("remove");
     }-*/;
+
+    @Override
+    public HandlerRegistration addSelectionHandler(SelectionHandler<Widget> handler) {
+        return addHandler(handler, SelectionEvent.getType());
+    }
+
+    public List<Widget> getItems() {
+        return children;
+    }
 }
