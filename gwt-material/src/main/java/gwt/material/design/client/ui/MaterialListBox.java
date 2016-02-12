@@ -695,5 +695,9 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
         }
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        listBox.setEnabled(enabled);
+    }
 }
 
