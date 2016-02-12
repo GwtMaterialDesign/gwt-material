@@ -52,6 +52,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private FlexboxMixin<MaterialWidget> flexboxMixin;
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, Style.FontWeight> fontWeightMixin;
+    private ToggleStyleMixin<MaterialWidget> truncateMixin;
 
     public MaterialWidget() {
     }
@@ -173,6 +174,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private CssNameMixin<MaterialWidget, Style.FontWeight> getFontWeightMixin() {
         if(fontWeightMixin == null) { fontWeightMixin = new CssNameMixin<>(this); }
         return fontWeightMixin;
+    }
+
+    public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
+        if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, "truncate"); }
+        return truncateMixin;
     }
 
     @Override
@@ -642,5 +648,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public boolean remove(IsWidget child) {
         return super.remove(child);
+    }
+
+    /** If true the label inside this component will be truncated by ellipsis **/
+    public void setTruncate(boolean truncate){
+        getTruncateMixin().setOn(truncate);
     }
 }
