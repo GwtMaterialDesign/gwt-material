@@ -51,7 +51,6 @@ public class EnabledMixin<T extends UIObject & HasEnabled> extends AbstractMixin
     private void setEnabled(UIObject obj, boolean enabled) {
         if(enabled) {
             obj.removeStyleName("disabled");
-            obj.removeStyleName("grey lighten-2");
             obj.getElement().removeAttribute(DISABLED);
 
             if(uiObject instanceof HasWaves) {
@@ -62,7 +61,6 @@ public class EnabledMixin<T extends UIObject & HasEnabled> extends AbstractMixin
             }
         } else {
             obj.addStyleName("disabled");
-            obj.addStyleName("grey lighten-2");
             obj.getElement().setAttribute(DISABLED, "");
 
             if(uiObject instanceof HasWaves) {
