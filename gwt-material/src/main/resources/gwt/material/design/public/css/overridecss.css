@@ -26,6 +26,31 @@ button.btn-flat:focus {
 	background-color: inherit;
 }
 
+button.disabled, i.disabled {
+	background-color: #DFDFDF !important;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	color: #9F9F9F !important;
+	cursor: default;
+}
+
+i.disabled {
+	padding: 4px;
+}
+
+button.disabled:hover, i.disabled:hover {
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+}
+
+.disabled:hover {
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+}
+
 /** FAB **/
 .fixed-action-btn.active ul {
 	visibility: visible;
@@ -51,6 +76,11 @@ button.btn-flat:focus {
 	left: initial;
 	width: 500px;
 }
+
+ul li button.btn-floating {
+	opacity: 0;
+}
+
 
 /** Errors **/
 .field-error, .field-error-picker input {
@@ -92,7 +122,7 @@ button.btn-flat:focus {
 	right: 0 !important;
 	bottom: 0 !important;
 }
-/** Chips Experimental **/
+/** Chips **/
 .chip {
 	display: inline-block;
 	height: 32px;
@@ -398,11 +428,15 @@ nav ul a span.badge {
 	padding: 1rem 1rem;
 }
 
-ul li button.btn-floating {
-	opacity: 0;
-}
 .dropdown-content li > a, .dropdown-content li > span {
 	width: 100%;
+}
+
+ul.dropdown-content a.disabled{
+	color: #e9e9e9 !important;
+}
+ul.dropdown-content a.disabled:hover{
+	background: #fff !important;
 }
 
 div {
@@ -535,27 +569,6 @@ a:hover,a:visited {
 	margin-top: -150px !important;
 }
 
-button.disabled, i.disabled {
-	background-color: #DFDFDF !important;
-	box-shadow: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	color: #9F9F9F !important;
-	cursor: default;
-}
-
-button.disabled:hover, i.disabled:hover {
-	box-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	-moz-box-shadow: none !important;
-}
-
-.disabled:hover {
-	box-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	-moz-box-shadow: none !important;
-}
-
 /** Animations */
 .materialScaleInitial, .pullInitial{
 	transition: 0.5s all;
@@ -658,6 +671,10 @@ i[class*="waves-"].material-icons {
 	float: left;
 }
 
+ul.tabs .tab.disabled{
+	opacity: 0.5;
+}
+
 /** Collapsibles **/
 .collapsible-header  > i {
 	font-size: 1.4rem !important;
@@ -684,7 +701,7 @@ i[class*="waves-"].material-icons {
 }
 
 @media only screen and (max-width: 992px) {
-	.tab.tab-icon a span{
+	.tabs.tab-icon a span{
 		display: none !important;
 	}
 	.tab a i{
@@ -846,13 +863,3 @@ footer.fixed{
 	padding: 0;
 }
 
-/** Fixed the anchor disabled style **/
-a.disabled {
-	background: white !important;
-	color: #e0e0e0 !important;
-}
-
-/** Fixed the tab disabled property **/
-ul.tabs .tab.disabled a {
-	opacity: 0.5;
-}

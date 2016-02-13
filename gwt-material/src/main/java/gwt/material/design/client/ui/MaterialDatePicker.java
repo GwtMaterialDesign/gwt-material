@@ -403,4 +403,9 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         }
         this.format = format;
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        dateInput.setEnabled(enabled);
+    }
 }
