@@ -22,13 +22,11 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.Waves;
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.ui.MaterialToast;
 
 /**
  * @author Ben Dol
@@ -68,7 +66,6 @@ public class EnabledMixin<T extends UIObject & HasEnabled> extends AbstractMixin
 
     private void applyEnabledProperty(boolean enabled, UIObject obj) {
         if(enabled) {
-            MaterialToast.fireToast("Enabled");
             obj.removeStyleName("disabled");
             obj.getElement().removeAttribute(DISABLED);
 
