@@ -214,6 +214,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
                                 event.stopPropagation();
                             }
                         });
+                        link.stopTouchStartEvent();
                     }
                 }
             }

@@ -654,4 +654,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public void setTruncate(boolean truncate){
         getTruncateMixin().setOn(truncate);
     }
+
+    public void stopTouchStartEvent(){
+        stopTouchStartEvent(getElement());
+    }
+
+    // Avoid touch events on mobile devices
+    private native void stopTouchStartEvent(Element e) /*-{
+        $wnd.jQuery(e).bind('touchstart', function(event){
+            event.stopPropagation();
+        });
+    }-*/;
 }
