@@ -863,3 +863,7 @@ footer.fixed{
 	padding: 0;
 }
 
+/** Fixed the input label position **/
+.input-field label{
+	left: 0;
+}
