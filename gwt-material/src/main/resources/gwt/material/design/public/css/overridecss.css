@@ -867,3 +867,6 @@ footer.fixed{
 .input-field label{
 	left: 0;
 }
+.dropdown-content {
+	z-index: 995;
+}
