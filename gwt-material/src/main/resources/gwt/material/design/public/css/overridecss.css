@@ -868,5 +868,5 @@ footer.fixed{
 	left: 0;
 }
 .dropdown-content {
-	z-index: 995;
+	z-index: 995 !important;
 }
