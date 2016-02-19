@@ -21,6 +21,7 @@ package gwt.material.design.client.ui.html;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import gwt.material.design.client.base.MaterialWidget;
 
@@ -32,4 +33,13 @@ public class DateInput extends MaterialWidget {
         super(InputElement.as(Document.get().createTextInputElement()));
         getElement().setAttribute("type", "date");
     }
+
+    @Override
+    public void clear() {
+        clearDpValue(getElement());
+    }
+
+    private native void clearDpValue(Element e) /*-{
+        $wnd.jQuery(e).val('');
+    }-*/;
 }

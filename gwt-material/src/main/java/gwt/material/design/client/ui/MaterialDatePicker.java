@@ -134,6 +134,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
             clearErrorOrSuccess();
             label.removeStyleName("active");
             dateInput.removeStyleName("valid");
+            dateInput.clear();
         }
     }
 
