@@ -24,15 +24,18 @@ package gwt.material.design.client.ui;
 
 /**
  * Material Integer Box is an input field that accepts any Double based string
- * from user. <h3>UiBinder Usage:</h3>
- * 
+ * from user.
+ *
+ * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code <m:MaterialIntegerBox placeholder="Your doble" step=100/>}
+ * {@code
+ * <m:MaterialIntegerBox placeholder="Your doble" step=100/>
+ * }
  * </pre>
- * 
+ *
  * The parsing and formatting of the number are done natively by the browser,
  * using the i18n settings from the user.
- * 
+ *
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material
  *      DoubleBox</a>
  * @author paulux84

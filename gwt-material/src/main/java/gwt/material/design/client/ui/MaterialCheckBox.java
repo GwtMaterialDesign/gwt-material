@@ -36,12 +36,13 @@ import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.CheckBoxType;
 
 //@formatter:off
-
 /**
- * Checkbox component provides two types
- * - FILLED
- * - INTERMEDIATE
- * <p>
+ * Checkbox component provides two types:
+ * <ul>
+ *     <li>FILLED</li>
+ *     <li>INTERMEDIATE</li>
+ * </ul>
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
@@ -52,7 +53,6 @@ import gwt.material.design.client.constants.CheckBoxType;
  * <m:MaterialCheckBox text="Option 1" type="FILLED"/>
  * }
  * </pre>
- * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol

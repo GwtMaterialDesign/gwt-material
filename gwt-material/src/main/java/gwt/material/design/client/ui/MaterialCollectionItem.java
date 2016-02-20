@@ -36,9 +36,9 @@ import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
 
 //@formatter:off
-
 /**
  * Collection element to define every items
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>

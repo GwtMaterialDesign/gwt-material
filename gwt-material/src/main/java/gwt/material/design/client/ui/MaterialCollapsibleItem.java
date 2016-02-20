@@ -35,11 +35,12 @@ import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 //@formatter:off
 
 /**
-* Collapsible element to define every items
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
-*/
+ * Collapsible element to define every items
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+ */
 //@formatter:on
 public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent, HasProgress {
 

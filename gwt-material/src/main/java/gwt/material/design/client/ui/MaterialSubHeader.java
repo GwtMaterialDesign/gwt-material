@@ -33,14 +33,14 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:off
 
 /**
- * Subheaders are special list tiles that delineate distinct sections of a list or grid
- * list and are typically related to the current filtering or sorting criteria. Subheader
- * tiles are either displayed inline with tiles or can be associated with content, for
+ * Sub-headers are special list tiles that delineate distinct sections of a list or grid
+ * list and are typically related to the current filtering or sorting criteria. Sub-header
+ * tiles are either displayed in-line with tiles or can be associated with content, for
  * example, in an adjacent column.
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
+ * {@code
  * <m:MaterialSubHeader text="Unread Messages" textColor="purple"/>
  * }
  * </pre>

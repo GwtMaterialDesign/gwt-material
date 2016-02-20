@@ -32,14 +32,12 @@ import com.google.gwt.dom.client.Style.Unit;
 /**
  * Title is a component that will easily add Title and description widgets
  *
- * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
  * <m:MaterialTitle title="I love Material Design" description="This is sample description" />
  * }
  * </pre>
- * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol

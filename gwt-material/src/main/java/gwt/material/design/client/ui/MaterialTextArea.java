@@ -25,13 +25,16 @@ import com.google.gwt.user.client.ui.TextArea;
 import gwt.material.design.client.constants.InputType;
 
 //@formatter:off
-
 /**
  * Material Text Area represents a multiple line textbox where users can define comment, detail and etc.
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialTextArea placeholder="Your Comment" />
+ * {@code
+ * <m:MaterialTextArea placeholder="Your Comment" />
+ * }
  * </pre>
+ *
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextArea</a>
  * @author kevzlou7979
  * @author Ben Dol
@@ -40,13 +43,11 @@ import gwt.material.design.client.constants.InputType;
 //@formatter:on
 public class MaterialTextArea extends MaterialValueBox<String> {
 
-
     public MaterialTextArea() {
         super(new TextArea());
         setType(InputType.TEXT);
         valueBoxBase.setStyleName("materialize-textarea");
     }
-
 
     //OLD MaterialTextArea method
 //    @Override
@@ -54,7 +55,6 @@ public class MaterialTextArea extends MaterialValueBox<String> {
 //        super.onLoad();
 //        label.getElement().setAttribute("for", "field");
 //    }
-
 
     @Override
     public void setValue(String value, boolean fireEvents) {
@@ -64,6 +64,4 @@ public class MaterialTextArea extends MaterialValueBox<String> {
             ValueChangeEvent.fire(this, value);
         }
     }
-
-
 }

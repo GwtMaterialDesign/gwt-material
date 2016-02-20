@@ -26,19 +26,19 @@ import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
-
 /**
-* Material Progress indicator to define intermediate and determinate progress bars
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* <m:MaterialProgress />
-}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
-* @author kevzlou7979
-*/
+ * Material Progress indicator to define intermediate and determinate progress bars
+ * <h3>UiBinder Usage:</h3>
+ *
+ * <pre>
+ * {@code
+ * <m:MaterialProgress />
+ * }
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
+ * @author kevzlou7979
+ */
+//@formatter:on
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     private Div div = new Div();

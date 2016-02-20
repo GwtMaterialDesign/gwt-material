@@ -25,26 +25,27 @@ import gwt.material.design.client.base.HasWaves;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasVisibility;
 import gwt.material.design.client.base.MaterialWidget;
+
 //@formatter:off
 /**
-* MaterialColumn is panel that act as a fluid panel to easily sets your desired column.We are using 12 grid layout with screens small, medium and large.
-* Just set grid='s12 m12 l12' to define your grid layout values.
-* 
-* <p>
-* <h4>UiBinder Usage:</h4>
-* <pre>
-* {@code
-* <m:MaterialColumn grid='s12 m6 l4'/>
-*     Small Device - 12 grid
-*     Medium Device - 6 grid
-*     Large Device - 4 grid
-* }
-* </pre>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
-*/
+ * MaterialColumn is panel that act as a fluid panel to easily sets your desired column.We are using 12 grid layout with screens small, medium and large.
+ * Just set grid='s12 m12 l12' to define your grid layout values.
+ *
+ * <p>
+ * <h4>UiBinder Usage:</h4>
+ * <pre>
+ * {@code
+ * <m:MaterialColumn grid='s12 m6 l4'/>
+ *     Small Device - 12 grid
+ *     Medium Device - 6 grid
+ *     Large Device - 4 grid
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+ */
 //@formatter:on
 public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisibility {
 

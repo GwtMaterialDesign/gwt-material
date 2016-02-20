@@ -60,7 +60,8 @@ import com.google.gwt.user.client.ui.Image;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code// Simple Chips
+ * {@code
+ * // Simple Chips
  * <m:MaterialChip text="Default" iconType="close"/>
  *
  * // Static Chip

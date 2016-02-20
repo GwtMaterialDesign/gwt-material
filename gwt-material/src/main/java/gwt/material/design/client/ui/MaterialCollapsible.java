@@ -33,7 +33,6 @@ import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 
 //@formatter:off
-
 /**
  * Collapsibles are accordion elements that expand when clicked on.
  * They allow you to hide content that is not immediately relevant
@@ -42,7 +41,7 @@ import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
  * <h3>UiBinder Usage:</h3>
  *
  * <pre>
- *{@code
+ * {@code
  * // Accordion
  * <m:MaterialCollapsible type="ACCORDION" grid="s12 m6 l8">
  *   <!-- ITEM 1 -->

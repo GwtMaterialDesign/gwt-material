@@ -31,10 +31,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
- *
  * <p>Material NavSection is a child of MaterialNavBar that will contain toolbar items such as link, icon and other components
- * <h3>UiBinder Usage:</h3>
  *
+ * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
  * <m:MaterialNavSection align="RIGHT">
@@ -45,7 +44,6 @@ import com.google.gwt.user.client.ui.Widget;
  * </m:MaterialNavSection>
  * }
  * </pre>
- * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol

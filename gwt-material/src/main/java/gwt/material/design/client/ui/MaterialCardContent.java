@@ -26,11 +26,12 @@ import com.google.gwt.dom.client.Document;
 
 //@formatter:off
 /**
-* Card Element for contents. 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
-*/
+ * Card Element for contents.
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
+ */
 //@formatter:on
 public class MaterialCardContent extends MaterialWidget {
 

@@ -24,15 +24,16 @@ import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
-
 /**
  * Cards are a convenient means of displaying content composed of different types
  * of objects. They’re also well-suited for presenting similar objects whose size
  * or supported actions can vary considerably, like photos with captions of variable
  * length.
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<!-- Basic Card -->
+ * {@code
+ * <!-- Basic Card -->
  * <m:MaterialCard backgroundColor="blue-grey darken-1" grid="l3">
  *   <m:MaterialCardContent textColor="white">
  *     <m:MaterialCardTitle text="Sample" iconType="POLYMER" iconPosition="RIGHT"/>
@@ -80,7 +81,8 @@ import gwt.material.design.client.base.MaterialWidget;
  *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
  *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
  *   </m:MaterialCardAction>
- * </m:MaterialCard>}
+ * </m:MaterialCard>
+ * }
  * </pre>
  *
  * @author kevzlou7979

@@ -24,12 +24,12 @@ import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
 /**
-* Material Slide Item is a child component of Material Slide that contains Image and Material Slide Caption components
-*
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
-*/
+ * Material Slide Item is a child component of Material Slide that contains Image and Material Slide Caption components
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Slide</a>
+ */
 //@formatter:on
 public class MaterialSlideItem extends ListItem {
 

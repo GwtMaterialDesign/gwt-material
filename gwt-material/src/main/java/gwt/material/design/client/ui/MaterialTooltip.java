@@ -36,13 +36,16 @@ import gwt.material.design.client.base.HasPosition;
 
 /**
  * Basic implementation for the Material Design tooltip.
+ *
  * <h3>UiBinder Example</h3>
  * <pre>
- *{@code<m:MaterialTooltip text="...">
- *    ...
+ * {@code
+ * <m:MaterialTooltip text="...">
+ *     ...
  * </b:MaterialTooltip>
- *}
+ * }
  * </pre>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  */

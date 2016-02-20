@@ -94,14 +94,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 
 //@formatter:off
-
 /**
- * Material Text Box is an input field that accepts any text based string from user.
- * <h3>UiBinder Usage:</h3>
- * <pre>
- *{@code <m:MaterialTextBox placeholder="First Name" />}
- * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84
@@ -179,6 +172,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     /**
      * Resets the textbox by removing its content and resetting visual state.
      */
+    @Override
     public void clear() {
         valueBoxBase.setText("");
         clearErrorOrSuccess();
@@ -284,7 +278,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public ValueBoxEditor<T> asEditor() {
         if (editor == null) {
-            editor = new MaterialValueBoxEditor(valueBoxBase);
+            editor = new MaterialValueBoxEditor<>(valueBoxBase);
         }
         return editor;
     }
@@ -539,6 +533,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         return valueBoxBase;
     }
 
+    @Override
     public void showErrors(List<EditorError> errors) {
         if(errors == null || errors.isEmpty()) {
             setSuccess("");

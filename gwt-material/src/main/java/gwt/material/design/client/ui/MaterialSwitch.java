@@ -39,18 +39,19 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:off
 
 /**
-* Material Switch or other call it toggle - used for an alternative for checkbox
-*
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code<m:MaterialSwitch value="true"/>
-*<m:MaterialSwitch value="true" disabled="true"/>
-* }
-* </pre>
+ * Material Switch or other call it toggle - used for an alternative for checkbox
  *
-* @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Switch</a>
-*/
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialSwitch value="true"/>
+ * <m:MaterialSwitch value="true" disabled="true"/>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Switch</a>
+ */
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
 

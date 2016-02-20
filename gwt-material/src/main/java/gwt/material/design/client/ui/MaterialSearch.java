@@ -40,9 +40,8 @@ import java.util.List;
 //@formatter:off
 
 /**
- * Material Search is a value box component that returs a result based on your search
+ * Material Search is a value box component that returns a result based on your search
  *
- * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
@@ -51,20 +50,17 @@ import java.util.List;
  * </pre>
  *
  * <h3>Populating the search result objects</h3>
- * {@code
- *
+ * <pre>
  * List<SearchObject> objects = new ArrayList<>();
  *
- * private void onInitSearch(){
- *   objects.add(new SearchObject(IconType.POLYMER, "Pushpin", "#!pushpin"));
- *   objects.add(new SearchObject(IconType.POLYMER, "SideNavs", "#!sidenavs"));
- *   objects.add(new SearchObject(IconType.POLYMER, "Scrollspy", "#!scrollspy"));
- *   objects.add(new SearchObject(IconType.POLYMER, "Tabs", "#!tabs"));
- *   txtSearch.setListSearches(objects);
+ * private void onInitSearch() {
+ *    objects.add(new SearchObject(IconType.POLYMER, "Pushpin", "#!pushpin"));
+ *    objects.add(new SearchObject(IconType.POLYMER, "SideNavs", "#!sidenavs"));
+ *    objects.add(new SearchObject(IconType.POLYMER, "Scrollspy", "#!scrollspy"));
+ *    objects.add(new SearchObject(IconType.POLYMER, "Tabs", "#!tabs"));
+ *    txtSearch.setListSearches(objects);
  * }
- *
- * }
- * </p>
+ * </pre>
  *
  * @author kevzlou7979
  * @author Ben Dol

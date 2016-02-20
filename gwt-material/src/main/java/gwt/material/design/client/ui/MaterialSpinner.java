@@ -28,18 +28,18 @@ import com.google.gwt.dom.client.Document;
 
 //@formatter:off
 /**
-* Material Spinner , is a circular loader for gwt material apps
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* <m:MaterialSpinner color="red" />
-}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
-* @author kevzlou7979
-* @author Ben Dol
-*/
+ * Material Spinner is a circular loader for gwt material apps
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialSpinner color="red" />
+ * }
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
 //@formatter:on
 public class MaterialSpinner extends MaterialWidget {
 
