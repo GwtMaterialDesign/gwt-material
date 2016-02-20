@@ -92,6 +92,7 @@ import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.ValueBoxBase;
+import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 
 //@formatter:off
 
@@ -577,5 +578,33 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public void setTabIndex(int tabIndex) {
         valueBoxBase.setTabIndex(tabIndex);
+    }
+
+    public String getSelectedText() {
+        return valueBoxBase.getSelectedText();
+    }
+
+    public int getSelectionLength() {
+        return valueBoxBase.getSelectionLength();
+    }
+
+    public boolean isReadOnly() {
+        return valueBoxBase.isReadOnly();
+    }
+
+    public void setCursorPos(int pos) {
+        valueBoxBase.setCursorPos(pos);
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        valueBoxBase.setReadOnly(readOnly);
+    }
+
+    public void setSelectionRange(int pos, int length) {
+        valueBoxBase.setSelectionRange(pos, length);
+    }
+
+    public void setAlignment(TextAlignment align) {
+        valueBoxBase.setAlignment(align);
     }
 }
