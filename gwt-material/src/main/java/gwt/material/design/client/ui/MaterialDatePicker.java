@@ -273,8 +273,11 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         picker.pickadate('picker').set('select', date, { muted: true });
     }-*/;
 
+    /**
+     * Same as calling {@link #getValue()}
+     */
     public Date getDate() {
-        return getDate();
+        return getPickerDate();
     }
 
     protected Date getPickerDate() {
