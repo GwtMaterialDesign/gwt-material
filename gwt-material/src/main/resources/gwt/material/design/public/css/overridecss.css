@@ -360,7 +360,8 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 
 @media only screen and (max-width : 992px) {
 	header,main,footer {
-		padding: 0 !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
 	}
 	.side-nav.clip {
 		top: 50px;
