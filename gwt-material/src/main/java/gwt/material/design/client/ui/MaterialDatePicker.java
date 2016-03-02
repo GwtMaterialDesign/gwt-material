@@ -428,4 +428,9 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     public HandlerRegistration addOpenHandler(OpenHandler<MaterialDatePicker> handler) {
         return addHandler(handler, OpenEvent.getType());
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        dateInput.setEnabled(enabled);
+    }
 }
