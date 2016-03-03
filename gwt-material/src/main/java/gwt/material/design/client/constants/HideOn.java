@@ -32,7 +32,8 @@ public enum HideOn implements CssType {
     HIDE_ON_MED("hide-on-med-only"),
     HIDE_ON_MED_DOWN("hide-on-med-and-down"),
     HIDE_ON_MED_UP("hide-on-med-and-up"),
-    HIDE_ON_LARGE("hide-on-large-only");
+    HIDE_ON_LARGE("hide-on-large-only"),
+    NONE("");
 
     private final String cssClass;
 
