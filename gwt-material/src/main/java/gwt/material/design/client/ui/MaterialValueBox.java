@@ -537,6 +537,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
         valueBoxBase.setEnabled(enabled);
     }
 }
