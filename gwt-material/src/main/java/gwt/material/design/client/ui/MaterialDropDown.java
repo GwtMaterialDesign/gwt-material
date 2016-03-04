@@ -190,7 +190,8 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
 
     @Override
     public void add(final Widget child) {
-        if(child instanceof ListItem) {
+        String tagName = child.getElement().getTagName();
+        if(child instanceof ListItem || tagName.toLowerCase().startsWith("li")) {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             add(child, (Element) getElement());
         } else {
