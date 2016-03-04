@@ -32,15 +32,9 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.annotations.IsSafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.ButtonBase;
-import com.google.gwt.user.client.ui.DirectionalTextHelper;
-import com.google.gwt.user.client.ui.HasDirectionalSafeHtml;
-import com.google.gwt.user.client.ui.HasName;
-import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.HasWordWrap;
+import com.google.gwt.user.client.ui.*;
 
 /**
  * A standard check box widget.
@@ -74,11 +68,11 @@ import com.google.gwt.user.client.ui.HasWordWrap;
  * </p>
  */
 public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolean>,
-    HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator,
-    IsEditor<LeafValueEditor<Boolean>> {
+        HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator,
+        IsEditor<LeafValueEditor<Boolean>> {
 
   public static final DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR =
-    DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
+          DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
 
   final DirectionalTextHelper directionalTextHelper;
   InputElement inputElem;
@@ -171,7 +165,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
    * @param label the check box's label
    * @param asHTML <code>true</code> to treat the specified label as html
    */
-  public BaseCheckBox(@IsSafeHtml String label, boolean asHTML) {
+  public BaseCheckBox(String label, boolean asHTML) {
     this();
     if (asHTML) {
       setHTML(label);
@@ -205,7 +199,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
 
   @Override
   public HandlerRegistration addValueChangeHandler(
-      ValueChangeHandler<Boolean> handler) {
+          ValueChangeHandler<Boolean> handler) {
     // Is this the first value change handler? If so, time to add handlers
     if (!valueChangeHandlerInitialized) {
       ensureDomEventHandlers();
@@ -230,7 +224,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
   /**
    * Returns the value property of the input element that backs this widget.
    * This is the value that will be associated with the CheckBox name and
-   * submitted to the server if a {@link com.google.gwt.user.client.ui.FormPanel} that holds it is submitted
+   * submitted to the server if a {@link FormPanel} that holds it is submitted
    * and the box is checked.
    * <p>
    * Don't confuse this with {@link #getValue}, which returns true or false if
@@ -242,7 +236,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
 
   @Override
   public String getHTML() {
-    return directionalTextHelper.getHtml();
+    return directionalTextHelper.getTextOrHtml(true);
   }
 
   @Override
@@ -257,7 +251,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
 
   @Override
   public String getText() {
-    return directionalTextHelper.getText();
+    return directionalTextHelper.getTextOrHtml(false);
   }
 
   @Override
@@ -369,7 +363,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
   /**
    * Set the value property on the input element that backs this widget. This is
    * the value that will be associated with the CheckBox's name and submitted to
-   * the server if a {@link com.google.gwt.user.client.ui.FormPanel} that holds it is submitted and the box is
+   * the server if a {@link FormPanel} that holds it is submitted and the box is
    * checked.
    * <p>
    * Don't confuse this with {@link #setValue}, which actually checks and
@@ -383,12 +377,12 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
 
   @Override
   public void setHTML(SafeHtml html, Direction dir) {
-    directionalTextHelper.setHtml(html, dir);
+    directionalTextHelper.setTextOrHtml(html.asString(), dir, true);
   }
 
   @Override
-  public void setHTML(@IsSafeHtml String html) {
-    directionalTextHelper.setHtml(html);
+  public void setHTML(String html) {
+    directionalTextHelper.setTextOrHtml(html, true);
   }
 
   @Override
@@ -409,12 +403,12 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
 
   @Override
   public void setText(String text) {
-    directionalTextHelper.setText(text);
+    directionalTextHelper.setTextOrHtml(text, false);
   }
 
   @Override
   public void setText(String text, Direction dir) {
-    directionalTextHelper.setText(text, dir);
+    directionalTextHelper.setTextOrHtml(text, dir, false);
   }
 
   /**
@@ -471,7 +465,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
   public void sinkEvents(int eventBitsToAdd) {
     if (isOrWasAttached()) {
       Event.sinkEvents(inputElem, eventBitsToAdd
-          | Event.getEventsSunk(inputElem));
+              | Event.getEventsSunk(inputElem));
     } else {
       super.sinkEvents(eventBitsToAdd);
     }
@@ -495,7 +489,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
    * <li>-label = label next to checkbox.</li>
    * </ul>
    *
-   * @see com.google.gwt.user.client.ui.UIObject#onEnsureDebugId(String)
+   * @see UIObject#onEnsureDebugId(String)
    */
   @Override
   protected void onEnsureDebugId(String baseID) {
@@ -508,7 +502,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
   /**
    * This method is called when a widget is attached to the browser's document.
    * onAttach needs special handling for the CheckBox case. Must still call
-   * {@link com.google.gwt.user.client.ui.Widget#onAttach()} to preserve the <code>onAttach</code> contract.
+   * {@link Widget#onAttach()} to preserve the <code>onAttach</code> contract.
    */
   @Override
   protected void onLoad() {
@@ -531,7 +525,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
   /**
    * Replace the current input element with a new one. Preserves all state
    * except for the name property, for nasty reasons related to radio button
-   * grouping. (See implementation of {@link com.google.gwt.user.client.ui.RadioButton#setName}.)
+   * grouping. (See implementation of {@link RadioButton#setName}.)
    *
    * @param elem the new input element
    */
