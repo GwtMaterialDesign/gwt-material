@@ -51,3 +51,12 @@ Please follow the [contribution document](https://github.com/GwtMaterialDesign/g
 
 ##Follow Us
 <a href="https://plus.google.com/u/0/communities/108005250093449814286"> Google Plus</a>
+
+## R</li>elated Projects
+<ul>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-addins" >Addins 1.5.0</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-themes" >Themes 1.5.0</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-demo" >Demo 1.5.0</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-template" >Starter 1.0</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-patterns" >Patterns 1.0</a></li>
+</ul>
