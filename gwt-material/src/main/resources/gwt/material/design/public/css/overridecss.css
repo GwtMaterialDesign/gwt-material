@@ -871,3 +871,8 @@ footer.fixed{
 .dropdown-content {
 	z-index: 995 !important;
 }
+
+/** Fixed breadcrum child before pseudo **/
+.breadcrumb:nth-child(2):before {
+	display: none;
+}
