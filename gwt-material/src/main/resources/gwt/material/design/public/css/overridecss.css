@@ -872,7 +872,11 @@ footer.fixed{
 	z-index: 995 !important;
 }
 
-/** Fixed breadcrum child before pseudo **/
+/** Fixed breadcrumb **/
 .breadcrumb:nth-child(2):before {
 	display: none;
+}
+
+.breadcrumb i{
+	float: none !important;
 }
