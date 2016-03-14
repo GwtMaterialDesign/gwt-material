@@ -39,28 +39,33 @@ import com.google.gwt.user.client.ui.ValueBox;
  * 
  * @see MaterialNumberBox
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class NumberBox<T> extends ValueBox<T> {
-    
-    private static final NumberHandler HANDLER = new NumberHandler();
 
-    public NumberBox() {
-        //currently there's no way to create a <input type="number"> directly
-        super(Document.get().createTextInputElement(), HANDLER, HANDLER);
+    public NumberBox(NumberHandler handler) {
+        // currently there's no way to create a <input type="number"> directly
+        super(Document.get().createTextInputElement(), handler, handler);
     }
-    
-    protected static class NumberHandler<T> implements Renderer<T>, Parser<T> {
+
+    public static class NumberHandler<T> implements Renderer<T>, Parser<T> {
+
+        MaterialNumberBox<T> numberBox;
+
+        public NumberHandler(MaterialNumberBox<T> numberBox) {
+            this.numberBox = numberBox;
+        }
+
         /*
-         * Note: this method is NOT called by MaterialIntegerBox, MaterialFloatBox or MaterialDoubleBox, the parsing is done by the browser
+         * Note: This assumes that getValue() from the custom MaterialNumberBox was overridden to avoid using the parser.
          */
         @Override
         public T parse(CharSequence text) throws ParseException {
-            return null;
+            return numberBox.getValue();
         }
 
         @Override
         public String render(T object) {
-            if (object == null){
+            if(object == null) {
                 return "";
             }
             return object.toString();
