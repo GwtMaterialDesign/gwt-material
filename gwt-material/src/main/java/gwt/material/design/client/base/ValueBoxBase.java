@@ -23,16 +23,19 @@ package gwt.material.design.client.base;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.text.shared.Parser;
 import com.google.gwt.text.shared.Renderer;
+import com.google.gwt.user.client.ui.HasEnabled;
 import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.EnabledMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.IdMixin;
 
 public class ValueBoxBase<T> extends com.google.gwt.user.client.ui.ValueBoxBase<T> implements HasId, HasColors,
-        HasGrid, HasPlaceholder {
+        HasGrid, HasPlaceholder, HasEnabled {
 
     private final IdMixin<ValueBoxBase<T>> idMixin = new IdMixin<>(this);
     private final ColorsMixin<ValueBoxBase<T>> colorsMixin = new ColorsMixin<>(this);
     private final GridMixin<ValueBoxBase<T>> gridMixin = new GridMixin<>(this);
+    private final EnabledMixin<ValueBoxBase<T>> enabledMixin = new EnabledMixin<>(this);
 
     public ValueBoxBase(Element elem, Renderer<T> renderer, Parser<T> parser) {
         super(elem, renderer, parser);
@@ -86,5 +89,10 @@ public class ValueBoxBase<T> extends com.google.gwt.user.client.ui.ValueBoxBase<
     @Override
     public String getPlaceholder() {
         return getElement().getAttribute("placeholder");
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        enabledMixin.setEnabled(enabled);
     }
 }

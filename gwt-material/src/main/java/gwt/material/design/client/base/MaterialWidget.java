@@ -52,10 +52,8 @@ import gwt.material.design.client.constants.WavesType;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
+import java.util.Iterator;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
@@ -81,6 +79,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private FlexboxMixin<MaterialWidget> flexboxMixin;
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, Style.FontWeight> fontWeightMixin;
+    private ToggleStyleMixin<MaterialWidget> truncateMixin;
 
     public MaterialWidget() {
     }
@@ -202,6 +201,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private CssNameMixin<MaterialWidget, Style.FontWeight> getFontWeightMixin() {
         if(fontWeightMixin == null) { fontWeightMixin = new CssNameMixin<>(this); }
         return fontWeightMixin;
+    }
+
+    public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
+        if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, "truncate"); }
+        return truncateMixin;
     }
 
     @Override
@@ -617,4 +621,75 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public int getDepth() {
         return Integer.parseInt(getElement().getStyle().getZIndex());
     }
+
+    @Override
+    public void clear() {
+        super.clear();
+    }
+
+    @Override
+    protected void insert(Widget child, Element container, int beforeIndex, boolean domInsert) {
+        super.insert(child, container, beforeIndex, domInsert);
+    }
+
+    @Override
+    public Widget getWidget(int index) {
+        return super.getWidget(index);
+    }
+
+    @Override
+    public int getWidgetCount() {
+        return super.getWidgetCount();
+    }
+
+    @Override
+    public int getWidgetIndex(Widget child) {
+        return super.getWidgetIndex(child);
+    }
+
+    @Override
+    public int getWidgetIndex(IsWidget child) {
+        return super.getWidgetIndex(child);
+    }
+
+    @Override
+    public Iterator<Widget> iterator() {
+        return super.iterator();
+    }
+
+    @Override
+    public boolean remove(int index) {
+        return super.remove(index);
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        return super.remove(w);
+    }
+
+    @Override
+    public void add(IsWidget child) {
+        super.add(child);
+    }
+
+    @Override
+    public boolean remove(IsWidget child) {
+        return super.remove(child);
+    }
+
+    /** If true the label inside this component will be truncated by ellipsis **/
+    public void setTruncate(boolean truncate){
+        getTruncateMixin().setOn(truncate);
+    }
+
+    public void stopTouchStartEvent(){
+        stopTouchStartEvent(getElement());
+    }
+
+    // Avoid touch events on mobile devices
+    private native void stopTouchStartEvent(Element e) /*-{
+        $wnd.jQuery(e).bind('touchstart', function(event){
+            event.stopPropagation();
+        });
+    }-*/;
 }

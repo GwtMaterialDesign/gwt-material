@@ -21,16 +21,17 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.HasCaption;
+import gwt.material.design.client.base.HasImage;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.constants.ImageType;
-
-import com.google.gwt.user.client.ui.Image;
-import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
 
 //@formatter:off
 /**
@@ -54,10 +55,13 @@ import gwt.material.design.client.base.mixin.GridMixin;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
  */
 //@formatter:on
-public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage, HasClickHandlers, HasAllMouseHandlers {
+public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage, HasClickHandlers,
+        HasDoubleClickHandlers, HasAllMouseHandlers, HasLoadHandlers, HasErrorHandlers, HasAllDragAndDropHandlers,
+        HasAllGestureHandlers, HasAllTouchHandlers {
 
     private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
     private final ImageMixin<MaterialImage> imageMixin = new ImageMixin<>(this);
+
     /**
      * Creates an empty image.
      */
@@ -77,7 +81,23 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
      * Creates an image with Specific type.
      */
     public MaterialImage(String url, ImageType type) {
-        setUrl(url);
+        this(url);
+        setType(type);
+    }
+
+    /**
+     * Creates an image from an ImageResource.
+     */
+    public MaterialImage(ImageResource resource) {
+        this();
+        setResource(resource);
+    }
+
+    /**
+     * Creates an image from an ImageResource with Specific type.
+     */
+    public MaterialImage(ImageResource resource, ImageType type) {
+        this(resource);
         setType(type);
     }
 
@@ -135,6 +155,16 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
         return imageMixin.getResource();
     }
 
+    public int getWidth() {
+        ImageElement imageElement = getElement().cast();
+        return imageElement.getWidth();
+    }
+
+    public int getHeight() {
+        ImageElement imageElement = getElement().cast();
+        return imageElement.getHeight();
+    }
+
     @Override
     public HandlerRegistration addClickHandler(ClickHandler handler) {
         return addDomHandler(handler, ClickEvent.getType());
@@ -168,5 +198,91 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
         return addDomHandler(handler, MouseWheelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addLoadHandler(LoadHandler handler) {
+        return addDomHandler(handler, LoadEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addErrorHandler(ErrorHandler handler) {
+        return addDomHandler(handler, ErrorEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+        return addDomHandler(handler, DoubleClickEvent.getType());
+
+    }
+
+    @Override
+    public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+        return addBitlessDomHandler(handler, DragEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+        return addBitlessDomHandler(handler, DragEnterEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragHandler(DragHandler handler) {
+        return addBitlessDomHandler(handler, DragEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+        return addBitlessDomHandler(handler, DragLeaveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+        return addBitlessDomHandler(handler, DragOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+        return addBitlessDomHandler(handler, DragStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropHandler(DropHandler handler) {
+        return addBitlessDomHandler(handler, DropEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+        return addDomHandler(handler, GestureChangeEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+        return addDomHandler(handler, GestureEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+        return addDomHandler(handler, GestureStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+        return addDomHandler(handler, TouchCancelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+        return addDomHandler(handler, TouchEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+        return addDomHandler(handler, TouchMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+        return addDomHandler(handler, TouchStartEvent.getType());
     }
 }

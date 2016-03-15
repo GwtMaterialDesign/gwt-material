@@ -51,7 +51,7 @@ public class ImageMixin<T extends UIObject & HasImage> extends AbstractMixin<T> 
     @Override
     public void setResource(ImageResource resource) {
         this.resource = resource;
-        setUrl(resource.getURL());
+        setUrl(resource.getSafeUri().asString());
     }
 
     @Override

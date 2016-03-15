@@ -35,20 +35,20 @@ import gwt.material.design.client.constants.RadioButtonType;
 //@formatter:off
 
 /**
-* Material Radio button has two types 
-* - NO-GAP <br>
-* - GAP
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* <m:MaterialRadioButton text="Sample"/>
-* <m:MaterialRadioButton type="GAP"/>
+ * Material Radio button has two types
+ * - NO-GAP <br>
+ * - GAP
+ * <h3>UiBinder Usage:</h3>
+ *
+ * <pre>
+ * {@code
+ * <m:MaterialRadioButton text="Sample"/>
+ * <m:MaterialRadioButton type="GAP"/>
 }
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Radio Button</a>
-* @author kevzlou7979
-*/
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Radio Button</a>
+ * @author kevzlou7979
+ */
 public class MaterialRadioButton extends RadioButton implements HasGrid, HasType<RadioButtonType> {
 
     private CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> typeMixin;
@@ -56,11 +56,6 @@ public class MaterialRadioButton extends RadioButton implements HasGrid, HasType
 
     public MaterialRadioButton() {
         super("");
-
-        // Since the input element handles the type
-        // styles we need to override the mixin.
-        typeMixin = new CssTypeMixin<>(
-            new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
     }
 
     public MaterialRadioButton(String name, SafeHtml label, Direction dir) {
@@ -102,6 +97,9 @@ public class MaterialRadioButton extends RadioButton implements HasGrid, HasType
 
     @Override
     public void setType(RadioButtonType type) {
+        // Since the input element handles the type
+        // styles we need to override the mixin.
+        typeMixin = new CssTypeMixin<>(new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
         typeMixin.setType(type);
     }
 

@@ -22,8 +22,11 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
@@ -54,13 +57,16 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * @author Ben Dol
  */
 //@formatter:on
-public class MaterialTab extends UnorderedList {
+public class MaterialTab extends UnorderedList implements HasType<TabType> {
 
     private int tabIndex;
     private String indicatorColor;
 
     private MaterialWidget indicator;
     private ColorsMixin<MaterialWidget> indicatorColorMixin;
+    private String width;
+
+    private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialTab() {
         super();
@@ -120,6 +126,10 @@ public class MaterialTab extends UnorderedList {
     private native void initialize(Element e) /*-{
         $wnd.jQuery(document).ready(function(){
             $wnd.jQuery(e).tabs();
+            for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++){
+                $wnd.jQuery(e).find('.indicator').eq(i).remove()
+            }
+
         });
     }-*/;
 
@@ -130,4 +140,19 @@ public class MaterialTab extends UnorderedList {
     private native void selectTab(Element e, String tabId)/*-{
         $wnd.jQuery(e).tabs("select_tab", tabId);
     }-*/;
+
+    @Override
+    public void setWidth(String width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setType(TabType type) {
+        typeMixin.setType(type);
+    }
+
+    @Override
+    public TabType getType() {
+        return typeMixin.getType();
+    }
 }

@@ -23,7 +23,6 @@ package gwt.material.design.client.ui.animate;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -33,11 +32,19 @@ import gwt.material.design.client.ui.html.UnorderedList;
  */
 public class MaterialAnimator {
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis) {
-        animate(transition, w, delayMillis, null);
+    public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
+        animate(transition, w, delayMillis, 800, callback);
     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, final Runnable callback) {
+    public static void animate(final Transition transition, final Widget w, int delayMillis, int durationMillis) {
+        animate(transition, w, delayMillis, durationMillis, null);
+    }
+
+    public static void animate(final Transition transition, final Widget w, int delayMillis) {
+        animate(transition, w, delayMillis, 800, null);
+    }
+
+    public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback) {
         final String name = String.valueOf(DOM.createUniqueId());
         w.getElement().setId(name);
         switch (transition) {
@@ -80,7 +87,7 @@ public class MaterialAnimator {
                     default:
                         // For core animation components
                         w.addStyleName("animated " + transition.getCssName());
-                        animationFinishedCallback(name, "animated " + transition.getCssName(), callback);
+                        animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
                         break;
                 }
             }
@@ -89,7 +96,8 @@ public class MaterialAnimator {
         w.removeStyleName("materialcss");
     }
 
-    protected static native void animationFinishedCallback(String name, String oldClass, Runnable callback) /*-{
+    protected static native void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) /*-{
+        //$wnd.jQuery('#' + name).css("animationDuration", + durationMillis + "ms");
         $wnd.jQuery('#' +  name).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
             if(callback != null) {
                 callback.@java.lang.Runnable::run()();

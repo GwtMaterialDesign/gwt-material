@@ -20,29 +20,18 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.ui.ValueBoxBase;
+import gwt.material.design.client.base.NumberBox;
 import gwt.material.design.client.constants.InputType;
+
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.uibinder.client.UiConstructor;
 
 //@formatter:off
 
 /**
- * Material Number Box is an input field that accepts a typed number from user.
- * <h3>UiBinder Usage:</h3>
- * <h4>Java side:</h4>
- * <pre>
- * {@code
- *  @code @UiField(provided = true)
- *  MaterialNumberBox<Long> numberBox;
- *
- *  public Constructor(){
- *      numberBox=new MaterialNumberBox<>(new LongBox());
- *      initWidget(ourUiBinder.createAndBindUi(this));
- *  }
- *  }
- * <h4>Ui.xml side:</h4>
- *{@code   <m:MaterialNumberBox step="1" type="NUMBER"  placeholder="my long" ui:field="numberBox" />}
- * </pre>
+ * Material Number Box is the base class for other numeric input boxes, such as {@link MaterialIntegerBox} and
+ * {@link MaterialDoubleBox}.
+ * 
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material MaterialNumberBox</a>
  * @author paulux84
  */
@@ -50,8 +39,8 @@ import gwt.material.design.client.constants.InputType;
 public class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
     @UiConstructor
-    public MaterialNumberBox(ValueBoxBase<T> valueBox) {
-        super(valueBox);
+    public MaterialNumberBox() {
+        super(new NumberBox<T>());
         setType(InputType.NUMBER);
     }
 
@@ -67,9 +56,41 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
         return valueBoxBase.getElement().getAttribute("step");
     }
 
+    public void setMin(String min){
+        valueBoxBase.getElement().setAttribute("min", min);
+    }
+
+    public String getMin(){
+        return valueBoxBase.getElement().getAttribute("min");
+    }
+
+    public void setMax(String max){
+        valueBoxBase.getElement().setAttribute("max", max);
+    }
+
+    public String getMax(){
+        return valueBoxBase.getElement().getAttribute("max");
+    }
+
     @Override
     public String getText() {
         return valueBoxBase.getText();
     }
+    
+    /**
+     * Returns the value parsed natively by the browser.
+     * 
+     * @return the value set on the component, or NaN if none is set
+     */
+    public double getValueAsNumber(){
+        return getValueAsNumber(valueBoxBase.getElement());
+    }
+    
+    /**
+     * Native call to element.valueAsNumber.
+     */
+    protected native double getValueAsNumber(Element el)/*-{
+        return el.valueAsNumber;
+    }-*/;
 
 }

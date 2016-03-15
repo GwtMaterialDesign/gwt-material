@@ -31,7 +31,8 @@ public enum ShowOn implements CssType {
     SHOW_ON_LARGE("show-on-large"),
     SHOW_ON_MED("show-on-med"),
     SHOW_ON_MED_UP("show-on-medium-and-up"),
-    SHOW_ON_MED_DOWN("hide-on-med-and-up");
+    SHOW_ON_MED_DOWN("hide-on-med-and-up"),
+    NONE("");
 
     private final String cssClass;
 

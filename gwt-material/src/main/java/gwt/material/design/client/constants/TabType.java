@@ -1,4 +1,4 @@
-package gwt.material.design.client.base;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,13 +20,29 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.ValueBox;
+import gwt.material.design.client.base.helper.EnumHelper;
 
-public class FloatBox extends ValueBox<Float>  {
-       
-	  public FloatBox() {
-		    super(Document.get().createTextInputElement(), FloatRenderer.instance(),
-		        FloatParser.instance());
-		  }
+/**
+ * Types of Button.<br>
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
+public enum TabType implements CssType {
+    DEFAULT(""),
+    ICON("tab-icon");
+
+    private final String cssClass;
+
+    TabType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
+
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static TabType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, TabType.class, DEFAULT);
+    }
 }

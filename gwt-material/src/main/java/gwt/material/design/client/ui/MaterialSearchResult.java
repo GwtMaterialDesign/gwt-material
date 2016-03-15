@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui.html;
+package gwt.material.design.client.ui;
 
 /*
  * #%L
@@ -21,25 +21,23 @@ package gwt.material.design.client.ui.html;
  */
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.InputElement;
 import gwt.material.design.client.base.MaterialWidget;
 
+//@formatter:off
+
 /**
- * @author guaido79
+ * Material Search Result is a panel used to display the list of suggested items during the
+ * keyup events triggered on search component.
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Search</a>
  */
-public class DateInput extends MaterialWidget {
-    public DateInput() {
-        super(InputElement.as(Document.get().createTextInputElement()));
-        getElement().setAttribute("type", "date");
+//@formatter:on
+public class MaterialSearchResult extends MaterialWidget {
+
+    public MaterialSearchResult() {
+        super(Document.get().createDivElement());
+        setStyleName("search-result");
     }
 
-    @Override
-    public void clear() {
-        clearDpValue(getElement());
-    }
-
-    private native void clearDpValue(Element e) /*-{
-        $wnd.jQuery(e).val('');
-    }-*/;
 }

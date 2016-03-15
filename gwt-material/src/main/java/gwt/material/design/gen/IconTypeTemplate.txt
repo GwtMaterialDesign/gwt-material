@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui.html;
+package gwt.material.design.client.constants;
 
 /*
  * #%L
@@ -20,26 +20,27 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.InputElement;
-import gwt.material.design.client.base.MaterialWidget;
+import javax.annotation.Generated;
 
-/**
- * @author guaido79
- */
-public class DateInput extends MaterialWidget {
-    public DateInput() {
-        super(InputElement.as(Document.get().createTextInputElement()));
-        getElement().setAttribute("type", "date");
+import gwt.material.design.client.base.helper.EnumHelper;
+
+@Generated(value = "gwt.material.design.gen.IconTypeGenerator", date = "${generationDate}")
+public enum IconType implements CssType {
+    
+    ${enumValues}
+
+    private final String cssClass;
+
+    IconType(final String cssClass) {
+        this.cssClass = cssClass;
     }
 
     @Override
-    public void clear() {
-        clearDpValue(getElement());
+    public String getCssName() {
+        return cssClass;
     }
 
-    private native void clearDpValue(Element e) /*-{
-        $wnd.jQuery(e).val('');
-    }-*/;
+    public static IconType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, IconType.class, DEFAULT);
+    }
 }

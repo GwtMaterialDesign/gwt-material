@@ -24,6 +24,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.base.AbstractIconButton;
 
 //@formatter:off
 
@@ -45,7 +46,7 @@ import gwt.material.design.client.base.AbstractButton;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#breadcrumbs">Material BreadCrumb</a>
  */
 //@formatter:on
-public class MaterialBreadcrumb extends AbstractButton {
+public class MaterialBreadcrumb extends AbstractIconButton {
 
     public MaterialBreadcrumb() {
         setStyleName("breadcrumb");
