@@ -1,5 +1,8 @@
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.uibinder.client.UiConstructor;
+
 /*
  * #%L
  * GwtMaterial
@@ -21,10 +24,8 @@ package gwt.material.design.client.ui;
  */
 
 import gwt.material.design.client.base.NumberBox;
+import gwt.material.design.client.base.NumberBox.NumberHandler;
 import gwt.material.design.client.constants.InputType;
-
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.uibinder.client.UiConstructor;
 
 //@formatter:off
 
@@ -40,7 +41,7 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
     @UiConstructor
     public MaterialNumberBox() {
-        super(new NumberBox<T>());
+        initValueBox(new NumberBox<T>(new NumberHandler<T>(this)));
         setType(InputType.NUMBER);
     }
 
