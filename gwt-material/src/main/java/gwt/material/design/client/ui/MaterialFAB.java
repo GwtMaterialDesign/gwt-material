@@ -22,9 +22,13 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.base.MaterialWidget;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.Axis;
@@ -56,14 +60,34 @@ import gwt.material.design.client.constants.FABType;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis {
+public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasClickHandlers {
 
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
+    private boolean toggle = true;
 
     public MaterialFAB() {
         super(Document.get().createDivElement());
         setStyleName("fixed-action-btn");
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        if(getType() == FABType.CLICK_ONLY){
+            addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent event) {
+                    if(toggle){
+                        openFAB();
+                        toggle = false;
+                    }else{
+                        closeFAB();
+                        toggle = true;
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -107,4 +131,9 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     public native void closeFAB(Element e) /*-{
         $wnd.jQuery(e).closeFAB();
     }-*/;
+
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 }

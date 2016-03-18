@@ -64,6 +64,7 @@ public class MaterialTitle extends Div implements HasTitle {
     }
 
     public MaterialTitle(String title) {
+        this();
         setTitle(title);
     }
 

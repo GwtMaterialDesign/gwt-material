@@ -1,4 +1,4 @@
-package gwt.material.design.client.base;
+package gwt.material.design.client.ui;
 
 /*
  * #%L
@@ -21,12 +21,23 @@ package gwt.material.design.client.base;
  */
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.ValueBox;
+import gwt.material.design.client.base.MaterialWidget;
 
-public class FloatBox extends ValueBox<Float>  {
-       
-	  public FloatBox() {
-		    super(Document.get().createTextInputElement(), FloatRenderer.instance(),
-		        FloatParser.instance());
-		  }
+//@formatter:off
+
+/**
+ * Material Search Result is a panel used to display the list of suggested items during the
+ * keyup events triggered on search component.
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Search</a>
+ */
+//@formatter:on
+public class MaterialSearchResult extends MaterialWidget {
+
+    public MaterialSearchResult() {
+        super(Document.get().createDivElement());
+        setStyleName("search-result");
+    }
+
 }

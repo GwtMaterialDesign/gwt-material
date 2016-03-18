@@ -82,6 +82,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
             public void onClick(ClickEvent event) {
                 setValue(!getValue());
                 event.preventDefault();
+                event.stopPropagation();
             }
         });
     }
