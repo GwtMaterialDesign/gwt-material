@@ -7,7 +7,7 @@ A Google Material Design wrapper for GWT<br/>
 
 ## Demo
 * [1.4 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
-* [1.5 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
+* [1.5.0 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
@@ -27,7 +27,7 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 You can find lists of features by version <a href="https://github.com/GwtMaterialDesign/gwt-material/wiki/Changelog">here</a>.
 
 ## Current Snapshot
-1.5-SNAPSHOT
+1.5.0-SNAPSHOT
 
 ### Migration
 [Migrating from 1.3 to 1.4](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-1.3-to-1.4)
