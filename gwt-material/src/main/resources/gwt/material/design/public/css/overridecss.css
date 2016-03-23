@@ -821,7 +821,7 @@ i[class*="waves-"].material-icons {
 }
 
 @media only screen and (max-width: 992px) {
-	.tab a span{
+	.tabs.tab-icon a span{
 		display: none !important;
 	}
 	.tab a i{
