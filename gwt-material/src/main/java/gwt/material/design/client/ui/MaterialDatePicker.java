@@ -23,6 +23,17 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.logical.shared.HasOpenHandlers;
+import com.google.gwt.event.logical.shared.OpenEvent;
+import com.google.gwt.event.logical.shared.OpenHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.HasValue;
+
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
@@ -51,7 +62,8 @@ import java.util.Date;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder {
+public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder, 
+    HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker> {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -61,18 +73,6 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         MONTH_DAY,
         YEAR_MONTH_DAY,
         YEAR
-    }
-
-    /**
-     * Delegate interface for handling picker events.
-     */
-    public interface MaterialDatePickerDelegate {
-        /**
-         * Called as soon as a click occurs on the calendar widget. !EXPERIMENTAL!
-         *
-         * @param currDate which is currently selected.
-         */
-        void onCalendarClose(Date currDate);
     }
 
     private String placeholder;
@@ -87,7 +87,6 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private MaterialLabel lblError = new MaterialLabel();
 
     private Orientation orientation = Orientation.PORTRAIT;
-    private MaterialDatePickerDelegate delegate;
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
     private final GridMixin<MaterialDatePicker> gridMixin = new GridMixin<>(this);
@@ -175,31 +174,20 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         });
     }-*/;
 
-    /**
-     * A delegate which implements handling of events from date picker.
-     *
-     * @param delegate which will be notified on picker events.
-     * @see MaterialDatePickerDelegate
-     */
-    public void setDelegate(MaterialDatePickerDelegate delegate) {
-        this.delegate = delegate;
-    }
-
     void onClose() {
-
-        if (delegate != null) {
-            delegate.onCalendarClose(getDate());
-        }
+        CloseEvent.fire(this, this);
     }
 
     void onOpen() {
         label.addStyleName("active");
         dateInput.setFocus(true);
+        OpenEvent.fire(this, this);
     }
 
     void onSelect() {
         label.addStyleName("active");
         dateInput.addStyleName("valid");
+        ValueChangeEvent.fire(this, getValue());
     }
 
     void onClear() {
@@ -248,14 +236,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
      * @param date - must not be <code>null</code>
      */
     public void setDate(Date date) {
-        if (date == null) {
-            return;
-        }
-        this.date = date;
-        if (initialized) {
-            setPickerDate(JsDate.create((double) date.getTime()), pickatizedDateInput);
-            label.addStyleName("active");
-        }
+       setValue(date);
     }
 
     public Date getDateMin() {
@@ -292,11 +273,14 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         picker.pickadate('picker').set('select', date, { muted: true });
     }-*/;
 
+    /**
+     * Same as calling {@link #getValue()}
+     */
     public Date getDate() {
         return getPickerDate();
     }
 
-    public Date getPickerDate() {
+    protected Date getPickerDate() {
         try {
             JsDate selectedDate = getDatePickerValue(pickatizedDateInput);
             return new Date((long) selectedDate.getTime());
@@ -402,5 +386,45 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
             throw new IllegalStateException("setFormat can be called only before initialization");
         }
         this.format = format;
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Date> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
+
+    @Override
+    public Date getValue() {
+        return getPickerDate();
+    }
+
+    @Override
+    public void setValue(Date value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(Date value, boolean fireEvents) {
+        if (value == null) {
+            return;
+        }
+        this.date = value;
+        if (initialized) {
+            setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
+            label.addStyleName("active");
+        }
+        if (fireEvents){
+            ValueChangeEvent.fire(this, value);
+        }
+    }
+
+    @Override
+    public HandlerRegistration addCloseHandler(CloseHandler<MaterialDatePicker> handler) {
+        return addHandler(handler, CloseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOpenHandler(OpenHandler<MaterialDatePicker> handler) {
+        return addHandler(handler, OpenEvent.getType());
     }
 }
