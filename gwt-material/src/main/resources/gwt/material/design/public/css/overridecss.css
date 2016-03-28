@@ -193,7 +193,7 @@ table .gwt-CheckBox label {
 	-moz-transition: 1s all;
 }
 /**RESPONSIVE QUERIES **/
-@media only screen and (max-width: 894px) {
+@media only screen and (max-width: 992px) {
 	.responsive-table table {
 		width: 100%;
 		border-collapse: collapse;
@@ -758,7 +758,7 @@ footer.fixed{
 .navmenu-permanent, .drag-target, #sidenav-overlay{
 	visibility: hidden !important;
 }
-@media screen and (max-width: 894px) {
+@media screen and (max-width: 992px) {
 	.side-nav.card, .side-nav.float {
 		margin: 0;
 		top: 0 !important;
