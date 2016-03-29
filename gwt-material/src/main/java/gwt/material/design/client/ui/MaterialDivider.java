@@ -29,7 +29,7 @@ import gwt.material.design.client.base.MaterialWidget;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
+ * {@code
  *  <m:MaterialTitle title="Title" description="Description"/>
  *  <m:MaterialDivider />
  * }

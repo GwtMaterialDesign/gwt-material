@@ -35,16 +35,17 @@ import gwt.material.design.client.base.HasSeparator;
 import gwt.material.design.client.constants.IconType;
 
 //@formatter:off
-
 /**
  * We have included 740 Material Design Icons courtesy of Google.
  * You can download them directly from the Material Design specs.
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialIcon waves="LIGHT" iconType="POLYMER"/>
+ * {@code
+ * <m:MaterialIcon waves="LIGHT" iconType="POLYMER"/>
  * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" textColor="blue" type="CIRCLE"/>
- * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>}
+ * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>
+ * }
  * </pre>
  *
  * @author kevzlou7979

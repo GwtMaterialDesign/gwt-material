@@ -34,29 +34,24 @@ import gwt.material.design.client.ui.html.Div;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
-
-<m:MaterialSplashScreen backgroundColor="blue" textColor="white" textAlign="CENTER">
-    <m:MaterialImage resource="{res.ic_splash}" width="300px"/>
-    <m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" />
-</m:MaterialSplashScreen>
-
- * }</pre>
+ * &lt;m:MaterialSplashScreen backgroundColor="blue" textColor="white" textAlign="CENTER"&gt;
+ *     &lt;m:MaterialImage resource="{res.ic_splash}" width="300px"/&gt;
+ *     &lt;m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" /&gt;
+ * &lt;/m:MaterialSplashScreen&gt;
+ * </pre>
+ *
  * <h3>Java Usage:</h3>
  * <pre>
- *{@code
- *
-@UiField MaterialSplashScreen splash;
-splash.show();
-Timer t = new Timer() {
-    @Override
-    public void run() {
-        splash.hide();
-    }
-};
-t.schedule(3000);
-
- * }</pre>
+ * {@literal @}UiField MaterialSplashScreen splash;
+ * splash.show();
+ * Timer t = new Timer() {
+ *     {@literal @}Override
+ *     public void run() {
+ *         splash.hide();
+ *     }
+ * };
+ * t.schedule(3000);
+ * </pre>
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>

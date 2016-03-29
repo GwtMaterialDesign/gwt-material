@@ -25,13 +25,16 @@ import gwt.material.design.client.base.HasHref;
 import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
-
 /**
  * Item for Tab Component, which usually contains icons, links or other navigation component.
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>}
+ * {@code
+ * <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
+ * }
  * </pre>
+ *
  * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
  * @author kevzlou7979
  * @author Ben Dol

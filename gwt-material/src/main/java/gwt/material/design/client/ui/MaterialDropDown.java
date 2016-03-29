@@ -40,14 +40,15 @@ import gwt.material.design.client.ui.html.UnorderedList;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
- *<m:MaterialDropDown>
- *   <m:MaterialLink text="First" />
- *   <m:MaterialLink text="Second" />
- *   <m:MaterialLink text="Third" />
+ * {@code
+ * <m:MaterialDropDown>
+ *     <m:MaterialLink text="First" />
+ *     <m:MaterialLink text="Second" />
+ *     <m:MaterialLink text="Third" />
  * </m:MaterialDropDown>
  * }
  * </pre>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>

@@ -30,17 +30,14 @@ import gwt.material.design.client.base.MaterialWidget;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
- *
+ * {@code
  * <m:MaterialHeader>
  *     <m:MaterialNavBar>
  *         <!--Content goes here -->
  *     </m:MaterialNavBar>
  * </m:MaterialHeader>
- *
  * }
  * </pre>
- * </p>
  *
  * @author kevzlou7979
  * @see <a href="http://gwt-material-demo.herokuapp.com/#navBar">Material Header</a>

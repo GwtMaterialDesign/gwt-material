@@ -27,7 +27,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiConstructor;
 
 //@formatter:off
-
 /**
  * Material Number Box is the base class for other numeric input boxes, such as {@link MaterialIntegerBox} and
  * {@link MaterialDoubleBox}.

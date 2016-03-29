@@ -33,11 +33,12 @@ import com.google.gwt.user.client.ui.HasText;
 
 //@formatter:off
 /**
-* Card Element for card title. 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
-*/
+ * Card Element for card title.
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
+ */
 //@formatter:on
 public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasText {
 

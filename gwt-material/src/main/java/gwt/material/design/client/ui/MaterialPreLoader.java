@@ -28,20 +28,18 @@ import gwt.material.design.client.constants.LoaderSize;
 
 //@formatter:off
 /**
-* Material Preloader is a wrapper for Material Spinner which handle multiple flashing circular loaders
-*
-* <h3>Java Usage:</h3>
-* <pre>
-* {@code
-* 
-* MaterialLoader.showLoading(true);
-* 
-* }
-*<pre>
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material PreLoader</a>
-*/
+ * Material Preloader is a wrapper for Material Spinner which handle multiple flashing circular loaders
+ *
+ * <h3>Java Usage:</h3>
+ * <pre>
+ * {@code
+ * MaterialLoader.showLoading(true);
+ * }
+ * <pre>
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material PreLoader</a>
+ */
 //@formatter:on
 public class MaterialPreLoader extends MaterialWidget {
 

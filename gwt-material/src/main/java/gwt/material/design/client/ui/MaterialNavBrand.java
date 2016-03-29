@@ -33,20 +33,18 @@ import com.google.gwt.user.client.ui.HasText;
 
 //@formatter:off
 /**
-* 
-* <p>Material NavBrand is a child of MaterialNavBar that will contain text or image logo
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-<m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
-}
-</pre>
-* </p>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material NavBrand</a>
+ * Material NavBrand is a child of MaterialNavBar that will contain text or image logo
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material NavBrand</a>
 */
 //@formatter:on
 public class MaterialNavBrand extends MaterialWidget implements HasText, HasHref, HasPosition {

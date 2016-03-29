@@ -27,19 +27,17 @@ import gwt.material.design.client.ui.html.Div;
 //@formatter:off
 
 /**
+ * If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.
  *
- * <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.
  * <h3>Java Usage:</h3>
- *
  * <pre>
  * {@code
-// FOR CIRCULAR LOADER
-MaterialLoader.showLoading(true);
-// FOR PROGRESS LOADER
-MaterialLoader.showProgress(true);
-
-</pre>
- * </p>
+ * // FOR CIRCULAR LOADER
+ * MaterialLoader.showLoading(true);
+ * // FOR PROGRESS LOADER
+ * MaterialLoader.showProgress(true);
+ * }
+ * </pre>
  *
  * @author kevzlou7979
  * @author Ben Dol

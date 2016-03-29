@@ -31,7 +31,8 @@ import com.google.gwt.user.client.ui.HasText;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
- * <m:MaterialBadge text="1 new" color="blue"/>}
+ * <m:MaterialBadge text="1 new" color="blue"/>
+ * }
  * </pre>
  *
  * @author kevzlou7979

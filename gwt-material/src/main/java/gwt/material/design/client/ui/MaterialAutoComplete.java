@@ -35,7 +35,6 @@ import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
 import gwt.material.design.client.constants.AutocompleteType;
-import gwt.material.design.client.constants.CssType;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.ListItem;
@@ -45,7 +44,6 @@ import java.util.*;
 import java.util.Map.Entry;
 
 // @formatter:off
-
 /**
  * Use GWT Autocomplete to search for matches from local or remote data sources.
  * We used MultiWordSuggestOracle to populate the list to be added on the
@@ -55,7 +53,8 @@ import java.util.Map.Entry;
  *
  * <pre>
  * {@code
- *    <m:MaterialAutoComplete ui:field="autocomplete" placeholder="States" />}
+ * <m:MaterialAutoComplete ui:field="autocomplete" placeholder="States" />
+ * }
  * </pre>
  *
  * @author kevzlou7979
@@ -135,6 +134,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         }, ClickEvent.getType());
 
         itemBox.addKeyDownHandler(new KeyDownHandler() {
+            @Override
             public void onKeyDown(KeyDownEvent event) {
                 boolean itemsChanged = false;
 
@@ -210,6 +210,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         });
 
         box.addSelectionHandler(new SelectionHandler<Suggestion>() {
+            @Override
             public void onSelection(SelectionEvent<Suggestion> selectionEvent) {
                 Suggestion selectedItem = selectionEvent.getSelectedItem();
                 itemBox.setValue("");
@@ -251,6 +252,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
 
         chip.setIconType(IconType.CLOSE);
         chip.addClickHandler(new ClickHandler() {
+            @Override
             public void onClick(ClickEvent clickEvent) {
                 if (itemsHighlighted.contains(displayItem)) {
                     chip.removeStyleName("blue white-text");
@@ -263,6 +265,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
         });
 
         chip.getIcon().addClickHandler(new ClickHandler() {
+            @Override
             public void onClick(ClickEvent clickEvent) {
                 suggestionMap.remove(suggestion);
                 list.remove(displayItem);
@@ -286,6 +289,7 @@ public class MaterialAutoComplete extends MaterialWidget implements HasError, Ha
     /**
      * Clear the chip items on the autocomplete box
      */
+    @Override
     public void clear() {
         itemBox.setValue("");
 

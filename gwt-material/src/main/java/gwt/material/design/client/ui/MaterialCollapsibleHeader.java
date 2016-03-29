@@ -33,6 +33,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
 
 /**
  * CollapsibleItem element to define the header
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>

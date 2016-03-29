@@ -27,14 +27,12 @@ import com.google.gwt.user.client.ui.HTML;
 /**
  * Material Weather - used OpenWeatherAPI to get results about location based  weather
  *
- * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
- *     <m:MaterialWeather location="Makati, Philippines" />
+ * <m:MaterialWeather location="Makati, Philippines" />
  * }
  * </pre>
- * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol

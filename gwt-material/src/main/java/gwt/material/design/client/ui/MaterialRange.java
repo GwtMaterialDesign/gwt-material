@@ -36,7 +36,6 @@ import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
-
 /**
  * Material Range - a slider that initialize the minimum and maximum values.
  *

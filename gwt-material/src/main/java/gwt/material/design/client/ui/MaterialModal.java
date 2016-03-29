@@ -41,10 +41,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * extra information if needed. The transitions should make the appearance of
  * the dialog make sense and not jarring to the user.
  *
- *
- * <p>
  * <h3>UiBinder Usage:</h3>
- *
  * <pre>
  * {@code
  * <m:MaterialModal ui:field="modal" type="FIXED_FOOTER" dismissable="true" inDuration="500" outDuration="800">
@@ -58,19 +55,12 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * }
  * </pre>
  *
- * *
  * <h3>Java Usage:</h3>
- *
  * <pre>
- * {
- *     &#064;code
- *     &#064;UiField
- *     MaterialModal modal;
- *     modal.openModal();
- * }
+ * &#064;UiField
+ * MaterialModal modal;
+ * modal.openModal();
  * </pre>
- * 
- * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol

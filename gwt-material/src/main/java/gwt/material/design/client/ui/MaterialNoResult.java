@@ -34,24 +34,21 @@ import com.google.gwt.dom.client.Style.Unit;
 
 //@formatter:off
 /**
-* 
-* <p>Material No result is a component that will have to display once content is empty.
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-<m:MaterialNoResult iconType="POLYMER" title="No Inbox" description="You dont have new message" backgroundColor="blue"/>
-}
-</pre>
-* </p>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#no-result">Material No Result</a>
-*/
+ * Material No result is a component that will have to display once content is empty.
+ *
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialNoResult iconType="POLYMER" title="No Inbox" description="You dont have new message" backgroundColor="blue"/>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#no-result">Material No Result</a>
+ */
 //@formatter:on
 public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitle{
-
 
     private MaterialIcon icon = new MaterialIcon();
     private MaterialTitle title = new MaterialTitle();

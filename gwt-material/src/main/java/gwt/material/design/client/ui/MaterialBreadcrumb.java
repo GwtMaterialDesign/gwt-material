@@ -26,7 +26,6 @@ import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.AbstractButton;
 
 //@formatter:off
-
 /**
  * Breadcrumbs are a good way to display your current location.
  * This is usually used when you have multiple layers of content.

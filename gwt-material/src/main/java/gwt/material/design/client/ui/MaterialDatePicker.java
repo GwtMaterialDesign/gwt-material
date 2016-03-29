@@ -47,15 +47,20 @@ import java.util.Date;
 
 /**
  * Material Date Picker will provide a visual calendar to your apps.
- * <p/>
+ *
  * <h3>UiBinder Usage:</h3>
+ * <pre>
  * {@code
  * <m:MaterialDatePicker ui:field="datePicker">
  * }
+ * </pre>
+ *
  * <h3>Java Usage:</h3>
+ * <pre>
  * {@code
  * datePicker.setDate(new Date());
  * }
+ * </pre>
  *
  * @author kevzlou7979
  * @author Ben Dol

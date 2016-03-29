@@ -27,28 +27,29 @@ import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
-
 /**
  * The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
-<m:MaterialTab ui:field="tab"  backgroundColor="blue">
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
-</m:MaterialTab>
-<i:Panel m:id="tab1">
-<i:Title title="Tab 1" description="Tab 1 Content"/>
-</i:Panel>
-<i:Panel m:id="tab2">
-<i:Title title="Tab 2" description="Tab 2 Content"/>
-</i:Panel>
-<i:Panel m:id="tab3">
-<i:Title title="Tab 3" description="Tab 3 Content"/>
-</i:Panel>
-}
+ * {@code
+ * <m:MaterialTab ui:field="tab"  backgroundColor="blue">
+ *     <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
+ *     <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
+ *     <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
+ * </m:MaterialTab>
+ * <i:Panel m:id="tab1">
+ *     <i:Title title="Tab 1" description="Tab 1 Content"/>
+ * </i:Panel>
+ * <i:Panel m:id="tab2">
+ *     <i:Title title="Tab 2" description="Tab 2 Content"/>
+ * </i:Panel>
+ * <i:Panel m:id="tab3">
+ *     <i:Title title="Tab 3" description="Tab 3 Content"/>
+ * </i:Panel>
+ * }
  * </pre>
+ *
  * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
  * @author kevzlou7979
  * @author Ben Dol
@@ -79,10 +80,12 @@ public class MaterialTab extends UnorderedList {
         setIndicatorColor(indicatorColor);
     }
 
+    @Override
     public int getTabIndex() {
         return tabIndex;
     }
 
+    @Override
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
         int i = 0;

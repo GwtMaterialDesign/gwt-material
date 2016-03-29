@@ -25,14 +25,17 @@ package gwt.material.design.client.ui;
 
 /**
  * Material Integer Box is an input field that accepts any Float based string from user.
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialFloatBox placeholder="Your integer" step=100/>}
+ * {@code
+ * <m:MaterialFloatBox placeholder="Your integer" step=100/>
+ * }
  * </pre>
- * 
+ *
  * The parsing and formatting of the number are done natively by the browser, using the
  * i18n settings from the user.
- * 
+ *
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material FloatBox</a>
  * @author paulux84
  */

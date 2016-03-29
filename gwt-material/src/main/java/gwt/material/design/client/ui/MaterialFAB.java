@@ -44,14 +44,14 @@ import gwt.material.design.client.constants.FABType;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
- *<m:MaterialFAB>
- *   <m:MaterialButton type="FLOATING" backgroundColor="blue" iconType="POLYMER" size="LARGE"/>
- *   <m:MaterialFABList>
- *     <m:MaterialButton type="FLOATING" backgroundColor="red" iconType="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="orange" iconType="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="white" iconType="POLYMER" iconColor="black"/>
- *   </m:MaterialFABList>
+ * {@code
+ * <m:MaterialFAB>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="blue" iconType="POLYMER" size="LARGE"/>
+ *     <m:MaterialFABList>
+ *         <m:MaterialButton type="FLOATING" backgroundColor="red" iconType="POLYMER"/>
+ *         <m:MaterialButton type="FLOATING" backgroundColor="orange" iconType="POLYMER"/>
+ *         <m:MaterialButton type="FLOATING" backgroundColor="white" iconType="POLYMER" iconColor="black"/>
+ *     </m:MaterialFABList>
  * </m:MaterialFAB>}
  * </pre>
  * </p>

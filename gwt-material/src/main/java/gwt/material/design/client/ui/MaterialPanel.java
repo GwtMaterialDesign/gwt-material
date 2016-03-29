@@ -27,10 +27,14 @@ import com.google.gwt.dom.client.Document;
 //@formatter:off
 /**
  * A normal panel that has some material features like : shadow and ripple effect
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialPanel color="white" waves="BLUE" shadow="3"/>}
+ * {@code
+ * <m:MaterialPanel color="white" waves="BLUE" shadow="3"/>
+ * }
  * </pre>
+ *
  * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
  * @author kevzlou7979
  * @author Ben Dol

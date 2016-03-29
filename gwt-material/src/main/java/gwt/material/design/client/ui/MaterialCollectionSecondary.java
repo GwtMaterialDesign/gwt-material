@@ -27,11 +27,13 @@ import gwt.material.design.client.base.HasHref;
 
 //@formatter:off
 /**
-* Collection element to define secondary content such as MaterialIcons
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
-*///@formatter:on
+ * Collection element to define secondary content such as MaterialIcons
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
+ */
+//@formatter:on
 public class MaterialCollectionSecondary extends MaterialWidget implements HasHref {
 
     public MaterialCollectionSecondary() {
