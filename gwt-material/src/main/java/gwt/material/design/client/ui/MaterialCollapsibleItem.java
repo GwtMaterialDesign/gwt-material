@@ -1,16 +1,17 @@
 package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.base.mixin.ProgressMixin;
+import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
+
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 
 /*
  * #%L
