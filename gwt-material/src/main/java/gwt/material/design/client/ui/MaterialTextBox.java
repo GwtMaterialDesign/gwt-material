@@ -39,15 +39,31 @@ import gwt.material.design.client.constants.InputType;
 //@formatter:on
 public class MaterialTextBox extends MaterialValueBox<String> {
 
+    private final TextBox textBox;
+
     public MaterialTextBox() {
-        super(new TextBox());
+        this(new TextBox());
         setType(InputType.TEXT);
-
     }
 
-    @Override
-    public String getText() {
-        return valueBoxBase.getText();
+    private MaterialTextBox(TextBox textBox) {
+        super(textBox);
+        this.textBox = textBox;
     }
 
+    public int getMaxLength() {
+        return textBox.getMaxLength();
+    }
+
+    public void setMaxLength(int length) {
+        textBox.setMaxLength(length);
+    }
+
+    public int getVisibleLength() {
+        return textBox.getVisibleLength();
+    }
+
+    public void setVisibleLength(int length) {
+        textBox.setVisibleLength(length);
+    }
 }
