@@ -23,17 +23,9 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.logical.shared.HasCloseHandlers;
-import com.google.gwt.event.logical.shared.HasOpenHandlers;
-import com.google.gwt.event.logical.shared.OpenEvent;
-import com.google.gwt.event.logical.shared.OpenHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
-
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
@@ -62,8 +54,8 @@ import java.util.Date;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder, 
-    HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker> {
+public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder,
+        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker> {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -159,6 +151,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         picker.pickadate('picker').on({
             close: function () {
                 parent.@gwt.material.design.client.ui.MaterialDatePicker::onClose()();
+                $wnd.jQuery('.picker').blur();
             },
             open: function () {
                 parent.@gwt.material.design.client.ui.MaterialDatePicker::onOpen()();
@@ -237,7 +230,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
      * @param date - must not be <code>null</code>
      */
     public void setDate(Date date) {
-       setValue(date);
+        setValue(date);
     }
 
     public Date getDateMin() {
@@ -432,6 +425,6 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        dateInput.setEnabled(enabled);    
+        dateInput.setEnabled(enabled);
     }
 }
