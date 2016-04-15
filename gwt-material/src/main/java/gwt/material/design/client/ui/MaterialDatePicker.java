@@ -288,7 +288,17 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         return picker.pickadate('picker').get('select').obj;
     }-*/;
 
-    public native void clearValues(Element picker) /*-{
+
+	/**
+     * Clears the values of the picker field.
+     */
+    public void clearValues() {
+        if(pickatizedDateInput != null) {
+            clearValues(pickatizedDateInput);
+        }
+    }
+
+    private native void clearValues(Element picker) /*-{
         picker.pickadate('picker').clear();
     }-*/;
 

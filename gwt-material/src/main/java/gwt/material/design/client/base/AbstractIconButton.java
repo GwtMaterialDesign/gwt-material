@@ -34,10 +34,19 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 
     private MaterialIcon icon = new MaterialIcon();
 
+	/**
+     * C'tor
+     * @param type defining the appearance style of the button.
+     * @param text appearing on the label of the button.
+     * @param icon next to the text label.
+     */
     public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
         super(type, text);
 
-        this.icon = icon;
+        if(icon != null) {
+            this.icon = icon;
+        }
+        ensureAndUpdateIcon();
     }
 
     public AbstractIconButton(ButtonType type, String text) {
@@ -69,6 +78,11 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     @Override
     public void setIconType(IconType iconType) {
         icon.setIconType(iconType);
+        ensureAndUpdateIcon();
+    }
+
+    private void ensureAndUpdateIcon() {
+        remove(icon);
         insert(icon, 0);
     }
 
