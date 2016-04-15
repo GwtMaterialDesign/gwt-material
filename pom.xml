@@ -25,19 +25,25 @@
             <name>Christian Lacerda</name>
             <email>christian.mails@gmail.com</email>
             <organization>Gwt Material</organization>
-            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+            <organizationUrl>https://github.com/GwtMaterialDesign/gwt-material</organizationUrl>
         </developer>
         <developer>
             <name>Ben Dol</name>
             <email>dolb90@gmail.com</email>
             <organization>Gwt Material</organization>
-            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+            <organizationUrl>https://github.com/GwtMaterialDesign/gwt-material</organizationUrl>
+        </developer>
+        <developer>
+            <name>Gilberto Torrezan</name>
+            <email>gilberto.torrezan@gmail.com</email>
+            <organization>Gwt Material</organization>
+            <organizationUrl>https://github.com/GwtMaterialDesign/gwt-material</organizationUrl>
         </developer>
         <developer>
             <name>Paolo Pino</name>
             <email>paulux84@gmail.com</email>
             <organization>Gwt Material</organization>
-            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+            <organizationUrl>https://github.com/GwtMaterialDesign/gwt-material</organizationUrl>
         </developer>
     </developers>
     <properties>
