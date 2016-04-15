@@ -20,13 +20,39 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.EnabledMixin;
+import gwt.material.design.client.base.mixin.FlexboxMixin;
+import gwt.material.design.client.base.mixin.FocusableMixin;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.base.mixin.IdMixin;
+import gwt.material.design.client.base.mixin.ScrollspyMixin;
+import gwt.material.design.client.base.mixin.SeparatorMixin;
+import gwt.material.design.client.base.mixin.ShadowMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.TooltipMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.constants.CenterOn;
+import gwt.material.design.client.constants.Display;
+import gwt.material.design.client.constants.Flex;
+import gwt.material.design.client.constants.FlexAlignContent;
+import gwt.material.design.client.constants.FlexAlignItems;
+import gwt.material.design.client.constants.FlexAlignSelf;
+import gwt.material.design.client.constants.FlexDirection;
+import gwt.material.design.client.constants.FlexJustifyContent;
+import gwt.material.design.client.constants.FlexWrap;
+import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.constants.ShowOn;
+import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.constants.WavesType;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.*;
-import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.*;
-import gwt.material.design.client.constants.*;
-
 import java.util.Iterator;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
@@ -53,6 +79,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private FlexboxMixin<MaterialWidget> flexboxMixin;
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, Style.FontWeight> fontWeightMixin;
+    private ToggleStyleMixin<MaterialWidget> truncateMixin;
 
     public MaterialWidget() {
     }
@@ -174,6 +201,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private CssNameMixin<MaterialWidget, Style.FontWeight> getFontWeightMixin() {
         if(fontWeightMixin == null) { fontWeightMixin = new CssNameMixin<>(this); }
         return fontWeightMixin;
+    }
+
+    public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
+        if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, "truncate"); }
+        return truncateMixin;
     }
 
     @Override
@@ -317,8 +349,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public void setDisplay(Style.Display display) {
-        getFlexboxMixin().setDisplay(display);
+    public void setGwtDisplay(Style.Display display) {
+        getFlexboxMixin().setGwtDisplay(display);
     }
 
     @Override
@@ -644,4 +676,20 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public boolean remove(IsWidget child) {
         return super.remove(child);
     }
+
+    /** If true the label inside this component will be truncated by ellipsis **/
+    public void setTruncate(boolean truncate){
+        getTruncateMixin().setOn(truncate);
+    }
+
+    public void stopTouchStartEvent(){
+        stopTouchStartEvent(getElement());
+    }
+
+    // Avoid touch events on mobile devices
+    private native void stopTouchStartEvent(Element e) /*-{
+        $wnd.jQuery(e).bind('touchstart', function(event){
+            event.stopPropagation();
+        });
+    }-*/;
 }

@@ -28,8 +28,7 @@ public class MaterialDesignDebugBase extends MaterialDesignBase {
     @Override
     public void load() {
         injectDebug(MaterialDebugResources.INSTANCE.materializeJsDebug());
-        injectDebug(MaterialDebugResources.INSTANCE.timepickerJsDebug());
-        injectDebug(MaterialResources.INSTANCE.animationJs());
-        injectDebug(MaterialResources.INSTANCE.scriptJs());
+        injectDebug(MaterialDebugResources.INSTANCE.animationJsDebug());
+        injectDebug(MaterialDebugResources.INSTANCE.shrinkJsDebug());
     }
 }

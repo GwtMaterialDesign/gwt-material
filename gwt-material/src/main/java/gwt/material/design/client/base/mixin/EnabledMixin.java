@@ -20,12 +20,11 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.Waves;
+
 import gwt.material.design.client.base.helper.StyleHelper;
 
 /**
@@ -48,34 +47,29 @@ public class EnabledMixin<T extends UIObject & HasEnabled> extends AbstractMixin
         setEnabled(uiObject, enabled);
     }
 
-    private void setEnabled(UIObject obj, boolean enabled) {
+    private void setEnabled(final UIObject obj,final boolean enabled) {
+        Widget widget = (Widget) obj;
+        if(!widget.isAttached()) {
+            widget.addAttachHandler(new AttachEvent.Handler() {
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
+                    if(event.isAttached()) {
+                        applyEnabledProperty(enabled, obj);
+                    }
+                }
+            });
+        } else {
+            applyEnabledProperty(enabled, obj);
+        }
+    }
+
+    private void applyEnabledProperty(boolean enabled, UIObject obj) {
         if(enabled) {
             obj.removeStyleName("disabled");
-            obj.removeStyleName("grey lighten-2");
             obj.getElement().removeAttribute(DISABLED);
-
-            if(uiObject instanceof HasWaves) {
-                if(((HasWaves) uiObject).getWaves() == null) {
-                    uiObject.addStyleName(Waves.WAVES_STYLE);
-                    Waves.detectAndApply();
-                }
-            }
         } else {
             obj.addStyleName("disabled");
-            obj.addStyleName("grey lighten-2");
             obj.getElement().setAttribute(DISABLED, "");
-
-            if(uiObject instanceof HasWaves) {
-                uiObject.removeStyleName(Waves.WAVES_STYLE);
-            }
-        }
-
-        if(obj instanceof HasWidgets) {
-            for(Widget widget : (HasWidgets)obj) {
-                if(widget instanceof HasEnabled) {
-                    setEnabled(widget, enabled);
-                }
-            }
         }
     }
 }

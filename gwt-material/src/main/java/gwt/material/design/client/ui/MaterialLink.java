@@ -27,24 +27,25 @@ import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.IconType;
 
 //@formatter:off
+
 /**
-* 
-* Using Material Link you can easily add href functionality into your app for navigation
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code 
-* Links
-* <m:MaterialLink href="#normal" text="Normal Link" textColor="red" iconType="POLYMER" iconPosition="LEFT"/>
-* 
-* <m:MaterialLink href="#material" text="Link with Href" textColor="red" iconType="POLYMER" iconPosition="LEFT"/>
-* 
-* <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="black" iconType="POLYMER" iconPosition="LEFT" iconColor="red"/>}
-* </pre>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
-*/
+ *
+ * Using Material Link you can easily add href functionality into your app for navigation
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * Links
+ * <m:MaterialLink href="#normal" text="Normal Link" textColor="red" iconType="POLYMER" iconPosition="LEFT"/>
+ *
+ * <m:MaterialLink href="#material" text="Link with Href" textColor="red" iconType="POLYMER" iconPosition="LEFT"/>
+ *
+ * <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="black" iconType="POLYMER" iconPosition="LEFT" iconColor="red"/>}
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
+ */
 //@formatter:on
 public class MaterialLink extends AbstractIconButton {
 

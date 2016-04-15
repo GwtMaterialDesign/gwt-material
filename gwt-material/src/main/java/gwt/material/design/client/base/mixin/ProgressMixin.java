@@ -20,14 +20,15 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasProgress;
+import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.MaterialCollapsibleBody;
 import gwt.material.design.client.ui.MaterialCollapsibleItem;
 import gwt.material.design.client.ui.MaterialNavBar;
 import gwt.material.design.client.ui.MaterialProgress;
+
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author kevzlou7979
@@ -44,10 +45,10 @@ public class ProgressMixin<T extends UIObject & HasProgress>
 
     @Override
     public void showProgress(ProgressType type) {
-        if(uiObject instanceof MaterialNavBar){
-            ((MaterialNavBar) uiObject).add(progress);
-        }else if(uiObject instanceof MaterialCollapsibleItem){
+        if(uiObject instanceof MaterialCollapsibleItem){
             applyCollapsibleProgress(true);
+        }else if(uiObject  instanceof MaterialNavBar){
+            ((MaterialNavBar) uiObject).add(progress);
         }
     }
 
@@ -58,10 +59,10 @@ public class ProgressMixin<T extends UIObject & HasProgress>
 
     @Override
     public void hideProgress() {
-        if(uiObject instanceof MaterialNavBar) {
-            progress.removeFromParent();
-        }else if(uiObject instanceof MaterialCollapsibleItem){
+        if(uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(false);
+        }else {
+            progress.removeFromParent();
         }
 
     }
@@ -73,10 +74,10 @@ public class ProgressMixin<T extends UIObject & HasProgress>
             return;
         }else {
             if (isShow) {
-                body.setDisplay(Style.Display.NONE);
+                body.setDisplay(Display.NONE);
                 item.add(progress);
             } else {
-                body.setDisplay(Style.Display.BLOCK);
+                body.setDisplay(Display.BLOCK);
                 progress.removeFromParent();
             }
         }

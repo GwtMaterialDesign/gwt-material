@@ -27,7 +27,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author Ben Dol
  */
 public enum ButtonSize implements Type, Style.HasCssName {
-    MEDIUM(""),
+    MEDIUM("btn-medium"),
     LARGE("btn-large");
 
     private final String cssClass;

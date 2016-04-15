@@ -22,11 +22,12 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasSelectables;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.events.ClearActiveEvent;
@@ -126,7 +127,19 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
             ((MaterialCollapsibleItem) child).setParent(this);
         }
 
-        onInitCollapsible(getElement());
+        if(!this.isAttached()) {
+            addAttachHandler(new AttachEvent.Handler() {
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
+                    if(event.isAttached()) {
+                        onInitCollapsible(getElement());
+                    }
+                }
+            });
+        }else {
+            onInitCollapsible(getElement());
+        }
+
 
         super.add(child);
     }

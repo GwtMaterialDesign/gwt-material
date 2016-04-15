@@ -21,12 +21,13 @@ package gwt.material.design.client.constants;
  */
 
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.HasCssName;
 
 /**
  * @author chriswjones
  */
-public enum Display {
-    FLEX(null),
+public enum Display implements HasCssName {
+    FLEX("flex"),
     NONE(Style.Display.NONE),
     BLOCK(Style.Display.BLOCK),
     INLINE(Style.Display.INLINE),
@@ -45,26 +46,35 @@ public enum Display {
     TABLE_ROW(Style.Display.TABLE_ROW),
     INITIAL(Style.Display.INITIAL);
 
-    private final Style.Display gwtDisplay;
+    private final String cssName;
 
-    Display(Style.Display gwtDisplay) {
-        this.gwtDisplay = gwtDisplay;
+    Display(HasCssName gwtDisplay) {
+        this.cssName = gwtDisplay.getCssName();
+    }
+    
+    Display(String cssName) {
+        this.cssName = cssName;
     }
 
     public Style.Display getGwtDisplay() {
-        return gwtDisplay;
+        return Style.Display.valueOf(this.name());
     }
-
-    public static Display parse(Style.Display gwtDisplay) {
-        if (gwtDisplay == null) {
-            return null;
-        }
-
+    
+    public static Display parse(String display) {
         for (Display d : Display.values()) {
-            if (d.getGwtDisplay() != null && d.getGwtDisplay().equals(gwtDisplay)) {
+            if (d.getCssName().equals(display)){
                 return d;
             }
         }
         return null;
+    }
+
+    public static Display parse(HasCssName display) {
+        return parse(display.getCssName());
+    }
+
+    @Override
+    public String getCssName() {
+        return cssName;
     }
 }

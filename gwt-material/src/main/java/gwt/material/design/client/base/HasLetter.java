@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui.html;
+package gwt.material.design.client.base;
 
 /*
  * #%L
@@ -20,26 +20,31 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.InputElement;
-import gwt.material.design.client.base.MaterialWidget;
-
 /**
- * @author guaido79
+ * @author kevzlou7979
  */
-public class DateInput extends MaterialWidget {
-    public DateInput() {
-        super(InputElement.as(Document.get().createTextInputElement()));
-        getElement().setAttribute("type", "date");
-    }
+public interface HasLetter {
 
-    @Override
-    public void clear() {
-        clearDpValue(getElement());
-    }
+    /**
+     * Set the letter as character
+     * @param letter
+     */
+    public void setLetter(String letter);
 
-    private native void clearDpValue(Element e) /*-{
-        $wnd.jQuery(e).val('');
-    }-*/;
+    /**
+     * Get the letter as character
+     * @return
+     */
+    public String getLetter();
+
+    /**
+     * Set the letter color
+     */
+    public void setLetterColor(String letterColor);
+
+    /**
+     * Set the letter background color
+     */
+    public void setLetterBackgroundColor(String letterBackgroundColor);
+
 }

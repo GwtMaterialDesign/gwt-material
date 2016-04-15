@@ -20,39 +20,55 @@ package gwt.material.design.client.ui.animate;
  * #L%
  */
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Widget;
-
+/**
+ * Provides core and meaningful animation
+ * @author kevzlou7979
+ */
 public class MaterialAnimator {
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis) {
-        switch (transition) {
-        case SHOW_STAGGERED_LIST:
-            if(w instanceof UnorderedList) {
-                UnorderedList ul = (UnorderedList) w;
+    public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
+        animate(transition, w, delayMillis, 800, callback);
+    }
 
-                for(Widget li : ul) {
-                    if(li instanceof ListItem) {
-                        li.getElement().getStyle().setOpacity(0);
+    public static void animate(final Transition transition, final Widget w, int delayMillis, int durationMillis) {
+        animate(transition, w, delayMillis, durationMillis, null);
+    }
+
+    public static void animate(final Transition transition, final Widget w, int delayMillis) {
+        animate(transition, w, delayMillis, 800, null);
+    }
+
+    public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback) {
+        final String name = String.valueOf(DOM.createUniqueId());
+        w.getElement().setId(name);
+        switch (transition) {
+            case SHOW_STAGGERED_LIST:
+                if(w instanceof UnorderedList) {
+                    UnorderedList ul = (UnorderedList) w;
+
+                    for(Widget li : ul) {
+                        if(li instanceof ListItem) {
+                            li.getElement().getStyle().setOpacity(0);
+                        }
                     }
                 }
-            }
-            break;
-        case SHOW_GRID:
-            w.getElement().getStyle().setOpacity(0);
-            break;
-        default:
-            break;
+                break;
+            case SHOW_GRID:
+                w.getElement().getStyle().setOpacity(0);
+                break;
+            default:
+                break;
         }
 
         new Timer() {
             @Override
             public void run() {
-                String name = String.valueOf(this.hashCode());
-                w.getElement().setId(name);
                 switch (transition) {
                     case SHOW_STAGGERED_LIST:
                         showStaggeredList(name);
@@ -69,6 +85,9 @@ public class MaterialAnimator {
                         closeGrid(name);
                         break;
                     default:
+                        // For core animation components
+                        w.addStyleName("animated " + transition.getCssName());
+                        animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
                         break;
                 }
             }
@@ -76,6 +95,16 @@ public class MaterialAnimator {
 
         w.removeStyleName("materialcss");
     }
+
+    protected static native void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) /*-{
+        //$wnd.jQuery('#' + name).css("animationDuration", + durationMillis + "ms");
+        $wnd.jQuery('#' +  name).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+            if(callback != null) {
+                callback.@java.lang.Runnable::run()();
+            }
+            $wnd.jQuery('#' +  name).removeClass(oldClass);
+        });
+    }-*/;
 
     protected static native void closeGrid(String name) /*-{
         $wnd.closeGrid('#' + name);
@@ -89,7 +118,7 @@ public class MaterialAnimator {
         $wnd.Materialize.fadeInImage('#' + name);
     }-*/;
 
-    public static native void showStaggeredList(String name) /*-{
+    protected static native void showStaggeredList(String name) /*-{
         $wnd.Materialize.showStaggeredList('#' + name);
     }-*/;
 }

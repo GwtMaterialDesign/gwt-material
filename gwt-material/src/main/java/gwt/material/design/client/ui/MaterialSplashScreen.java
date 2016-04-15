@@ -19,13 +19,14 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.Display;
+import gwt.material.design.client.ui.html.Div;
+
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
 /**
@@ -83,11 +84,11 @@ public class MaterialSplashScreen extends MaterialWidget implements HasVisibilit
     }
 
     public void show(){
-        getElement().getStyle().setDisplay(Display.BLOCK);
+        getElement().getStyle().setDisplay(Display.BLOCK.getGwtDisplay());
     }
 
     public void hide(){
-        getElement().getStyle().setDisplay(Display.NONE);
+        getElement().getStyle().setDisplay(Display.NONE.getGwtDisplay());
     }
 
 }

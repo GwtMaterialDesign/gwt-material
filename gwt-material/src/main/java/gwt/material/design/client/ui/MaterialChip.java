@@ -20,40 +20,21 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasImage;
-import gwt.material.design.client.base.MaterialWidget;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.Image;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.html.Span;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.HasAllMouseHandlers;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.user.client.ui.Image;
-
 //@formatter:off
+
 /**
  * Chips can be used to represent small blocks of information.
  * They are most commonly used either for contacts or for tags.
@@ -77,13 +58,15 @@ import com.google.gwt.user.client.ui.Image;
  */
 //@formatter:on
 public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasClickHandlers,
-        HasAllMouseHandlers, HasDoubleClickHandlers {
+        HasAllMouseHandlers, HasDoubleClickHandlers, HasLetter {
 
     private MaterialIcon icon = new MaterialIcon();
     private Span span = new Span();
 
     private ImageResource resource;
     private Image image = new Image();
+
+    private final LetterMixin<MaterialChip> letterMixin = new LetterMixin<>(this);
 
     /**
      * Creates an empty chip.
@@ -218,5 +201,25 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
     @Override
     public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
         return addDomHandler(handler, DoubleClickEvent.getType());
+    }
+
+    @Override
+    public void setLetter(String letter) {
+        letterMixin.setLetter(letter);
+    }
+
+    @Override
+    public String getLetter() {
+        return letterMixin.getLetter();
+    }
+
+    @Override
+    public void setLetterColor(String letterColor) {
+        letterMixin.setLetterColor(letterColor);
+    }
+
+    @Override
+    public void setLetterBackgroundColor(String letterBackgroundColor) {
+        letterMixin.setLetterBackgroundColor(letterBackgroundColor);
     }
 }

@@ -30,7 +30,7 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.CheckBox;
+import gwt.material.design.client.base.BaseCheckBox;
 import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.CheckBoxType;
@@ -58,7 +58,7 @@ import gwt.material.design.client.constants.CheckBoxType;
  * @author Ben Dol
  * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">CheckBox</a>
  */
-public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasGrid {
+public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, HasGrid {
 
     private Object object;
     private String old;
@@ -66,6 +66,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
     private final GridMixin<MaterialCheckBox> gridMixin = new GridMixin<>(this);
 
     public MaterialCheckBox() {
+        super();
     }
 
     public MaterialCheckBox(Element elem) {
@@ -122,6 +123,7 @@ public class MaterialCheckBox extends CheckBox implements HasClickHandlers, HasG
     @Override
     protected void onAttach() {
         super.onAttach();
+
         this.getElement().getStyle().setDisplay(Display.BLOCK);
     }
 

@@ -20,6 +20,10 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.IdMixin;
+import gwt.material.design.client.constants.Display;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.IsEditor;
@@ -27,8 +31,6 @@ import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.editor.ui.client.adapters.HasTextEditor;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
-import gwt.material.design.client.base.mixin.IdMixin;
 
 /**
  * @author Ben Dol
@@ -171,8 +173,8 @@ public abstract class AbstractTextWidget extends Widget implements HasId, HasHTM
     }
 
     @Override
-    public void setDisplay(Style.Display display) {
-        getElement().getStyle().setDisplay(display);
+    public void setDisplay(Display display) {
+        getElement().getStyle().setProperty("display", display.getCssName());
     }
 
     @Override

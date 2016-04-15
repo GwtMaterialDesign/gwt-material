@@ -21,7 +21,12 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.base.HasAxis;
+import gwt.material.design.client.base.HasOrientation;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.Axis;
+import gwt.material.design.client.constants.Orientation;
 
 //@formatter:off
 
@@ -88,7 +93,9 @@ import gwt.material.design.client.base.MaterialWidget;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
  */
 //@formatter:on
-public class MaterialCard extends MaterialWidget {
+public class MaterialCard extends MaterialWidget implements HasAxis {
+
+    private final CssNameMixin<MaterialCard, Axis> axisMixin = new CssNameMixin<>(this);
 
     /**
      * Creates and empty card.
@@ -102,5 +109,15 @@ public class MaterialCard extends MaterialWidget {
     public void setGrid(String grid) {
         super.setGrid(grid);
         addStyleName("no-padding");
+    }
+
+    @Override
+    public void setAxis(Axis axis) {
+        axisMixin.setCssName(axis);
+    }
+
+    @Override
+    public Axis getAxis() {
+        return axisMixin.getCssName();
     }
 }

@@ -22,13 +22,18 @@ package gwt.material.design.client.constants;
 
 import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum AutocompleteType implements CssType {
-    CHIP("autocomplete-chip"),
-    TEXT("autocomplete-text");
+/**
+ * Types of Button.<br>
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
+public enum TabType implements CssType {
+    DEFAULT(""),
+    ICON("tab-icon");
 
     private final String cssClass;
 
-    AutocompleteType(final String cssClass) {
+    TabType(final String cssClass) {
         this.cssClass = cssClass;
     }
 
@@ -37,7 +42,7 @@ public enum AutocompleteType implements CssType {
         return cssClass;
     }
 
-    public static AutocompleteType fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, AutocompleteType.class, CHIP);
+    public static TabType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, TabType.class, DEFAULT);
     }
 }

@@ -5,7 +5,7 @@
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.0</version>
 
     <modules>
         <module>gwt-material</module>
@@ -13,31 +13,37 @@
 
     <name>Gwt Material Parent</name>
     <description>A Material Design look and feel for GWT Apps plus Phonegap</description>
-    <url>http://gwt-material.appspot.com/</url>
+    <url>http://gwtmaterialdesign.github.io/gwt-material-demo/</url>
     <developers>
         <developer>
             <name>Kevzlou7979</name>
             <email>kevzlou7979@gmail.com</email>
             <organization>Gwt Material</organization>
-            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+            <organizationUrl>http://gwtmaterialdesign.github.io/gwt-material-demo/</organizationUrl>
         </developer>
         <developer>
             <name>Christian Lacerda</name>
             <email>christian.mails@gmail.com</email>
             <organization>Gwt Material</organization>
-            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+            <organizationUrl>http://gwtmaterialdesign.github.io/gwt-material-demo/</organizationUrl>
         </developer>
         <developer>
             <name>Ben Dol</name>
             <email>dolb90@gmail.com</email>
             <organization>Gwt Material</organization>
-            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+            <organizationUrl>http://gwtmaterialdesign.github.io/gwt-material-demo/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Gilberto Torrezan</name>
+            <email>gilberto.torrezan@gmail.com</email>
+            <organization>Gwt Material</organization>
+            <organizationUrl>http://gwtmaterialdesign.github.io/gwt-material-demo/</organizationUrl>
         </developer>
         <developer>
             <name>Paolo Pino</name>
             <email>paulux84@gmail.com</email>
             <organization>Gwt Material</organization>
-            <organizationUrl>http://gwt-material.appspot.com</organizationUrl>
+            <organizationUrl>http://gwtmaterialdesign.github.io/gwt-material-demo/</organizationUrl>
         </developer>
     </developers>
     <properties>
@@ -56,7 +62,7 @@
         <connection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</connection>
         <developerConnection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</developerConnection>
         <url>http://github.com/GwtMaterialDesign/gwt-material</url>
-        <tag>v1.4.1</tag>
+        <tag>v1.5.0</tag>
     </scm>
 
     <licenses>

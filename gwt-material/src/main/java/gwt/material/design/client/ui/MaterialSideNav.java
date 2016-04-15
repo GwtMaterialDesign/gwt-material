@@ -269,7 +269,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     private native boolean isSmall() /*-{
-        var mq = $wnd.window.matchMedia('all and (max-width: 894px)');
+        var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
         if(!mq.matches) {
             return true;
         }
@@ -288,7 +288,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
         $wnd.jQuery(activator).click(function (){
 
-            var mq = $wnd.window.matchMedia('all and (max-width: 894px)');
+            var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
             if(!mq.matches) {
                 if(toggle){
                     _width = 0;

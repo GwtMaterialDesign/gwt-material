@@ -21,7 +21,7 @@ package gwt.material.design.client.base;
  */
 
 
-import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.constants.Display;
 
 /**
  * @author Ben Dol
@@ -47,5 +47,5 @@ public interface HasInlineStyle extends HasColors, HasOpacity, HasFontSize {
 
     void setPaddingBottom(double padding);
 
-    void setDisplay(Style.Display display);
+    void setDisplay(Display display);
 }

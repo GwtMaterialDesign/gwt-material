@@ -132,7 +132,8 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
         // Check if this widget has a valid href
         String href = child.getElement().getAttribute("href");
         String url = Window.Location.getHref();
-        String location = url.substring(url.indexOf("#"), url.length());
+        int pos = url.indexOf("#");
+        String location = pos >= 0 ? url.substring(pos, url.length()) : "";
 
         if(!href.isEmpty() && location.startsWith(href)) {
             ListItem li = findListItemParent(child);

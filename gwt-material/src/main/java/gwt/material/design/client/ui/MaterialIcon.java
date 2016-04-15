@@ -99,6 +99,10 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
         return this;
     }
 
+    public IconType getIconType() {
+        return IconType.fromStyleName(getElement().getInnerText());
+    }
+
     @Override
     public void setIconType(IconType icon) {
         getElement().setInnerText(icon.getCssName());
