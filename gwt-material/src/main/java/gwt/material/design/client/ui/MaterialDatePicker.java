@@ -115,7 +115,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
         setDate(this.date);
         setDateMin(this.dateMin);
-        setDateMax(this.dateMin);
+        setDateMax(this.dateMax);
         setPlaceholder(this.placeholder);
     }
 
