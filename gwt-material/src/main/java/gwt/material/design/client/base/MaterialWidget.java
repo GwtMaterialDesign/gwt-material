@@ -83,12 +83,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-
-    }
-
-    @Override
     public void add(final Widget child) {
         add(child, (Element) getElement());
     }
