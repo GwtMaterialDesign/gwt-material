@@ -41,22 +41,24 @@ public class InitialClassMixin<T extends UIObject & HasInitialClass> extends Abs
     @Override
     public void setInitialClass(final String... initialClass) {
         this.initialClass = initialClass;
-        ((Widget)uiObject).addAttachHandler(new AttachEvent.Handler() {
-            @Override
-            public void onAttachOrDetach(AttachEvent event) {
+        if(!((Widget)uiObject).isAttached()){
+            ((Widget)uiObject).addAttachHandler(new AttachEvent.Handler() {
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
 
-                for(String s : initialClass) {
-                    if(initialClass != null && !s.isEmpty()) {
-                        uiObject.removeStyleName(s);
-                    }
-                    if(event.isAttached()){
+                    for(String s : initialClass) {
                         if(initialClass != null && !s.isEmpty()) {
-                            uiObject.addStyleName(s);
+                            uiObject.removeStyleName(s);
+                        }
+                        if(event.isAttached()){
+                            if(initialClass != null && !s.isEmpty()) {
+                                uiObject.addStyleName(s);
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
 
