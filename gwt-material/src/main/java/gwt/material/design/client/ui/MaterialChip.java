@@ -72,8 +72,7 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
      * Creates an empty chip.
      */
     public MaterialChip() {
-        super(Document.get().createDivElement());
-        setStyleName("chip");
+        super(Document.get().createDivElement(), "chip");
     }
 
     public void setText(String text){

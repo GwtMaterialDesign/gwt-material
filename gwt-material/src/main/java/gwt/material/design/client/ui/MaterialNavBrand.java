@@ -60,8 +60,7 @@ public class MaterialNavBrand extends MaterialWidget implements HasText, HasHref
      */
     @UiConstructor
     public MaterialNavBrand() {
-        super(Document.get().createElement("a"));
-        this.addStyleName("brand-logo");
+        super(Document.get().createElement("a"), "brand-logo");
 
     }
 

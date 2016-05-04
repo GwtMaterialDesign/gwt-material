@@ -45,8 +45,7 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     private Span span = new Span();
 
     public MaterialCardTitle() {
-        super(Document.get().createSpanElement());
-        setStyleName("card-title activator");
+        super(Document.get().createSpanElement(), "card-title activator");
     }
 
     @Override

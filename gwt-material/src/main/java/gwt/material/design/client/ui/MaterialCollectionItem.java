@@ -52,8 +52,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
     private HandlerRegistration handlerReg;
 
     public MaterialCollectionItem() {
-        super(Document.get().createLIElement());
-        setStyleName("collection-item");
+        super(Document.get().createLIElement(), "collection-item");
         UiHelper.addMousePressedHandlers(this);
     }
 

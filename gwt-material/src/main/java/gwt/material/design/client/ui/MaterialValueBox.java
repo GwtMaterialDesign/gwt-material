@@ -108,8 +108,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     private final ErrorMixin<MaterialValueBox<T>, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
 
     public MaterialValueBox() {
-        super(Document.get().createDivElement());
-        setStyleName("input-field");
+        super(Document.get().createDivElement(), "input-field");
     }
     
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {

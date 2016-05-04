@@ -100,8 +100,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      * Creates an empty collapsible
      */
     public MaterialCollapsible() {
-        super(Document.get().createULElement());
-        setStyleName("collapsible");
+        super(Document.get().createULElement(), "collapsible");
     }
 
     /**

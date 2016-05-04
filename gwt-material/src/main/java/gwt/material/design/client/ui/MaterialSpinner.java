@@ -51,8 +51,7 @@ public class MaterialSpinner extends MaterialWidget {
     private Div gapPatch = new Div();
 
     public MaterialSpinner() {
-        super(Document.get().createDivElement());
-        setStyleName("spinner-layer");
+        super(Document.get().createDivElement(), "spinner-layer");
         add(circleClipperLeft);
         circleClipperLeft.add(circle1);
         add(gapPatch);

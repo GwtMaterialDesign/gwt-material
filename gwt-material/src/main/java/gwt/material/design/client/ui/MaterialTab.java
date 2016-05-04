@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -70,19 +71,25 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
 
     public MaterialTab() {
         super();
-        setStyleName("tabs");
+        setInitialClass("tabs");
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
+        this.addAttachHandler(new AttachEvent.Handler() {
+            @Override
+            public void onAttachOrDetach(AttachEvent event) {
+                if(event.isAttached()) {
+                    initialize();
 
-        initialize();
+                    indicator = new MaterialWidget(getIndicatorElement(getElement()));
+                    indicatorColorMixin = new ColorsMixin<>(indicator);
 
-        indicator = new MaterialWidget(getIndicatorElement(getElement()));
-        indicatorColorMixin = new ColorsMixin<>(indicator);
-
-        setIndicatorColor(indicatorColor);
+                    setIndicatorColor(indicatorColor);
+                }
+            }
+        });
     }
 
     public int getTabIndex() {

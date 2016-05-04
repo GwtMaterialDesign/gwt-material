@@ -49,8 +49,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
      * Creates empty collapsible body.
      */
     public MaterialCollapsibleBody() {
-        super(Document.get().createDivElement());
-        setStyleName("collapsible-body");
+        super(Document.get().createDivElement(), "collapsible-body");
     }
 
     /**

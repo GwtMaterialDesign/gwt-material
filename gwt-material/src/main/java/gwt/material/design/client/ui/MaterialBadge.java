@@ -45,7 +45,7 @@ public class MaterialBadge extends Span implements HasText {
      * Collection, DropDown, SideNav and any other Material components.
      */
     public MaterialBadge() {
-        setStyleName("badge sideBarBadge");
+        setInitialClass("badge sideBarBadge");
     }
 
     /**

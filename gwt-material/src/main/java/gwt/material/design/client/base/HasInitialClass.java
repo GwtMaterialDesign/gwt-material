@@ -1,10 +1,10 @@
-package gwt.material.design.client.ui;
+package gwt.material.design.client.base;
 
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,20 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.MaterialWidget;
 
-import com.google.gwt.dom.client.Document;
 
-//@formatter:off
-/**
-* Card Element for action links. 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#cards">Material Cards</a>
-*/
-//@formatter:on
-public class MaterialCardAction extends MaterialWidget {
+public interface HasInitialClass {
 
-    public MaterialCardAction(){
-        super(Document.get().createDivElement(), "card-action");
-    }
+    /**
+     * Set the initial class into Material Components
+     * @param initialClass
+     */
+    void setInitialClass(String initialClass);
+
+    /**
+     * Get the initial class of Material Components
+     * @return
+     */
+    String getInitialClass();
+
 }

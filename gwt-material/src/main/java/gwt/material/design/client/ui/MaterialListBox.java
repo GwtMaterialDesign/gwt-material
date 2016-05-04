@@ -82,8 +82,7 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
 
 
     public MaterialListBox() {
-        super(Document.get().createDivElement());
-        addStyleName("input-field");
+        super(Document.get().createDivElement(), "input-field");
         add(listBox);
         add(lblName);
         toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");

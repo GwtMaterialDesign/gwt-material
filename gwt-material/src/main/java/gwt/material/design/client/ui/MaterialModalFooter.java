@@ -30,6 +30,6 @@ package gwt.material.design.client.ui;
 public class MaterialModalFooter extends MaterialPanel {
 
     public MaterialModalFooter() {
-        setStyleName("modal-footer");
+        setInitialClass("modal-footer");
     }
 }

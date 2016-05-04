@@ -58,8 +58,7 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
     private Div div = new Div();
 
     public MaterialNoResult() {
-        super(Document.get().createDivElement());
-        setStyleName("valign-wrapper");
+        super(Document.get().createDivElement(), "valign-wrapper");
         setTextAlign(TextAlign.CENTER);
         setHeight("100%");
         add(div);

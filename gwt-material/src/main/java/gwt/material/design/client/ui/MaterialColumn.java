@@ -52,8 +52,7 @@ public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisib
         HasAllMouseHandlers, HasDoubleClickHandlers {
 
     public MaterialColumn() {
-        super(Document.get().createDivElement());
-        setStyleName("col");
+        super(Document.get().createDivElement(), "col");
     }
 
     public MaterialColumn(int small, int medium, int large) {

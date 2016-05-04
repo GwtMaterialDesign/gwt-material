@@ -43,8 +43,7 @@ public class MaterialCollapsibleHeader extends MaterialWidget implements HasAllM
     /** Creates empty collapsible header.
      */
     public MaterialCollapsibleHeader() {
-        super(Document.get().createDivElement());
-        setStyleName("collapsible-header");
+        super(Document.get().createDivElement(), "collapsible-header");
     }
 
     /** Adds other components as header.
