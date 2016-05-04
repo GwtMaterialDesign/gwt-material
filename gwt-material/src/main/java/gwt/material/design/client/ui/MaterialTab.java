@@ -70,8 +70,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialTab() {
-        super();
-        setInitialClass("tabs");
+        super("tabs");
     }
 
     @Override

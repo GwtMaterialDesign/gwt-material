@@ -20,6 +20,7 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
@@ -28,7 +29,11 @@ import gwt.material.design.client.base.MaterialWidget;
 public class ListItem extends MaterialWidget {
 
     public ListItem() {
-        setElement((Element)DOM.createElement("li"));
+        super(Document.get().createLIElement());
+    }
+
+    public ListItem(String... initialClass) {
+        super(Document.get().createLIElement(), initialClass);
     }
 
     public ListItem(Widget item) {

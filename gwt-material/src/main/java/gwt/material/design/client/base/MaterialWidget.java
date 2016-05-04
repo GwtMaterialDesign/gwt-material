@@ -73,7 +73,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public MaterialWidget() {
     }
 
-    public MaterialWidget(Element element, String initialClass) {
+    public MaterialWidget(Element element, String... initialClass) {
         this(element);
         setInitialClass(initialClass);
     }
@@ -699,12 +699,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }-*/;
 
     @Override
-    public void setInitialClass(String initialClass) {
+    public void setInitialClass(String... initialClass) {
         getInitialClassMixin().setInitialClass(initialClass);
     }
 
     @Override
-    public String getInitialClass() {
+    public String[] getInitialClass() {
         return getInitialClassMixin().getInitialClass();
     }
 }

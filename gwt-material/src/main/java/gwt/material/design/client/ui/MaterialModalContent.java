@@ -30,7 +30,7 @@ package gwt.material.design.client.ui;
 public class MaterialModalContent extends MaterialPanel {
 
     public MaterialModalContent() {
-        setInitialClass("modal-content");
+        super("modal-content");
     }
 
     public void setHeight(String height) {

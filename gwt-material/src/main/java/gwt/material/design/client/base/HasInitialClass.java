@@ -28,12 +28,12 @@ public interface HasInitialClass {
      * Set the initial class into Material Components
      * @param initialClass
      */
-    void setInitialClass(String initialClass);
+    void setInitialClass(String... initialClass);
 
     /**
      * Get the initial class of Material Components
      * @return
      */
-    String getInitialClass();
+    String[] getInitialClass();
 
 }

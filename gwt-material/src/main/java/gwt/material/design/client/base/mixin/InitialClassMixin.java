@@ -31,7 +31,7 @@ import gwt.material.design.client.base.HasInitialClass;
  */
 public class InitialClassMixin<T extends UIObject & HasInitialClass> extends AbstractMixin<T> implements HasInitialClass {
 
-    private String initialClass;
+    private String[] initialClass;
 
     public InitialClassMixin(final T uiObject) {
         super(uiObject);
@@ -39,17 +39,20 @@ public class InitialClassMixin<T extends UIObject & HasInitialClass> extends Abs
 
 
     @Override
-    public void setInitialClass(final String initialClass) {
+    public void setInitialClass(final String... initialClass) {
         this.initialClass = initialClass;
         ((Widget)uiObject).addAttachHandler(new AttachEvent.Handler() {
             @Override
             public void onAttachOrDetach(AttachEvent event) {
-                if(initialClass != null && !initialClass.isEmpty()) {
-                    uiObject.removeStyleName(initialClass);
-                }
-                if(event.isAttached()){
-                    if(initialClass != null && !initialClass.isEmpty()) {
-                        uiObject.addStyleName(initialClass);
+
+                for(String s : initialClass) {
+                    if(initialClass != null && !s.isEmpty()) {
+                        uiObject.removeStyleName(s);
+                    }
+                    if(event.isAttached()){
+                        if(initialClass != null && !s.isEmpty()) {
+                            uiObject.addStyleName(s);
+                        }
                     }
                 }
             }
@@ -58,7 +61,7 @@ public class InitialClassMixin<T extends UIObject & HasInitialClass> extends Abs
 
 
     @Override
-    public String getInitialClass() {
+    public String[] getInitialClass() {
         return initialClass;
     }
 }

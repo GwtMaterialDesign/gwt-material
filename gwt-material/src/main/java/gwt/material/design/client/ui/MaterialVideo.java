@@ -48,7 +48,7 @@ public class MaterialVideo extends MaterialWidget implements HasGrid{
     private Frame frame =  new Frame();
 
     public MaterialVideo() {
-        super(Document.get().createElement("div"));
+        super(Document.get().createElement("div"), "video-container");
         add(frame);
     }
 
@@ -58,7 +58,6 @@ public class MaterialVideo extends MaterialWidget implements HasGrid{
 
     public void setUrl(String url) {
         frame.setUrl(url);
-        this.addStyleName("video-container");
         this.add(frame);
     }
 

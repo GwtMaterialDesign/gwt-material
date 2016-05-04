@@ -68,7 +68,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
 public class MaterialScrollspy extends UnorderedList {
 
     public MaterialScrollspy() {
-        setInitialClass("section table-of-contents");
+        super("section", "table-of-contents");
     }
 
     @Override

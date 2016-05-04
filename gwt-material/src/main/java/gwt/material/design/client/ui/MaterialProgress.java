@@ -45,8 +45,7 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
     private double percent = 0;
 
     public MaterialProgress() {
-        super();
-        setInitialClass("progress");
+        super("progress");
         getElement().getStyle().setMargin(0, Unit.PX);
         add(div);
         setType(ProgressType.INDETERMINATE);

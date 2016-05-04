@@ -63,8 +63,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
      * Creates an empty icon.
      */
     public MaterialIcon() {
-        super();
-        setInitialClass("material-icons");
+        super("material-icons");
     }
 
     /**
