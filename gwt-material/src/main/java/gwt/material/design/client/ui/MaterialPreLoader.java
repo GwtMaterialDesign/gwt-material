@@ -49,8 +49,7 @@ public class MaterialPreLoader extends MaterialWidget {
 
 
     public MaterialPreLoader() {
-        super(Document.get().createDivElement());
-        setStyleName("preloader-wrapper active");
+        super(Document.get().createDivElement(), "preloader-wrapper", "active");
     }
 
     /**

@@ -65,8 +65,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
      * Creates a switch element
      */
     public MaterialSwitch() {
-        super(Document.get().createDivElement());
-        setStyleName("switch");
+        super(Document.get().createDivElement(), "switch");
         span.setStyleName("lever");
         input.setType(InputType.CHECKBOX);
         label.add(input);

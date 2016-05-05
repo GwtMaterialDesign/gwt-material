@@ -66,7 +66,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
      * Creates an empty image.
      */
     public MaterialImage() {
-        super(Document.get().createImageElement());
+        super(Document.get().createImageElement(), "responsive-img");
     }
 
     /**
@@ -104,8 +104,6 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     public void onLoad() {
         super.onLoad();
-
-        addStyleName("responsive-img");
         onInitMaterialDesign();
     }
 

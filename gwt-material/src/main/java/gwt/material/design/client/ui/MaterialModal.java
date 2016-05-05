@@ -88,8 +88,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     private double opacity = 0.5;
 
     public MaterialModal() {
-        super(Document.get().createDivElement());
-        setStyleName("modal");
+        super(Document.get().createDivElement(), "modal");
     }
 
     /**

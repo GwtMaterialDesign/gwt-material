@@ -36,7 +36,6 @@ import com.google.gwt.dom.client.Document;
 public class MaterialSlideCaption extends MaterialWidget {
 
     public MaterialSlideCaption() {
-        super(Document.get().createDivElement());
-        setStyleName("caption");
+        super(Document.get().createDivElement(), "caption");
     }
 }

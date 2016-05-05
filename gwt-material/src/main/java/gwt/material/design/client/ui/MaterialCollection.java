@@ -97,8 +97,7 @@ public class MaterialCollection extends MaterialWidget {
      * Creates an empty collection component.
      */
     public MaterialCollection() {
-        super(Document.get().createULElement());
-        setStyleName("collection");
+        super(Document.get().createULElement(), "collection");
     }
 
     /**

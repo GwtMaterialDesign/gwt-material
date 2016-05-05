@@ -67,8 +67,7 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     private boolean toggle = true;
 
     public MaterialFAB() {
-        super(Document.get().createDivElement());
-        setStyleName("fixed-action-btn");
+        super(Document.get().createDivElement(), "fixed-action-btn");
     }
 
     @Override

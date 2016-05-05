@@ -52,8 +52,7 @@ public class MaterialLabel extends MaterialWidget implements HasGrid, HasSeparat
     private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
 
     public MaterialLabel() {
-        super(Document.get().createSpanElement());
-        setStyleName("material-label");
+        super(Document.get().createSpanElement(), "material-label");
     }
 
     public MaterialLabel(String text) {

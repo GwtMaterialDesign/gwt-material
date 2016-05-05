@@ -85,8 +85,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Icons or any other material components.
      */
     public MaterialSideNav() {
-        super(Document.get().createULElement());
-        setStyleName("side-nav");
+        super(Document.get().createULElement(), "side-nav");
     }
 
     /**

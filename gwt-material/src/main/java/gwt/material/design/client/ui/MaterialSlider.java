@@ -70,8 +70,7 @@ public class MaterialSlider extends MaterialWidget {
     private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, "fullscreen");
 
     public MaterialSlider() {
-        super(Document.get().createDivElement());
-        setStyleName("slider");
+        super(Document.get().createDivElement(), "slider");
         ul.setStyleName("slides");
         super.add(ul);
     }

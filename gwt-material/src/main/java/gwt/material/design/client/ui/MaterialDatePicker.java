@@ -87,8 +87,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private boolean initialized = false;
 
     public MaterialDatePicker() {
-        super(Document.get().createDivElement());
-        addStyleName("input-field");
+        super(Document.get().createDivElement(), "input-field");
 
         dateInput = new DateInput();
         add(dateInput);

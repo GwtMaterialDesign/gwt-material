@@ -33,6 +33,10 @@ public class Div extends MaterialWidget implements HasClickHandlers {
         super(Document.get().createElement("div"));
     }
 
+    public Div(String... initialClass) {
+        super(Document.get().createDivElement(), initialClass);
+    }
+
     @Override
     public HandlerRegistration addClickHandler(ClickHandler handler) {
         return addDomHandler(handler, ClickEvent.getType());
