@@ -327,6 +327,10 @@ nav.smaller .brand-logo{
 nav.pinned{
 	z-index: 996;
 }
+nav.navbar-fixed{
+	top: 0px;
+	position: fixed !important;
+}
 .side-nav i {
 	font-size: 2em !important;
 	line-height: inherit;
@@ -397,6 +401,9 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 @media only screen and (max-width : 992px) {
 	main {
 		padding-bottom: 70px !important;
+	}
+	nav.navbar-fixed{
+		width: 100%;
 	}
 }
 
