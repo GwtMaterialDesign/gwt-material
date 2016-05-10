@@ -194,8 +194,15 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
-        return addHandler(handler, ValueChangeEvent.getType());
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<String> handler) {
+        return addHandler(new ValueChangeHandler<String>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<String> event) {
+                if(isEnabled()){
+                    handler.onValueChange(event);
+                }
+            }
+        }, ValueChangeEvent.getType());
     }
 
     public boolean isOld() {

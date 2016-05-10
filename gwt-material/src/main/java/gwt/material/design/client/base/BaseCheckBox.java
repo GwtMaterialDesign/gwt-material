@@ -61,7 +61,7 @@ import com.google.gwt.user.client.ui.*;
  * A standard check box widget.
  *
  * This class also serves as a base class for
- * {@link com.google.gwt.user.client.ui.RadioButton}.
+ * {@link RadioButton}.
  *
  * <p>
  * <img class='gallery' src='doc-files/CheckBox.png'/>
@@ -220,13 +220,20 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
 
   @Override
   public HandlerRegistration addValueChangeHandler(
-          ValueChangeHandler<Boolean> handler) {
+         final ValueChangeHandler<Boolean> handler) {
     // Is this the first value change handler? If so, time to add handlers
     if (!valueChangeHandlerInitialized) {
       ensureDomEventHandlers();
       valueChangeHandlerInitialized = true;
     }
-    return addHandler(handler, ValueChangeEvent.getType());
+    return addHandler(new ValueChangeHandler<Boolean>() {
+      @Override
+      public void onValueChange(ValueChangeEvent<Boolean> event) {
+        if(isEnabled()){
+          handler.onValueChange(event);
+        }
+      }
+    }, ValueChangeEvent.getType());
   }
 
   @Override
