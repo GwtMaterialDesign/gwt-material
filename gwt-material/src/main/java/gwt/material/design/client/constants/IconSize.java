@@ -43,6 +43,21 @@ public enum IconSize implements Type, Style.HasCssName {
         return cssClass;
     }
 
+    public int getPixelSize() {
+        switch (this) {
+            case TINY:
+                return 15;
+            case SMALL:
+                return 30;
+            case MEDIUM:
+                return 60;
+            case LARGE:
+                return 90;
+            default:
+                return 0;
+        }
+    }
+
     public static IconSize fromStyleName(final String styleName) {
         return EnumHelper.fromStyleName(styleName, IconSize.class, SMALL);
     }
