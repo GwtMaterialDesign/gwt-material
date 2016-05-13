@@ -44,8 +44,8 @@ import java.util.Iterator;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasDepth, HasInitialClass {
-
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
+        HasDepth, HasInitialClass {
 
     private InitialClassMixin<MaterialWidget> initialClassMixin;
     private IdMixin<MaterialWidget> idMixin;
