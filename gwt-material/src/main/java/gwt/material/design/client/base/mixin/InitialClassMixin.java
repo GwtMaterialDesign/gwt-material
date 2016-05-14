@@ -20,10 +20,7 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
-
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.UIObject;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasInitialClass;
 
 /**
@@ -37,30 +34,18 @@ public class InitialClassMixin<T extends UIObject & HasInitialClass> extends Abs
         super(uiObject);
     }
 
-
     @Override
     public void setInitialClass(final String... initialClass) {
         this.initialClass = initialClass;
-        if(!((Widget)uiObject).isAttached()){
-            ((Widget)uiObject).addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-
-                    for(String s : initialClass) {
-                        if(initialClass != null && !s.isEmpty()) {
-                            uiObject.removeStyleName(s);
-                        }
-                        if(event.isAttached()){
-                            if(initialClass != null && !s.isEmpty()) {
-                                uiObject.addStyleName(s);
-                            }
-                        }
-                    }
+        if(initialClass != null) {
+            for (String s : initialClass) {
+                if (!s.isEmpty()) {
+                    uiObject.removeStyleName(s);
+                    uiObject.addStyleName(s);
                 }
-            });
+            }
         }
     }
-
 
     @Override
     public String[] getInitialClass() {
