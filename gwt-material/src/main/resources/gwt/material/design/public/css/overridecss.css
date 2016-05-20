@@ -81,7 +81,6 @@ ul li button.btn-floating {
 	opacity: 0;
 }
 
-
 /** Errors **/
 .field-error, .field-error-picker input {
 	border-bottom: 1px solid #F44336 !important;
@@ -155,7 +154,7 @@ ul li button.btn-floating {
 }
 .letter{
 	float: left;
-	margin: 0px 8px 0px -12px;
+	margin: 0 8px 0 -12px;
 	height: 32px;
 	width: 32px;
 	border-radius: 50%;
@@ -284,7 +283,6 @@ nav .navbar-tall {
 nav .nav-wrapper .side-nav i {
 	display: inline !important;
 	vertical-align: middle;
-
 }
 /** NavBar Shrink **/
 nav.navbar-shrink{
@@ -328,11 +326,12 @@ nav.pinned{
 	z-index: 996;
 }
 nav.navbar-fixed{
-	top: 0px;
+	top: 0;
 	position: fixed !important;
 }
 .side-nav i {
 	font-size: 2em !important;
+	width: 2rem;
 	line-height: inherit;
 }
 
@@ -414,6 +413,10 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 	color: #fff !important;
 	border-radius: 3px !important;
 	font-size: 0.7em !important;
+}
+
+a span {
+	vertical-align: middle;
 }
 
 ul.side-nav .sideBarBadge {
@@ -706,7 +709,7 @@ ul.tabs .tab.disabled{
 	vertical-align: top;
 }
 .tab a i{
-	padding-left: 0px;
+	padding-left: 0;
 }
 
 @media only screen and (max-width: 992px) {
@@ -722,8 +725,8 @@ ul.tabs .tab.disabled{
 footer.fixed{
 	position: fixed;
 	width: 100%;
-	bottom: 0px;
-	padding-top: 0px !important;
+	bottom: 0;
+	padding-top: 0 !important;
 }
 
 
@@ -760,7 +763,7 @@ footer.fixed{
 
 /** Sidenav Close **/
 .side-nav.close{
-	top: 0px !important;
+	top: 0 !important;
 }
 
 .navmenu-permanent, .drag-target, #sidenav-overlay{
@@ -778,10 +781,10 @@ footer.fixed{
 		visibility: visible !important;
 	}
 	.nav-wrapper{
-		padding: 0px;
+		padding: 0;
 	}
 	header, footer, main{
-		margin-left: 0px !important;
+		margin-left: 0 !important;
 	}
 	nav.pinned{
 		width: 100% !important;
@@ -790,7 +793,7 @@ footer.fixed{
 	.input-field input[type=search] {
 		padding-left: 2rem !important;
 		width: calc(100% - 10rem) !important;
-		margin-bottom: 0px !important;
+		margin-bottom: 0 !important;
 	}
 	.input-field input[type=search] + label {
 		z-index: 999 !important;
@@ -833,28 +836,28 @@ footer.fixed{
 /** Circle badge **/
 .badge.circle {
 	position: absolute;
-	min-width: 0px !important;
+	min-width: 0 !important;
 	border-radius: 100% !important;
 	height: 24px !important;
 	top: -12px;
 	width: 24px;
 	font-size: 0.6rem !important;
 	text-align: center;
-	padding: 0px !important;
+	padding: 0 !important;
 	padding-top: 12px !important;
 	right: 8px;
 }
 .input-field input[type=search] {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 	height: calc(4rem + 2px);
 }
 /** Added support for horizontal cards **/
 .horizontal .card-action a{
 	margin-left: 20px;
-	margin-right: 0px !important;
+	margin-right: 0 !important;
 }
 .horizontal .card-action{
-	padding: 0px;
+	padding: 0;
 	margin-top: 8px;
 }
 .horizontal .card-content{
