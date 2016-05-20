@@ -8,6 +8,7 @@
 
 ## Demo
 * [1.5.0 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
+* [1.5.1 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
@@ -54,9 +55,9 @@ Please follow the [contribution document](https://github.com/GwtMaterialDesign/g
 
 ## R</li>elated Projects
 <ul>
- <li><a href="https://github.com/GwtMaterialDesign/gwt-material-addins" >Addins 1.5.0</a></li>
- <li><a href="https://github.com/GwtMaterialDesign/gwt-material-themes" >Themes 1.5.0</a></li>
- <li><a href="https://github.com/GwtMaterialDesign/gwt-material-demo" >Demo 1.5.0</a></li>
- <li><a href="https://github.com/GwtMaterialDesign/gwt-material-template" >Starter 1.0</a></li>
- <li><a href="https://github.com/GwtMaterialDesign/gwt-material-patterns" >Patterns 1.0</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-addins" >Addins</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-themes" >Themes</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-demo" >Demo</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-template" >Starter</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-patterns" >Patterns</a></li>
 </ul>

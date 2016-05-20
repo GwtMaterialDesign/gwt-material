@@ -1,5 +1,8 @@
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+
 /*
  * #%L
  * GwtMaterial
@@ -530,8 +533,32 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
-    public void setFocus(boolean focused) {
-        valueBoxBase.setFocus(focused);
+    public void setFocus(final boolean focused) {
+    	Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+			
+			@Override
+			public void execute() {
+				valueBoxBase.setFocus(focused);
+		        if(focused){
+		        	label.addStyleName("active");
+		        }else{
+		        	updateLabelActiveStyle();
+		        }
+			}
+		});
+    }
+    
+    /**
+     * Updates the style of the field label according to the field value
+     * if the field value is empty - null or "" - removes the label 'active' style
+     * else will add the 'active' style to the field label.
+     */
+    private void updateLabelActiveStyle(){
+    	if(this.valueBoxBase.getText()!=null && !this.valueBoxBase.getText().isEmpty()){
+    		label.addStyleName("active");
+    	}else{
+    		label.removeStyleName("active");
+    	}
     }
 
     @Override
