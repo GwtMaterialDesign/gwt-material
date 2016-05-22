@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
@@ -101,6 +100,8 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      */
     public MaterialCollapsible() {
         super(Document.get().createULElement(), "collapsible");
+
+        enableFeature(Feature.ONLOAD_ADD_QUEUE, true);
     }
 
     /**
@@ -108,16 +109,20 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      */
     public MaterialCollapsible(final MaterialCollapsibleItem... widgets){
         this();
-        for (final MaterialCollapsibleItem item : widgets) {
+
+        for(final MaterialCollapsibleItem item : widgets) {
             add(item);
         }
     }
 
     @Override
     protected void onLoad() {
-        super.onLoad();
-
+        // Initialize collapsible before super.onLoad
+        // this is so load additions will register
+        // correctly.
         onInitCollapsible(getElement());
+
+        super.onLoad();
     }
 
     @Override
@@ -125,21 +130,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         if(child instanceof MaterialCollapsibleItem) {
             ((MaterialCollapsibleItem) child).setParent(this);
         }
-
-        if(!this.isAttached()) {
-            addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-                    if(event.isAttached()) {
-                        onInitCollapsible(getElement());
-                    }
-                }
-            });
-        }else {
-            onInitCollapsible(getElement());
-        }
-
-
         super.add(child);
     }
 
