@@ -35,10 +35,6 @@ button.disabled, i.disabled {
 	cursor: default;
 }
 
-i.disabled {
-	padding: 4px;
-}
-
 button.disabled:hover, i.disabled:hover {
 	box-shadow: none !important;
 	-webkit-box-shadow: none !important;
@@ -109,18 +105,17 @@ ul li button.btn-floating {
 .landscape .picker__frame {
 	max-width: 600px !important;
 }
-
 .landscape .picker__calendar-container {
 	width: 300px !important;
 	display: inline-block !important;
 	vertical-align: top !important;
 }
-
 .landscape .picker__footer {
 	position: absolute !important;
 	right: 0 !important;
 	bottom: 0 !important;
 }
+
 /** Chips **/
 .chip {
 	display: inline-block;
@@ -168,10 +163,6 @@ ul li button.btn-floating {
 }
 
 /** DataGrid **/
-
-.CW3BUMB-ab-a {
-	overflow: hidden !important;
-}
 
 .striped table tbody tr:nth-child(odd) {
 	background-color: #f2f2f2 !important;
@@ -252,7 +243,7 @@ table .gwt-CheckBox label {
 		padding-left: 0;
 	}
 
-	.mobileNav{
+	.mobileNav {
 		overflow: auto !important;
 	}
 }
@@ -588,7 +579,7 @@ a:hover,a:visited {
 	-moz-transition: 0.5s all;
 }
 
-.materialScaleInitial{
+.materialScaleInitial {
 	transform: scale(0);
 	-webkit-transform: scale(0);
 	-moz-transform: scale(0);
@@ -597,16 +588,16 @@ a:hover,a:visited {
 	-moz-transform-origin: 50% 10%;
 }
 
-.materialScale{
+.materialScale {
 	transform: scale(1);
 	-webkit-transform: scale(1);
 	-moz-transform: scale(1);
 }
 
-.pullInitial{
+.pullInitial {
 	margin-top: 500px !important;
 }
-.pull{
+.pull {
 	margin-top: -150px !important;
 }
 
