@@ -726,8 +726,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      * Check if a {@link Feature} is enabled.
      */
     public boolean isFeatureEnabled(Feature feature) {
-        if(features == null) { features = new HashMap<>(); }
-        Boolean enabled = features.get(feature);
-        return enabled != null && enabled;
+        if(features != null) {
+            Boolean enabled = features.get(feature);
+            return enabled != null && enabled;
+        } else {
+            return false;
+        }
     }
 }
