@@ -430,11 +430,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void onOpened() {
-        SideNavOpenedEvent.fire(this);
-
         if(allowBodyScroll) {
             RootPanel.getBodyElement().getStyle().clearOverflow();
         }
+
+        SideNavOpenedEvent.fire(this);
     }
 
     /**

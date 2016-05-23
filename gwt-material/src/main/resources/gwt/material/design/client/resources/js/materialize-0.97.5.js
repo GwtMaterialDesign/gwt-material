@@ -2273,6 +2273,7 @@ $(document).ready(function(){
                 complete: function () {
                   menuOut = true;
                   panning = false;
+                  $this.trigger("side-nav-opened");
                 }
               });
             }
