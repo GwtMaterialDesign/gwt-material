@@ -250,18 +250,14 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 case CARD:
                 case FLOAT:
                     activator.addClassName("navmenu-permanent");
-                    Timer t = new Timer() {
+                    new Timer() {
                         @Override
                         public void run() {
-                            if(isSmall()){
-                                show();
-                            }
-                        }
-                    };
-                    t.schedule(500);
+                            if(isSmall()) { show(); }
+                        }}.schedule(500);
                     break;
                 case CLOSE:
-                    applyCloseType(activator, width);
+                    applyCloseType(getElement(), activator, width);
                     break;
             }
         }
@@ -277,23 +273,20 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
-     * @param activator
-     * @param width
      */
-    private native void applyCloseType(Element activator, double width) /*-{
+    private native void applyCloseType(Element element, Element activator, double width) /*-{
         var toggle;
         var _width;
         var _duration;
 
-        $wnd.jQuery(activator).click(function (){
-
+        var clickFunc = function () {
             var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
             if(!mq.matches) {
-                if(toggle){
+                if(toggle) {
                     _width = 0;
                     toggle = false;
                     _duration = 200;
-                }else{
+                } else {
                     _width = width;
                     toggle = true;
                     _duration = 300;
@@ -302,8 +295,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             applyTransition($wnd.jQuery('header'), _width);
             applyTransition($wnd.jQuery('main'), _width);
             applyTransition($wnd.jQuery('footer'), _width);
-        });
-        function applyTransition(elem, _width){
+        };
+
+        $wnd.jQuery(element).find("a").click(clickFunc);
+        $wnd.jQuery(activator).click(clickFunc);
+
+        function applyTransition(elem, _width) {
             $wnd.jQuery(elem).css('transition', _duration + 'ms');
             $wnd.jQuery(elem).css('-moz-transition', _duration + 'ms');
             $wnd.jQuery(elem).css('-webkit-transition', _duration + 'ms');
@@ -313,22 +310,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     @Override
     public void clearActive() {
-        clearActive(this);
+        clearActiveClass(this);
 
         ClearActiveEvent.fire(this);
-    }
-
-    private void clearActive(HasWidgets widget) {
-        for(Widget child : widget) {
-            Element element = child.getElement();
-            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
-                element.removeClassName("active");
-            }
-
-            if(child instanceof HasWidgets) {
-                clearActive((HasWidgets)child);
-            }
-        }
     }
 
     /**
@@ -374,8 +358,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 }
             } else if(strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                        "please ensure you have a MaterialNavBar with an activator setup to match " +
-                        "this widgets id.");
+                    "please ensure you have a MaterialNavBar with an activator setup to match " +
+                    "this widgets id.");
             }
         }
     }
@@ -394,7 +378,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Hide the overlay menu.
      */
     public native void hideOverlay()/*-{
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery('#sidenav-overlay').remove();
         })
     }-*/;
@@ -402,7 +386,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Show the sidenav.
      */
-    public native void show(Element e)/*-{
+    private native void show(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav('show');
         });
@@ -411,7 +395,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Hide the sidenav.
      */
-    public native void hide(Element e)/*-{
+    private native void hide(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav('hide');
         });

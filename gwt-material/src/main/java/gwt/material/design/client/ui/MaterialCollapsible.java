@@ -185,21 +185,8 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     @Override
     public void clearActive() {
-        clearActive(this);
+        clearActiveClass(this);
 
         ClearActiveEvent.fire(this);
-    }
-
-    private void clearActive(HasWidgets widget) {
-        for(Widget child : widget) {
-            Element element = child.getElement();
-            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
-                element.removeClassName("active");
-            }
-
-            if(child instanceof HasWidgets) {
-                clearActive((HasWidgets)child);
-            }
-        }
     }
 }

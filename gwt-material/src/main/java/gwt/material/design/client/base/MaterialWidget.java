@@ -712,6 +712,19 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getInitialClassMixin().getInitialClass();
     }
 
+    protected void clearActiveClass(HasWidgets widget) {
+        for(Widget child : widget) {
+            Element element = child.getElement();
+            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
+                element.removeClassName("active");
+            }
+
+            if(child instanceof HasWidgets) {
+                clearActiveClass((HasWidgets)child);
+            }
+        }
+    }
+
     /**
      * Enable or disable a complex {@link Feature}.<br/>
      * @param feature the feature to enable.
