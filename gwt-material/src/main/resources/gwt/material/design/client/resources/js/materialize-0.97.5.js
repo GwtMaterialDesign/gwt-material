@@ -2055,6 +2055,7 @@ $(document).ready(function(){
         }
 
         function removeMenu(restoreNav) {
+          $this.trigger("side-nav-closing");
           panning = false;
           menuOut = false;
 
@@ -2079,8 +2080,8 @@ $(document).ready(function(){
                     menu_id.removeAttr('style');
                     menu_id.css('width', options.menuWidth);
                   }
+                  $this.trigger("side-nav-closed");
                 }
-
             });
           }
           else {
@@ -2097,12 +2098,11 @@ $(document).ready(function(){
                     menu_id.removeAttr('style');
                     menu_id.css('width', options.menuWidth);
                   }
+                  $this.trigger("side-nav-closed");
                 }
               });
           }
         }
-
-
 
         // Touch Event
         var panning = false;
@@ -2143,9 +2143,15 @@ $(document).ready(function(){
 
             if (options.edge === 'left') {
               // Left Direction
-              if (x < (options.menuWidth / 2)) { menuOut = false; }
+              if (x < (options.menuWidth / 2)) {
+                  menuOut = false;
+                  $this.trigger("side-nav-closed");
+              }
               // Right Direction
-              else if (x >= (options.menuWidth / 2)) { menuOut = true; }
+              else if (x >= (options.menuWidth / 2)) {
+                  menuOut = true;
+                  $this.trigger("side-nav-opened");
+              }
 
               menu_id.css('left', (x - options.menuWidth));
             }
@@ -2153,11 +2159,13 @@ $(document).ready(function(){
               // Left Direction
               if (x < (window.innerWidth - options.menuWidth / 2)) {
                 menuOut = true;
+                $this.trigger("side-nav-opened");
               }
               // Right Direction
               else if (x >= (window.innerWidth - options.menuWidth / 2)) {
                menuOut = false;
-             }
+                  $this.trigger("side-nav-closed");
+              }
               var rightPos = -1 *(x - options.menuWidth / 2);
               if (rightPos > 0) {
                 rightPos = 0;
@@ -2165,9 +2173,6 @@ $(document).ready(function(){
 
               menu_id.css('right', rightPos);
             }
-
-
-
 
             // Percentage overlay
             var overlayPerc;
@@ -2234,6 +2239,7 @@ $(document).ready(function(){
               removeMenu();
             }
             else {
+              $this.trigger("side-nav-opening");
 
               // Disable Scrolling
               $('body').css('overflow', 'hidden');
