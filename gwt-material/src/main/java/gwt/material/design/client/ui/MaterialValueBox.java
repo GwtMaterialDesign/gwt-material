@@ -99,8 +99,9 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
             super.setValue(value);
             if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
                 label.addStyleName("active");
-            }else
+            }else{
                 label.removeStyleName("active");
+            }
         }
 
     }
@@ -163,6 +164,8 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
         if (text != null && !text.isEmpty()) {
             label.addStyleName("active");
+        }else{
+        	label.removeStyleName("active");
         }
     }
 
@@ -228,6 +231,8 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
         if (value != null && !value.toString().isEmpty()) {
             label.addStyleName("active");
+        }else{
+        	label.removeStyleName("active");
         }
     }
 
@@ -532,6 +537,24 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public void setFocus(boolean focused) {
         valueBoxBase.setFocus(focused);
+        if(focused){
+        	label.addStyleName("active");
+        }else{
+        	updateLabelActiveStyle();
+        }
+    }
+    
+    /**
+     * Updates the style of the field label according to the field value
+     * if the field value is empty - null or "" - removes the label 'active' style
+     * else will add the 'active' style to the field label.
+     */
+    private void updateLabelActiveStyle(){
+    	if(this.valueBoxBase.getText()!=null && !this.valueBoxBase.getText().isEmpty()){
+    		label.addStyleName("active");
+    	}else{
+    		label.removeStyleName("active");
+    	}
     }
 
     @Override
