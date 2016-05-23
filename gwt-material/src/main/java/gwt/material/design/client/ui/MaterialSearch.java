@@ -229,6 +229,14 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         });
     }
 
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        clear();
+        setCurSel(-1);
+    }
+
     private void applyHighlightedItem(MaterialLink link){
         link.addStyleName("higlighted");
         setSelectedLink(link);
