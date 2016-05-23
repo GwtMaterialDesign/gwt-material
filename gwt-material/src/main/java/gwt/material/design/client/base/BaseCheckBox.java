@@ -89,11 +89,10 @@ import com.google.gwt.user.client.ui.*;
  * </p>
  */
 public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolean>,
-        HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator,
-        IsEditor<LeafValueEditor<Boolean>> {
+        HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator, IsEditor<LeafValueEditor<Boolean>> {
 
   public static final DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR =
-          DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
+        DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
 
   final DirectionalTextHelper directionalTextHelper;
   InputElement inputElem;

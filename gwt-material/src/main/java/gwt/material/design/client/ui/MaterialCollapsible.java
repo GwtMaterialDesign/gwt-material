@@ -22,11 +22,14 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.events.ClearActiveEvent;
@@ -95,6 +98,9 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         void setParent(MaterialCollapsible parent);
     }
 
+    private int activeIndex = -1;
+    private Widget activeWidget;
+
     /**
      * Creates an empty collapsible
      */
@@ -117,12 +123,15 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     @Override
     protected void onLoad() {
-        // Initialize collapsible before super.onLoad
-        // this is so load additions will register
-        // correctly.
-        onInitCollapsible(getElement());
-
         super.onLoad();
+
+        if(activeIndex != -1 && activeWidget == null) {
+            setActive(activeIndex);
+        }
+
+        // Initialize collapsible after all elements
+        // are attached and marked as active, etc.
+        onInitCollapsible(getElement());
     }
 
     @Override
@@ -166,9 +175,14 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     public void setActive(int index) {
         clearActive();
-        Widget activeWidget = getWidget(index);
-        if(activeWidget != null) {
-            activeWidget.addStyleName("active");
+        activeIndex = index;
+        if(isAttached()) {
+            if(index < getWidgetCount()) {
+                activeWidget = getWidget(index);
+                if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
+                    ((MaterialCollapsibleItem) activeWidget).setActive(true);
+                }
+            }
         }
     }
 

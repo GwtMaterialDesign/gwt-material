@@ -22,9 +22,9 @@ import com.google.gwt.user.client.ui.Widget;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,17 +36,18 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:off
 
 /**
-* Collapsible element to define every items
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
-*/
+ * Collapsible element to define every items
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+ */
 //@formatter:on
 public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent, HasProgress {
 
     private MaterialCollapsible parent;
     private MaterialCollapsibleBody body;
     private MaterialCollapsibleHeader header;
+
     private final ProgressMixin<MaterialCollapsibleItem> progressMixin = new ProgressMixin<>(this);
 
     /**
@@ -134,7 +135,9 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void setActive(boolean active) {
         removeStyleName("active");
         if(active) {
-            parent.clearActive();
+            if(parent != null) {
+                parent.clearActive();
+            }
             addStyleName("active");
 
             if(header != null) {
