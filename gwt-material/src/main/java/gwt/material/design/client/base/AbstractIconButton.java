@@ -63,7 +63,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 
     public AbstractIconButton(String... initialClass) {
         super();
-        setInitialClass(initialClass);
+        setInitialClasses(initialClass);
     }
 
     @Override

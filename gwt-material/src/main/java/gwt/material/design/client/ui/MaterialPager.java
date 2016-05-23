@@ -84,6 +84,7 @@ public class MaterialPager extends MaterialWidget {
 
     @Override
     protected void onLoad() {
+        super.onLoad();
         init();
     }
 

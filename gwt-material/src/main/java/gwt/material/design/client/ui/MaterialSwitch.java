@@ -94,12 +94,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         setValue(value);
     }
 
-    
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-    }
-
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);

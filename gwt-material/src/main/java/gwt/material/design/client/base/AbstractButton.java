@@ -75,7 +75,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     protected AbstractButton(String... initialClass) {
         this();
-        setInitialClass(initialClass);
+        setInitialClasses(initialClass);
     }
 
     protected AbstractButton(String text, String bgColor, WavesType waves) {

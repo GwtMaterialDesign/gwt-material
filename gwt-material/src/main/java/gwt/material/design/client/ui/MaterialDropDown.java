@@ -78,7 +78,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     private List<Widget> children = new ArrayList<>();
 
     public MaterialDropDown() {
-        setInitialClass("dropdown-content");
+        setInitialClasses("dropdown-content");
         setId(DOM.createUniqueId());
     }
 
