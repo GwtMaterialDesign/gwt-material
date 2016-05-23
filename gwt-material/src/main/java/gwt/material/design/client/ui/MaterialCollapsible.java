@@ -196,14 +196,15 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     }
 
     /**
-     * Providing a zero-based index to activate a child {@link MaterialCollapsibleItem}.
+     * Providing the one-based index of the
+     * {@link MaterialCollapsibleItem} to mark as active.
      */
     public void setActive(int index) {
         clearActive();
         activeIndex = index;
         if(isAttached()) {
             if(index < getWidgetCount()) {
-                activeWidget = getWidget(index);
+                activeWidget = getWidget(index - 1);
                 if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
                     ((MaterialCollapsibleItem) activeWidget).setActive(true);
                 }
