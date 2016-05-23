@@ -88,8 +88,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     private double opacity = 0.5;
 
     public MaterialModal() {
-        super(Document.get().createDivElement());
-        setStyleName("modal");
+        super(Document.get().createDivElement(), "modal");
     }
 
     /**
@@ -221,7 +220,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public HandlerRegistration addCloseHandler(CloseHandler<MaterialModal> handler) {
-        return this.addHandler(handler, CloseEvent.getType());
+    public HandlerRegistration addCloseHandler(final CloseHandler<MaterialModal> handler) {
+        return this.addHandler(new CloseHandler<MaterialModal>() {
+            @Override
+            public void onClose(CloseEvent<MaterialModal> event) {
+
+            }
+        }, CloseEvent.getType());
     }
 }

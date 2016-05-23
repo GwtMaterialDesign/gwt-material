@@ -5,7 +5,7 @@
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0</version>
+    <version>1.5.1-SNAPSHOT</version>
 
     <modules>
         <module>gwt-material</module>
@@ -62,7 +62,7 @@
         <connection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</connection>
         <developerConnection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</developerConnection>
         <url>http://github.com/GwtMaterialDesign/gwt-material</url>
-        <tag>v1.5.0</tag>
+        <tag>v1.5.1-SNAPSHOT</tag>
     </scm>
 
     <licenses>
@@ -71,19 +71,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>Sonatype Nexus snapshot repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Nexus release repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <build>
         <plugins>

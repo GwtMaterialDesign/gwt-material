@@ -42,8 +42,7 @@ public class MaterialTabItem extends ListItem {
     private MaterialTab parent;
 
     public MaterialTabItem() {
-        super();
-        setStyleName("tab");
+        super("tab");
     }
 
     @Override

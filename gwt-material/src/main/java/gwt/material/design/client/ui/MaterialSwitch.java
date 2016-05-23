@@ -65,8 +65,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
      * Creates a switch element
      */
     public MaterialSwitch() {
-        super(Document.get().createDivElement());
-        setStyleName("switch");
+        super(Document.get().createDivElement(), "switch");
         span.setStyleName("lever");
         input.setType(InputType.CHECKBOX);
         label.add(input);
@@ -141,8 +140,15 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Boolean> handler) {
-        return addHandler(handler, ValueChangeEvent.getType());
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Boolean> handler) {
+        return addHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                if(isEnabled()){
+                    handler.onValueChange(event);
+                }
+            }
+        }, ValueChangeEvent.getType());
     }
 
     /**

@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.ui.html.Span;
 
 import com.google.gwt.user.client.ui.HasText;
@@ -45,7 +46,7 @@ public class MaterialBadge extends Span implements HasText {
      * Collection, DropDown, SideNav and any other Material components.
      */
     public MaterialBadge() {
-        setStyleName("badge sideBarBadge");
+        super(Document.get().createSpanElement(), "badge", "sideBarBadge");
     }
 
     /**

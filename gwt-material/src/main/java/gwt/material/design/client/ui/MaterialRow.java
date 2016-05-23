@@ -48,7 +48,6 @@ import com.google.gwt.dom.client.Document;
 public class MaterialRow extends MaterialWidget {
 
     public MaterialRow(){
-        super(Document.get().createDivElement());
-        setStyleName("row");
+        super(Document.get().createDivElement(), "row");
     }
 }

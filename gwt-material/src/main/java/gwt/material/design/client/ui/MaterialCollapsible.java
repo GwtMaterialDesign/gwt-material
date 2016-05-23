@@ -100,8 +100,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      * Creates an empty collapsible
      */
     public MaterialCollapsible() {
-        super(Document.get().createULElement());
-        setStyleName("collapsible");
+        super(Document.get().createULElement(), "collapsible");
     }
 
     /**
@@ -183,8 +182,15 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         }
     }
 
-    public HandlerRegistration addClearActiveHandler(ClearActiveHandler handler) {
-        return addHandler(handler, ClearActiveEvent.TYPE);
+    public HandlerRegistration addClearActiveHandler(final ClearActiveHandler handler) {
+        return addHandler(new ClearActiveHandler() {
+            @Override
+            public void onClearActive(ClearActiveEvent event) {
+                if(isEnabled()){
+                    handler.onClearActive(event);
+                }
+            }
+        }, ClearActiveEvent.TYPE);
     }
 
     @Override

@@ -44,7 +44,6 @@ import com.google.gwt.dom.client.Document;
 public class MaterialSection extends MaterialWidget {
 
     public MaterialSection() {
-        super(Document.get().createElement("div"));
-        setStyleName("section");
+        super(Document.get().createElement("div"), "section");
     }
 }

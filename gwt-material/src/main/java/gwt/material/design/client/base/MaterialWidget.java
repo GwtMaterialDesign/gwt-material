@@ -21,20 +21,7 @@ package gwt.material.design.client.base;
  */
 
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.ColorsMixin;
-import gwt.material.design.client.base.mixin.CssNameMixin;
-import gwt.material.design.client.base.mixin.EnabledMixin;
-import gwt.material.design.client.base.mixin.FlexboxMixin;
-import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
-import gwt.material.design.client.base.mixin.IdMixin;
-import gwt.material.design.client.base.mixin.ScrollspyMixin;
-import gwt.material.design.client.base.mixin.SeparatorMixin;
-import gwt.material.design.client.base.mixin.ShadowMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.base.mixin.TooltipMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
+import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.constants.CenterOn;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.Flex;
@@ -57,8 +44,10 @@ import java.util.Iterator;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasDepth {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasDepth, HasInitialClass {
 
+
+    private InitialClassMixin<MaterialWidget> initialClassMixin;
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
     private CssNameMixin<MaterialWidget, TextAlign> textAlignMixin;
@@ -82,6 +71,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
 
     public MaterialWidget() {
+    }
+
+    public MaterialWidget(Element element, String... initialClass) {
+        this(element);
+        setInitialClass(initialClass);
     }
 
     public MaterialWidget(Element element) {
@@ -206,6 +200,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
         if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, "truncate"); }
         return truncateMixin;
+    }
+
+    public InitialClassMixin<MaterialWidget> getInitialClassMixin() {
+        if(initialClassMixin == null) { initialClassMixin = new InitialClassMixin<>(this); }
+        return initialClassMixin;
     }
 
     @Override
@@ -692,4 +691,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             event.stopPropagation();
         });
     }-*/;
+
+    @Override
+    public void setInitialClass(String... initialClass) {
+        getInitialClassMixin().setInitialClass(initialClass);
+    }
+
+    @Override
+    public String[] getInitialClass() {
+        return getInitialClassMixin().getInitialClass();
+    }
 }

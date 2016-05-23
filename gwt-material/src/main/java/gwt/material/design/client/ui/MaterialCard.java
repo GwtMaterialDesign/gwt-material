@@ -101,8 +101,7 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
      * Creates and empty card.
      */
     public MaterialCard() {
-        super(Document.get().createDivElement());
-        setStyleName("card");
+        super(Document.get().createDivElement(), "card");
     }
 
     @Override

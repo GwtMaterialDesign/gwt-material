@@ -21,6 +21,7 @@ package gwt.material.design.client.ui.html;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -33,6 +34,10 @@ public class Span extends MaterialWidget implements HasClickHandlers, HasText {
 
     public Span() {
         super(Document.get().createElement("span"));
+    }
+
+    public Span(Element e, String... initialClass) {
+        super(e, initialClass);
     }
 
     public Span(String string) {

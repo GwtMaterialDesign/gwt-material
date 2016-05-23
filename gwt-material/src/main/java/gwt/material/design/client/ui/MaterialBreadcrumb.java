@@ -49,7 +49,7 @@ import gwt.material.design.client.base.AbstractIconButton;
 public class MaterialBreadcrumb extends AbstractIconButton {
 
     public MaterialBreadcrumb() {
-        setStyleName("breadcrumb");
+        super("breadcrumb");
     }
 
     @Override

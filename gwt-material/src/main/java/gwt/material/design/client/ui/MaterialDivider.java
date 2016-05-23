@@ -42,7 +42,6 @@ import gwt.material.design.client.base.MaterialWidget;
 public class MaterialDivider extends MaterialWidget {
 
     public MaterialDivider() {
-        super(Document.get().createElement("div"));
-        setStyleName("divider");
+        super(Document.get().createElement("div"), "divider");
     }
 }

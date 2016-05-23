@@ -68,8 +68,7 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
     private final CssTypeMixin<FooterType, MaterialFooter> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialFooter() {
-        super(Document.get().createElement("footer"));
-        setStyleName("page-footer");
+        super(Document.get().createElement("footer"), "page-footer");
         container.setStyleName("container");
         super.add(container);
     }

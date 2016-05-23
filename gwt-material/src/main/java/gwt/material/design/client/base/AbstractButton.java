@@ -73,6 +73,11 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         getElement().getStyle().setCursor(Style.Cursor.POINTER);
     }
 
+    protected AbstractButton(String... initialClass) {
+        this();
+        setInitialClass(initialClass);
+    }
+
     protected AbstractButton(String text, String bgColor, WavesType waves) {
         this(null, text, bgColor);
         setWaves(waves);
@@ -191,42 +196,98 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     }
 
     @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
-        return addDomHandler(handler, ClickEvent.getType());
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        return addDomHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                if(isEnabled()){
+                    handler.onClick(event);
+                }
+            }
+        }, ClickEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return addDomHandler(handler, MouseDownEvent.getType());
+        return addDomHandler(new MouseDownHandler() {
+            @Override
+            public void onMouseDown(MouseDownEvent event) {
+                if(isEnabled()){
+                    handler.onMouseDown(event);
+                }
+            }
+        }, MouseDownEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return addDomHandler(handler, MouseMoveEvent.getType());
+        return addDomHandler(new MouseMoveHandler() {
+            @Override
+            public void onMouseMove(MouseMoveEvent event) {
+                if(isEnabled()){
+                    handler.onMouseMove(event);
+                }
+            }
+        }, MouseMoveEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return addDomHandler(handler, MouseOutEvent.getType());
+        return addDomHandler(new MouseOutHandler() {
+            @Override
+            public void onMouseOut(MouseOutEvent event) {
+                if(isEnabled()) {
+                    handler.onMouseOut(event);
+                }
+            }
+        }, MouseOutEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return addDomHandler(handler, MouseOverEvent.getType());
+        return addDomHandler(new MouseOverHandler() {
+            @Override
+            public void onMouseOver(MouseOverEvent event) {
+                if(isEnabled()) {
+                    handler.onMouseOver(event);
+                }
+            }
+        }, MouseOverEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return addDomHandler(handler, MouseUpEvent.getType());
+        return addDomHandler(new MouseUpHandler() {
+            @Override
+            public void onMouseUp(MouseUpEvent event) {
+                if(isEnabled()) {
+                    handler.onMouseUp(event);
+                }
+            }
+        }, MouseUpEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return addDomHandler(handler, MouseWheelEvent.getType());
+        return addDomHandler(new MouseWheelHandler() {
+            @Override
+            public void onMouseWheel(MouseWheelEvent event) {
+                if(isEnabled()) {
+                    handler.onMouseWheel(event);
+                }
+            }
+        }, MouseWheelEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
-        return addDomHandler(handler, DoubleClickEvent.getType());
+    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
+        return addDomHandler(new DoubleClickHandler() {
+            @Override
+            public void onDoubleClick(DoubleClickEvent event) {
+                if(isEnabled()) {
+                    handler.onDoubleClick(event);
+                }
+            }
+        }, DoubleClickEvent.getType());
     }
 }
