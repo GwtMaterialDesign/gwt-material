@@ -22,15 +22,10 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.helper.DOMHelper;
-import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
@@ -98,6 +93,8 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         void setParent(MaterialCollapsible parent);
     }
 
+    private boolean accordion = true;
+
     private int activeIndex = -1;
     private Widget activeWidget;
 
@@ -125,13 +122,21 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     protected void onLoad() {
         super.onLoad();
 
+        // Setup the expansion type
+        if (isAccordion()) {
+            getElement().setAttribute("data-collapsible", "accordion");
+        } else {
+            getElement().setAttribute("data-collapsible", "expandable");
+        }
+
+        // Activate preset activation index
         if(activeIndex != -1 && activeWidget == null) {
             setActive(activeIndex);
         }
 
         // Initialize collapsible after all elements
         // are attached and marked as active, etc.
-        onInitCollapsible(getElement());
+        initCollapsible(getElement(), accordion);
     }
 
     @Override
@@ -155,24 +160,44 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     /**
      * Initialize the collapsible material component.
      */
-    protected native void onInitCollapsible(final Element e) /*-{
+    protected native void initCollapsible(final Element e, boolean accordion) /*-{
         $wnd.jQuery(document).ready(function(){
-            $wnd.jQuery(e).collapsible();
+            $wnd.jQuery(e).collapsible({
+                accordion: accordion
+            });
         })
     }-*/;
 
     public void setType(CollapsibleType type) {
         switch (type) {
             case POPOUT:
-                this.getElement().setAttribute("data-collapsible", "accordion");
-                this.addStyleName(type.getCssName());
+                addStyleName(type.getCssName());
                 break;
             default:
-                getElement().setAttribute("data-collapsible", type.getCssName());
                 break;
         }
     }
 
+    /**
+     * Configure if you want this collapsible container to
+     * accordion its child elements or use expandable.
+     */
+    public void setAccordion(boolean accordion) {
+        this.accordion = accordion;
+
+        if(isAttached()) {
+            // Since we have attached already reinitialize collapsible.
+            initCollapsible(getElement(), accordion);
+        }
+    }
+
+    public boolean isAccordion() {
+        return accordion;
+    }
+
+    /**
+     * Providing a zero-based index to activate a child {@link MaterialCollapsibleItem}.
+     */
     public void setActive(int index) {
         clearActive();
         activeIndex = index;

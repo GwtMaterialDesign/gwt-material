@@ -24,15 +24,13 @@ import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
  * Types of CheckBox<br>
- * - ACCORDION<br>
- * - EXPANDABLE<br>
+ * - FLAT<br>
  * - POPOUT<br>
  * @author kevzlou7979
  * @author Ben Dol
  */
 public enum CollapsibleType implements CssType {
-    ACCORDION("accordion"),
-    EXPANDABLE("expandable"),
+    FLAT("flat"),
     POPOUT("popout");
 
     private final String cssClass;
@@ -47,6 +45,6 @@ public enum CollapsibleType implements CssType {
     }
 
     public static CollapsibleType fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, CollapsibleType.class, ACCORDION);
+        return EnumHelper.fromStyleName(styleName, CollapsibleType.class, FLAT);
     }
 }
