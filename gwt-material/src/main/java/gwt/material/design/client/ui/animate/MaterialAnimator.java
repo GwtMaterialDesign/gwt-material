@@ -47,6 +47,8 @@ public class MaterialAnimator {
     public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback) {
         final String name = String.valueOf(DOM.createUniqueId());
         w.getElement().setId(name);
+        w.getElement().getStyle().setProperty("WebkitAnimationDuration",durationMillis+"ms");
+        w.getElement().getStyle().setProperty("animationDuration",durationMillis+"ms");
         switch (transition) {
             case SHOW_STAGGERED_LIST:
                 if(w instanceof UnorderedList) {
