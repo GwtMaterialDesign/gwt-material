@@ -31,5 +31,4 @@
 
   <stylesheet src="css/overridecss.css"/>
   <stylesheet src="css/animation.css"/>
-  <stylesheet src="css/material-icons.css"/>
 </module>

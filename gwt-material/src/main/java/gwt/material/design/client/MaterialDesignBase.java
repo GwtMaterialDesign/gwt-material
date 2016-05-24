@@ -20,7 +20,10 @@ package gwt.material.design.client;
  * #L%
  */
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.resources.client.TextResource;
 import gwt.material.design.client.resources.MaterialResources;
 
@@ -30,7 +33,24 @@ public class MaterialDesignBase {
         inject(MaterialResources.INSTANCE.materializeJs());
         inject(MaterialResources.INSTANCE.animationJs());
         inject(MaterialResources.INSTANCE.shrinkJs());
+        loadExternalCss("https://fonts.googleapis.com/icon?family=Material+Icons");
+
     }
+
+    /** Load CSS file from url */
+    protected static void loadExternalCss(String url){
+        LinkElement link = Document.get().createLinkElement();
+        link.setRel("stylesheet");
+        link.setHref(url);
+        nativeAttachToHead(link);
+    }
+
+    /**
+     * Attach element to head
+     */
+    protected static native void nativeAttachToHead(JavaScriptObject scriptElement) /*-{
+        $doc.getElementsByTagName("head")[0].appendChild(scriptElement);
+    }-*/;
 
     protected void inject(TextResource resource) {
         inject(resource, true, false);
