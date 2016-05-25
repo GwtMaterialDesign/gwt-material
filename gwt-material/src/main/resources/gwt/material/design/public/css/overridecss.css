@@ -761,7 +761,7 @@ footer.fixed{
 	visibility: hidden !important;
 }
 @media screen and (max-width: 992px) {
-	.side-nav.card, .side-nav.float {
+	.side-nav.fixed, .side-nav.card {
 		margin: 0;
 		top: 0 !important;
 		left: 0;

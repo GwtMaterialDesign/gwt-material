@@ -188,6 +188,22 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         return Alignment.fromStyleName(alignment);
     }
 
+    /**
+     * Get the unique activator set by material widget e.g links, icons, buttons to trigger the dropdown
+     * @return
+     */
+    public String getActivator() {
+        return activator;
+    }
+
+    /**
+     * Set the unique activator of each dropdown component and it must be unique
+     * @param activator
+     */
+    public void setActivator(String activator) {
+        this.activator = activator;
+    }
+
     @Override
     public void add(final Widget child) {
         String tagName = child.getElement().getTagName();
