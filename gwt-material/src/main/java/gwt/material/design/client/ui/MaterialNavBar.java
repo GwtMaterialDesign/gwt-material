@@ -93,7 +93,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     @Override
 	public void clear() {
-    	div.clear();
+        div.clear();
 	}
 
 	@Override
