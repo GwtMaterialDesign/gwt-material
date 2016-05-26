@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
@@ -49,5 +50,9 @@ public class MaterialRow extends MaterialWidget {
 
     public MaterialRow(){
         super(Document.get().createDivElement(), "row");
+    }
+
+    public MaterialRow(Element element, String... initialClass) {
+        super(element, initialClass);
     }
 }
