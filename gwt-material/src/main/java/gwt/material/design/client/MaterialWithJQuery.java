@@ -27,14 +27,7 @@ public class MaterialWithJQuery extends MaterialDesignBase implements EntryPoint
 
     @Override
     public void onModuleLoad() {
+        jqueryResource = WithJQueryResources.INSTANCE.jQuery();
         load();
-    }
-
-    @Override
-    public void load() {
-        if(!isjQueryLoaded()) {
-            inject(WithJQueryResources.INSTANCE.jQuery());
-        }
-        super.load();
     }
 }

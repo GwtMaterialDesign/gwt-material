@@ -21,14 +21,15 @@ package gwt.material.design.client;
  */
 
 import gwt.material.design.client.resources.MaterialDebugResources;
-import gwt.material.design.client.resources.MaterialResources;
 
 public class MaterialDesignDebugBase extends MaterialDesignBase {
 
     @Override
     public void load() {
-        injectDebug(MaterialDebugResources.INSTANCE.materializeJsDebug());
-        injectDebug(MaterialDebugResources.INSTANCE.animationJsDebug());
-        injectDebug(MaterialDebugResources.INSTANCE.shrinkJsDebug());
+        checkJQuery(true);
+        injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
+        injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
+        injectDebugJs(MaterialDebugResources.INSTANCE.shrinkJsDebug());
+        onModuleLoaded();
     }
 }
