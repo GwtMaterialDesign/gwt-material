@@ -36,17 +36,18 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:off
 
 /**
-* Collapsible element to define every items
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
-*/
+ * Collapsible element to define every items
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+ */
 //@formatter:on
 public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent, HasProgress {
 
     private MaterialCollapsible parent;
     private MaterialCollapsibleBody body;
     private MaterialCollapsibleHeader header;
+
     private final ProgressMixin<MaterialCollapsibleItem> progressMixin = new ProgressMixin<>(this);
 
     /**
@@ -134,7 +135,9 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void setActive(boolean active) {
         removeStyleName("active");
         if(active) {
-            parent.clearActive();
+            if(parent != null) {
+                parent.clearActive();
+            }
             addStyleName("active");
 
             if(header != null) {

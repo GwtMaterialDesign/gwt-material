@@ -229,6 +229,14 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         });
     }
 
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        clear();
+        setCurSel(-1);
+    }
+
     private void applyHighlightedItem(MaterialLink link){
         link.addStyleName("higlighted");
         setSelectedLink(link);
@@ -239,8 +247,15 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     }-*/;
 
     @Override
-    public HandlerRegistration addCloseHandler(CloseHandler<String> handler) {
-        return addHandler(handler, CloseEvent.getType());
+    public HandlerRegistration addCloseHandler(final CloseHandler<String> handler) {
+        return addHandler(new CloseHandler<String>() {
+            @Override
+            public void onClose(CloseEvent<String> event) {
+                if(isEnabled()){
+                    handler.onClose(event);
+                }
+            }
+        }, CloseEvent.getType());
     }
 
     @Override
@@ -303,15 +318,29 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     /**
      * This handler will be triggered when search is finish
      */
-    public HandlerRegistration addSearchFinishHandler(SearchFinishEvent.SearchFinishHandler handler) {
-        return addHandler(handler, SearchFinishEvent.TYPE);
+    public HandlerRegistration addSearchFinishHandler(final SearchFinishEvent.SearchFinishHandler handler) {
+        return addHandler(new SearchFinishEvent.SearchFinishHandler() {
+            @Override
+            public void onSearchFinish(SearchFinishEvent event) {
+                if(isEnabled()){
+                    handler.onSearchFinish(event);
+                }
+            }
+        }, SearchFinishEvent.TYPE);
     }
 
     /**
      * This handler will be triggered when there's no search result
      */
-    public HandlerRegistration addSearchNoResultHandler(SearchNoResultEvent.SearchNoResultHandler handler) {
-        return addHandler(handler, SearchNoResultEvent.TYPE);
+    public HandlerRegistration addSearchNoResultHandler(final SearchNoResultEvent.SearchNoResultHandler handler) {
+        return addHandler(new SearchNoResultEvent.SearchNoResultHandler() {
+            @Override
+            public void onSearchNoResult(SearchNoResultEvent event) {
+                if(isEnabled()){
+                    handler.onSearchNoResult(event);
+                }
+            }
+        }, SearchNoResultEvent.TYPE);
     }
 }
 

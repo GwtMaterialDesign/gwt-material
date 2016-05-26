@@ -31,6 +31,25 @@ import com.google.gwt.user.client.ui.Widget;
 // TODO: Replace with jQuery JSInterop
 public class DOMHelper {
 
+    public static Element getChildElementByClass(Element parent, String className) {
+        if(parent != null) {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                Node childNode = parent.getChild(i);
+                if(Element.is(childNode)) {
+                    Element child = Element.as(childNode);
+                    if (child.getClassName().contains(className)) {
+                        return child;
+                    }
+
+                    if(child.getChildCount() > 0) {
+                        return getChildElementByClass(child, className);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public static Element getChildElementById(Element parent, String id) {
         if(parent != null) {
             for (int i = 0; i < parent.getChildCount(); i++) {

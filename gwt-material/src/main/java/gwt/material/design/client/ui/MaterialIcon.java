@@ -117,6 +117,10 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
         sizeMixin.setCssName(size);
     }
 
+    public IconSize getIconSize() {
+        return sizeMixin.getCssName();
+    }
+
     @Override
     public void setIconColor(String iconColor) {
         colorsMixin.setTextColor(iconColor);

@@ -203,8 +203,15 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
      * operation.
      */
     @Override
-    public HandlerRegistration addChangeHandler(ChangeHandler handler) {
-        return addDomHandler(handler, ChangeEvent.getType());
+    public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
+        return addDomHandler(new ChangeHandler() {
+            @Override
+            public void onChange(ChangeEvent event) {
+                if(isEnabled()){
+                    handler.onChange(event);
+                }
+            }
+        }, ChangeEvent.getType());
     }
 
     @Override

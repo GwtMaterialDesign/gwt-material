@@ -20,6 +20,8 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
@@ -28,23 +30,21 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
-import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
-import gwt.material.design.client.events.ClearActiveEvent;
+import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
-import gwt.material.design.client.events.ObservedEvent;
-import gwt.material.design.client.events.SideNavHiddenEvent;
-import gwt.material.design.client.events.SideNavHiddenEvent.SideNavHiddenHandler;
-import gwt.material.design.client.events.SideNavShownEvent;
-import gwt.material.design.client.events.SideNavShownEvent.SideNavShownHandler;
+import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler;
+import gwt.material.design.client.events.SideNavClosingEvent.SideNavClosingHandler;
+import gwt.material.design.client.events.SideNavOpenedEvent.SideNavOpenedHandler;
+import gwt.material.design.client.events.SideNavOpeningEvent.SideNavOpeningHandler;
 import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
@@ -72,10 +72,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private int width = 240;
     private Edge edge = Edge.LEFT;
     private boolean closeOnClick = false;
-    private Element activator;
-    private HandlerRegistration observedHandler;
+    private boolean alwaysShowActivator = false;
+    private boolean allowBodyScroll = false;
+    private boolean showOnAttach = false;
+    private boolean open;
 
-    private StyleAttributeObserver observer = new StyleAttributeObserver(this, "left");
+    private Element activator;
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
     private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, "fixed");
@@ -101,7 +103,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     @UiConstructor
     public MaterialSideNav(SideNavType type){
         this();
-        setId("nav-mobile");
         setType(type);
     }
 
@@ -111,20 +112,43 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
         // Initialize the side nav
         initialize();
+
+        if(showOnAttach) {
+            Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+                @Override
+                public void execute() {
+                    show();
+                }
+            });
+        }
     }
 
     /**
-     * This handler will be triggered when the side nav is shown.
+     * This handler will be triggered when the side nav starts opening.
      */
-    public HandlerRegistration addShownHandler(SideNavShownHandler handler) {
-        return addHandler(handler, SideNavShownEvent.TYPE);
+    public HandlerRegistration addOpeningHandler(SideNavOpeningHandler handler) {
+        return addHandler(handler, SideNavOpeningEvent.TYPE);
     }
 
     /**
-     * This handler will be triggered when the side nav is hidden.
+     * This handler will be triggered when the side nav is opened.
      */
-    public HandlerRegistration addHiddenHandler(SideNavHiddenHandler handler) {
-        return addHandler(handler, SideNavHiddenEvent.TYPE);
+    public HandlerRegistration addOpenedHandler(SideNavOpenedHandler handler) {
+        return addHandler(handler, SideNavOpenedEvent.TYPE);
+    }
+
+    /**
+     * This handler will be triggered when the side nav starts closing.
+     */
+    public HandlerRegistration addClosingHandler(SideNavClosingHandler handler) {
+        return addHandler(handler, SideNavClosingEvent.TYPE);
+    }
+
+    /**
+     * This handler will be triggered when the side nav is closed.
+     */
+    public HandlerRegistration addClosedHandler(SideNavClosedHandler handler) {
+        return addHandler(handler, SideNavClosedEvent.TYPE);
     }
 
     @Override
@@ -243,25 +267,20 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     private void processType(SideNavType type) {
         if(activator != null && type != null) {
+            addStyleName(type.getCssName());
             switch (type) {
                 case MINI:
                     setWidth(64);
                     break;
                 case CARD:
-                case FLOAT:
-                    activator.addClassName("navmenu-permanent");
-                    Timer t = new Timer() {
+                    new Timer() {
                         @Override
                         public void run() {
-                            if(isSmall()){
-                                show();
-                            }
-                        }
-                    };
-                    t.schedule(500);
+                            if(isSmall()) { show(); }
+                        }}.schedule(500);
                     break;
-                case CLOSE:
-                    applyCloseType(activator, width);
+                case PUSH:
+                    applyPushType(getElement(), activator, width);
                     break;
             }
         }
@@ -277,58 +296,50 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
-     * @param activator
-     * @param width
      */
-    private native void applyCloseType(Element activator, double width) /*-{
-        var toggle;
-        var _width;
-        var _duration;
+    private native void applyPushType(Element element, Element activator, double width) /*-{
+        var that = this;
 
-        $wnd.jQuery(activator).click(function (){
+        $wnd.jQuery($wnd.window).off("resize");
+        $wnd.jQuery($wnd.window).resize(function() {
+            var toggle = that.@gwt.material.design.client.ui.MaterialSideNav::open;
+            that.@gwt.material.design.client.ui.MaterialSideNav::pushElements(*)(toggle, width);
+        });
+    }-*/;
 
-            var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
-            if(!mq.matches) {
-                if(toggle){
-                    _width = 0;
-                    toggle = false;
-                    _duration = 200;
-                }else{
-                    _width = width;
-                    toggle = true;
-                    _duration = 300;
-                }
+    private native void pushElements(boolean toggle, int width) /*-{
+        var _width = 0;
+        var _duration = 200;
+
+        var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
+        if(!mq.matches) {
+            if(toggle) {
+                _width = width;
+                _duration = 300;
             }
+
             applyTransition($wnd.jQuery('header'), _width);
             applyTransition($wnd.jQuery('main'), _width);
             applyTransition($wnd.jQuery('footer'), _width);
-        });
-        function applyTransition(elem, _width){
-            $wnd.jQuery(elem).css('transition', _duration + 'ms');
-            $wnd.jQuery(elem).css('-moz-transition', _duration + 'ms');
-            $wnd.jQuery(elem).css('-webkit-transition', _duration + 'ms');
-            $wnd.jQuery(elem).css('margin-left', _width);
+
+            function applyTransition(elem, _width) {
+                $wnd.jQuery(elem).css('transition', _duration + 'ms');
+                $wnd.jQuery(elem).css('-moz-transition', _duration + 'ms');
+                $wnd.jQuery(elem).css('-webkit-transition', _duration + 'ms');
+                $wnd.jQuery(elem).css('margin-left', _width);
+            }
         }
+        this.@gwt.material.design.client.ui.MaterialSideNav::onPush(*)(toggle, _width, _duration);
     }-*/;
+
+    protected void onPush(boolean toggle, int width, int duration) {
+        SideNavPushEvent.fire(this, getElement(), activator, toggle, width, duration);
+    }
 
     @Override
     public void clearActive() {
-        clearActive(this);
-
+        clearActiveClass(this);
         ClearActiveEvent.fire(this);
-    }
-
-    private void clearActive(HasWidgets widget) {
-        for(Widget child : widget) {
-            Element element = child.getElement();
-            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
-                element.removeClassName("active");
-            }
-
-            if(child instanceof HasWidgets) {
-                clearActive((HasWidgets)child);
-            }
-        }
     }
 
     /**
@@ -351,26 +362,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 SideNavType type = getType();
                 processType(type);
 
-                if(observedHandler != null) {
-                    observedHandler.removeHandler();
-                }
-                observedHandler = observer.addObservedHandler(new ObservedEvent.ObservedHandler() {
-                    @Override
-                    public void onObserved(ObservedEvent event) {
-                        if(event.getValue().equals("0px")) {
-                            SideNavShownEvent.fire(MaterialSideNav.this);
-                        } else if(event.getValue().equals("-"+getWidth()+"px")) {
-                            SideNavHiddenEvent.fire(MaterialSideNav.this);
-                        }
-                    }
-                });
-                observer.observe(getElement());
-
                 initialize(activator, width, closeOnClick, edge.getCssName());
 
-                if(!isFixed()) {
+                if(alwaysShowActivator || !isFixed()) {
                     String style = activator.getAttribute("style");
                     activator.setAttribute("style", style + "; display: block !important");
+                    activator.removeClassName("navmenu-permanent");
                 }
             } else if(strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
@@ -380,21 +377,71 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         }
     }
 
-    private static native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
-        $wnd.jQuery(e).ready(function() {
-            $wnd.jQuery(e).sideNav({
-                menuWidth: width,
-                edge: edge,
-                closeOnClick: closeOnClick
-            });
+    private native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
+        var that = this;
+        var $e = $wnd.jQuery(e);
+        $wnd.jQuery(e).sideNav({
+            menuWidth: width,
+            edge: edge,
+            closeOnClick: closeOnClick
+        });
+
+        $e.off("side-nav-closing");
+        $e.on("side-nav-closing", function() {
+            that.@gwt.material.design.client.ui.MaterialSideNav::onClosing()();
+        });
+
+        $e.off("side-nav-closed");
+        $e.on("side-nav-closed", function() {
+            that.@gwt.material.design.client.ui.MaterialSideNav::onClosed()();
+        });
+
+        $e.off("side-nav-opening");
+        $e.on("side-nav-opening", function() {
+            that.@gwt.material.design.client.ui.MaterialSideNav::onOpening()();
+        });
+
+        $e.off("side-nav-opened");
+        $e.on("side-nav-opened", function() {
+            that.@gwt.material.design.client.ui.MaterialSideNav::onOpened()();
         });
     }-*/;
+
+    protected void onClosing() {
+        open = false;
+        if(getType().equals(SideNavType.PUSH)) {
+            pushElements(false, width);
+        }
+
+        SideNavClosingEvent.fire(this);
+    }
+
+    protected void onClosed() {
+        SideNavClosedEvent.fire(this);
+    }
+
+    protected void onOpening() {
+        open = true;
+        if(getType().equals(SideNavType.PUSH)) {
+            pushElements(true, width);
+        }
+
+        SideNavOpeningEvent.fire(this);
+    }
+
+    protected void onOpened() {
+        if(allowBodyScroll) {
+            RootPanel.getBodyElement().getStyle().clearOverflow();
+        }
+
+        SideNavOpenedEvent.fire(this);
+    }
 
     /**
      * Hide the overlay menu.
      */
     public native void hideOverlay()/*-{
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery('#sidenav-overlay').remove();
         })
     }-*/;
@@ -402,7 +449,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Show the sidenav.
      */
-    public native void show(Element e)/*-{
+    private native void show(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav('show');
         });
@@ -411,7 +458,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Hide the sidenav.
      */
-    public native void hide(Element e)/*-{
+    private native void hide(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav('hide');
         });
@@ -429,5 +476,54 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     public void hide() {
         hide(activator);
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    /**
+     * Will the body have scroll capability
+     * while the menu is open.
+     */
+    public boolean isAllowBodyScroll() {
+        return allowBodyScroll;
+    }
+
+    /**
+     * Allow the body to maintain its scroll capability
+     * while the menu is visible.
+     */
+    public void setAllowBodyScroll(boolean allowBodyScroll) {
+        this.allowBodyScroll = allowBodyScroll;
+    }
+
+    /**
+     * Will the activator always be shown.
+     */
+    public boolean isAlwaysShowActivator() {
+        return alwaysShowActivator;
+    }
+
+    /**
+     * Disable the hiding of your activator element.
+     */
+    public void setAlwaysShowActivator(boolean alwaysShowActivator) {
+        this.alwaysShowActivator = alwaysShowActivator;
+    }
+
+    /**
+     * Will the menu forcefully show on attachment.
+     */
+    public boolean isShowOnAttach() {
+        return showOnAttach;
+    }
+
+    /**
+     * Show the menu upon attachment, this isn't always required.
+     * Some menu types will automatically show themselves by default.
+     */
+    public void setShowOnAttach(boolean showOnAttach) {
+        this.showOnAttach = showOnAttach;
     }
 }

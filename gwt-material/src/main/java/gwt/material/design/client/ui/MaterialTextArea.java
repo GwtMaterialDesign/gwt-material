@@ -40,21 +40,11 @@ import gwt.material.design.client.constants.InputType;
 //@formatter:on
 public class MaterialTextArea extends MaterialValueBox<String> {
 
-
     public MaterialTextArea() {
         super(new TextArea());
         setType(InputType.TEXT);
         valueBoxBase.setStyleName("materialize-textarea");
     }
-
-
-    //OLD MaterialTextArea method
-//    @Override
-//    protected void onLoad() {
-//        super.onLoad();
-//        label.getElement().setAttribute("for", "field");
-//    }
-
 
     @Override
     public void setValue(String value, boolean fireEvents) {

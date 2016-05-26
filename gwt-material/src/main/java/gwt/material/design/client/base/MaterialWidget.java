@@ -20,8 +20,30 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Float;
+import com.google.gwt.dom.client.Style.FontWeight;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.*;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.EnabledMixin;
+import gwt.material.design.client.base.mixin.FlexboxMixin;
+import gwt.material.design.client.base.mixin.FocusableMixin;
+import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.base.mixin.IdMixin;
+import gwt.material.design.client.base.mixin.ScrollspyMixin;
+import gwt.material.design.client.base.mixin.SeparatorMixin;
+import gwt.material.design.client.base.mixin.ShadowMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.TooltipMixin;
+import gwt.material.design.client.base.mixin.WavesMixin;
 import gwt.material.design.client.constants.CenterOn;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.Flex;
@@ -37,17 +59,44 @@ import gwt.material.design.client.constants.ShowOn;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.constants.WavesType;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.*;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasDepth, HasInitialClass {
+        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
+        HasDepth, HasInitialClasses {
 
+    /**
+     * Configurable features enum see {@link #enableFeature(Feature, boolean)}.
+     */
+    public enum Feature {
+        // Feature for adding or inserting children
+        // before this widget has loaded (attached).
+        ONLOAD_ADD_QUEUE
+    }
 
-    private InitialClassMixin<MaterialWidget> initialClassMixin;
+    class Appender {
+        Widget widget;
+        int index = -1;
+
+        public Appender(Widget widget, int index) {
+            this.widget = widget;
+            this.index = index;
+        }
+
+        public Appender(Widget widget) {
+            this.widget = widget;
+        }
+    }
+
+    private Map<Feature, Boolean> features;
+    private List<Appender> onLoadAdd;
+
+    private String[] initialClasses;
+
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
     private CssNameMixin<MaterialWidget, TextAlign> textAlignMixin;
@@ -63,28 +112,75 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private FontSizeMixin<MaterialWidget> fontSizeMixin;
     private ToggleStyleMixin<MaterialWidget> circleMixin;
     private WavesMixin<MaterialWidget> wavesMixin;
-    private CssNameMixin<MaterialWidget, Style.Float> floatMixin;
+    private CssNameMixin<MaterialWidget, Float> floatMixin;
     private TooltipMixin<MaterialWidget> tooltipMixin;
     private FlexboxMixin<MaterialWidget> flexboxMixin;
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
-    private CssNameMixin<MaterialWidget, Style.FontWeight> fontWeightMixin;
+    private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
 
     public MaterialWidget() {
-    }
-
-    public MaterialWidget(Element element, String... initialClass) {
-        this(element);
-        setInitialClass(initialClass);
     }
 
     public MaterialWidget(Element element) {
         setElement(element);
     }
 
+    public MaterialWidget(Element element, String... initialClass) {
+        this(element);
+        setInitialClasses(initialClass);
+    }
+
     @Override
-    public void add(final Widget child) {
-        add(child, (Element) getElement());
+    protected void onLoad() {
+        super.onLoad();
+
+        if(initialClasses != null) {
+            for (String intial : initialClasses) {
+                if (!intial.isEmpty()) {
+                    removeStyleName(intial);
+                    addStyleName(intial);
+                }
+            }
+        }
+
+        if(isFeatureEnabled(Feature.ONLOAD_ADD_QUEUE) && onLoadAdd != null) {
+            // Check the on load add items.
+            for (Appender item : onLoadAdd) {
+                if(item.index == -1) {
+                    add(item.widget, (Element) getElement());
+                } else {
+                    insert(item.widget, item.index);
+                }
+            }
+            onLoadAdd.clear();
+        }
+    }
+
+    @Override
+    public void add(Widget child) {
+        super.add(child, (Element)getElement());
+    }
+
+    @Override
+    protected void add(Widget child, com.google.gwt.user.client.Element container) {
+        if(!isAttached() && isFeatureEnabled(Feature.ONLOAD_ADD_QUEUE)) {
+            if(onLoadAdd == null) { onLoadAdd = new ArrayList<>(); }
+            onLoadAdd.add(new Appender(child));
+        } else {
+            super.add(child, container);
+        }
+    }
+
+    @Override
+    protected void insert(Widget child, com.google.gwt.user.client.Element container, int beforeIndex, boolean domInsert) {
+        if(!isAttached() && isFeatureEnabled(Feature.ONLOAD_ADD_QUEUE)) {
+            if(onLoadAdd == null) { onLoadAdd = new ArrayList<>(); }
+            onLoadAdd.add(new Appender(child, beforeIndex));
+        } else {
+            // Regular child addition
+            super.insert(child, container, beforeIndex, domInsert);
+        }
     }
 
     /**
@@ -177,7 +273,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return wavesMixin;
     }
 
-    private CssNameMixin<MaterialWidget, Style.Float> getFloatMixin() {
+    private CssNameMixin<MaterialWidget, Float> getFloatMixin() {
         if(floatMixin == null) { floatMixin = new CssNameMixin<>(this); }
         return floatMixin;
     }
@@ -192,7 +288,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return flexboxMixin;
     }
 
-    private CssNameMixin<MaterialWidget, Style.FontWeight> getFontWeightMixin() {
+    private CssNameMixin<MaterialWidget, FontWeight> getFontWeightMixin() {
         if(fontWeightMixin == null) { fontWeightMixin = new CssNameMixin<>(this); }
         return fontWeightMixin;
     }
@@ -200,11 +296,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
         if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, "truncate"); }
         return truncateMixin;
-    }
-
-    public InitialClassMixin<MaterialWidget> getInitialClassMixin() {
-        if(initialClassMixin == null) { initialClassMixin = new InitialClassMixin<>(this); }
-        return initialClassMixin;
     }
 
     @Override
@@ -464,13 +555,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public void setFloat(Style.Float floatAlign) {
+    public void setFloat(Float floatAlign) {
         getFloatMixin().setCssName(floatAlign);
     }
 
     @Override
-    public Style.Float getFloat() {
-        return StyleHelper.fromStyleName(Style.Float.class, getFloatMixin().getCssName());
+    public Float getFloat() {
+        return StyleHelper.fromStyleName(Float.class, getFloatMixin().getCssName());
     }
 
     @Override
@@ -602,7 +693,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public void setFontWeight(Style.FontWeight fontWeight) {
+    public void setFontWeight(FontWeight fontWeight) {
         getElement().getStyle().setFontWeight(fontWeight);
     }
 
@@ -621,61 +712,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return Integer.parseInt(getElement().getStyle().getZIndex());
     }
 
-    @Override
-    public void clear() {
-        super.clear();
-    }
-
-    @Override
-    protected void insert(Widget child, Element container, int beforeIndex, boolean domInsert) {
-        super.insert(child, container, beforeIndex, domInsert);
-    }
-
-    @Override
-    public Widget getWidget(int index) {
-        return super.getWidget(index);
-    }
-
-    @Override
-    public int getWidgetCount() {
-        return super.getWidgetCount();
-    }
-
-    @Override
-    public int getWidgetIndex(Widget child) {
-        return super.getWidgetIndex(child);
-    }
-
-    @Override
-    public int getWidgetIndex(IsWidget child) {
-        return super.getWidgetIndex(child);
-    }
-
-    @Override
-    public Iterator<Widget> iterator() {
-        return super.iterator();
-    }
-
-    @Override
-    public boolean remove(int index) {
-        return super.remove(index);
-    }
-
-    @Override
-    public boolean remove(Widget w) {
-        return super.remove(w);
-    }
-
-    @Override
-    public void add(IsWidget child) {
-        super.add(child);
-    }
-
-    @Override
-    public boolean remove(IsWidget child) {
-        return super.remove(child);
-    }
-
     /** If true the label inside this component will be truncated by ellipsis **/
     public void setTruncate(boolean truncate){
         getTruncateMixin().setOn(truncate);
@@ -692,13 +728,56 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         });
     }-*/;
 
-    @Override
-    public void setInitialClass(String... initialClass) {
-        getInitialClassMixin().setInitialClass(initialClass);
+    public int getWidth() {
+        return getWidth(getElement());
+    }
+
+    private native int getWidth(Element element) /*-{
+        return $wnd.jQuery(element).outerWidth();
+    }-*/;
+
+    protected void clearActiveClass(HasWidgets widget) {
+        for(Widget child : widget) {
+            Element element = child.getElement();
+            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
+                element.removeClassName("active");
+            }
+
+            if(child instanceof HasWidgets) {
+                clearActiveClass((HasWidgets)child);
+            }
+        }
     }
 
     @Override
-    public String[] getInitialClass() {
-        return getInitialClassMixin().getInitialClass();
+    public void setInitialClasses(String... initialClasses) {
+        this.initialClasses = initialClasses;
+    }
+
+    @Override
+    public String[] getInitialClasses() {
+        return initialClasses;
+    }
+
+    /**
+     * Enable or disable a complex {@link Feature}.<br/>
+     * @param feature the feature to enable.
+     * @param enabled true to enable false to disable.
+     */
+    public void enableFeature(Feature feature, boolean enabled) {
+        if(features == null) { features = new HashMap<>(); }
+        features.put(feature, enabled);
+    }
+
+    /**
+     * Check if a {@link Feature} is enabled.
+     */
+    public boolean isFeatureEnabled(Feature feature) {
+        if(features != null) {
+            Boolean enabled = features.get(feature);
+            return enabled != null && enabled;
+        } else {
+            return false;
+        }
     }
 }

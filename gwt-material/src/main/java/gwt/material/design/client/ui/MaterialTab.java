@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -65,7 +66,6 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
 
     private MaterialWidget indicator;
     private ColorsMixin<MaterialWidget> indicatorColorMixin;
-    private String width;
 
     private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
 
@@ -76,19 +76,13 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     @Override
     public void onLoad() {
         super.onLoad();
-        this.addAttachHandler(new AttachEvent.Handler() {
-            @Override
-            public void onAttachOrDetach(AttachEvent event) {
-                if(event.isAttached()) {
-                    initialize();
 
-                    indicator = new MaterialWidget(getIndicatorElement(getElement()));
-                    indicatorColorMixin = new ColorsMixin<>(indicator);
+        initialize();
 
-                    setIndicatorColor(indicatorColor);
-                }
-            }
-        });
+        indicator = new MaterialWidget(getIndicatorElement(getElement()));
+        indicatorColorMixin = new ColorsMixin<>(indicator);
+
+        setIndicatorColor(indicatorColor);
     }
 
     public int getTabIndex() {
@@ -146,11 +140,6 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     private native void selectTab(Element e, String tabId)/*-{
         $wnd.jQuery(e).tabs("select_tab", tabId);
     }-*/;
-
-    @Override
-    public void setWidth(String width) {
-        this.width = width;
-    }
 
     @Override
     public void setType(TabType type) {
