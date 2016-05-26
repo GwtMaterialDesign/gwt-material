@@ -53,8 +53,10 @@ public class MaterialDesignBase {
     }
 
     protected void onModuleLoaded() {
-        for(FutureResource res : futureResources) {
-            injectJs(res.resource, res.removeTag, res.sourceUrl);
+        if(futureResources != null) {
+            for (FutureResource res : futureResources) {
+                injectJs(res.resource, res.removeTag, res.sourceUrl);
+            }
         }
     }
 
