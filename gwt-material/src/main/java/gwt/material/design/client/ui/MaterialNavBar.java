@@ -23,13 +23,20 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
+
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
-import gwt.material.design.client.constants.*;
+import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.NavBarType;
+import gwt.material.design.client.constants.ProgressType;
+import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
@@ -83,8 +90,17 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
         navMenu.setTextAlign(TextAlign.CENTER);
         navMenu.setIconPosition(IconPosition.NONE);
     }
+    
+    
 
     @Override
+	public void clear() {
+    	div.clear();
+	}
+
+
+
+	@Override
     protected void onLoad() {
         super.onLoad();
         if (typeMixin.getType() != null) {
