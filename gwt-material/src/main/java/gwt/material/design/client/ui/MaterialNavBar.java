@@ -90,15 +90,11 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
         navMenu.setTextAlign(TextAlign.CENTER);
         navMenu.setIconPosition(IconPosition.NONE);
     }
-    
-    
 
     @Override
 	public void clear() {
     	div.clear();
 	}
-
-
 
 	@Override
     protected void onLoad() {
