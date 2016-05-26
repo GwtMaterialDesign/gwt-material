@@ -25,6 +25,7 @@ import java.util.NoSuchElementException;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -54,6 +55,8 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
     private Widget widget;
     private String id;
+
+    private HandlerRegistration attachHandler;
 
     /**
      * Creates the empty Tooltip
@@ -91,6 +94,11 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             return;
         }
 
+        if(attachHandler != null) {
+            attachHandler.removeHandler();
+            attachHandler = null;
+        }
+
         // Detach new child
         if (w != null) {
             w.removeFromParent();
@@ -109,7 +117,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
         if(!widget.isAttached()) {
             // When we attach it, configure the tooltip
-            widget.addAttachHandler(new AttachEvent.Handler() {
+            attachHandler = widget.addAttachHandler(new AttachEvent.Handler() {
                 @Override
                 public void onAttachOrDetach(final AttachEvent event) {
                     reconfigure();

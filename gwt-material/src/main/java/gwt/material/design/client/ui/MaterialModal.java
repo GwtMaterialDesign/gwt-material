@@ -220,7 +220,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public HandlerRegistration addCloseHandler(CloseHandler<MaterialModal> handler) {
-        return this.addHandler(handler, CloseEvent.getType());
+    public HandlerRegistration addCloseHandler(final CloseHandler<MaterialModal> handler) {
+        return this.addHandler(new CloseHandler<MaterialModal>() {
+            @Override
+            public void onClose(CloseEvent<MaterialModal> event) {
+
+            }
+        }, CloseEvent.getType());
     }
 }

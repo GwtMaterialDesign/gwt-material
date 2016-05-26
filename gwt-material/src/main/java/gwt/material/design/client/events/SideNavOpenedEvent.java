@@ -24,26 +24,27 @@ package gwt.material.design.client.events;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
+import gwt.material.design.client.events.SideNavOpenedEvent.SideNavOpenedHandler;
 
-public class SideNavHiddenEvent extends GwtEvent<SideNavHiddenEvent.SideNavHiddenHandler> {
+public class SideNavOpenedEvent extends GwtEvent<SideNavOpenedHandler> {
 
-    public interface SideNavHiddenHandler extends EventHandler {
-        void onSideNavHidden(SideNavHiddenEvent event);
+    public interface SideNavOpenedHandler extends EventHandler {
+        void onSideNavOpened(SideNavOpenedEvent event);
     }
 
-    public static final Type<SideNavHiddenHandler> TYPE = new Type<>();
+    public static final Type<SideNavOpenedHandler> TYPE = new Type<>();
 
     public static void fire(HasHandlers source) {
-        source.fireEvent(new SideNavHiddenEvent());
+        source.fireEvent(new SideNavOpenedEvent());
     }
 
     @Override
-    public Type<SideNavHiddenHandler> getAssociatedType() {
+    public Type<SideNavOpenedHandler> getAssociatedType() {
         return TYPE;
     }
 
     @Override
-    protected void dispatch(SideNavHiddenHandler handler) {
-        handler.onSideNavHidden(this);
+    protected void dispatch(SideNavOpenedHandler handler) {
+        handler.onSideNavOpened(this);
     }
 }

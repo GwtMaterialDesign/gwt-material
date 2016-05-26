@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
  */
 
 import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,8 +31,10 @@ import gwt.material.design.client.base.helper.StyleHelper;
 /**
  * @author Ben Dol
  */
-public class EnabledMixin<T extends UIObject & HasEnabled> extends AbstractMixin<T> implements HasEnabled {
+public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T> implements HasEnabled {
     private static final String DISABLED = "disabled";
+
+    private HandlerRegistration handler;
 
     public EnabledMixin(final T widget) {
         super(widget);
@@ -47,23 +50,25 @@ public class EnabledMixin<T extends UIObject & HasEnabled> extends AbstractMixin
         setEnabled(uiObject, enabled);
     }
 
-    private void setEnabled(final UIObject obj,final boolean enabled) {
-        Widget widget = (Widget) obj;
-        if(!widget.isAttached()) {
-            widget.addAttachHandler(new AttachEvent.Handler() {
+    private void setEnabled(final Widget widget, final boolean enabled) {
+        if(!widget.isAttached() && handler == null) {
+            handler = widget.addAttachHandler(new AttachEvent.Handler() {
                 @Override
                 public void onAttachOrDetach(AttachEvent event) {
                     if(event.isAttached()) {
-                        applyEnabledProperty(enabled, obj);
+                        applyEnabled(enabled, widget);
+                    } else if(handler != null) {
+                        handler.removeHandler();
+                        handler = null;
                     }
                 }
             });
         } else {
-            applyEnabledProperty(enabled, obj);
+            applyEnabled(enabled, widget);
         }
     }
 
-    private void applyEnabledProperty(boolean enabled, UIObject obj) {
+    private void applyEnabled(boolean enabled, UIObject obj) {
         if(enabled) {
             obj.removeStyleName("disabled");
             obj.getElement().removeAttribute(DISABLED);

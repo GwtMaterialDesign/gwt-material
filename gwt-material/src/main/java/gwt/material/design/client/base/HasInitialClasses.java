@@ -20,20 +20,16 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-
-
-public interface HasInitialClass {
+public interface HasInitialClasses {
 
     /**
-     * Set the initial class into Material Components
-     * @param initialClass
+     * Set the initial class into Material Components.
      */
-    void setInitialClass(String... initialClass);
+    void setInitialClasses(String... initialClass);
 
     /**
-     * Get the initial class of Material Components
-     * @return
+     * Get the initial class of Material Components.
      */
-    String[] getInitialClass();
+    String[] getInitialClasses();
 
 }
