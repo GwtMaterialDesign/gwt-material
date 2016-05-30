@@ -56,6 +56,11 @@ public class Option extends MaterialWidget {
         super(Document.get().createElement(OptionElement.TAG));
     }
 
+    public Option(String value) {
+        this();
+        setText(value);
+    }
+
     /**
      * The index of this OPTION in its parent SELECT, starting from 0.
      */
