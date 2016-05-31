@@ -64,4 +64,4 @@ Please follow the [contribution document](https://github.com/GwtMaterialDesign/g
 
 ## Testing Platform
 <p>Many thanks to BrowserStack for sponsoring our Open Source projects</p>
-<img width="300px" src="https://www.browserstack.com/images/layout/browserstack-logo-600x315.png" href="https://www.browserstack.com/images/layout/browserstack-logo-600x315.png" />
+<img width="300px" src="https://www.browserstack.com/images/layout/browserstack-logo-600x315.png" href="https://www.browserstack.com/" />
