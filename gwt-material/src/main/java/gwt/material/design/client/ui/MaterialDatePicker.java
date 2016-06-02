@@ -87,8 +87,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private boolean initialized = false;
 
     public MaterialDatePicker() {
-        super(Document.get().createDivElement());
-        addStyleName("input-field");
+        super(Document.get().createDivElement(), "input-field");
 
         dateInput = new DateInput();
         add(dateInput);
@@ -115,7 +114,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
         setDate(this.date);
         setDateMin(this.dateMin);
-        setDateMax(this.dateMin);
+        setDateMax(this.dateMax);
         setPlaceholder(this.placeholder);
     }
 
@@ -402,8 +401,15 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Date> handler) {
-        return addHandler(handler, ValueChangeEvent.getType());
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> handler) {
+        return addHandler(new ValueChangeHandler<Date>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Date> event) {
+                if(isEnabled()){
+                    handler.onValueChange(event);
+                }
+            }
+        }, ValueChangeEvent.getType());
     }
 
     @Override
@@ -432,13 +438,27 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     @Override
-    public HandlerRegistration addCloseHandler(CloseHandler<MaterialDatePicker> handler) {
-        return addHandler(handler, CloseEvent.getType());
+    public HandlerRegistration addCloseHandler(final CloseHandler<MaterialDatePicker> handler) {
+        return addHandler(new CloseHandler<MaterialDatePicker>() {
+            @Override
+            public void onClose(CloseEvent<MaterialDatePicker> event) {
+                if(isEnabled()){
+                    handler.onClose(event);
+                }
+            }
+        }, CloseEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addOpenHandler(OpenHandler<MaterialDatePicker> handler) {
-        return addHandler(handler, OpenEvent.getType());
+    public HandlerRegistration addOpenHandler(final OpenHandler<MaterialDatePicker> handler) {
+        return addHandler(new OpenHandler<MaterialDatePicker>() {
+            @Override
+            public void onOpen(OpenEvent<MaterialDatePicker> event) {
+                if(isEnabled()){
+                    handler.onOpen(event);
+                }
+            }
+        }, OpenEvent.getType());
     }
 
     @Override

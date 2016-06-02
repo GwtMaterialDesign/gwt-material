@@ -37,6 +37,10 @@ import com.google.gwt.dom.client.Document;
  */
 public class MaterialPanel extends MaterialWidget {
 
+    public MaterialPanel(String... initialClass) {
+        super(Document.get().createDivElement(), initialClass);
+    }
+
     public MaterialPanel() {
         super(Document.get().createDivElement());
     }

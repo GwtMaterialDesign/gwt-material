@@ -66,8 +66,7 @@ public class MaterialPager extends MaterialWidget {
     private MaterialChip indicator;
 
     public MaterialPager() {
-        super(Document.get().createULElement());
-        addStyleName("pagination");
+        super(Document.get().createULElement(), "pagination");
         setWaves(WavesType.DEFAULT);
         removeStyleName("waves-effect");
     }
@@ -85,6 +84,7 @@ public class MaterialPager extends MaterialWidget {
 
     @Override
     protected void onLoad() {
+        super.onLoad();
         init();
     }
 

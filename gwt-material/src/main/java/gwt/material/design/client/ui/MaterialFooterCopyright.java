@@ -38,8 +38,7 @@ public class MaterialFooterCopyright extends MaterialWidget {
     private Div container = new Div();
 
     public MaterialFooterCopyright() {
-        super(Document.get().createDivElement());
-        setStyleName("footer-copyright");
+        super(Document.get().createDivElement(), "footer-copyright");
         container.setStyleName("container");
         super.add(container);
     }

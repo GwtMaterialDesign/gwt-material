@@ -66,7 +66,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
      * Creates an empty image.
      */
     public MaterialImage() {
-        super(Document.get().createImageElement());
+        super(Document.get().createImageElement(), "responsive-img");
     }
 
     /**
@@ -104,8 +104,6 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     public void onLoad() {
         super.onLoad();
-
-        addStyleName("responsive-img");
         onInitMaterialDesign();
     }
 
@@ -166,123 +164,291 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
-        return addDomHandler(handler, ClickEvent.getType());
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        return addDomHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                if(isEnabled()){
+                    handler.onClick(event);
+                }
+            }
+        }, ClickEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-        return addDomHandler(handler, MouseDownEvent.getType());
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+        return addDomHandler(new MouseDownHandler() {
+            @Override
+            public void onMouseDown(MouseDownEvent event) {
+                if(isEnabled()){
+                    handler.onMouseDown(event);
+                }
+            }
+        }, MouseDownEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
-        return addDomHandler(handler, MouseMoveEvent.getType());
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+        return addDomHandler(new MouseMoveHandler() {
+            @Override
+            public void onMouseMove(MouseMoveEvent event) {
+                if(isEnabled()){
+                    handler.onMouseMove(event);
+                }
+            }
+        }, MouseMoveEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
-        return addDomHandler(handler, MouseOutEvent.getType());
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+        return addDomHandler(new MouseOutHandler() {
+            @Override
+            public void onMouseOut(MouseOutEvent event) {
+                if(isEnabled()){
+                    handler.onMouseOut(event);
+                }
+            }
+        }, MouseOutEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
-        return addDomHandler(handler, MouseOverEvent.getType());
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+        return addDomHandler(new MouseOverHandler() {
+            @Override
+            public void onMouseOver(MouseOverEvent event) {
+                if(isEnabled()){
+                    handler.onMouseOver(event);
+                }
+            }
+        }, MouseOverEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
-        return addDomHandler(handler, MouseUpEvent.getType());
+    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+        return addDomHandler(new MouseUpHandler() {
+            @Override
+            public void onMouseUp(MouseUpEvent event) {
+                if(isEnabled()){
+                    handler.onMouseUp(event);
+                }
+            }
+        }, MouseUpEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
-        return addDomHandler(handler, MouseWheelEvent.getType());
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+        return addDomHandler(new MouseWheelHandler() {
+            @Override
+            public void onMouseWheel(MouseWheelEvent event) {
+                if(isEnabled()){
+                    handler.onMouseWheel(event);
+                }
+            }
+        }, MouseWheelEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addLoadHandler(LoadHandler handler) {
-        return addDomHandler(handler, LoadEvent.getType());
+    public HandlerRegistration addLoadHandler(final LoadHandler handler) {
+        return addDomHandler(new LoadHandler() {
+            @Override
+            public void onLoad(LoadEvent event) {
+                if(isEnabled()){
+                    handler.onLoad(event);
+                }
+            }
+        }, LoadEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addErrorHandler(ErrorHandler handler) {
-        return addDomHandler(handler, ErrorEvent.getType());
+    public HandlerRegistration addErrorHandler(final ErrorHandler handler) {
+        return addDomHandler(new ErrorHandler() {
+            @Override
+            public void onError(ErrorEvent event) {
+                if(isEnabled()){
+                    handler.onError(event);
+                }
+            }
+        }, ErrorEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
-        return addDomHandler(handler, DoubleClickEvent.getType());
+    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
+        return addDomHandler(new DoubleClickHandler() {
+            @Override
+            public void onDoubleClick(DoubleClickEvent event) {
+                if(isEnabled()){
+                    handler.onDoubleClick(event);
+                }
+            }
+        }, DoubleClickEvent.getType());
 
     }
 
     @Override
-    public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
-        return addBitlessDomHandler(handler, DragEndEvent.getType());
+    public HandlerRegistration addDragEndHandler(final DragEndHandler handler) {
+        return addBitlessDomHandler(new DragEndHandler() {
+            @Override
+            public void onDragEnd(DragEndEvent event) {
+                if(isEnabled()){
+                    handler.onDragEnd(event);
+                }
+            }
+        }, DragEndEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
-        return addBitlessDomHandler(handler, DragEnterEvent.getType());
+    public HandlerRegistration addDragEnterHandler(final DragEnterHandler handler) {
+        return addBitlessDomHandler(new DragEnterHandler() {
+            @Override
+            public void onDragEnter(DragEnterEvent event) {
+                if(isEnabled()){
+                    handler.onDragEnter(event);
+                }
+            }
+        }, DragEnterEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDragHandler(DragHandler handler) {
-        return addBitlessDomHandler(handler, DragEvent.getType());
+    public HandlerRegistration addDragHandler(final DragHandler handler) {
+        return addBitlessDomHandler(new DragHandler() {
+            @Override
+            public void onDrag(DragEvent event) {
+                if(isEnabled()){
+                    handler.onDrag(event);
+                }
+            }
+        }, DragEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
-        return addBitlessDomHandler(handler, DragLeaveEvent.getType());
+    public HandlerRegistration addDragLeaveHandler(final DragLeaveHandler handler) {
+        return addBitlessDomHandler(new DragLeaveHandler() {
+            @Override
+            public void onDragLeave(DragLeaveEvent event) {
+                if(isEnabled()){
+                    handler.onDragLeave(event);
+                }
+            }
+        }, DragLeaveEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
-        return addBitlessDomHandler(handler, DragOverEvent.getType());
+    public HandlerRegistration addDragOverHandler(final DragOverHandler handler) {
+        return addBitlessDomHandler(new DragOverHandler() {
+            @Override
+            public void onDragOver(DragOverEvent event) {
+                if(isEnabled()){
+                    handler.onDragOver(event);
+                }
+            }
+        }, DragOverEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
-        return addBitlessDomHandler(handler, DragStartEvent.getType());
+    public HandlerRegistration addDragStartHandler(final DragStartHandler handler) {
+        return addBitlessDomHandler(new DragStartHandler() {
+            @Override
+            public void onDragStart(DragStartEvent event) {
+                if(isEnabled()){
+                    handler.onDragStart(event);
+                }
+            }
+        }, DragStartEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDropHandler(DropHandler handler) {
-        return addBitlessDomHandler(handler, DropEvent.getType());
+    public HandlerRegistration addDropHandler(final DropHandler handler) {
+        return addBitlessDomHandler(new DropHandler() {
+            @Override
+            public void onDrop(DropEvent event) {
+                if(isEnabled()){
+                    handler.onDrop(event);
+                }
+            }
+        }, DropEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
-        return addDomHandler(handler, GestureChangeEvent.getType());
+    public HandlerRegistration addGestureChangeHandler(final GestureChangeHandler handler) {
+        return addDomHandler(new GestureChangeHandler() {
+            @Override
+            public void onGestureChange(GestureChangeEvent event) {
+                if(isEnabled()){
+                    handler.onGestureChange(event);
+                }
+            }
+        }, GestureChangeEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
-        return addDomHandler(handler, GestureEndEvent.getType());
+    public HandlerRegistration addGestureEndHandler(final GestureEndHandler handler) {
+        return addDomHandler(new GestureEndHandler() {
+            @Override
+            public void onGestureEnd(GestureEndEvent event) {
+                if(isEnabled()){
+                    handler.onGestureEnd(event);
+                }
+            }
+        }, GestureEndEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
-        return addDomHandler(handler, GestureStartEvent.getType());
+    public HandlerRegistration addGestureStartHandler(final GestureStartHandler handler) {
+        return addDomHandler(new GestureStartHandler() {
+            @Override
+            public void onGestureStart(GestureStartEvent event) {
+                if(isEnabled()){
+                    handler.onGestureStart(event);
+                }
+            }
+        }, GestureStartEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
-        return addDomHandler(handler, TouchCancelEvent.getType());
+    public HandlerRegistration addTouchCancelHandler(final TouchCancelHandler handler) {
+        return addDomHandler(new TouchCancelHandler() {
+            @Override
+            public void onTouchCancel(TouchCancelEvent event) {
+                if(isEnabled()){
+                    handler.onTouchCancel(event);
+                }
+            }
+        }, TouchCancelEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
-        return addDomHandler(handler, TouchEndEvent.getType());
+    public HandlerRegistration addTouchEndHandler(final TouchEndHandler handler) {
+        return addDomHandler(new TouchEndHandler() {
+            @Override
+            public void onTouchEnd(TouchEndEvent event) {
+                if(isEnabled()){
+                    handler.onTouchEnd(event);
+                }
+            }
+        }, TouchEndEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
-        return addDomHandler(handler, TouchMoveEvent.getType());
+    public HandlerRegistration addTouchMoveHandler(final TouchMoveHandler handler) {
+        return addDomHandler(new TouchMoveHandler() {
+            @Override
+            public void onTouchMove(TouchMoveEvent event) {
+                if(isEnabled()){
+                    handler.onTouchMove(event);
+                }
+            }
+        }, TouchMoveEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
-        return addDomHandler(handler, TouchStartEvent.getType());
+    public HandlerRegistration addTouchStartHandler(final TouchStartHandler handler) {
+        return addDomHandler(new TouchStartHandler() {
+            @Override
+            public void onTouchStart(TouchStartEvent event) {
+                if(isEnabled()){
+                    handler.onTouchStart(event);
+                }
+            }
+        }, TouchStartEvent.getType());
     }
 }

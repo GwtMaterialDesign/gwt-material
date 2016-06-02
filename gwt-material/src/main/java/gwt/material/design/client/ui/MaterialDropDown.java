@@ -78,7 +78,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     private List<Widget> children = new ArrayList<>();
 
     public MaterialDropDown() {
-        setStyleName("dropdown-content");
+        setInitialClasses("dropdown-content");
         setId(DOM.createUniqueId());
     }
 
@@ -188,6 +188,22 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         return Alignment.fromStyleName(alignment);
     }
 
+    /**
+     * Get the unique activator set by material widget e.g links, icons, buttons to trigger the dropdown
+     * @return
+     */
+    public String getActivator() {
+        return activator;
+    }
+
+    /**
+     * Set the unique activator of each dropdown component and it must be unique
+     * @param activator
+     */
+    public void setActivator(String activator) {
+        this.activator = activator;
+    }
+
     @Override
     public void add(final Widget child) {
         String tagName = child.getElement().getTagName();
@@ -271,8 +287,15 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }-*/;
 
     @Override
-    public HandlerRegistration addSelectionHandler(SelectionHandler<Widget> handler) {
-        return addHandler(handler, SelectionEvent.getType());
+    public HandlerRegistration addSelectionHandler(final SelectionHandler<Widget> handler) {
+        return addHandler(new SelectionHandler<Widget>() {
+            @Override
+            public void onSelection(SelectionEvent<Widget> event) {
+                if(isEnabled()){
+                    handler.onSelection(event);
+                }
+            }
+        }, SelectionEvent.getType());
     }
 
     public List<Widget> getItems() {

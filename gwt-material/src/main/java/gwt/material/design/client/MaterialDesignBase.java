@@ -21,34 +21,90 @@ package gwt.material.design.client;
  */
 
 import com.google.gwt.core.client.ScriptInjector;
+import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
 import gwt.material.design.client.resources.MaterialResources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MaterialDesignBase {
 
-    public void load() {
-        inject(MaterialResources.INSTANCE.materializeJs());
-        inject(MaterialResources.INSTANCE.animationJs());
-        inject(MaterialResources.INSTANCE.shrinkJs());
+    static class FutureResource {
+        TextResource resource;
+        boolean removeTag, sourceUrl;
+
+        public FutureResource(TextResource resource, boolean removeTag, boolean sourceUrl) {
+            this.resource = resource;
+            this.removeTag = removeTag;
+            this.sourceUrl = sourceUrl;
+        }
     }
 
-    protected void inject(TextResource resource) {
-        inject(resource, true, false);
+    static TextResource jqueryResource;
+    static List<FutureResource> futureResources;
+
+    protected void load() {
+        checkJQuery(false);
+        injectJs(MaterialResources.INSTANCE.materializeJs());
+        injectJs(MaterialResources.INSTANCE.animationJs());
+        injectJs(MaterialResources.INSTANCE.shrinkJs());
+        onModuleLoaded();
     }
 
-    protected void injectDebug(TextResource resource) {
-        inject(resource, false, true);
+    protected void onModuleLoaded() {
+        if(futureResources != null) {
+            for (FutureResource res : futureResources) {
+                injectJs(res.resource, res.removeTag, res.sourceUrl);
+            }
+        }
     }
 
-    protected void inject(TextResource resource, boolean removeTag, boolean sourceUrl) {
+    public static void injectJs(TextResource resource) {
+        injectJs(resource, true, false);
+    }
+
+    public static void injectDebugJs(TextResource resource) {
+        injectJs(resource, false, true);
+    }
+
+    public static void injectJs(TextResource resource, boolean removeTag, boolean sourceUrl) {
+        if(!resource.getName().contains("jQuery")) {
+            if(!checkJQuery(sourceUrl)) {
+                // We need to wait for jQuery to load
+                if(futureResources == null) {
+                    futureResources = new ArrayList<>();
+                }
+                futureResources.add(new FutureResource(resource, removeTag, sourceUrl));
+            }
+        }
         String text = resource.getText() +
-            (sourceUrl ? "//# sourceURL="+resource.getName()+".js" : "");
+                (sourceUrl ? "//# sourceURL=" + resource.getName() + ".js" : "");
 
         // Inject the script resource
         ScriptInjector.fromString(text)
-            .setWindow(ScriptInjector.TOP_WINDOW)
-            .setRemoveTag(removeTag)
-            .inject();
+                .setWindow(ScriptInjector.TOP_WINDOW)
+                .setRemoveTag(removeTag)
+                .inject();
+    }
+
+    public static void injectCss(TextResource resource) {
+        StyleInjector.inject(resource.getText());
+    }
+
+    protected static boolean checkJQuery(boolean debug) {
+        if(!isjQueryLoaded()) {
+            if(jqueryResource != null) {
+                if(debug) {
+                    injectDebugJs(jqueryResource);
+                } else {
+                    injectJs(jqueryResource);
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

@@ -35,8 +35,7 @@ import gwt.material.design.client.base.HasHref;
 public class MaterialCollectionSecondary extends MaterialWidget implements HasHref {
 
     public MaterialCollectionSecondary() {
-        super(Document.get().createAnchorElement());
-        setStyleName("secondary-content");
+        super(Document.get().createAnchorElement(), "secondary-content");
     }
 
     @Override

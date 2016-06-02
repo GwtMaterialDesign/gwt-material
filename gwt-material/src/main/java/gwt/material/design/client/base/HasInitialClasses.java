@@ -1,10 +1,10 @@
-package gwt.material.design.client;
+package gwt.material.design.client.base;
 
 /*
  * #%L
- * GwtMaterialDesign
+ * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterial
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,16 @@ package gwt.material.design.client;
  * #L%
  */
 
-import gwt.material.design.client.resources.MaterialDebugResources;
+public interface HasInitialClasses {
 
-public class MaterialDesignDebugBase extends MaterialDesignBase {
+    /**
+     * Set the initial class into Material Components.
+     */
+    void setInitialClasses(String... initialClass);
 
-    @Override
-    public void load() {
-        checkJQuery(true);
-        injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
-        injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
-        injectDebugJs(MaterialDebugResources.INSTANCE.shrinkJsDebug());
-        onModuleLoaded();
-    }
+    /**
+     * Get the initial class of Material Components.
+     */
+    String[] getInitialClasses();
+
 }

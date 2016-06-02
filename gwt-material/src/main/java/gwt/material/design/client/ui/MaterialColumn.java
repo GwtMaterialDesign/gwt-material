@@ -52,8 +52,7 @@ public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisib
         HasAllMouseHandlers, HasDoubleClickHandlers {
 
     public MaterialColumn() {
-        super(Document.get().createDivElement());
-        setStyleName("col");
+        super(Document.get().createDivElement(), "col");
     }
 
     public MaterialColumn(int small, int medium, int large) {
@@ -62,42 +61,94 @@ public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisib
     }
 
     @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
-        return addDomHandler(handler, ClickEvent.getType());
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        return addDomHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                if(isEnabled()){
+                    handler.onClick(event);
+                }
+            }
+        }, ClickEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
-        return addDomHandler(handler, DoubleClickEvent.getType());
+    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
+        return addDomHandler(new DoubleClickHandler() {
+            @Override
+            public void onDoubleClick(DoubleClickEvent event) {
+                if(isEnabled()){
+                    handler.onDoubleClick(event);
+                }
+            }
+        }, DoubleClickEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-        return addDomHandler(handler, MouseDownEvent.getType());
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+        return addDomHandler(new MouseDownHandler() {
+            @Override
+            public void onMouseDown(MouseDownEvent event) {
+                handler.onMouseDown(event);
+            }
+        }, MouseDownEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
-        return addDomHandler(handler, MouseMoveEvent.getType());
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+        return addDomHandler(new MouseMoveHandler() {
+            @Override
+            public void onMouseMove(MouseMoveEvent event) {
+                handler.onMouseMove(event);
+            }
+        }, MouseMoveEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
-        return addDomHandler(handler, MouseOutEvent.getType());
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+        return addDomHandler(new MouseOutHandler() {
+            @Override
+            public void onMouseOut(MouseOutEvent event) {
+                if(isEnabled()){
+                    handler.onMouseOut(event);
+                }
+            }
+        }, MouseOutEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
-        return addDomHandler(handler, MouseOverEvent.getType());
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+        return addDomHandler(new MouseOverHandler() {
+            @Override
+            public void onMouseOver(MouseOverEvent event) {
+                if(isEnabled()){
+                    handler.onMouseOver(event);
+                }
+            }
+        }, MouseOverEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
-        return addDomHandler(handler, MouseUpEvent.getType());
+    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+        return addDomHandler(new MouseUpHandler() {
+            @Override
+            public void onMouseUp(MouseUpEvent event) {
+                if(isEnabled()){
+                    handler.onMouseUp(event);
+                }
+            }
+        }, MouseUpEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
-        return addDomHandler(handler, MouseWheelEvent.getType());
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+        return addDomHandler(new MouseWheelHandler() {
+            @Override
+            public void onMouseWheel(MouseWheelEvent event) {
+                if(isEnabled()){
+                    handler.onMouseWheel(event);
+                }
+            }
+        }, MouseWheelEvent.getType());
     }
 }

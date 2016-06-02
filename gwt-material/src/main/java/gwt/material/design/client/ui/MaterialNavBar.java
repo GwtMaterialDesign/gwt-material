@@ -98,6 +98,11 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     }
 
     @Override
+    public void clear() {
+        div.clear();
+    }
+
+    @Override
     public void setType(NavBarType type) {
         typeMixin.setType(type);
     }

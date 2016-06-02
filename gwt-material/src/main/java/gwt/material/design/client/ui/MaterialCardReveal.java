@@ -35,7 +35,6 @@ import com.google.gwt.dom.client.Document;
 public class MaterialCardReveal extends MaterialWidget {
 
     public MaterialCardReveal(){
-        super(Document.get().createDivElement());
-        setStyleName("card-reveal");
+        super(Document.get().createDivElement(), "card-reveal");
     }
 }

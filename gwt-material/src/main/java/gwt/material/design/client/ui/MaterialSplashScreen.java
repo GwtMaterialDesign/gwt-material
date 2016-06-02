@@ -69,8 +69,7 @@ public class MaterialSplashScreen extends MaterialWidget implements HasVisibilit
     private MaterialProgress progress = new MaterialProgress();
 
     public MaterialSplashScreen(){
-        super(Document.get().createDivElement());
-        setStyleName("splash-screen");
+        super(Document.get().createDivElement(), "splash-screen");
         setDisplay(Display.NONE);
         div.setWidth("100%");
         div.getElement().getStyle().setMarginTop(15, Style.Unit.PCT);

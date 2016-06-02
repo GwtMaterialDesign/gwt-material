@@ -72,6 +72,7 @@ public class MaterialLoader {
             if(!(con instanceof RootPanel)) {
                 div.getElement().getStyle().setProperty("position", "absolute");
             }
+            div.setStyleName("valign-wrapper loader-wrapper");
             div.add(preLoader);
             con.add(div);
         } else {

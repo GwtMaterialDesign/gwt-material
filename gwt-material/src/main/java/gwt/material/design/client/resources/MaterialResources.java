@@ -28,15 +28,6 @@ import com.google.gwt.resources.client.TextResource;
 public interface MaterialResources extends ClientBundle {
     MaterialResources INSTANCE = GWT.create(MaterialResources.class);
 
-    @Source("img/image.png")
-    ImageResource image();
-
-    @Source("img/yuna.jpg")
-    ImageResource yuna();
-
-    @Source("img/ic_progress_cancel.png")
-    ImageResource ic_progress_cancel();
-
     @Source("js/animation.min.js")
     TextResource animationJs();
 

@@ -30,7 +30,7 @@ import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.base.HasInputType;
 import gwt.material.design.client.base.ValueBoxBase;
 
-public class MaterialInput extends ValueBoxBase<String> implements HasInputType {
+public class  MaterialInput extends ValueBoxBase<String> implements HasInputType {
 
     private static final String MIN = "min";
     private static final String MAX = "max";

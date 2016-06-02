@@ -22,13 +22,10 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
@@ -96,12 +93,18 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         void setParent(MaterialCollapsible parent);
     }
 
+    private boolean accordion = true;
+
+    private int activeIndex = -1;
+    private Widget activeWidget;
+
     /**
      * Creates an empty collapsible
      */
     public MaterialCollapsible() {
-        super(Document.get().createULElement());
-        setStyleName("collapsible");
+        super(Document.get().createULElement(), "collapsible");
+
+        enableFeature(Feature.ONLOAD_ADD_QUEUE, true);
     }
 
     /**
@@ -109,7 +112,8 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      */
     public MaterialCollapsible(final MaterialCollapsibleItem... widgets){
         this();
-        for (final MaterialCollapsibleItem item : widgets) {
+
+        for(final MaterialCollapsibleItem item : widgets) {
             add(item);
         }
     }
@@ -118,7 +122,21 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     protected void onLoad() {
         super.onLoad();
 
-        onInitCollapsible(getElement());
+        // Setup the expansion type
+        if (isAccordion()) {
+            getElement().setAttribute("data-collapsible", "accordion");
+        } else {
+            getElement().setAttribute("data-collapsible", "expandable");
+        }
+
+        // Activate preset activation index
+        if(activeIndex != -1 && activeWidget == null) {
+            setActive(activeIndex);
+        }
+
+        // Initialize collapsible after all elements
+        // are attached and marked as active, etc.
+        initCollapsible(getElement(), accordion);
     }
 
     @Override
@@ -126,21 +144,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         if(child instanceof MaterialCollapsibleItem) {
             ((MaterialCollapsibleItem) child).setParent(this);
         }
-
-        if(!this.isAttached()) {
-            addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-                    if(event.isAttached()) {
-                        onInitCollapsible(getElement());
-                    }
-                }
-            });
-        }else {
-            onInitCollapsible(getElement());
-        }
-
-
         super.add(child);
     }
 
@@ -157,53 +160,73 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     /**
      * Initialize the collapsible material component.
      */
-    protected native void onInitCollapsible(final Element e) /*-{
+    protected native void initCollapsible(final Element e, boolean accordion) /*-{
         $wnd.jQuery(document).ready(function(){
-            $wnd.jQuery(e).collapsible();
+            $wnd.jQuery(e).collapsible({
+                accordion: accordion
+            });
         })
     }-*/;
 
     public void setType(CollapsibleType type) {
         switch (type) {
             case POPOUT:
-                this.getElement().setAttribute("data-collapsible", "accordion");
-                this.addStyleName(type.getCssName());
+                addStyleName(type.getCssName());
                 break;
             default:
-                getElement().setAttribute("data-collapsible", type.getCssName());
                 break;
         }
     }
 
-    public void setActive(int index) {
-        clearActive();
-        Widget activeWidget = getWidget(index);
-        if(activeWidget != null) {
-            activeWidget.addStyleName("active");
+    /**
+     * Configure if you want this collapsible container to
+     * accordion its child elements or use expandable.
+     */
+    public void setAccordion(boolean accordion) {
+        this.accordion = accordion;
+
+        if(isAttached()) {
+            // Since we have attached already reinitialize collapsible.
+            initCollapsible(getElement(), accordion);
         }
     }
 
-    public HandlerRegistration addClearActiveHandler(ClearActiveHandler handler) {
-        return addHandler(handler, ClearActiveEvent.TYPE);
+    public boolean isAccordion() {
+        return accordion;
+    }
+
+    /**
+     * Providing the one-based index of the
+     * {@link MaterialCollapsibleItem} to mark as active.
+     */
+    public void setActive(int index) {
+        clearActive();
+        activeIndex = index;
+        if(isAttached()) {
+            if(index < getWidgetCount()) {
+                activeWidget = getWidget(index - 1);
+                if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
+                    ((MaterialCollapsibleItem) activeWidget).setActive(true);
+                }
+            }
+        }
+    }
+
+    public HandlerRegistration addClearActiveHandler(final ClearActiveHandler handler) {
+        return addHandler(new ClearActiveHandler() {
+            @Override
+            public void onClearActive(ClearActiveEvent event) {
+                if(isEnabled()){
+                    handler.onClearActive(event);
+                }
+            }
+        }, ClearActiveEvent.TYPE);
     }
 
     @Override
     public void clearActive() {
-        clearActive(this);
+        clearActiveClass(this);
 
         ClearActiveEvent.fire(this);
-    }
-
-    private void clearActive(HasWidgets widget) {
-        for(Widget child : widget) {
-            Element element = child.getElement();
-            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
-                element.removeClassName("active");
-            }
-
-            if(child instanceof HasWidgets) {
-                clearActive((HasWidgets)child);
-            }
-        }
     }
 }

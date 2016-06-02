@@ -63,8 +63,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
      * Creates an empty icon.
      */
     public MaterialIcon() {
-        super();
-        addStyleName("material-icons");
+        super("material-icons");
     }
 
     /**
@@ -116,6 +115,10 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     @Override
     public void setIconSize(IconSize size) {
         sizeMixin.setCssName(size);
+    }
+
+    public IconSize getIconSize() {
+        return sizeMixin.getCssName();
     }
 
     @Override

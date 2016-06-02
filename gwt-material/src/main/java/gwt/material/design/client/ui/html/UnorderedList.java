@@ -32,6 +32,10 @@ public class UnorderedList extends MaterialWidget {
         super(Document.get().createULElement());
     }
 
+    public UnorderedList(String... initialClass) {
+        super(Document.get().createULElement(), initialClass);
+    }
+
     @Override
     public void add(Widget child) {
         if(child instanceof ListItem) {

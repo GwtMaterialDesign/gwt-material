@@ -63,8 +63,7 @@ public class MaterialParallax extends MaterialWidget {
     private Div div = new Div();
 
     public MaterialParallax() {
-        setElement(Document.get().createDivElement());
-        setStyleName("parallax-container");
+        super(Document.get().createDivElement(), "parallax-container");
         super.add(div);
         div.setStyleName("parallax");
     }
