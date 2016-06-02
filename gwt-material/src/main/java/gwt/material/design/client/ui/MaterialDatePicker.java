@@ -119,6 +119,12 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     @Override
+    protected void onDetach() {
+        super.onDetach();
+        removeClickHandler(pickatizedDateInput, this);
+    }
+
+    @Override
     public void clear() {
         if (initialized) {
             clearErrorOrSuccess();
@@ -145,6 +151,10 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
             this.selectionType = type;
         }
     }
+
+    native void removeClickHandler(Element picker, MaterialDatePicker parent) /*-{
+        picker.pickadate('picker').off("close", "open", "set");
+    }-*/;
 
     native void initClickHandler(Element picker, MaterialDatePicker parent) /*-{
         picker.pickadate('picker').on({
@@ -286,6 +296,15 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     public static native JsDate getDatePickerValue(Element picker)/*-{
         return picker.pickadate('picker').get('select').obj;
     }-*/;
+
+    /**
+     * Clears the values of the picker field.
+     */
+    public void clearValues() {
+        if (pickatizedDateInput != null) {
+            clearValues(pickatizedDateInput);
+        }
+    }
 
     public native void clearValues(Element picker) /*-{
         picker.pickadate('picker').clear();
