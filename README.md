@@ -37,7 +37,7 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 You can find lists of features by version <a href="https://github.com/GwtMaterialDesign/gwt-material/wiki/Changelog">here</a>.
 
 ## Current Snapshot
-1.5.1-SNAPSHOT
+1.6.0-SNAPSHOT
 
 ### Migration
 [Migrating from 1.3 to 1.4](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-1.3-to-1.4)
