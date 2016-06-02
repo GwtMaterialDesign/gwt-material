@@ -263,6 +263,10 @@ table .gwt-CheckBox label {
 .side-nav li {
 	padding: 0 !important;
 }
+
+nav button i {
+	line-height: inherit !important;
+}
 /** NavBar tall **/
 nav .navbar-tall {
 	height: 128px;
