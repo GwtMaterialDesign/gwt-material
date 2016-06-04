@@ -56,9 +56,7 @@ import java.util.Set;
 public class MaterialTextArea extends MaterialValueBox<String> {
 
     public enum ResizeRule {
-        NONE,
-        AUTO,
-        FOCUS
+        NONE, AUTO, FOCUS
     }
 
     private ResizeRule resizeRule = ResizeRule.NONE;
