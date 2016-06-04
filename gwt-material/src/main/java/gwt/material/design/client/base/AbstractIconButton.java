@@ -32,7 +32,7 @@ import gwt.material.design.client.ui.MaterialIcon;
  */
 public abstract class AbstractIconButton extends AbstractButton implements HasIcon {
 
-    private MaterialIcon icon;
+    private MaterialIcon icon = new MaterialIcon();
 
     public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
         super(type, text);
@@ -74,7 +74,6 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 
     @Override
     public void setIconType(IconType iconType) {
-        if(icon == null) { icon = new MaterialIcon(); }
         icon.setIconType(iconType);
         ensureIconAttached();
     }
