@@ -8,7 +8,7 @@
 
 ## Demo
 * [1.5.1 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
-* [1.6.0 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
+* [1.5.2 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
