@@ -35,9 +35,9 @@ import com.google.gwt.user.client.ui.Widget;
 /**
 * Footers are a great way to organize a lot of site navigation and information at the end of a page. This is where the user will look once hes finished scrolling through the current page or is looking for additional information about your website.
 * <h3>UiBinder Usage:</h3>
-* 
+*
 * <pre>
-* {@code 
+* {@code
 <m:MaterialFooter backgroundColor="blue">
     <m:MaterialRow>
         <m:MaterialColumn grid="s12 m6 l6">
@@ -56,7 +56,7 @@ import com.google.gwt.user.client.ui.Widget;
 </m:MaterialFooter> }
 * </pre>
 * </p>
-* 
+*
 * @author kevzlou7979
 * @author Ben Dol
 * @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
@@ -75,7 +75,7 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
 
     @Override
     public void add(Widget child) {
-        if(child.getElement().getClassName().contains("footer-copyright")){
+        if(child instanceof MaterialFooterCopyright) {
             super.add(child);
         } else {
             container.add(child);
