@@ -24,12 +24,12 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
     <version>1.5.1</version>
 </dependency>
 ```
-### Snapshot Version 1.6.0-SNAPSHOT
+### Snapshot Version 1.5.2-SNAPSHOT
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>1.6.0-SNAPSHOT</version>
+    <version>1.5.2-SNAPSHOT</version>
 </dependency>
 ```
 
