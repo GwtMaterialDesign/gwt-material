@@ -73,7 +73,6 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
         HasPlaceholder, HasCounter, HasEditorErrors<T> {
 
-
     private String placeholder;
     private InputType type = InputType.TEXT;
     private boolean isValid = true;
@@ -82,31 +81,28 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     private Label label = new Label();
     private MaterialLabel lblName = new MaterialLabel();
-    @Ignore
-    protected ValueBoxBase<T> valueBoxBase;
+    @Ignore protected ValueBoxBase<T> valueBoxBase;
     private ValueBoxEditor<T> editor;
     private MaterialIcon icon = new MaterialIcon();
     private CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
 
-    public class MaterialValueBoxEditor<T> extends ValueBoxEditor<T>{
+    public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
+        private final ValueBoxBase<V> valueBoxBase;
 
-        private final ValueBoxBase<T> valueBoxBase;
-
-        private MaterialValueBoxEditor(ValueBoxBase<T> valueBoxBase){
+        private MaterialValueBoxEditor(ValueBoxBase<V> valueBoxBase) {
             super(valueBoxBase);
-            this.valueBoxBase=valueBoxBase;
+            this.valueBoxBase = valueBoxBase;
         }
 
-
         @Override
-        public void setValue(T value) {
+        public void setValue(V value) {
             super.setValue(value);
             if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
                 label.addStyleName("active");
-            }else
+            } else {
                 label.removeStyleName("active");
+            }
         }
-
     }
 
     private final ErrorMixin<MaterialValueBox<T>, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
@@ -114,7 +110,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public MaterialValueBox() {
         super(Document.get().createDivElement(), "input-field");
     }
-    
+
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
         this();
         initValueBox(tValueBox);
@@ -254,7 +250,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public ValueBoxEditor<T> asEditor() {
         if (editor == null) {
-            editor = new MaterialValueBoxEditor(valueBoxBase);
+            editor = new MaterialValueBoxEditor<>(valueBoxBase);
         }
         return editor;
     }
@@ -737,31 +733,30 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public void setFocus(final boolean focused) {
-	Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-
-	    @Override
-	    public void execute() {
-		valueBoxBase.setFocus(focused);
-		if (focused) {
-		    label.addStyleName("active");
-		} else {
-		    updateLabelActiveStyle();
-		}
-	    }
-	});
+        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+            @Override
+            public void execute() {
+                valueBoxBase.setFocus(focused);
+                if (focused) {
+                    label.addStyleName("active");
+                } else {
+                    updateLabelActiveStyle();
+                }
+            }
+        });
     }
-    
+
     /**
      * Updates the style of the field label according to the field value if the
      * field value is empty - null or "" - removes the label 'active' style else
      * will add the 'active' style to the field label.
      */
     private void updateLabelActiveStyle() {
-	if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
-	    label.addStyleName("active");
-	} else {
-	    label.removeStyleName("active");
-	}
+        if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
+            label.addStyleName("active");
+        } else {
+            label.removeStyleName("active");
+        }
     }
 
     @Override
