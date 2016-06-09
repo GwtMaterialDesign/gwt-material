@@ -44,7 +44,7 @@ public class MaterialPushpin {
     }
 
     private static native void apply(Element source, int offset) /*-{
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(source).pushpin({ top: offset });
         });
     }-*/;

@@ -110,7 +110,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     /**
      *  Creates a list and adds the given widgets.
      */
-    public MaterialCollapsible(final MaterialCollapsibleItem... widgets){
+    public MaterialCollapsible(final MaterialCollapsibleItem... widgets) {
         this();
 
         for(final MaterialCollapsibleItem item : widgets) {
@@ -161,7 +161,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      * Initialize the collapsible material component.
      */
     protected native void initCollapsible(final Element e, boolean accordion) /*-{
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).collapsible({
                 accordion: accordion
             });

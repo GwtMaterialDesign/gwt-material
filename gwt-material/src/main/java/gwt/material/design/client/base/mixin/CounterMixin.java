@@ -38,11 +38,11 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
         this.length = length;
         Element e = uiObject.getElement();
 
-        if(uiObject instanceof MaterialValueBox){
-            e = ((MaterialValueBox<T>)uiObject).asGwtValueBoxBase().getElement();
+        if(uiObject instanceof MaterialValueBox) {
+            e = ((MaterialValueBox)uiObject).asValueBoxBase().getElement();
         }
 
-        if(e != null){
+        if(e != null) {
             e.setAttribute("length", String.valueOf(length));
             initCounter(e);
         }

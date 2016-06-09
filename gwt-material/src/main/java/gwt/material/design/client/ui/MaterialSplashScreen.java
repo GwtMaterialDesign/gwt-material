@@ -68,7 +68,7 @@ public class MaterialSplashScreen extends MaterialWidget implements HasVisibilit
     private Div div = new Div();
     private MaterialProgress progress = new MaterialProgress();
 
-    public MaterialSplashScreen(){
+    public MaterialSplashScreen() {
         super(Document.get().createDivElement(), "splash-screen");
         setDisplay(Display.NONE);
         div.setWidth("100%");
@@ -82,11 +82,11 @@ public class MaterialSplashScreen extends MaterialWidget implements HasVisibilit
         div.add(child);
     }
 
-    public void show(){
+    public void show() {
         getElement().getStyle().setDisplay(Display.BLOCK.getGwtDisplay());
     }
 
-    public void hide(){
+    public void hide() {
         getElement().getStyle().setDisplay(Display.NONE.getGwtDisplay());
     }
 

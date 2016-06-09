@@ -67,7 +67,7 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
      */
     public MaterialCollapsibleItem(final Widget... widgets) {
         this();
-        for(Widget w : widgets){
+        for(Widget w : widgets) {
             add(w);
         }
     }

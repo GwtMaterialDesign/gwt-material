@@ -33,7 +33,7 @@ public class Heading extends MaterialWidget {
         super(Document.get().createElement(size.getSize()));
     }
 
-    public void setFontWeight(int fontWeight){
+    public void setFontWeight(int fontWeight) {
         getElement().getStyle().setProperty("fontWeight", String.valueOf(fontWeight));
     }
 }

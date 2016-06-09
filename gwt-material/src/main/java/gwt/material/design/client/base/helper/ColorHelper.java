@@ -31,7 +31,7 @@ import gwt.material.design.client.base.MaterialWidget;
  */
 public class ColorHelper {
 
-    public static String setupComputedBackgroundColor(String color){
+    public static String setupComputedBackgroundColor(String color) {
         MaterialWidget temp = new MaterialWidget(Document.get().createDivElement());
         temp.setBackgroundColor(color);
         RootPanel.get().add(temp);

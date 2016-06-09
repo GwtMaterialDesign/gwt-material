@@ -58,7 +58,7 @@ public class MaterialContainer extends MaterialWidget {
      */
     public MaterialContainer(final Widget... widgets) {
         this();
-        for(Widget w : widgets){
+        for(Widget w : widgets) {
             add(w);
         }
     }
