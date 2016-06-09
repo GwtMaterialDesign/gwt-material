@@ -73,7 +73,7 @@ public class MaterialSpinner extends MaterialWidget {
         setColor(color);
     }
 
-    public void setColor(String color){
+    public void setColor(String color) {
         addStyleName("spinner-" + color);
     }
 

@@ -48,7 +48,7 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialRow extends MaterialWidget {
 
-    public MaterialRow(){
+    public MaterialRow() {
         super(Document.get().createDivElement(), "row");
     }
 

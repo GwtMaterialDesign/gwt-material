@@ -94,7 +94,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      *  Creates a list and adds the given widgets.
      */
-    public MaterialSideNav(final Widget... widgets){
+    public MaterialSideNav(final Widget... widgets) {
         this();
         for (final Widget w : widgets) {
             add(w);
@@ -102,7 +102,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     @UiConstructor
-    public MaterialSideNav(SideNavType type){
+    public MaterialSideNav(SideNavType type) {
         this();
         setType(type);
     }
@@ -211,7 +211,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Set the menu's width in pixels.
      */
-    public void setWidth(int width){
+    public void setWidth(int width) {
         this.width = width;
         getElement().getStyle().setWidth(width, Unit.PX);
     }
@@ -229,7 +229,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * from inside it. Note that if you want this to work you
      * must wrap your item within a {@link MaterialLink}.
      */
-    public void setCloseOnClick(boolean closeOnClick){
+    public void setCloseOnClick(boolean closeOnClick) {
         this.closeOnClick = closeOnClick;
     }
 

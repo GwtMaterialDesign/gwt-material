@@ -38,13 +38,19 @@ import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.HasName;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.error.*;
+import gwt.material.design.client.base.error.ErrorHandler;
+import gwt.material.design.client.base.mixin.BlankValidatorMixin;
 import gwt.material.design.client.base.mixin.CounterMixin;
+import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.validator.HasBlankValidator;
+import gwt.material.design.client.base.validator.HasValidators;
+import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
+import gwt.material.design.client.base.validator.Validator;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -71,42 +77,41 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         HasValue<T>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasKeyUpHandlers,
         HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
         HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
-        HasPlaceholder, HasCounter, HasEditorErrors<T> {
-
+        HasPlaceholder, HasCounter, HasEditorErrors<T>, HasErrorHandler, HasValidators<T>, HasBlankValidator {
 
     private String placeholder;
     private InputType type = InputType.TEXT;
-    private boolean isValid = true;
 
-    private MaterialLabel lblError = new MaterialLabel();
-
+    private ValueBoxEditor<T> editor;
     private Label label = new Label();
     private MaterialLabel lblName = new MaterialLabel();
-    @Ignore
-    protected ValueBoxBase<T> valueBoxBase;
-    private ValueBoxEditor<T> editor;
+    private MaterialLabel lblError = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
-    private CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
 
-    public class MaterialValueBoxEditor<T> extends ValueBoxEditor<T>{
+    private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
+    private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
+    private final BlankValidatorMixin<MaterialValueBox<T>, T> validatorMixin = new BlankValidatorMixin<>(this,
+        errorHandlerMixin.getErrorHandler());
 
-        private final ValueBoxBase<T> valueBoxBase;
+    @Ignore protected ValueBoxBase<T> valueBoxBase;
 
-        private MaterialValueBoxEditor(ValueBoxBase<T> valueBoxBase){
+    public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
+        private final ValueBoxBase<V> valueBoxBase;
+
+        private MaterialValueBoxEditor(ValueBoxBase<V> valueBoxBase) {
             super(valueBoxBase);
-            this.valueBoxBase=valueBoxBase;
+            this.valueBoxBase = valueBoxBase;
         }
 
-
         @Override
-        public void setValue(T value) {
+        public void setValue(V value) {
             super.setValue(value);
             if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
                 label.addStyleName("active");
-            }else
+            } else {
                 label.removeStyleName("active");
+            }
         }
-
     }
 
     private final ErrorMixin<MaterialValueBox<T>, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
@@ -114,7 +119,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public MaterialValueBox() {
         super(Document.get().createDivElement(), "input-field");
     }
-    
+
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
         this();
         initValueBox(tValueBox);
@@ -179,7 +184,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         this.placeholder = placeholder;
         if(getType() != InputType.SEARCH) {
             lblName.setText(placeholder);
-        }else{
+        } else {
             valueBoxBase.getElement().setAttribute("placeholder", placeholder);
         }
     }
@@ -194,20 +199,11 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         this.type = type;
         valueBoxBase.getElement().setAttribute("type", type.getType());
         if(getType() != InputType.SEARCH) {
-            valueBoxBase.setStyleName("validate");
             add(label);
             label.add(lblName);
             lblError.setVisible(false);
             add(lblError);
         }
-    }
-
-    public boolean isValid() {
-        return isValid;
-    }
-
-    public void setValid(boolean isValid) {
-        this.isValid = isValid;
     }
 
     @Override
@@ -254,7 +250,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public ValueBoxEditor<T> asEditor() {
         if (editor == null) {
-            editor = new MaterialValueBoxEditor(valueBoxBase);
+            editor = new MaterialValueBoxEditor<>(valueBoxBase);
         }
         return editor;
     }
@@ -627,7 +623,6 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         removeErrorModifiers();
         lblName.setStyleName("red-text");
         valueBoxBase.getElement().addClassName("invalid");
-        isValid = false;
     }
 
     @Override
@@ -637,13 +632,11 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         removeErrorModifiers();
         lblName.setStyleName("green-text");
         valueBoxBase.getElement().addClassName("valid");
-        isValid = true;
     }
 
     @Override
     public void clearErrorOrSuccess() {
         errorMixin.clearErrorOrSuccess();
-        isValid = true;
         removeErrorModifiers();
     }
 
@@ -701,28 +694,12 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Ignore
-    public ValueBoxBase<T> asGwtValueBoxBase() {
+    public ValueBoxBase<T> asValueBoxBase() {
         return valueBoxBase;
     }
 
     public void showErrors(List<EditorError> errors) {
-        if(errors == null || errors.isEmpty()) {
-            setSuccess("");
-        }
-        else {
-            StringBuilder sb = new StringBuilder();
-            for (EditorError error : errors) {
-                if (error.getEditor().equals(this)) {
-                    sb.append("\n").append(error.getMessage());
-                }
-            }
-
-            if (sb.length() == 0) {
-                setSuccess("");
-                return;
-            }
-            setError(sb.substring(1));
-        }
+        errorHandlerMixin.showErrors(errors);
     }
 
     @Override
@@ -737,31 +714,30 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public void setFocus(final boolean focused) {
-	Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-
-	    @Override
-	    public void execute() {
-		valueBoxBase.setFocus(focused);
-		if (focused) {
-		    label.addStyleName("active");
-		} else {
-		    updateLabelActiveStyle();
-		}
-	    }
-	});
+        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+            @Override
+            public void execute() {
+                valueBoxBase.setFocus(focused);
+                if (focused) {
+                    label.addStyleName("active");
+                } else {
+                    updateLabelActiveStyle();
+                }
+            }
+        });
     }
-    
+
     /**
      * Updates the style of the field label according to the field value if the
      * field value is empty - null or "" - removes the label 'active' style else
      * will add the 'active' style to the field label.
      */
     private void updateLabelActiveStyle() {
-	if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
-	    label.addStyleName("active");
-	} else {
-	    label.removeStyleName("active");
-	}
+        if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
+            label.addStyleName("active");
+        } else {
+            label.removeStyleName("active");
+        }
     }
 
     @Override
@@ -773,5 +749,80 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         valueBoxBase.setEnabled(enabled);
+    }
+
+    @Override
+    public boolean isAllowBlank() {
+        return validatorMixin.isAllowBlank();
+    }
+
+    @Override
+    public void setAllowBlank(boolean allowBlank) {
+        validatorMixin.setAllowBlank(allowBlank);
+    }
+
+    @Override
+    public ErrorHandler getErrorHandler() {
+        return errorHandlerMixin.getErrorHandler();
+    }
+
+    @Override
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        errorHandlerMixin.setErrorHandler(errorHandler);
+    }
+
+    @Override
+    public ErrorHandlerType getErrorHandlerType() {
+        return errorHandlerMixin.getErrorHandlerType();
+    }
+
+    @Override
+    public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
+        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
+    }
+
+    @Override
+    public void addValidator(Validator<T> validator) {
+        validatorMixin.addValidator(validator);
+    }
+
+    @Override
+    public boolean isValidateOnBlur() {
+        return validatorMixin.isValidateOnBlur();
+    }
+
+    @Override
+    public boolean removeValidator(Validator<T> validator) {
+        return validatorMixin.removeValidator(validator);
+    }
+
+    @Override
+    public void reset() {
+        validatorMixin.reset();
+    }
+
+    @Override
+    public void setValidateOnBlur(boolean validateOnBlur) {
+        validatorMixin.setValidateOnBlur(validateOnBlur);
+    }
+
+    @Override
+    public void setValidators(@SuppressWarnings("unchecked") Validator<T>... validators) {
+        validatorMixin.setValidators(validators);
+    }
+
+    @Override
+    public boolean validate() {
+        return validatorMixin.validate();
+    }
+
+    @Override
+    public boolean validate(boolean show) {
+        return validatorMixin.validate(show);
+    }
+
+    @Override
+    public HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
+        return (HandlerRegistration)validatorMixin.addValidationChangedHandler(handler);
     }
 }

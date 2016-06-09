@@ -36,7 +36,7 @@ import com.google.gwt.user.client.ui.Widget;
 //@formatter:on
 public class MaterialCardImage extends MaterialWidget {
 
-    public MaterialCardImage(){
+    public MaterialCardImage() {
         super(Document.get().createDivElement(), "card-image");
     }
 

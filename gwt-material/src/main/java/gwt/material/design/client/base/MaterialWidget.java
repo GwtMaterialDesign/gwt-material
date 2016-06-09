@@ -713,17 +713,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     /** If true the label inside this component will be truncated by ellipsis **/
-    public void setTruncate(boolean truncate){
+    public void setTruncate(boolean truncate) {
         getTruncateMixin().setOn(truncate);
     }
 
-    public void stopTouchStartEvent(){
+    public void stopTouchStartEvent() {
         stopTouchStartEvent(getElement());
     }
 
     // Avoid touch events on mobile devices
     private native void stopTouchStartEvent(Element e) /*-{
-        $wnd.jQuery(e).bind('touchstart', function(event){
+        $wnd.jQuery(e).bind('touchstart', function(event) {
             event.stopPropagation();
         });
     }-*/;

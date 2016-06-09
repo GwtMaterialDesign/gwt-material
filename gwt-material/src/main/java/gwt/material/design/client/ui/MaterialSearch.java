@@ -55,7 +55,7 @@ import java.util.List;
  *
  * List<SearchObject> objects = new ArrayList<>();
  *
- * private void onInitSearch(){
+ * private void onInitSearch() {
  *   objects.add(new SearchObject(IconType.POLYMER, "Pushpin", "#!pushpin"));
  *   objects.add(new SearchObject(IconType.POLYMER, "SideNavs", "#!sidenavs"));
  *   objects.add(new SearchObject(IconType.POLYMER, "Scrollspy", "#!scrollspy"));
@@ -146,12 +146,12 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
                     // Generate an image
                     MaterialImage image = new MaterialImage();
-                    if(obj.getResource() != null){
+                    if(obj.getResource() != null) {
                         image.setResource(obj.getResource());
                         link.insert(image, 0);
                     }
 
-                    if(obj.getImageUrl() != null){
+                    if(obj.getImageUrl() != null) {
                         image.setUrl(obj.getImageUrl());
                         link.insert(image, 0);
                     }
@@ -175,8 +175,8 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                 }
 
                 // Apply selected search
-                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER){
-                    if(getCurSel()==-1){
+                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+                    if(getCurSel()==-1) {
                         setSelectedObject(tempSearches.get(0));
                         setSelectedLink((MaterialLink) searchResult.getWidget(0));
                     }else{
@@ -191,14 +191,14 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                 }
 
                 // Fire an event if theres no search result
-                if(searchResult.getWidgetCount() == 0){
+                if(searchResult.getWidgetCount() == 0) {
                     SearchNoResultEvent.fire(MaterialSearch.this);
                 }
 
                 // Selection logic using key down event to navigate the search results
                 int totalItems = searchResult.getWidgetCount();
-                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN){
-                    if(curSel >= totalItems){
+                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN) {
+                    if(curSel >= totalItems) {
                         setCurSel(getCurSel());
                         applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel - 1));
                     }else{
@@ -208,8 +208,8 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                 }
 
                 // Selection logic using key up event to navigate the search results
-                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP){
-                    if(curSel <= -1){
+                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP) {
+                    if(curSel <= -1) {
                         setCurSel(-1);
                         applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
                     }else {
@@ -220,7 +220,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
             }
 
             // Resets the search result panel
-            private void reset(String keyword){
+            private void reset(String keyword) {
                 SearchFinishEvent.fire(MaterialSearch.this);
                 curSel = -1;
                 setText(keyword);
@@ -237,7 +237,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         setCurSel(-1);
     }
 
-    private void applyHighlightedItem(MaterialLink link){
+    private void applyHighlightedItem(MaterialLink link) {
         link.addStyleName("higlighted");
         setSelectedLink(link);
     }
@@ -260,7 +260,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
     @Override
     public void setActive(boolean active) {
-        if(active){
+        if(active) {
             this.setTextColor("black");
             iconClose.setIconColor("black");
             iconSearch.setIconColor("black");

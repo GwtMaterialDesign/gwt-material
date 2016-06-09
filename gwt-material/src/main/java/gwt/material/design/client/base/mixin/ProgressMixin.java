@@ -45,9 +45,9 @@ public class ProgressMixin<T extends UIObject & HasProgress>
 
     @Override
     public void showProgress(ProgressType type) {
-        if(uiObject instanceof MaterialCollapsibleItem){
+        if(uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(true);
-        }else if(uiObject  instanceof MaterialNavBar){
+        }else if(uiObject  instanceof MaterialNavBar) {
             ((MaterialNavBar) uiObject).add(progress);
         }
     }

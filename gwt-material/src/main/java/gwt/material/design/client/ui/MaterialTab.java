@@ -92,8 +92,8 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
         int i = 0;
-        for(Widget w : this){
-            if(i == tabIndex){
+        for(Widget w : this) {
+            if(i == tabIndex) {
                 if(w instanceof MaterialTabItem) {
                     ((MaterialTabItem) w).selectTab();
                     break;
@@ -103,7 +103,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         }
     }
 
-    public void setIndicatorColor(String indicatorColor){
+    public void setIndicatorColor(String indicatorColor) {
         this.indicatorColor = indicatorColor;
 
         if(indicatorColorMixin != null && indicatorColor != null) {
@@ -124,9 +124,9 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     }
 
     private native void initialize(Element e) /*-{
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).tabs();
-            for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++){
+            for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++) {
                 $wnd.jQuery(e).find('.indicator').eq(i).remove()
             }
 
