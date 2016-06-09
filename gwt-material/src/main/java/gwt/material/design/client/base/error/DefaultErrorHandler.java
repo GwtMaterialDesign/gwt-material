@@ -34,16 +34,16 @@ import java.util.List;
  * This is the default {@link ErrorHandler} implementation.
  * If there is a {@link MaterialHelpBlock} that is a child then error messages
  * will be displayed in the {@link MaterialHelpBlock}.
- * 
+ *
  * Example:
- * 
+ *
  * <pre>{@code
  * <m:MaterialRow>
  *     <m:TextBox m:id="username" ui:field="username" />
  *     <m:MaterialHelpBlock iconType="EXCLAMATION" />
  * </m:MaterialRow>
  * }</pre>
- * 
+ *
  * @author Steven Jardine
  * @author Ben Dol
  */
@@ -95,15 +95,22 @@ public class DefaultErrorHandler implements ErrorHandler {
      * @return the found {@link MaterialHelpBlock} of null if not found.
      */
     private MaterialHelpBlock findHelpBlock(Widget widget) {
-        if (widget instanceof MaterialHelpBlock) { return (MaterialHelpBlock) widget; }
-        // Try and find the MaterialHelpBlock in the children of the given widget.
-        if (widget instanceof HasWidgets) {
-            for (Widget w : (HasWidgets) widget) {
-                if (w instanceof MaterialHelpBlock) { return (MaterialHelpBlock) w; }
+        if(widget != null) {
+            if (widget instanceof MaterialHelpBlock) {
+                return (MaterialHelpBlock) widget;
             }
+            // Try and find the MaterialHelpBlock in the children of the given widget.
+            if (widget instanceof HasWidgets) {
+                for (Widget w : (HasWidgets) widget) {
+                    if (w instanceof MaterialHelpBlock) {
+                        return (MaterialHelpBlock) w;
+                    }
+                }
+            }
+            // Try and find the MaterialHelpBlock in the parent of widget.
+            return findHelpBlock(widget.getParent());
         }
-        // Try and find the MaterialHelpBlock in the parent of widget.
-        return findHelpBlock(widget.getParent());
+        return null;
     }
 
     /**
@@ -114,7 +121,11 @@ public class DefaultErrorHandler implements ErrorHandler {
         Widget parent = inputWidget.getParent();
         while (parent != null && !parent.getClass().getName().equals("com.google.gwt.user.client.ui.Widget")) {
             helpBlock = findHelpBlock(inputWidget);
-            if(helpBlock != null) { break; }
+            if(helpBlock != null) {
+                break;
+            } else {
+                parent = parent.getParent();
+            }
         }
         initialized = true;
     }

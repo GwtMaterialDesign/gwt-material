@@ -33,6 +33,10 @@
   <inherits name="com.google.gwt.core.Core"/>
   <inherits name="com.google.gwt.resources.Resources"/>
 
+  <replace-with class="gwt.material.design.client.base.validator.DefaultValidatorMessageMixin">
+    <when-type-is class="gwt.material.design.client.base.validator.ValidatorMessageMixin" />
+  </replace-with>
+
   <!-- Specify the paths for translatable code -->
   <source path='client'/>
 
