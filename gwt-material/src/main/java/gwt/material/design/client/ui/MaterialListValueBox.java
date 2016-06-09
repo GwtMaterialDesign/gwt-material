@@ -163,7 +163,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
     protected native void createInternalChangeHandler(Element element) /*-{
         var that = this;
         var callback = $entry(function() {
-            that.@gwt.material.design.client.ui.MaterialListBox::onChangeInternal()();
+            that.@gwt.material.design.client.ui.MaterialListValueBox::onChangeInternal()();
         });
 
         $wnd.jQuery(element).change(callback);
