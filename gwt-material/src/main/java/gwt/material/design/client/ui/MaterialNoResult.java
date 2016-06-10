@@ -67,7 +67,6 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
         div.add(title);
         icon.setIconSize(IconSize.LARGE);
         title.insert(icon, 0);
-        title.setMarginTop(-100);
     }
 
     public MaterialNoResult(String bgColor, String textColor, IconType iconType, String title, String description) {
