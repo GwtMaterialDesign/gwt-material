@@ -57,7 +57,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
      */
     public MaterialCollapsibleBody(final Widget... widgets) {
         this();
-        for(Widget w : widgets){
+        for(Widget w : widgets) {
             add(w);
         }
     }

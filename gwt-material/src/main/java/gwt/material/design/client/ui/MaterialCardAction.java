@@ -34,7 +34,7 @@ import com.google.gwt.dom.client.Document;
 //@formatter:on
 public class MaterialCardAction extends MaterialWidget {
 
-    public MaterialCardAction(){
+    public MaterialCardAction() {
         super(Document.get().createDivElement(), "card-action");
     }
 }

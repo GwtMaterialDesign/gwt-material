@@ -62,7 +62,7 @@ import java.util.List;
  * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
  */
 //@formatter:on
-public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget>{
+public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget> {
 
     private String activator;
     private Element activatorElem;
@@ -189,8 +189,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     /**
-     * Get the unique activator set by material widget e.g links, icons, buttons to trigger the dropdown
-     * @return
+     * Get the unique activator set by material widget e.g links, icons, buttons to trigger the dropdown.
      */
     public String getActivator() {
         return activator;
@@ -198,7 +197,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
 
     /**
      * Set the unique activator of each dropdown component and it must be unique
-     * @param activator
      */
     public void setActivator(String activator) {
         this.activator = activator;
@@ -221,10 +219,10 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             }, ClickEvent.getType());
 
             // Checks if there are sub dropdown components
-            if(child instanceof MaterialLink){
+            if(child instanceof MaterialLink) {
                 MaterialLink link = (MaterialLink) child;
-                for(int i = 0; i < link.getWidgetCount(); i++){
-                    if(link.getWidget(i) instanceof MaterialDropDown){
+                for(int i = 0; i < link.getWidgetCount(); i++) {
+                    if(link.getWidget(i) instanceof MaterialDropDown) {
                         link.addClickHandler(new ClickHandler() {
                             @Override
                             public void onClick(ClickEvent event) {
@@ -269,7 +267,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
      */
     private native void initialize(Element activator)/*-{
         var that = this;
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(activator).dropdown({
                 inDuration: that.@gwt.material.design.client.ui.MaterialDropDown::inDuration,
                 outDuration: that.@gwt.material.design.client.ui.MaterialDropDown::outDuration,

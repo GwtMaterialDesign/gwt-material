@@ -55,7 +55,7 @@ public class MaterialPreLoader extends MaterialWidget {
     /**
      * Sets the size of the pre loader.
      */
-    public void setSize(LoaderSize size){
+    public void setSize(LoaderSize size) {
         sizeMixin.setCssName(size);
     }
 

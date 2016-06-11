@@ -128,7 +128,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     public native void onInitMaterialDesign() /*-{
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery('.materialboxed').materialbox();
         });
     }-*/;
