@@ -21,8 +21,13 @@ package gwt.material.design.client.base.mixin;
  */
 
 import com.google.gwt.editor.client.Editor;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.HasBlurHandlers;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.validator.BlankValidator;
 import gwt.material.design.client.base.validator.HasBlankValidator;
@@ -33,10 +38,10 @@ import gwt.material.design.client.base.validator.Validator;
  *
  * @param <W> the generic type
  * @param <V> the value type
- * 
+ *
  * @author Steven Jardine
  */
-public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> extends ValidatorMixin<W, V> implements HasBlankValidator {
+public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V> & HasBlurHandlers, V> extends ValidatorMixin<W, V> implements HasBlankValidator {
 
     private boolean allowBlank = true;
 
@@ -50,6 +55,36 @@ public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> 
      */
     public BlankValidatorMixin(W inputWidget, ErrorHandler errorHandler) {
         super(inputWidget, errorHandler);
+
+        setupBlurValidation();
+    }
+
+    protected HandlerRegistration setupBlurValidation() {
+        if(!inputWidget.isAttached()) {
+            inputWidget.addAttachHandler(new AttachEvent.Handler() {
+                HandlerRegistration registration;
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
+                    if(registration != null) {
+                        registration.removeHandler();
+                    }
+                    registration = inputWidget.addBlurHandler(new BlurHandler() {
+                        @Override
+                        public void onBlur(BlurEvent event) {
+                            validate(isValidateOnBlur());
+                        }
+                    });
+                }
+            });
+            return null;
+        } else {
+            return inputWidget.addBlurHandler(new BlurHandler() {
+                @Override
+                public void onBlur(BlurEvent event) {
+                    validate(isValidateOnBlur());
+                }
+            });
+        }
     }
 
     @Override
@@ -66,7 +101,7 @@ public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> 
      * @return the blank validator
      */
     protected BlankValidator<V> createBlankValidator() {
-        return new BlankValidator<V>();
+        return new BlankValidator<>();
     }
 
     /**

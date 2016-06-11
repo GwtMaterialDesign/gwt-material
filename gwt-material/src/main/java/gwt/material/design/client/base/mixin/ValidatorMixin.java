@@ -58,7 +58,7 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
 
     private EventBus eventBus;
 
-    private W inputWidget;
+    protected W inputWidget;
 
     private Boolean valid = null;
 
@@ -77,17 +77,7 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
         this.errorHandler = errorHandler;
         eventBus = new SimpleEventBus();
 
-        setupBlurValidation();
         setupValueChangeValidation();
-    }
-
-    protected HandlerRegistration setupBlurValidation() {
-        return inputWidget.addDomHandler(new BlurHandler() {
-            @Override
-            public void onBlur(BlurEvent event) {
-                validate(validateOnBlur);
-            }
-        }, BlurEvent.getType());
     }
 
     protected HandlerRegistration setupValueChangeValidation() {

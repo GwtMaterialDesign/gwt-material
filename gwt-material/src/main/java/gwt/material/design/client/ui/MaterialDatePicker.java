@@ -25,6 +25,9 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
@@ -68,7 +71,7 @@ import java.util.List;
 //@formatter:on
 public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder,
         HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasEditorErrors<Date>,
-        HasErrorHandler, HasValidators<Date>, HasBlankValidator {
+        HasErrorHandler, HasValidators<Date>, HasBlankValidator, HasBlurHandlers {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -475,6 +478,18 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
                 }
             }
         }, OpenEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addBlurHandler(final BlurHandler handler) {
+        return addDomHandler(new BlurHandler() {
+            @Override
+            public void onBlur(BlurEvent event) {
+                if(isEnabled()){
+                    handler.onBlur(event);
+                }
+            }
+        }, BlurEvent.getType());
     }
 
     @Override

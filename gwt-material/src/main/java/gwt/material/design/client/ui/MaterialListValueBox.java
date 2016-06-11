@@ -27,6 +27,9 @@ import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -79,7 +82,8 @@ import java.util.*;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends MaterialWidget implements HasId, HasGrid, HasColors, HasPlaceholder,
-        HasValueChangeHandlers<T>, HasConstrainedValue<T>, HasEditorErrors<T>, HasErrorHandler, HasValidators<T> {
+        HasValueChangeHandlers<T>, HasConstrainedValue<T>, HasEditorErrors<T>, HasErrorHandler, HasValidators<T>,
+        HasBlurHandlers {
 
     private final ListBox listBox = new ListBox();
     private final Label lblName = new Label();
@@ -843,6 +847,18 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
     @Override
     public com.google.web.bindery.event.shared.HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
         return validatorMixin.addValidationChangedHandler(handler);
+    }
+
+    @Override
+    public HandlerRegistration addBlurHandler(final BlurHandler handler) {
+        return addDomHandler(new BlurHandler() {
+            @Override
+            public void onBlur(BlurEvent event) {
+                if(isEnabled()) {
+                    handler.onBlur(event);
+                }
+            }
+        }, BlurEvent.getType());
     }
 }
 
