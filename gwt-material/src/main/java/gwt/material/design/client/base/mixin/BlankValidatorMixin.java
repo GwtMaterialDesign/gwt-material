@@ -46,6 +46,21 @@ public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V> & Ha
     private boolean allowBlank = true;
 
     private BlankValidator<V> blankValidator;
+    private AttachEvent.Handler attachHandler = new AttachEvent.Handler() {
+        HandlerRegistration registration;
+        @Override
+        public void onAttachOrDetach(AttachEvent event) {
+            if(registration != null) {
+                registration.removeHandler();
+            }
+            registration = inputWidget.addBlurHandler(new BlurHandler() {
+                @Override
+                public void onBlur(BlurEvent event) {
+                    validate(isValidateOnBlur());
+                }
+            });
+        }
+    };
 
     /**
      * Constructor.
@@ -61,22 +76,7 @@ public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V> & Ha
 
     protected HandlerRegistration setupBlurValidation() {
         if(!inputWidget.isAttached()) {
-            inputWidget.addAttachHandler(new AttachEvent.Handler() {
-                HandlerRegistration registration;
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-                    if(registration != null) {
-                        registration.removeHandler();
-                    }
-                    registration = inputWidget.addBlurHandler(new BlurHandler() {
-                        @Override
-                        public void onBlur(BlurEvent event) {
-                            validate(isValidateOnBlur());
-                        }
-                    });
-                }
-            });
-            return null;
+            return inputWidget.addAttachHandler(attachHandler);
         } else {
             return inputWidget.addBlurHandler(new BlurHandler() {
                 @Override
