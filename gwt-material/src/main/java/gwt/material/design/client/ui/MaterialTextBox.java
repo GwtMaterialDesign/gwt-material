@@ -26,28 +26,41 @@ import gwt.material.design.client.constants.InputType;
 //@formatter:off
 
 /**
-* Material Text Box is an input field that accepts any text based string from user.
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code <m:MaterialTextBox placeholder="First Name" />
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
-* @author kevzlou7979
-* @author Ben Dol
+ * Material Text Box is an input field that accepts any text based string from user.
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code <m:MaterialTextBox placeholder="First Name" />
+ * </pre>
+ * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
+ * @author kevzlou7979
+ * @author Ben Dol
  * @author paulux84
-*/
+ */
 //@formatter:on
 public class MaterialTextBox extends MaterialValueBox<String> {
 
     public MaterialTextBox() {
         super(new TextBox());
         setType(InputType.TEXT);
-
     }
 
-    @Override
-    public String getText() {
-        return valueBoxBase.getText();
+    public void setMaxLength(int length) {
+        asTextBox().setMaxLength(length);
     }
 
+    public int getMaxLength() {
+        return asTextBox().getMaxLength();
+    }
+
+    public void setVisibleLength(int length) {
+        asTextBox().setVisibleLength(length);
+    }
+
+    public int getVisibleLength() {
+        return asTextBox().getVisibleLength();
+    }
+
+    public TextBox asTextBox() {
+        return (TextBox) valueBoxBase;
+    }
 }
