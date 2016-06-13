@@ -5,7 +5,7 @@
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.6.0-SNAPSHOT</version>
+    <version>1.5.2-SNAPSHOT</version>
 
     <modules>
         <module>gwt-material</module>
@@ -62,7 +62,7 @@
         <connection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</connection>
         <developerConnection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</developerConnection>
         <url>http://github.com/GwtMaterialDesign/gwt-material</url>
-        <tag>v1.6.0-SNAPSHOT</tag>
+        <tag>v1.5.2-SNAPSHOT</tag>
     </scm>
 
     <licenses>

@@ -40,6 +40,7 @@ import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.ValueBoxBase;
+import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.error.*;
 import gwt.material.design.client.base.error.ErrorHandler;
@@ -698,6 +699,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         return valueBoxBase;
     }
 
+    @Override
     public void showErrors(List<EditorError> errors) {
         errorHandlerMixin.showErrors(errors);
     }
@@ -738,6 +740,34 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         } else {
             label.removeStyleName("active");
         }
+    }
+
+    public String getSelectedText() {
+        return valueBoxBase.getSelectedText();
+    }
+
+    public int getSelectionLength() {
+        return valueBoxBase.getSelectionLength();
+    }
+
+    public void setSelectionRange(int pos, int length) {
+        valueBoxBase.setSelectionRange(pos, length);
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        valueBoxBase.setReadOnly(readOnly);
+    }
+
+    public boolean isReadOnly() {
+        return valueBoxBase.isReadOnly();
+    }
+
+    public void setCursorPos(int pos) {
+        valueBoxBase.setCursorPos(pos);
+    }
+
+    public void setAlignment(TextAlignment align) {
+        valueBoxBase.setAlignment(align);
     }
 
     @Override
