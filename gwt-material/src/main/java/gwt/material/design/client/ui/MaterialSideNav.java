@@ -154,8 +154,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         return addHandler(handler, SideNavClosedEvent.TYPE);
     }
 
-    @Override
-    public void add(Widget child) {
+    public Widget wrap(Widget child) {
         if(child instanceof MaterialImage) {
             child.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
             child.getElement().getStyle().setProperty("textAlign", "center");
@@ -200,7 +199,17 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             }, ClickEvent.getType());
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
-        super.add(child);
+        return child;
+    }
+
+    @Override
+    public void add(Widget child) {
+        super.add(wrap(child));
+    }
+
+    @Override
+    protected void insert(Widget child, com.google.gwt.user.client.Element container, int beforeIndex, boolean domInsert) {
+        super.insert(wrap(child), container, beforeIndex, domInsert);
     }
 
     @Override
