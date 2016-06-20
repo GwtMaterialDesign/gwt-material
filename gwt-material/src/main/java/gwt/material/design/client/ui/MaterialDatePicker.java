@@ -21,6 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.JsDate;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
@@ -43,6 +45,7 @@ import gwt.material.design.client.base.validator.HasBlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
 import gwt.material.design.client.base.validator.Validator;
+import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
@@ -93,6 +96,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private MaterialLabel lblName = new MaterialLabel();
     private Element pickatizedDateInput;
     private MaterialLabel lblError = new MaterialLabel();
+    private DatePickerLanguage language;
 
     private Orientation orientation = Orientation.PORTRAIT;
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
@@ -100,8 +104,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private final GridMixin<MaterialDatePicker> gridMixin = new GridMixin<>(this);
     private final ErrorMixin<MaterialDatePicker, MaterialLabel> errorMixin;
     private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
-    private final BlankValidatorMixin<MaterialDatePicker, Date> validatorMixin = new BlankValidatorMixin<>(this,
-        errorHandlerMixin.getErrorHandler());
+    private final BlankValidatorMixin<MaterialDatePicker, Date> validatorMixin = new BlankValidatorMixin<>(this, errorHandlerMixin.getErrorHandler());
 
     private boolean initialized = false;
 
@@ -577,4 +580,41 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     public HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
         return (HandlerRegistration)validatorMixin.addValidationChangedHandler(handler);
     }
+
+    public DatePickerLanguage getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(DatePickerLanguage language) {
+        this.language = language;
+
+        if (language.getJs() != null) {
+            ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+        }
+    }
+
+    /**
+     * Re initialize the datepicker
+     */
+    public void reinitialize() {
+        stop();
+        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+            @Override
+            public void execute() {
+
+                initDatePicker(dateInput.getElement(), selectionType.name(), format);
+            }
+        });
+    }
+
+    /**
+     * Stop the datepicker instance
+     */
+    public void stop() {
+        stop(pickatizedDateInput);
+    }
+
+    private native void stop(Element picker) /*-{
+        picker.pickadate('picker').stop();
+    }-*/;
 }
