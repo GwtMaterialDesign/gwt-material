@@ -8,6 +8,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysLetter: [ 'อ.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.' ],
     today: 'วันนี้',
     clear: 'ลบ',
+    close: 'ปิด',
     format: 'd mmmm yyyy',
     formatSubmit: 'yyyy/mm/dd'
 });

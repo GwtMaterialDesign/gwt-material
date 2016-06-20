@@ -8,5 +8,6 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysLetter: [ 'CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy' ],
     today: 'Hôm Nay',
     clear: 'Xoá',
+    close: 'chận đường',
     firstDay: 1
 });

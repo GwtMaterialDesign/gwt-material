@@ -8,6 +8,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysLetter: ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'],
     today: 'היום',
     clear: 'למחוק',
+    close: 'לִסְגוֹר',
     format: 'yyyy mmmmב d dddd',
     formatSubmit: 'yyyy/mm/dd'
 });

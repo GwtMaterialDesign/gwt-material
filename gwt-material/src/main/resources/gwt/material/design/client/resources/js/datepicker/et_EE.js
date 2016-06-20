@@ -8,6 +8,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysLetter: ['P', 'E', 'T', 'K', 'N', 'R', 'L'],
     today: 'täna',
     clear: 'kustutama',
+    close: 'lõpetama',
     firstDay: 1,
     format: 'd. mmmm yyyy. a',
     formatSubmit: 'yyyy/mm/dd'

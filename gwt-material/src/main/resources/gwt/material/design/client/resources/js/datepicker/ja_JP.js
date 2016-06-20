@@ -8,6 +8,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysLetter: [ '日', '月', '火', '水', '木', '金', '土' ],
     today: '今日',
     clear: '消去',
+    close: '閉じる',
     firstDay: 1,
     format: 'yyyy mm dd',
     formatSubmit: 'yyyy/mm/dd'

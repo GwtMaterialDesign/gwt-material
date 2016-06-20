@@ -8,6 +8,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysLetter: [ 'Mg', 'Sn', 'Sl', 'Ra', 'Ka', 'Ju', 'Sa' ],
     today: 'hari ini',
     clear: 'menghapus',
+    close: 'ditutup',
     firstDay: 1,
     format: 'd mmmm yyyy',
     formatSubmit: 'yyyy/mm/dd'

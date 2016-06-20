@@ -8,6 +8,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     numbers: [ '०', '१', '२', '३', '४', '५', '६', '७', '८', '९' ],
     today: 'आज',
     clear: 'मेटाउनुहोस्',
+    close: 'बन्द गर्नु',
     format: 'dddd, dd mmmm, yyyy',
     formatSubmit: 'yyyy/mm/dd'
 });

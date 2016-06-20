@@ -8,6 +8,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysLetter: [ 'Sv', 'P', 'O', 'T', 'C', 'Pk', 'S' ],
     today: 'Šodiena',
     clear: 'Atcelt',
+    close: 'aizvērt',
     firstDay: 1,
     format: 'yyyy.mm.dd. dddd',
     formatSubmit: 'yyyy/mm/dd'
