@@ -21,6 +21,8 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.JsDate;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
@@ -31,7 +33,6 @@ import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
-import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
@@ -586,6 +587,34 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
     public void setLanguage(DatePickerLanguage language) {
         this.language = language;
-        MaterialDesign.injectJs(language.getJs());
+
+        if (language.getJs() != null) {
+            ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+        }
     }
+
+    /**
+     * Re initialize the datepicker
+     */
+    public void reinitialize() {
+        stop();
+        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+            @Override
+            public void execute() {
+
+                initDatePicker(dateInput.getElement(), selectionType.name(), format);
+            }
+        });
+    }
+
+    /**
+     * Stop the datepicker instance
+     */
+    public void stop() {
+        stop(pickatizedDateInput);
+    }
+
+    private native void stop(Element picker) /*-{
+        picker.pickadate('picker').stop();
+    }-*/;
 }
