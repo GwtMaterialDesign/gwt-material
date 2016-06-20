@@ -56,6 +56,9 @@ public interface MaterialDatePickerClientBundle extends ClientBundle {
     @Source("js/datepicker/el_GR.js")
     TextResource el();
 
+    @Source("js/datepicker/en.js")
+    TextResource en();
+
     @Source("js/datepicker/es_ES.js")
     TextResource es();
 

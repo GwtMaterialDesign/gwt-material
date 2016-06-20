@@ -38,6 +38,7 @@ public enum DatePickerLanguage {
     DA("da_DK", "Danish", MaterialDatePickerClientBundle.INSTANCE.da()),
     DE("de_DE", "German", MaterialDatePickerClientBundle.INSTANCE.de()),
     EL("el_GR", "Greek", MaterialDatePickerClientBundle.INSTANCE.el()),
+    EN("en", "English", MaterialDatePickerClientBundle.INSTANCE.en()),
     ES("es_ES", "Spanish", MaterialDatePickerClientBundle.INSTANCE.es()),
     ET("et_EE", "Estonian", MaterialDatePickerClientBundle.INSTANCE.et()),
     EU("eu_ES", "Basque", MaterialDatePickerClientBundle.INSTANCE.eu()),
