@@ -884,3 +884,9 @@ footer.fixed{
 .breadcrumb i{
 	float: none !important;
 }
+
+.picker__close, .picker__today, .picker__clear {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
