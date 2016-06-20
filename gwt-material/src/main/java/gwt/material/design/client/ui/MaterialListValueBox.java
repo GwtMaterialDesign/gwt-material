@@ -90,23 +90,18 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
 
     private boolean initialized;
 
-    private T value;
-    private final List<T> values = new ArrayList<>();
+    protected final List<T> values = new ArrayList<>();
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
     private final BlankValidatorMixin<MaterialListValueBox<T>, T> validatorMixin = new BlankValidatorMixin<>(this,
-        errorHandlerMixin.getErrorHandler());
+            errorHandlerMixin.getErrorHandler());
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), "input-field");
         add(listBox);
         add(lblName);
         toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
-    }
-
-    public void add(Option option) {
-        getSelectElement().add(OptionElement.as(option.getElement()), null);
     }
 
     @Override
@@ -240,15 +235,11 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
         for(T value : values) {
             addValue(value);
         }
-
-        if(value != null) {
-            setValue(value, false);
-        }
     }
 
     @Override
     public T getValue() {
-        return value;
+        return values.get(getSelectedIndex());
     }
 
     @Override
@@ -258,13 +249,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
 
     @Override
     public void setValue(T value, boolean fireEvents) {
-        if (value == this.value || (this.value != null && this.value.equals(value))) {
-            return;
-        }
-
         int index = getIndex(value.toString());
         if(index > 0 && values.contains(value)) {
-            T before = this.value;
+            T before = getValue();
             setSelectedIndex(index);
 
             if (fireEvents) {
@@ -868,4 +855,3 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
         }, BlurEvent.getType());
     }
 }
-

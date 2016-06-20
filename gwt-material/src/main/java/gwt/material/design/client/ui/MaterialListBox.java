@@ -76,5 +76,9 @@ public class MaterialListBox extends MaterialListValueBox<String> implements Has
 
     public MaterialListBox() {
     }
-}
 
+    public void add(Option option) {
+        getSelectElement().add(OptionElement.as(option.getElement()), null);
+        values.add(option.getValue());
+    }
+}
