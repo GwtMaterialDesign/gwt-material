@@ -890,3 +890,7 @@ footer.fixed{
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.side-nav .collapsible-body li.active {
+	background-color: #eeeeee !important;
+}
