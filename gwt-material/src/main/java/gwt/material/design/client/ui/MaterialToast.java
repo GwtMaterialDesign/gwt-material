@@ -20,28 +20,35 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.workingflows.js.jquery.client.api.Functions;
+import com.workingflows.js.jscore.client.api.Window;
+import gwt.material.design.client.base.Materialize;
+
+import static com.workingflows.js.jquery.client.api.JQuery.$;
 
 
 //@formatter:off
+
 /**
-* GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts. These toasts are also placed and sized responsively, try it out by clicking the button below on different device sizes.
-*
-* <p>
-* <h3>Java Usage:</h3>
-* <pre>
-* {@code
-* MaterialToast.fireToast("I love Material Design");
-* }
-* </pre>
-* </p>
-*
-* @author kevzlou7979
-* @author Ben Dol
-*/
+ * GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts. These toasts are also placed and sized responsively, try it out by clicking the button below on different device sizes.
+ *
+ * <p>
+ * <h3>Java Usage:</h3>
+ * <pre>
+ * {@code
+ * MaterialToast.fireToast("I love Material Design");
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
 //@formatter:on
 public class MaterialToast {
 
@@ -138,12 +145,10 @@ public class MaterialToast {
         }
     }
 
-    private static native void toast(String msg, int lifeMillis, String id, String className, Runnable callback)/*-{
-        $wnd.Materialize.toast(msg, lifeMillis, className, function() {
-            if(callback != null) {
-                callback.@java.lang.Runnable::run()();
-            }
+    private static void  toast(String msg, int lifeMillis, String id, String className, Runnable callback) {
+        Materialize.toast(msg, lifeMillis, () -> {
+            GWT.log("Testing");
         });
-        $wnd.jQuery(".toast." + className).attr('id',  id);
-    }-*/;
+        $(".toast." + className).attr("id", id);
+    }
 }
