@@ -147,7 +147,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
         return listBox.getElement().cast();
     }
 
-    private void onChangeInternal() {
+    protected void onChangeInternal() {
         try {
             ValueChangeEvent.fire(this, values.get(getSelectedIndex()));
         } catch (IndexOutOfBoundsException ex) {

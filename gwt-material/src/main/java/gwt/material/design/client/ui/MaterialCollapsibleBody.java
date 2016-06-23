@@ -113,7 +113,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
         child.addStyleName("active");
     }
 
-    private void provideActiveClickHandler(final Widget child) {
+    protected void provideActiveClickHandler(final Widget child) {
         // Active click handler
         child.addDomHandler(new ClickHandler() {
             @Override
@@ -127,7 +127,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
      * Checks if this child holds the current active state.
      * If the child is or contains the active state it is applied.
      */
-    private void checkActiveState(Widget child) {
+    protected void checkActiveState(Widget child) {
         // Check if this widget has a valid href
         String href = child.getElement().getAttribute("href");
         String url = Window.Location.getHref();
@@ -147,7 +147,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
         }
     }
 
-    private MaterialCollapsibleItem findCollapsibleItemParent(Widget widget) {
+    protected MaterialCollapsibleItem findCollapsibleItemParent(Widget widget) {
         if(widget != null) {
             if (widget instanceof MaterialCollapsibleItem) {
                 return (MaterialCollapsibleItem) widget;
@@ -158,7 +158,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
         return null;
     }
 
-    private ListItem findListItemParent(Widget widget) {
+    protected ListItem findListItemParent(Widget widget) {
         if(widget != null) {
             if (widget instanceof ListItem) {
                 return (ListItem) widget;

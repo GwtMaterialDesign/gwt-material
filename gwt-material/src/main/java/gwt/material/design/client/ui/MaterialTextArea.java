@@ -96,7 +96,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         }
     }
 
-    private native void triggerAutoResize(Element element) /*-{
+    protected native void triggerAutoResize(Element element) /*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(element).trigger('autoresize');
         });
@@ -145,7 +145,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         }
     }
 
-    private void removeResizeHandlers() {
+    protected void removeResizeHandlers() {
         if(resizeHandlers != null) {
             for (HandlerRegistration handlerReg : resizeHandlers) {
                 handlerReg.removeHandler();

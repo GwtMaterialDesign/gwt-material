@@ -108,7 +108,7 @@ public class GroupValidator implements ValidationChangedEvent.HasValidationChang
     /**
      * Update the state of the validator and notify via {@link EventBus} any changed handlers.
      */
-    private void updateStateAndNotify() {
+    protected void updateStateAndNotify() {
         Boolean oldGroupValid = groupValid;
         groupValid = true;
         for (Boolean valid : fields.values()) {

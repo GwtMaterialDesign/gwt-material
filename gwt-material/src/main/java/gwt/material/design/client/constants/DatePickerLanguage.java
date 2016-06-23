@@ -79,7 +79,7 @@ public enum DatePickerLanguage {
     private final String name;
     private final TextResource js;
 
-    private DatePickerLanguage(final String code, final String name, final TextResource js) {
+    DatePickerLanguage(final String code, final String name, final TextResource js) {
         this.code = code;
         this.name = name;
         this.js = js;

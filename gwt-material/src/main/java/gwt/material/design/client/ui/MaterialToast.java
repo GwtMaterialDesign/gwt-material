@@ -138,7 +138,7 @@ public class MaterialToast {
         }
     }
 
-    private static native void toast(String msg, int lifeMillis, String id, String className, Runnable callback)/*-{
+    protected static native void toast(String msg, int lifeMillis, String id, String className, Runnable callback)/*-{
         $wnd.Materialize.toast(msg, lifeMillis, className, function() {
             if(callback != null) {
                 callback.@java.lang.Runnable::run()();

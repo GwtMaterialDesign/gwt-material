@@ -614,7 +614,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         stop(pickatizedDateInput);
     }
 
-    private native void stop(Element picker) /*-{
+    protected native void stop(Element picker) /*-{
         picker.pickadate('picker').stop();
     }-*/;
 }

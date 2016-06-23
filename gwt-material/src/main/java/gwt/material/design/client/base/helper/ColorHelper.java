@@ -43,7 +43,7 @@ public class ColorHelper {
     /**
      * Native call to getComputedStyle.
      */
-    private static native String getComputedBackgroundColor(Element e)/*-{
+    protected static native String getComputedBackgroundColor(Element e)/*-{
         var cs = $wnd.document.defaultView.getComputedStyle(e, null);
         return cs.getPropertyValue('background-color');
     }-*/;
