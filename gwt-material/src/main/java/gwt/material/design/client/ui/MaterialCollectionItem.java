@@ -27,13 +27,13 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
-
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasAvatar;
 import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
+import gwt.material.design.client.js.JsMaterialElement;
 
 //@formatter:off
 
@@ -41,7 +41,7 @@ import gwt.material.design.client.constants.CollectionType;
  * Collection element to define every items
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
  */
 //@formatter:on
 public class MaterialCollectionItem extends MaterialWidget implements HasClickHandlers, HasDismissable, HasAvatar {
@@ -62,9 +62,9 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
         initDismissableCollection();
     }
 
-    private native void initDismissableCollection() /*-{
-        $wnd.initDismissableCollection();
-    }-*/;
+    private void initDismissableCollection() {
+        JsMaterialElement.initDismissableCollection();
+    }
 
     public void setType(CollectionType type) {
         switch (type) {
@@ -78,24 +78,21 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
                 if(handlerReg != null) {
                     handlerReg.removeHandler();
                 }
-                handlerReg = addClickHandler(new ClickHandler() {
-                    @Override
-                    public void onClick(ClickEvent event) {
-                        for(Widget w : MaterialCollectionItem.this) {
-                            if(w instanceof MaterialCollectionSecondary) {
-                                for(Widget a : (MaterialCollectionSecondary)w) {
-                                    if(a instanceof HasValue) {
-                                        try {
-                                            @SuppressWarnings("unchecked")
-                                            HasValue<Boolean> cb = (HasValue<Boolean>) a;
-                                            if (cb.getValue()) {
-                                                cb.setValue(false);
-                                            } else {
-                                                cb.setValue(true);
-                                            }
-                                        } catch (ClassCastException ex) {
-                                            // Ignore non-boolean has value handlers.
+                handlerReg = addClickHandler(event -> {
+                    for(Widget w : MaterialCollectionItem.this) {
+                        if(w instanceof MaterialCollectionSecondary) {
+                            for(Widget a : (MaterialCollectionSecondary)w) {
+                                if(a instanceof HasValue) {
+                                    try {
+                                        @SuppressWarnings("unchecked")
+                                        HasValue<Boolean> cb = (HasValue<Boolean>) a;
+                                        if (cb.getValue()) {
+                                            cb.setValue(false);
+                                        } else {
+                                            cb.setValue(true);
                                         }
+                                    } catch (ClassCastException ex) {
+                                        // Ignore non-boolean has value handlers.
                                     }
                                 }
                             }
@@ -130,12 +127,9 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()) {
+                handler.onClick(event);
             }
         }, ClickEvent.getType());
     }

@@ -20,14 +20,11 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.workingflows.js.jquery.client.api.Functions;
-import com.workingflows.js.jscore.client.api.Window;
-import gwt.material.design.client.base.Materialize;
+import gwt.material.design.client.js.JsMaterialElement;
 
 import static com.workingflows.js.jquery.client.api.JQuery.$;
 
@@ -145,9 +142,11 @@ public class MaterialToast {
         }
     }
 
-    private static void  toast(String msg, int lifeMillis, String id, String className, Runnable callback) {
-        Materialize.toast(msg, lifeMillis, () -> {
-            GWT.log("Testing");
+    private void toast(String msg, int lifeMillis, String id, String className, Runnable callback) {
+        JsMaterialElement.toast(msg, lifeMillis, className, () -> {
+            if(callback != null) {
+                callback.run();
+            }
         });
         $(".toast." + className).attr("id", id);
     }

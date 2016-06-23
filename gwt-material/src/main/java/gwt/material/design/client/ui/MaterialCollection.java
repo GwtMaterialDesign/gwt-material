@@ -85,7 +85,7 @@ Secondary Content
 * </p>
 * @author kevzlou7979
 * @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
+* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
 */
 //@formatter:on
 public class MaterialCollection extends MaterialWidget {

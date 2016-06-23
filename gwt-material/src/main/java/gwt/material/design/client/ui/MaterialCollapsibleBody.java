@@ -38,7 +38,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
 * CollapsibleItem element to define the body 
 * @author kevzlou7979
 * @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
 */
 //@formatter:on
 public class MaterialCollapsibleBody extends MaterialWidget implements HasCollapsibleParent {
@@ -115,11 +115,8 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
 
     private void provideActiveClickHandler(final Widget child) {
         // Active click handler
-        child.addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                makeActive(child);
-            }
+        child.addDomHandler(event -> {
+            makeActive(child);
         }, ClickEvent.getType());
     }
 
