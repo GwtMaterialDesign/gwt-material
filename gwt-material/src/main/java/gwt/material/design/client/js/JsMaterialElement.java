@@ -35,7 +35,7 @@ import jsinterop.annotations.JsType;
  * @author kevzlou7979
  */
 @JsType
-public class JsMaterialElement {
+public class JsMaterialElement extends JQueryElement {
 
     @JsMethod(name = "$", namespace = JsPackage.GLOBAL)
     public static native JsMaterialElement $(JQueryElement element);
@@ -45,6 +45,12 @@ public class JsMaterialElement {
 
     @JsMethod
     public native JQueryElement collapsible(boolean accordion);
+
+    @JsMethod
+    public native JQueryElement tabs();
+
+    @JsMethod
+    public native JQueryElement tabs(String method, String id);
 
     @JsMethod(namespace = JsPackage.GLOBAL)
     public static native void initDismissableCollection();

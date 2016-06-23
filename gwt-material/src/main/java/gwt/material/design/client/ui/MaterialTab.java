@@ -24,12 +24,15 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import com.workingflows.js.jquery.client.api.JQueryElement;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -54,7 +57,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
 </i:Panel>
 }
  * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#tabs">Material Tabs</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
  * @author kevzlou7979
  * @author Ben Dol
  */
@@ -79,7 +82,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
 
         initialize();
 
-        indicator = new MaterialWidget(getIndicatorElement(getElement()));
+        indicator = new MaterialWidget(getIndicatorElement());
         indicatorColorMixin = new ColorsMixin<>(indicator);
 
         setIndicatorColor(indicatorColor);
@@ -116,30 +119,20 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
      * @param tabId Tab to selects id.
      */
     public void selectTab(String tabId) {
-        selectTab(getElement(), tabId);
+        $(getElement()).tabs("select_tab", tabId);
     }
 
     protected void initialize() {
-        initialize(getElement());
+        $(getElement()).tabs();
+        for(int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
+            $(getElement()).find(".indicator").eq(i).remove();
+        }
+
     }
 
-    protected native void initialize(Element e) /*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(e).tabs();
-            for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++) {
-                $wnd.jQuery(e).find('.indicator').eq(i).remove()
-            }
-
-        });
-    }-*/;
-
-    protected native Element getIndicatorElement(Element e)/*-{
-        return $wnd.jQuery(e).find(".indicator")[0];
-    }-*/;
-
-    protected native void selectTab(Element e, String tabId)/*-{
-        $wnd.jQuery(e).tabs("select_tab", tabId);
-    }-*/;
+    protected Element getIndicatorElement() {
+        return $(getElement()).find(".indicator").get(0);
+    }
 
     @Override
     public void setType(TabType type) {
