@@ -62,7 +62,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
         initDismissableCollection();
     }
 
-    private native void initDismissableCollection() /*-{
+    protected native void initDismissableCollection() /*-{
         $wnd.initDismissableCollection();
     }-*/;
 

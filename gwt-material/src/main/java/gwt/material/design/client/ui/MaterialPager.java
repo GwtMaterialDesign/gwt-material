@@ -104,19 +104,19 @@ public class MaterialPager extends MaterialWidget {
         }
     }
 
-    private void moveNextPagesRange() {
+    protected void moveNextPagesRange() {
         calcShowingPageFrom = currentPage;
         calcShowingPageTo = Math.min(currentPage + maxPageLinksShown - 1, calcTotalPages);
         createPageNumberLinks();
     }
 
-    private void movePreviousPagesRange() {
+    protected void movePreviousPagesRange() {
         calcShowingPageFrom = currentPage - maxPageLinksShown + 1;
         calcShowingPageTo = currentPage;
         createPageNumberLinks();
     }
 
-    private void createPageNumberLinks() {
+    protected void createPageNumberLinks() {
 
         for (int i = 0; i < getWidgetCount(); i++) {
             final PagerListItem widget = (PagerListItem) getWidget(i);
@@ -143,7 +143,7 @@ public class MaterialPager extends MaterialWidget {
         }
     }
 
-    private PagerListItem createLiElementForPage(final int page) {
+    protected PagerListItem createLiElementForPage(final int page) {
         final PagerListItem pageLiElement = new PagerListItem();
         pageLiElement.setFixed(false);
         pageLiElement.add(createLinkPage(page));
@@ -167,7 +167,7 @@ public class MaterialPager extends MaterialWidget {
         return pageLiElement;
     }
 
-    private PagerListItem getOrCreateLiElementLeft() {
+    protected PagerListItem getOrCreateLiElementLeft() {
         linkLeft = new PagerListItem();
         linkLeft.setFixed(true);
         MaterialLink mLink = createLinkLeft();
@@ -192,7 +192,7 @@ public class MaterialPager extends MaterialWidget {
         return this.linkLeft;
     }
 
-    private PagerListItem getOrCreateLiElementRight() {
+    protected PagerListItem getOrCreateLiElementRight() {
         linkRight = new PagerListItem();
         linkRight.setFixed(true);
         MaterialLink mLink = createLinkRight();
@@ -217,7 +217,7 @@ public class MaterialPager extends MaterialWidget {
         return this.linkRight;
     }
 
-    private PagerListItem createLiElementIndicator() {
+    protected PagerListItem createLiElementIndicator() {
 
         PagerListItem indicatorLi = new PagerListItem(false);
         indicatorLi.setFixed(true);
@@ -225,7 +225,7 @@ public class MaterialPager extends MaterialWidget {
         return indicatorLi;
     }
 
-    private MaterialChip getOrCreateIndicator() {
+    protected MaterialChip getOrCreateIndicator() {
         indicator = new MaterialChip();
         indicator.getElement().getStyle().setBackgroundColor("inherit");
         addPageSelectionHandler(new PageSelectionHandler() {
@@ -242,25 +242,25 @@ public class MaterialPager extends MaterialWidget {
         return indicator;
     }
 
-    private MaterialLink createLinkPage(final int page) {
+    protected MaterialLink createLinkPage(final int page) {
         MaterialLink link = new MaterialLink(String.valueOf(page));
 
         return link;
     }
 
-    private MaterialLink createLinkLeft() {
+    protected MaterialLink createLinkLeft() {
         final MaterialLink linkLeft = new MaterialLink(IconType.CHEVRON_LEFT);
         linkLeft.setIconPosition(IconPosition.NONE);
         return linkLeft;
     }
 
-    private MaterialLink createLinkRight() {
+    protected MaterialLink createLinkRight() {
         final MaterialLink linkRight = new MaterialLink(IconType.CHEVRON_RIGHT);
         linkRight.setIconPosition(IconPosition.NONE);
         return linkRight;
     }
 
-    private void onPageSelection(int page) {
+    protected void onPageSelection(int page) {
         this.currentPage = page;
 
         if (this.currentPage > calcShowingPageTo) {

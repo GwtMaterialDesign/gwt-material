@@ -48,7 +48,7 @@ public class HTMLMixin<T extends UIObject> extends TextMixin<T> implements HasHT
         }
     }
 
-    private native void setInnerHTML(Element e, String html) /*-{
+    protected native void setInnerHTML(Element e, String html) /*-{
         $wnd.jQuery(e).html(html);
     }-*/;
 

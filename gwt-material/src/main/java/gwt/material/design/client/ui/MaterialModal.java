@@ -133,7 +133,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @param outDuration
      *            - Transition out Duration
      */
-    private native void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) /*-{
+    protected native void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) /*-{
         var obj = this;
         $wnd.jQuery(e).openModal({
             opacity: opacity,
@@ -144,7 +144,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         });
     }-*/;
 
-    private void onNativeClose(boolean autoClosed) {
+    protected void onNativeClose(boolean autoClosed) {
         CloseEvent.fire(this, this, autoClosed);
     }
 
@@ -177,7 +177,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         closeModal(getElement(), autoClosed);
     }
 
-    private native void closeModal(Element e, boolean autoClosed) /*-{
+    protected native void closeModal(Element e, boolean autoClosed) /*-{
         var obj = this;
         $wnd.jQuery(e).closeModal({
             complete: function () { obj.@gwt.material.design.client.ui.MaterialModal::onNativeClose(Z)(autoClosed); }

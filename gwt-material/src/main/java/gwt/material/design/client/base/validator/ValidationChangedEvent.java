@@ -59,7 +59,7 @@ public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.Vali
         public void onValidationChanged(ValidationChangedEvent event);
     }
 
-    private static final Type<ValidationChangedHandler> TYPE = new Type<ValidationChangedHandler>();
+    protected static final Type<ValidationChangedHandler> TYPE = new Type<ValidationChangedHandler>();
 
     /**
      * Fire the event.

@@ -123,7 +123,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         initialize(getElement());
     }
 
-    private native void initialize(Element e) /*-{
+    protected native void initialize(Element e) /*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).tabs();
             for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++) {
@@ -133,11 +133,11 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         });
     }-*/;
 
-    private native Element getIndicatorElement(Element e)/*-{
+    protected native Element getIndicatorElement(Element e)/*-{
         return $wnd.jQuery(e).find(".indicator")[0];
     }-*/;
 
-    private native void selectTab(Element e, String tabId)/*-{
+    protected native void selectTab(Element e, String tabId)/*-{
         $wnd.jQuery(e).tabs("select_tab", tabId);
     }-*/;
 
