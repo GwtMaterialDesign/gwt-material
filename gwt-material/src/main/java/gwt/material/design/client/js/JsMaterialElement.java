@@ -34,7 +34,7 @@ import jsinterop.annotations.JsType;
  *
  * @author kevzlou7979
  */
-@JsType
+@JsType(isNative = true, name = JsPackage.GLOBAL)
 public class JsMaterialElement extends JQueryElement {
 
     @JsMethod(name = "$", namespace = JsPackage.GLOBAL)
