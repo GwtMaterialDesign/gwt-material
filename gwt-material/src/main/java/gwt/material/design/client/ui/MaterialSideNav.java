@@ -282,7 +282,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         return typeMixin.getType();
     }
 
-    private void processType(SideNavType type) {
+    protected void processType(SideNavType type) {
         if(activator != null && type != null) {
             addStyleName(type.getCssName());
             switch (type) {
@@ -303,7 +303,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         }
     }
 
-    private native boolean isSmall() /*-{
+    protected native boolean isSmall() /*-{
         var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
         if(!mq.matches) {
             return true;
@@ -314,7 +314,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */
-    private native void applyPushType(Element element, Element activator, double width) /*-{
+    protected native void applyPushType(Element element, Element activator, double width) /*-{
         var that = this;
 
         $wnd.jQuery($wnd.window).off("resize");
@@ -324,7 +324,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         });
     }-*/;
 
-    private native void pushElements(boolean toggle, int width) /*-{
+    protected native void pushElements(boolean toggle, int width) /*-{
         var _width = 0;
         var _duration = 200;
 
@@ -394,7 +394,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         }
     }
 
-    private native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
+    protected native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
         var that = this;
         var $e = $wnd.jQuery(e);
         $wnd.jQuery(e).sideNav({
@@ -466,7 +466,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Show the sidenav.
      */
-    private native void show(Element e)/*-{
+    protected native void show(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav('show');
         });
@@ -475,7 +475,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Hide the sidenav.
      */
-    private native void hide(Element e)/*-{
+    protected native void hide(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).sideNav('hide');
         });

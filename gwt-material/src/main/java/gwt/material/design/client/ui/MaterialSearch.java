@@ -237,12 +237,12 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         setCurSel(-1);
     }
 
-    private void applyHighlightedItem(MaterialLink link) {
+    protected void applyHighlightedItem(MaterialLink link) {
         link.addStyleName("higlighted");
         setSelectedLink(link);
     }
 
-    private native void locateSearch(String location)/*-{
+    protected native void locateSearch(String location)/*-{
         $wnd.window.location.hash = location;
     }-*/;
 

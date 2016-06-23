@@ -142,7 +142,7 @@ public class MaterialToast {
         }
     }
 
-    private void toast(String msg, int lifeMillis, String id, String className, Runnable callback) {
+    protected void toast(String msg, int lifeMillis, String id, String className, Runnable callback) {
         JsMaterialElement.toast(msg, lifeMillis, className, () -> {
             if(callback != null) {
                 callback.run();

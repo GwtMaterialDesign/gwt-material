@@ -67,7 +67,7 @@ public class ProgressMixin<T extends UIObject & HasProgress>
 
     }
 
-    private void applyCollapsibleProgress(boolean isShow) {
+    protected void applyCollapsibleProgress(boolean isShow) {
         MaterialCollapsibleItem item = (MaterialCollapsibleItem) uiObject;
         MaterialCollapsibleBody body = (MaterialCollapsibleBody) item.getWidget(1);
         if(!uiObject.getElement().getClassName().contains("active")) {

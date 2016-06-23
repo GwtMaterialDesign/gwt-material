@@ -265,7 +265,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     /**
      * Initialize the dropdown components.
      */
-    private native void initialize(Element activator)/*-{
+    protected native void initialize(Element activator)/*-{
         var that = this;
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(activator).dropdown({
@@ -280,7 +280,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         });
     }-*/;
 
-    private native void remove(Element activator)/*-{
+    protected native void remove(Element activator)/*-{
         $wnd.jQuery(activator).dropdown("remove");
     }-*/;
 

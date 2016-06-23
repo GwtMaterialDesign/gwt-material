@@ -57,7 +57,7 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
      * Initialize the character counter provided by the textbase elements
      * @param e - element to initialize the feature
      */
-    private native void initCounter(Element e) /*-{
+    protected native void initCounter(Element e) /*-{
         $wnd.jQuery(e).characterCounter();
     }-*/;
 }

@@ -39,7 +39,7 @@ public class DateInput extends MaterialWidget {
         clearDpValue(getElement());
     }
 
-    private native void clearDpValue(Element e) /*-{
+    protected native void clearDpValue(Element e) /*-{
         $wnd.jQuery(e).val('');
     }-*/;
 }

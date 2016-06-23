@@ -734,7 +734,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
      * field value is empty - null or "" - removes the label 'active' style else
      * will add the 'active' style to the field label.
      */
-    private void updateLabelActiveStyle() {
+    protected void updateLabelActiveStyle() {
         if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
             label.addStyleName("active");
         } else {

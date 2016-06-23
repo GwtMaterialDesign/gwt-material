@@ -73,7 +73,7 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
     /**
      * Allow for the use of text shading and auto formatting.
      */
-    private String ensureTextColorFormat(String textColor) {
+    protected String ensureTextColorFormat(String textColor) {
         String formatted = "";
         boolean mainColor = true;
         for(String style : textColor.split(" ")) {

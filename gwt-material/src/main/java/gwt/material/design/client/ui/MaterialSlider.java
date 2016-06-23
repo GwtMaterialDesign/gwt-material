@@ -107,11 +107,11 @@ public class MaterialSlider extends MaterialWidget {
     /**
      * Initialize the slider when the widget is attached.
      */
-    private void initialize() {
+    protected void initialize() {
         initialize(getElement());
     }
 
-    private native void initialize(Element e)/*-{
+    protected native void initialize(Element e)/*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).slider({
                 full_width : true
@@ -119,11 +119,11 @@ public class MaterialSlider extends MaterialWidget {
         });
     }-*/;
 
-    private native void pause(Element e)/*-{
+    protected native void pause(Element e)/*-{
         $wnd.jQuery(e).slider("pause")
     }-*/;
 
-    private native void start(Element e)/*-{
+    protected native void start(Element e)/*-{
         $wnd.jQuery(e).slider("start")
     }-*/;
 }

@@ -62,7 +62,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
         initDismissableCollection();
     }
 
-    private void initDismissableCollection() {
+    protected void initDismissableCollection() {
         JsMaterialElement.initDismissableCollection();
     }
 

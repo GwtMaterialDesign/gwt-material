@@ -94,7 +94,7 @@ public class DefaultErrorHandler implements ErrorHandler {
      * @param widget the {@link Widget} to search.
      * @return the found {@link MaterialHelpBlock} of null if not found.
      */
-    private MaterialHelpBlock findHelpBlock(Widget widget) {
+    protected MaterialHelpBlock findHelpBlock(Widget widget) {
         if(widget != null) {
             if (widget instanceof MaterialHelpBlock) {
                 return (MaterialHelpBlock) widget;
