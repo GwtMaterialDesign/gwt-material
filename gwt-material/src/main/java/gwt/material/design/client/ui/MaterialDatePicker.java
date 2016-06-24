@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.ScriptInjector;
@@ -32,11 +33,13 @@ import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
+import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.BlankValidatorMixin;
 import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
@@ -52,6 +55,8 @@ import gwt.material.design.client.ui.html.Label;
 
 import java.util.Date;
 import java.util.List;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -130,7 +135,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         pickatizedDateInput = initDatePicker(dateInput.getElement(), selectionType.name(), format);
         initClickHandler(pickatizedDateInput, this);
 
-        label.getElement().setAttribute("for", getPickerId(pickatizedDateInput));
+        label.getElement().setAttribute("for", getPickerId());
 
         this.initialized = true;
 
@@ -174,54 +179,54 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         }
     }
 
-    native void removeClickHandler(Element picker, MaterialDatePicker parent) /*-{
-        picker.pickadate('picker').off("close", "open", "set");
-    }-*/;
+    protected void removeClickHandler(Element picker, MaterialDatePicker parent) {
+        $(picker).pickadate("picker").off("close");
+        $(picker).pickadate("picker").off("open");
+        $(picker).pickadate("picker").off("set");
+    }
 
-    native void initClickHandler(Element picker, MaterialDatePicker parent) /*-{
-        picker.pickadate('picker').on({
-            close: function () {
-                parent.@gwt.material.design.client.ui.MaterialDatePicker::onClose()();
-                $wnd.jQuery('.picker').blur();
-            },
-            open: function () {
-                parent.@gwt.material.design.client.ui.MaterialDatePicker::onOpen()();
-            },
-            set: function (thingSet) {
-
-                if (thingSet.hasOwnProperty('clear')) {
-                    parent.@gwt.material.design.client.ui.MaterialDatePicker::onClear()();
-                }
-                else if (thingSet.select) {
-                    parent.@gwt.material.design.client.ui.MaterialDatePicker::onSelect()();
-                }
+    protected void initClickHandler(Element picker, MaterialDatePicker parent) {
+        $(picker).pickadate("picker").on("close", (e, param1) -> {
+            onClose();
+            $(picker).blur();
+            return true;
+        });
+        $(picker).pickadate("picker").on("open", (e, param1) -> {
+            onOpen();
+            return true;
+        });
+        $(picker).pickadate("picker").set(thing -> {
+            if(thing.hasOwnProperty("clear")) {
+                onClear();
+            } else if(thing.select()) {
+                onSelect();
             }
         });
-    }-*/;
+    }
 
-    void onClose() {
+    protected void onClose() {
         CloseEvent.fire(this, this);
     }
 
-    void onOpen() {
+    protected void onOpen() {
         label.addStyleName("active");
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
     }
 
-    void onSelect() {
+    protected void onSelect() {
         label.addStyleName("active");
         dateInput.addStyleName("valid");
         ValueChangeEvent.fire(this, getValue());
     }
 
-    void onClear() {
+    protected void onClear() {
         clear();
     }
 
-    public static native String getPickerId(Element inputSrc) /*-{
-        return inputSrc.pickadate('picker').get("id");
-    }-*/;
+    public String getPickerId() {
+        return $(pickatizedDateInput).pickadate("picker").get("id");
+    }
 
     public static native Element initDatePicker(Element inputSrc, String typeName, String format) /*-{
         var input;
@@ -275,9 +280,9 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         }
     }
 
-    public native void setPickerDateMin(JsDate date, Element picker) /*-{
-        picker.pickadate('picker').set('min', date);
-    }-*/;
+    protected void setPickerDateMin(JsDate date, Element picker) {
+        $(picker).pickadate("picker").set("min", date);
+    }
 
     public Date getDateMax() {
         return dateMax;
@@ -290,17 +295,16 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         }
     }
 
-    public native void setPickerDateMax(JsDate date, Element picker) /*-{
-        picker.pickadate('picker').set('max', date);
-    }-*/;
+    public void setPickerDateMax(JsDate date, Element picker) {
+        $(picker).pickadate("picker").set("max", date);
+    }
 
-    public native void setPickerDate(JsDate date, Element picker) /*-{
-        picker.pickadate('picker').set('select', date, { muted: true });
-    }-*/;
+    public void setPickerDate(JsDate date, Element picker) {
+        $(picker).pickadate("picker").set("select", date, () -> {
+            DOM.createFieldSet().setPropertyObject("muted", true);
+        });
+    }
 
-    /**
-     * Same as calling {@link #getValue()}
-     */
     public Date getDate() {
         return getPickerDate();
     }

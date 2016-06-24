@@ -22,6 +22,7 @@ package gwt.material.design.client.js;
  */
 
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.workingflows.js.jquery.client.api.Functions;
 import com.workingflows.js.jquery.client.api.JQueryElement;
@@ -43,18 +44,51 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod(name = "$", namespace = JsPackage.GLOBAL)
     public static native JsMaterialElement $(Element element);
 
+    /**
+     * Collapsible Component
+     */
     @JsMethod
     public native JQueryElement collapsible(boolean accordion);
 
+    /**
+     * Tabs Component
+     */
     @JsMethod
     public native JQueryElement tabs();
 
     @JsMethod
     public native JQueryElement tabs(String method, String id);
 
+    /**
+     * Date Picker Component
+     */
+    @JsMethod
+    public native JsMaterialElement pickadate(String picker);
+
+    @JsMethod
+    public native JsMaterialElement set(Functions.Func1<Thing> thing);
+
+    @JsMethod
+    public native JsMaterialElement set(String key, JavaScriptObject value);
+
+    @JsMethod
+    public native JsMaterialElement set(String key, JavaScriptObject value, Functions.Func function);
+
+    @JsMethod
+    public native String get(String key);
+
+    @JsMethod
+    public native void obj();
+
+    /**
+     * Dismissable CollectionItem Component
+     */
     @JsMethod(namespace = JsPackage.GLOBAL)
     public static native void initDismissableCollection();
 
+    /**
+     * Toast Component
+     */
     @JsMethod(namespace = "Materialize")
     public static native double toast(String message, int duration, String classname, Functions.Func callback);
 }
