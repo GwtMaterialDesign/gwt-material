@@ -43,7 +43,7 @@ MaterialLoader.showProgress(true);
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Loaders</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Loaders</a>
  */
 //@formatter:on
 public class MaterialLoader {

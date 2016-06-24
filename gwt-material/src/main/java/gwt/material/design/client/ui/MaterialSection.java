@@ -38,7 +38,7 @@ import com.google.gwt.dom.client.Document;
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Section</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Section</a>
  */
 //@formatter:on
 public class MaterialSection extends MaterialWidget {

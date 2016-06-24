@@ -47,7 +47,7 @@ import java.util.Set;
  * <pre>
  *{@code <m:MaterialTextArea placeholder="Your Comment" />
  * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextArea</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material TextArea</a>
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84

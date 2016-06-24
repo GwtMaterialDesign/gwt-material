@@ -36,7 +36,7 @@ import com.google.gwt.dom.client.Document;
 * <m:MaterialSpinner color="red" />
 }
 * </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
+* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>
 * @author kevzlou7979
 * @author Ben Dol
 */

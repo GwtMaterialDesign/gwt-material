@@ -33,7 +33,7 @@ import gwt.material.design.client.constants.InputType;
  * Material Number Box is the base class for other numeric input boxes, such as {@link MaterialIntegerBox} and
  * {@link MaterialDoubleBox}.
  * 
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material MaterialNumberBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material MaterialNumberBox</a>
  * @author paulux84
  */
 //@formatter:on

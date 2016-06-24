@@ -41,7 +41,7 @@ import gwt.material.design.client.base.MaterialWidget;
 *
 * @author kevzlou7979
 * @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
+* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Column</a>
 */
 //@formatter:on
 public class MaterialContainer extends MaterialWidget {

@@ -67,7 +67,7 @@ import gwt.material.design.client.ui.html.ListItem;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#sidenav">Material SideNav</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!sidenavs">Material SideNav</a>
  */
 //@formatter:on
 public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables {

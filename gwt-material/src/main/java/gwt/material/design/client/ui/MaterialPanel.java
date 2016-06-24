@@ -31,7 +31,7 @@ import com.google.gwt.dom.client.Document;
  * <pre>
  *{@code<m:MaterialPanel color="white" waves="BLUE" shadow="3"/>}
  * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#shadow">Material Panels</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!shadow">Material Panels</a>
  * @author kevzlou7979
  * @author Ben Dol
  */

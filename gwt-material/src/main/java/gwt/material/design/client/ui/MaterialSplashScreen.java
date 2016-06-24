@@ -60,7 +60,7 @@ t.schedule(3000);
  * }</pre>
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Splashscreen</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!showcase">Material Splashscreen</a>
  */
 //@formatter:on
 public class MaterialSplashScreen extends MaterialWidget implements HasVisibility{

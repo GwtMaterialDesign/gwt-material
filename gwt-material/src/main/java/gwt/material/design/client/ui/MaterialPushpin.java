@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
  * MaterialPushpin.apply(target, source.getOffsetHeight() + 600);
 }
  * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#pushPin">Material PushPin</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pushpin">Material PushPin</a>
  * @author kevzlou7979
  */
 public class MaterialPushpin {

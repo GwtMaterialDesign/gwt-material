@@ -47,7 +47,7 @@ import gwt.material.design.client.ui.html.Span;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Range</a>
  */
 //@formatter:on
 public class MaterialRange extends MaterialWidget implements HasChangeHandlers, HasError {

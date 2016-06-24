@@ -49,7 +49,7 @@ import gwt.material.design.client.ui.html.Span;
 * </pre>
  *
 * @author kevzlou7979
-* @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Switch</a>
+* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
 */
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasClickHandlers, HasError {

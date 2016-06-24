@@ -44,7 +44,7 @@ import gwt.material.design.client.constants.IconType;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material Link</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material Link</a>
  */
 //@formatter:on
 public class MaterialLink extends AbstractIconButton {

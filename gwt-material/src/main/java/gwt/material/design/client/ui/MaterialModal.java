@@ -74,7 +74,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#dialogs">Material
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dialogs">Material
  *      Modals</a>
  */
 // @formatter:on

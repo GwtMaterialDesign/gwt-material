@@ -59,7 +59,7 @@ import java.util.List;
  * </pre>
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dropdown">Material DropDowns</a>
  */
 //@formatter:on
 public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget> {

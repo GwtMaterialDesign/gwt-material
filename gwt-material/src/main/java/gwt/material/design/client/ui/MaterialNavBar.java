@@ -55,7 +55,7 @@ import gwt.material.design.client.ui.html.Nav;
  *<pre>
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Nav Bar</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Nav Bar</a>
  */
 //@formatter:on
 public class MaterialNavBar extends Nav implements HasActivates, HasProgress, HasType<NavBarType> {

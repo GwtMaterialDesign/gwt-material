@@ -68,7 +68,7 @@ import java.util.List;
  * <pre>
  *{@code <m:MaterialTextBox placeholder="First Name" />}
  * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material TextBox</a>
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84

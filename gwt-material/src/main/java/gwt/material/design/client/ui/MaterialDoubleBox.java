@@ -33,7 +33,7 @@ package gwt.material.design.client.ui;
  * The parsing and formatting of the number are done natively by the browser,
  * using the i18n settings from the user.
  * 
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material
  *      DoubleBox</a>
  * @author paulux84
  */

@@ -52,7 +52,7 @@ import gwt.material.design.client.constants.ImageType;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#media">Material Media</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!media">Material Media</a>
  */
 //@formatter:on
 public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage, HasClickHandlers,

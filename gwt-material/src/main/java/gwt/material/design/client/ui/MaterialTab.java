@@ -57,7 +57,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 </i:Panel>
 }
  * </pre>
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!tabs">Material Tabs</a>
  * @author kevzlou7979
  * @author Ben Dol
  */

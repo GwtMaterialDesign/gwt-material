@@ -43,7 +43,7 @@ import gwt.material.design.client.base.AbstractIconButton;
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#breadcrumbs">Material BreadCrumb</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#breadcrumbs">Material BreadCrumb</a>
  */
 //@formatter:on
 public class MaterialBreadcrumb extends AbstractIconButton {

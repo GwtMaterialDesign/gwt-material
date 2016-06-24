@@ -46,7 +46,7 @@ import gwt.material.design.client.constants.RadioButtonType;
  * <m:MaterialRadioButton type="GAP"/>
 }
  * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Radio Button</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Radio Button</a>
  * @author kevzlou7979
  */
 public class MaterialRadioButton extends RadioButton implements HasGrid, HasType<RadioButtonType> {

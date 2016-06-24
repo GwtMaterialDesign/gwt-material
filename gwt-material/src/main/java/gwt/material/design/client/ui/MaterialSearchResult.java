@@ -30,7 +30,7 @@ import gwt.material.design.client.base.MaterialWidget;
  * keyup events triggered on search component.
  *
  * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Search</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Search</a>
  */
 //@formatter:on
 public class MaterialSearchResult extends MaterialWidget {

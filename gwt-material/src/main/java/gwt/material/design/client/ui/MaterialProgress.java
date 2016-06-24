@@ -36,7 +36,7 @@ import gwt.material.design.client.ui.html.Div;
 * <m:MaterialProgress />
 }
 * </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
+* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>
 * @author kevzlou7979
 */
 public class MaterialProgress extends Div implements HasType<ProgressType> {

@@ -47,7 +47,7 @@ import com.google.gwt.dom.client.Style.Unit;
 * 
 * @author kevzlou7979
 * @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#no-result">Material No Result</a>
+* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#no-result">Material No Result</a>
 */
 //@formatter:on
 public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitle{

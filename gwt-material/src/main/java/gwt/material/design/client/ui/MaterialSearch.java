@@ -68,7 +68,7 @@ import java.util.List;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material Search</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Search</a>
  */
 //@formatter:on
 public class MaterialSearch extends MaterialValueBox<String> implements HasCloseHandlers<String>, HasActive {

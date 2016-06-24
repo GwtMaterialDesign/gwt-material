@@ -57,7 +57,7 @@ import gwt.material.design.client.constants.FABType;
  * </p>
  *
  * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material FAB</a>
  */
 //@formatter:on
 public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasClickHandlers {
