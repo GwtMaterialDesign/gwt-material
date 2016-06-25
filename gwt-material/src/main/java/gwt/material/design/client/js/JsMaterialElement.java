@@ -23,6 +23,7 @@ package gwt.material.design.client.js;
 
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Element;
 import com.workingflows.js.jquery.client.api.Functions;
 import com.workingflows.js.jquery.client.api.JQueryElement;
@@ -66,6 +67,9 @@ public class JsMaterialElement extends JQueryElement {
     public native JsMaterialElement pickadate(String picker);
 
     @JsMethod
+    public native JsMaterialElement pickadate(JsDatePickerOptions property);
+
+    @JsMethod
     public native JsMaterialElement set(Functions.Func1<Thing> thing);
 
     @JsMethod
@@ -75,10 +79,19 @@ public class JsMaterialElement extends JQueryElement {
     public native JsMaterialElement set(String key, JavaScriptObject value, Functions.Func function);
 
     @JsMethod
-    public native String get(String key);
+    public native JavaScriptObject get(String key);
+
+    @JsMethod
+    public native JsDate get(String key, String format);
+
+    @JsMethod
+    public native JsMaterialElement stop();
 
     @JsMethod
     public native void obj();
+
+    @JsMethod
+    public native void clear();
 
     /**
      * Dismissable CollectionItem Component

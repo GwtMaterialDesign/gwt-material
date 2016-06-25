@@ -20,10 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JsDate;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.ScriptInjector;
+import com.google.gwt.core.client.*;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
@@ -39,7 +36,6 @@ import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
-import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.BlankValidatorMixin;
 import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
@@ -50,6 +46,7 @@ import gwt.material.design.client.base.validator.ValidationChangedEvent.Validati
 import gwt.material.design.client.base.validator.Validator;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
+import gwt.material.design.client.js.JsDatePickerOptions;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
 
@@ -225,40 +222,25 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     public String getPickerId() {
-        return $(pickatizedDateInput).pickadate("picker").get("id");
+        JsArrayString id = (JsArrayString) $(pickatizedDateInput).pickadate("picker").get("id");
+        GWT.log("YYOYOYO " + id);
+        return id.toString();
     }
 
-    public static native Element initDatePicker(Element inputSrc, String typeName, String format) /*-{
-        var input;
-        if (typeName === "MONTH_DAY") {
-            input = $wnd.jQuery(inputSrc).pickadate({
-                container: 'body',
-                selectYears: false,
-                selectMonths: true,
-                format: format
-            });
-        } else if (typeName === "YEAR_MONTH_DAY") {
-            input = $wnd.jQuery(inputSrc).pickadate({
-                container: 'body',
-                selectYears: true,
-                selectMonths: true,
-                format: format
-            });
-        } else if (typeName === "YEAR") {
-            input = $wnd.jQuery(inputSrc).pickadate({
-                container: 'body',
-                selectYears: true,
-                format: format
-            });
-        } else {
-            input = $wnd.jQuery(inputSrc).pickadate({
-                container: 'body',
-                format: format
-            });
+    public Element initDatePicker(Element inputSrc, String typeName, String format) {
+        JsDatePickerOptions options = new JsDatePickerOptions();
+        options.container = "body";
+        options.format = format;
+        if(typeName.equals("MONTH_DAY")) {
+            options.selectMonths = true;
+        } else if(typeName.equals("YEAR_MONTH_DAY")) {
+            options.selectYears = true;
+            options.selectMonths = true;
+        } else if(typeName.equals("YEAR")) {
+            options.selectMonths = true;
         }
-
-        return input;
-    }-*/;
+        return $(inputSrc).pickadate(options).asElement();
+    }
 
     /**
      * Sets the current date of the picker.
@@ -319,9 +301,10 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         }
     }
 
-    public static native JsDate getDatePickerValue(Element picker)/*-{
-        return picker.pickadate('picker').get('select').obj;
-    }-*/;
+    public JsDate getDatePickerValue(Element picker) {
+        JsDate date = $(pickatizedDateInput).pickadate("picker").get("select", "yyyy/mm/dd");
+        return date;
+    }
 
     /**
      * Clears the values of the picker field.
@@ -332,9 +315,9 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         }
     }
 
-    public native void clearValues(Element picker) /*-{
-        picker.pickadate('picker').clear();
-    }-*/;
+    public void clearValues(Element picker) {
+        $(picker).pickadate("picker").clear();
+    }
 
     public String getPlaceholder() {
         return placeholder;
@@ -431,7 +414,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         return addHandler(new ValueChangeHandler<Date>() {
             @Override
             public void onValueChange(ValueChangeEvent<Date> event) {
-                if(isEnabled()){
+                if(isEnabled()) {
                     handler.onValueChange(event);
                 }
             }
@@ -468,7 +451,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         return addHandler(new CloseHandler<MaterialDatePicker>() {
             @Override
             public void onClose(CloseEvent<MaterialDatePicker> event) {
-                if(isEnabled()){
+                if(isEnabled()) {
                     handler.onClose(event);
                 }
             }
@@ -480,7 +463,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         return addHandler(new OpenHandler<MaterialDatePicker>() {
             @Override
             public void onOpen(OpenEvent<MaterialDatePicker> event) {
-                if(isEnabled()){
+                if(isEnabled()) {
                     handler.onOpen(event);
                 }
             }
@@ -489,12 +472,9 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
     @Override
     public HandlerRegistration addBlurHandler(final BlurHandler handler) {
-        return addDomHandler(new BlurHandler() {
-            @Override
-            public void onBlur(BlurEvent event) {
-                if(isEnabled()){
-                    handler.onBlur(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()) {
+                handler.onBlur(event);
             }
         }, BlurEvent.getType());
     }
@@ -602,12 +582,8 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
      */
     public void reinitialize() {
         stop();
-        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-            @Override
-            public void execute() {
-
-                initDatePicker(dateInput.getElement(), selectionType.name(), format);
-            }
+        Scheduler.get().scheduleDeferred(() -> {
+            initDatePicker(dateInput.getElement(), selectionType.name(), format);
         });
     }
 
@@ -618,7 +594,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         stop(pickatizedDateInput);
     }
 
-    protected native void stop(Element picker) /*-{
-        picker.pickadate('picker').stop();
-    }-*/;
+    protected void stop(Element picker) {
+        $(picker).pickadate("picker").stop();
+    }
 }
