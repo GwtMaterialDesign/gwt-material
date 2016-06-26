@@ -302,7 +302,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     public JsDate getDatePickerValue(Element picker) {
-        JsDate date = $(pickatizedDateInput).pickadate("picker").get("select", "yyyy/mm/dd");
+        JsDate date = $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
         return date;
     }
 

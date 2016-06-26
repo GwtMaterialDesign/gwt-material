@@ -61,6 +61,33 @@ public class JsMaterialElement extends JQueryElement {
     public native JQueryElement tabs(String method, String id);
 
     /**
+     * Dropdown Component
+     */
+    @JsMethod
+    public native JQueryElement dropdown(JsDropdownOptions options);
+
+    @JsMethod
+    public native JQueryElement dropdown(String actions);
+
+    /**
+     * FAB - Floating Action Component
+     */
+    @JsMethod
+    public native JQueryElement openFAB();
+
+    @JsMethod
+    public native JQueryElement closeFAB();
+
+    /**
+     * Modal component
+     */
+    @JsMethod
+    public native JQueryElement openModal(JsModalOptions options);
+
+    @JsMethod
+    public native JQueryElement closeModal(Functions.Func complete);
+
+    /**
      * Date Picker Component
      */
     @JsMethod

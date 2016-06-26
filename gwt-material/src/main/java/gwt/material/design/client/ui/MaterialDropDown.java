@@ -35,11 +35,14 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
+import gwt.material.design.client.js.JsDropdownOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -223,11 +226,8 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
                 MaterialLink link = (MaterialLink) child;
                 for(int i = 0; i < link.getWidgetCount(); i++) {
                     if(link.getWidget(i) instanceof MaterialDropDown) {
-                        link.addClickHandler(new ClickHandler() {
-                            @Override
-                            public void onClick(ClickEvent event) {
-                                event.stopPropagation();
-                            }
+                        link.addClickHandler(event -> {
+                            event.stopPropagation();
                         });
                         link.stopTouchStartEvent();
                     }
@@ -262,27 +262,20 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         initialize(activatorElem);
     }
 
-    /**
-     * Initialize the dropdown components.
-     */
-    protected native void initialize(Element activator)/*-{
-        var that = this;
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(activator).dropdown({
-                inDuration: that.@gwt.material.design.client.ui.MaterialDropDown::inDuration,
-                outDuration: that.@gwt.material.design.client.ui.MaterialDropDown::outDuration,
-                constrain_width: that.@gwt.material.design.client.ui.MaterialDropDown::constrainWidth, // Does not change width of dropdown to that of the activator
-                hover: that.@gwt.material.design.client.ui.MaterialDropDown::hover, // Activate on hover
-                gutter: that.@gwt.material.design.client.ui.MaterialDropDown::gutter, // Spacing from edge
-                belowOrigin: that.@gwt.material.design.client.ui.MaterialDropDown::belowOrigin, // Displays dropdown below the button
-                alignment: that.@gwt.material.design.client.ui.MaterialDropDown::alignment // Displays dropdown with edge aligned to the left of button
-            });
-        });
-    }-*/;
+    protected void initialize(Element activator) {
+        JsDropdownOptions options = new JsDropdownOptions();
+        options.inDuration = inDuration;
+        options.outDuration = outDuration;
+        options.hover = hover;
+        options.gutter = gutter;
+        options.belowOrigin = belowOrigin;
+        options.alignment = alignment;
+        $(activator).dropdown(options);
+    }
 
-    protected native void remove(Element activator)/*-{
-        $wnd.jQuery(activator).dropdown("remove");
-    }-*/;
+    protected void remove(Element activator) {
+        $(activator).dropdown("remove");
+    }
 
     @Override
     public HandlerRegistration addSelectionHandler(final SelectionHandler<Widget> handler) {

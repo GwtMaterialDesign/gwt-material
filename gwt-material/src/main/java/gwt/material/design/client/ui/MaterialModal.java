@@ -20,19 +20,21 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasDismissable;
-import gwt.material.design.client.base.HasTransition;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.constants.ModalType;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.HasTransition;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.ModalType;
+import gwt.material.design.client.js.JsModalOptions;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -79,7 +81,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 // @formatter:on
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
-    HasDismissable, HasCloseHandlers<MaterialModal> {
+        HasDismissable, HasCloseHandlers<MaterialModal> {
 
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
     private int inDuration = 300;
@@ -133,16 +135,17 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @param outDuration
      *            - Transition out Duration
      */
-    protected native void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) /*-{
-        var obj = this;
-        $wnd.jQuery(e).openModal({
-            opacity: opacity,
-            dismissible: dismissable,
-            in_duration: inDuration,
-            out_duration: outDuration,
-            complete: function () { obj.@gwt.material.design.client.ui.MaterialModal::onNativeClose(Z)(true); }
-        });
-    }-*/;
+    protected void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
+        JsModalOptions options = new JsModalOptions();
+        options.opacity = opacity;
+        options.dismissable = dismissable;
+        options.in_duration = inDuration;
+        options.out_duration = outDuration;
+        options.complete = () -> {
+            onNativeClose(true);
+        };
+        $(e).openModal(options);
+    }
 
     protected void onNativeClose(boolean autoClosed) {
         CloseEvent.fire(this, this, autoClosed);
@@ -177,12 +180,11 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         closeModal(getElement(), autoClosed);
     }
 
-    protected native void closeModal(Element e, boolean autoClosed) /*-{
-        var obj = this;
-        $wnd.jQuery(e).closeModal({
-            complete: function () { obj.@gwt.material.design.client.ui.MaterialModal::onNativeClose(Z)(autoClosed); }
+    protected void closeModal(Element e, boolean autoClosed) {
+        $(e).closeModal(() -> {
+            onNativeClose(autoClosed);
         });
-    }-*/;
+    }
 
     @Override
     public void setType(ModalType type) {

@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -33,6 +32,8 @@ import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.constants.FABType;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -74,16 +75,13 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     protected void onLoad() {
         super.onLoad();
         if(getType() == FABType.CLICK_ONLY) {
-            addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    if(toggle) {
-                        openFAB();
-                        toggle = false;
-                    }else{
-                        closeFAB();
-                        toggle = true;
-                    }
+            addClickHandler(clickEvent -> {
+                if(toggle) {
+                    openFAB();
+                    toggle = false;
+                }else{
+                    closeFAB();
+                    toggle = true;
                 }
             });
         }
@@ -113,33 +111,22 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
      * Open the FAB programmatically
      */
     public void openFAB() {
-        openFAB(getElement());
+        $(getElement()).openFAB();
     }
-
-    public native void openFAB(Element e) /*-{
-        $wnd.jQuery(e).openFAB();
-    }-*/;
 
     /**
      * Close the FAB programmatically
      */
     public void closeFAB() {
-        closeFAB(getElement());
+        $(getElement()).closeFAB();
     }
-
-    public native void closeFAB(Element e) /*-{
-        $wnd.jQuery(e).closeFAB();
-    }-*/;
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onClick(event);
             }
-        }, ClickEvent.getType());
+        } , ClickEvent.getType());
     }
 }
