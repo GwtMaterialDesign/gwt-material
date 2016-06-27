@@ -20,8 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -36,8 +34,9 @@ import com.google.gwt.user.client.ui.TextArea;
 import gwt.material.design.client.constants.InputType;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -96,11 +95,9 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         }
     }
 
-    protected native void triggerAutoResize(Element element) /*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(element).trigger('autoresize');
-        });
-    }-*/;
+    protected void triggerAutoResize(Element element) {
+        $(element).trigger("autoresize", null);
+    }
 
     public ResizeRule getResizeRule() {
         return resizeRule;

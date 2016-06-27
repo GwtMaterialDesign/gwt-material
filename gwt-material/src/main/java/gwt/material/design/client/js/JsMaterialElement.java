@@ -45,6 +45,9 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod(name = "$", namespace = JsPackage.GLOBAL)
     public static native JsMaterialElement $(Element element);
 
+    @JsMethod(name = "$", namespace = JsPackage.GLOBAL)
+    public static native JsMaterialElement $(String selector);
+
     /**
      * Collapsible Component
      */
@@ -88,6 +91,36 @@ public class JsMaterialElement extends JQueryElement {
     public native JQueryElement closeModal(Functions.Func complete);
 
     /**
+     * Parallax Component
+     */
+    @JsMethod
+    public native JQueryElement parallax();
+
+    /**
+     * Tooltip Component
+     */
+    @JsMethod
+    public native JQueryElement tooltip(String command);
+
+    @JsMethod
+    public native JQueryElement tooltip(JsTooltipOptions options);
+
+    /**
+     * Slider Component
+     */
+    @JsMethod
+    public native JQueryElement slider(JsSliderOptions options);
+
+    @JsMethod
+    public native JQueryElement slider(String action);
+
+    /**
+     * Scrollspy Component
+     */
+    @JsMethod
+    public native JQueryElement scrollSpy();
+
+    /**
      * Date Picker Component
      */
     @JsMethod
@@ -125,6 +158,12 @@ public class JsMaterialElement extends JQueryElement {
      */
     @JsMethod(namespace = JsPackage.GLOBAL)
     public static native void initDismissableCollection();
+
+    /**
+     * Navbar Component
+     */
+    @JsMethod(namespace = JsPackage.GLOBAL)
+    public static native void initShrink(Element element, int duration);
 
     /**
      * Toast Component

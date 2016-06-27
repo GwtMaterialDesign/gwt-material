@@ -20,20 +20,19 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.HasOneWidget;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.Position;
+import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.js.JsTooltipOptions;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
  * Basic implementation for the Material Design tooltip.
@@ -318,15 +317,15 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         return asWidget().toString();
     }
 
-    protected native void configure(Element e, String tooltip, String position, int delay) /*-{
-        $wnd.jQuery(e).tooltip({
-            tooltip: tooltip,
-            position: position,
-            delay: delay
-        });
-    }-*/;
+    protected void configure(Element e, String tooltip, String position, int delay) {
+        JsTooltipOptions options = new JsTooltipOptions();
+        options.tooltip = tooltip;
+        options.position = position;
+        options.delay = delay;
+        $(e).tooltip(options);
+    }
 
-    protected native void command(final Element e, final String command) /*-{
-        $wnd.jQuery(e).tooltip(command);
-    }-*/;
+    protected void command(Element e, String command) {
+        $(e).tooltip(command);
+    }
 }

@@ -21,30 +21,23 @@ package gwt.material.design.client.js;
  */
 
 
-import com.workingflows.js.jquery.client.api.Functions;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 /**
- * Created by Mark Kevin on 6/26/2016.
+ * Created by Mark Kevin on 6/27/2016.
  */
-@JsType(isNative = true, name="Object",  namespace = JsPackage.GLOBAL)
-public class JsModalOptions {
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
+public class JsTooltipOptions {
 
     @JsProperty
-    public double opacity;
+    public String tooltip;
 
     @JsProperty
-    public boolean dismissable;
+    public String position;
 
     @JsProperty
-    public int in_duration;
-
-    @JsProperty
-    public int out_duration;
-
-    @JsProperty
-    public Functions.Func complete;
+    public int delay;
 
 }

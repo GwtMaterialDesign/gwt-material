@@ -21,30 +21,16 @@ package gwt.material.design.client.js;
  */
 
 
-import com.workingflows.js.jquery.client.api.Functions;
-import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 /**
- * Created by Mark Kevin on 6/26/2016.
+ * Created by Mark Kevin on 6/27/2016.
  */
-@JsType(isNative = true, name="Object",  namespace = JsPackage.GLOBAL)
-public class JsModalOptions {
+@JsType
+public class JsSliderOptions {
 
     @JsProperty
-    public double opacity;
-
-    @JsProperty
-    public boolean dismissable;
-
-    @JsProperty
-    public int in_duration;
-
-    @JsProperty
-    public int out_duration;
-
-    @JsProperty
-    public Functions.Func complete;
+    public boolean full_width;
 
 }

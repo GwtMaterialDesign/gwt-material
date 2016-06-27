@@ -20,13 +20,15 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.Div;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.Widget;
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
+
 /**
 * Mateiral Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling. Check out the demo to get a better idea of it.
 *
@@ -79,9 +81,8 @@ public class MaterialParallax extends MaterialWidget {
         initParallax();
     }
 
-    public native void initParallax()/*-{
-        $wnd.jQuery(document).ready(function() {
-          $wnd.jQuery('.parallax').parallax();
-        });
-    }-*/;
+    public void initParallax() {
+        $(div.getElement()).parallax();
+    }
+
 }

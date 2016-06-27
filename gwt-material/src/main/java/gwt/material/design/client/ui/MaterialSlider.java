@@ -25,8 +25,10 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.js.JsSliderOptions;
 import gwt.material.design.client.ui.html.UnorderedList;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
@@ -111,19 +113,17 @@ public class MaterialSlider extends MaterialWidget {
         initialize(getElement());
     }
 
-    protected native void initialize(Element e)/*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(e).slider({
-                full_width : true
-            });
-        });
-    }-*/;
+    protected void initialize(Element e) {
+        JsSliderOptions options = new JsSliderOptions();
+        options.full_width = true;
+        $(e).slider(options);
+    }
 
-    protected native void pause(Element e)/*-{
-        $wnd.jQuery(e).slider("pause")
-    }-*/;
+    public void pause() {
+        $(getElement()).slider("pause");
+    }
 
-    protected native void start(Element e)/*-{
-        $wnd.jQuery(e).slider("start")
-    }-*/;
+    public void start() {
+        $(getElement()).slider("start");
+    }
 }

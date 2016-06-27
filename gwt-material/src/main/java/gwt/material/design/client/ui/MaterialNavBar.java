@@ -20,6 +20,7 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,6 +31,7 @@ import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
 import gwt.material.design.client.constants.*;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
@@ -107,13 +109,13 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
         typeMixin.setType(type);
     }
 
-    protected native void applyType(String type, Element element) /*-{
-        if(type === "navbar-shrink") {
-            $wnd.initShrink(element, 300)
-        }else{
-            console.log('Default type of navbar was applied');
+    protected void applyType(String type, Element element) {
+        if(type.equals("navbar-shrink")) {
+            JsMaterialElement.initShrink(element, 300);
+        }else  {
+            GWT.log("Default type of navbar was applied");
         }
-    }-*/;
+    }
 
     @Override
     public NavBarType getType() {
