@@ -121,6 +121,33 @@ public class JsMaterialElement extends JQueryElement {
     public native JQueryElement scrollSpy();
 
     /**
+     * Image Component
+     */
+    @JsMethod
+    public native JQueryElement materialbox();
+
+    /**
+     * Listbox Component
+     */
+    @JsMethod
+    public native JQueryElement material_select();
+
+    /**
+     * Pushpin Component
+     */
+    @JsMethod
+    public native JQueryElement pushpin(JsPushpinOptions options);
+
+    /**
+     * Sidenav Component
+     */
+    @JsMethod
+    public native JQueryElement sideNav(JsSideNavOptions options);
+
+    @JsMethod
+    public native JQueryElement sideNav(String action);
+
+    /**
      * Date Picker Component
      */
     @JsMethod

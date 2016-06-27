@@ -52,7 +52,7 @@ import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Option;
 
 import java.util.*;
-
+import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
@@ -159,23 +159,23 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * Creates the internal change handler needed to trigger change events for
      * Materialize CSS change events.
      */
-    protected native void createInternalChangeHandler(Element element) /*-{
-        var that = this;
-        var callback = $entry(function() {
-            that.@gwt.material.design.client.ui.MaterialListValueBox::onChangeInternal()();
+    protected void createInternalChangeHandler(Element e) {
+        $(e).change((e1, param1) -> {
+            onChangeInternal();
+            //TODO Remove after
+            GWT.log("Working great");
+            return true;
         });
-
-        $wnd.jQuery(element).change(callback);
-    }-*/;
+    }
 
     /**
      * Initializes the Materialize CSS list box. Should be
      * called every time the contents of the list box
      * changes, to keep the Materialize CSS design updated.
      */
-    protected native void initializeMaterial(Element element) /*-{
-        $wnd.jQuery(element).material_select();
-    }-*/;
+    protected void initializeMaterial(Element e) {
+        $(e).material_select();
+    }
 
     /**
      * Re initialize the material listbox component

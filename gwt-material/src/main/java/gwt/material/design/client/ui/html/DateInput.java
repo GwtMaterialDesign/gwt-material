@@ -25,6 +25,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import gwt.material.design.client.base.MaterialWidget;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
 /**
  * @author guaido79
  */
@@ -39,7 +40,7 @@ public class DateInput extends MaterialWidget {
         clearDpValue(getElement());
     }
 
-    protected native void clearDpValue(Element e) /*-{
-        $wnd.jQuery(e).val('');
-    }-*/;
+    protected void clearDpValue(Element e) {
+        $(e).val("");
+    }
 }

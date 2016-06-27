@@ -33,6 +33,7 @@ import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.constants.ImageType;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 /**
  * Images can be styled in different ways using Material Design
@@ -127,11 +128,9 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
         getElement().setAttribute("data-caption", caption);
     }
 
-    public native void onInitMaterialDesign() /*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery('.materialboxed').materialbox();
-        });
-    }-*/;
+    public void onInitMaterialDesign() {
+        $(".materialboxed").materialbox();
+    }
 
     @Override
     public void setUrl(String url) {

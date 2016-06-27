@@ -223,7 +223,6 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
     public String getPickerId() {
         JsArrayString id = (JsArrayString) $(pickatizedDateInput).pickadate("picker").get("id");
-        GWT.log("YYOYOYO " + id);
         return id.toString();
     }
 
