@@ -193,6 +193,21 @@ public class JsMaterialElement extends JQueryElement {
     public static native void initShrink(Element element, int duration);
 
     /**
+     * Animation Component
+     */
+    @JsMethod(namespace = JsPackage.GLOBAL)
+    public static native void closeGrid(String selector);
+
+    @JsMethod(namespace = JsPackage.GLOBAL)
+    public static native void showGrid(String selector);
+
+    @JsMethod(namespace = "Materialize")
+    public static native double fadeInImage(String selector);
+
+    @JsMethod(namespace = "Materialize")
+    public static native double showStaggeredList(String selector);
+
+    /**
      * Toast Component
      */
     @JsMethod(namespace = "Materialize")

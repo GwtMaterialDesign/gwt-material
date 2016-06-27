@@ -23,8 +23,11 @@
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
  /**
   * Provides core and meaningful animation
@@ -109,29 +112,29 @@ import gwt.material.design.client.ui.html.UnorderedList;
          w.removeStyleName("materialcss");
      }
 
-     protected static native void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) /*-{
-         //$wnd.jQuery('#' + name).css("animationDuration", + durationMillis + "ms");
-         $wnd.jQuery('#' +  name).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+     protected static void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) {
+         $("#" + name).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", e -> {
              if(callback != null) {
-                 callback.@java.lang.Runnable::run()();
+                 callback.run();
              }
-             $wnd.jQuery('#' +  name).removeClass(oldClass);
+             $("#" + name).removeClass(oldClass);
+             return true;
          });
-     }-*/;
+     }
 
-     protected static native void closeGrid(String name) /*-{
-         $wnd.closeGrid('#' + name);
-     }-*/;
+     protected static void closeGrid(String name) {
+         JsMaterialElement.closeGrid("#" + name);
+     }
 
-     protected static native void showGrid(String name) /*-{
-         $wnd.showGrid('#' + name);
-     }-*/;
+     protected static void showGrid(String name) {
+         JsMaterialElement.showGrid("#" + name);
+     }
 
-     protected static native void fadeInImage(String name) /*-{
-         $wnd.Materialize.fadeInImage('#' + name);
-     }-*/;
+     protected static void fadeInImage(String name) {
+         JsMaterialElement.fadeInImage("#" + name);
+     }
 
-     protected static native void showStaggeredList(String name) /*-{
-         $wnd.Materialize.showStaggeredList('#' + name);
-     }-*/;
+     protected static void showStaggeredList(String name) {
+         JsMaterialElement.showStaggeredList("#" + name);
+     }
  }
