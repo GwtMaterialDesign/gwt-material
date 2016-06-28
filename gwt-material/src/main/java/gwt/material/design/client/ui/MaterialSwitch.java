@@ -58,10 +58,8 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     private Span span = new Span();
     private Label label = new Label();
     private MaterialLabel lblError = new MaterialLabel();
-    private String onLabel = "";
-    private Span onLabelSpan = new Span();
-    private String offLabel = "";
-    private Span offLabelSpan = new Span();
+    private Span onLabel = new Span();
+    private Span offLabel = new Span();
 
     private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
@@ -85,8 +83,8 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     protected void onLoad() {
         super.onLoad();
-        if(!offLabel.isEmpty()) {
-            label.add(offLabelSpan);
+        if(!offLabel.getText().isEmpty()) {
+            label.add(offLabel);
         }
         label.add(input);
         label.add(span);
@@ -104,8 +102,8 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
                 event.stopPropagation();
             }
         });
-        if(!onLabel.isEmpty()) {
-            label.add(onLabelSpan);
+        if(!onLabel.getText().isEmpty()) {
+            label.add(onLabel);
         }
     }
 
@@ -231,21 +229,17 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         errorMixin.clearErrorOrSuccess();
     }
 
-    public String getOnLabel() {
-        return onLabel;
+    /**
+     * Set the On State Label of the switch component
+     */
+    public void setOnLabel(String label) {
+        onLabel.setText(label);
     }
 
-    public void setOnLabel(String onLabel) {
-        this.onLabel = onLabel;
-        onLabelSpan.setText(onLabel);
-    }
-
-    public String getOffLabel() {
-        return offLabel;
-    }
-
-    public void setOffLabel(String offLabel) {
-        this.offLabel = offLabel;
-        offLabelSpan.setText(offLabel);
+    /**
+     * Set the Off State Label of the switch component
+     */
+    public void setOffLabel(String label) {
+        offLabel.setText(label);
     }
 }
