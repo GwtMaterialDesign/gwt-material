@@ -29,8 +29,8 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Label;
@@ -39,18 +39,18 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:off
 
 /**
-* Material Switch or other call it toggle - used for an alternative for checkbox
-*
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code<m:MaterialSwitch value="true"/>
-*<m:MaterialSwitch value="true" disabled="true"/>
-* }
-* </pre>
+ * Material Switch or other call it toggle - used for an alternative for checkbox
  *
-* @author kevzlou7979
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
-*/
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ *{@code<m:MaterialSwitch value="true"/>
+ *<m:MaterialSwitch value="true" disabled="true"/>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
+ */
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
 
@@ -58,6 +58,10 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     private Span span = new Span();
     private Label label = new Label();
     private MaterialLabel lblError = new MaterialLabel();
+    private String onLabel = "";
+    private Span onLabelSpan = new Span();
+    private String offLabel = "";
+    private Span offLabelSpan = new Span();
 
     private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
@@ -68,6 +72,22 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         super(Document.get().createDivElement(), "switch");
         span.setStyleName("lever");
         input.setType(InputType.CHECKBOX);
+    }
+
+    /**
+     * Creates a material switch with default value.
+     */
+    public MaterialSwitch(boolean value) {
+        this();
+        setValue(value);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        if(!offLabel.isEmpty()) {
+            label.add(offLabelSpan);
+        }
         label.add(input);
         label.add(span);
         add(label);
@@ -84,14 +104,9 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
                 event.stopPropagation();
             }
         });
-    }
-
-    /**
-     * Creates a material switch with default value.
-     */
-    public MaterialSwitch(boolean value) {
-        this();
-        setValue(value);
+        if(!onLabel.isEmpty()) {
+            label.add(onLabelSpan);
+        }
     }
 
     @Override
@@ -176,6 +191,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     /**
      * @return the label
      */
+    @Deprecated
     public Label getLabel() {
         return label;
     }
@@ -183,6 +199,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     /**
      * @param label the label to set
      */
+    @Deprecated
     public void setLabel(Label label) {
         this.label = label;
     }
@@ -212,5 +229,23 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     public void clearErrorOrSuccess() {
         errorMixin.clearErrorOrSuccess();
+    }
+
+    public String getOnLabel() {
+        return onLabel;
+    }
+
+    public void setOnLabel(String onLabel) {
+        this.onLabel = onLabel;
+        onLabelSpan.setText(onLabel);
+    }
+
+    public String getOffLabel() {
+        return offLabel;
+    }
+
+    public void setOffLabel(String offLabel) {
+        this.offLabel = offLabel;
+        offLabelSpan.setText(offLabel);
     }
 }
