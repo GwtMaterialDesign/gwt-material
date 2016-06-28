@@ -48,6 +48,7 @@ import gwt.material.design.client.base.mixin.BlankValidatorMixin;
 import gwt.material.design.client.base.mixin.CounterMixin;
 import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.FocusableMixin;
 import gwt.material.design.client.base.validator.HasBlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
@@ -95,6 +96,8 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         errorHandlerMixin.getErrorHandler());
 
     @Ignore protected ValueBoxBase<T> valueBoxBase;
+
+    private FocusableMixin<MaterialWidget> focusableMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -161,6 +164,12 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         lblName.removeStyleName("red-text");
     }
 
+    @Override
+    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
+        if(focusableMixin == null) { focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement())); }
+        return focusableMixin;
+    }
+    
     @Override
     public String getText() {
         return valueBoxBase.getText();
