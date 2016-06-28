@@ -1,4 +1,4 @@
-package gwt.material.design.client.ui.animate;
+ package gwt.material.design.client.ui.animate;
 
 /*
  * #%L
@@ -26,101 +26,112 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-/**
- * Provides core and meaningful animation
- * @author kevzlou7979
- */
-public class MaterialAnimator {
+ /**
+  * Provides core and meaningful animation
+  * @author kevzlou7979
+  */
+ public class MaterialAnimator {
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
-        animate(transition, w, delayMillis, 800, callback);
-    }
+     public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
+         animate(transition, w, delayMillis, 800, callback, false);
+     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, int durationMillis) {
-        animate(transition, w, delayMillis, durationMillis, null);
-    }
+     public static void animate(final Transition transition, final Widget w, int delayMillis, int durationMillis) {
+         animate(transition, w, delayMillis, durationMillis, null, false);
+     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis) {
-        animate(transition, w, delayMillis, 800, null);
-    }
+     public static void animate(final Transition transition, final Widget w, int delayMillis, boolean infinite) {
+         animate(transition, w, delayMillis, 800, null, infinite);
+     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback) {
-        final String name = String.valueOf(DOM.createUniqueId());
-        w.getElement().setId(name);
-        w.getElement().getStyle().setProperty("WebkitAnimationDuration",durationMillis+"ms");
-        w.getElement().getStyle().setProperty("animationDuration",durationMillis+"ms");
-        switch (transition) {
-            case SHOW_STAGGERED_LIST:
-                if(w instanceof UnorderedList) {
-                    UnorderedList ul = (UnorderedList) w;
+     public static void animate(final Transition transition, final Widget w, int delayMillis) {
+         animate(transition, w, delayMillis, 800, null, false);
+     }
 
-                    for(Widget li : ul) {
-                        if(li instanceof ListItem) {
-                            li.getElement().getStyle().setOpacity(0);
-                        }
-                    }
-                }
-                break;
-            case SHOW_GRID:
-                w.getElement().getStyle().setOpacity(0);
-                break;
-            default:
-                break;
-        }
+     public static void stopAnimation(Widget w) {
+         w.removeStyleName("infinite");
+     }
 
-        new Timer() {
-            @Override
-            public void run() {
-                switch (transition) {
-                    case SHOW_STAGGERED_LIST:
-                        showStaggeredList(name);
-                        break;
-                    case FADE_IN_IMAGE:
-                        fadeInImage(name);
-                        break;
-                    case SHOW_GRID:
-                        w.addStyleName("display-animation");
-                        showGrid(name);
-                        break;
-                    case CLOSE_GRID:
-                        w.addStyleName("display-animation");
-                        closeGrid(name);
-                        break;
-                    default:
-                        // For core animation components
-                        w.addStyleName("animated " + transition.getCssName());
-                        animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
-                        break;
-                }
-            }
-        }.schedule(delayMillis);
+     public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback, final boolean infinite) {
+         final String name = String.valueOf(DOM.createUniqueId());
+         w.getElement().setId(name);
+         w.getElement().getStyle().setProperty("WebkitAnimationDuration",durationMillis+"ms");
+         w.getElement().getStyle().setProperty("animationDuration",durationMillis+"ms");
+         switch (transition) {
+             case SHOW_STAGGERED_LIST:
+                 if(w instanceof UnorderedList) {
+                     UnorderedList ul = (UnorderedList) w;
 
-        w.removeStyleName("materialcss");
-    }
+                     for(Widget li : ul) {
+                         if(li instanceof ListItem) {
+                             li.getElement().getStyle().setOpacity(0);
+                         }
+                     }
+                 }
+                 break;
+             case SHOW_GRID:
+                 w.getElement().getStyle().setOpacity(0);
+                 break;
+             default:
+                 break;
+         }
 
-    protected static native void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) /*-{
-        //$wnd.jQuery('#' + name).css("animationDuration", + durationMillis + "ms");
-        $wnd.jQuery('#' +  name).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-            if(callback != null) {
-                callback.@java.lang.Runnable::run()();
-            }
-            $wnd.jQuery('#' +  name).removeClass(oldClass);
-        });
-    }-*/;
+         new Timer() {
+             @Override
+             public void run() {
+                 switch (transition) {
+                     case SHOW_STAGGERED_LIST:
+                         showStaggeredList(name);
+                         break;
+                     case FADE_IN_IMAGE:
+                         fadeInImage(name);
+                         break;
+                     case SHOW_GRID:
+                         w.addStyleName("display-animation");
+                         showGrid(name);
+                         break;
+                     case CLOSE_GRID:
+                         w.addStyleName("display-animation");
+                         closeGrid(name);
+                         break;
+                     default:
+                         // For core animation components
+                         if(infinite) {
+                             w.addStyleName("infinite");
+                         }
+                         w.addStyleName("animated " + transition.getCssName());
+                         animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
+                         break;
+                 }
+             }
+         }.schedule(delayMillis);
 
-    protected static native void closeGrid(String name) /*-{
-        $wnd.closeGrid('#' + name);
-    }-*/;
+         w.removeStyleName("materialcss");
+     }
 
-    protected static native void showGrid(String name) /*-{
-        $wnd.showGrid('#' + name);
-    }-*/;
+     protected static native void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) /*-{
+         //$wnd.jQuery('#' + name).css("animationDuration", + durationMillis + "ms");
+         $wnd.jQuery('#' +  name).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+             if(callback != null) {
+                 callback.@java.lang.Runnable::run()();
+             }
+             $wnd.jQuery('#' +  name).removeClass(oldClass);
+         });
+     }-*/;
 
-    protected static native void fadeInImage(String name) /*-{
-        $wnd.Materialize.fadeInImage('#' + name);
-    }-*/;
+     protected static native void closeGrid(String name) /*-{
+         $wnd.closeGrid('#' + name);
+     }-*/;
 
-    protected static native void showStaggeredList(String name) /*-{
-        $wnd.Materialize.showStaggeredList('#' + name);
-    }-*/;
-}
+     protected static native void showGrid(String name) /*-{
+         $wnd.showGrid('#' + name);
+     }-*/;
+
+     protected static native void fadeInImage(String name) /*-{
+         $wnd.Materialize.fadeInImage('#' + name);
+     }-*/;
+
+     protected static native void showStaggeredList(String name) /*-{
+         $wnd.Materialize.showStaggeredList('#' + name);
+     }-*/;
+ }

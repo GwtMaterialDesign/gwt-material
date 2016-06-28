@@ -884,3 +884,7 @@ footer.fixed{
 .breadcrumb i{
 	float: none !important;
 }
+
+.side-nav .collapsible-body li.active {
+	background-color: #eeeeee !important;
+}

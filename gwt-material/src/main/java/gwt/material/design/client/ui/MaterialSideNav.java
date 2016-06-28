@@ -34,14 +34,16 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.HasSelectables;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.*;
-import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler;
 import gwt.material.design.client.events.SideNavClosingEvent.SideNavClosingHandler;
 import gwt.material.design.client.events.SideNavOpenedEvent.SideNavOpenedHandler;
@@ -154,22 +156,24 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         return addHandler(handler, SideNavClosedEvent.TYPE);
     }
 
-    @Override
-    public void add(Widget child) {
+    public Widget wrap(Widget child) {
         if(child instanceof MaterialImage) {
             child.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
             child.getElement().getStyle().setProperty("textAlign", "center");
         }
 
-        boolean collapsible = child instanceof MaterialCollapsible;
-        if(collapsible) {
-            // Since the collapsible is separ
-            ((MaterialCollapsible)child).addClearActiveHandler(new ClearActiveHandler() {
-                @Override
-                public void onClearActive(ClearActiveEvent event) {
-                    clearActive();
+        // Check whether the widget is not selectable by default
+        boolean isNotSelectable = false;
+        if(child instanceof MaterialWidget) {
+            MaterialWidget widget = (MaterialWidget) child;
+            if (widget.getInitialClasses() != null) {
+                if (widget.getInitialClasses().length > 0) {
+                    String initialClass = widget.getInitialClasses()[0];
+                    if(initialClass.contains("side-profile") || initialClass.contains("collapsible")) {
+                        isNotSelectable = true;
+                    }
                 }
-            });
+            }
         }
 
         if(!(child instanceof ListItem)) {
@@ -187,9 +191,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             child = listItem;
         }
 
-        // Collapsible's should not be selectable
+        // Collapsible and Side Porfile should not be selectable
         final Widget finalChild = child;
-        if(!collapsible) {
+        if(!isNotSelectable) {
             // Active click handler
             finalChild.addDomHandler(new ClickHandler() {
                 @Override
@@ -200,7 +204,17 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             }, ClickEvent.getType());
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
-        super.add(child);
+        return child;
+    }
+
+    @Override
+    public void add(Widget child) {
+        super.add(wrap(child));
+    }
+
+    @Override
+    protected void insert(Widget child, com.google.gwt.user.client.Element container, int beforeIndex, boolean domInsert) {
+        super.insert(wrap(child), container, beforeIndex, domInsert);
     }
 
     @Override

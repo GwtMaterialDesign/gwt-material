@@ -163,6 +163,13 @@ public class MaterialListBox extends MaterialWidget implements HasId, HasGrid, H
     }-*/;
 
     /**
+     * Re initialize the material listbox component
+     */
+    public void reinitialize() {
+        initializeMaterial(getElement());
+    }
+
+    /**
      * Sets whether this list allows multiple selections.
      *
      * @param multiple <code>true</code> to allow multiple selections

@@ -38,6 +38,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
         super(type, text);
 
         this.icon = icon;
+        ensureIconAttached();
     }
 
     public AbstractIconButton(ButtonType type, String text) {
@@ -74,7 +75,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     @Override
     public void setIconType(IconType iconType) {
         icon.setIconType(iconType);
-        insert(icon, 0);
+        ensureIconAttached();
     }
 
     @Override
@@ -105,5 +106,11 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    public void ensureIconAttached() {
+        if(icon != null && !icon.isAttached()) {
+            insert(icon, 0);
+        }
     }
 }

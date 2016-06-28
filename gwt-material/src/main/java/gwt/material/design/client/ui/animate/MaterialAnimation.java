@@ -31,6 +31,7 @@ public class MaterialAnimation {
     private Transition transition = Transition.BOUNCE;
     private int delayMillis = 0;
     private int durationMillis = 800;
+    private boolean infinite;
 
     public MaterialAnimation() {
     }
@@ -51,12 +52,16 @@ public class MaterialAnimation {
         return this;
     }
 
+    public MaterialAnimation infinite(boolean infinite) {
+        this.infinite = infinite;
+        return this;
+    }
+
     public void animate(Widget w) {
         animate(w,null);
     }
 
     public void animate(Widget w,Runnable callback) {
-        MaterialAnimator.animate(transition, w, delayMillis, durationMillis, callback);
+        MaterialAnimator.animate(transition, w, delayMillis, durationMillis, callback, infinite);
     }
-
 }
