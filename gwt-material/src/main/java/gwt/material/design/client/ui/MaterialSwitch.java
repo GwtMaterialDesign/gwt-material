@@ -83,7 +83,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     protected void onLoad() {
         super.onLoad();
-        if(!offLabel.getText().isEmpty()) {
+        if(offLabel.getText() != null && !offLabel.getText().isEmpty()) {
             label.add(offLabel);
         }
         label.add(input);
@@ -102,7 +102,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
                 event.stopPropagation();
             }
         });
-        if(!onLabel.getText().isEmpty()) {
+        if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
             label.add(onLabel);
         }
     }
