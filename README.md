@@ -7,7 +7,7 @@
 
 
 ## Demo
-* [1.5.x Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
+* [1.5.3 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
 * [1.6.0 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
@@ -16,12 +16,12 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
-### Current Version 1.5.2
+### Current Version 1.5.3
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 ### Snapshot Version 1.6.0-SNAPSHOT
