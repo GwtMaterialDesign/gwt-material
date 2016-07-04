@@ -64,6 +64,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
+
+
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
@@ -717,24 +720,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getTruncateMixin().setOn(truncate);
     }
 
-    public void stopTouchStartEvent() {
-        stopTouchStartEvent(getElement());
-    }
-
     // Avoid touch events on mobile devices
-    protected native void stopTouchStartEvent(Element e) /*-{
-        $wnd.jQuery(e).bind('touchstart', function(event) {
-            event.stopPropagation();
+    public void stopTouchStartEvent() {
+        $(getElement()).bind("touchstart", e -> {
+            e.stopPropagation();
+            return true;
         });
-    }-*/;
+    }
 
     public int getWidth() {
-        return getWidth(getElement());
+        return $(getElement()).outerWidth();
     }
-
-    protected native int getWidth(Element element) /*-{
-        return $wnd.jQuery(element).outerWidth();
-    }-*/;
 
     protected void clearActiveClass(HasWidgets widget) {
         for(Widget child : widget) {

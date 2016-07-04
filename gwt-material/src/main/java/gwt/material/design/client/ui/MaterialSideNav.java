@@ -34,6 +34,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import com.workingflows.js.jquery.client.api.JQuery;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
@@ -48,8 +49,10 @@ import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler
 import gwt.material.design.client.events.SideNavClosingEvent.SideNavClosingHandler;
 import gwt.material.design.client.events.SideNavOpenedEvent.SideNavOpenedHandler;
 import gwt.material.design.client.events.SideNavOpeningEvent.SideNavOpeningHandler;
+import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.html.ListItem;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
@@ -303,51 +306,45 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         }
     }
 
-    protected native boolean isSmall() /*-{
-        var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
-        if(!mq.matches) {
+    protected boolean isSmall() {
+        if(!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
             return true;
         }
         return false;
-    }-*/;
+    }
 
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */
-    protected native void applyPushType(Element element, Element activator, double width) /*-{
-        var that = this;
-
-        $wnd.jQuery($wnd.window).off("resize");
-        $wnd.jQuery($wnd.window).resize(function() {
-            var toggle = that.@gwt.material.design.client.ui.MaterialSideNav::open;
-            that.@gwt.material.design.client.ui.MaterialSideNav::pushElements(*)(toggle, width);
+    protected void applyPushType(Element element, Element activator, int width) {
+        $(JQuery.window()).off("resize");
+        $(JQuery.window()).resize((e, param1) -> {
+            pushElements(open, width);
+            return true;
         });
-    }-*/;
+    }
 
-    protected native void pushElements(boolean toggle, int width) /*-{
-        var _width = 0;
-        var _duration = 200;
-
-        var mq = $wnd.window.matchMedia('all and (max-width: 992px)');
-        if(!mq.matches) {
+    protected void pushElements(boolean toggle, int width) {
+        int _width = 0;
+        int _duration = 200;
+        if(!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
             if(toggle) {
                 _width = width;
                 _duration = 300;
             }
-
-            applyTransition($wnd.jQuery('header'), _width);
-            applyTransition($wnd.jQuery('main'), _width);
-            applyTransition($wnd.jQuery('footer'), _width);
-
-            function applyTransition(elem, _width) {
-                $wnd.jQuery(elem).css('transition', _duration + 'ms');
-                $wnd.jQuery(elem).css('-moz-transition', _duration + 'ms');
-                $wnd.jQuery(elem).css('-webkit-transition', _duration + 'ms');
-                $wnd.jQuery(elem).css('margin-left', _width);
-            }
+            applyTransition($("header").asElement(), _width, _duration);
+            applyTransition($("main").asElement(), _width, _duration);
+            applyTransition($("footer").asElement(), _width, _duration);
         }
-        this.@gwt.material.design.client.ui.MaterialSideNav::onPush(*)(toggle, _width, _duration);
-    }-*/;
+        onPush(toggle, _width, _duration);
+    }
+
+    protected void applyTransition(Element elem, int width, int duration) {
+        $(elem).css("transition", duration + "ms");
+        $(elem).css("-moz-transition", duration + "ms");
+        $(elem).css("-webkit-transition", duration + "ms");
+        $(elem).css("margin-left", width + "px");
+    }
 
     protected void onPush(boolean toggle, int width, int duration) {
         SideNavPushEvent.fire(this, getElement(), activator, toggle, width, duration);
@@ -394,35 +391,37 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         }
     }
 
-    protected native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
-        var that = this;
-        var $e = $wnd.jQuery(e);
-        $wnd.jQuery(e).sideNav({
-            menuWidth: width,
-            edge: edge,
-            closeOnClick: closeOnClick
+    protected void initialize(Element e, int width, boolean closeOnClick, String edge) {
+        JsSideNavOptions options = new JsSideNavOptions();
+        options.menuWidth = width;
+        options.edge = edge;
+        options.closeOnClick = closeOnClick;
+        $(e).sideNav(options);
+
+        $(e).off("side-nav-closing");
+        $(e).on("side-nav-closing", e1 -> {
+            onClosing();
+            return true;
         });
 
-        $e.off("side-nav-closing");
-        $e.on("side-nav-closing", function() {
-            that.@gwt.material.design.client.ui.MaterialSideNav::onClosing()();
+        $(e).off("side-nav-closed");
+        $(e).on("side-nav-closed", e1 -> {
+            onClosed();
+            return true;
         });
 
-        $e.off("side-nav-closed");
-        $e.on("side-nav-closed", function() {
-            that.@gwt.material.design.client.ui.MaterialSideNav::onClosed()();
+        $(e).off("side-nav-opening");
+        $(e).on("side-nav-opening", e1 -> {
+            onOpening();
+            return true;
         });
 
-        $e.off("side-nav-opening");
-        $e.on("side-nav-opening", function() {
-            that.@gwt.material.design.client.ui.MaterialSideNav::onOpening()();
+        $(e).off("side-nav-opened");
+        $(e).on("side-nav-opened", e1 -> {
+            onOpened();
+            return true;
         });
-
-        $e.off("side-nav-opened");
-        $e.on("side-nav-opened", function() {
-            that.@gwt.material.design.client.ui.MaterialSideNav::onOpened()();
-        });
-    }-*/;
+    }
 
     protected void onClosing() {
         open = false;
@@ -457,42 +456,22 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Hide the overlay menu.
      */
-    public native void hideOverlay()/*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery('#sidenav-overlay').remove();
-        })
-    }-*/;
-
-    /**
-     * Show the sidenav.
-     */
-    protected native void show(Element e)/*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(e).sideNav('show');
-        });
-    }-*/;
-
-    /**
-     * Hide the sidenav.
-     */
-    protected native void hide(Element e)/*-{
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(e).sideNav('hide');
-        });
-    }-*/;
+    public void hideOverlay() {
+        $("#sidenav-overlay").remove();
+    }
 
     /**
      * Show the sidenav using the activator element
      */
     public void show() {
-        show(activator);
+        $(activator).sideNav("show");
     }
 
     /**
      * Hide the sidenav using the activator element
      */
     public void hide() {
-        hide(activator);
+        $(activator).sideNav("hide");
     }
 
     public boolean isOpen() {

@@ -207,6 +207,8 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod(namespace = "Materialize")
     public static native double showStaggeredList(String selector);
 
+    @JsMethod(namespace = "Waves")
+    public static native void displayEffect();
     /**
      * Toast Component
      */

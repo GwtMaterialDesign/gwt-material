@@ -23,6 +23,7 @@ package gwt.material.design.client.base;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.js.JsMaterialElement;
 
 public class Waves {
     
@@ -31,9 +32,9 @@ public class Waves {
     /**
      * Initialize any uninitialized wave elements.
      */
-    public static native void detectAndApply() /*-{
-        $wnd.Waves.displayEffect();
-    }-*/;
+    public static void detectAndApply() {
+        JsMaterialElement.displayEffect();
+    }
 
     /**
      * Detect and apply waves, now or when the widget is attached.
