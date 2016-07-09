@@ -24,40 +24,12 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.FontWeight;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
+import com.workingflows.js.jquery.client.api.JQuery;
+import com.workingflows.js.jquery.client.api.JQueryElement;
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.ColorsMixin;
-import gwt.material.design.client.base.mixin.CssNameMixin;
-import gwt.material.design.client.base.mixin.EnabledMixin;
-import gwt.material.design.client.base.mixin.FlexboxMixin;
-import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
-import gwt.material.design.client.base.mixin.IdMixin;
-import gwt.material.design.client.base.mixin.ScrollspyMixin;
-import gwt.material.design.client.base.mixin.SeparatorMixin;
-import gwt.material.design.client.base.mixin.ShadowMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.base.mixin.TooltipMixin;
-import gwt.material.design.client.base.mixin.WavesMixin;
-import gwt.material.design.client.constants.CenterOn;
-import gwt.material.design.client.constants.Display;
-import gwt.material.design.client.constants.Flex;
-import gwt.material.design.client.constants.FlexAlignContent;
-import gwt.material.design.client.constants.FlexAlignItems;
-import gwt.material.design.client.constants.FlexAlignSelf;
-import gwt.material.design.client.constants.FlexDirection;
-import gwt.material.design.client.constants.FlexJustifyContent;
-import gwt.material.design.client.constants.FlexWrap;
-import gwt.material.design.client.constants.HideOn;
-import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.constants.ShowOn;
-import gwt.material.design.client.constants.TextAlign;
-import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.base.mixin.*;
+import gwt.material.design.client.constants.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,6 +43,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
         HasDepth, HasInitialClasses {
+
+    public final static JQueryElement window = JQuery.$(JQuery.window());
+    public final static JQueryElement body = JQuery.$("body");
+
 
     /**
      * Configurable features enum see {@link #enableFeature(Feature, boolean)}.
@@ -99,6 +75,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private List<Appender> onLoadAdd;
 
     private String[] initialClasses;
+    protected JQueryElement $this;
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -132,6 +109,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public MaterialWidget(Element element, String... initialClass) {
         this(element);
         setInitialClasses(initialClass);
+    }
+
+    public JQueryElement $this() {
+        if ($this == null) { $this = JQuery.$(this); }
+        return $this;
     }
 
     @Override
@@ -753,6 +735,19 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public String[] getInitialClasses() {
         return initialClasses;
+    }
+
+    @Override
+    public WidgetCollection getChildren() {
+        return super.getChildren();
+    }
+
+    public List<Widget> getChildrenList() {
+        List<Widget> children = new ArrayList<>();
+        for (int i = 0; i < getWidgetCount(); i++) {
+            children.add(getWidget(i));
+        }
+        return children;
     }
 
     /**
