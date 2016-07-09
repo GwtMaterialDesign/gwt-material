@@ -43,6 +43,8 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.HasText;
+
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ButtonSize;
@@ -53,9 +55,8 @@ import gwt.material.design.client.ui.html.Span;
 /**
  * @author Ben Dol
  */
-public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
-        HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
-        HasDoubleClickHandlers {
+public abstract class AbstractButton extends MaterialWidget
+        implements HasHref, HasGrid, HasActivates, HasTargetHistoryToken, HasType<ButtonType>, HasText, HasClickHandlers, HasAllMouseHandlers, HasDoubleClickHandlers {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
     private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
@@ -65,7 +66,8 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     private String targetHistoryToken;
 
-    /** Creates button with RAISED type.
+    /**
+     * Creates button with RAISED type.
      */
     protected AbstractButton() {
         setElement(createElement());
@@ -148,12 +150,12 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     }
 
     public void setSize(ButtonSize size) {
-        if(this.size != null) {
+        if (this.size != null) {
             removeStyleName(this.size.getCssName());
         }
         this.size = size;
 
-        if(size != null) {
+        if (size != null) {
             addStyleName(size.getCssName());
         }
     }
@@ -162,20 +164,24 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return size;
     }
 
+    @Override
     public String getText() {
         return span.getText();
     }
 
+    @Override
     public void setText(String text) {
         span.setText(text);
         add(span);
     }
 
     /**
-     * Set the target history token for the widget. Note, that you should use either
-     * {@link #setTargetHistoryToken(String)}or {@link #setHref(String)}, but not both as
-     * {@link #setHref(String)} resets the target history token.
-     * @param targetHistoryToken String target history token of the widget
+     * Set the target history token for the widget. Note, that you should use
+     * either {@link #setTargetHistoryToken(String)}or {@link #setHref(String)},
+     * but not both as {@link #setHref(String)} resets the target history token.
+     * 
+     * @param targetHistoryToken
+     *            String target history token of the widget
      */
     @Override
     public void setTargetHistoryToken(final String targetHistoryToken) {
@@ -186,8 +192,10 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     }
 
     /**
-     * Get the target history token for the widget. May return {@code null} if no
-     * history token has been set or if it has been reset by {@link #setHref(String)}.
+     * Get the target history token for the widget. May return {@code null} if
+     * no history token has been set or if it has been reset by
+     * {@link #setHref(String)}.
+     * 
      * @return String the widget's target history token.
      */
     @Override
@@ -200,7 +208,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                if(isEnabled()){
+                if (isEnabled()) {
                     handler.onClick(event);
                 }
             }
@@ -212,7 +220,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new MouseDownHandler() {
             @Override
             public void onMouseDown(MouseDownEvent event) {
-                if(isEnabled()){
+                if (isEnabled()) {
                     handler.onMouseDown(event);
                 }
             }
@@ -224,7 +232,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new MouseMoveHandler() {
             @Override
             public void onMouseMove(MouseMoveEvent event) {
-                if(isEnabled()){
+                if (isEnabled()) {
                     handler.onMouseMove(event);
                 }
             }
@@ -236,7 +244,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new MouseOutHandler() {
             @Override
             public void onMouseOut(MouseOutEvent event) {
-                if(isEnabled()) {
+                if (isEnabled()) {
                     handler.onMouseOut(event);
                 }
             }
@@ -248,7 +256,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new MouseOverHandler() {
             @Override
             public void onMouseOver(MouseOverEvent event) {
-                if(isEnabled()) {
+                if (isEnabled()) {
                     handler.onMouseOver(event);
                 }
             }
@@ -260,7 +268,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new MouseUpHandler() {
             @Override
             public void onMouseUp(MouseUpEvent event) {
-                if(isEnabled()) {
+                if (isEnabled()) {
                     handler.onMouseUp(event);
                 }
             }
@@ -272,7 +280,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new MouseWheelHandler() {
             @Override
             public void onMouseWheel(MouseWheelEvent event) {
-                if(isEnabled()) {
+                if (isEnabled()) {
                     handler.onMouseWheel(event);
                 }
             }
@@ -284,7 +292,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return addDomHandler(new DoubleClickHandler() {
             @Override
             public void onDoubleClick(DoubleClickEvent event) {
-                if(isEnabled()) {
+                if (isEnabled()) {
                     handler.onDoubleClick(event);
                 }
             }
