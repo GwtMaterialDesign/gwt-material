@@ -90,6 +90,11 @@ ul li button.btn-floating {
 .field-success-label {
 	color: #4CAF50 !important;
 }
+.field-helper-label {
+	color: #9E9E9E !important;
+	font-size: 12px;
+	opacity: 1 !important;
+}
 
 .field-success, .field-success-picker input {
 	border-bottom: 1px solid #4CAF50 !important;
