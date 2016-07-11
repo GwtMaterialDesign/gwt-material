@@ -44,9 +44,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
         HasDepth, HasInitialClasses {
 
-    public final static JQueryElement window = JQuery.$(JQuery.window());
-    public final static JQueryElement body = JQuery.$("body");
-
+    public final static JQueryElement window = window();
+    public final static JQueryElement body = body();
 
     /**
      * Configurable features enum see {@link #enableFeature(Feature, boolean)}.
@@ -115,6 +114,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         if ($this == null) { $this = JQuery.$(this); }
         return $this;
     }
+
+    protected static native JQueryElement window() /*-{
+        return window;
+    }-*/;
+
+    protected static native JQueryElement body() /*-{
+        return document.getElementsByTagName("body")[0];
+    }-*/;
 
     @Override
     protected void onLoad() {
