@@ -32,6 +32,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
@@ -244,13 +245,21 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     protected void initialize() {
-        if(activatorElem == null) {
-            activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
-            if (activatorElem == null) {
-                throw new IllegalStateException("There is no activator element with id: '" + activator
-                        + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.");
+        if(getParent() instanceof HasActivates) {
+            String uid = DOM.createUniqueId();
+            ((HasActivates) getParent()).setActivates(uid);
+            setId(uid);
+            activatorElem = getParent().getElement();
+        }else {
+            if(activatorElem == null) {
+                activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
+                if (activatorElem == null) {
+                    throw new IllegalStateException("There is no activator element with id: '" + activator
+                            + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.");
+                }
             }
         }
+
         initialize(activatorElem);
     }
 
