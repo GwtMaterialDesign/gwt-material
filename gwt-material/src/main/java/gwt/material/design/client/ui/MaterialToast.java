@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsMaterialElement;
 
-import static com.workingflows.js.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 
 //@formatter:off

@@ -10,17 +10,23 @@
   <artifactId>gwt-material</artifactId>
 
   <name>Gwt Material</name>
-  <description>A Material Design look and feel for GWT Apps plus Phonegap</description>
+  <description>A Material Design look and feel for GWT Applications</description>
 
   <dependencies>
     <dependency>
-      <groupId>com.workingflows.js</groupId>
-      <artifactId>jquery</artifactId>
-      <version>1.0</version>
+      <groupId>com.github.gwtmaterialdesign</groupId>
+      <artifactId>gwt-material-jquery</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
+      <version>${gwt.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
       <version>${gwt.version}</version>
       <scope>provided</scope>
     </dependency>

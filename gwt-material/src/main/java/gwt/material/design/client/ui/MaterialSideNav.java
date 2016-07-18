@@ -34,7 +34,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import com.workingflows.js.jquery.client.api.JQuery;
+import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
