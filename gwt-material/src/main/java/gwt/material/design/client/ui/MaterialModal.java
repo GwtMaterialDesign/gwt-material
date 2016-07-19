@@ -138,7 +138,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     protected void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
         JsModalOptions options = new JsModalOptions();
         options.opacity = opacity;
-        options.dismissable = dismissable;
+        options.dismissible = dismissable;
         options.in_duration = inDuration;
         options.out_duration = outDuration;
         options.complete = () -> {

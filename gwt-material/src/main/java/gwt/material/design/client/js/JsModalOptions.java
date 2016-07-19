@@ -36,7 +36,7 @@ public class JsModalOptions {
     public double opacity;
 
     @JsProperty
-    public boolean dismissable;
+    public boolean dismissible;
 
     @JsProperty
     public int in_duration;
