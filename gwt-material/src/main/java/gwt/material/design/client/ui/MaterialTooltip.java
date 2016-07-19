@@ -28,6 +28,7 @@ import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.js.JsTooltipOptions;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -54,6 +55,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
     private Widget widget;
     private String id;
+    private String html;
 
     private HandlerRegistration attachHandler;
 
@@ -323,9 +325,30 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         options.position = position;
         options.delay = delay;
         $(e).tooltip(options);
+        if(html!=null && !html.isEmpty()) {
+            String uid = "#" + $(e).attr("data-tooltip-id");
+            JQueryElement el = $(uid);
+            el.find("span").html(html);
+        }
     }
 
     protected void command(Element e, String command) {
         $(e).tooltip(command);
+    }
+
+    /**
+     * Get the html of the tooltip
+     * @return
+     */
+    public String getTooltipHtml() {
+        return html;
+    }
+
+    /**
+     * Set the html as value inside the tooltip
+     * @param html
+     */
+    public void setTooltipHtml(String html) {
+        this.html = html;
     }
 }

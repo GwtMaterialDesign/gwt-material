@@ -586,6 +586,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getTooltipMixin().setTooltipDelayMs(delayMs);
     }
 
+    @Override
+    public void setTooltipHTML(String html) {
+        getTooltipMixin().setTooltipHTML(html);
+    }
+
+    @Override
+    public String getTooltipHTML() {
+        return getTooltipMixin().getTooltipHTML();
+    }
+
     public void setVisibility(Style.Visibility visibility) {
         getElement().getStyle().setVisibility(visibility);
     }

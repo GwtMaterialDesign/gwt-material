@@ -82,4 +82,14 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
         this.tooltip.setDelayMs(delayMs);
     }
 
+    @Override
+    public void setTooltipHTML(String html) {
+        this.tooltip.setTooltipHtml(html);
+    }
+
+    @Override
+    public String getTooltipHTML() {
+        return this.tooltip.getTooltipHtml();
+    }
+
 }

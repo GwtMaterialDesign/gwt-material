@@ -67,4 +67,8 @@ public interface HasTooltip {
      */
     void setTooltipDelayMs(int delayMs);
 
+    void setTooltipHTML(String html);
+
+    String getTooltipHTML();
+
 }
