@@ -340,7 +340,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      * Get the html of the tooltip
      * @return
      */
-    public String getTooltipHtml() {
+    public String getTooltipHTML() {
         return html;
     }
 
@@ -348,7 +348,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      * Set the html as value inside the tooltip
      * @param html
      */
-    public void setTooltipHtml(String html) {
+    public void setTooltipHTML(String html) {
         this.html = html;
     }
 }
