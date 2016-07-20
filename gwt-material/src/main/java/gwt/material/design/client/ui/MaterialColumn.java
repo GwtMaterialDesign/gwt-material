@@ -151,4 +151,9 @@ public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisib
             }
         }, MouseWheelEvent.getType());
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

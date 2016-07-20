@@ -55,4 +55,9 @@ public class MaterialRow extends MaterialWidget {
     public MaterialRow(Element element, String... initialClass) {
         super(element, initialClass);
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

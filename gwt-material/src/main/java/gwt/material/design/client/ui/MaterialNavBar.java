@@ -146,4 +146,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     public String getActivates() {
         return activatesMixin.getActivates();
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

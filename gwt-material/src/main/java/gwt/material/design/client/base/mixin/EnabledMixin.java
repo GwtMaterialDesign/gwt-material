@@ -67,8 +67,8 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     public void setEnabled(MaterialWidget widget, boolean enabled) {
         for(Widget child : widget.getChildren()) {
-            if(child instanceof MaterialWidget) {
-                ((MaterialWidget) child).setEnabled(enabled);
+            if(child instanceof HasEnabled) {
+                ((HasEnabled) child).setEnabled(enabled);
                 setEnabled((MaterialWidget) child, enabled);
             }
         }

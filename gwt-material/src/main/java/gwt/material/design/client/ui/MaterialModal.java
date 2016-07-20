@@ -227,7 +227,6 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
         getEnabledMixin().setEnabled(this, enabled);
     }
 }

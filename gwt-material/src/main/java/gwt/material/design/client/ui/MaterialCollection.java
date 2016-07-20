@@ -128,4 +128,9 @@ public class MaterialCollection extends MaterialWidget {
             return null;
         }
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

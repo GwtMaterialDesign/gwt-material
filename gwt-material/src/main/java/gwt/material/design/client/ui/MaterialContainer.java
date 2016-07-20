@@ -62,4 +62,9 @@ public class MaterialContainer extends MaterialWidget {
             add(w);
         }
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

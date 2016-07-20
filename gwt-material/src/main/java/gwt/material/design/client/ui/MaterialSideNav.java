@@ -522,4 +522,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     public void setShowOnAttach(boolean showOnAttach) {
         this.showOnAttach = showOnAttach;
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

@@ -221,4 +221,9 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         clearActiveClass(this);
         ClearActiveEvent.fire(this);
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

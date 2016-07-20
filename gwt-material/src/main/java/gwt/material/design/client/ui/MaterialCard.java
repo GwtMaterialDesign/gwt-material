@@ -119,4 +119,9 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
     public Axis getAxis() {
         return axisMixin.getCssName();
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

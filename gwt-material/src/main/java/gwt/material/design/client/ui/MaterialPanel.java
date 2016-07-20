@@ -45,4 +45,8 @@ public class MaterialPanel extends MaterialWidget {
         super(Document.get().createDivElement());
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }
