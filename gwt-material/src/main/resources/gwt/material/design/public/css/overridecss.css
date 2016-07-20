@@ -876,6 +876,11 @@ footer.fixed{
 	z-index: 995 !important;
 }
 
+/** Fixed the autofill bg color on chrome **/
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 100px white inset;
+}
+
 /** Fixed breadcrumb **/
 .breadcrumb:nth-child(2):before {
 	display: none;
