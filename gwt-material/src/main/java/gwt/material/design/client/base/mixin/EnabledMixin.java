@@ -27,6 +27,7 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.base.mixin.AbstractMixin;
 
 /**
  * @author Ben Dol
@@ -67,8 +68,8 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     public void setEnabled(MaterialWidget widget, boolean enabled) {
         for(Widget child : widget.getChildren()) {
-            if(child instanceof HasEnabled) {
-                ((HasEnabled) child).setEnabled(enabled);
+            if(child instanceof MaterialWidget) {
+                ((MaterialWidget) child).setEnabled(enabled);
                 setEnabled((MaterialWidget) child, enabled);
             }
         }
