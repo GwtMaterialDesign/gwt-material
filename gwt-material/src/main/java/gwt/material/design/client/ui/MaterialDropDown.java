@@ -34,6 +34,7 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.js.JsDropdownOptions;
@@ -223,6 +224,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             }, ClickEvent.getType());
 
             // Checks if there are sub dropdown components
+
             if(child instanceof MaterialLink) {
                 MaterialLink link = (MaterialLink) child;
                 for(int i = 0; i < link.getWidgetCount(); i++) {
@@ -291,8 +293,11 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         return addHandler(new SelectionHandler<Widget>() {
             @Override
             public void onSelection(SelectionEvent<Widget> event) {
-                if(isEnabled()){
-                    handler.onSelection(event);
+                Widget widget = event.getSelectedItem();
+                if(widget instanceof MaterialWidget) {
+                    if(((MaterialWidget) widget).isEnabled() && isEnabled()) {
+                        handler.onSelection(event);
+                    }
                 }
             }
         }, SelectionEvent.getType());
