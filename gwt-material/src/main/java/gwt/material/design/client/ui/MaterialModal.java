@@ -26,10 +26,7 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasDismissable;
-import gwt.material.design.client.base.HasTransition;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.js.JsModalOptions;
@@ -145,6 +142,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
             onNativeClose(true);
         };
         $(e).openModal(options);
+        MaterialModalManager.register(this);
     }
 
     protected void onNativeClose(boolean autoClosed) {
@@ -178,6 +176,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      */
     public void closeModal(boolean autoClosed) {
         closeModal(getElement(), autoClosed);
+        MaterialModalManager.unregister(this);
     }
 
     protected void closeModal(Element e, boolean autoClosed) {
