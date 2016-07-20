@@ -782,6 +782,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
     @Override
     public void setEnabled(boolean enabled) {
         listBox.setEnabled(enabled);
+        $(listBox.getElement()).material_select();
     }
 
     @Override

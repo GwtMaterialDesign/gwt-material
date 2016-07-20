@@ -25,11 +25,12 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
-
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.StyleHelper;
 
 /**
  * @author Ben Dol
+ * @author kevzlou7979
  */
 public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T> implements HasEnabled {
     private static final String DISABLED = "disabled";
@@ -47,16 +48,12 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     @Override
     public void setEnabled(boolean enabled) {
-        setEnabled(uiObject, enabled);
-    }
-
-    private void setEnabled(final Widget widget, final boolean enabled) {
-        if(!widget.isAttached() && handler == null) {
-            handler = widget.addAttachHandler(new AttachEvent.Handler() {
+        if(!uiObject.isAttached() && handler == null) {
+            handler = uiObject.addAttachHandler(new AttachEvent.Handler() {
                 @Override
                 public void onAttachOrDetach(AttachEvent event) {
                     if(event.isAttached()) {
-                        applyEnabled(enabled, widget);
+                        applyEnabled(enabled, uiObject);
                     } else if(handler != null) {
                         handler.removeHandler();
                         handler = null;
@@ -64,7 +61,16 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
                 }
             });
         } else {
-            applyEnabled(enabled, widget);
+            applyEnabled(enabled, uiObject);
+        }
+    }
+
+    public void setEnabled(MaterialWidget widget, boolean enabled) {
+        for(Widget child : widget.getChildren()) {
+            if(child instanceof MaterialWidget) {
+                ((MaterialWidget) child).setEnabled(enabled);
+                setEnabled((MaterialWidget) child, enabled);
+            }
         }
     }
 
