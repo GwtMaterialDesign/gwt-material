@@ -878,7 +878,7 @@ footer.fixed{
 
 /** Fixed the autofill bg color on chrome **/
 input:-webkit-autofill {
-	-webkit-box-shadow: 0 0 0px 100px white inset;
+	-webkit-box-shadow: 0 0 0px 100px white inset !important;
 }
 
 /** Fixed breadcrumb **/
