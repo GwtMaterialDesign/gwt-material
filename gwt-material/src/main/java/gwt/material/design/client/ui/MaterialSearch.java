@@ -111,11 +111,8 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         label.getElement().setAttribute("for", "search");
         add(label);
         add(iconClose);
-        iconClose.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                CloseEvent.fire(MaterialSearch.this, getText());
-            }
+        iconClose.addMouseDownHandler(mouseDownEvent -> {
+            CloseEvent.fire(MaterialSearch.this, getText());
         });
     }
 
@@ -341,6 +338,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                 }
             }
         }, SearchNoResultEvent.TYPE);
+    }
+
+    public MaterialIcon getIconClose() {
+        return iconClose;
     }
 }
 
