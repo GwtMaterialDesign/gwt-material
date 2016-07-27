@@ -31,6 +31,8 @@ public interface HasError {
     void setError(String error);
 
     void setSuccess(String success);
+    
+    void setHelperText(String helperText);
 
     void clearErrorOrSuccess();
 }
