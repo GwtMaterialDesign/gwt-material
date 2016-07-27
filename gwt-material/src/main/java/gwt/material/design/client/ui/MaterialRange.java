@@ -223,6 +223,11 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
     }
+    
+    @Override
+    public void setHelperText(String helperText) {
+        errorMixin.setHelperText(helperText);
+    }
 
     @Override
     public void clearErrorOrSuccess() {

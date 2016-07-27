@@ -386,6 +386,11 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         lblName.setStyleName("green-text");
         dateInput.addStyleName("valid");
     }
+    
+    @Override
+    public void setHelperText(String helperText) {
+        errorMixin.setHelperText(helperText);
+    }
 
     @Override
     public void clearErrorOrSuccess() {

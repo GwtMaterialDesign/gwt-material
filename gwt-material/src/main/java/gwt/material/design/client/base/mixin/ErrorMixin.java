@@ -29,9 +29,10 @@ import gwt.material.design.client.base.HasError;
  */
 public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasText>
         extends AbstractMixin<T> implements HasError {
-
+    
     private H textObject;
     private UIObject target;
+    private String helperText;
 
     public ErrorMixin(final T widget, final H textObject, UIObject target) {
         super(widget);
@@ -44,6 +45,7 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
     public void setError(String error) {
         textObject.setText(error);
         textObject.addStyleName("field-error-label");
+        textObject.removeStyleName("field-helper-label");
         textObject.removeStyleName("field-success-label");
         if(target != null) {
             target.addStyleName("field-error");
@@ -56,6 +58,7 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
     public void setSuccess(String success) {
         textObject.setText(success);
         textObject.addStyleName("field-success-label");
+        textObject.removeStyleName("field-helper-label");
         textObject.removeStyleName("field-error-label");
         if(target != null) {
             target.addStyleName("field-success");
@@ -63,16 +66,28 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
         }
         textObject.setVisible(true);
     }
+    
+    @Override
+    public void setHelperText(String helperText) {
+        this.helperText = helperText;
+        clearErrorOrSuccess();
+    }
 
     @Override
     public void clearErrorOrSuccess() {
-        textObject.setText("");
+        textObject.setText(helperText == null ? "" : helperText);
+        if (helperText != null){
+            textObject.addStyleName("field-helper-label");
+        }
+        else {
+            textObject.removeStyleName("field-helper-label");
+        }
         textObject.removeStyleName("field-error-label");
         textObject.removeStyleName("field-success-label");
         if(target != null) {
             target.removeStyleName("field-error");
             target.removeStyleName("field-success");
         }
-        textObject.setVisible(false);
+        textObject.setVisible(helperText != null);
     }
 }

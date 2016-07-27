@@ -643,6 +643,11 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         lblName.setStyleName("green-text");
         valueBoxBase.getElement().addClassName("valid");
     }
+    
+    @Override
+    public void setHelperText(String helperText) {
+        errorMixin.setHelperText(helperText);
+    }
 
     @Override
     public void clearErrorOrSuccess() {
