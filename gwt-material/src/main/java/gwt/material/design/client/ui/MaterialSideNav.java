@@ -120,12 +120,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         initialize();
 
         if(showOnAttach) {
-            Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-                @Override
-                public void execute() {
-                    if(Window.getClientWidth() > 960) {
-                        show();
-                    }
+            Scheduler.get().scheduleDeferred(() -> {
+                if(Window.getClientWidth() > 960) {
+                    show();
                 }
             });
         }
@@ -198,12 +195,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         final Widget finalChild = child;
         if(!isNotSelectable) {
             // Active click handler
-            finalChild.addDomHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    clearActive();
-                    finalChild.addStyleName("active");
-                }
+            finalChild.addDomHandler(event -> {
+                clearActive();
+                finalChild.addStyleName("active");
             }, ClickEvent.getType());
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);

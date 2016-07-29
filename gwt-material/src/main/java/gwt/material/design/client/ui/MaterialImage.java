@@ -164,12 +164,9 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onClick(event);
             }
         }, ClickEvent.getType());
     }

@@ -53,11 +53,8 @@ public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V> & Ha
             if(registration != null) {
                 registration.removeHandler();
             }
-            registration = inputWidget.addBlurHandler(new BlurHandler() {
-                @Override
-                public void onBlur(BlurEvent event) {
-                    validate(isValidateOnBlur());
-                }
+            registration = inputWidget.addBlurHandler(blurEvent -> {
+                validate(isValidateOnBlur());
             });
         }
     };
@@ -78,11 +75,8 @@ public class BlankValidatorMixin<W extends Widget & HasValue<V> & Editor<V> & Ha
         if(!inputWidget.isAttached()) {
             return inputWidget.addAttachHandler(attachHandler);
         } else {
-            return inputWidget.addBlurHandler(new BlurHandler() {
-                @Override
-                public void onBlur(BlurEvent event) {
-                    validate(isValidateOnBlur());
-                }
+            return inputWidget.addBlurHandler(event -> {
+                validate(isValidateOnBlur());
             });
         }
     }

@@ -70,48 +70,29 @@ public final class UiHelper {
         widget.sinkEvents(Event.ONMOUSEOUT);
         widget.sinkEvents(Event.TOUCHEVENTS);
 
-        widget.addHandler(new MouseDownHandler() {
-            @Override
-            public void onMouseDown(MouseDownEvent event) {
-                widget.addStyleName(cssStyleName);
-            }
+        widget.addHandler(event -> {
+            widget.addStyleName(cssStyleName);
         }, MouseDownEvent.getType());
 
-        widget.addHandler(new MouseUpHandler() {
-            @Override
-            public void onMouseUp(MouseUpEvent event) {
-                widget.removeStyleName(cssStyleName);
-            }
+        widget.addHandler(event -> {
+            widget.removeStyleName(cssStyleName);
         }, MouseUpEvent.getType());
 
-        widget.addHandler(new MouseOutHandler() {
-            @Override
-            public void onMouseOut(MouseOutEvent event) {
-                widget.removeStyleName(cssStyleName);
-            }
+        widget.addHandler(event -> {
+            widget.removeStyleName(cssStyleName);
         }, MouseOutEvent.getType());
 
         // Touch Events
-        widget.addHandler(new TouchStartHandler() {
-            @Override
-            public void onTouchStart(TouchStartEvent event) {
-                widget.addStyleName(cssStyleName);
-            }
+        widget.addHandler(event -> {
+            widget.addStyleName(cssStyleName);
         }, TouchStartEvent.getType());
 
-        widget.addHandler(new TouchEndHandler() {
-            @Override
-            public void onTouchEnd(TouchEndEvent event) {
-                widget.removeStyleName(cssStyleName);
-
-            }
+        widget.addHandler(event -> {
+            widget.removeStyleName(cssStyleName);
         }, TouchEndEvent.getType());
 
-        widget.addHandler(new TouchCancelHandler() {
-            @Override
-            public void onTouchCancel(TouchCancelEvent event) {
-                widget.removeStyleName(cssStyleName);
-            }
+        widget.addHandler(event -> {
+            widget.removeStyleName(cssStyleName);
         }, TouchCancelEvent.getType());
     }
 

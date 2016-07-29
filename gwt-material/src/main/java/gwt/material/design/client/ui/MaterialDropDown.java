@@ -216,11 +216,8 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         } else {
             ListItem li = new ListItem(child);
             children.add(child);
-            child.addDomHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    SelectionEvent.fire(MaterialDropDown.this, child);
-                }
+            child.addDomHandler(event -> {
+                SelectionEvent.fire(MaterialDropDown.this, child);
             }, ClickEvent.getType());
 
             // Checks if there are sub dropdown components

@@ -857,12 +857,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
 
     @Override
     public HandlerRegistration addBlurHandler(final BlurHandler handler) {
-        return addDomHandler(new BlurHandler() {
-            @Override
-            public void onBlur(BlurEvent event) {
-                if(isEnabled()) {
-                    handler.onBlur(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()) {
+                handler.onBlur(event);
             }
         }, BlurEvent.getType());
     }

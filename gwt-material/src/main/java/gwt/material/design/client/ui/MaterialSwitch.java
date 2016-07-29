@@ -94,13 +94,10 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         //register click handler here in order to have it at first position
         // and therefore it will deal with clicks as first and setup the value
         // right before others get notified.
-        addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                setValue(!getValue());
-                event.preventDefault();
-                event.stopPropagation();
-            }
+        addClickHandler(event -> {
+            setValue(!getValue());
+            event.preventDefault();
+            event.stopPropagation();
         });
         if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
             label.add(onLabel);
@@ -204,12 +201,9 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()) {
-                    handler.onClick(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()) {
+                handler.onClick(event);
             }
         }, ClickEvent.getType());
     }

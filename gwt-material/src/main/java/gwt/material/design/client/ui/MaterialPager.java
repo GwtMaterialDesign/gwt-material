@@ -121,11 +121,8 @@ public class MaterialPager extends MaterialWidget {
         for (int i = 0; i < getWidgetCount(); i++) {
             final PagerListItem widget = (PagerListItem) getWidget(i);
             if (!widget.isFixed()) {
-                Scheduler.get().scheduleDeferred(new Command() {
-                    @Override
-                    public void execute() {
-                        widget.removeFromParent();
-                    }
+                Scheduler.get().scheduleDeferred(() -> {
+                    widget.removeFromParent();
                 });
             }
         }
@@ -148,20 +145,14 @@ public class MaterialPager extends MaterialWidget {
         pageLiElement.setFixed(false);
         pageLiElement.add(createLinkPage(page));
 
-        addPageSelectionHandler(new PageSelectionHandler() {
-            @Override
-            public void onPageSelected(PageSelectionEvent event) {
-                pageLiElement.setActive(event.getPageTo() == page);
-            }
+        addPageSelectionHandler(event -> {
+            pageLiElement.setActive(event.getPageTo() == page);
         });
 
-        pageLiElement.addHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                onPageSelection(page);
-                event.preventDefault();
-                event.stopPropagation();
-            }
+        pageLiElement.addHandler(event -> {
+            onPageSelection(page);
+            event.preventDefault();
+            event.stopPropagation();
         }, ClickEvent.getType());
 
         return pageLiElement;
@@ -171,22 +162,16 @@ public class MaterialPager extends MaterialWidget {
         linkLeft = new PagerListItem();
         linkLeft.setFixed(true);
         MaterialLink mLink = createLinkLeft();
-        linkLeft.addHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if (linkLeft.isEnabled())
-                    onPageSelection(currentPage - 1);
-                event.preventDefault();
-                event.stopPropagation();
-            }
+        linkLeft.addHandler(event -> {
+            if (linkLeft.isEnabled())
+            onPageSelection(currentPage - 1);
+            event.preventDefault();
+            event.stopPropagation();
         }, ClickEvent.getType());
         this.linkLeft.add(mLink);
 
-        addPageSelectionHandler(new PageSelectionHandler() {
-            @Override
-            public void onPageSelected(PageSelectionEvent event) {
-                MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1);
-            }
+        addPageSelectionHandler(event ->  {
+            MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1);
         });
 
         return this.linkLeft;
@@ -196,22 +181,16 @@ public class MaterialPager extends MaterialWidget {
         linkRight = new PagerListItem();
         linkRight.setFixed(true);
         MaterialLink mLink = createLinkRight();
-        linkRight.addHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if (linkRight.isEnabled())
-                    onPageSelection(currentPage + 1);
-                event.stopPropagation();
-                event.preventDefault();
-            }
+        linkRight.addHandler(event -> {
+            if (linkRight.isEnabled())
+            onPageSelection(currentPage + 1);
+            event.stopPropagation();
+            event.preventDefault();
         }, ClickEvent.getType());
         this.linkRight.add(mLink);
 
-        addPageSelectionHandler(new PageSelectionHandler() {
-            @Override
-            public void onPageSelected(PageSelectionEvent event) {
-                MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages);
-            }
+        addPageSelectionHandler(event -> {
+            MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages);
         });
 
         return this.linkRight;
@@ -228,15 +207,12 @@ public class MaterialPager extends MaterialWidget {
     protected MaterialChip getOrCreateIndicator() {
         indicator = new MaterialChip();
         indicator.getElement().getStyle().setBackgroundColor("inherit");
-        addPageSelectionHandler(new PageSelectionHandler() {
-            @Override
-            public void onPageSelected(PageSelectionEvent event) {
-                indicator.setText(
+        addPageSelectionHandler(event -> {
+            indicator.setText(
                     indicatorTemplate
-                        .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
-                        .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
-                );
-            }
+                            .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
+                    .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
+                    );
         });
 
         return indicator;

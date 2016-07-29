@@ -81,11 +81,8 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
     }
 
     protected HandlerRegistration setupValueChangeValidation() {
-        return inputWidget.addHandler(new ValueChangeHandler<V>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<V> event) {
-                validate(false);
-            }
+        return inputWidget.addHandler(event -> {
+            validate(false);
         }, ValueChangeEvent.getType());
     }
 

@@ -316,12 +316,9 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
      * This handler will be triggered when search is finish
      */
     public HandlerRegistration addSearchFinishHandler(final SearchFinishEvent.SearchFinishHandler handler) {
-        return addHandler(new SearchFinishEvent.SearchFinishHandler() {
-            @Override
-            public void onSearchFinish(SearchFinishEvent event) {
-                if(isEnabled()){
-                    handler.onSearchFinish(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onSearchFinish(event);
             }
         }, SearchFinishEvent.TYPE);
     }
@@ -330,12 +327,9 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
      * This handler will be triggered when there's no search result
      */
     public HandlerRegistration addSearchNoResultHandler(final SearchNoResultEvent.SearchNoResultHandler handler) {
-        return addHandler(new SearchNoResultEvent.SearchNoResultHandler() {
-            @Override
-            public void onSearchNoResult(SearchNoResultEvent event) {
-                if(isEnabled()){
-                    handler.onSearchNoResult(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onSearchNoResult(event);
             }
         }, SearchNoResultEvent.TYPE);
     }

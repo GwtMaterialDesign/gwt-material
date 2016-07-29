@@ -218,12 +218,9 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
-        return valueBoxBase.addValueChangeHandler(new ValueChangeHandler<T>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<T> event) {
-                if(isEnabled()){
-                    handler.onValueChange(event);
-                }
+        return valueBoxBase.addValueChangeHandler(event -> {
+            if(isEnabled()){
+                handler.onValueChange(event);
             }
         });
     }
@@ -292,336 +289,252 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public HandlerRegistration addKeyUpHandler(final KeyUpHandler handler) {
-        return addDomHandler(new KeyUpHandler() {
-            @Override
-            public void onKeyUp(KeyUpEvent event) {
-                if(isEnabled()){
-                    handler.onKeyUp(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onKeyUp(event);
             }
         }, KeyUpEvent.getType());
     }
 
     @Override
     public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
-        return valueBoxBase.addChangeHandler(new ChangeHandler() {
-            @Override
-            public void onChange(ChangeEvent event) {
-                if(isEnabled()){
-                    handler.onChange(event);
-                }
+        return valueBoxBase.addChangeHandler(event -> {
+            if(isEnabled()){
+                handler.onChange(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDragEndHandler(final DragEndHandler handler) {
-        return valueBoxBase.addDragEndHandler(new DragEndHandler() {
-            @Override
-            public void onDragEnd(DragEndEvent event) {
-                if(isEnabled()){
-                    handler.onDragEnd(event);
-                }
+        return valueBoxBase.addDragEndHandler(event -> {
+            if(isEnabled()){
+                handler.onDragEnd(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDragEnterHandler(final DragEnterHandler handler) {
-        return valueBoxBase.addDragEnterHandler(new DragEnterHandler() {
-            @Override
-            public void onDragEnter(DragEnterEvent event) {
-                if(isEnabled()){
-                    handler.onDragEnter(event);
-                }
+        return valueBoxBase.addDragEnterHandler(event -> {
+            if(isEnabled()){
+                handler.onDragEnter(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDragLeaveHandler(final DragLeaveHandler handler) {
-        return valueBoxBase.addDragLeaveHandler(new DragLeaveHandler() {
-            @Override
-            public void onDragLeave(DragLeaveEvent event) {
-                if(isEnabled()) {
-                    handler.onDragLeave(event);
-                }
+        return valueBoxBase.addDragLeaveHandler(event -> {
+            if(isEnabled()) {
+                handler.onDragLeave(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDragHandler(final DragHandler handler) {
-        return valueBoxBase.addDragHandler(new DragHandler() {
-            @Override
-            public void onDrag(final DragEvent event) {
-                if(isEnabled()){
-                    handler.onDrag(event);
-                }
+        return valueBoxBase.addDragHandler(event -> {
+            if(isEnabled()){
+                handler.onDrag(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDragOverHandler(final DragOverHandler handler) {
-        return valueBoxBase.addDragOverHandler(new DragOverHandler() {
-            @Override
-            public void onDragOver(DragOverEvent event) {
-                if(isEnabled()){
-                    handler.onDragOver(event);
-                }
+        return valueBoxBase.addDragOverHandler(event -> {
+            if(isEnabled()){
+                handler.onDragOver(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDragStartHandler(final DragStartHandler handler) {
-        return valueBoxBase.addDragStartHandler(new DragStartHandler() {
-            @Override
-            public void onDragStart(DragStartEvent event) {
-                if(isEnabled()){
-                    handler.onDragStart(event);
-                }
+        return valueBoxBase.addDragStartHandler(event -> {
+            if(isEnabled()){
+                handler.onDragStart(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDropHandler(final DropHandler handler) {
-        return valueBoxBase.addDropHandler(new DropHandler() {
-            @Override
-            public void onDrop(DropEvent event) {
-                if(isEnabled()){
-                    handler.onDrop(event);
-                }
+        return valueBoxBase.addDropHandler(event -> {
+            if(isEnabled()){
+                handler.onDrop(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addFocusHandler(final FocusHandler handler) {
-        return valueBoxBase.addFocusHandler(new FocusHandler() {
-            @Override
-            public void onFocus(FocusEvent event) {
-                if(isEnabled()){
-                    handler.onFocus(event);
-                }
+        return valueBoxBase.addFocusHandler(event -> {
+            if(isEnabled()){
+                handler.onFocus(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addBlurHandler(final BlurHandler handler) {
-        return valueBoxBase.addBlurHandler(new BlurHandler() {
-            @Override
-            public void onBlur(BlurEvent event) {
-                if(isEnabled()){
-                    handler.onBlur(event);
-                }
+        return valueBoxBase.addBlurHandler(event -> {
+            if(isEnabled()){
+                handler.onBlur(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addGestureStartHandler(final GestureStartHandler handler) {
-        return valueBoxBase.addGestureStartHandler(new GestureStartHandler() {
-            @Override
-            public void onGestureStart(GestureStartEvent event) {
-                if(isEnabled()){
-                    handler.onGestureStart(event);
-                }
+        return valueBoxBase.addGestureStartHandler(event -> {
+            if(isEnabled()){
+                handler.onGestureStart(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addGestureChangeHandler(final GestureChangeHandler handler) {
-        return valueBoxBase.addGestureChangeHandler(new GestureChangeHandler() {
-            @Override
-            public void onGestureChange(GestureChangeEvent event) {
-                if(isEnabled()){
-                    handler.onGestureChange(event);
-                }
+        return valueBoxBase.addGestureChangeHandler(event -> {
+            if(isEnabled()){
+                handler.onGestureChange(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addGestureEndHandler(final GestureEndHandler handler) {
-        return valueBoxBase.addGestureEndHandler(new GestureEndHandler() {
-            @Override
-            public void onGestureEnd(GestureEndEvent event) {
-                if(isEnabled()){
-                    handler.onGestureEnd(event);
-                }
+        return valueBoxBase.addGestureEndHandler(event -> {
+            if(isEnabled()){
+                handler.onGestureEnd(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addKeyDownHandler(final KeyDownHandler handler) {
-        return valueBoxBase.addKeyDownHandler(new KeyDownHandler() {
-            @Override
-            public void onKeyDown(KeyDownEvent event) {
-                if(isEnabled()){
-                    handler.onKeyDown(event);
-                }
+        return valueBoxBase.addKeyDownHandler(event -> {
+            if(isEnabled()){
+                handler.onKeyDown(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addKeyPressHandler(final KeyPressHandler handler) {
-        return valueBoxBase.addKeyPressHandler(new KeyPressHandler() {
-            @Override
-            public void onKeyPress(KeyPressEvent event) {
-                if(isEnabled()){
-                    handler.onKeyPress(event);
-                }
+        return valueBoxBase.addKeyPressHandler(event -> {
+            if(isEnabled()){
+                handler.onKeyPress(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return valueBoxBase.addMouseDownHandler(new MouseDownHandler() {
-            @Override
-            public void onMouseDown(MouseDownEvent event) {
-                if(isEnabled()){
-                    handler.onMouseDown(event);
-                }
+        return valueBoxBase.addMouseDownHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseDown(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return valueBoxBase.addMouseUpHandler(new MouseUpHandler() {
-            @Override
-            public void onMouseUp(MouseUpEvent event) {
-                if(isEnabled()){
-                    handler.onMouseUp(event);
-                }
+        return valueBoxBase.addMouseUpHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseUp(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return valueBoxBase.addMouseOutHandler(new MouseOutHandler() {
-            @Override
-            public void onMouseOut(MouseOutEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOut(event);
-                }
+        return valueBoxBase.addMouseOutHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseOut(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return valueBoxBase.addMouseOverHandler(new MouseOverHandler() {
-            @Override
-            public void onMouseOver(MouseOverEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOver(event);
-                }
+        return valueBoxBase.addMouseOverHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseOver(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return valueBoxBase.addMouseMoveHandler(new MouseMoveHandler() {
-            @Override
-            public void onMouseMove(MouseMoveEvent event) {
-                if(isEnabled()){
-                    handler.onMouseMove(event);
-                }
+        return valueBoxBase.addMouseMoveHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseMove(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return valueBoxBase.addMouseWheelHandler(new MouseWheelHandler() {
-            @Override
-            public void onMouseWheel(MouseWheelEvent event) {
-                if(isEnabled()){
-                    handler.onMouseWheel(event);
-                }
+        return valueBoxBase.addMouseWheelHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseWheel(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchStartHandler(final TouchStartHandler handler) {
-        return valueBoxBase.addTouchStartHandler(new TouchStartHandler() {
-            @Override
-            public void onTouchStart(TouchStartEvent event) {
-                if(isEnabled()){
-                    handler.onTouchStart(event);
-                }
+        return valueBoxBase.addTouchStartHandler(event -> {
+            if(isEnabled()){
+                handler.onTouchStart(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchMoveHandler(final TouchMoveHandler handler) {
-        return valueBoxBase.addTouchMoveHandler(new TouchMoveHandler() {
-            @Override
-            public void onTouchMove(TouchMoveEvent event) {
-                if(isEnabled()){
-                    handler.onTouchMove(event);
-                }
+        return valueBoxBase.addTouchMoveHandler(event -> {
+            if(isEnabled()){
+                handler.onTouchMove(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchEndHandler(final TouchEndHandler handler) {
-        return valueBoxBase.addTouchEndHandler(new TouchEndHandler() {
-            @Override
-            public void onTouchEnd(TouchEndEvent event) {
-                if(isEnabled()){
-                    handler.onTouchEnd(event);
-                }
+        return valueBoxBase.addTouchEndHandler(event -> {
+            if(isEnabled()){
+                handler.onTouchEnd(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchCancelHandler(final TouchCancelHandler handler) {
-        return valueBoxBase.addTouchCancelHandler(new TouchCancelHandler() {
-            @Override
-            public void onTouchCancel(TouchCancelEvent event) {
-                if(isEnabled()){
-                    handler.onTouchCancel(event);
-                }
+        return valueBoxBase.addTouchCancelHandler(event -> {
+            if(isEnabled()){
+                handler.onTouchCancel(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
-        return valueBoxBase.addDoubleClickHandler(new DoubleClickHandler() {
-            @Override
-            public void onDoubleClick(DoubleClickEvent event) {
-                if(isEnabled()){
-                    handler.onDoubleClick(event);
-                }
+        return valueBoxBase.addDoubleClickHandler(event -> {
+            if(isEnabled()){
+                handler.onDoubleClick(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return valueBoxBase.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
+        return valueBoxBase.addClickHandler(event -> {
+            if(isEnabled()){
+                handler.onClick(event);
             }
         });
     }
@@ -730,15 +643,12 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public void setFocus(final boolean focused) {
-        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-            @Override
-            public void execute() {
-                valueBoxBase.setFocus(focused);
-                if (focused) {
-                    label.addStyleName("active");
-                } else {
-                    updateLabelActiveStyle();
-                }
+        Scheduler.get().scheduleDeferred(() -> {
+            valueBoxBase.setFocus(focused);
+            if (focused) {
+                label.addStyleName("active");
+            } else {
+                updateLabelActiveStyle();
             }
         });
     }

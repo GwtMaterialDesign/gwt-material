@@ -50,15 +50,12 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     @Override
     public void setEnabled(boolean enabled) {
         if(!uiObject.isAttached() && handler == null) {
-            handler = uiObject.addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-                    if(event.isAttached()) {
-                        applyEnabled(enabled, uiObject);
-                    } else if(handler != null) {
-                        handler.removeHandler();
-                        handler = null;
-                    }
+            handler = uiObject.addAttachHandler(event -> {
+                if(event.isAttached()) {
+                    applyEnabled(enabled, uiObject);
+                } else if(handler != null) {
+                    handler.removeHandler();
+                    handler = null;
                 }
             });
         } else {

@@ -62,33 +62,26 @@ public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisib
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onClick(event);
             }
         }, ClickEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
-        return addDomHandler(new DoubleClickHandler() {
-            @Override
-            public void onDoubleClick(DoubleClickEvent event) {
-                if(isEnabled()){
-                    handler.onDoubleClick(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onDoubleClick(event);
             }
         }, DoubleClickEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return addDomHandler(new MouseDownHandler() {
-            @Override
-            public void onMouseDown(MouseDownEvent event) {
+        return addDomHandler(event -> {
+            if(isEnabled()) {
                 handler.onMouseDown(event);
             }
         }, MouseDownEvent.getType());
@@ -96,9 +89,8 @@ public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisib
 
     @Override
     public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return addDomHandler(new MouseMoveHandler() {
-            @Override
-            public void onMouseMove(MouseMoveEvent event) {
+        return addDomHandler(event -> {
+            if(isEnabled()) {
                 handler.onMouseMove(event);
             }
         }, MouseMoveEvent.getType());
@@ -106,48 +98,36 @@ public class MaterialColumn extends MaterialWidget implements HasWaves, HasVisib
 
     @Override
     public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return addDomHandler(new MouseOutHandler() {
-            @Override
-            public void onMouseOut(MouseOutEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOut(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseOut(event);
             }
         }, MouseOutEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return addDomHandler(new MouseOverHandler() {
-            @Override
-            public void onMouseOver(MouseOverEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOver(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseOver(event);
             }
         }, MouseOverEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return addDomHandler(new MouseUpHandler() {
-            @Override
-            public void onMouseUp(MouseUpEvent event) {
-                if(isEnabled()){
-                    handler.onMouseUp(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseUp(event);
             }
         }, MouseUpEvent.getType());
     }
 
     @Override
     public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return addDomHandler(new MouseWheelHandler() {
-            @Override
-            public void onMouseWheel(MouseWheelEvent event) {
-                if(isEnabled()){
-                    handler.onMouseWheel(event);
-                }
+        return addDomHandler(event -> {
+            if(isEnabled()){
+                handler.onMouseWheel(event);
             }
         }, MouseWheelEvent.getType());
     }

@@ -112,30 +112,21 @@ public class MaterialTextArea extends MaterialValueBox<String> {
 
         switch(resizeRule) {
             case AUTO:
-                resizeHandlers.add(valueBoxBase.addValueChangeHandler(new ValueChangeHandler<String>() {
-                    @Override
-                    public void onValueChange(ValueChangeEvent<String> event) {
-                        triggerAutoResize();
-                    }
+                resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> {
+                    triggerAutoResize();
                 }));
                 break;
             case FOCUS:
-                resizeHandlers.add(addFocusHandler(new FocusHandler() {
-                    @Override
-                    public void onFocus(FocusEvent event) {
-                        if(originalHeight == null) {
-                            originalHeight = valueBoxBase.getElement().getClientHeight();
-                        }
-                        triggerAutoResize();
+                resizeHandlers.add(addFocusHandler(event -> {
+                    if(originalHeight == null) {
+                        originalHeight = valueBoxBase.getElement().getClientHeight();
                     }
+                    triggerAutoResize();
                 }));
 
-                resizeHandlers.add(addBlurHandler(new BlurHandler() {
-                    @Override
-                    public void onBlur(BlurEvent event) {
-                        if(originalHeight != null) {
-                            valueBoxBase.setHeight(originalHeight + "px");
-                        }
+                resizeHandlers.add(addBlurHandler(event -> {
+                    if(originalHeight != null) {
+                        valueBoxBase.setHeight(originalHeight + "px");
                     }
                 }));
                 break;

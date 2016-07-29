@@ -64,11 +64,8 @@ public class DefaultErrorHandler implements ErrorHandler {
         super();
         assert widget != null;
         this.inputWidget = widget;
-        this.inputWidget.addAttachHandler(new Handler() {
-            @Override
-            public void onAttachOrDetach(AttachEvent event) {
-                init();
-            }
+        this.inputWidget.addAttachHandler(event -> {
+            init();
         });
     }
 

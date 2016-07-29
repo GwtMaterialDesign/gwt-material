@@ -67,13 +67,10 @@ public class GroupValidator implements ValidationChangedEvent.HasValidationChang
         if (field.isAttached()) {
             updateStateAndNotify();
         }
-        registrations.put(field, field.addValidationChangedHandler(new ValidationChangedHandler() {
-            @Override
-            public void onValidationChanged(ValidationChangedEvent event) {
-                fields.put(field, event.isValid());
-                if (fireEvents) {
-                    updateStateAndNotify();
-                }
+        registrations.put(field, field.addValidationChangedHandler(event -> {
+            fields.put(field, event.isValid());
+            if (fireEvents) {
+                updateStateAndNotify();
             }
         }));
     }

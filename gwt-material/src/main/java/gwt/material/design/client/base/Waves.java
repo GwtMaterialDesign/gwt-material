@@ -42,12 +42,9 @@ public class Waves {
      */
     public static void detectAndApply(Widget widget) {
         if(!widget.isAttached()) {
-            widget.addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-                    if(event.isAttached()) {
-                        detectAndApply();
-                    }
+            widget.addAttachHandler(event -> {
+                if(event.isAttached()) {
+                    detectAndApply();
                 }
             });
         } else {

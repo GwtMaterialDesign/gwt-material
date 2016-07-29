@@ -118,11 +118,8 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
         if(!widget.isAttached()) {
             // When we attach it, configure the tooltip
-            attachHandler = widget.addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(final AttachEvent event) {
-                    reconfigure();
-                }
+            attachHandler = widget.addAttachHandler(event -> {
+                reconfigure();
             });
         } else {
             reconfigure();
