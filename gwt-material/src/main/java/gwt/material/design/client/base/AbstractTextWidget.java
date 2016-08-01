@@ -179,9 +179,7 @@ public abstract class AbstractTextWidget extends Widget implements HasId, HasHTM
 
     @Override
     public LeafValueEditor<String> asEditor() {
-        if (editor == null) {
-            editor = HasTextEditor.of(this);
-        }
+        if (editor == null) { editor = HasTextEditor.of(this); }
         return editor;
     }
 }

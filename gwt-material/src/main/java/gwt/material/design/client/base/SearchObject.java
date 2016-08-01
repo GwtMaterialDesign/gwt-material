@@ -41,9 +41,6 @@ public class SearchObject implements Serializable {
 
     /**
      * Provides a search result with icon
-     * @param icon
-     * @param keyword
-     * @param link
      */
     public SearchObject(IconType icon, String keyword, String link) {
         this.icon = icon;
@@ -53,9 +50,6 @@ public class SearchObject implements Serializable {
 
     /**
      * Provides a search result with plain text
-     * @param keyword
-     * @param link
-     * @param o
      */
     public SearchObject(String keyword, String link, Object o) {
         this.keyword = keyword;
@@ -73,8 +67,6 @@ public class SearchObject implements Serializable {
     /**
      * Plain search only, you may need to add searchfinish callback instead of redirecting
      * to any links.
-     * @param icon
-     * @param keyword
      */
     public SearchObject(IconType icon, String keyword) {
         this.icon = icon;
@@ -83,9 +75,6 @@ public class SearchObject implements Serializable {
 
     /**
      * Search result with image resource component and link
-     * @param resource
-     * @param keyword
-     * @param link
      */
     public SearchObject(ImageResource resource, String keyword, String link) {
         this.resource = resource;
@@ -95,8 +84,6 @@ public class SearchObject implements Serializable {
 
     /**
      * Search result with image resource without link , you may require to use Search Finish callback to apply your search
-     * @param resource
-     * @param keyword
      */
     public SearchObject(ImageResource resource, String keyword) {
         this.resource = resource;
@@ -105,9 +92,6 @@ public class SearchObject implements Serializable {
 
     /**
      * Search result with image url component and link
-     * @param imageUrl
-     * @param keyword
-     * @param link
      */
     public SearchObject(String imageUrl, String keyword, String link) {
         this.imageUrl = imageUrl;
@@ -116,9 +100,7 @@ public class SearchObject implements Serializable {
     }
 
     /**
-     * Search result with image url without link , you may require to use Search Finish callback to apply your search
-     * @param imageUrl
-     * @param keyword
+     * Search result with image url without link, you may require to use Search Finish callback to apply your search
      */
     public SearchObject(String imageUrl, String keyword) {
         this.imageUrl = imageUrl;

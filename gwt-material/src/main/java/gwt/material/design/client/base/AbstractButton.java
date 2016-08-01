@@ -173,7 +173,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     /**
      * Set the target history token for the widget. Note, that you should use either
-     * {@link #setTargetHistoryToken(String)}or {@link #setHref(String)}, but not both as
+     * {@link #setTargetHistoryToken(String)} or {@link #setHref(String)}, but not both as
      * {@link #setHref(String)} resets the target history token.
      * @param targetHistoryToken String target history token of the widget
      */
@@ -198,7 +198,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
         return addDomHandler(event -> {
-            if(isEnabled()){
+            if(isEnabled()) {
                 handler.onClick(event);
             }
         }, ClickEvent.getType());
@@ -207,7 +207,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     @Override
     public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
         return addDomHandler(event -> {
-            if(isEnabled()){
+            if(isEnabled()) {
                 handler.onMouseDown(event);
             }
         }, MouseDownEvent.getType());
@@ -216,7 +216,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     @Override
     public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
         return addDomHandler(event -> {
-            if(isEnabled()){
+            if(isEnabled()) {
                 handler.onMouseMove(event);
             }
         }, MouseMoveEvent.getType());

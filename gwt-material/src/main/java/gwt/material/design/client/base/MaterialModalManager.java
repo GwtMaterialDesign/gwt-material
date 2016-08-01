@@ -32,13 +32,14 @@ import java.util.List;
  */
 public class MaterialModalManager {
 
-    private static List<MaterialModal> modals = new ArrayList<>();
-    private static int i = 1010;
+    private static List<MaterialModal> modals;
+    private static int index = 1010;
 
     /**
      * Registers the modal and added to static modal lists
      */
     public static void register(MaterialModal modal) {
+        if(modals == null) { modals = new ArrayList<>(); }
         modals.add(modal);
         resetZIndex();
     }
@@ -47,6 +48,7 @@ public class MaterialModalManager {
      *  Unregisters the modal and removed it from static modal lists
      */
     public static void unregister(MaterialModal modal) {
+        if(modals == null) { modals = new ArrayList<>(); }
         modals.remove(modal);
         resetZIndex();
     }
@@ -55,11 +57,8 @@ public class MaterialModalManager {
      * Need to reset everytime we have register / unregister process
      */
     protected static void resetZIndex(){
-
         for(MaterialModal modal : modals) {
-            modal.setDepth(i);
-            i++;
+            modal.setDepth(index++);
         }
     }
-
 }

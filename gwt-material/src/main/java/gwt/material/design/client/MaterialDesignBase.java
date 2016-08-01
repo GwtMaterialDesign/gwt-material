@@ -78,14 +78,14 @@ public class MaterialDesignBase {
                 futureResources.add(new FutureResource(resource, removeTag, sourceUrl));
             }
         }
-        String text = resource.getText() +
-                (sourceUrl ? "//# sourceURL=" + resource.getName() + ".js" : "");
+        String text = resource.getText() + (sourceUrl ?
+            "//# sourceURL=" + resource.getName() + ".js" : "");
 
         // Inject the script resource
         ScriptInjector.fromString(text)
-                .setWindow(ScriptInjector.TOP_WINDOW)
-                .setRemoveTag(removeTag)
-                .inject();
+            .setWindow(ScriptInjector.TOP_WINDOW)
+            .setRemoveTag(removeTag)
+            .inject();
     }
 
     public static void injectCss(TextResource resource) {
