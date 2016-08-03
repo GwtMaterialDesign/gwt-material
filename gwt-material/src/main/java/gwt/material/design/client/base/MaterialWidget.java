@@ -46,12 +46,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private static JQueryElement window = null;
     private static JQueryElement body = null;
 
-    public JQueryElement window() {
+    public static JQueryElement window() {
         if(window == null) { window = $(JQuery.window()); }
         return window;
     }
 
-    public JQueryElement body() {
+    public static JQueryElement body() {
         if(body == null) { body = $("body"); }
         return body;
     }
