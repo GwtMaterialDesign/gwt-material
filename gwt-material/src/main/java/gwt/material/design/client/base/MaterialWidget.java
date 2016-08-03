@@ -36,16 +36,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static gwt.material.design.client.js.JsMaterialElement.$;
-
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
         HasDepth, HasInitialClasses {
 
-    public final static JQueryElement window = window();
-    public final static JQueryElement body = body();
+    private static JQueryElement window = null;
+    private static JQueryElement body = null;
+
+    public JQueryElement window() {
+        if(window == null) { window = $(JQuery.window()); }
+        return window;
+    }
+
+    public JQueryElement body() {
+        if(body == null) { body = $("body"); }
+        return body;
+    }
 
     /**
      * Configurable features enum see {@link #enableFeature(Feature, boolean)}.
@@ -114,14 +123,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         if ($this == null) { $this = JQuery.$(this); }
         return $this;
     }
-
-    protected static native JQueryElement window() /*-{
-        return window;
-    }-*/;
-
-    protected static native JQueryElement body() /*-{
-        return document.getElementsByTagName("body")[0];
-    }-*/;
 
     @Override
     protected void onLoad() {

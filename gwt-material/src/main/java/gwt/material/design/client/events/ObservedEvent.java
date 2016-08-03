@@ -33,23 +33,23 @@ public class ObservedEvent extends GwtEvent<ObservedEvent.ObservedHandler> {
 
     public static final Type<ObservedHandler> TYPE = new Type<>();
 
-    private final String old;
-    private final String value;
+    private final Object old;
+    private final Object value;
 
-    public ObservedEvent(String old, String value) {
+    public ObservedEvent(Object old, Object value) {
         this.old = old;
         this.value = value;
     }
 
-    public static void fire(HasHandlers source, String old, String value) {
+    public static void fire(HasHandlers source, Object old, Object value) {
         source.fireEvent(new ObservedEvent(old, value));
     }
 
-    public String getOld() {
+    public Object getOld() {
         return old;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
