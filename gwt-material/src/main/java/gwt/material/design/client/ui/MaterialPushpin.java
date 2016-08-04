@@ -20,8 +20,6 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsPushpinOptions;
 
@@ -43,8 +41,14 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialPushpin {
 
     public static void apply(Widget widget, int offset) {
+        apply(widget, 0, 0, offset);
+    }
+
+    public static void apply(Widget widget, int top, int bottom, int offset) {
         JsPushpinOptions options = new JsPushpinOptions();
-        options.top = offset;
+        options.top = top;
+        options.offset = offset;
+        options.bottom = bottom;
         $(widget.getElement()).pushpin(options);
     }
 

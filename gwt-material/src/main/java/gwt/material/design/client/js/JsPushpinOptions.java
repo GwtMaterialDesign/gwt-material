@@ -34,4 +34,10 @@ public class JsPushpinOptions {
     @JsProperty
     public int top;
 
+    @JsProperty
+    public int offset;
+
+    @JsProperty
+    public int bottom;
+
 }
