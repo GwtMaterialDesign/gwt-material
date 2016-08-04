@@ -117,7 +117,7 @@ public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, 
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addHandler(event -> {
+        return addDomHandler(event -> {
             if(isEnabled()){
                 handler.onClick(event);
             }
