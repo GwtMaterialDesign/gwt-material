@@ -40,7 +40,7 @@ public abstract class AttributeObserver implements HasHandlers {
 
     protected abstract JavaScriptObject createMutationObject();
 
-    public void fireObserved(Object old, Object newValue) {
+    public void fireObserved(String old, String newValue) {
         ObservedEvent.fire(this, old, newValue);
     }
 
