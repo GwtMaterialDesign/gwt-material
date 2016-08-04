@@ -93,6 +93,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         void setParent(MaterialCollapsible parent);
     }
 
+    private boolean initialized;
     private boolean accordion = true;
 
     private int activeIndex = -1;
@@ -160,12 +161,20 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     /**
      * Initialize the collapsible material component.
      */
+    protected void initCollapsible() {
+        initCollapsible(getElement(), isAccordion());
+    }
+
+    /**
+     * Initialize the collapsible material component.
+     */
     protected native void initCollapsible(final Element e, boolean accordion) /*-{
         $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).collapsible({
                 accordion: accordion
             });
-        })
+        });
+        this.@gwt.material.design.client.ui.MaterialCollapsible::initialized = true;
     }-*/;
 
     public void setType(CollapsibleType type) {
@@ -185,9 +194,9 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     public void setAccordion(boolean accordion) {
         this.accordion = accordion;
 
-        if(isAttached()) {
+        if(initialized) {
             // Since we have attached already reinitialize collapsible.
-            initCollapsible(getElement(), accordion);
+            initCollapsible();
         }
     }
 
@@ -203,10 +212,13 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         clearActive();
         activeIndex = index;
         if(isAttached()) {
-            if(index < getWidgetCount()) {
+            if(index <= getWidgetCount()) {
                 activeWidget = getWidget(index - 1);
                 if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
                     ((MaterialCollapsibleItem) activeWidget).setActive(true);
+                    if(initialized) {
+                        initCollapsible();
+                    }
                 }
             }
         }
@@ -226,7 +238,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     @Override
     public void clearActive() {
         clearActiveClass(this);
-
         ClearActiveEvent.fire(this);
     }
 }
