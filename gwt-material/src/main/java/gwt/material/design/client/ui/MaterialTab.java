@@ -21,10 +21,7 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.jquery.client.api.JQueryElement;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
@@ -127,7 +124,6 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         for(int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
             $(getElement()).find(".indicator").eq(i).remove();
         }
-
     }
 
     protected Element getIndicatorElement() {

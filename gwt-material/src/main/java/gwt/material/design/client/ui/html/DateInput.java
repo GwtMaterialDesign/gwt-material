@@ -26,6 +26,7 @@ import com.google.gwt.dom.client.InputElement;
 import gwt.material.design.client.base.MaterialWidget;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
+
 /**
  * @author guaido79
  */

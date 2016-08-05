@@ -39,7 +39,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * Basic implementation for the Material Design tooltip.
  * <h3>UiBinder Example</h3>
  * <pre>
- *{@code<m:MaterialTooltip text="...">
+ *{@code
+ * <m:MaterialTooltip text="...">
  *    ...
  * </b:MaterialTooltip>
  *}
@@ -334,16 +335,14 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     /**
-     * Get the html of the tooltip
-     * @return
+     * Get the html of the tooltip.
      */
     public String getTooltipHTML() {
         return html;
     }
 
     /**
-     * Set the html as value inside the tooltip
-     * @param html
+     * Set the html as value inside the tooltip.
      */
     public void setTooltipHTML(String html) {
         this.html = html;

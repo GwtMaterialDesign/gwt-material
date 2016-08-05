@@ -43,6 +43,8 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     private Div div = new Div();
     private double percent = 0;
+    private String color;
+    private ProgressType type;
 
     public MaterialProgress() {
         super("progress");
@@ -53,28 +55,49 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     @Override
     public void setType(ProgressType type) {
-        div.setStyleName(type.getCssName());
+        if(this.type != null) {
+            div.removeStyleName(this.type.getCssName());
+        }
+        this.type = type;
+        div.addStyleName(type.getCssName());
     }
 
     @Override
     public ProgressType getType() {
-        return ProgressType.fromStyleName(getType().getCssName());
+        return type;
     }
 
     /**
      * Get progress width as percent unit
-     * @return
      */
     public double getPercent() {
         return percent;
     }
 
     /**
-     * Set progress width as percent unit
-     * @param percent
+     * Set progress width as percent unit.
      */
     public void setPercent(double percent) {
         this.percent = percent;
         div.getElement().getStyle().setWidth(percent, Unit.PCT);
+    }
+
+    /**
+     * Get the progress bar color.
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * Set the color of the progress bar.
+     * @param color String value of the color.
+     */
+    public void setColor(String color) {
+        if(this.color != null) {
+            div.removeStyleName(this.color);
+        }
+        this.color = color;
+        div.addStyleName(color);
     }
 }

@@ -43,6 +43,17 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     }
 
     @Override
+    public void setUiObject(T uiObject) {
+        super.setUiObject(uiObject);
+
+        // Clean up previous handler
+        if(handler != null) {
+            handler.removeHandler();
+            handler = null;
+        }
+    }
+
+    @Override
     public boolean isEnabled() {
         return !StyleHelper.containsStyle(uiObject.getStyleName(), "disabled");
     }

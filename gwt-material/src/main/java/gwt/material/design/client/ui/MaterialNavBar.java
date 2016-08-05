@@ -112,7 +112,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     protected void applyType(String type, Element element) {
         if(type.equals("navbar-shrink")) {
             JsMaterialElement.initShrink(element, 300);
-        }else  {
+        } else {
             GWT.log("Default type of navbar was applied");
         }
     }

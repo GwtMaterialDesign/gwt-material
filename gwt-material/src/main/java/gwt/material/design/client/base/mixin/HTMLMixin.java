@@ -53,5 +53,4 @@ public class HTMLMixin<T extends UIObject> extends TextMixin<T> implements HasHT
     protected void setInnerHTML(Element e, String html) {
         $(e).html(html);
     }
-
 }

@@ -301,10 +301,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected boolean isSmall() {
-        if(!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
-            return true;
-        }
-        return false;
+        return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
     }
 
     /**

@@ -119,6 +119,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     @Override
     public void onLoad() {
         super.onLoad();
+
         // populate the lists of search result on search panel
         searchResult = new MaterialSearchResult();
         add(searchResult);

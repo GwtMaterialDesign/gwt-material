@@ -180,9 +180,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     protected void closeModal(Element e, boolean autoClosed) {
-        $(e).closeModal(() -> {
-            onNativeClose(autoClosed);
-        });
+        $(e).closeModal(() -> onNativeClose(autoClosed));
     }
 
     @Override

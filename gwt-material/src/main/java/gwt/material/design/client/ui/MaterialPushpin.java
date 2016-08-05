@@ -51,5 +51,4 @@ public class MaterialPushpin {
         options.bottom = bottom;
         $(widget.getElement()).pushpin(options);
     }
-
 }

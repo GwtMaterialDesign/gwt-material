@@ -32,7 +32,6 @@ import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
-
 //@formatter:off
 
 /**
@@ -96,6 +95,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         void setParent(MaterialCollapsible parent);
     }
 
+    private boolean initialized;
     private boolean accordion = true;
 
     private int activeIndex = -1;
@@ -160,8 +160,16 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         return super.remove(w);
     }
 
+    /**
+     * Initialize the collapsible material component.
+     */
+    protected void initCollapsible() {
+        initCollapsible(getElement(), isAccordion());
+    }
+
     protected void initCollapsible(final Element e, boolean accordion) {
         $(e).collapsible(accordion);
+        initialized = true;
     }
 
     public void setType(CollapsibleType type) {
@@ -181,9 +189,9 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     public void setAccordion(boolean accordion) {
         this.accordion = accordion;
 
-        if(isAttached()) {
+        if(initialized) {
             // Since we have attached already reinitialize collapsible.
-            initCollapsible(getElement(), accordion);
+            initCollapsible();
         }
     }
 
@@ -199,10 +207,13 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         clearActive();
         activeIndex = index;
         if(isAttached()) {
-            if(index < getWidgetCount()) {
+            if(index <= getWidgetCount()) {
                 activeWidget = getWidget(index - 1);
                 if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
                     ((MaterialCollapsibleItem) activeWidget).setActive(true);
+                    if(initialized) {
+                        initCollapsible();
+                    }
                 }
             }
         }

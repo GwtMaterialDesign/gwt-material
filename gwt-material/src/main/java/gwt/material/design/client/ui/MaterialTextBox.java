@@ -60,6 +60,7 @@ public class MaterialTextBox extends MaterialValueBox<String> {
         return asTextBox().getVisibleLength();
     }
 
+    @Ignore
     public TextBox asTextBox() {
         return (TextBox) valueBoxBase;
     }
