@@ -33,9 +33,7 @@ import com.google.gwt.user.client.ui.UIObject;
 /**
  * @author kevzlou7979
  */
-
-public class ProgressMixin<T extends UIObject & HasProgress>
-        extends AbstractMixin<T> implements HasProgress {
+public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMixin<T> implements HasProgress {
 
     private MaterialProgress progress = new MaterialProgress();
 
@@ -61,18 +59,15 @@ public class ProgressMixin<T extends UIObject & HasProgress>
     public void hideProgress() {
         if(uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(false);
-        }else {
+        } else {
             progress.removeFromParent();
         }
-
     }
 
     protected void applyCollapsibleProgress(boolean isShow) {
         MaterialCollapsibleItem item = (MaterialCollapsibleItem) uiObject;
         MaterialCollapsibleBody body = (MaterialCollapsibleBody) item.getWidget(1);
-        if(!uiObject.getElement().getClassName().contains("active")) {
-            return;
-        }else {
+        if(uiObject.getElement().getClassName().contains("active")) {
             if (isShow) {
                 body.setDisplay(Display.NONE);
                 item.add(progress);

@@ -38,6 +38,14 @@ public class WavesMixin<T extends Widget & HasWaves> extends AbstractMixin<T> im
     }
 
     @Override
+    public void setUiObject(T uiObject) {
+        super.setUiObject(uiObject);
+
+        // Apply waves to the ui object
+        setWaves(waves);
+    }
+
+    @Override
     public void setWaves(WavesType waves) {
         uiObject.removeStyleName(Waves.WAVES_STYLE);
         if(this.waves != null) {
@@ -47,8 +55,7 @@ public class WavesMixin<T extends Widget & HasWaves> extends AbstractMixin<T> im
         this.waves = waves;
 
         if(waves != null) {
-            boolean enabled = !(uiObject instanceof HasEnabled)
-                || ((HasEnabled) uiObject).isEnabled();
+            boolean enabled = !(uiObject instanceof HasEnabled) || ((HasEnabled) uiObject).isEnabled();
             if(enabled) {
                 uiObject.addStyleName(Waves.WAVES_STYLE);
             }

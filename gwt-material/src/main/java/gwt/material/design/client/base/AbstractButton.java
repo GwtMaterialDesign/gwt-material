@@ -43,6 +43,7 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ButtonSize;
@@ -55,7 +56,7 @@ import gwt.material.design.client.ui.html.Span;
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
         HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
-        HasDoubleClickHandlers {
+        HasDoubleClickHandlers, HasText {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
     private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);

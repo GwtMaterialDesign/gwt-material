@@ -93,7 +93,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
     private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
     private final BlankValidatorMixin<MaterialValueBox<T>, T> validatorMixin = new BlankValidatorMixin<>(this,
-        errorHandlerMixin.getErrorHandler());
+            errorHandlerMixin.getErrorHandler());
 
     @Ignore protected ValueBoxBase<T> valueBoxBase;
 
@@ -143,9 +143,13 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public void onLoad() {
         super.onLoad();
+
         String id = DOM.createUniqueId();
         valueBoxBase.getElement().setId(id);
         label.getElement().setAttribute("for", id);
+
+        // Make valueBoxBase the primary focus target
+        getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
     }
 
     /**
@@ -164,12 +168,6 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         lblName.removeStyleName("red-text");
     }
 
-    @Override
-    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
-        if(focusableMixin == null) { focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement())); }
-        return focusableMixin;
-    }
-    
     @Override
     public String getText() {
         return valueBoxBase.getText();
@@ -643,7 +641,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         lblName.setStyleName("green-text");
         valueBoxBase.getElement().addClassName("valid");
     }
-    
+
     @Override
     public void setHelperText(String helperText) {
         errorMixin.setHelperText(helperText);

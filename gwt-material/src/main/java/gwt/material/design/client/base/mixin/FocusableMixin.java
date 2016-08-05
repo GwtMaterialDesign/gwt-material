@@ -30,12 +30,10 @@ import com.google.gwt.user.client.ui.UIObject;
 /**
  * @author Sven Jacobs
  */
-public class FocusableMixin<T extends UIObject & Focusable> implements Focusable {
-
-    private final T uiObject;
+public class FocusableMixin<T extends UIObject & Focusable> extends AbstractMixin<T> implements Focusable {
 
     public FocusableMixin(final T uiObject) {
-        this.uiObject = uiObject;
+        super(uiObject);
     }
 
     @Override

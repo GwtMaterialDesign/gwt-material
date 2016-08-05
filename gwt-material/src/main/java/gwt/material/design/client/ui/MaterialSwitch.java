@@ -91,7 +91,12 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         add(label);
         add(lblError);
         lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
-        //register click handler here in order to have it at first position
+
+        if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
+            label.add(onLabel);
+        }
+
+        // register click handler here in order to have it at first position
         // and therefore it will deal with clicks as first and setup the value
         // right before others get notified.
         addClickHandler(new ClickHandler() {
@@ -102,9 +107,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
                 event.stopPropagation();
             }
         });
-        if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
-            label.add(onLabel);
-        }
     }
 
     @Override
@@ -223,7 +225,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
     }
-    
+
     @Override
     public void setHelperText(String helperText) {
         errorMixin.setHelperText(helperText);
