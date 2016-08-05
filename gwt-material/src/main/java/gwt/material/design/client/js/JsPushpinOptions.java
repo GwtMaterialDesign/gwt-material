@@ -32,12 +32,12 @@ import jsinterop.annotations.JsType;
 public class JsPushpinOptions {
 
     @JsProperty
-    public int top;
+    public double top;
 
     @JsProperty
-    public int offset;
+    public double offset;
 
     @JsProperty
-    public int bottom;
+    public double bottom;
 
 }

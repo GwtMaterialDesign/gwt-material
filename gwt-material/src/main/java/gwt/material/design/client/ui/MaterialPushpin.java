@@ -40,11 +40,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 public class MaterialPushpin {
 
-    public static void apply(Widget widget, int offset) {
+    public static void apply(Widget widget, double offset) {
         apply(widget, 0, 0, offset);
     }
 
-    public static void apply(Widget widget, int top, int bottom, int offset) {
+    public static void apply(Widget widget, double top, double bottom, double offset) {
         JsPushpinOptions options = new JsPushpinOptions();
         options.top = top;
         options.offset = offset;
