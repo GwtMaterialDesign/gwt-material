@@ -56,7 +56,7 @@ import gwt.material.design.client.ui.html.Span;
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
         HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
-        HasDoubleClickHandlers, HasText {
+        HasDoubleClickHandlers {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
     private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
