@@ -846,7 +846,10 @@ footer.fixed{
 }
 .input-field input[type=search] {
 	margin-bottom: 0;
-	height: calc(4rem + 2px);
+	height: 100%;
+}
+nav .input-field {
+	height: 100%;
 }
 /** Added support for horizontal cards **/
 .horizontal .card-action a{
