@@ -176,7 +176,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                 }
 
                 // Apply selected search
-                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER && !tempSearches.isEmpty()) {
                     if(getCurSel()==-1) {
                         setSelectedObject(tempSearches.get(0));
                         setSelectedLink((MaterialLink) searchResult.getWidget(0));
