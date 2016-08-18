@@ -75,6 +75,7 @@ import com.google.gwt.user.client.ui.ListBox;
 public class MaterialListBox extends MaterialListValueBox<String> implements HasId, HasGrid, HasColors, HasPlaceholder {
 
     public MaterialListBox() {
+        super();
     }
 
     public void add(Option option) {

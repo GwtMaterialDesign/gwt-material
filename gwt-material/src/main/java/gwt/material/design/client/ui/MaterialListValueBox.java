@@ -106,6 +106,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
 
     @Override
     public void onLoad() {
+        super.onLoad();
         if (!initialized) {
             initialized = true;
             createInternalChangeHandler(listBox.getElement());
