@@ -205,6 +205,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
      */
     public void setActivator(String activator) {
         this.activator = activator;
+        setId(activator);
     }
 
     @Override
@@ -247,7 +248,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         if(getParent() instanceof HasActivates) {
             String uid = DOM.createUniqueId();
             ((HasActivates) getParent()).setActivates(uid);
-            setId(uid);
             activatorElem = getParent().getElement();
         }else {
             if(activatorElem == null) {
