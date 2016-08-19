@@ -109,8 +109,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        getElement().setAttribute("style", "background-color:transparent !important");
-        label.getElement().setAttribute("style", "background-color:transparent !important");
         span.setEnabled(enabled);
         input.setEnabled(enabled);
     }
