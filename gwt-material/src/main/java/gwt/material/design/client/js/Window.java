@@ -20,12 +20,8 @@ package gwt.material.design.client.js;
  * #L%
  */
 
-
 import jsinterop.annotations.JsType;
 
-/**
- * Created by Mark Kevin on 6/27/2016.
- */
 @JsType(isNative = false)
 public class Window {
 

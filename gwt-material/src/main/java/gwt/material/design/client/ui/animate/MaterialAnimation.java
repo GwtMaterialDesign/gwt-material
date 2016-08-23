@@ -61,7 +61,7 @@ public class MaterialAnimation {
         animate(w,null);
     }
 
-    public void animate(Widget w,Runnable callback) {
+    public void animate(Widget w, Runnable callback) {
         MaterialAnimator.animate(transition, w, delayMillis, durationMillis, callback, infinite);
     }
 }

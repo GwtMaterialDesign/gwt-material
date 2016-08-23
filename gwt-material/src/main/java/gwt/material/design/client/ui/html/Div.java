@@ -27,7 +27,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.MaterialWidget;
 
-public class Div extends MaterialWidget implements HasClickHandlers {
+public class Div extends MaterialWidget {
 
     public Div() {
         super(Document.get().createElement("div"));
@@ -35,10 +35,5 @@ public class Div extends MaterialWidget implements HasClickHandlers {
 
     public Div(String... initialClass) {
         super(Document.get().createDivElement(), initialClass);
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
-        return addDomHandler(handler, ClickEvent.getType());
     }
 }

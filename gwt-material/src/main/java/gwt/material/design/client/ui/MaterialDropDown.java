@@ -249,13 +249,12 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             ((HasActivates) getParent()).setActivates(uid);
             setId(uid);
             activatorElem = getParent().getElement();
-        }else {
-            if(activatorElem == null) {
-                activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
-                if (activatorElem == null) {
-                    throw new IllegalStateException("There is no activator element with id: '" + activator
-                            + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.");
-                }
+        }
+        else if(activatorElem == null) {
+            activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
+            if (activatorElem == null) {
+                throw new IllegalStateException("There is no activator element with id: '" + activator
+                    + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.");
             }
         }
 

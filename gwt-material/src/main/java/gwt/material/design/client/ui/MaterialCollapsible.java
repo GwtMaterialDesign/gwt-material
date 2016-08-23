@@ -220,11 +220,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     }
 
     public HandlerRegistration addClearActiveHandler(final ClearActiveHandler handler) {
-        return addHandler(event -> {
-            if(isEnabled()) {
-                handler.onClearActive(event);
-            }
-        }, ClearActiveEvent.TYPE);
+        return addHandler(handler, ClearActiveEvent.TYPE);
     }
 
     @Override

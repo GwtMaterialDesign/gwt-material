@@ -25,9 +25,6 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.HasEditorErrors;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
@@ -74,9 +71,9 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder,
-        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasEditorErrors<Date>,
-        HasErrorHandler, HasValidators<Date>, HasBlankValidator, HasBlurHandlers {
+public class MaterialDatePicker extends MaterialWidget implements HasError, HasOrientation, HasPlaceholder,
+        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>,
+        HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>, HasBlankValidator {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -103,7 +100,6 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private Orientation orientation = Orientation.PORTRAIT;
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
-    private final GridMixin<MaterialDatePicker> gridMixin = new GridMixin<>(this);
     private final ErrorMixin<MaterialDatePicker, MaterialLabel> errorMixin;
     private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
     private final BlankValidatorMixin<MaterialDatePicker, Date> validatorMixin = new BlankValidatorMixin<>(this, errorHandlerMixin.getErrorHandler());
@@ -230,13 +226,17 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         JsDatePickerOptions options = new JsDatePickerOptions();
         options.container = "body";
         options.format = format;
-        if(typeName.equals("MONTH_DAY")) {
-            options.selectMonths = true;
-        } else if(typeName.equals("YEAR_MONTH_DAY")) {
-            options.selectYears = true;
-            options.selectMonths = true;
-        } else if(typeName.equals("YEAR")) {
-            options.selectMonths = true;
+        switch (typeName) {
+            case "MONTH_DAY":
+                options.selectMonths = true;
+                break;
+            case "YEAR_MONTH_DAY":
+                options.selectYears = true;
+                options.selectMonths = true;
+                break;
+            case "YEAR":
+                options.selectMonths = true;
+                break;
         }
         return $(inputSrc).pickadate(options).asElement();
     }
@@ -301,8 +301,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     public JsDate getDatePickerValue(Element picker) {
-        JsDate date = $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
-        return date;
+        return $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
     }
 
     /**
@@ -355,19 +354,9 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     @Override
     public void setOrientation(Orientation orientation) {
         if(initialized) {
-            throw new IllegalStateException("setOrientation can be called only before initialization");
+            throw new IllegalStateException("setOrientation can only be called after initialization.");
         }
         this.orientation = orientation;
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
     }
 
     @Override
@@ -403,8 +392,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     /**
-     * To call before initialization
-     * @param format
+     * To call before initialization.
      */
     public void setFormat(String format) {
         if(initialized) {
@@ -415,14 +403,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
     @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> handler) {
-        return addHandler(new ValueChangeHandler<Date>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<Date> event) {
-                if(isEnabled()) {
-                    handler.onValueChange(event);
-                }
-            }
-        }, ValueChangeEvent.getType());
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 
     @Override
@@ -452,35 +433,12 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
     @Override
     public HandlerRegistration addCloseHandler(final CloseHandler<MaterialDatePicker> handler) {
-        return addHandler(new CloseHandler<MaterialDatePicker>() {
-            @Override
-            public void onClose(CloseEvent<MaterialDatePicker> event) {
-                if(isEnabled()) {
-                    handler.onClose(event);
-                }
-            }
-        }, CloseEvent.getType());
+        return addHandler(handler, CloseEvent.getType());
     }
 
     @Override
     public HandlerRegistration addOpenHandler(final OpenHandler<MaterialDatePicker> handler) {
-        return addHandler(new OpenHandler<MaterialDatePicker>() {
-            @Override
-            public void onOpen(OpenEvent<MaterialDatePicker> event) {
-                if(isEnabled()) {
-                    handler.onOpen(event);
-                }
-            }
-        }, OpenEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addBlurHandler(final BlurHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onBlur(event);
-            }
-        }, BlurEvent.getType());
+        return addHandler(handler, OpenEvent.getType());
     }
 
     @Override

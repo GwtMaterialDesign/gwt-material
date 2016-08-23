@@ -65,7 +65,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *     &#064;code
  *     &#064;UiField
  *     MaterialModal modal;
- *     modal.openModal();
+ *     modal.open();
  * }
  * </pre>
  * 
@@ -91,7 +91,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     /**
-     * Open the modal programatically
+     * Open the modal programmatically
      * 
      * <p>
      * Note: the MaterialModal component must be added to the document before
@@ -109,13 +109,13 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @throws IllegalStateException
      *             If the MaterialModal is not added to the document
      */
-    public void openModal() {
+    public void open() {
         // the modal must be added to the document before opening
         if (this.getParent() == null) {
             throw new IllegalStateException(
-                "The MaterialModal must be added to the document before calling openModal().");
+                "The MaterialModal must be added to the document before calling open().");
         }
-        openModal(getElement(), opacity, dismissable, inDuration, outDuration);
+        open(getElement(), opacity, dismissable, inDuration, outDuration);
     }
 
     /**
@@ -132,7 +132,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @param outDuration
      *            - Transition out Duration
      */
-    protected void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
+    protected void open(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
         JsModalOptions options = new JsModalOptions();
         options.opacity = opacity;
         options.dismissible = dismissable;
@@ -150,23 +150,23 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     /**
-     * Close the modal programatically. It is the same as calling
-     * {@link #closeModal(boolean)} with <code>false</code> as parameter.
+     * Close the modal programmatically. It is the same as calling
+     * {@link #close(boolean)} with <code>false</code> as parameter.
      * <p>
      * Note: you may need to remove it MaterialModal from the document if you
-     * are not using UiBinder. See {@link #openModal()}.
+     * are not using UiBinder. See {@link #open()}.
      * </p>
      * 
      */
-    public void closeModal() {
-        closeModal(false);
+    public void close() {
+        close(false);
     }
 
     /**
-     * Close the modal programatically.
+     * Close the modal programmatically.
      * <p>
      * Note: you may need to remove it MaterialModal from the document if you
-     * are not using UiBinder. See {@link #openModal()}.
+     * are not using UiBinder. See {@link #open()}.
      * </p>
      * 
      * @param autoClosed
@@ -174,12 +174,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * 
      * @see CloseEvent
      */
-    public void closeModal(boolean autoClosed) {
-        closeModal(getElement(), autoClosed);
+    public void close(boolean autoClosed) {
+        close(getElement(), autoClosed);
         MaterialModalManager.unregister(this);
     }
 
-    protected void closeModal(Element e, boolean autoClosed) {
+    protected void close(Element e, boolean autoClosed) {
         $(e).closeModal(() -> onNativeClose(autoClosed));
     }
 

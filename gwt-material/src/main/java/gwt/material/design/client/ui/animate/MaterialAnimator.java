@@ -1,4 +1,4 @@
- package gwt.material.design.client.ui.animate;
+package gwt.material.design.client.ui.animate;
 
 /*
  * #%L
@@ -29,33 +29,33 @@ import gwt.material.design.client.ui.html.UnorderedList;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
- /**
-  * Provides core and meaningful animation
-  * @author kevzlou7979
-  */
- public class MaterialAnimator {
+/**
+* Provides core and meaningful animation
+* @author kevzlou7979
+*/
+public class MaterialAnimator {
 
-     public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
-         animate(transition, w, delayMillis, 800, callback, false);
-     }
+    public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
+        animate(transition, w, delayMillis, 800, callback, false);
+    }
 
-     public static void animate(final Transition transition, final Widget w, int delayMillis, int durationMillis) {
-         animate(transition, w, delayMillis, durationMillis, null, false);
-     }
+    public static void animate(final Transition transition, final Widget w, int delayMillis, int durationMillis) {
+        animate(transition, w, delayMillis, durationMillis, null, false);
+    }
 
-     public static void animate(final Transition transition, final Widget w, int delayMillis, boolean infinite) {
-         animate(transition, w, delayMillis, 800, null, infinite);
-     }
+    public static void animate(final Transition transition, final Widget w, int delayMillis, boolean infinite) {
+        animate(transition, w, delayMillis, 800, null, infinite);
+    }
 
-     public static void animate(final Transition transition, final Widget w, int delayMillis) {
-         animate(transition, w, delayMillis, 800, null, false);
-     }
+    public static void animate(final Transition transition, final Widget w, int delayMillis) {
+        animate(transition, w, delayMillis, 800, null, false);
+    }
 
-     public static void stopAnimation(Widget w) {
-         w.removeStyleName("infinite");
-     }
+    public static void stopAnimation(Widget w) {
+     w.removeStyleName("infinite");
+    }
 
-     public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback, final boolean infinite) {
+    public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback, final boolean infinite) {
          final String name = String.valueOf(DOM.createUniqueId());
          w.getElement().setId(name);
          w.getElement().getStyle().setProperty("WebkitAnimationDuration",durationMillis+"ms");
@@ -110,9 +110,9 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
          }.schedule(delayMillis);
 
          w.removeStyleName("materialcss");
-     }
+    }
 
-     protected static void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) {
+    protected static void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) {
          $("#" + name).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", e -> {
              if(callback != null) {
                  callback.run();
@@ -120,21 +120,21 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
              $("#" + name).removeClass(oldClass);
              return true;
          });
-     }
+    }
 
-     protected static void closeGrid(String name) {
-         JsMaterialElement.closeGrid("#" + name);
-     }
+    protected static void closeGrid(String name) {
+        JsMaterialElement.closeGrid("#" + name);
+    }
 
-     protected static void showGrid(String name) {
-         JsMaterialElement.showGrid("#" + name);
-     }
+    protected static void showGrid(String name) {
+        JsMaterialElement.showGrid("#" + name);
+    }
 
-     protected static void fadeInImage(String name) {
-         JsMaterialElement.fadeInImage("#" + name);
-     }
+    protected static void fadeInImage(String name) {
+        JsMaterialElement.fadeInImage("#" + name);
+    }
 
-     protected static void showStaggeredList(String name) {
-         JsMaterialElement.showStaggeredList("#" + name);
-     }
- }
+    protected static void showStaggeredList(String name) {
+        JsMaterialElement.showStaggeredList("#" + name);
+    }
+}

@@ -52,7 +52,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
  */
 //@formatter:on
-public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasClickHandlers, HasError {
+public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
 
     private MaterialInput input = new MaterialInput();
     private Span span = new Span();
@@ -147,14 +147,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
 
     @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Boolean> handler) {
-        return addHandler(new ValueChangeHandler<Boolean>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<Boolean> event) {
-                if(isEnabled()){
-                    handler.onValueChange(event);
-                }
-            }
-        }, ValueChangeEvent.getType());
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 
     /**
@@ -199,15 +192,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Deprecated
     public void setLabel(Label label) {
         this.label = label;
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onClick(event);
-            }
-        }, ClickEvent.getType());
     }
 
     @Override

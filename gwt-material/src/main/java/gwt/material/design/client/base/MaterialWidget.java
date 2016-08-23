@@ -24,6 +24,11 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.FontWeight;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
@@ -41,7 +46,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -184,6 +189,197 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      */
     public void insert(final Widget child, final int beforeIndex) {
         insert(child, (Element) getElement(), beforeIndex, true);
+    }
+
+    // Events
+
+    @Override
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onClick(event); }
+        }, ClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseDown(event); }
+        }, MouseDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseMove(event); }
+        }, MouseMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseOut(event); }
+        }, MouseOutEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseOver(event); }
+        }, MouseOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseUp(event); }
+        }, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseWheel(event); }
+        }, MouseWheelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDoubleClick(event); }
+        }, DoubleClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDragEnd(event); }
+        }, DragEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDragEnter(event); }
+        }, DragEnterEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragHandler(DragHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDrag(event); }
+        }, DragEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDragLeave(event); }
+        }, DragLeaveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDragOver(event); }
+        }, DragOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDragStart(event); }
+        }, DragStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropHandler(DropHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDrop(event); }
+        }, DropEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchCancel(event); }
+        }, TouchCancelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchEnd(event); }
+        }, TouchEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchMove(event); }
+        }, TouchMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchStart(event); }
+        }, TouchStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onGestureChange(event); }
+        }, GestureChangeEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onGestureEnd(event); }
+        }, GestureEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onGestureStart(event); }
+        }, GestureStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onKeyDown(event); }
+        }, KeyDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onKeyPress(event); }
+        }, KeyPressEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onKeyUp(event); }
+        }, KeyUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addBlurHandler(BlurHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onBlur(event); }
+        }, BlurEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addFocusHandler(FocusHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onFocus(event); }
+        }, FocusEvent.getType());
     }
 
     protected IdMixin<MaterialWidget> getIdMixin() {

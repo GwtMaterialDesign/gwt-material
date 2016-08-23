@@ -56,6 +56,5 @@ public class MaterialBreadcrumb extends AbstractIconButton {
     protected Element createElement() {
         return Document.get().createAnchorElement();
     }
-
 }
 

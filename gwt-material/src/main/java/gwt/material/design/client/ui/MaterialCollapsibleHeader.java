@@ -38,7 +38,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsibleHeader extends MaterialWidget implements HasAllMouseHandlers, HasClickHandlers {
+public class MaterialCollapsibleHeader extends MaterialWidget {
 
     /**
      * Creates empty collapsible header.
@@ -69,68 +69,5 @@ public class MaterialCollapsibleHeader extends MaterialWidget implements HasAllM
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
         }
         super.add(child);
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onClick(event);
-            }
-        }, ClickEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseDown(event);
-            }
-        }, MouseDownEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseMove(event);
-            }
-        }, MouseMoveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseOut(event);
-            }
-        }, MouseOutEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseOver(event);
-            }
-        }, MouseOverEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseUp(event);
-            }
-        }, MouseUpEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseWheel(event);
-            }
-        }, MouseWheelEvent.getType());
     }
 }

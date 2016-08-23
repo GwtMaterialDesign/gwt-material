@@ -55,8 +55,7 @@ import gwt.material.design.client.ui.html.Span;
  * @author Ben Dol
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
-        HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
-        HasDoubleClickHandlers {
+        HasTargetHistoryToken, HasType<ButtonType> {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
     private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
@@ -194,77 +193,5 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     @Override
     public String getTargetHistoryToken() {
         return targetHistoryToken;
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onClick(event);
-            }
-        }, ClickEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseDown(event);
-            }
-        }, MouseDownEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseMove(event);
-            }
-        }, MouseMoveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseOut(event);
-            }
-        }, MouseOutEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseOver(event);
-            }
-        }, MouseOverEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseUp(event);
-            }
-        }, MouseUpEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onMouseWheel(event);
-            }
-        }, MouseWheelEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onDoubleClick(event);
-            }
-        }, DoubleClickEvent.getType());
     }
 }

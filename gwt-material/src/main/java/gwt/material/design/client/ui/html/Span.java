@@ -29,7 +29,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.MaterialWidget;
 
-public class Span extends MaterialWidget implements HasClickHandlers, HasText {
+public class Span extends MaterialWidget implements HasText {
     private String text;
 
     public Span() {
@@ -43,11 +43,6 @@ public class Span extends MaterialWidget implements HasClickHandlers, HasText {
     public Span(String string) {
         this();
         getElement().setInnerHTML(string);
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
-        return addDomHandler(handler, ClickEvent.getType());
     }
 
     @Override

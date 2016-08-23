@@ -20,7 +20,6 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsMaterialElement;

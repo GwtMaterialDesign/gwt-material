@@ -61,7 +61,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasClickHandlers {
+public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis {
 
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
@@ -119,14 +119,5 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
      */
     public void closeFAB() {
         $(getElement()).closeFAB();
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()){
-                handler.onClick(event);
-            }
-        } , ClickEvent.getType());
     }
 }

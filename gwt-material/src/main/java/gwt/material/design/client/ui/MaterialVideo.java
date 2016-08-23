@@ -43,7 +43,7 @@ import com.google.gwt.user.client.ui.Frame;
 * @author Ben Dol
 */
 //@formatter:on
-public class MaterialVideo extends MaterialWidget implements HasGrid{
+public class MaterialVideo extends MaterialWidget {
 
     private Frame frame =  new Frame();
 

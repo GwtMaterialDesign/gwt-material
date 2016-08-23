@@ -58,7 +58,7 @@ import gwt.material.design.client.constants.CheckBoxType;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/!#forms">CheckBox</a>
  */
-public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, HasGrid {
+public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
 
     private Object object;
     private String old;
@@ -113,15 +113,6 @@ public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, 
 
     public void setObject(Object object) {
         this.object = object;
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()){
-                handler.onClick(event);
-            }
-        }, ClickEvent.getType());
     }
 
     @Override

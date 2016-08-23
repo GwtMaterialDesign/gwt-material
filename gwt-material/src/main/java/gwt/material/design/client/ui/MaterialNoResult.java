@@ -50,8 +50,7 @@ import com.google.gwt.dom.client.Style.Unit;
 * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#no-result">Material No Result</a>
 */
 //@formatter:on
-public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitle{
-
+public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitle {
 
     private MaterialIcon icon = new MaterialIcon();
     private MaterialTitle title = new MaterialTitle();

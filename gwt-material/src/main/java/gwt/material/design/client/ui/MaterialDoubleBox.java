@@ -52,5 +52,4 @@ public class MaterialDoubleBox extends MaterialNumberBox<Double> {
         }
         return number;
     }
-
 }

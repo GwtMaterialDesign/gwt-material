@@ -47,7 +47,6 @@ public class MaterialPreLoader extends MaterialWidget {
 
     private final CssNameMixin<MaterialPreLoader, LoaderSize> sizeMixin = new CssNameMixin<>(this);
 
-
     public MaterialPreLoader() {
         super(Document.get().createDivElement(), "preloader-wrapper", "active");
     }

@@ -72,7 +72,7 @@ import com.google.gwt.user.client.ui.ListBox;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material ListBox</a>
  */
 //@formatter:on
-public class MaterialListBox extends MaterialListValueBox<String> implements HasId, HasGrid, HasColors, HasPlaceholder {
+public class MaterialListBox extends MaterialListValueBox<String> {
 
     public MaterialListBox() {
     }

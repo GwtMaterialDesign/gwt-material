@@ -107,7 +107,6 @@ public enum Transition implements CssType {
     SLIDEOUTRIGHT("slideOutRight"),
     SLIDEOUTUP("slideOutUp");
 
-
     private final String cssClass;
 
     Transition(final String cssClass) {

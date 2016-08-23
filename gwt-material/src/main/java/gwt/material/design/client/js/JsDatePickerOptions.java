@@ -25,9 +25,6 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
-/**
- * Created by Mark Kevin on 6/24/2016.
- */
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class JsDatePickerOptions {
 

@@ -225,14 +225,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
       ensureDomEventHandlers();
       valueChangeHandlerInitialized = true;
     }
-    return addHandler(new ValueChangeHandler<Boolean>() {
-      @Override
-      public void onValueChange(ValueChangeEvent<Boolean> event) {
-        if(isEnabled()){
-          handler.onValueChange(event);
-        }
-      }
-    }, ValueChangeEvent.getType());
+    return addHandler(handler, ValueChangeEvent.getType());
   }
 
   @Override

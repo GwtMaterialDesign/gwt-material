@@ -44,11 +44,8 @@ import gwt.material.design.client.base.mixin.SeparatorMixin;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material Link</a>
  */
 //@formatter:on
-public class MaterialLabel extends MaterialWidget implements HasGrid, HasSeparator, HasColors, HasFontSize, HasText {
+public class MaterialLabel extends MaterialWidget implements HasFontSize, HasText {
 
-    private final ColorsMixin<MaterialLabel> colorsMixin = new ColorsMixin<>(this);
-    private final GridMixin<MaterialLabel> gridMixin = new GridMixin<>(this);
-    private final SeparatorMixin<MaterialLabel> separatorMixin = new SeparatorMixin<>(this);
     private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
 
     public MaterialLabel() {
@@ -73,46 +70,6 @@ public class MaterialLabel extends MaterialWidget implements HasGrid, HasSeparat
     @Override
     public void setFontSize(double fontSize, Unit unit) {
         fontSizeMixin.setFontSize(fontSize, unit);
-    }
-
-    @Override
-    public void setSeparator(boolean separator) {
-        separatorMixin.setSeparator(separator);
-    }
-
-    @Override
-    public boolean isSeparator() {
-        return separatorMixin.isSeparator();
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
-    }
-
-    @Override
-    public String getBackgroundColor() {
-        return colorsMixin.getBackgroundColor();
-    }
-
-    @Override
-    public void setBackgroundColor(String bgColor) {
-        colorsMixin.setBackgroundColor(bgColor);
-    }
-
-    @Override
-    public String getTextColor() {
-        return colorsMixin.getTextColor();
-    }
-
-    @Override
-    public void setTextColor(String textColor) {
-        colorsMixin.setTextColor(textColor);
     }
 
     @Override

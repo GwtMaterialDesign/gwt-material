@@ -25,7 +25,7 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
-public class Thing{
+public class Thing {
     @JsMethod
     public native boolean hasOwnProperty(String property);
 

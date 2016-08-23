@@ -76,9 +76,7 @@ import java.util.List;
  */
 //@formatter:on
 public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
-        HasValue<T>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasKeyUpHandlers,
-        HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
-        HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
+        HasValue<T>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon, HasError, HasInputType,
         HasPlaceholder, HasCounter, HasEditorErrors<T>, HasErrorHandler, HasValidators<T>, HasBlankValidator {
 
     private String placeholder;

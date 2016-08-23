@@ -44,7 +44,7 @@ import gwt.material.design.client.js.JsMaterialElement;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
  */
 //@formatter:on
-public class MaterialCollectionItem extends MaterialWidget implements HasClickHandlers, HasDismissable, HasAvatar {
+public class MaterialCollectionItem extends MaterialWidget implements HasDismissable, HasAvatar {
 
     private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
     private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
@@ -123,14 +123,5 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
     @Override
     public boolean isAvatar() {
         return avatarMixin.isOn();
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onClick(event);
-            }
-        }, ClickEvent.getType());
     }
 }

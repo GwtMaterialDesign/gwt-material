@@ -27,7 +27,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.MaterialWidget;
 
-public class Label extends MaterialWidget implements HasClickHandlers {
+public class Label extends MaterialWidget {
 
     public Label() {
         super(DOM.createLabel());
@@ -44,10 +44,5 @@ public class Label extends MaterialWidget implements HasClickHandlers {
 
     public void setText(String text) {
         getElement().setInnerText(text);
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
-        return addDomHandler(handler, ClickEvent.getType());
     }
 }

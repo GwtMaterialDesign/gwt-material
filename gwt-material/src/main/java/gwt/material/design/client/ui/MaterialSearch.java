@@ -249,9 +249,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         return addHandler(new CloseHandler<String>() {
             @Override
             public void onClose(CloseEvent<String> event) {
-                if(isEnabled()){
-                    handler.onClose(event);
-                }
+                handler.onClose(event);
             }
         }, CloseEvent.getType());
     }
@@ -306,8 +304,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     }
 
     /**
-     * Gets the tempory search objects
-     * @return
+     * Gets the tempory search objects.
      */
     public List<SearchObject> getTempSearches() {
         return tempSearches;
@@ -317,22 +314,14 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
      * This handler will be triggered when search is finish
      */
     public HandlerRegistration addSearchFinishHandler(final SearchFinishEvent.SearchFinishHandler handler) {
-        return addHandler(event -> {
-            if(isEnabled()){
-                handler.onSearchFinish(event);
-            }
-        }, SearchFinishEvent.TYPE);
+        return addHandler(handler, SearchFinishEvent.TYPE);
     }
 
     /**
      * This handler will be triggered when there's no search result
      */
     public HandlerRegistration addSearchNoResultHandler(final SearchNoResultEvent.SearchNoResultHandler handler) {
-        return addHandler(event -> {
-            if(isEnabled()){
-                handler.onSearchNoResult(event);
-            }
-        }, SearchNoResultEvent.TYPE);
+        return addHandler(handler, SearchNoResultEvent.TYPE);
     }
 
     public MaterialIcon getIconClose() {

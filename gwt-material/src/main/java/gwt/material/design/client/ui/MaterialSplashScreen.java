@@ -63,7 +63,7 @@ t.schedule(3000);
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!showcase">Material Splashscreen</a>
  */
 //@formatter:on
-public class MaterialSplashScreen extends MaterialWidget implements HasVisibility{
+public class MaterialSplashScreen extends MaterialWidget {
 
     private Div div = new Div();
     private MaterialProgress progress = new MaterialProgress();
@@ -89,5 +89,4 @@ public class MaterialSplashScreen extends MaterialWidget implements HasVisibilit
     public void hide() {
         getElement().getStyle().setDisplay(Display.NONE.getGwtDisplay());
     }
-
 }

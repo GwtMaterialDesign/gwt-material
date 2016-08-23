@@ -49,10 +49,9 @@ import gwt.material.design.client.constants.RadioButtonType;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Radio Button</a>
  * @author kevzlou7979
  */
-public class MaterialRadioButton extends RadioButton implements HasGrid, HasType<RadioButtonType> {
+public class MaterialRadioButton extends RadioButton implements HasType<RadioButtonType> {
 
     private CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> typeMixin;
-    private final GridMixin<MaterialRadioButton> gridMixin = new GridMixin<>(this);
 
     public MaterialRadioButton() {
         super("");
@@ -101,15 +100,5 @@ public class MaterialRadioButton extends RadioButton implements HasGrid, HasType
         // styles we need to override the mixin.
         typeMixin = new CssTypeMixin<>(new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
         typeMixin.setType(type);
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
     }
 }
