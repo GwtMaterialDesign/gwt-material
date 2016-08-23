@@ -76,7 +76,7 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
             || event.getType().equals(BrowserEvents.CLICK);
 
         if (BrowserEvents.CHANGE.equals(type) || enterPressed) {
-            InputElement input = parent.getFirstChild().cast();
+            InputElement input = parent.getFirstChild().getFirstChild().cast();
             Boolean isChecked = input.isChecked();
 
             /*
