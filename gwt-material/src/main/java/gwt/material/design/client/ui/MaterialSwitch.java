@@ -70,6 +70,8 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         super(Document.get().createDivElement(), "switch");
         span.setStyleName("lever");
         input.setType(InputType.CHECKBOX);
+
+        addClickHandler(event -> setValue(!getValue()));
     }
 
     /**
@@ -100,7 +102,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         // and therefore it will deal with clicks as first and setup the value
         // right before others get notified.
         addClickHandler(event -> {
-            setValue(!getValue());
             event.preventDefault();
             event.stopPropagation();
         });
