@@ -55,6 +55,7 @@ public class MaterialButtonCell extends AbstractCell<MaterialButton> {
     @SuppressWarnings("deprecation")
     @Override
     public void render(Context context, MaterialButton value, SafeHtmlBuilder sb) {
+        value.getIcon().addStyleName("material-icons");
         sb.appendHtmlConstant(DOM.toString(value.getElement()));
     }
 
