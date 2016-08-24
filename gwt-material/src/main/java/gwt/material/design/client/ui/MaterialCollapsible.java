@@ -35,7 +35,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
- * Collapsibles are accordion elements that expand when clicked on.
+ * Collapsible are accordion elements that expand when clicked on.
  * They allow you to hide content that is not immediately relevant
  * to the user.
  *

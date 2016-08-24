@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.ui.html.Header;
 
 //@formatter:off
 /**
@@ -46,9 +47,6 @@ import gwt.material.design.client.base.MaterialWidget;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Header</a>
  */
 //@formatter:on
-public class MaterialHeader extends MaterialWidget {
+public class MaterialHeader extends Header {
 
-    public MaterialHeader() {
-        super(Document.get().createElement("header"));
-    }
 }

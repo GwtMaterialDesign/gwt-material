@@ -79,7 +79,7 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
                 if(toggle) {
                     openFAB();
                     toggle = false;
-                }else{
+                } else {
                     closeFAB();
                     toggle = true;
                 }

@@ -50,7 +50,7 @@ public abstract class AttributeObserver implements HasHandlers {
     }
 
     public <H extends ObservedHandler> HandlerRegistration addObservedHandler(H handler) {
-        return widget.addHandler(handler, ObservedEvent.TYPE);
+        return addObservedHandler(handler, ObservedEvent.TYPE);
     }
 
     public <H extends ObservedHandler> HandlerRegistration addObservedHandler(H handler, GwtEvent.Type<H> type) {
@@ -76,11 +76,11 @@ public abstract class AttributeObserver implements HasHandlers {
        return new MutationObserver(func);
     }-*/;
 
-    public void observe(Element e, String attr) {
+    public void observe(String attr) {
         if(observer == null) {
             observer = getObserver(createMutationObject());
         }
-        nativeObserve(e, attr);
+        nativeObserve(widget.getElement(), attr);
     }
 
     public native void nativeObserve(Element e, String attr) /*-{

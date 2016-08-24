@@ -45,7 +45,7 @@ import com.google.gwt.user.client.ui.Frame;
 //@formatter:on
 public class MaterialVideo extends MaterialWidget {
 
-    private Frame frame =  new Frame();
+    private Frame frame = new Frame();
 
     public MaterialVideo() {
         super(Document.get().createElement("div"), "video-container");

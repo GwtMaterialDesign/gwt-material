@@ -41,7 +41,7 @@ import static gwt.material.design.client.events.PageSelectionEvent.TYPE;
  * Material Pager with page event
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code<m:MaterialPager  ui:field='pager' />}
+ * {@code <m:MaterialPager  ui:field='pager' />}
  * </pre>
  *
  * @author Guaido79
@@ -117,13 +117,10 @@ public class MaterialPager extends MaterialWidget {
     }
 
     protected void createPageNumberLinks() {
-
         for (int i = 0; i < getWidgetCount(); i++) {
             final PagerListItem widget = (PagerListItem) getWidget(i);
             if (!widget.isFixed()) {
-                Scheduler.get().scheduleDeferred(() -> {
-                    widget.removeFromParent();
-                });
+                Scheduler.get().scheduleDeferred(() -> widget.removeFromParent());
             }
         }
         int insertionIndex = 1;
@@ -136,7 +133,6 @@ public class MaterialPager extends MaterialWidget {
                     insert(liElementForPage, insertionIndex);
                 }
             });
-
         }
     }
 
@@ -197,7 +193,6 @@ public class MaterialPager extends MaterialWidget {
     }
 
     protected PagerListItem createLiElementIndicator() {
-
         PagerListItem indicatorLi = new PagerListItem(false);
         indicatorLi.setFixed(true);
         indicatorLi.add(getOrCreateIndicator());
@@ -208,20 +203,17 @@ public class MaterialPager extends MaterialWidget {
         indicator = new MaterialChip();
         indicator.getElement().getStyle().setBackgroundColor("inherit");
         addPageSelectionHandler(event -> {
-            indicator.setText(
-                    indicatorTemplate
-                            .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
-                    .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
-                    );
+            indicator.setText(indicatorTemplate
+                .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
+                .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
+            );
         });
 
         return indicator;
     }
 
-    protected MaterialLink createLinkPage(final int page) {
-        MaterialLink link = new MaterialLink(String.valueOf(page));
-
-        return link;
+    protected MaterialLink createLinkPage(int page) {
+        return new MaterialLink(String.valueOf(page));
     }
 
     protected MaterialLink createLinkLeft() {
@@ -320,7 +312,6 @@ public class MaterialPager extends MaterialWidget {
      * Page {page} of {total}
      * }</pre>
      *
-     * @param indicatorTemplate
      */
     public void setIndicatorTemplate(String indicatorTemplate) {
         this.indicatorTemplate = indicatorTemplate;

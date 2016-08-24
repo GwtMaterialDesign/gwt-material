@@ -49,6 +49,7 @@ public class MaterialPushpin {
         options.top = top;
         options.offset = offset;
         options.bottom = bottom;
+
         $(widget.getElement()).pushpin(options);
     }
 }

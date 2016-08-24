@@ -111,7 +111,8 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void setWaves(WavesType waves) {
         super.setWaves(waves);
 
-        // Waves change to inline block
+        // Waves change to inline block.
+        // We need to retain 'block' display
         setDisplay(Display.BLOCK);
     }
 

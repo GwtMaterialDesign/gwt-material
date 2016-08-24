@@ -102,7 +102,8 @@ public class MaterialDatePicker extends MaterialWidget implements HasError, HasO
 
     private final ErrorMixin<MaterialDatePicker, MaterialLabel> errorMixin;
     private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
-    private final BlankValidatorMixin<MaterialDatePicker, Date> validatorMixin = new BlankValidatorMixin<>(this, errorHandlerMixin.getErrorHandler());
+    private final BlankValidatorMixin<MaterialDatePicker, Date> validatorMixin = new BlankValidatorMixin<>(
+            this, errorHandlerMixin.getErrorHandler());
 
     private boolean initialized = false;
 

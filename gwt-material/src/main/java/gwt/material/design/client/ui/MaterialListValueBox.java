@@ -742,10 +742,8 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasPlaceh
     /**
      * Sets whether an individual list value is selected.
      *
-     * @param value
-     *            the value of the item to be selected or unselected
-     * @param selected
-     *            <code>true</code> to select the item
+     * @param value the value of the item to be selected or unselected
+     * @param selected <code>true</code> to select the item
      */
     public void setValueSelected(String value, boolean selected) {
         int idx = getIndex(value);
@@ -758,8 +756,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasPlaceh
      * Removes a value from the list box. Nothing is done if the value isn't on
      * the list box.
      *
-     * @param value
-     *            the value to be removed from the list
+     * @param value the value to be removed from the list
      */
     public void removeValue(String value) {
         int idx = getIndex(value);

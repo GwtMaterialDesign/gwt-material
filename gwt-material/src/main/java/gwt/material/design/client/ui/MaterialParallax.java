@@ -78,11 +78,7 @@ public class MaterialParallax extends MaterialWidget {
     @Override
     protected void onLoad() {
         super.onLoad();
-        initParallax();
-    }
 
-    public void initParallax() {
         $(div.getElement()).parallax();
     }
-
 }

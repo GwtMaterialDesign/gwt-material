@@ -40,9 +40,6 @@ public class MaterialCardImage extends MaterialWidget {
         super(Document.get().createDivElement(), "card-image");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void add(final Widget child) {
         if(child instanceof MaterialImage) {

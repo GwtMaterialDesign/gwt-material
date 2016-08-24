@@ -46,9 +46,4 @@ public class MaterialSection extends MaterialWidget {
     public MaterialSection() {
         super(Document.get().createElement("div"), "section");
     }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        getEnabledMixin().setEnabled(this, enabled);
-    }
 }

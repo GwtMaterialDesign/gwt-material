@@ -71,8 +71,10 @@ public class MaterialSplashScreen extends MaterialWidget {
     public MaterialSplashScreen() {
         super(Document.get().createDivElement(), "splash-screen");
         setDisplay(Display.NONE);
+
         div.setWidth("100%");
         div.getElement().getStyle().setMarginTop(15, Style.Unit.PCT);
+
         super.add(div);
         super.add(progress);
     }

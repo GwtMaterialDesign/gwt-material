@@ -36,7 +36,7 @@ import gwt.material.design.client.base.mixin.SeparatorMixin;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialLabel text="I love material design" />}
+ *{@code <m:MaterialLabel text="I love material design" />}
  * </pre>
  *
  * @author kevzlou7979

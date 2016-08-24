@@ -65,7 +65,6 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     private Div div = new Div();
 
     private MaterialLink navMenu = new MaterialLink(IconType.MENU);
-    private MaterialProgress progress = new MaterialProgress();
 
     private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
     private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
@@ -145,10 +144,5 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     @Override
     public String getActivates() {
         return activatesMixin.getActivates();
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        getEnabledMixin().setEnabled(this, enabled);
     }
 }

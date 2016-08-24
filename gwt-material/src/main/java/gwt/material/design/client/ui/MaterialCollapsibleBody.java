@@ -23,7 +23,6 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -115,9 +114,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
 
     protected void provideActiveClickHandler(final Widget child) {
         // Active click handler
-        child.addDomHandler(event -> {
-            makeActive(child);
-        }, ClickEvent.getType());
+        child.addDomHandler(event -> makeActive(child), ClickEvent.getType());
     }
 
     /**

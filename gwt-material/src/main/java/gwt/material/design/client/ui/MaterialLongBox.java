@@ -52,5 +52,4 @@ public class MaterialLongBox extends MaterialNumberBox<Long> {
         }
         return (long) Math.rint(number);
     }
-
 }

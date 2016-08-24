@@ -32,5 +32,4 @@ public class MaterialImageCell extends AbstractCell<MaterialImage> {
             MaterialImage value, SafeHtmlBuilder sb) {
          sb.appendHtmlConstant(value.getElement().getString());
     }
-
 }

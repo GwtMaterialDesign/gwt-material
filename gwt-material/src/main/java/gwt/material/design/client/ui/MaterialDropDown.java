@@ -30,6 +30,7 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
@@ -95,7 +96,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     public MaterialDropDown(String activator) {
         this();
         this.activator = activator;
-
         getElement().setId(this.activator);
     }
 
@@ -112,7 +112,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     @Override
     protected void onLoad() {
         super.onLoad();
-
         initialize();
     }
 
@@ -226,9 +225,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
                 MaterialLink link = (MaterialLink) child;
                 for(int i = 0; i < link.getWidgetCount(); i++) {
                     if(link.getWidget(i) instanceof MaterialDropDown) {
-                        link.addClickHandler(event -> {
-                            event.stopPropagation();
-                        });
+                        link.addClickHandler(event -> event.stopPropagation());
                         link.stopTouchStartEvent();
                     }
                 }
@@ -244,11 +241,12 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     protected void initialize() {
-        if(getParent() instanceof HasActivates) {
+        Widget parent = getParent();
+        if(parent instanceof HasActivates) {
             String uid = DOM.createUniqueId();
-            ((HasActivates) getParent()).setActivates(uid);
+            ((HasActivates) parent).setActivates(uid);
             setId(uid);
-            activatorElem = getParent().getElement();
+            activatorElem = parent.getElement();
         }
         else if(activatorElem == null) {
             activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
@@ -290,8 +288,8 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             @Override
             public void onSelection(SelectionEvent<Widget> event) {
                 Widget widget = event.getSelectedItem();
-                if(widget instanceof MaterialWidget) {
-                    if(((MaterialWidget) widget).isEnabled() && isEnabled()) {
+                if(widget instanceof HasEnabled) {
+                    if(((HasEnabled) widget).isEnabled() && isEnabled()) {
                         handler.onSelection(event);
                     }
                 }
