@@ -20,15 +20,18 @@ package gwt.material.design.client.base;
  * #L%
  */
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
@@ -938,6 +941,28 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             if(child instanceof HasWidgets) {
                 clearActiveClass((HasWidgets)child);
             }
+        }
+    }
+
+    /**
+     * Add an {@code AttachHandler} for attachment events.
+     * @param handler Attach event handler.
+     * @param oneTime Only execute this handler once, then detach.
+     * @return The events handler registration.
+     */
+    public HandlerRegistration addAttachHandler(final AttachEvent.Handler handler, boolean oneTime) {
+        if(!oneTime) {
+            return addAttachHandler(handler);
+        } else {
+            final HandlerRegistration[] registration = {null};
+            registration[0] = addAttachHandler(event -> {
+                handler.onAttachOrDetach(event);
+
+                if(registration[0] != null) {
+                    registration[0].removeHandler();
+                }
+            });
+            return registration[0];
         }
     }
 

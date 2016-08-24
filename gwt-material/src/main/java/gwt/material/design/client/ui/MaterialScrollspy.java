@@ -20,10 +20,9 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 /**
@@ -82,6 +81,6 @@ public class MaterialScrollspy extends UnorderedList {
     }
 
     protected void scrollSpy() {
-        $(".scrollspy").<JsMaterialElement>cast().scrollSpy();
+        $(".scrollspy").scrollSpy();
     }
 }
