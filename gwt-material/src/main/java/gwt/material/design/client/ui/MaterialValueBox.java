@@ -1,8 +1,5 @@
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-
 /*
  * #%L
  * GwtMaterial
@@ -23,6 +20,7 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
  * #L%
  */
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.EditorError;
@@ -30,7 +28,6 @@ import com.google.gwt.editor.client.HasEditorErrors;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.AutoDirectionHandler;
@@ -57,6 +54,13 @@ import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.events.*;
+import gwt.material.design.client.events.DragEndEvent;
+import gwt.material.design.client.events.DragEnterEvent;
+import gwt.material.design.client.events.DragLeaveEvent;
+import gwt.material.design.client.events.DragOverEvent;
+import gwt.material.design.client.events.DragStartEvent;
+import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.client.ui.html.Label;
 
 import java.util.List;
@@ -290,8 +294,71 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
+    public HandlerRegistration addDragStartHandler(DragStartEvent.DragStartHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDragStart(event); }
+        }, DragStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragMoveHandler(DragMoveEvent.DragMoveHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDragMove(event); }
+        }, DragMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEndHandler(DragEndEvent.DragEndHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDragEnd(event); }
+        }, DragEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropActivateHandler(DropActivateEvent.DropActivateHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDropActivate(event); }
+        }, DropActivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEnterHandler(DragEnterEvent.DragEnterHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDragEnter(event); }
+        }, DragEnterEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragLeaveHandler(DragLeaveEvent.DragLeaveHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDragLeave(event); }
+        }, DragLeaveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragOverHandler(DragOverEvent.DragOverHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDragOver(event); }
+        }, DragOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropDeactivateHandler(DropDeactivateEvent.DropDeactivateHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDropDeactivate(event); }
+        }, DropDeactivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropHandler(DropEvent.DropHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if(isEnabled()) { handler.onDrop(event); }
+        }, DropEvent.getType());
+    }
+
+    @Override
     public HandlerRegistration addKeyUpHandler(final KeyUpHandler handler) {
-        return addDomHandler(event -> {
+        return valueBoxBase.addDomHandler(event -> {
             if(isEnabled()){
                 handler.onKeyUp(event);
             }
@@ -303,69 +370,6 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         return valueBoxBase.addChangeHandler(event -> {
             if(isEnabled()){
                 handler.onChange(event);
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragEndHandler(final DragEndHandler handler) {
-        return valueBoxBase.addDragEndHandler(event -> {
-            if(isEnabled()){
-                handler.onDragEnd(event);
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragEnterHandler(final DragEnterHandler handler) {
-        return valueBoxBase.addDragEnterHandler(event -> {
-            if(isEnabled()){
-                handler.onDragEnter(event);
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragLeaveHandler(final DragLeaveHandler handler) {
-        return valueBoxBase.addDragLeaveHandler(event -> {
-            if(isEnabled()) {
-                handler.onDragLeave(event);
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragHandler(final DragHandler handler) {
-        return valueBoxBase.addDragHandler(event -> {
-            if(isEnabled()){
-                handler.onDrag(event);
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragOverHandler(final DragOverHandler handler) {
-        return valueBoxBase.addDragOverHandler(event -> {
-            if(isEnabled()){
-                handler.onDragOver(event);
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragStartHandler(final DragStartHandler handler) {
-        return valueBoxBase.addDragStartHandler(event -> {
-            if(isEnabled()){
-                handler.onDragStart(event);
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDropHandler(final DropHandler handler) {
-        return valueBoxBase.addDropHandler(event -> {
-            if(isEnabled()){
-                handler.onDrop(event);
             }
         });
     }

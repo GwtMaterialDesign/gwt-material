@@ -20,19 +20,21 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
+import gwt.material.design.client.events.*;
+import gwt.material.design.client.events.DragEndEvent;
+import gwt.material.design.client.events.DragEnterEvent;
+import gwt.material.design.client.events.DragLeaveEvent;
+import gwt.material.design.client.events.DragOverEvent;
+import gwt.material.design.client.events.DragStartEvent;
+import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 import gwt.material.design.client.base.helper.StyleHelper;
@@ -253,50 +255,64 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) { handler.onDragEnd(event); }
-        }, DragEndEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) { handler.onDragEnter(event); }
-        }, DragEnterEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragHandler(DragHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) { handler.onDrag(event); }
-        }, DragEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) { handler.onDragLeave(event); }
-        }, DragLeaveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) { handler.onDragOver(event); }
-        }, DragOverEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
-        return addDomHandler(event -> {
+    public HandlerRegistration addDragStartHandler(DragStartEvent.DragStartHandler handler) {
+        return addHandler(event -> {
             if(isEnabled()) { handler.onDragStart(event); }
         }, DragStartEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addDropHandler(DropHandler handler) {
-        return addDomHandler(event -> {
+    public HandlerRegistration addDragMoveHandler(DragMoveEvent.DragMoveHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragMove(event); }
+        }, DragMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEndHandler(DragEndEvent.DragEndHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragEnd(event); }
+        }, DragEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropActivateHandler(DropActivateEvent.DropActivateHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDropActivate(event); }
+        }, DropActivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEnterHandler(DragEnterEvent.DragEnterHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragEnter(event); }
+        }, DragEnterEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragLeaveHandler(DragLeaveEvent.DragLeaveHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragLeave(event); }
+        }, DragLeaveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragOverHandler(final DragOverEvent.DragOverHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragOver(event); }
+        }, DragOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropDeactivateHandler(DropDeactivateEvent.DropDeactivateHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDropDeactivate(event); }
+        }, DropDeactivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropHandler(DropEvent.DropHandler handler) {
+        return addHandler(event -> {
             if(isEnabled()) { handler.onDrop(event); }
         }, DropEvent.getType());
     }

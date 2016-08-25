@@ -20,8 +20,5 @@ package gwt.material.design.client.base;
  * #L%
  */
 
-import com.google.gwt.event.dom.client.*;
-
-public interface HasInteractionHandlers extends HasClickHandlers, HasDoubleClickHandlers, HasAllMouseHandlers,
-    HasAllDragAndDropHandlers, HasAllTouchHandlers, HasAllGestureHandlers, HasAllKeyHandlers {
+public interface HasAllDragAndDropHandlers extends HasDraggableHandlers, HasDroppableHandlers {
 }

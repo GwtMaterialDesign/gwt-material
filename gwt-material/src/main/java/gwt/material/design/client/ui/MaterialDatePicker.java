@@ -131,7 +131,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
 
         label.getElement().setAttribute("for", getPickerId());
 
-        this.initialized = true;
+        initialized = true;
 
         setDate(this.date);
         setDateMin(this.dateMin);
@@ -302,7 +302,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     public JsDate getDatePickerValue(Element picker) {
-        return $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
+        return $(picker).pickadate("picker").get("select", getFormat());
     }
 
     /**
