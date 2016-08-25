@@ -92,8 +92,8 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
         int i = 0;
-        for(Widget w : this){
-            if(i == tabIndex){
+        for(Widget w : this) {
+            if(i == tabIndex) {
                 if(w instanceof MaterialTabItem) {
                     ((MaterialTabItem) w).selectTab();
                     break;
@@ -103,7 +103,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         }
     }
 
-    public void setIndicatorColor(String indicatorColor){
+    public void setIndicatorColor(String indicatorColor) {
         this.indicatorColor = indicatorColor;
 
         if(indicatorColorMixin != null && indicatorColor != null) {
@@ -123,21 +123,21 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         initialize(getElement());
     }
 
-    private native void initialize(Element e) /*-{
-        $wnd.jQuery(document).ready(function(){
+    protected native void initialize(Element e) /*-{
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(e).tabs();
-            for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++){
+            for(var i = 1; i <= $wnd.jQuery(e).find('.indicator').length; i++) {
                 $wnd.jQuery(e).find('.indicator').eq(i).remove()
             }
 
         });
     }-*/;
 
-    private native Element getIndicatorElement(Element e)/*-{
+    protected native Element getIndicatorElement(Element e)/*-{
         return $wnd.jQuery(e).find(".indicator")[0];
     }-*/;
 
-    private native void selectTab(Element e, String tabId)/*-{
+    protected native void selectTab(Element e, String tabId)/*-{
         $wnd.jQuery(e).tabs("select_tab", tabId);
     }-*/;
 

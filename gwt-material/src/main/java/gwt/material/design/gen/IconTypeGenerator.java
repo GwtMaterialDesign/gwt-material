@@ -99,7 +99,7 @@ public class IconTypeGenerator {
     /*
      * Needed by the @Generated annotation 
      */
-    private static String getDateAsISO8601(){
+    private static String getDateAsISO8601() {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(tz);

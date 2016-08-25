@@ -113,7 +113,7 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
      * Try to identify the embedded range elements input field (see ui xml)
      * @return The found element or null if none found.
      */
-    private Element getRangeElement() {
+    protected Element getRangeElement() {
         if (rangeElement == null) {
             NodeList<Element> elements = this.getElement().getElementsByTagName(INPUT);
             if (elements != null && elements.getLength() > 0) {
@@ -128,7 +128,7 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
      * @param attribute The name of the attribute on the range element
      * @return The Integer vaulue read from the given attribute or null
      */
-    private Integer getIntFromRangeElement(String attribute) {
+    protected Integer getIntFromRangeElement(String attribute) {
         Element ele = getRangeElement();
         if(ele != null) {
           return ele.getPropertyInt(attribute);
@@ -139,7 +139,7 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
     /**
      * Set the given Integer value to the attribute of the range element.
      */
-    private void setIntToRangeElement(String attribute,Integer val) {
+    protected void setIntToRangeElement(String attribute,Integer val) {
         Element ele = getRangeElement();
         if(ele != null) {
             ele.setPropertyInt(attribute,val);
@@ -222,6 +222,11 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
+    }
+    
+    @Override
+    public void setHelperText(String helperText) {
+        errorMixin.setHelperText(helperText);
     }
 
     @Override

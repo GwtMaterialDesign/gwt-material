@@ -36,7 +36,7 @@ import gwt.material.design.client.base.MaterialWidget;
 public class MaterialSearchResult extends MaterialWidget {
 
     public MaterialSearchResult() {
-        super(Document.get().createDivElement(), "search-result");
+        super(Document.get().createDivElement(), "search-result", "z-depth-1");
     }
 
 }

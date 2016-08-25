@@ -38,11 +38,11 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
         this.length = length;
         Element e = uiObject.getElement();
 
-        if(uiObject instanceof MaterialValueBox){
-            e = ((MaterialValueBox<T>)uiObject).asGwtValueBoxBase().getElement();
+        if(uiObject instanceof MaterialValueBox) {
+            e = ((MaterialValueBox)uiObject).asValueBoxBase().getElement();
         }
 
-        if(e != null){
+        if(e != null) {
             e.setAttribute("length", String.valueOf(length));
             initCounter(e);
         }
@@ -57,7 +57,7 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
      * Initialize the character counter provided by the textbase elements
      * @param e - element to initialize the feature
      */
-    private native void initCounter(Element e) /*-{
+    protected native void initCounter(Element e) /*-{
         $wnd.jQuery(e).characterCounter();
     }-*/;
 }

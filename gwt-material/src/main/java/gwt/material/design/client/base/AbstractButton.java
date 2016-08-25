@@ -43,6 +43,7 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ButtonSize;

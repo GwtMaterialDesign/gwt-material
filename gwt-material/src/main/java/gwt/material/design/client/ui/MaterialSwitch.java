@@ -70,6 +70,13 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         super(Document.get().createDivElement(), "switch");
         span.setStyleName("lever");
         input.setType(InputType.CHECKBOX);
+
+        addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                setValue(!getValue());
+            }
+        });
     }
 
     /**
@@ -91,27 +98,26 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         add(label);
         add(lblError);
         lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
-        //register click handler here in order to have it at first position
+
+        if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
+            label.add(onLabel);
+        }
+
+        // register click handler here in order to have it at first position
         // and therefore it will deal with clicks as first and setup the value
         // right before others get notified.
         addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                setValue(!getValue());
                 event.preventDefault();
                 event.stopPropagation();
             }
         });
-        if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
-            label.add(onLabel);
-        }
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        getElement().setAttribute("style", "background-color:transparent !important");
-        label.getElement().setAttribute("style", "background-color:transparent !important");
         span.setEnabled(enabled);
         input.setEnabled(enabled);
     }
@@ -222,6 +228,11 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
+    }
+
+    @Override
+    public void setHelperText(String helperText) {
+        errorMixin.setHelperText(helperText);
     }
 
     @Override

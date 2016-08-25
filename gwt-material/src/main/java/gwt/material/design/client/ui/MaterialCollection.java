@@ -103,7 +103,7 @@ public class MaterialCollection extends MaterialWidget {
     /**
      * Sets the header of the collection component.
      */
-    public void setHeader(String header){
+    public void setHeader(String header) {
         span.getElement().setInnerHTML(header);
         addStyleName("with-header");
         ListItem item = new ListItem(span);

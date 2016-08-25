@@ -24,11 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.FontWeight;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
@@ -193,102 +189,102 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         insert(child, (Element) getElement(), beforeIndex, true);
     }
 
-    private IdMixin<MaterialWidget> getIdMixin() {
+    protected IdMixin<MaterialWidget> getIdMixin() {
         if(idMixin == null) { idMixin = new IdMixin<>(this); }
         return idMixin;
     }
 
-    private EnabledMixin<MaterialWidget> getEnabledMixin() {
+    protected EnabledMixin<MaterialWidget> getEnabledMixin() {
         if(enabledMixin == null) { enabledMixin = new EnabledMixin<>(this); }
         return enabledMixin;
     }
 
-    private CssNameMixin<MaterialWidget, TextAlign> getTextAlignMixin() {
+    protected CssNameMixin<MaterialWidget, TextAlign> getTextAlignMixin() {
         if(textAlignMixin == null) { textAlignMixin = new CssNameMixin<>(this); }
         return textAlignMixin;
     }
 
-    private ColorsMixin<MaterialWidget> getColorsMixin() {
+    protected ColorsMixin<MaterialWidget> getColorsMixin() {
         if(colorsMixin == null) { colorsMixin = new ColorsMixin<>(this); }
         return colorsMixin;
     }
 
-    private FocusableMixin<MaterialWidget> getFocusableMixin() {
+    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
         if(focusableMixin == null) { focusableMixin = new FocusableMixin<>(this); }
         return focusableMixin;
     }
 
-    private GridMixin<MaterialWidget> getGridMixin() {
+    protected GridMixin<MaterialWidget> getGridMixin() {
         if(gridMixin == null) { gridMixin = new GridMixin<>(this); }
         return gridMixin;
     }
 
-    private ShadowMixin<MaterialWidget> getShadowMixin() {
+    protected ShadowMixin<MaterialWidget> getShadowMixin() {
         if(shadowMixin == null) { shadowMixin = new ShadowMixin<>(this); }
         return shadowMixin;
     }
 
-    private SeparatorMixin<MaterialWidget> getSeparatorMixin() {
+    protected SeparatorMixin<MaterialWidget> getSeparatorMixin() {
         if(separatorMixin == null) { separatorMixin = new SeparatorMixin<>(this); }
         return separatorMixin;
     }
 
-    private ScrollspyMixin<MaterialWidget> getScrollspyMixin() {
+    protected ScrollspyMixin<MaterialWidget> getScrollspyMixin() {
         if(scrollspyMixin == null) { scrollspyMixin = new ScrollspyMixin<>(this); }
         return scrollspyMixin;
     }
 
-    private CssNameMixin<MaterialWidget, HideOn> getHideOnMixin() {
+    protected CssNameMixin<MaterialWidget, HideOn> getHideOnMixin() {
         if(hideOnMixin == null) { hideOnMixin = new CssNameMixin<>(this); }
         return hideOnMixin;
     }
 
-    private CssNameMixin<MaterialWidget, ShowOn> getShowOnMixin() {
+    protected CssNameMixin<MaterialWidget, ShowOn> getShowOnMixin() {
         if(showOnMixin == null) { showOnMixin = new CssNameMixin<>(this); }
         return showOnMixin;
     }
 
-    private CssNameMixin<MaterialWidget, CenterOn> getCenterOnMixin() {
+    protected CssNameMixin<MaterialWidget, CenterOn> getCenterOnMixin() {
         if(centerOnMixin == null) { centerOnMixin = new CssNameMixin<>(this); }
         return centerOnMixin;
     }
 
-    private FontSizeMixin<MaterialWidget> getFontSizeMixin() {
+    protected FontSizeMixin<MaterialWidget> getFontSizeMixin() {
         if(fontSizeMixin == null) { fontSizeMixin = new FontSizeMixin<>(this); }
         return fontSizeMixin;
     }
 
-    private ToggleStyleMixin<MaterialWidget> getCircleMixin() {
+    protected ToggleStyleMixin<MaterialWidget> getCircleMixin() {
         if(circleMixin == null) { circleMixin = new ToggleStyleMixin<>(this, "circle"); }
         return circleMixin;
     }
 
-    private ToggleStyleMixin<MaterialWidget> getHoverableMixin() {
+    protected ToggleStyleMixin<MaterialWidget> getHoverableMixin() {
         if(hoverableMixin == null) { hoverableMixin = new ToggleStyleMixin<>(this, "hoverable"); }
         return hoverableMixin;
     }
 
-    private WavesMixin<MaterialWidget> getWavesMixin() {
+    protected WavesMixin<MaterialWidget> getWavesMixin() {
         if(wavesMixin == null) { wavesMixin = new WavesMixin<>(this); }
         return wavesMixin;
     }
 
-    private CssNameMixin<MaterialWidget, Float> getFloatMixin() {
+    protected CssNameMixin<MaterialWidget, Float> getFloatMixin() {
         if(floatMixin == null) { floatMixin = new CssNameMixin<>(this); }
         return floatMixin;
     }
 
-    private TooltipMixin<MaterialWidget> getTooltipMixin() {
+    protected TooltipMixin<MaterialWidget> getTooltipMixin() {
         if(tooltipMixin == null) { tooltipMixin = new TooltipMixin<>(this); }
         return tooltipMixin;
     }
 
-    private FlexboxMixin<MaterialWidget> getFlexboxMixin() {
+    protected FlexboxMixin<MaterialWidget> getFlexboxMixin() {
         if(flexboxMixin == null) { flexboxMixin = new FlexboxMixin<>(this); }
         return flexboxMixin;
     }
 
-    private CssNameMixin<MaterialWidget, FontWeight> getFontWeightMixin() {
+    protected CssNameMixin<MaterialWidget, FontWeight> getFontWeightMixin() {
         if(fontWeightMixin == null) { fontWeightMixin = new CssNameMixin<>(this); }
         return fontWeightMixin;
     }
@@ -713,17 +709,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     /** If true the label inside this component will be truncated by ellipsis **/
-    public void setTruncate(boolean truncate){
+    public void setTruncate(boolean truncate) {
         getTruncateMixin().setOn(truncate);
     }
 
-    public void stopTouchStartEvent(){
+    public void stopTouchStartEvent() {
         stopTouchStartEvent(getElement());
     }
 
     // Avoid touch events on mobile devices
-    private native void stopTouchStartEvent(Element e) /*-{
-        $wnd.jQuery(e).bind('touchstart', function(event){
+    protected native void stopTouchStartEvent(Element e) /*-{
+        $wnd.jQuery(e).bind('touchstart', function(event) {
             event.stopPropagation();
         });
     }-*/;
@@ -732,7 +728,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getWidth(getElement());
     }
 
-    private native int getWidth(Element element) /*-{
+    protected native int getWidth(Element element) /*-{
         return $wnd.jQuery(element).outerWidth();
     }-*/;
 

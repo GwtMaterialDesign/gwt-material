@@ -31,6 +31,10 @@ abstract class AbstractMixin<T extends UIObject> {
     T uiObject;
 
     AbstractMixin(final T uiObject) {
+        setUiObject(uiObject);
+    }
+
+    public void setUiObject(T uiObject) {
         this.uiObject = uiObject;
     }
 }

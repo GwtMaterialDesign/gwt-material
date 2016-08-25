@@ -45,7 +45,7 @@ public enum InputType implements Type {
 
     private final String type;
 
-    private InputType(final String type) {
+    InputType(final String type) {
         this.type = type;
     }
 

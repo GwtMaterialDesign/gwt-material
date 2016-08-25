@@ -318,7 +318,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         return asWidget().toString();
     }
 
-    private native void configure(Element e, String tooltip, String position, int delay) /*-{
+    protected native void configure(Element e, String tooltip, String position, int delay) /*-{
         $wnd.jQuery(e).tooltip({
             tooltip: tooltip,
             position: position,
@@ -326,7 +326,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         });
     }-*/;
 
-    private native void command(final Element e, final String command) /*-{
+    protected native void command(final Element e, final String command) /*-{
         $wnd.jQuery(e).tooltip(command);
     }-*/;
 }

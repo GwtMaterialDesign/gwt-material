@@ -130,8 +130,11 @@ public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, 
     @Override
     protected void onLoad() {
         super.onLoad();
-
-        this.getElement().getStyle().setDisplay(Display.BLOCK);
+        if(isVisible()) {
+            this.getElement().getStyle().setDisplay(Display.BLOCK);
+        }else {
+            this.getElement().getStyle().setDisplay(Display.NONE);
+        }
     }
 
     public String getOld() {

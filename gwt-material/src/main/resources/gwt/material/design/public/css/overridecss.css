@@ -90,6 +90,11 @@ ul li button.btn-floating {
 .field-success-label {
 	color: #4CAF50 !important;
 }
+.field-helper-label {
+	color: #9E9E9E !important;
+	font-size: 12px;
+	opacity: 1 !important;
+}
 
 .field-success, .field-success-picker input {
 	border-bottom: 1px solid #4CAF50 !important;
@@ -841,7 +846,10 @@ footer.fixed{
 }
 .input-field input[type=search] {
 	margin-bottom: 0;
-	height: calc(4rem + 2px);
+	height: 100%;
+}
+nav .input-field {
+	height: 100%;
 }
 /** Added support for horizontal cards **/
 .horizontal .card-action a{
@@ -876,6 +884,11 @@ footer.fixed{
 	z-index: 995 !important;
 }
 
+/** Fixed the autofill bg color on chrome **/
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 100px white inset !important;
+}
+
 /** Fixed breadcrumb **/
 .breadcrumb:nth-child(2):before {
 	display: none;
@@ -883,6 +896,12 @@ footer.fixed{
 
 .breadcrumb i{
 	float: none !important;
+}
+
+.picker__close, .picker__today, .picker__clear {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .side-nav .collapsible-body li.active {

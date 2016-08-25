@@ -21,19 +21,37 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.JsDate;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.editor.client.EditorError;
+import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.error.ErrorHandler;
+import gwt.material.design.client.base.error.ErrorHandlerType;
+import gwt.material.design.client.base.error.HasErrorHandler;
+import gwt.material.design.client.base.mixin.BlankValidatorMixin;
+import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
-import gwt.material.design.client.constants.Orientation;
+import gwt.material.design.client.base.validator.HasBlankValidator;
+import gwt.material.design.client.base.validator.HasValidators;
+import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
+import gwt.material.design.client.base.validator.Validator;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
 
 import java.util.Date;
+import java.util.List;
 
 //@formatter:off
 
@@ -55,7 +73,8 @@ import java.util.Date;
  */
 //@formatter:on
 public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder,
-        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker> {
+        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasEditorErrors<Date>,
+        HasErrorHandler, HasValidators<Date>, HasBlankValidator, HasBlurHandlers, HasIcon {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -77,14 +96,18 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private MaterialLabel lblName = new MaterialLabel();
     private Element pickatizedDateInput;
     private MaterialLabel lblError = new MaterialLabel();
+    private DatePickerLanguage language;
 
     private Orientation orientation = Orientation.PORTRAIT;
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
     private final GridMixin<MaterialDatePicker> gridMixin = new GridMixin<>(this);
     private final ErrorMixin<MaterialDatePicker, MaterialLabel> errorMixin;
+    private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
+    private final BlankValidatorMixin<MaterialDatePicker, Date> validatorMixin = new BlankValidatorMixin<>(this, errorHandlerMixin.getErrorHandler());
 
     private boolean initialized = false;
+    private MaterialIcon icon = new MaterialIcon();
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), "input-field");
@@ -378,6 +401,11 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         lblName.setStyleName("green-text");
         dateInput.addStyleName("valid");
     }
+    
+    @Override
+    public void setHelperText(String helperText) {
+        errorMixin.setHelperText(helperText);
+    }
 
     @Override
     public void clearErrorOrSuccess() {
@@ -432,7 +460,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
             setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
             label.addStyleName("active");
         }
-        if (fireEvents){
+        if (fireEvents) {
             ValueChangeEvent.fire(this, value);
         }
     }
@@ -462,8 +490,180 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     @Override
+    public HandlerRegistration addBlurHandler(final BlurHandler handler) {
+        return addDomHandler(new BlurHandler() {
+            @Override
+            public void onBlur(BlurEvent event) {
+                if(isEnabled()){
+                    handler.onBlur(event);
+                }
+            }
+        }, BlurEvent.getType());
+    }
+
+    @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         dateInput.setEnabled(enabled);
+    }
+
+    @Override
+    public boolean isAllowBlank() {
+        return validatorMixin.isAllowBlank();
+    }
+
+    @Override
+    public void setAllowBlank(boolean allowBlank) {
+        validatorMixin.setAllowBlank(allowBlank);
+    }
+
+    @Override
+    public void showErrors(List<EditorError> errors) {
+        errorHandlerMixin.showErrors(errors);
+    }
+
+    @Override
+    public ErrorHandler getErrorHandler() {
+        return errorHandlerMixin.getErrorHandler();
+    }
+
+    @Override
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        errorHandlerMixin.setErrorHandler(errorHandler);
+    }
+
+    @Override
+    public ErrorHandlerType getErrorHandlerType() {
+        return errorHandlerMixin.getErrorHandlerType();
+    }
+
+    @Override
+    public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
+        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
+    }
+
+    @Override
+    public void addValidator(Validator<Date> validator) {
+        validatorMixin.addValidator(validator);
+    }
+
+    @Override
+    public boolean isValidateOnBlur() {
+        return validatorMixin.isValidateOnBlur();
+    }
+
+    @Override
+    public boolean removeValidator(Validator<Date> validator) {
+        return validatorMixin.removeValidator(validator);
+    }
+
+    @Override
+    public void reset() {
+        validatorMixin.reset();
+    }
+
+    @Override
+    public void setValidateOnBlur(boolean validateOnBlur) {
+        validatorMixin.setValidateOnBlur(validateOnBlur);
+    }
+
+    @Override
+    public void setValidators(@SuppressWarnings("unchecked") Validator<Date>... validators) {
+        validatorMixin.setValidators(validators);
+    }
+
+    @Override
+    public boolean validate() {
+        return validatorMixin.validate();
+    }
+
+    @Override
+    public boolean validate(boolean show) {
+        return validatorMixin.validate(show);
+    }
+
+    @Override
+    public HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
+        return (HandlerRegistration)validatorMixin.addValidationChangedHandler(handler);
+    }
+
+    public DatePickerLanguage getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(DatePickerLanguage language) {
+        this.language = language;
+
+        if (language.getJs() != null) {
+            ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+        }
+    }
+
+    /**
+     * Re initialize the datepicker
+     */
+    public void reinitialize() {
+        stop();
+        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+            @Override
+            public void execute() {
+
+                initDatePicker(dateInput.getElement(), selectionType.name(), format);
+            }
+        });
+    }
+
+    /**
+     * Stop the datepicker instance
+     */
+    public void stop() {
+        stop(pickatizedDateInput);
+    }
+
+    protected native void stop(Element picker) /*-{
+        picker.pickadate('picker').stop();
+    }-*/;
+
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
+
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        icon.setIconPrefix(true);
+        lblError.setPaddingLeft(44);
+        insert(icon, 0);
+    }
+
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
+
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
+
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
+
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
+
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
     }
 }

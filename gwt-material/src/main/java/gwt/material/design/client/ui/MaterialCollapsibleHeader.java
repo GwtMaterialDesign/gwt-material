@@ -50,7 +50,7 @@ public class MaterialCollapsibleHeader extends MaterialWidget implements HasAllM
      */
     public MaterialCollapsibleHeader(final Widget... widgets) {
         this();
-        for(Widget w : widgets){
+        for(Widget w : widgets) {
             add(w);
         }
     }

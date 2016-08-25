@@ -107,8 +107,8 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
         typeMixin.setType(type);
     }
 
-    private native void applyType(String type, Element element) /*-{
-        if(type === "navbar-shrink"){
+    protected native void applyType(String type, Element element) /*-{
+        if(type === "navbar-shrink") {
             $wnd.initShrink(element, 300)
         }else{
             console.log('Default type of navbar was applied');

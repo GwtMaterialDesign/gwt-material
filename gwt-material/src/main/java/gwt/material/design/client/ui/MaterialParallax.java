@@ -80,7 +80,7 @@ public class MaterialParallax extends MaterialWidget {
     }
 
     public native void initParallax()/*-{
-        $wnd.jQuery(document).ready(function(){
+        $wnd.jQuery(document).ready(function() {
           $wnd.jQuery('.parallax').parallax();
         });
     }-*/;

@@ -43,8 +43,8 @@ public class MaterialPushpin {
         apply(widget.getElement(), offset);
     }
 
-    private static native void apply(Element source, int offset) /*-{
-        $wnd.jQuery(document).ready(function(){
+    protected static native void apply(Element source, int offset) /*-{
+        $wnd.jQuery(document).ready(function() {
             $wnd.jQuery(source).pushpin({ top: offset });
         });
     }-*/;

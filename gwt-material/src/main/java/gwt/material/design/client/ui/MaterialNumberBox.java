@@ -46,30 +46,30 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
     }
 
     /**
-     * Set step attribete to input element.
+     * Set step attribute to input element.
      * @param step "any" or number like for example 1 or 2.5 or 100, etc...
      */
-    public void setStep(String step){
+    public void setStep(String step) {
         valueBoxBase.getElement().setAttribute("step", step);
     }
 
-    public String getStep(){
+    public String getStep() {
         return valueBoxBase.getElement().getAttribute("step");
     }
 
-    public void setMin(String min){
+    public void setMin(String min) {
         valueBoxBase.getElement().setAttribute("min", min);
     }
 
-    public String getMin(){
+    public String getMin() {
         return valueBoxBase.getElement().getAttribute("min");
     }
 
-    public void setMax(String max){
+    public void setMax(String max) {
         valueBoxBase.getElement().setAttribute("max", max);
     }
 
-    public String getMax(){
+    public String getMax() {
         return valueBoxBase.getElement().getAttribute("max");
     }
 
@@ -83,7 +83,7 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
      * 
      * @return the value set on the component, or NaN if none is set
      */
-    public double getValueAsNumber(){
+    public double getValueAsNumber() {
         return getValueAsNumber(valueBoxBase.getElement());
     }
     

@@ -27,13 +27,11 @@ import gwt.material.design.client.ui.html.Span;
 public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractMixin<T> implements HasLetter {
 
     private Span span = new Span();
-    private char letter = 'A';
 
     public LetterMixin(final T widget) {
         super(widget);
         span.setStyleName("letter");
     }
-
 
     @Override
     public void setLetter(String letter) {
