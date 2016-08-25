@@ -20,29 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.OptionElement;
 import gwt.material.design.client.base.HasColors;
 import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Option;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.OptionElement;
-import com.google.gwt.dom.client.SelectElement;
-import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.i18n.client.HasDirection.Direction;
-import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.ListBox;
 
 //@formatter:off
 
@@ -75,6 +58,7 @@ import com.google.gwt.user.client.ui.ListBox;
 public class MaterialListBox extends MaterialListValueBox<String> {
 
     public MaterialListBox() {
+        super();
     }
 
     public void add(Option option) {

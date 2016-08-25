@@ -204,6 +204,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
      */
     public void setActivator(String activator) {
         this.activator = activator;
+        setId(activator);
     }
 
     @Override

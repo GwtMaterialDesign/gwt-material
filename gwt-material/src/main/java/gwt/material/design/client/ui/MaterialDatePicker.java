@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.*;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.HasEditorErrors;
 import com.google.gwt.event.logical.shared.*;
@@ -41,8 +42,7 @@ import gwt.material.design.client.base.validator.HasBlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
 import gwt.material.design.client.base.validator.Validator;
-import gwt.material.design.client.constants.DatePickerLanguage;
-import gwt.material.design.client.constants.Orientation;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
@@ -71,9 +71,9 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends MaterialWidget implements HasError, HasOrientation, HasPlaceholder,
-        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>,
-        HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>, HasBlankValidator {
+public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder,
+        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasEditorErrors<Date>,
+        HasErrorHandler, HasValidators<Date>, HasBlankValidator, HasIcon {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -106,6 +106,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasError, HasO
             this, errorHandlerMixin.getErrorHandler());
 
     private boolean initialized = false;
+    private MaterialIcon icon = new MaterialIcon();
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), "input-field");
@@ -115,7 +116,6 @@ public class MaterialDatePicker extends MaterialWidget implements HasError, HasO
 
         label.add(lblName);
         add(label);
-
         add(lblError);
 
         errorMixin = new ErrorMixin<>(this, lblError, dateInput);
@@ -376,7 +376,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasError, HasO
         lblName.setStyleName("green-text");
         dateInput.addStyleName("valid");
     }
-    
+
     @Override
     public void setHelperText(String helperText) {
         errorMixin.setHelperText(helperText);
@@ -559,5 +559,48 @@ public class MaterialDatePicker extends MaterialWidget implements HasError, HasO
 
     protected void stop(Element picker) {
         $(picker).pickadate("picker").stop();
+    }
+
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
+
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        icon.setIconPrefix(true);
+        lblError.setPaddingLeft(44);
+        insert(icon, 0);
+    }
+
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
+
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
+
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
+
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
+
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
     }
 }
