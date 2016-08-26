@@ -42,7 +42,7 @@ import gwt.material.design.client.ui.html.Span;
  *
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialRange value="2" min="20" max="50" value="25"/>}
+ *{@code <m:MaterialRange value="2" min="20" max="50" value="25"/>}
  * </pre>
  *
  * @author kevzlou7979

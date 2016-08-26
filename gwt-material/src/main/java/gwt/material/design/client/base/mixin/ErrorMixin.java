@@ -34,6 +34,14 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
     private UIObject target;
     private String helperText;
 
+    public ErrorMixin(final T widget) {
+        this(widget, null);
+    }
+
+    public ErrorMixin(final T widget, final H textObject) {
+        this(widget, textObject, widget);
+    }
+
     public ErrorMixin(final T widget, final H textObject, UIObject target) {
         super(widget);
 
@@ -43,28 +51,32 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
 
     @Override
     public void setError(String error) {
-        textObject.setText(error);
-        textObject.addStyleName("field-error-label");
-        textObject.removeStyleName("field-helper-label");
-        textObject.removeStyleName("field-success-label");
+        if(textObject != null) {
+            textObject.setText(error);
+            textObject.addStyleName("field-error-label");
+            textObject.removeStyleName("field-helper-label");
+            textObject.removeStyleName("field-success-label");
+            textObject.setVisible(true);
+        }
         if(target != null) {
             target.addStyleName("field-error");
             target.removeStyleName("field-success");
         }
-        textObject.setVisible(true);
     }
 
     @Override
     public void setSuccess(String success) {
-        textObject.setText(success);
-        textObject.addStyleName("field-success-label");
-        textObject.removeStyleName("field-helper-label");
-        textObject.removeStyleName("field-error-label");
+        if(textObject != null) {
+            textObject.setText(success);
+            textObject.addStyleName("field-success-label");
+            textObject.removeStyleName("field-helper-label");
+            textObject.removeStyleName("field-error-label");
+            textObject.setVisible(true);
+        }
         if(target != null) {
             target.addStyleName("field-success");
             target.removeStyleName("field-error");
         }
-        textObject.setVisible(true);
     }
     
     @Override
@@ -75,19 +87,20 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
 
     @Override
     public void clearErrorOrSuccess() {
-        textObject.setText(helperText == null ? "" : helperText);
-        if (helperText != null){
-            textObject.addStyleName("field-helper-label");
+        if(textObject != null) {
+            textObject.setText(helperText == null ? "" : helperText);
+            if (helperText != null) {
+                textObject.addStyleName("field-helper-label");
+            } else {
+                textObject.removeStyleName("field-helper-label");
+            }
+            textObject.removeStyleName("field-error-label");
+            textObject.removeStyleName("field-success-label");
+            textObject.setVisible(helperText != null);
         }
-        else {
-            textObject.removeStyleName("field-helper-label");
-        }
-        textObject.removeStyleName("field-error-label");
-        textObject.removeStyleName("field-success-label");
-        if(target != null) {
+        if (target != null) {
             target.removeStyleName("field-error");
             target.removeStyleName("field-success");
         }
-        textObject.setVisible(helperText != null);
     }
 }

@@ -20,27 +20,19 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.text.shared.Parser;
-import com.google.gwt.text.shared.Renderer;
-import com.google.gwt.text.shared.testing.PassthroughParser;
-import com.google.gwt.text.shared.testing.PassthroughRenderer;
 import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.base.HasInputType;
-import gwt.material.design.client.base.ValueBoxBase;
 
-public class  MaterialInput extends ValueBoxBase<String> implements HasInputType {
+public class MaterialInput extends MaterialWidget implements HasInputType {
 
     private static final String MIN = "min";
     private static final String MAX = "max";
 
     public MaterialInput() {
-        this(PassthroughRenderer.instance(), PassthroughParser.instance());
-    }
-
-    public MaterialInput(Renderer<String> renderer, Parser<String> parser) {
-        super(Document.get().createElement("input"), renderer, parser);
+        super(DOM.createElement("input"));
     }
 
     @UiConstructor

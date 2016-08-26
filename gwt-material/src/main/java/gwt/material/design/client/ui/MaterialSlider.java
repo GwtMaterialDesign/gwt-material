@@ -110,13 +110,9 @@ public class MaterialSlider extends MaterialWidget {
      * Initialize the slider when the widget is attached.
      */
     protected void initialize() {
-        initialize(getElement());
-    }
-
-    protected void initialize(Element e) {
         JsSliderOptions options = new JsSliderOptions();
         options.full_width = true;
-        $(e).slider(options);
+        $(getElement()).slider(options);
     }
 
     public void pause() {

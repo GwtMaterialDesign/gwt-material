@@ -26,9 +26,6 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
-import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.HasEditorErrors;
-import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -37,15 +34,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.error.ErrorHandler;
-import gwt.material.design.client.base.error.ErrorHandlerType;
-import gwt.material.design.client.base.error.HasErrorHandler;
-import gwt.material.design.client.base.mixin.BlankValidatorMixin;
-import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.base.validator.HasValidators;
-import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
-import gwt.material.design.client.base.validator.Validator;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Option;
 
@@ -83,8 +72,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material ListBox</a>
  */
 //@formatter:on
-public class MaterialListValueBox<T> extends MaterialWidget implements HasPlaceholder, HasValueChangeHandlers<T>,
-        HasConstrainedValue<T>, HasEditorErrors<T>, HasErrorHandler, HasValidators<T> {
+public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements HasPlaceholder,
+        HasConstrainedValue<T> {
 
     private final ListBox listBox = new ListBox();
     private final Label lblName = new Label();
@@ -94,9 +83,6 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasPlaceh
     protected final List<T> values = new ArrayList<>();
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
-    private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
-    private final BlankValidatorMixin<MaterialListValueBox<T>, T> validatorMixin = new BlankValidatorMixin<>(this,
-            errorHandlerMixin.getErrorHandler());
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), "input-field");
@@ -774,75 +760,5 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasPlaceh
             // reinitialize
             initializeMaterial(listBox.getElement());
         }
-    }
-
-    @Override
-    public void showErrors(List<EditorError> errors) {
-        errorHandlerMixin.showErrors(errors);
-    }
-
-    @Override
-    public ErrorHandler getErrorHandler() {
-        return errorHandlerMixin.getErrorHandler();
-    }
-
-    @Override
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        errorHandlerMixin.setErrorHandler(errorHandler);
-    }
-
-    @Override
-    public ErrorHandlerType getErrorHandlerType() {
-        return errorHandlerMixin.getErrorHandlerType();
-    }
-
-    @Override
-    public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
-        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
-    }
-
-    @Override
-    public void addValidator(Validator<T> validator) {
-        validatorMixin.addValidator(validator);
-    }
-
-    @Override
-    public boolean isValidateOnBlur() {
-        return validatorMixin.isValidateOnBlur();
-    }
-
-    @Override
-    public boolean removeValidator(Validator<T> validator) {
-        return validatorMixin.removeValidator(validator);
-    }
-
-    @Override
-    public void reset() {
-        validatorMixin.reset();
-    }
-
-    @Override
-    public void setValidateOnBlur(boolean validateOnBlur) {
-        validatorMixin.setValidateOnBlur(validateOnBlur);
-    }
-
-    @Override
-    public void setValidators(@SuppressWarnings("unchecked") Validator<T>... validators) {
-        validatorMixin.setValidators(validators);
-    }
-
-    @Override
-    public boolean validate() {
-        return validatorMixin.validate();
-    }
-
-    @Override
-    public boolean validate(boolean show) {
-        return validatorMixin.validate(show);
-    }
-
-    @Override
-    public com.google.web.bindery.event.shared.HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
-        return validatorMixin.addValidationChangedHandler(handler);
     }
 }

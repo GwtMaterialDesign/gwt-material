@@ -23,8 +23,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.event.dom.client.*;
@@ -39,17 +38,9 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.error.*;
-import gwt.material.design.client.base.error.ErrorHandler;
-import gwt.material.design.client.base.mixin.BlankValidatorMixin;
 import gwt.material.design.client.base.mixin.CounterMixin;
-import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.base.validator.HasBlankValidator;
-import gwt.material.design.client.base.validator.HasValidators;
-import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
-import gwt.material.design.client.base.validator.Validator;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -63,12 +54,10 @@ import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.client.ui.html.Label;
 
-import java.util.List;
-
 //@formatter:off
 
 /**
- * Material Text Box is an input field that accepts any text based string from user.
+ * MaterialValueBox is an input field that accepts any text based string from user.
  * <h3>UiBinder Usage:</h3>
  * <pre>
  *{@code <m:MaterialTextBox placeholder="First Name" />}
@@ -79,9 +68,9 @@ import java.util.List;
  * @author paulux84
  */
 //@formatter:on
-public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
-        HasValue<T>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon, HasError, HasInputType,
-        HasPlaceholder, HasCounter, HasEditorErrors<T>, HasErrorHandler, HasValidators<T>, HasBlankValidator {
+public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
+        HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
+        HasInputType, HasPlaceholder, HasCounter {
 
     private String placeholder;
     private InputType type = InputType.TEXT;
@@ -92,12 +81,10 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     private MaterialLabel lblError = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
 
-    private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
-    private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
-    private final BlankValidatorMixin<MaterialValueBox<T>, T> validatorMixin = new BlankValidatorMixin<>(this,
-            errorHandlerMixin.getErrorHandler());
+    @Editor.Ignore protected ValueBoxBase<T> valueBoxBase;
 
-    @Ignore protected ValueBoxBase<T> valueBoxBase;
+    private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
+    private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
 
     private FocusableMixin<MaterialWidget> focusableMixin;
 
@@ -119,8 +106,6 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
             }
         }
     }
-
-    private final ErrorMixin<MaterialValueBox<T>, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
 
     protected MaterialValueBox() {
         super(Document.get().createDivElement(), "input-field");
@@ -234,11 +219,6 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public T getValue() {
         return valueBoxBase.getValue();
-    }
-
-    @Override
-    public void setValue(T value) {
-        setValue(value, false);
     }
 
     @Override
@@ -521,33 +501,27 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public HandlerRegistration addTouchCancelHandler(final TouchCancelHandler handler) {
         return valueBoxBase.addTouchCancelHandler(event -> {
-            if(isEnabled()){
-                handler.onTouchCancel(event);
-            }
+            if(isEnabled()) { handler.onTouchCancel(event); }
         });
     }
 
     @Override
     public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
         return valueBoxBase.addDoubleClickHandler(event -> {
-            if(isEnabled()){
-                handler.onDoubleClick(event);
-            }
+            if(isEnabled()) { handler.onDoubleClick(event); }
         });
     }
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
         return valueBoxBase.addClickHandler(event -> {
-            if(isEnabled()){
-                handler.onClick(event);
-            }
+            if(isEnabled()) { handler.onClick(event); }
         });
     }
 
     @Override
     public void setError(String error) {
-        errorMixin.setError(error);
+        super.setError(error);
 
         removeErrorModifiers();
         lblName.setStyleName("red-text");
@@ -556,7 +530,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public void setSuccess(String success) {
-        errorMixin.setSuccess(success);
+        super.setSuccess(success);
 
         removeErrorModifiers();
         lblName.setStyleName("green-text");
@@ -564,13 +538,8 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
-    public void setHelperText(String helperText) {
-        errorMixin.setHelperText(helperText);
-    }
-
-    @Override
     public void clearErrorOrSuccess() {
-        errorMixin.clearErrorOrSuccess();
+        super.clearErrorOrSuccess();
         removeErrorModifiers();
     }
 
@@ -627,14 +596,9 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         return counterMixin.getLength();
     }
 
-    @Ignore
+    @Editor.Ignore
     public ValueBoxBase<T> asValueBoxBase() {
         return valueBoxBase;
-    }
-
-    @Override
-    public void showErrors(List<EditorError> errors) {
-        errorHandlerMixin.showErrors(errors);
     }
 
     @Override
@@ -712,77 +676,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
-    public boolean isAllowBlank() {
-        return validatorMixin.isAllowBlank();
-    }
-
-    @Override
-    public void setAllowBlank(boolean allowBlank) {
-        validatorMixin.setAllowBlank(allowBlank);
-    }
-
-    @Override
-    public ErrorHandler getErrorHandler() {
-        return errorHandlerMixin.getErrorHandler();
-    }
-
-    @Override
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        errorHandlerMixin.setErrorHandler(errorHandler);
-    }
-
-    @Override
-    public ErrorHandlerType getErrorHandlerType() {
-        return errorHandlerMixin.getErrorHandlerType();
-    }
-
-    @Override
-    public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
-        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
-    }
-
-    @Override
-    public void addValidator(Validator<T> validator) {
-        validatorMixin.addValidator(validator);
-    }
-
-    @Override
-    public boolean isValidateOnBlur() {
-        return validatorMixin.isValidateOnBlur();
-    }
-
-    @Override
-    public boolean removeValidator(Validator<T> validator) {
-        return validatorMixin.removeValidator(validator);
-    }
-
-    @Override
-    public void reset() {
-        validatorMixin.reset();
-    }
-
-    @Override
-    public void setValidateOnBlur(boolean validateOnBlur) {
-        validatorMixin.setValidateOnBlur(validateOnBlur);
-    }
-
-    @Override
-    public void setValidators(@SuppressWarnings("unchecked") Validator<T>... validators) {
-        validatorMixin.setValidators(validators);
-    }
-
-    @Override
-    public boolean validate() {
-        return validatorMixin.validate();
-    }
-
-    @Override
-    public boolean validate(boolean show) {
-        return validatorMixin.validate(show);
-    }
-
-    @Override
-    public HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
-        return (HandlerRegistration)validatorMixin.addValidationChangedHandler(handler);
+    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        return errorMixin;
     }
 }
