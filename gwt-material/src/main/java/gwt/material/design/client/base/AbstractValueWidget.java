@@ -78,7 +78,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     @Override
     public void setValue(V value) {
-        setValue(value, false);
+        setValue(value, true);
     }
 
     @Override
@@ -180,7 +180,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     @Override
     public HandlerRegistration addValidationChangedHandler(ValidationChangedEvent.ValidationChangedHandler handler) {
-        return (HandlerRegistration)getValidatorMixin().addValidationChangedHandler(handler);
+        return getValidatorMixin().addValidationChangedHandler(handler);
     }
 
     public void setAllowBlank(boolean allowBlank) {
