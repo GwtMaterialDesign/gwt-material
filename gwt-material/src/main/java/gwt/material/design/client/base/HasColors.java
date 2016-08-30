@@ -26,7 +26,7 @@ public interface HasColors {
     /**
      * Sets the background color of material components, for example:<br/><br/>
      * <pre>panel.setBackgroundColor("blue");</pre><br/>
-     * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
+     * Refer to - http://gwtmaterialdesign.github.io/gwt-material-demo/#!colors for the color pallete.
      */
     void setBackgroundColor(String bgColor);
 
@@ -35,7 +35,7 @@ public interface HasColors {
     /**
      * Set the text color of material components, for example:<br/><br/>
      * <pre>panel.setTextColor("blue darken-2");</pre><br/>
-     * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
+     * Refer to - http://gwtmaterialdesign.github.io/gwt-material-demo/#!colors for the color pallete.
      */
     void setTextColor(String textColor);
 
