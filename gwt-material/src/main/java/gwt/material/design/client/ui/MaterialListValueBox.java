@@ -49,7 +49,6 @@ import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
 import gwt.material.design.client.base.validator.Validator;
 import gwt.material.design.client.ui.html.Label;
-import gwt.material.design.client.ui.html.Option;
 
 import java.util.*;
 
@@ -91,6 +90,14 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
     private boolean initialized;
 
     protected final List<T> values = new ArrayList<>();
+
+    // By default the key is generated using toString
+    private KeyFactory<T, String> keyFactory = new KeyFactory<T, String>() {
+        @Override
+        public String generateKey(T object) {
+            return object.toString();
+        }
+    };
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
@@ -234,7 +241,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
         clear();
 
         for(T value : values) {
-            addValue(value);
+            addItem(value);
         }
     }
 
@@ -259,18 +266,6 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
                 ValueChangeEvent.fireIfNotEqual(this, before, value);
             }
         }
-    }
-
-    public Option addValue(T value) {
-        if(!values.contains(value)) {
-            values.add(value);
-            Option opt = new Option(value.toString());
-            add(opt);
-            return opt;
-        } else {
-            GWT.log("Cannot add duplicate value: " + value);
-        }
-        return null;
     }
 
     public boolean isOld() {
@@ -301,8 +296,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * @param index
      *            the index at which to insert it
      */
-    public void insertItem(String item, Direction dir, String value, int index) {
-        listBox.insertItem(item, dir, value, index);
+    public void insertItem(String item, Direction dir, T value, int index) {
+        values.add(value);
+        listBox.insertItem(item, dir, keyFactory.generateKey(value), index);
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -351,8 +347,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * @param dir
      *            the item's direction
      */
-    public void addItem(String item, Direction dir) {
-        listBox.addItem(item, dir);
+    public void addItem(T item, Direction dir) {
+        values.add(item);
+        listBox.addItem(keyFactory.generateKey(item), dir);
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -369,8 +366,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * @param item
      *            the text of the item to be added
      */
-    public void addItem(String item) {
-        listBox.addItem(item);
+    public void addItem(T item) {
+        values.add(item);
+        listBox.addItem(keyFactory.generateKey(item));
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -386,8 +384,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      *            the item's value, to be submitted if it is part of a
      *            {@link FormPanel}; cannot be <code>null</code>
      */
-    public void addItem(String item, String value) {
-        listBox.addItem(item, value);
+    public void addItem(T item, String value) {
+        values.add(item);
+        listBox.addItem(keyFactory.generateKey(item), value);
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -406,8 +405,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      *            the item's value, to be submitted if it is part of a
      *            {@link FormPanel}; cannot be <code>null</code>
      */
-    public void addItem(String item, Direction dir, String value) {
-        listBox.addItem(item, dir, value);
+    public void addItem(T item, Direction dir, String value) {
+        values.add(item);
+        listBox.addItem(keyFactory.generateKey(item), dir, value);
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -426,8 +426,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * @param index
      *            the index at which to insert it
      */
-    public void insertItem(String item, int index) {
-        listBox.insertItem(item, index);
+    public void insertItem(T item, int index) {
+        values.add(item);
+        listBox.insertItem(keyFactory.generateKey(item), index);
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -449,8 +450,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * @param index
      *            the index at which to insert it
      */
-    public void insertItem(String item, Direction dir, int index) {
-        listBox.insertItem(item, dir, index);
+    public void insertItem(T item, Direction dir, int index) {
+        values.add(item);
+        listBox.insertItem(keyFactory.generateKey(item), dir, index);
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -473,8 +475,9 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * @param index
      *            the index at which to insert it
      */
-    public void insertItem(String item, String value, int index) {
-        listBox.insertItem(item, value, index);
+    public void insertItem(T item, String value, int index) {
+        values.add(item);
+        listBox.insertItem(keyFactory.generateKey(item), value, index);
         if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
@@ -635,8 +638,8 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      * @throws IndexOutOfBoundsException
      *             if the index is out of range
      */
-    public String getValue(int index) {
-        return listBox.getValue(index);
+    public T getValue(int index) {
+        return values.get(index);
     }
 
     /**
@@ -645,8 +648,12 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      *
      * @return the value for selected item, or {@code null} if none is selected
      */
-    public String getSelectedValue() {
-        return listBox.getSelectedValue();
+    public T getSelectedValue() {
+        try {
+            return values.get(getSelectedIndex());
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     /**
@@ -681,6 +688,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      *             if the index is out of range
      */
     public void removeItem(int index) {
+        values.remove(index);
         listBox.removeItem(index);
         if (initialized) {
             initializeMaterial(listBox.getElement());
@@ -732,7 +740,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
     public int getIndex(String value) {
         int count = getItemCount();
         for (int i = 0; i < count; i++) {
-            String v = getValue(i);
+            T v = getValue(i);
             if (v.equals(value)) {
                 return i;
             }
@@ -772,7 +780,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
     @Override
     public void setEnabled(boolean enabled) {
         listBox.setEnabled(enabled);
-         if (initialized) {
+        if (initialized) {
             // reinitialize
             initializeMaterial(listBox.getElement());
         }
@@ -858,5 +866,12 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
                 }
             }
         }, BlurEvent.getType());
+    }
+
+    /**
+     * Use your own key factory for value keys.
+     */
+    public void setKeyFactory(KeyFactory<T, String> keyFactory) {
+        this.keyFactory = keyFactory;
     }
 }
