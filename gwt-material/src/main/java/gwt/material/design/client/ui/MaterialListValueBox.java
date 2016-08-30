@@ -604,8 +604,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * @throws IndexOutOfBoundsException
      *             if the index is out of range
      */
-    public String getValue(int index) {
-        return listBox.getValue(index);
+    public T getValue(int index) {
+        return values.get(index);
     }
 
     /**
@@ -614,8 +614,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      *
      * @return the value for selected item, or {@code null} if none is selected
      */
-    public String getSelectedValue() {
-        return listBox.getSelectedValue();
+    public T getSelectedValue() {
+        try {
+            return values.get(getSelectedIndex());
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     /**
@@ -702,8 +706,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public int getIndex(String value) {
         int count = getItemCount();
         for (int i = 0; i < count; i++) {
-            String v = getValue(i);
-            if (v.equals(value)) {
+            if (getValue(i).equals(value)) {
                 return i;
             }
         }
