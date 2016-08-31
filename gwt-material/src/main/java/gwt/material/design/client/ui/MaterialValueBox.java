@@ -339,162 +339,126 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public HandlerRegistration addKeyUpHandler(final KeyUpHandler handler) {
         return valueBoxBase.addDomHandler(event -> {
-            if(isEnabled()){
-                handler.onKeyUp(event);
-            }
+            if(isEnabled()){ handler.onKeyUp(event); }
         }, KeyUpEvent.getType());
     }
 
     @Override
     public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
         return valueBoxBase.addChangeHandler(event -> {
-            if(isEnabled()){
-                handler.onChange(event);
-            }
+            if(isEnabled()) { handler.onChange(event); }
         });
     }
 
     @Override
     public HandlerRegistration addFocusHandler(final FocusHandler handler) {
         return valueBoxBase.addFocusHandler(event -> {
-            if(isEnabled()){
-                handler.onFocus(event);
-            }
+            if(isEnabled()) { handler.onFocus(event); }
         });
     }
 
     @Override
     public HandlerRegistration addBlurHandler(final BlurHandler handler) {
         return valueBoxBase.addBlurHandler(event -> {
-            if(isEnabled()){
-                handler.onBlur(event);
-            }
+            if(isEnabled()) { handler.onBlur(event); }
         });
     }
 
     @Override
     public HandlerRegistration addGestureStartHandler(final GestureStartHandler handler) {
         return valueBoxBase.addGestureStartHandler(event -> {
-            if(isEnabled()){
-                handler.onGestureStart(event);
-            }
+            if(isEnabled()) { handler.onGestureStart(event); }
         });
     }
 
     @Override
     public HandlerRegistration addGestureChangeHandler(final GestureChangeHandler handler) {
         return valueBoxBase.addGestureChangeHandler(event -> {
-            if(isEnabled()){
-                handler.onGestureChange(event);
-            }
+            if(isEnabled()) { handler.onGestureChange(event); }
         });
     }
 
     @Override
     public HandlerRegistration addGestureEndHandler(final GestureEndHandler handler) {
         return valueBoxBase.addGestureEndHandler(event -> {
-            if(isEnabled()){
-                handler.onGestureEnd(event);
-            }
+            if(isEnabled()) { handler.onGestureEnd(event); }
         });
     }
 
     @Override
     public HandlerRegistration addKeyDownHandler(final KeyDownHandler handler) {
         return valueBoxBase.addKeyDownHandler(event -> {
-            if(isEnabled()){
-                handler.onKeyDown(event);
-            }
+            if(isEnabled()) { handler.onKeyDown(event); }
         });
     }
 
     @Override
     public HandlerRegistration addKeyPressHandler(final KeyPressHandler handler) {
         return valueBoxBase.addKeyPressHandler(event -> {
-            if(isEnabled()){
-                handler.onKeyPress(event);
-            }
+            if(isEnabled()) { handler.onKeyPress(event); }
         });
     }
 
     @Override
     public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
         return valueBoxBase.addMouseDownHandler(event -> {
-            if(isEnabled()){
-                handler.onMouseDown(event);
-            }
+            if(isEnabled()) { handler.onMouseDown(event); }
         });
     }
 
     @Override
     public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
         return valueBoxBase.addMouseUpHandler(event -> {
-            if(isEnabled()){
-                handler.onMouseUp(event);
-            }
+            if(isEnabled()) { handler.onMouseUp(event); }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
         return valueBoxBase.addMouseOutHandler(event -> {
-            if(isEnabled()){
-                handler.onMouseOut(event);
-            }
+            if(isEnabled()) { handler.onMouseOut(event); }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
         return valueBoxBase.addMouseOverHandler(event -> {
-            if(isEnabled()){
-                handler.onMouseOver(event);
-            }
+            if(isEnabled()) { handler.onMouseOver(event); }
         });
     }
 
     @Override
     public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
         return valueBoxBase.addMouseMoveHandler(event -> {
-            if(isEnabled()){
-                handler.onMouseMove(event);
-            }
+            if(isEnabled()) { handler.onMouseMove(event); }
         });
     }
 
     @Override
     public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
         return valueBoxBase.addMouseWheelHandler(event -> {
-            if(isEnabled()){
-                handler.onMouseWheel(event);
-            }
+            if(isEnabled()) { handler.onMouseWheel(event); }
         });
     }
 
     @Override
     public HandlerRegistration addTouchStartHandler(final TouchStartHandler handler) {
         return valueBoxBase.addTouchStartHandler(event -> {
-            if(isEnabled()){
-                handler.onTouchStart(event);
-            }
+            if(isEnabled()) { handler.onTouchStart(event); }
         });
     }
 
     @Override
     public HandlerRegistration addTouchMoveHandler(final TouchMoveHandler handler) {
         return valueBoxBase.addTouchMoveHandler(event -> {
-            if(isEnabled()){
-                handler.onTouchMove(event);
-            }
+            if(isEnabled()) { handler.onTouchMove(event); }
         });
     }
 
     @Override
     public HandlerRegistration addTouchEndHandler(final TouchEndHandler handler) {
         return valueBoxBase.addTouchEndHandler(event -> {
-            if(isEnabled()){
-                handler.onTouchEnd(event);
-            }
+            if(isEnabled()) { handler.onTouchEnd(event); }
         });
     }
 

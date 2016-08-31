@@ -80,7 +80,7 @@ public class MaterialScrollspy extends UnorderedList {
         scrollSpy();
     }
 
-    protected void scrollSpy() {
+    public void scrollSpy() {
         $(".scrollspy").scrollSpy();
     }
 }

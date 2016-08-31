@@ -52,5 +52,4 @@ public class MaterialIntegerBox extends MaterialNumberBox<Integer> {
         }
         return (int) Math.rint(number);
     }
-
 }

@@ -56,10 +56,10 @@ public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.Vali
          *
          * @param event the event
          */
-        public void onValidationChanged(ValidationChangedEvent event);
+        void onValidationChanged(ValidationChangedEvent event);
     }
 
-    protected static final Type<ValidationChangedHandler> TYPE = new Type<ValidationChangedHandler>();
+    protected static final Type<ValidationChangedHandler> TYPE = new Type<>();
 
     /**
      * Fire the event.
@@ -68,8 +68,7 @@ public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.Vali
      * @param valid the valid
      */
     public static void fire(HasHandlers source, boolean valid) {
-        ValidationChangedEvent eventInstance = new ValidationChangedEvent(valid);
-        source.fireEvent(eventInstance);
+        source.fireEvent(new ValidationChangedEvent(valid));
     }
 
     /**

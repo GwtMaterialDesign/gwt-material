@@ -26,9 +26,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.MaterialWidget;
 
-/**
- * Created by Mark Kevin on 12/2/2015.
- */
 public class ColorHelper {
 
     public static String setupComputedBackgroundColor(String color) {

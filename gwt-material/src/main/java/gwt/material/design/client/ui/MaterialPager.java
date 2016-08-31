@@ -120,7 +120,7 @@ public class MaterialPager extends MaterialWidget {
         for (int i = 0; i < getWidgetCount(); i++) {
             final PagerListItem widget = (PagerListItem) getWidget(i);
             if (!widget.isFixed()) {
-                Scheduler.get().scheduleDeferred(() -> widget.removeFromParent());
+                Scheduler.get().scheduleDeferred(widget::removeFromParent);
             }
         }
         int insertionIndex = 1;
@@ -208,7 +208,6 @@ public class MaterialPager extends MaterialWidget {
                 .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
             );
         });
-
         return indicator;
     }
 
@@ -311,7 +310,6 @@ public class MaterialPager extends MaterialWidget {
      *{@code
      * Page {page} of {total}
      * }</pre>
-     *
      */
     public void setIndicatorTemplate(String indicatorTemplate) {
         this.indicatorTemplate = indicatorTemplate;

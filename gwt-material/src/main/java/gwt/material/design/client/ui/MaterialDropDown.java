@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
@@ -226,7 +227,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
                 MaterialLink link = (MaterialLink) child;
                 for(int i = 0; i < link.getWidgetCount(); i++) {
                     if(link.getWidget(i) instanceof MaterialDropDown) {
-                        link.addClickHandler(event -> event.stopPropagation());
+                        link.addClickHandler(DomEvent::stopPropagation);
                         link.stopTouchStartEvent();
                     }
                 }

@@ -52,8 +52,7 @@ public class MaterialTabItem extends ListItem {
         try {
             parent = (MaterialTab)getParent();
         } catch (ClassCastException ex) {
-            throw new ClassCastException(
-                "MaterialTabItem must be within a MaterialTab widget.");
+            throw new ClassCastException("MaterialTabItem must be within a MaterialTab widget.");
         }
     }
 

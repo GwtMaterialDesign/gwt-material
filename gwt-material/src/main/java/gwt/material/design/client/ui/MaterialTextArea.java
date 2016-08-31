@@ -81,12 +81,9 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     public void triggerAutoResize() {
         if(!valueBoxBase.isAttached()) {
             if (attachHandler == null) {
-                attachHandler = valueBoxBase.addAttachHandler(new Handler() {
-                    @Override
-                    public void onAttachOrDetach(AttachEvent event) {
-                        if(event.isAttached()) {
-                            triggerAutoResize(valueBoxBase.getElement());
-                        }
+                attachHandler = valueBoxBase.addAttachHandler(event -> {
+                    if(event.isAttached()) {
+                        triggerAutoResize(valueBoxBase.getElement());
                     }
                 });
             }
@@ -111,25 +108,25 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         removeResizeHandlers();
 
         switch(resizeRule) {
-            case AUTO:
-                resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> {
-                    triggerAutoResize();
-                }));
-                break;
-            case FOCUS:
-                resizeHandlers.add(addFocusHandler(event -> {
-                    if(originalHeight == null) {
-                        originalHeight = valueBoxBase.getElement().getClientHeight();
-                    }
-                    triggerAutoResize();
-                }));
+        case AUTO:
+            resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> {
+                triggerAutoResize();
+            }));
+            break;
+        case FOCUS:
+            resizeHandlers.add(addFocusHandler(event -> {
+                if(originalHeight == null) {
+                    originalHeight = valueBoxBase.getElement().getClientHeight();
+                }
+                triggerAutoResize();
+            }));
 
-                resizeHandlers.add(addBlurHandler(event -> {
-                    if(originalHeight != null) {
-                        valueBoxBase.setHeight(originalHeight + "px");
-                    }
-                }));
-                break;
+            resizeHandlers.add(addBlurHandler(event -> {
+                if(originalHeight != null) {
+                    valueBoxBase.setHeight(originalHeight + "px");
+                }
+            }));
+            break;
         }
     }
 

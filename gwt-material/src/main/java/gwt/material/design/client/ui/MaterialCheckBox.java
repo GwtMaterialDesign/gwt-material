@@ -103,7 +103,6 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
 
     public MaterialCheckBox(String label, CheckBoxType type) {
         super(label);
-
         setType(type);
     }
 
@@ -118,11 +117,8 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
     @Override
     protected void onLoad() {
         super.onLoad();
-        if(isVisible()) {
-            this.getElement().getStyle().setDisplay(Display.BLOCK);
-        }else {
-            this.getElement().getStyle().setDisplay(Display.NONE);
-        }
+
+        getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
     }
 
     public String getOld() {

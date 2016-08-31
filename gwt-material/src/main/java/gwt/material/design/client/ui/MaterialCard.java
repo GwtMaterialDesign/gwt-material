@@ -22,11 +22,9 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.HasAxis;
-import gwt.material.design.client.base.HasOrientation;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.Axis;
-import gwt.material.design.client.constants.Orientation;
 
 //@formatter:off
 

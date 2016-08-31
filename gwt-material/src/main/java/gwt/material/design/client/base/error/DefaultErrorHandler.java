@@ -65,9 +65,7 @@ public class DefaultErrorHandler implements ErrorHandler {
         assert widget != null;
         this.inputWidget = widget;
         this.inputWidget.addAttachHandler(event -> {
-            if(event.isAttached()) {
-                init();
-            }
+            if(event.isAttached()) { init(); }
         });
     }
 

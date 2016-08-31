@@ -65,6 +65,6 @@ public class MaterialVideo extends MaterialWidget {
      * @param fullscreen the fullscreen to set.
      */
     public void setFullscreen(boolean fullscreen) {
-        frame.getElement().setAttribute("allowfullscreen", "true");
+        frame.getElement().setAttribute("allowfullscreen", String.valueOf(fullscreen));
     }
 }

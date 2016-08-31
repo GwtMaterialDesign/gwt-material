@@ -126,11 +126,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         super.onLoad();
 
         // Setup the expansion type
-        if (isAccordion()) {
-            getElement().setAttribute("data-collapsible", "accordion");
-        } else {
-            getElement().setAttribute("data-collapsible", "expandable");
-        }
+        getElement().setAttribute("data-collapsible", isAccordion() ? "accordion" : "expandable");
 
         // Activate preset activation index
         if(activeIndex != -1 && activeWidget == null) {

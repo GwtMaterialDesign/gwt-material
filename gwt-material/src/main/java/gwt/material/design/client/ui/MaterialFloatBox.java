@@ -51,5 +51,4 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
         }
         return Float.valueOf((float)number);
     }
-    
 }

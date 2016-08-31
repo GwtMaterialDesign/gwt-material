@@ -82,7 +82,6 @@ public class MaterialWeather extends MaterialPanel {
 
     public static native void showWeather(String location, String div, String color)/*-{
         $wnd.jQuery.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=53455a3a8a8a46135396f0272314f49d", function( data ) {
-
             var items = [];
             var location = data.sys.country + ", " + data.name;
             var icon = "http://gwt-material.appspot.com/bin/weather/" +data.weather[0].icon + ".png";

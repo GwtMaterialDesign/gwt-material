@@ -106,7 +106,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         super.onAttach();
 
         addStyleName(orientation.getCssName());
-        pickatizedDateInput = initDatePicker(dateInput.getElement(), selectionType.name(), format);
+        pickatizedDateInput = initialize(selectionType.name(), format);
         initClickHandler(pickatizedDateInput, this);
 
         label.getElement().setAttribute("for", getPickerId());
@@ -193,7 +193,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         dateInput.addStyleName("valid");
 
         // Ensure the value change event is
-        // triggered on selecting a date
+        // triggered on selecting a date.
         ValueChangeEvent.fire(this, getValue());
     }
 
@@ -205,7 +205,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         return $(pickatizedDateInput).pickadate("picker").get("id").toString();
     }
 
-    public Element initDatePicker(Element input, String typeName, String format) {
+    protected Element initialize(String typeName, String format) {
         JsDatePickerOptions options = new JsDatePickerOptions();
         options.container = "body";
         options.format = format;
@@ -221,7 +221,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
                 options.selectMonths = true;
                 break;
         }
-        return $(input).pickadate(options).asElement();
+        return $(dateInput.getElement()).pickadate(options).asElement();
     }
 
     /**
@@ -432,12 +432,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     /**
-     * Re initialize the datepicker
+     * Re initialize the datepicker.
      */
     public void reinitialize() {
         stop();
         Scheduler.get().scheduleDeferred(() -> {
-            initDatePicker(dateInput.getElement(), selectionType.name(), format);
+            initialize(selectionType.name(), format);
         });
     }
 
