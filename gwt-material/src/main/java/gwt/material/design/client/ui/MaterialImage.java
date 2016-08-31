@@ -33,6 +33,7 @@ import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.constants.ImageType;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
+
 //@formatter:off
 /**
  * Images can be styled in different ways using Material Design

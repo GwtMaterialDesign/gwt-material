@@ -18,6 +18,7 @@
  * #L%
  */
 package gwt.material.design.client.js;
+
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = false)

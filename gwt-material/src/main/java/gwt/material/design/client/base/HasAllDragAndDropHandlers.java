@@ -18,5 +18,6 @@
  * #L%
  */
 package gwt.material.design.client.base;
+
 public interface HasAllDragAndDropHandlers extends HasDraggableHandlers, HasDroppableHandlers {
 }

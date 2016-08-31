@@ -18,6 +18,7 @@
  * #L%
  */
 package gwt.material.design.client.ui;
+
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
