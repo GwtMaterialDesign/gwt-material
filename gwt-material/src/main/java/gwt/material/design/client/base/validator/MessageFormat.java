@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
 
 /**
  * A very simple message format implementation.

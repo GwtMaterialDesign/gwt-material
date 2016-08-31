@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,7 +17,7 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasActive;

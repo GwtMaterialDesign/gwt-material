@@ -127,6 +127,8 @@
                     <inceptionYear>2015</inceptionYear>
                     <organizationName>GwtMaterialDesign</organizationName>
                     <projectName>GwtMaterial</projectName>
+                    <lineLength>19</lineLength>
+                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
                     <includes>
                         <include>**/*.java</include>
                         <include>**/*.xml</include>

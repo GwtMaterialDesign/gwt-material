@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.error;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.error;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.error;
 
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.event.logical.shared.AttachEvent;

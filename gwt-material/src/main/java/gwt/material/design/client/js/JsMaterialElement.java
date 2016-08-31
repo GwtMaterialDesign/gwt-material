@@ -1,6 +1,3 @@
-
-package gwt.material.design.client.js;
-
 /*
  * #%L
  * GwtMaterial
@@ -21,6 +18,7 @@ package gwt.material.design.client.js;
  * #L%
  */
 
+package gwt.material.design.client.js;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsDate;

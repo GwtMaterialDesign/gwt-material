@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,21 +17,17 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
-
-
-import gwt.material.design.client.constants.Axis;
+package gwt.material.design.client.base;
 
 public interface HasDepth {
 
     /**
-     * Equivalent to z-index to build a layer between material componens 0 - 999
-     * @param depth
+     * Equivalent to z-index to build a layer between material components 0 - 999.
      */
     void setDepth(int depth);
 
     /**
-     * Get the z-index value 0 - 999
-     * @return
+     * Get the z-index value 0 - 999.
      */
     int getDepth();
 }

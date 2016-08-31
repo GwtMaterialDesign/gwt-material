@@ -1,23 +1,8 @@
-package gwt.material.design.client.ui;
-
-import gwt.material.design.client.base.AbstractButton;
-import gwt.material.design.client.base.HasProgress;
-import gwt.material.design.client.base.mixin.ProgressMixin;
-import gwt.material.design.client.constants.Display;
-import gwt.material.design.client.constants.ProgressType;
-import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
-
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +17,20 @@ import com.google.gwt.user.client.ui.Widget;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
+
+import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.base.HasProgress;
+import gwt.material.design.client.base.mixin.ProgressMixin;
+import gwt.material.design.client.constants.Display;
+import gwt.material.design.client.constants.ProgressType;
+import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
+
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 

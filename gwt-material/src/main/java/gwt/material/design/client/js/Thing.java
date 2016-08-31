@@ -1,5 +1,3 @@
-package gwt.material.design.client.js;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,7 +17,7 @@ package gwt.material.design.client.js;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.js;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;

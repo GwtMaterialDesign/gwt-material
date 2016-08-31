@@ -1,13 +1,8 @@
-package gwt.material.design.client.ui;
-
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.uibinder.client.UiConstructor;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +17,10 @@ import com.google.gwt.uibinder.client.UiConstructor;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
+
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.uibinder.client.UiConstructor;
 
 import gwt.material.design.client.base.NumberBox;
 import gwt.material.design.client.base.NumberBox.NumberHandler;

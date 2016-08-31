@@ -1,5 +1,3 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,7 +17,7 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasText;

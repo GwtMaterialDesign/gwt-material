@@ -1,7 +1,3 @@
-package gwt.material.design.client.base.validator;
-
-import gwt.material.design.client.base.validator.ValidationMessages.Keys;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -21,6 +17,9 @@ import gwt.material.design.client.base.validator.ValidationMessages.Keys;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
+
+import gwt.material.design.client.base.validator.ValidationMessages.Keys;
 
 /**
  * Decimal min validator. Checks to see if the decimal value is under the minimum value.

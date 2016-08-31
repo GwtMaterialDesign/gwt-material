@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +17,17 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.base;
 
 public interface HasTransition {
 
     /**
-     * Sets the In Duration of transition
-     * @param inDuration
+     * Sets the In Duration of transition.
      */
-    public void setInDuration(int inDuration);
+    void setInDuration(int inDuration);
 
     /**
-     * Sets the our duration of transition
-     * @param outDuration
+     * Sets the our duration of transition.
      */
-    public void setOutDuration(int outDuration);
-
+    void setOutDuration(int outDuration);
 }

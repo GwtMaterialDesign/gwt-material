@@ -1,4 +1,4 @@
-package gwt.material.design.client.base.mixin;/*
+/*
  * #%L
  * GwtBootstrap3
  * %%
@@ -17,6 +17,7 @@ package gwt.material.design.client.base.mixin;/*
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
 import java.util.List;
 

@@ -1,9 +1,3 @@
-package gwt.material.design.client.base.validator;
-
-import gwt.material.design.client.base.validator.ValidationMessages.Keys;
-
-import java.util.Collection;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -23,6 +17,11 @@ import java.util.Collection;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
+
+import gwt.material.design.client.base.validator.ValidationMessages.Keys;
+
+import java.util.Collection;
 
 /**
  * Validator for blank field validation.

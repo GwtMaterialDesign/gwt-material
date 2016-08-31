@@ -1,5 +1,3 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,7 +17,7 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.base;
 public interface HasInitialClasses {
 
     /**
