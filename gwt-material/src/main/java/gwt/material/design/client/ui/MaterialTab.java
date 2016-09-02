@@ -73,7 +73,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
 
         initialize();

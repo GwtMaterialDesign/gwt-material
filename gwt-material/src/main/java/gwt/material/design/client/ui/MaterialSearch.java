@@ -72,6 +72,8 @@ import java.util.List;
 //@formatter:on
 public class MaterialSearch extends MaterialValueBox<String> implements HasCloseHandlers<String>, HasActive {
 
+    private boolean initialized;
+
     private Label label = new Label();
     private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
     private MaterialIcon iconClose = new MaterialIcon(IconType.CLOSE);
@@ -116,114 +118,118 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
 
-        // populate the lists of search result on search panel
-        searchResult = new MaterialSearchResult();
-        add(searchResult);
-        // add keyup event to filter the searches
-        addKeyUpHandler(new KeyUpHandler() {
-            @Override
-            public void onKeyUp(KeyUpEvent event) {
-                String keyword = getText().toLowerCase();
-                // Clear the panel and temp objects
-                searchResult.clear();
-                tempSearches.clear();
+        if(searchResult == null || !searchResult.isAttached()) {
+            // populate the lists of search result on search panel
+            searchResult = new MaterialSearchResult();
+            add(searchResult);
+        }
 
-                // Populate the search result items
-                for(final SearchObject obj : getListSearches()) {
-                    MaterialLink link = new MaterialLink();
-                    link.setIconColor("grey");
-                    link.setTextColor("black");
-                    // Generate an icon
-                    if(obj.getIcon()!=null) {
-                        link.setIconType(obj.getIcon());
-                    }
+        if(!initialized) {
+            // add keyup event to filter the searches
+            addKeyUpHandler(new KeyUpHandler() {
+                @Override
+                public void onKeyUp(KeyUpEvent event) {
+                    String keyword = getText().toLowerCase();
+                    // Clear the panel and temp objects
+                    searchResult.clear();
+                    tempSearches.clear();
 
-                    // Generate an image
-                    MaterialImage image = new MaterialImage();
-                    if(obj.getResource() != null) {
-                        image.setResource(obj.getResource());
-                        link.insert(image, 0);
-                    }
+                    // Populate the search result items
+                    for (final SearchObject obj : getListSearches()) {
+                        MaterialLink link = new MaterialLink();
+                        link.setIconColor("grey");
+                        link.setTextColor("black");
+                        // Generate an icon
+                        if (obj.getIcon() != null) {
+                            link.setIconType(obj.getIcon());
+                        }
 
-                    if(obj.getImageUrl() != null) {
-                        image.setUrl(obj.getImageUrl());
-                        link.insert(image, 0);
-                    }
+                        // Generate an image
+                        MaterialImage image = new MaterialImage();
+                        if (obj.getResource() != null) {
+                            image.setResource(obj.getResource());
+                            link.insert(image, 0);
+                        }
 
-                    if(!obj.getLink().isEmpty()) {
-                        link.setHref(obj.getLink());
-                    }
-                    link.setText(obj.getKeyword());
-                    link.addClickHandler(new ClickHandler() {
-                        @Override
-                        public void onClick(ClickEvent event) {
+                        if (obj.getImageUrl() != null) {
+                            image.setUrl(obj.getImageUrl());
+                            link.insert(image, 0);
+                        }
+
+                        if (!obj.getLink().isEmpty()) {
+                            link.setHref(obj.getLink());
+                        }
+                        link.setText(obj.getKeyword());
+                        link.addClickHandler(event1 -> {
                             setSelectedObject(obj);
                             reset(obj.getKeyword());
+                        });
+                        // If matches add to search result container and object to temp searches
+                        if (obj.getKeyword().toLowerCase().contains(keyword)) {
+                            searchResult.add(link);
+                            tempSearches.add(obj);
                         }
-                    });
-                    // If matches add to search result container and object to temp searches
-                    if (obj.getKeyword().toLowerCase().contains(keyword)){
-                        searchResult.add(link);
-                        tempSearches.add(obj);
+                    }
+
+                    // Apply selected search
+                    if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER && !tempSearches.isEmpty()) {
+                        if (getCurSel() == -1) {
+                            setSelectedObject(tempSearches.get(0));
+                            setSelectedLink((MaterialLink) searchResult.getWidget(0));
+                        } else {
+                            setSelectedObject(tempSearches.get(curSel));
+                        }
+
+                        MaterialLink selLink = getSelectedLink();
+                        if (!selLink.getHref().isEmpty()) {
+                            locateSearch(selLink.getHref());
+                        }
+                        reset(selLink.getText());
+                    }
+
+                    // Fire an event if theres no search result
+                    if (searchResult.getWidgetCount() == 0) {
+                        SearchNoResultEvent.fire(MaterialSearch.this);
+                    }
+
+                    // Selection logic using key down event to navigate the search results
+                    int totalItems = searchResult.getWidgetCount();
+                    if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN) {
+                        if (curSel >= totalItems) {
+                            setCurSel(getCurSel());
+                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel - 1));
+                        } else {
+                            setCurSel(getCurSel() + 1);
+                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
+                        }
+                    }
+
+                    // Selection logic using key up event to navigate the search results
+                    if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP) {
+                        if (curSel <= -1) {
+                            setCurSel(-1);
+                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
+                        } else {
+                            setCurSel(getCurSel() - 1);
+                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
+                        }
                     }
                 }
 
-                // Apply selected search
-                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER && !tempSearches.isEmpty()) {
-                    if(getCurSel()==-1) {
-                        setSelectedObject(tempSearches.get(0));
-                        setSelectedLink((MaterialLink) searchResult.getWidget(0));
-                    }else{
-                        setSelectedObject(tempSearches.get(curSel));
-                    }
-
-                    MaterialLink selLink = getSelectedLink();
-                    if(!selLink.getHref().isEmpty()) {
-                        locateSearch(selLink.getHref());
-                    }
-                    reset(selLink.getText());
+                // Resets the search result panel
+                private void reset(String keyword) {
+                    SearchFinishEvent.fire(MaterialSearch.this);
+                    curSel = -1;
+                    setText(keyword);
+                    searchResult.clear();
                 }
+            });
 
-                // Fire an event if theres no search result
-                if(searchResult.getWidgetCount() == 0) {
-                    SearchNoResultEvent.fire(MaterialSearch.this);
-                }
-
-                // Selection logic using key down event to navigate the search results
-                int totalItems = searchResult.getWidgetCount();
-                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN) {
-                    if(curSel >= totalItems) {
-                        setCurSel(getCurSel());
-                        applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel - 1));
-                    }else{
-                        setCurSel(getCurSel() + 1);
-                        applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
-                    }
-                }
-
-                // Selection logic using key up event to navigate the search results
-                if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP) {
-                    if(curSel <= -1) {
-                        setCurSel(-1);
-                        applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
-                    }else {
-                        setCurSel(getCurSel() - 1);
-                        applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
-                    }
-                }
-            }
-
-            // Resets the search result panel
-            private void reset(String keyword) {
-                SearchFinishEvent.fire(MaterialSearch.this);
-                curSel = -1;
-                setText(keyword);
-                searchResult.clear();
-            }
-        });
+            initialized = true;
+        }
     }
 
     @Override

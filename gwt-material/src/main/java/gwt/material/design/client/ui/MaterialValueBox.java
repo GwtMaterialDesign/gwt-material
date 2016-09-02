@@ -71,6 +71,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
         HasInputType, HasPlaceholder, HasCounter {
 
+    private boolean initialized;
+
     private String placeholder;
     private InputType type = InputType.TEXT;
 
@@ -127,15 +129,18 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
 
-        String id = DOM.createUniqueId();
-        valueBoxBase.getElement().setId(id);
-        label.getElement().setAttribute("for", id);
+        if(!initialized) {
+            String id = DOM.createUniqueId();
+            valueBoxBase.getElement().setId(id);
+            label.getElement().setAttribute("for", id);
 
-        // Make valueBoxBase the primary focus target
-        getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
+            // Make valueBoxBase the primary focus target
+            getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
+            initialized = true;
+        }
     }
 
     /**

@@ -102,7 +102,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
         onInitMaterialDesign();
     }

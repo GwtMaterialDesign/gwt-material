@@ -85,10 +85,10 @@ public class MaterialPager extends MaterialWidget {
     @Override
     protected void onLoad() {
         super.onLoad();
-        init();
+        initialize();
     }
 
-    private void init() {
+    private void initialize() {
         if (!calcInitialized) {
             calcTotalPages = total / pageSize + (((double) total % (double) pageSize) > 0 ? 1 : 0);
 
@@ -266,8 +266,8 @@ public class MaterialPager extends MaterialWidget {
         this.total = total;
         currentPage = 1;
         if (calcInitialized && needToClear) {
-            this.clear();
-            init();
+            clear();
+            initialize();
         }
     }
 

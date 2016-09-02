@@ -68,6 +68,8 @@ public class MaterialSlider extends MaterialWidget {
 
     private UnorderedList ul = new UnorderedList();
 
+    private boolean fullWidth = true;
+
     private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, "fullscreen");
 
     public MaterialSlider() {
@@ -105,12 +107,20 @@ public class MaterialSlider extends MaterialWidget {
         return fsMixin.isOn();
     }
 
+    public boolean isFullWidth() {
+        return fullWidth;
+    }
+
+    public void setFullWidth(boolean fullWidth) {
+        this.fullWidth = fullWidth;
+    }
+
     /**
      * Initialize the slider when the widget is attached.
      */
     protected void initialize() {
         JsSliderOptions options = new JsSliderOptions();
-        options.full_width = true;
+        options.full_width = fullWidth;
         $(getElement()).slider(options);
     }
 

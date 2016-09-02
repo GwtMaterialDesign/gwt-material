@@ -90,10 +90,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
         if (!initialized) {
-            $(listBox.getElement()).change((e1, param1) -> {
+            $(listBox.getElement()).change((e, param) -> {
                 try {
                     ValueChangeEvent.fire(this, getValue());
                 } catch (IndexOutOfBoundsException ex) {
@@ -128,7 +128,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     @Override
     public void clear() {
+        values.clear();
         listBox.clear();
+
         if (initialized) {
             // reinitialize
             initializeMaterial();
@@ -186,7 +188,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         clear();
 
         for(T value : values) {
-            addValue(value);
+            addItem(value);
         }
     }
 
@@ -215,18 +217,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                 ValueChangeEvent.fireIfNotEqual(this, before, value);
             }
         }
-    }
-
-    public Option addValue(T value) {
-        if(!values.contains(value)) {
-            values.add(value);
-            Option opt = new Option(value.toString());
-            add(opt);
-            return opt;
-        } else {
-            GWT.log("Cannot add duplicate value: " + value);
-        }
-        return null;
     }
 
     public boolean isOld() {

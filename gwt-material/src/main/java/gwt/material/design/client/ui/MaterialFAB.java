@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -60,7 +61,10 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
 
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
+
     private boolean toggle = true;
+
+    private HandlerRegistration clickHandler;
 
     public MaterialFAB() {
         super(Document.get().createDivElement(), "fixed-action-btn");
@@ -70,7 +74,10 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     protected void onLoad() {
         super.onLoad();
         if(getType() == FABType.CLICK_ONLY) {
-            addClickHandler(clickEvent -> {
+            if(clickHandler != null) {
+                clickHandler.removeHandler();
+            }
+            clickHandler = addClickHandler(clickEvent -> {
                 if(toggle) {
                     open();
                     toggle = false;

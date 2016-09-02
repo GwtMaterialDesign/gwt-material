@@ -112,7 +112,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
 
         // Initialize the side nav
@@ -125,6 +125,13 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 }
             });
         }
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        activator = null;
     }
 
     /**

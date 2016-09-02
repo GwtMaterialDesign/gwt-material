@@ -53,6 +53,8 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
 
+    private boolean initialized;
+
     private MaterialInput input = new MaterialInput();
     private Span span = new Span();
     private Label label = new Label();
@@ -84,26 +86,31 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     protected void onLoad() {
         super.onLoad();
-        if(offLabel.getText() != null && !offLabel.getText().isEmpty()) {
-            label.add(offLabel);
-        }
-        label.add(input);
-        label.add(span);
-        add(label);
-        add(lblError);
-        lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
 
-        if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
-            label.add(onLabel);
-        }
+        if(!initialized) {
+            if (offLabel.getText() != null && !offLabel.getText().isEmpty()) {
+                label.add(offLabel);
+            }
+            label.add(input);
+            label.add(span);
+            add(label);
+            add(lblError);
+            lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
 
-        // register click handler here in order to have it at first position
-        // and therefore it will deal with clicks as first and setup the value
-        // right before others get notified.
-        addClickHandler(event -> {
-            event.preventDefault();
-            event.stopPropagation();
-        });
+            if (onLabel.getText() != null && !onLabel.getText().isEmpty()) {
+                label.add(onLabel);
+            }
+
+            // register click handler here in order to have it at first position
+            // and therefore it will deal with clicks as first and setup the value
+            // right before others get notified.
+            addClickHandler(event -> {
+                event.preventDefault();
+                event.stopPropagation();
+            });
+
+            initialized = true;
+        }
     }
 
     @Override
