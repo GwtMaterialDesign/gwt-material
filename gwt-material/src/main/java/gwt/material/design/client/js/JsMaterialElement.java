@@ -130,6 +130,9 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod
     public native JQueryElement material_select();
 
+    @JsMethod
+    public native JQueryElement material_select(String action);
+
     /**
      * Pushpin Component
      */

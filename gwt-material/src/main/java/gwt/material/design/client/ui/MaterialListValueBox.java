@@ -28,10 +28,11 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.KeyFactory;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.ui.html.Label;
-import gwt.material.design.client.ui.html.Option;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -92,17 +93,21 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     protected void onLoad() {
         super.onLoad();
-        if (!initialized) {
-            $(listBox.getElement()).change((e, param) -> {
-                try {
-                    ValueChangeEvent.fire(this, getValue());
-                } catch (IndexOutOfBoundsException ex) {
-                    GWT.log("ListBox value change handler threw an exception.", ex);
-                }
-                return true;
-            });
-            initializeMaterial();
-        }
+        $(listBox.getElement()).change((e, param) -> {
+            try {
+                ValueChangeEvent.fire(this, getValue());
+            } catch (IndexOutOfBoundsException ex) {
+                GWT.log("ListBox value change handler threw an exception.", ex);
+            }
+            return true;
+        });
+        initializeMaterial();
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+        $(listBox.getElement()).material_select("destroy");
     }
 
     @Override
