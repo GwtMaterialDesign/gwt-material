@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
@@ -91,6 +90,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     public MaterialSideNav() {
         super(Document.get().createULElement(), "side-nav");
+
+        typeMixin.setType(SideNavType.FIXED);
     }
 
     /**
@@ -117,7 +118,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         initialize();
 
         if(showOnAttach) {
-            Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
                 public void execute() {
                     if(Window.getClientWidth() > 960) {
@@ -297,7 +298,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                         }}.schedule(500);
                     break;
                 case PUSH:
-                    applyPushType(getElement(), activator, width);
+                    applyPushType(width);
                     break;
             }
         }
@@ -314,7 +315,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */
-    protected native void applyPushType(Element element, Element activator, double width) /*-{
+    protected native void applyPushType(double width) /*-{
         var that = this;
 
         $wnd.jQuery($wnd.window).off("resize");
@@ -373,25 +374,23 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void initialize(boolean strict) {
-        if(activator == null) {
+        if (activator == null) {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             if (activator != null) {
-                SideNavType type = getType();
-                processType(type);
-
-                initialize(activator, width, closeOnClick, edge.getCssName());
-
-                if(alwaysShowActivator || !isFixed()) {
+                if (alwaysShowActivator || !isFixed()) {
                     String style = activator.getAttribute("style");
                     activator.setAttribute("style", style + "; display: block !important");
                     activator.removeClassName("navmenu-permanent");
                 }
-            } else if(strict) {
+            } else if (strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
                         "please ensure you have a MaterialNavBar with an activator setup to match " +
                         "this widgets id.");
             }
         }
+
+        processType(getType());
+        initialize(activator, width, closeOnClick, edge.getCssName());
     }
 
     protected native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
