@@ -92,7 +92,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     protected void onLoad() {
         super.onLoad();
-        $(listBox.getElement()).off("change");
         $(listBox.getElement()).change((e, param) -> {
             try {
                 ValueChangeEvent.fire(this, getValue());
@@ -107,7 +106,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     protected void onUnload() {
         super.onUnload();
-
+        $(listBox.getElement()).off("change");
         $(listBox.getElement()).material_select("destroy");
     }
 
