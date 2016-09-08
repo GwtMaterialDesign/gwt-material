@@ -25,9 +25,7 @@ import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class Thing {
-    @JsMethod
-    public native boolean hasOwnProperty(String property);
 
     @JsMethod
-    public native boolean select();
+    public native boolean hasOwnProperty(String property);
 };

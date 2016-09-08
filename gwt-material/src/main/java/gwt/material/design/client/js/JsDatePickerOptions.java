@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.js;
 
+import gwt.material.design.jquery.client.api.Functions;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -38,4 +39,12 @@ public class JsDatePickerOptions {
     @JsProperty
     public String format;
 
+    @JsProperty
+    public Functions.Func open;
+
+    @JsProperty
+    public Functions.Func close;
+
+    @JsProperty
+    public Functions.Func1<Thing> set;
 }
