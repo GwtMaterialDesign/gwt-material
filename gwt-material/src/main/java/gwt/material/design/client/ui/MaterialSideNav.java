@@ -76,7 +76,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private boolean closeOnClick = false;
     private boolean alwaysShowActivator = false;
     private boolean allowBodyScroll = false;
-    private boolean showOnAttach = false;
+    private Boolean showOnAttach = null;
     private boolean open;
 
     private Element activator;
@@ -117,29 +117,31 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-            @Override
-            public void execute() {
-                if(showOnAttach) {
-                    if (Window.getClientWidth() > 960) {
-                        show();
-                    }
-                } else {
-                    show();
-                    final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
-                    openedHandler[0] = addOpenedHandler(new SideNavOpenedHandler() {
-                        @Override
-                        public void onSideNavOpened(SideNavOpenedEvent event) {
-                            hide();
-
-                            if(openedHandler[0] != null) {
-                                openedHandler[0].removeHandler();
-                            }
+        if(showOnAttach != null) {
+            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+                @Override
+                public void execute() {
+                    if (showOnAttach) {
+                        if (Window.getClientWidth() > 960) {
+                            show();
                         }
-                    });
+                    } else {
+                        show();
+                        final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
+                        openedHandler[0] = addOpenedHandler(new SideNavOpenedHandler() {
+                            @Override
+                            public void onSideNavOpened(SideNavOpenedEvent event) {
+                                hide();
+
+                                if (openedHandler[0] != null) {
+                                    openedHandler[0].removeHandler();
+                                }
+                            }
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     /**
@@ -545,7 +547,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Will the menu forcefully show on attachment.
      */
     public boolean isShowOnAttach() {
-        return showOnAttach;
+        return showOnAttach != null && showOnAttach;
     }
 
     /**
