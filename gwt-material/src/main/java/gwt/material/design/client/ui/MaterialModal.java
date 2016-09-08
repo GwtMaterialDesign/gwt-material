@@ -21,11 +21,12 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.HasTransition;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.js.JsModalOptions;
@@ -80,7 +81,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 // @formatter:on
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
-        HasDismissable, HasCloseHandlers<MaterialModal> {
+        HasDismissable, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
 
     static class ModalManager {
             private static List<MaterialModal> modals;
@@ -186,6 +187,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         };
         $(e).openModal(options);
         ModalManager.register(this);
+        OpenEvent.fire(this, this);
     }
 
     protected void onNativeClose(boolean autoClosed) {
@@ -263,7 +265,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public HandlerRegistration addCloseHandler(CloseHandler<MaterialModal> handler) {
-        return this.addHandler(handler, CloseEvent.getType());
+        return addHandler(handler, CloseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOpenHandler(OpenHandler<MaterialModal> handler) {
+        return addHandler(handler, OpenEvent.getType());
     }
 
     @Override
