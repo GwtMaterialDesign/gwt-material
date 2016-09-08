@@ -9,9 +9,9 @@ package gwt.material.design.client.ui;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -117,16 +117,29 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        if(showOnAttach) {
-            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-                @Override
-                public void execute() {
-                    if(Window.getClientWidth() > 960) {
+        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+            @Override
+            public void execute() {
+                if(showOnAttach) {
+                    if (Window.getClientWidth() > 960) {
                         show();
                     }
+                } else {
+                    show();
+                    final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
+                    openedHandler[0] = addOpenedHandler(new SideNavOpenedHandler() {
+                        @Override
+                        public void onSideNavOpened(SideNavOpenedEvent event) {
+                            hide();
+
+                            if(openedHandler[0] != null) {
+                                openedHandler[0].removeHandler();
+                            }
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
