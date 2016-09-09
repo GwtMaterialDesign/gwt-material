@@ -21,9 +21,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -39,16 +36,16 @@ import gwt.material.design.client.ui.html.Span;
 
 /**
  * Material Switch or other call it toggle - used for an alternative for checkbox
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialSwitch value="true"/>
- *<m:MaterialSwitch value="true" disabled="true"/>
+ * {@code<m:MaterialSwitch value="true"/>
+ * <m:MaterialSwitch value="true" disabled="true"/>
  * }
  * </pre>
  *
- * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
+ *@author kevzlou7979
+ *@see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
  */
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
@@ -88,18 +85,13 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         super.onLoad();
 
         if(!initialized) {
-            if (offLabel.getText() != null && !offLabel.getText().isEmpty()) {
-                label.add(offLabel);
-            }
+            label.add(offLabel);
             label.add(input);
             label.add(span);
             add(label);
             add(lblError);
             lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
-
-            if (onLabel.getText() != null && !onLabel.getText().isEmpty()) {
-                label.add(onLabel);
-            }
+            label.add(onLabel);
 
             // register click handler here in order to have it at first position
             // and therefore it will deal with clicks as first and setup the value
