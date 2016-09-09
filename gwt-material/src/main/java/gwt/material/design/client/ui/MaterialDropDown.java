@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
@@ -35,7 +34,6 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.js.JsDropdownOptions;
@@ -270,6 +268,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
 
     protected void initialize(Element activator) {
         JsDropdownOptions options = new JsDropdownOptions();
+        options.constrain_width = constrainWidth;
         options.inDuration = inDuration;
         options.outDuration = outDuration;
         options.hover = hover;
