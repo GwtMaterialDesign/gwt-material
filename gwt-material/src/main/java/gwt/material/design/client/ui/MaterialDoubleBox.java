@@ -43,6 +43,16 @@ public class MaterialDoubleBox extends MaterialNumberBox<Double> {
         setStep("any");
     }
 
+    public MaterialDoubleBox(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialDoubleBox(String placeholder, double value) {
+        this(placeholder);
+        setValue(value);
+    }
+
     @Override
     public Double getValue() {
         double number = getValueAsNumber();

@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Document;
 
 import gwt.material.design.client.base.AbstractIconButton;
 import gwt.material.design.client.constants.ButtonType;
+import gwt.material.design.client.constants.IconType;
 
 //@formatter:off
 /**
@@ -57,16 +58,37 @@ import gwt.material.design.client.constants.ButtonType;
 //@formatter:on
 public class MaterialButton extends AbstractIconButton {
 
-    public MaterialButton(ButtonType type, String text, MaterialIcon icon) {
-        super(type, text, icon);
+    public MaterialButton() {
+        super(ButtonType.RAISED);
+    }
+
+    public MaterialButton(String text) {
+        this();
+        setText(text);
+    }
+
+    public MaterialButton(String text, IconType icon) {
+        this(text);
+        setIconType(icon);
     }
 
     public MaterialButton(ButtonType type) {
         super(type);
     }
 
-    public MaterialButton() {
-        super(ButtonType.RAISED);
+    public MaterialButton(String text, IconType icon, ButtonType type) {
+        this(text, icon);
+        setType(type);
+    }
+
+    public MaterialButton(String text, ButtonType type, MaterialIcon icon) {
+        super(type, text, icon);
+    }
+
+    public MaterialButton(String text, IconType icon, ButtonType type, String bgColor, String textColor) {
+        this(text, icon, type);
+        setBackgroundColor(bgColor);
+        setTextColor(textColor);
     }
 
     @Override

@@ -43,6 +43,11 @@ public class MaterialTextBox extends MaterialValueBox<String> {
         setType(InputType.TEXT);
     }
 
+    public MaterialTextBox(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
     public void setMaxLength(int length) {
         asTextBox().setMaxLength(length);
     }

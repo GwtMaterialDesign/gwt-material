@@ -134,7 +134,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
         // Initialize collapsible after all elements
         // are attached and marked as active, etc.
-        initCollapsible(getElement(), accordion);
+        collapsible(getElement(), accordion);
     }
 
     @Override
@@ -158,11 +158,11 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     /**
      * Initialize the collapsible material component.
      */
-    protected void initCollapsible() {
-        initCollapsible(getElement(), isAccordion());
+    protected void collapsible() {
+        collapsible(getElement(), isAccordion());
     }
 
-    protected void initCollapsible(final Element e, boolean accordion) {
+    protected void collapsible(final Element e, boolean accordion) {
         $(e).collapsible(accordion);
         initialized = true;
     }
@@ -186,7 +186,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
         if(initialized) {
             // Since we have attached already reinitialize collapsible.
-            initCollapsible();
+            collapsible();
         }
     }
 
@@ -200,17 +200,40 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      */
     public void setActive(int index) {
         clearActive();
+        setActive(index, true);
+    }
+
+    /**
+     * Providing the one-based index of the
+     * {@link MaterialCollapsibleItem} to mark as active.
+     */
+    public void setActive(int index, boolean active) {
         activeIndex = index;
         if(isAttached()) {
             if(index <= getWidgetCount()) {
                 activeWidget = getWidget(index - 1);
                 if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
-                    ((MaterialCollapsibleItem) activeWidget).setActive(true);
+                    ((MaterialCollapsibleItem) activeWidget).setActive(active);
                     if(initialized) {
-                        initCollapsible();
+                        collapsible();
                     }
                 }
             }
+        }
+    }
+
+    public void open(int index) {
+        setActive(index, true);
+    }
+
+    public void close(int index) {
+        setActive(index, false);
+    }
+
+    public void closeAll() {
+        clearActive();
+        if(initialized) {
+            collapsible();
         }
     }
 

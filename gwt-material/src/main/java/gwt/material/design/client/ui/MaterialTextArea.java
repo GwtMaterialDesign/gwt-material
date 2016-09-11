@@ -60,6 +60,16 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         valueBoxBase.setStyleName("materialize-textarea");
     }
 
+    public MaterialTextArea(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialTextArea(String placeholder, int length) {
+        this(placeholder);
+        setLength(length);
+    }
+
     @Override
     public void setText(String text) {
         super.setText(text);

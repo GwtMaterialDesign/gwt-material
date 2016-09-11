@@ -43,6 +43,16 @@ public class MaterialLongBox extends MaterialNumberBox<Long> {
         setStep("1");
     }
 
+    public MaterialLongBox(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialLongBox(String placeholder, long value) {
+        this(placeholder);
+        setValue(value);
+    }
+
     @Override
     public Long getValue() {
         double number = getValueAsNumber();

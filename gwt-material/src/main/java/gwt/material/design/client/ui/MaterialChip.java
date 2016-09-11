@@ -73,6 +73,27 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         super(Document.get().createDivElement(), "chip");
     }
 
+    public MaterialChip(String text) {
+        this();
+        setText(text);
+    }
+
+    public MaterialChip(String text, IconType icon) {
+        this(text);
+        setIconType(icon);
+    }
+
+    public MaterialChip(String text, String imageUrl) {
+        this(text);
+        setUrl(imageUrl);
+    }
+
+    public MaterialChip(String text, String bgColor, String textColor) {
+        this(text);
+        setBackgroundColor(bgColor);
+        setTextColor(textColor);
+    }
+
     public void setText(String text) {
         span.setText(text);
         add(span);

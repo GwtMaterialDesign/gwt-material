@@ -64,6 +64,18 @@ public class MaterialLink extends AbstractIconButton {
         super(ButtonType.LINK, text);
     }
 
+    public MaterialLink(String text, String href) {
+        this(text);
+
+        setTargetHistoryToken(href);
+    }
+
+    public MaterialLink(String text, String href, IconType icon) {
+        this(text, href);
+
+        setIconType(icon);
+    }
+
     public MaterialLink() {
         super(ButtonType.LINK);
     }

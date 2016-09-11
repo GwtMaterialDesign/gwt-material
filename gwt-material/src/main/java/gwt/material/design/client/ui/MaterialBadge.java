@@ -49,10 +49,28 @@ public class MaterialBadge extends Span implements HasText {
     }
 
     /**
+     * @param text text of the badge
+     */
+    public MaterialBadge (String text) {
+        this();
+        setText(text);
+    }
+
+    /**
+     * @param text text of the badge
+     * @param isCircle is a circle badge
+     */
+    public MaterialBadge(String text, boolean isCircle) {
+        this();
+        setText(text);
+        setCircle(isCircle);
+    }
+
+    /**
      * Badge with text and color
-     * @param text - text of the badge
-     * @param textColor - text color of the badge
-     * @param bgColor - background color of the badge
+     * @param text text of the badge
+     * @param textColor text color of the badge
+     * @param bgColor background color of the badge
      */
     public MaterialBadge(String text, String textColor, String bgColor) {
         this();

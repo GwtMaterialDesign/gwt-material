@@ -79,8 +79,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private boolean closeOnClick = false;
     private boolean alwaysShowActivator = false;
     private boolean allowBodyScroll = false;
-    private boolean showOnAttach = false;
     private boolean open;
+    private Boolean showOnAttach;
 
     private Element activator;
 
@@ -120,10 +120,22 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        if(showOnAttach) {
+        if(showOnAttach != null) {
             Scheduler.get().scheduleDeferred(() -> {
-                if(Window.getClientWidth() > 960) {
+                if(showOnAttach) {
+                    if (Window.getClientWidth() > 960) {
+                        show();
+                    }
+                } else {
                     show();
+                    final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
+                    openedHandler[0] = addOpenedHandler((event) -> {
+                        hide();
+
+                        if(openedHandler[0] != null) {
+                            openedHandler[0].removeHandler();
+                        }
+                    });
                 }
             });
         }
@@ -324,18 +336,18 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void pushElements(boolean toggle, int width) {
-        int _width = 0;
-        int _duration = 200;
+        int w = 0;
+        int dur = 200;
         if(!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
             if(toggle) {
-                _width = width;
-                _duration = 300;
+                w = width;
+                dur = 300;
             }
-            applyTransition($("header").asElement(), _width, _duration);
-            applyTransition($("main").asElement(), _width, _duration);
-            applyTransition($("footer").asElement(), _width, _duration);
+            applyTransition($("header").asElement(), w, dur);
+            applyTransition($("main").asElement(), w, dur);
+            applyTransition($("footer").asElement(), w, dur);
         }
-        onPush(toggle, _width, _duration);
+        onPush(toggle, w, dur);
     }
 
     protected void applyTransition(Element elem, int width, int duration) {
@@ -379,8 +391,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 }
             } else if(strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                        "please ensure you have a MaterialNavBar with an activator setup to match " +
-                        "this widgets id.");
+                    "please ensure you have a MaterialNavBar with an activator setup to match " +
+                    "this widgets id.");
             }
         }
 
@@ -509,7 +521,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Will the menu forcefully show on attachment.
      */
     public boolean isShowOnAttach() {
-        return showOnAttach;
+        return showOnAttach != null && showOnAttach;
     }
 
     /**

@@ -75,6 +75,15 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     }
 
     /**
+     * Sets an icon with backgroundColor.
+     */
+    public MaterialIcon(IconType iconType, String bgColor) {
+        this();
+        setIconType(iconType);
+        setBackgroundColor(bgColor);
+    }
+
+    /**
      * Sets an icon with textColor and backgroundColor.
      */
     public MaterialIcon(IconType iconType, String textColor, String bgColor) {
