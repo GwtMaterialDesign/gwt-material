@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
@@ -53,10 +54,10 @@ public class MaterialLoader {
     static {
         div.setStyleName("valign-wrapper loader-wrapper");
         preLoader.getElement().getStyle().setProperty("margin", "auto");
-        preLoader.add(new MaterialSpinner("blue"));
-        preLoader.add(new MaterialSpinner("red"));
-        preLoader.add(new MaterialSpinner("yellow"));
-        preLoader.add(new MaterialSpinner("green"));
+        preLoader.add(new MaterialSpinner(SpinnerColor.BLUE));
+        preLoader.add(new MaterialSpinner(SpinnerColor.RED));
+        preLoader.add(new MaterialSpinner(SpinnerColor.YELLOW));
+        preLoader.add(new MaterialSpinner(SpinnerColor.GREEN));
     }
 
     /**

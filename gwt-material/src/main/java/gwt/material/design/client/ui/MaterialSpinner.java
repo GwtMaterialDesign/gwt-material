@@ -22,6 +22,8 @@ package gwt.material.design.client.ui;
 
 
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
@@ -50,6 +52,8 @@ public class MaterialSpinner extends MaterialWidget {
     private Div circle3 = new Div();
     private Div gapPatch = new Div();
 
+    private CssNameMixin<MaterialSpinner, SpinnerColor> spinnerColorMixin = new CssNameMixin<>(this);
+
     public MaterialSpinner() {
         super(Document.get().createDivElement(), "spinner-layer");
         add(circleClipperLeft);
@@ -68,12 +72,12 @@ public class MaterialSpinner extends MaterialWidget {
         circle3.setStyleName("circle");
     }
 
-    public MaterialSpinner(String color) {
+    public MaterialSpinner(SpinnerColor spinnerColor) {
         this();
-        setColor(color);
+        setColor(spinnerColor);
     }
 
-    public void setColor(String color) {
-        addStyleName("spinner-" + color);
+    public void setColor(SpinnerColor spinnerColor) {
+        spinnerColorMixin.setCssName(spinnerColor);
     }
 }
