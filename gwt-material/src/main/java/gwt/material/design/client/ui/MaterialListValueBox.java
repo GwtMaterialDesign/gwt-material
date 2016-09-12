@@ -144,6 +144,7 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
      */
     @Override
     public void clear() {
+        values.clear();
         listBox.clear();
         if (initialized) {
             // reinitialize
@@ -237,7 +238,6 @@ public class MaterialListValueBox<T> extends MaterialWidget implements HasId, Ha
 
     @Override
     public void setAcceptableValues(Collection<T> values) {
-        this.values.clear();
         clear();
 
         for(T value : values) {
