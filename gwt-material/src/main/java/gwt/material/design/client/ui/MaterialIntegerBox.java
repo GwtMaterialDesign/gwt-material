@@ -43,6 +43,16 @@ public class MaterialIntegerBox extends MaterialNumberBox<Integer> {
         setStep("1");
     }
 
+    public MaterialIntegerBox(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialIntegerBox(String placeholder, int value) {
+        this(placeholder);
+        setValue(value);
+    }
+
     @Override
     public Integer getValue() {
         double number = getValueAsNumber();

@@ -41,6 +41,16 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
     public MaterialFloatBox() {
         setStep("any");
     }
+
+    public MaterialFloatBox(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialFloatBox(String placeholder, float value) {
+        this(placeholder);
+        setValue(value);
+    }
     
     @Override
     public Float getValue() {

@@ -2033,7 +2033,7 @@ $(document).ready(function(){
                 removeMenu(true);
               }
               else {
-                menu_id.removeAttr('style');
+                //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
                 menu_id.css('width', options.menuWidth);
               }
             }
@@ -2077,7 +2077,7 @@ $(document).ready(function(){
                 complete: function() {
                   if (restoreNav === true) {
                     // Restore Fixed sidenav
-                    menu_id.removeAttr('style');
+                    //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
                     menu_id.css('width', options.menuWidth);
                   }
                   $this.trigger("side-nav-closed");
@@ -2095,7 +2095,7 @@ $(document).ready(function(){
                 complete: function() {
                   if (restoreNav === true) {
                     // Restore Fixed sidenav
-                    menu_id.removeAttr('style');
+                    //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
                     menu_id.css('width', options.menuWidth);
                   }
                   $this.trigger("side-nav-closed");
