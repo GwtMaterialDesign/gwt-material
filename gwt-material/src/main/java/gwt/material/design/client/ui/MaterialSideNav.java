@@ -9,9 +9,9 @@ package gwt.material.design.client.ui;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
  */
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
@@ -77,7 +76,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private boolean closeOnClick = false;
     private boolean alwaysShowActivator = false;
     private boolean allowBodyScroll = false;
-    private boolean showOnAttach = false;
+    private Boolean showOnAttach = null;
     private boolean open;
 
     private Element activator;
@@ -91,6 +90,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     public MaterialSideNav() {
         super(Document.get().createULElement(), "side-nav");
+
+        typeMixin.setType(SideNavType.FIXED);
     }
 
     /**
@@ -116,12 +117,27 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        if(showOnAttach) {
-            Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+        if(showOnAttach != null) {
+            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
                 public void execute() {
-                    if(Window.getClientWidth() > 960) {
+                    if (showOnAttach) {
+                        if (Window.getClientWidth() > 960) {
+                            show();
+                        }
+                    } else {
                         show();
+                        final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
+                        openedHandler[0] = addOpenedHandler(new SideNavOpenedHandler() {
+                            @Override
+                            public void onSideNavOpened(SideNavOpenedEvent event) {
+                                hide();
+
+                                if (openedHandler[0] != null) {
+                                    openedHandler[0].removeHandler();
+                                }
+                            }
+                        });
                     }
                 }
             });
@@ -297,7 +313,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                         }}.schedule(500);
                     break;
                 case PUSH:
-                    applyPushType(getElement(), activator, width);
+                    applyPushType(width);
                     break;
             }
         }
@@ -314,7 +330,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */
-    protected native void applyPushType(Element element, Element activator, double width) /*-{
+    protected native void applyPushType(double width) /*-{
         var that = this;
 
         $wnd.jQuery($wnd.window).off("resize");
@@ -373,25 +389,23 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void initialize(boolean strict) {
-        if(activator == null) {
+        if (activator == null) {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             if (activator != null) {
-                SideNavType type = getType();
-                processType(type);
-
-                initialize(activator, width, closeOnClick, edge.getCssName());
-
-                if(alwaysShowActivator || !isFixed()) {
+                if (alwaysShowActivator || !isFixed()) {
                     String style = activator.getAttribute("style");
                     activator.setAttribute("style", style + "; display: block !important");
                     activator.removeClassName("navmenu-permanent");
                 }
-            } else if(strict) {
+            } else if (strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
                         "please ensure you have a MaterialNavBar with an activator setup to match " +
                         "this widgets id.");
             }
         }
+
+        processType(getType());
+        initialize(activator, width, closeOnClick, edge.getCssName());
     }
 
     protected native void initialize(Element e, int width, boolean closeOnClick, String edge)/*-{
@@ -533,7 +547,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Will the menu forcefully show on attachment.
      */
     public boolean isShowOnAttach() {
-        return showOnAttach;
+        return showOnAttach != null && showOnAttach;
     }
 
     /**

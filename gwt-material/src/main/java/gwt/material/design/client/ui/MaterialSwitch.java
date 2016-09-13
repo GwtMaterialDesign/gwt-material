@@ -90,18 +90,13 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     protected void onLoad() {
         super.onLoad();
-        if(offLabel.getText() != null && !offLabel.getText().isEmpty()) {
-            label.add(offLabel);
-        }
+        label.add(offLabel);
         label.add(input);
         label.add(span);
         add(label);
         add(lblError);
         lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
-
-        if(onLabel.getText() != null && !onLabel.getText().isEmpty()) {
-            label.add(onLabel);
-        }
+        label.add(onLabel);
 
         // register click handler here in order to have it at first position
         // and therefore it will deal with clicks as first and setup the value
