@@ -27,18 +27,17 @@ import gwt.material.design.client.ui.html.Div;
 //@formatter:off
 
 /**
- *
  * <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.
  * <h3>Java Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
-// FOR CIRCULAR LOADER
-MaterialLoader.showLoading(true);
-// FOR PROGRESS LOADER
-MaterialLoader.showProgress(true);
-
-</pre>
+ * // FOR CIRCULAR LOADER
+ * MaterialLoader.showLoading(true);
+ * // FOR PROGRESS LOADER
+ * MaterialLoader.showProgress(true);
+ *
+ * </pre>
  * </p>
  *
  * @author kevzlou7979
@@ -67,14 +66,17 @@ public class MaterialLoader {
         showLoading(isShow, RootPanel.get());
     }
 
-    public static void showLoading(boolean isShow, Panel con) {
+    /**
+     * Show a circular loader on specific panel.
+     */
+    public static void showLoading(boolean isShow, Panel container) {
         if (isShow) {
-            if(!(con instanceof RootPanel)) {
+            if (!(container instanceof RootPanel)) {
                 div.getElement().getStyle().setProperty("position", "absolute");
             }
             div.setStyleName("valign-wrapper loader-wrapper");
             div.add(preLoader);
-            con.add(div);
+            container.add(div);
         } else {
             div.removeFromParent();
             preLoader.removeFromParent();
@@ -85,11 +87,21 @@ public class MaterialLoader {
      * Show a progress loader.
      */
     public static void showProgress(boolean isShow) {
+        showProgress(isShow, RootPanel.get());
+    }
+
+    /**
+     * Show a progress loader on specific panel
+     */
+    public static void showProgress(boolean isShow, Panel container) {
         if (isShow) {
+            if (!(container instanceof RootPanel)) {
+                div.getElement().getStyle().setProperty("position", "absolute");
+            }
             div.setStyleName("valign-wrapper  progress-wrapper");
             progress.getElement().getStyle().setProperty("margin", "auto");
             div.add(progress);
-            RootPanel.get().add(div);
+            container.add(div);
         } else {
             div.removeFromParent();
             progress.removeFromParent();
