@@ -66,16 +66,6 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         setPlaceholder(placeholder);
     }
 
-    @Override
-    public void onLoad() {
-        super.onLoad();
-    }
-
-    @Override
-    public void onUnload() {
-        super.onUnload();
-    }
-
     public MaterialTextArea(String placeholder, int length) {
         this(placeholder);
         setLength(length);
