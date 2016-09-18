@@ -222,6 +222,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     public void close(boolean autoClosed) {
         close(getElement(), autoClosed);
         ModalManager.unregister(this);
+        CloseEvent.fire(this, this);
     }
 
     protected void close(Element e, boolean autoClosed) {
