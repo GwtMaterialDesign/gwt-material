@@ -25,6 +25,7 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -43,7 +44,7 @@ public class MaterialCollapsibleHeader extends MaterialWidget {
      * Creates empty collapsible header.
      */
     public MaterialCollapsibleHeader() {
-        super(Document.get().createDivElement(), "collapsible-header");
+        super(Document.get().createDivElement(), CssName.COLLAPSIBLE_HEADER);
     }
 
     /**

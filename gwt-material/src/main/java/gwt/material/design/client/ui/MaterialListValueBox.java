@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Option;
 
@@ -83,7 +84,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     private ToggleStyleMixin<ListBox> toggleOldMixin;
 
     public MaterialListValueBox() {
-        super(Document.get().createDivElement(), "input-field");
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD);
         add(listBox);
         add(lblName);
         toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");

@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 /**
@@ -48,7 +49,7 @@ import com.google.gwt.dom.client.Document;
 public class MaterialRow extends MaterialWidget {
 
     public MaterialRow() {
-        super(Document.get().createDivElement(), "row");
+        super(Document.get().createDivElement(), CssName.ROW);
     }
 
     public MaterialRow(Element element, String... initialClass) {

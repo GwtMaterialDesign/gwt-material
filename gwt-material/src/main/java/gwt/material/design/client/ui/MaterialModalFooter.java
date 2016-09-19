@@ -20,6 +20,9 @@
 package gwt.material.design.client.ui;
 
 //@formatter:off
+
+import gwt.material.design.client.constants.CssName;
+
 /**
 * Footer container for Material Modal
 * @author kevzlou7979
@@ -29,6 +32,6 @@ package gwt.material.design.client.ui;
 public class MaterialModalFooter extends MaterialPanel {
 
     public MaterialModalFooter() {
-        super("modal-footer");
+        super(CssName.MODAL_FOOTER);
     }
 }

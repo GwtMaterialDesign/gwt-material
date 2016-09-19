@@ -26,6 +26,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -47,7 +48,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
      * Creates empty collapsible body.
      */
     public MaterialCollapsibleBody() {
-        super(Document.get().createDivElement(), "collapsible-body");
+        super(Document.get().createDivElement(), CssName.COLLAPSIBLE_BODY);
     }
 
     /**
@@ -108,7 +109,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
             item.expand();
         }
 
-        child.addStyleName("active");
+        child.addStyleName(CssName.ACTIVE);
     }
 
     protected void provideActiveClickHandler(final Widget child) {

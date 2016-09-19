@@ -30,6 +30,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
@@ -70,17 +71,17 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
      * Creates a range
      */
     public MaterialRange() {
-        super(Document.get().createElement("form"));
+        super(Document.get().createFormElement());
         getElement().setAttribute("action", "#");
         lblError.setVisible(false);
-        paragraph.setStyleName("range-field");
+        paragraph.setStyleName(CssName.RANGE_FIELD);
 
         input.setType(InputType.RANGE);
         paragraph.add(input);
 
-        thumb.getElement().setClassName("thumb");
+        thumb.getElement().setClassName(CssName.THUMB);
         Span value = new Span();
-        value.getElement().setClassName("value");
+        value.getElement().setClassName(CssName.VALUE);
         thumb.add(value);
 
         paragraph.add(thumb);

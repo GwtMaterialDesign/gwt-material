@@ -29,7 +29,7 @@ import gwt.material.design.client.base.MaterialWidget;
 public class Div extends MaterialWidget {
 
     public Div() {
-        super(Document.get().createElement("div"));
+        super(Document.get().createDivElement());
     }
 
     public Div(String... initialClass) {

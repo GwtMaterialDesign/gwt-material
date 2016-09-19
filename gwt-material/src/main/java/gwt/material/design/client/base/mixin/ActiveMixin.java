@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasActive;
+import gwt.material.design.client.constants.CssName;
 
 public class ActiveMixin<T extends UIObject & HasActive> extends AbstractMixin<T> implements HasActive {
 
@@ -34,11 +35,11 @@ public class ActiveMixin<T extends UIObject & HasActive> extends AbstractMixin<T
     public void setActive(boolean active) {
         this.active = active;
         if(active) {
-            uiObject.removeStyleName("inactive");
-            uiObject.addStyleName("active");
+            uiObject.removeStyleName(CssName.INACTIVE);
+            uiObject.addStyleName(CssName.ACTIVE);
         } else {
-            uiObject.removeStyleName("active");
-            uiObject.addStyleName("inactive");
+            uiObject.removeStyleName(CssName.ACTIVE);
+            uiObject.addStyleName(CssName.INACTIVE);
         }
     }
 

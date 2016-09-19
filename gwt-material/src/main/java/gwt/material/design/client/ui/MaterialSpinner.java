@@ -23,6 +23,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
 
@@ -55,7 +56,7 @@ public class MaterialSpinner extends MaterialWidget {
     private CssNameMixin<MaterialSpinner, SpinnerColor> spinnerColorMixin = new CssNameMixin<>(this);
 
     public MaterialSpinner() {
-        super(Document.get().createDivElement(), "spinner-layer");
+        super(Document.get().createDivElement(), CssName.SPINNER_LAYER);
         add(circleClipperLeft);
         circleClipperLeft.add(circle1);
         add(gapPatch);
@@ -63,13 +64,13 @@ public class MaterialSpinner extends MaterialWidget {
         add(circleClipperRight);
         circleClipperRight.add(circle3);
 
-        circleClipperLeft.setStyleName("circle-clipper left");
-        gapPatch.setStyleName("gap-patch");
-        circleClipperRight.setStyleName("circle-clipper right");
+        circleClipperLeft.setStyleName(CssName.CIRCLE_CLIPPER + " " +  CssName.LEFT);
+        gapPatch.setStyleName(CssName.GAP_PATCH);
+        circleClipperRight.setStyleName(CssName.CIRCLE_CLIPPER + " " +  CssName.RIGHT);
 
-        circle1.setStyleName("circle");
-        circle2.setStyleName("circle");
-        circle3.setStyleName("circle");
+        circle1.setStyleName(CssName.CIRCLE);
+        circle2.setStyleName(CssName.CIRCLE);
+        circle3.setStyleName(CssName.CIRCLE);
     }
 
     public MaterialSpinner(SpinnerColor spinnerColor) {

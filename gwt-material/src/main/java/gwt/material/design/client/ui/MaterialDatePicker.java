@@ -96,7 +96,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput);
 
     public MaterialDatePicker() {
-        super(Document.get().createDivElement(), "input-field");
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
         dateInput = new DateInput();
         add(dateInput);
@@ -181,14 +181,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     protected void onOpen() {
-        label.addStyleName("active");
+        label.addStyleName(CssName.ACTIVE);
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
     }
 
     protected void onSelect() {
-        label.addStyleName("active");
-        dateInput.addStyleName("valid");
+        label.addStyleName(CssName.ACTIVE);
+        dateInput.addStyleName(CssName.VALID);
 
         // Ensure the value change event is
         // triggered on selecting a date.
@@ -338,7 +338,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
         removeErrorModifiers();
         lblName.setStyleName("red-text");
-        dateInput.addStyleName("invalid");
+        dateInput.addStyleName(CssName.INVALID);
 
     }
 
@@ -347,7 +347,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         super.setSuccess(success);
 
         lblName.setStyleName("green-text");
-        dateInput.addStyleName("valid");
+        dateInput.addStyleName(CssName.VALID);
     }
 
     @Override
@@ -385,7 +385,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         this.date = value;
         if (initialize) {
             setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         }
         super.setValue(value, fireEvents);
     }

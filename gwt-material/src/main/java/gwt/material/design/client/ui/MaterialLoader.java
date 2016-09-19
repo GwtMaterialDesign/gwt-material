@@ -19,8 +19,10 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
 
@@ -51,7 +53,7 @@ public class MaterialLoader {
     private static MaterialProgress progress = new MaterialProgress();
 
     static {
-        div.setStyleName("valign-wrapper loader-wrapper");
+        div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
         preLoader.getElement().getStyle().setProperty("margin", "auto");
         preLoader.add(new MaterialSpinner(SpinnerColor.BLUE));
         preLoader.add(new MaterialSpinner(SpinnerColor.RED));
@@ -72,9 +74,9 @@ public class MaterialLoader {
     public static void showLoading(boolean isShow, Panel container) {
         if (isShow) {
             if (!(container instanceof RootPanel)) {
-                div.getElement().getStyle().setProperty("position", "absolute");
+                div.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
             }
-            div.setStyleName("valign-wrapper loader-wrapper");
+            div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
             div.add(preLoader);
             container.add(div);
         } else {
@@ -96,9 +98,9 @@ public class MaterialLoader {
     public static void showProgress(boolean isShow, Panel container) {
         if (isShow) {
             if (!(container instanceof RootPanel)) {
-                div.getElement().getStyle().setProperty("position", "absolute");
+                div.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
             }
-            div.setStyleName("valign-wrapper  progress-wrapper");
+            div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
             progress.getElement().getStyle().setProperty("margin", "auto");
             div.add(progress);
             container.add(div);

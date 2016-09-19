@@ -24,6 +24,7 @@ import gwt.material.design.client.base.MaterialWidget;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 /**
@@ -36,13 +37,13 @@ import com.google.gwt.user.client.ui.Widget;
 public class MaterialCardImage extends MaterialWidget {
 
     public MaterialCardImage() {
-        super(Document.get().createDivElement(), "card-image");
+        super(Document.get().createDivElement(), CssName.CARD_IMAGE);
     }
 
     @Override
     public void add(final Widget child) {
         if(child instanceof MaterialImage) {
-            child.addStyleName("activator");
+            child.addStyleName(CssName.ACTIVATOR);
         }
         add(child, (Element) getElement());
     }

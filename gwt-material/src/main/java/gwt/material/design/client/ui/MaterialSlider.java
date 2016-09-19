@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsSliderOptions;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -70,11 +71,11 @@ public class MaterialSlider extends MaterialWidget {
 
     private boolean fullWidth = true;
 
-    private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, "fullscreen");
+    private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
 
     public MaterialSlider() {
-        super(Document.get().createDivElement(), "slider");
-        ul.setStyleName("slides");
+        super(Document.get().createDivElement(), CssName.SLIDER);
+        ul.setStyleName(CssName.SLIDES);
         super.add(ul);
     }
 

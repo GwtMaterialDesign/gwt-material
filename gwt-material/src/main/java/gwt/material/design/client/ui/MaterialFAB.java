@@ -27,6 +27,7 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.Axis;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.FABType;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -67,7 +68,7 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     private HandlerRegistration clickHandler;
 
     public MaterialFAB() {
-        super(Document.get().createDivElement(), "fixed-action-btn");
+        super(Document.get().createDivElement(), CssName.FIXED_ACTION_BTN);
     }
 
     @Override

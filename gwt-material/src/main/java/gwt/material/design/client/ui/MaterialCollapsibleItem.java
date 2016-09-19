@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.base.mixin.ProgressMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.constants.WavesType;
@@ -141,8 +142,8 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             addStyleName("active");
 
             if(header != null) {
-                header.removeStyleName("active");
-                header.addStyleName("active");
+                header.removeStyleName(CssName.ACTIVE);
+                header.addStyleName(CssName.ACTIVE);
             }
         }
     }

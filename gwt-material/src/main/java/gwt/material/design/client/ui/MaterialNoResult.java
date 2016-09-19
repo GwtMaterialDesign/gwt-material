@@ -22,10 +22,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasTitle;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
@@ -56,12 +53,12 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
     private Div div = new Div();
 
     public MaterialNoResult() {
-        super(Document.get().createDivElement(), "valign-wrapper");
+        super(Document.get().createDivElement(), CssName.VALIGN_WRAPPER);
         setTextAlign(TextAlign.CENTER);
         setHeight("100%");
         add(div);
         div.setWidth("100%");
-        div.setStyleName("valign center");
+        div.setStyleName(CssName.VALIGN + " " + CssName.CENTER);
         div.add(title);
         icon.setIconSize(IconSize.LARGE);
         title.insert(icon, 0);

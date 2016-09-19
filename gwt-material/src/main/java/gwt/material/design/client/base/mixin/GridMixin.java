@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasGrid;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
@@ -37,12 +38,12 @@ public class GridMixin<T extends UIObject & HasGrid> extends AbstractMixin<T> im
     @Override
     public void setGrid(String grid) {
         if(this.grid != null && !this.grid.isEmpty()) {
-            uiObject.removeStyleName("col " + this.grid);
+            uiObject.removeStyleName(CssName.COL + " " + this.grid);
         }
 
         this.grid = grid;
         if(grid != null) {
-            uiObject.addStyleName("col " + grid);
+            uiObject.addStyleName(CssName.COL + " " + grid);
         }
     }
 

@@ -27,6 +27,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Image;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.LetterMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -70,7 +71,7 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
      * Creates an empty chip.
      */
     public MaterialChip() {
-        super(Document.get().createDivElement(), "chip");
+        super(Document.get().createDivElement(), CssName.CHIP);
     }
 
     public MaterialChip(String text) {

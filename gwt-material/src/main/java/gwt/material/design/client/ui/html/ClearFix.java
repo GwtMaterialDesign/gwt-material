@@ -20,12 +20,14 @@ package gwt.material.design.client.ui.html;
  * #L%
  */
 
+import gwt.material.design.client.constants.CssName;
+
 /**
  * @author Ben Dol
  */
 public class ClearFix extends Div {
 
     public ClearFix() {
-        addStyleName("clearfix");
+        addStyleName(CssName.CLEARFIX);
     }
 }

@@ -23,6 +23,7 @@ import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.LoaderSize;
 
 //@formatter:off
@@ -47,7 +48,7 @@ public class MaterialPreLoader extends MaterialWidget {
     private final CssNameMixin<MaterialPreLoader, LoaderSize> sizeMixin = new CssNameMixin<>(this);
 
     public MaterialPreLoader() {
-        super(Document.get().createDivElement(), "preloader-wrapper", "active");
+        super(Document.get().createDivElement(), CssName.PRELOADER_WRAPPER, CssName.ACTIVE);
     }
 
     /**

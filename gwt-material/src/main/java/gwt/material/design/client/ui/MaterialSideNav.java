@@ -31,6 +31,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.client.base.HasSelectables;
@@ -85,14 +86,14 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private Element activator;
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
-    private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, "fixed");
+    private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, CssName.FIXED);
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
      * Icons or any other material components.
      */
     public MaterialSideNav() {
-        super(Document.get().createULElement(), "side-nav");
+        super(Document.get().createULElement(), CssName.SIDE_NAV);
 
         typeMixin.setType(SideNavType.FIXED);
     }
@@ -189,7 +190,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             if (widget.getInitialClasses() != null) {
                 if (widget.getInitialClasses().length > 0) {
                     String initialClass = widget.getInitialClasses()[0];
-                    if(initialClass.contains("side-profile") || initialClass.contains("collapsible")) {
+                    if(initialClass.contains(CssName.SIDE_PROFILE) || initialClass.contains(CssName.COLLAPSIBLE)) {
                         isNotSelectable = true;
                     }
                 }
@@ -217,7 +218,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             // Active click handler
             finalChild.addDomHandler(event -> {
                 clearActive();
-                finalChild.addStyleName("active");
+                finalChild.addStyleName(CssName.ACTIVE);
             }, ClickEvent.getType());
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
@@ -387,7 +388,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 if(alwaysShowActivator || !isFixed()) {
                     String style = activator.getAttribute("style");
                     activator.setAttribute("style", style + "; display: block !important");
-                    activator.removeClassName("navmenu-permanent");
+                    activator.removeClassName(CssName.NAVMENU_PERMANENT);
                 }
             } else if(strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +

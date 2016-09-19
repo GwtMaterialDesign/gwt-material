@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Span;
@@ -65,8 +66,8 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
      * Creates a switch element
      */
     public MaterialSwitch() {
-        super(Document.get().createDivElement(), "switch");
-        span.setStyleName("lever");
+        super(Document.get().createDivElement(), CssName.SWITCH);
+        span.setStyleName(CssName.LEVER);
         input.setType(InputType.CHECKBOX);
 
         addClickHandler(event -> setValue(!getValue()));

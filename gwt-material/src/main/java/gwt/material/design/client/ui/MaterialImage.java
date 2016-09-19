@@ -30,6 +30,7 @@ import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ImageMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ImageType;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -66,7 +67,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
      * Creates an empty image.
      */
     public MaterialImage() {
-        super(Document.get().createImageElement(), "responsive-img");
+        super(Document.get().createImageElement(), CssName.RESPONSIVE_IMG);
     }
 
     /**

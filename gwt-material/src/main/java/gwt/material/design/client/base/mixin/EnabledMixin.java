@@ -27,6 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.AbstractMixin;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
@@ -54,7 +55,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     @Override
     public boolean isEnabled() {
-        return !StyleHelper.containsStyle(uiObject.getStyleName(), "disabled");
+        return !StyleHelper.containsStyle(uiObject.getStyleName(), CssName.DISABLED);
     }
 
     @Override
@@ -84,10 +85,10 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     private void applyEnabled(boolean enabled, UIObject obj) {
         if(enabled) {
-            obj.removeStyleName("disabled");
+            obj.removeStyleName(CssName.DISABLED);
             obj.getElement().removeAttribute(DISABLED);
         } else {
-            obj.addStyleName("disabled");
+            obj.addStyleName(CssName.DISABLED);
             obj.getElement().setAttribute(DISABLED, "");
         }
     }

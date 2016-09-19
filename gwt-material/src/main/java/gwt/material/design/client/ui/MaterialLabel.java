@@ -28,6 +28,7 @@ import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.SeparatorMixin;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 /**
@@ -48,7 +49,7 @@ public class MaterialLabel extends MaterialWidget implements HasFontSize, HasTex
     private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
 
     public MaterialLabel() {
-        super(Document.get().createSpanElement(), "material-label");
+        super(Document.get().createSpanElement(), CssName.MATERIAL_LABEL);
     }
 
     public MaterialLabel(String text) {

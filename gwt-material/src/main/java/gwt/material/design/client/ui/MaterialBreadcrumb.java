@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.AbstractIconButton;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 
 //@formatter:off
@@ -48,7 +49,7 @@ import gwt.material.design.client.constants.IconType;
 public class MaterialBreadcrumb extends AbstractIconButton {
 
     public MaterialBreadcrumb() {
-        super("breadcrumb");
+        super(CssName.BREADCRUMB);
     }
 
     public MaterialBreadcrumb (String text) {

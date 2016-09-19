@@ -28,6 +28,7 @@ import gwt.material.design.client.base.HasTransition;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.js.JsModalOptions;
 
@@ -124,7 +125,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     private double opacity = 0.5;
 
     public MaterialModal() {
-        super(Document.get().createDivElement(), "modal");
+        super(Document.get().createDivElement(), CssName.MODAL);
     }
 
     @Override

@@ -36,6 +36,7 @@ import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsDropdownOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -82,7 +83,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     private List<Widget> children = new ArrayList<>();
 
     public MaterialDropDown() {
-        setInitialClasses("dropdown-content");
+        setInitialClasses(CssName.DROPDOWN_CONTENT);
         setId(DOM.createUniqueId());
     }
 

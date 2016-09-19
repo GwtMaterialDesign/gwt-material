@@ -23,6 +23,7 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextArea;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 
 import java.util.HashSet;
@@ -58,7 +59,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     public MaterialTextArea() {
         super(new TextArea());
         setType(InputType.TEXT);
-        valueBoxBase.setStyleName("materialize-textarea");
+        valueBoxBase.setStyleName(CssName.MATERIALIZE_TEXTAREA);
     }
 
     public MaterialTextArea(String placeholder) {

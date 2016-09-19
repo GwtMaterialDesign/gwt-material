@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
 
 import gwt.material.design.client.base.HasTitle;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
 
 public class TitleMixin<T extends MaterialWidget & HasTitle> extends AbstractMixin<T> implements HasTitle {
@@ -41,7 +42,7 @@ public class TitleMixin<T extends MaterialWidget & HasTitle> extends AbstractMix
 
     @Override
     public void setDescription(String description) {
-        titleElem.setStyleName("title");
+        titleElem.setStyleName(CssName.TITLE);
         descElem.setText(description);
     }
 }

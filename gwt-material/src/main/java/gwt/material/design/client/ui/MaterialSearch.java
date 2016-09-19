@@ -27,6 +27,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.base.HasActive;
 import gwt.material.design.client.base.SearchObject;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.events.SearchFinishEvent;
@@ -241,7 +242,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     }
 
     protected void applyHighlightedItem(MaterialLink link) {
-        link.addStyleName("higlighted");
+        link.addStyleName(CssName.HIGLIGHTED);
         setSelectedLink(link);
     }
 
@@ -251,12 +252,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
     @Override
     public HandlerRegistration addCloseHandler(final CloseHandler<String> handler) {
-        return addHandler(new CloseHandler<String>() {
-            @Override
-            public void onClose(CloseEvent<String> event) {
-                handler.onClose(event);
-            }
-        }, CloseEvent.getType());
+        return addHandler((CloseHandler<String>) event -> handler.onClose(event), CloseEvent.getType());
     }
 
     @Override
