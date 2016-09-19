@@ -339,7 +339,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         removeErrorModifiers();
         lblName.setStyleName("red-text");
         dateInput.addStyleName(CssName.INVALID);
-
+        dateInput.removeStyleName(CssName.VALID);
     }
 
     @Override
@@ -348,6 +348,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
         lblName.setStyleName("green-text");
         dateInput.addStyleName(CssName.VALID);
+        dateInput.removeStyleName(CssName.INVALID);
     }
 
     @Override
