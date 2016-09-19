@@ -23,6 +23,7 @@ import gwt.material.design.client.base.HasScrollspy;
 import gwt.material.design.client.base.helper.StyleHelper;
 
 import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
@@ -35,17 +36,17 @@ public class ScrollspyMixin<T extends UIObject & HasScrollspy> extends AbstractM
 
     @Override
     public void setScrollspy(String scrollspy) {
-        uiObject.removeStyleName("section scrollspy");
+        uiObject.removeStyleName(CssName.SECTION + " " + CssName.SCROLLSPY);
 
         if(scrollspy != null) {
-            uiObject.addStyleName("section scrollspy");
+            uiObject.addStyleName(CssName.SECTION + " " + CssName.SCROLLSPY);
             setId(scrollspy);
         }
     }
 
     @Override
     public String getScrollspy() {
-        if(StyleHelper.containsStyle(uiObject.getStyleName(), "scrollspy")) {
+        if(StyleHelper.containsStyle(uiObject.getStyleName(), CssName.SCROLLSPY)) {
             return getId();
         } else {
             return null;

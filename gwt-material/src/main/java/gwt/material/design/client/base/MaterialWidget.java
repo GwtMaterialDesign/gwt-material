@@ -466,12 +466,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     protected ToggleStyleMixin<MaterialWidget> getCircleMixin() {
-        if(circleMixin == null) { circleMixin = new ToggleStyleMixin<>(this, "circle"); }
+        if(circleMixin == null) { circleMixin = new ToggleStyleMixin<>(this, CssName.CIRCLE); }
         return circleMixin;
     }
 
     protected ToggleStyleMixin<MaterialWidget> getHoverableMixin() {
-        if(hoverableMixin == null) { hoverableMixin = new ToggleStyleMixin<>(this, "hoverable"); }
+        if(hoverableMixin == null) { hoverableMixin = new ToggleStyleMixin<>(this, CssName.HOVERABLE); }
         return hoverableMixin;
     }
 
@@ -501,7 +501,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
-        if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, "truncate"); }
+        if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, CssName.TRUNCATE); }
         return truncateMixin;
     }
 
@@ -949,8 +949,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected void clearActiveClass(HasWidgets widget) {
         for(Widget child : widget) {
             Element element = child.getElement();
-            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
-                element.removeClassName("active");
+            if(StyleHelper.containsStyle(element.getClassName(), CssName.ACTIVE)) {
+                element.removeClassName(CssName.ACTIVE);
             }
 
             if(child instanceof HasWidgets) {

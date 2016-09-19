@@ -25,6 +25,6 @@ import gwt.material.design.client.base.MaterialWidget;
 public class Anchor extends MaterialWidget {
 
     public Anchor() {
-        super(Document.get().createElement("a"));
+        super(Document.get().createAnchorElement());
     }
 }

@@ -24,6 +24,7 @@ import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.Axis;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 
@@ -98,13 +99,13 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
      * Creates and empty card.
      */
     public MaterialCard() {
-        super(Document.get().createDivElement(), "card");
+        super(Document.get().createDivElement(), CssName.CARD);
     }
 
     @Override
     public void setGrid(String grid) {
         super.setGrid(grid);
-        addStyleName("no-padding");
+        addStyleName(CssName.NO_PADDING);
     }
 
     @Override

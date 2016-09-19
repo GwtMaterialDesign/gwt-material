@@ -23,6 +23,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import gwt.material.design.client.constants.CssName;
 
 public class MaterialInfo {
 
@@ -33,7 +34,7 @@ public class MaterialInfo {
         panel.clear();
 
         HTMLPanel container = new HTMLPanel("");
-        container.addStyleName("material-info");
+        container.addStyleName(CssName.MATERIAL_INFO);
         Label label = new Label(message);
         container.add(new Image(resource));
         container.add(label);

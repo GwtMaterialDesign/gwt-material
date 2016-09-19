@@ -20,6 +20,8 @@
 package gwt.material.design.client.base;
 
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
+
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.MaterialButton;
 
 import com.google.gwt.cell.client.AbstractCell;
@@ -54,7 +56,7 @@ public class MaterialButtonCell extends AbstractCell<MaterialButton> {
     @SuppressWarnings("deprecation")
     @Override
     public void render(Context context, MaterialButton value, SafeHtmlBuilder sb) {
-        value.getIcon().addStyleName("material-icons");
+        value.getIcon().addStyleName(CssName.MATERIAL_ICONS);
         sb.appendHtmlConstant(DOM.toString(value.getElement()));
     }
 

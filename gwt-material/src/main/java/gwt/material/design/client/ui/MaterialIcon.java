@@ -26,6 +26,7 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.base.AbstractButton;
@@ -63,7 +64,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
      * Creates an empty icon.
      */
     public MaterialIcon() {
-        super("material-icons");
+        super(CssName.MATERIAL_ICONS);
     }
 
     /**

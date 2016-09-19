@@ -47,6 +47,7 @@ import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.ui.html.Span;
 
@@ -126,9 +127,9 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     @Override
     public void setActivates(String activates) {
-        removeStyleName(getActivates() + " dropdown-button");
+        removeStyleName(getActivates() + " " + CssName.DROPDOWN_BUTTON);
         activatesMixin.setActivates(activates);
-        addStyleName(activates + " dropdown-button");
+        addStyleName(activates + " " + CssName.DROPDOWN_BUTTON);
     }
 
     @Override

@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Label;
 
 import java.util.ArrayList;
@@ -43,14 +44,14 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 /**
  * <p>Material ListBox is another dropdown component that will set / get the value depends on the selected index
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  *    <m:MaterialListBox ui:field="lstBox" />
  * }
  * </pre>
  * <h3>Java Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  *     // functions
@@ -82,7 +83,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     private ToggleStyleMixin<ListBox> toggleOldMixin;
 
     public MaterialListValueBox() {
-        super(Document.get().createDivElement(), "input-field");
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD);
         add(listBox);
         add(lblName);
         toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
@@ -102,6 +103,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
             });
             initialize();
         }
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+        $(listBox.getElement()).off("change");
+        $(listBox.getElement()).material_select("destroy");
     }
 
     @Override
@@ -193,7 +201,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         this.values.clear();
         clear();
 
-        for(T value : values) {
+        for (T value : values) {
             addItem(value);
         }
     }
@@ -201,7 +209,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     @Override
     public T getValue() {
-        if(getSelectedIndex() != -1) {
+        if (getSelectedIndex() != -1) {
             return values.get(getSelectedIndex());
         }
         return null;
@@ -215,7 +223,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public void setValue(T value, boolean fireEvents) {
         int index = values.indexOf(value);
-        if(index > 0) {
+        if (index > 0) {
             T before = getValue();
             setSelectedIndex(index);
 
@@ -245,17 +253,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * than or equal to the length of the list, then the item will be appended
      * to the end of the list.
      *
-     * @param item
-     *            the text of the item to be inserted
-     * @param dir
-     *            the item's direction. If {@code null}, the item is displayed
-     *            in the widget's overall direction, or, if a direction
-     *            estimator has been set, in the item's estimated direction.
-     * @param value
-     *            the item's value, to be submitted if it is part of a
-     *            {@link FormPanel}.
-     * @param index
-     *            the index at which to insert it
+     * @param item  the text of the item to be inserted
+     * @param dir   the item's direction. If {@code null}, the item is displayed
+     *              in the widget's overall direction, or, if a direction
+     *              estimator has been set, in the item's estimated direction.
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param index the index at which to insert it
      */
     public void insertItem(T item, Direction dir, String value, int index) {
         values.add(index, item);
@@ -268,12 +272,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * be used for any purpose, but is also what is passed to the server when
      * the list box is submitted as part of a {@link FormPanel}.
      *
-     * @param index
-     *            the index of the item to be set
-     * @param value
-     *            the item's new value; cannot be <code>null</code>
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @param index the index of the item to be set
+     * @param value the item's new value; cannot be <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setValue(int index, String value) {
         listBox.setValue(index, value);
@@ -289,15 +290,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Adds an item to the list box, specifying its direction. This method has
      * the same effect as
-     *
+     * <p>
      * <pre>
      * addItem(item, dir, item)
      * </pre>
      *
-     * @param item
-     *            the text of the item to be added
-     * @param dir
-     *            the item's direction
+     * @param item the text of the item to be added
+     * @param dir  the item's direction
      */
     public void addItem(T item, Direction dir) {
         values.add(item);
@@ -307,13 +306,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     /**
      * Adds an item to the list box. This method has the same effect as
-     *
+     * <p>
      * <pre>
      * addItem(item, item)
      * </pre>
      *
-     * @param item
-     *            the text of the item to be added
+     * @param item the text of the item to be added
      */
     public void addItem(T item) {
         values.add(item);
@@ -324,11 +322,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Adds an item to the list box, specifying an initial value for the item.
      *
-     * @param item
-     *            the text of the item to be added
-     * @param value
-     *            the item's value, to be submitted if it is part of a
-     *            {@link FormPanel}; cannot be <code>null</code>
+     * @param item  the text of the item to be added
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
      */
     public void addItem(T item, String value) {
         values.add(item);
@@ -340,13 +336,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * Adds an item to the list box, specifying its direction and an initial
      * value for the item.
      *
-     * @param item
-     *            the text of the item to be added
-     * @param dir
-     *            the item's direction
-     * @param value
-     *            the item's value, to be submitted if it is part of a
-     *            {@link FormPanel}; cannot be <code>null</code>
+     * @param item  the text of the item to be added
+     * @param dir   the item's direction
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
      */
     public void addItem(T item, Direction dir, String value) {
         values.add(item);
@@ -356,15 +349,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     /**
      * Inserts an item into the list box. Has the same effect as
-     *
+     * <p>
      * <pre>
      * insertItem(item, item, index)
      * </pre>
      *
-     * @param item
-     *            the text of the item to be inserted
-     * @param index
-     *            the index at which to insert it
+     * @param item  the text of the item to be inserted
+     * @param index the index at which to insert it
      */
     public void insertItem(T item, int index) {
         values.add(index, item);
@@ -375,17 +366,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Inserts an item into the list box, specifying its direction. Has the same
      * effect as
-     *
+     * <p>
      * <pre>
      * insertItem(item, dir, item, index)
      * </pre>
      *
-     * @param item
-     *            the text of the item to be inserted
-     * @param dir
-     *            the item's direction
-     * @param index
-     *            the index at which to insert it
+     * @param item  the text of the item to be inserted
+     * @param dir   the item's direction
+     * @param index the index at which to insert it
      */
     public void insertItem(T item, Direction dir, int index) {
         values.add(index, item);
@@ -396,18 +384,15 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Inserts an item into the list box, specifying an initial value for the
      * item. Has the same effect as
-     *
+     * <p>
      * <pre>
      * insertItem(item, null, value, index)
      * </pre>
      *
-     * @param item
-     *            the text of the item to be inserted
-     * @param value
-     *            the item's value, to be submitted if it is part of a
-     *            {@link FormPanel}.
-     * @param index
-     *            the index at which to insert it
+     * @param item  the text of the item to be inserted
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param index the index at which to insert it
      */
     public void insertItem(T item, String value, int index) {
         values.add(index, item);
@@ -418,12 +403,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Sets whether an individual list item is selected.
      *
-     * @param index
-     *            the index of the item to be selected or unselected
-     * @param selected
-     *            <code>true</code> to select the item
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @param index    the index of the item to be selected or unselected
+     * @param selected <code>true</code> to select the item
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setItemSelected(int index, boolean selected) {
         listBox.setItemSelected(index, selected);
@@ -433,12 +415,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Sets the text associated with the item at a given index.
      *
-     * @param index
-     *            the index of the item to be set
-     * @param text
-     *            the item's new text
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @param index the index of the item to be set
+     * @param text  the item's new text
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setItemText(int index, String text) {
         listBox.setItemText(index, text);
@@ -448,14 +427,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Sets the text associated with the item at a given index.
      *
-     * @param index
-     *            the index of the item to be set
-     * @param text
-     *            the item's new text
-     * @param dir
-     *            the item's direction.
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @param index the index of the item to be set
+     * @param text  the item's new text
+     * @param dir   the item's direction.
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setItemText(int index, String text, Direction dir) {
         listBox.setItemText(index, text, dir);
@@ -469,14 +444,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     /**
      * Sets the currently selected index.
-     *
+     * <p>
      * After calling this method, only the specified item in the list will
      * remain selected. For a ListBox with multiple selection enabled, see
      * {@link #setItemSelected(int, boolean)} to select multiple items at a
      * time.
      *
-     * @param index
-     *            the index of the item to be selected
+     * @param index the index of the item to be selected
      */
     public void setSelectedIndex(int index) {
         listBox.setSelectedIndex(index);
@@ -487,8 +461,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * Sets the number of items that are visible. If only one item is visible,
      * then the box will be displayed as a drop-down list.
      *
-     * @param visibleItems
-     *            the visible item count
+     * @param visibleItems the visible item count
      */
     public void setVisibleItemCount(int visibleItems) {
         listBox.setVisibleItemCount(visibleItems);
@@ -507,11 +480,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Gets the text associated with the item at the specified index.
      *
-     * @param index
-     *            the index of the item whose text is to be retrieved
+     * @param index the index of the item whose text is to be retrieved
      * @return the text associated with the item
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public String getItemText(int index) {
         return listBox.getItemText(index);
@@ -545,11 +516,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Gets the value associated with the item at a given index.
      *
-     * @param index
-     *            the index of the item to be retrieved
+     * @param index the index of the item to be retrieved
      * @return the item's associated value
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public T getValue(int index) {
         return values.get(index);
@@ -582,11 +551,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Determines whether an individual list item is selected.
      *
-     * @param index
-     *            the index of the item to be tested
+     * @param index the index of the item to be tested
      * @return <code>true</code> if the item is selected
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public boolean isItemSelected(int index) {
         return listBox.isItemSelected(index);
@@ -595,10 +562,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Removes the item at the specified index.
      *
-     * @param index
-     *            the index of the item to be removed
-     * @throws IndexOutOfBoundsException
-     *             if the index is out of range
+     * @param index the index of the item to be removed
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void removeItem(int index) {
         values.remove(index);
@@ -625,14 +590,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     /**
      * Sets the currently selected value.
-     *
+     * <p>
      * After calling this method, only the specified item in the list will
      * remain selected. For a ListBox with multiple selection enabled, see
      * {@link #setValueSelected(String, boolean)} to select multiple items at a
      * time.
      *
-     * @param value
-     *            the value of the item to be selected
+     * @param value the value of the item to be selected
      */
     public void setSelectedValue(String value) {
         int idx = getIndex(value);
@@ -644,8 +608,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Gets the index of the specified value.
      *
-     * @param value
-     *            the value of the item to be found
+     * @param value the value of the item to be found
      * @return the index of the value
      */
     public int getIndex(String value) {
@@ -661,7 +624,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Sets whether an individual list value is selected.
      *
-     * @param value the value of the item to be selected or unselected
+     * @param value    the value of the item to be selected or unselected
      * @param selected <code>true</code> to select the item
      */
     public void setValueSelected(String value, boolean selected) {

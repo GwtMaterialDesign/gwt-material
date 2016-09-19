@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 /**
@@ -47,7 +48,7 @@ import gwt.material.design.client.base.MaterialWidget;
 public class MaterialColumn extends MaterialWidget {
 
     public MaterialColumn() {
-        super(Document.get().createDivElement(), "col");
+        super(Document.get().createDivElement(), CssName.COL);
     }
 
     public MaterialColumn(int small, int medium, int large) {

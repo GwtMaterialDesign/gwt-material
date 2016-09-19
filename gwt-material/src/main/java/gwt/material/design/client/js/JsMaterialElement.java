@@ -21,13 +21,14 @@
 package gwt.material.design.client.js;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.jquery.client.api.JQueryElement;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+
+import java.util.Date;
 
 /**
  * JSInterop utils for Materialize component
@@ -130,6 +131,9 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod
     public native JQueryElement material_select();
 
+    @JsMethod
+    public native JQueryElement material_select(String action);
+
     /**
      * Pushpin Component
      */
@@ -155,28 +159,37 @@ public class JsMaterialElement extends JQueryElement {
     public native JsMaterialElement pickadate(JsDatePickerOptions property);
 
     @JsMethod
-    public native JsMaterialElement set(Functions.Func1<Thing> thing);
-
-    @JsMethod
     public native JsMaterialElement set(String key, JavaScriptObject value);
 
     @JsMethod
     public native JsMaterialElement set(String key, JavaScriptObject value, Functions.Func function);
 
     @JsMethod
-    public native JavaScriptObject get(String key);
+    public native JsMaterialElement set(String key, Date value);
 
     @JsMethod
-    public native JsDate get(String key, String format);
+    public native JsMaterialElement set(String key, Date value, Functions.Func function);
+
+    @JsMethod
+    public native JsMaterialElement get(String key);
+
+    @JsMethod
+    public native Date get(String key, String format);
 
     @JsMethod
     public native JsMaterialElement stop();
 
     @JsMethod
-    public native void obj();
+    public native JsMaterialElement start();
 
     @JsMethod
     public native void clear();
+
+    @JsMethod
+    public native JsMaterialElement on(JsDatePickerOptions options);
+
+    @JsMethod
+    public native JsMaterialElement render(boolean value);
 
     /**
      * Dismissable CollectionItem Component
@@ -207,10 +220,10 @@ public class JsMaterialElement extends JQueryElement {
 
     @JsMethod(namespace = "Waves")
     public static native void displayEffect();
+
     /**
      * Toast Component
      */
     @JsMethod(namespace = "Materialize")
     public static native double toast(String message, int duration, String classname, Functions.Func callback);
 }
-

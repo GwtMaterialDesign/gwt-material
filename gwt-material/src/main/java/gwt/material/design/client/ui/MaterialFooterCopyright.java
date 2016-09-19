@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Div;
 
 import com.google.gwt.dom.client.Document;
@@ -37,8 +38,8 @@ public class MaterialFooterCopyright extends MaterialWidget {
     private Div container = new Div();
 
     public MaterialFooterCopyright() {
-        super(Document.get().createDivElement(), "footer-copyright");
-        container.setStyleName("container");
+        super(Document.get().createDivElement(), CssName.FOOTER_COPYRIGHT);
+        container.setStyleName(CssName.CONTAINER);
         super.add(container);
     }
 

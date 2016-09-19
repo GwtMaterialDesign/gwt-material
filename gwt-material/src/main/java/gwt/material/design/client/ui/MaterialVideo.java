@@ -24,6 +24,7 @@ import gwt.material.design.client.base.HasGrid;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Frame;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 /**
@@ -47,7 +48,7 @@ public class MaterialVideo extends MaterialWidget {
     private Frame frame = new Frame();
 
     public MaterialVideo() {
-        super(Document.get().createElement("div"), "video-container");
+        super(Document.get().createDivElement(), CssName.VIDEO_CONTAINER);
         add(frame);
     }
 

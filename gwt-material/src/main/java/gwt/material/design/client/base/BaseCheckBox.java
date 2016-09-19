@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,6 +54,7 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * A standard check box widget.
@@ -103,7 +104,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
    */
   public BaseCheckBox() {
     this(DOM.createSpan());
-    setStyleName("gwt-CheckBox");
+    setStyleName(CssName.GWT_CHECKBOX);
   }
 
   /**
@@ -363,9 +364,9 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
   public void setEnabled(boolean enabled) {
     inputElem.setDisabled(!enabled);
     if (enabled) {
-      removeStyleDependentName("disabled");
+      removeStyleDependentName(CssName.DISABLED);
     } else {
-      addStyleDependentName("disabled");
+      addStyleDependentName(CssName.DISABLED);
     }
   }
 
@@ -490,14 +491,11 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
   }
 
   protected void ensureDomEventHandlers() {
-    addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        // Checkboxes always toggle their value, no need to compare
-        // with old value. Radio buttons are not so lucky, see
-        // overrides in RadioButton
-        ValueChangeEvent.fire(BaseCheckBox.this, getValue());
-      }
+    addClickHandler(event -> {
+      // Checkboxes always toggle their value, no need to compare
+      // with old value. Radio buttons are not so lucky, see
+      // overrides in RadioButton
+      ValueChangeEvent.fire(BaseCheckBox.this, getValue());
     });
   }
 

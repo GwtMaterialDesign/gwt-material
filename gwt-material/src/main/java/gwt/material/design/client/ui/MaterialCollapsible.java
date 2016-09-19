@@ -26,6 +26,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CollapsibleType;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 
@@ -104,7 +105,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      * Creates an empty collapsible
      */
     public MaterialCollapsible() {
-        super(Document.get().createULElement(), "collapsible");
+        super(Document.get().createULElement(), CssName.COLLAPSIBLE);
 
         enableFeature(Feature.ONLOAD_ADD_QUEUE, true);
     }
@@ -125,7 +126,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         super.onLoad();
 
         // Setup the expansion type
-        getElement().setAttribute("data-collapsible", isAccordion() ? "accordion" : "expandable");
+        getElement().setAttribute("data-collapsible", isAccordion() ? CssName.ACCORDION : CssName.EXPANDABLE);
 
         // Activate preset activation index
         if(activeIndex != -1 && activeWidget == null) {
@@ -150,7 +151,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         if(w instanceof MaterialCollapsibleItem) {
             ((MaterialCollapsibleItem) w).setParent(null);
         }
-        w.removeStyleName("active");
+        w.removeStyleName(CssName.ACTIVE);
 
         return super.remove(w);
     }

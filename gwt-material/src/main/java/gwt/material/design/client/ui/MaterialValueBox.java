@@ -40,10 +40,7 @@ import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CounterMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
@@ -101,15 +98,15 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         public void setValue(V value) {
             super.setValue(value);
             if (valueBoxBase.getText() != null && !valueBoxBase.getText().isEmpty()) {
-                label.addStyleName("active");
+                label.addStyleName(CssName.ACTIVE);
             } else {
-                label.removeStyleName("active");
+                label.removeStyleName(CssName.ACTIVE);
             }
         }
     }
 
     protected MaterialValueBox() {
-        super(Document.get().createDivElement(), "input-field");
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD);
     }
 
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
@@ -153,8 +150,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     public void removeErrorModifiers() {
-        valueBoxBase.getElement().removeClassName("valid");
-        valueBoxBase.getElement().removeClassName("invalid");
+        valueBoxBase.getElement().removeClassName(CssName.VALID);
+        valueBoxBase.getElement().removeClassName(CssName.INVALID);
         lblName.removeStyleName("green-text");
         lblName.removeStyleName("red-text");
     }
@@ -175,7 +172,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.setText(text);
 
         if (text != null && !text.isEmpty()) {
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         }
     }
 
@@ -230,7 +227,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.setValue(value, fireEvents);
 
         if (value != null && !value.toString().isEmpty()) {
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         }
     }
 
@@ -493,7 +490,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
         removeErrorModifiers();
         lblName.setStyleName("red-text");
-        valueBoxBase.getElement().addClassName("invalid");
+        valueBoxBase.getElement().addClassName(CssName.INVALID);
     }
 
     @Override
@@ -502,7 +499,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
         removeErrorModifiers();
         lblName.setStyleName("green-text");
-        valueBoxBase.getElement().addClassName("valid");
+        valueBoxBase.getElement().addClassName(CssName.VALID);
     }
 
     @Override
@@ -584,7 +581,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         Scheduler.get().scheduleDeferred(() -> {
             valueBoxBase.setFocus(focused);
             if (focused) {
-                label.addStyleName("active");
+                label.addStyleName(CssName.ACTIVE);
             } else {
                 updateLabelActiveStyle();
             }
@@ -598,9 +595,9 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
      */
     protected void updateLabelActiveStyle() {
         if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         } else {
-            label.removeStyleName("active");
+            label.removeStyleName(CssName.ACTIVE);
         }
     }
 

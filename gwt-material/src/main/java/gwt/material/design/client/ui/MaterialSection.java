@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.constants.CssName;
 //@formatter:off
 /**
  * The section class is used for simple top and bottom padding. Just add
@@ -43,6 +44,6 @@ import com.google.gwt.dom.client.Document;
 public class MaterialSection extends MaterialWidget {
 
     public MaterialSection() {
-        super(Document.get().createElement("div"), "section");
+        super(Document.get().createDivElement(), CssName.SECTION);
     }
 }

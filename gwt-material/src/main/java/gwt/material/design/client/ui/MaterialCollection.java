@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.ui.html.Heading;
 
@@ -96,7 +97,7 @@ public class MaterialCollection extends MaterialWidget {
      * Creates an empty collection component.
      */
     public MaterialCollection() {
-        super(Document.get().createULElement(), "collection");
+        super(Document.get().createULElement(), CssName.COLLECTION);
     }
 
     /**
@@ -104,10 +105,10 @@ public class MaterialCollection extends MaterialWidget {
      */
     public void setHeader(String header) {
         span.getElement().setInnerHTML(header);
-        addStyleName("with-header");
+        addStyleName(CssName.WITH_HEADER);
         ListItem item = new ListItem(span);
         UiHelper.addMousePressedHandlers(item);
-        item.setStyleName("collection-header");
+        item.setStyleName(CssName.COLLECTION_HEADER);
         insert(item, 0);
     }
 
@@ -115,8 +116,8 @@ public class MaterialCollection extends MaterialWidget {
         this.index = index;
         Widget activeWidget = getActive();
         if(activeWidget != null) {
-            activeWidget.removeStyleName("active");
-            activeWidget.addStyleName("active");
+            activeWidget.removeStyleName(CssName.ACTIVE);
+            activeWidget.addStyleName(CssName.ACTIVE);
         }
     }
 

@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
 
 import gwt.material.design.client.base.HasLetter;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
 
 public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractMixin<T> implements HasLetter {
@@ -29,7 +30,7 @@ public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractM
 
     public LetterMixin(final T widget) {
         super(widget);
-        span.setStyleName("letter");
+        span.setStyleName(CssName.LETTER);
     }
 
     @Override

@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.ui.html.Div;
 
@@ -69,7 +70,7 @@ public class MaterialSplashScreen extends MaterialWidget {
     private MaterialProgress progress = new MaterialProgress();
 
     public MaterialSplashScreen() {
-        super(Document.get().createDivElement(), "splash-screen");
+        super(Document.get().createDivElement(), CssName.SPLASH_SCREEN);
         setDisplay(Display.NONE);
 
         div.setWidth("100%");

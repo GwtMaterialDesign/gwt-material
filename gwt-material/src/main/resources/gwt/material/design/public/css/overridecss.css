@@ -896,6 +896,11 @@ input:-webkit-autofill {
 
 .breadcrumb i{
 	float: none !important;
+	margin-right: 15px;
+}
+
+.breadcrumb span {
+	vertical-align: top;
 }
 
 .picker__close, .picker__today, .picker__clear {

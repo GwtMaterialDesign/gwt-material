@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.MaterialWidget;
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 /**
@@ -34,6 +35,6 @@ import com.google.gwt.dom.client.Document;
 public class MaterialCardAction extends MaterialWidget {
 
     public MaterialCardAction() {
-        super(Document.get().createDivElement(), "card-action");
+        super(Document.get().createDivElement(), CssName.CARD_ACTION);
     }
 }

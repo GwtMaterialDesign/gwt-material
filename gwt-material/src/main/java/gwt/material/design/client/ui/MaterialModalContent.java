@@ -20,6 +20,9 @@
 package gwt.material.design.client.ui;
 
 //@formatter:off
+
+import gwt.material.design.client.constants.CssName;
+
 /**
 * Content container for Material Modal
 * @author kevzlou7979
@@ -29,7 +32,7 @@ package gwt.material.design.client.ui;
 public class MaterialModalContent extends MaterialPanel {
 
     public MaterialModalContent() {
-        super("modal-content");
+        super(CssName.MODAL_CONTENT);
     }
 
     public void setHeight(String height) {

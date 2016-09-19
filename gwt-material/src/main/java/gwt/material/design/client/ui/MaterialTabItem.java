@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasHref;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
@@ -41,7 +42,7 @@ public class MaterialTabItem extends ListItem {
     private MaterialTab parent;
 
     public MaterialTabItem() {
-        super("tab");
+        super(CssName.TAB);
     }
 
     @Override

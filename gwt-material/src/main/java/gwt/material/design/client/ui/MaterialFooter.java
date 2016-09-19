@@ -24,6 +24,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.FooterType;
 import gwt.material.design.client.ui.html.Div;
 
@@ -68,8 +69,8 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
     private final CssTypeMixin<FooterType, MaterialFooter> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialFooter() {
-        super(Document.get().createElement("footer"), "page-footer");
-        container.setStyleName("container");
+        super(Document.get().createElement("footer"), CssName.PAGE_FOOTER);
+        container.setStyleName(CssName.CONTAINER);
         super.add(container);
     }
 

@@ -26,6 +26,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Event;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.WavesType;
@@ -66,9 +67,9 @@ public class MaterialPager extends MaterialWidget {
     private MaterialChip indicator;
 
     public MaterialPager() {
-        super(Document.get().createULElement(), "pagination");
+        super(Document.get().createULElement(), CssName.PAGINATION);
         setWaves(WavesType.DEFAULT);
-        removeStyleName("waves-effect");
+        removeStyleName(CssName.WAVES_EFFECT);
     }
 
     public MaterialPager(int total, int pageSize) {
@@ -334,7 +335,7 @@ public class MaterialPager extends MaterialWidget {
 
         public PagerListItem(boolean clickable) {
             if (clickable) {
-                addStyleName("waves-effect");
+                addStyleName(CssName.WAVES_EFFECT);
                 sinkEvents(Event.ONCLICK | Event.TOUCHEVENTS);
             }
         }
@@ -349,9 +350,9 @@ public class MaterialPager extends MaterialWidget {
 
         public void setActive(boolean active) {
             if (active) {
-                addStyleName("active");
+                addStyleName(CssName.ACTIVE);
             } else {
-                removeStyleName("active");
+                removeStyleName(CssName.ACTIVE);
             }
         }
 
@@ -364,9 +365,9 @@ public class MaterialPager extends MaterialWidget {
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
             if (!enabled) {
-                addStyleName("disabled");
+                addStyleName(CssName.DISABLED);
             } else {
-                removeStyleName("disabled");
+                removeStyleName(CssName.DISABLED);
             }
         }
     }

@@ -25,6 +25,7 @@ import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -69,7 +70,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialTab() {
-        super("tabs");
+        super(CssName.TABS);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class Span extends MaterialWidget implements HasText {
     private String text;
 
     public Span() {
-        super(Document.get().createElement("span"));
+        super(Document.get().createSpanElement());
     }
 
     public Span(Element e, String... initialClass) {

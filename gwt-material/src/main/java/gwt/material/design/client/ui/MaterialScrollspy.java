@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -69,7 +70,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialScrollspy extends UnorderedList {
 
     public MaterialScrollspy() {
-        super("section", "table-of-contents");
+        super(CssName.SECTION, CssName.TABLE_OF_CONTENTS);
     }
 
     @Override

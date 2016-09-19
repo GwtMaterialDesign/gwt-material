@@ -20,6 +20,7 @@
 package gwt.material.design.client.base.mixin;
 
 import gwt.material.design.client.base.HasProgress;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.MaterialCollapsibleBody;
@@ -66,7 +67,7 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
     protected void applyCollapsibleProgress(boolean isShow) {
         MaterialCollapsibleItem item = (MaterialCollapsibleItem) uiObject;
         MaterialCollapsibleBody body = (MaterialCollapsibleBody) item.getWidget(1);
-        if(uiObject.getElement().getClassName().contains("active")) {
+        if(uiObject.getElement().getClassName().contains(CssName.ACTIVE)) {
             if (isShow) {
                 body.setDisplay(Display.NONE);
                 item.add(progress);

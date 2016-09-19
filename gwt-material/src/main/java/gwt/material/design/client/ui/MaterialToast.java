@@ -24,6 +24,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.jquery.client.api.Functions;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -50,14 +51,14 @@ public class MaterialToast {
 
     public static final int DEFAULT_LIFE = 4000;
 
-    private Runnable callback;
+    private Functions.Func callback;
     private Widget[] widgets;
 
     public MaterialToast(Widget... widgets) {
         this.widgets = widgets;
     }
 
-    public MaterialToast(Runnable callback, Widget... widgets) {
+    public MaterialToast(Functions.Func callback, Widget... widgets) {
         this.callback = callback;
         this.widgets = widgets;
     }
@@ -141,10 +142,10 @@ public class MaterialToast {
         }
     }
 
-    protected void toast(String msg, int lifeMillis, String id, String className, Runnable callback) {
+    protected void toast(String msg, int lifeMillis, String id, String className, Functions.Func callback) {
         JsMaterialElement.toast(msg, lifeMillis, className, () -> {
             if(callback != null) {
-                callback.run();
+                callback.call();
             }
         });
         $(".toast." + className).attr("id", id);

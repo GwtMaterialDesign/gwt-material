@@ -70,11 +70,11 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
 
     public MaterialNavBar() {
-        div.setStyleName("nav-wrapper");
+        div.setStyleName(CssName.NAV_WRAPPER);
         div.add(navMenu);
         super.add(div);
         navMenu.setFontSize(2.7, Style.Unit.EM);
-        navMenu.addStyleName("button-collapse");
+        navMenu.addStyleName(CssName.BUTTON_COLLAPSE);
         navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
         navMenu.getElement().getStyle().clearDisplay();
         navMenu.setCircle(true);
@@ -109,7 +109,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     }
 
     protected void applyType(String type, Element element) {
-        if(type.equals("navbar-shrink")) {
+        if(type.equals(NavBarType.SHRINK.getCssName())) {
             JsMaterialElement.initShrink(element, 300);
         } else {
             GWT.log("Default type of navbar was applied");

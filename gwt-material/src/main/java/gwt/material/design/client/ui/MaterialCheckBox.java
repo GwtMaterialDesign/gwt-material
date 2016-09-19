@@ -33,6 +33,7 @@ import gwt.material.design.client.base.BaseCheckBox;
 import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.CheckBoxType;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 
@@ -129,7 +130,7 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
      */
     public void setOld(String old) {
         this.old = old;
-        this.addStyleName("oldCheckBox");
+        this.addStyleName(CssName.OLD_CHECKBOX);
     }
 
     /**
@@ -140,7 +141,7 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
             case FILLED:
                 Element cb = this.getElement();
                 Element input = DOM.getChild(cb, 0);
-                input.setAttribute("class", "filled-in");
+                input.setAttribute("class", CssName.FILLED_IN);
                 break;
             case INTERMEDIATE:
                 this.addStyleName(type + "-checkbox");

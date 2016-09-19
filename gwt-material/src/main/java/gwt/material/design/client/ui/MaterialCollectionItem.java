@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -32,6 +33,7 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 
 //@formatter:off
@@ -45,13 +47,13 @@ import gwt.material.design.client.js.JsMaterialElement;
 //@formatter:on
 public class MaterialCollectionItem extends MaterialWidget implements HasDismissable, HasAvatar {
 
-    private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
-    private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
+    private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, CssName.AVATAR);
+    private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, CssName.DISMISSABLE);
 
     private HandlerRegistration handlerReg;
 
     public MaterialCollectionItem() {
-        super(Document.get().createLIElement(), "collection-item");
+        super(Document.get().createLIElement(), CssName.COLLECTION_ITEM);
         UiHelper.addMousePressedHandlers(this);
     }
 
@@ -72,7 +74,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
                 break;
             case CHECKBOX:
                 if(getWidgetCount() > 0) {
-                    getWidget(0).getElement().getStyle().setProperty("display" , "inline");
+                    getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
                 }
                 if(handlerReg != null) {
                     handlerReg.removeHandler();

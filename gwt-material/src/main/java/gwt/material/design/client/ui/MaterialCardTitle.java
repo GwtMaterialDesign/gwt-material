@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -44,7 +45,7 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     private Span span = new Span();
 
     public MaterialCardTitle() {
-        super(Document.get().createSpanElement(), "card-title" , "activator");
+        super(Document.get().createSpanElement(), CssName.CARD_TITLE, CssName.ACTIVATOR);
     }
 
     @Override

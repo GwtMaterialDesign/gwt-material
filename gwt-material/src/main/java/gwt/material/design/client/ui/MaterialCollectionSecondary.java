@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Document;
 
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasHref;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 /**
@@ -34,7 +35,7 @@ import gwt.material.design.client.base.HasHref;
 public class MaterialCollectionSecondary extends MaterialWidget implements HasHref {
 
     public MaterialCollectionSecondary() {
-        super(Document.get().createAnchorElement(), "secondary-content");
+        super(Document.get().createAnchorElement(), CssName.SECONDARY_CONTENT);
     }
 
     @Override

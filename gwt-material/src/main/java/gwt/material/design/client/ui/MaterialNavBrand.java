@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.base.HasHref;
 import gwt.material.design.client.constants.Position;
@@ -59,7 +60,7 @@ public class MaterialNavBrand extends MaterialWidget implements HasText, HasHref
      */
     @UiConstructor
     public MaterialNavBrand() {
-        super(Document.get().createElement("a"), "brand-logo");
+        super(Document.get().createAnchorElement(), CssName.BRAND_LOGO);
 
     }
 

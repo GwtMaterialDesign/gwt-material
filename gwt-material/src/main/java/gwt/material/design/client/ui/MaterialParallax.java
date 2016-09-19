@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Div;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -64,9 +65,9 @@ public class MaterialParallax extends MaterialWidget {
     private Div div = new Div();
 
     public MaterialParallax() {
-        super(Document.get().createDivElement(), "parallax-container");
+        super(Document.get().createDivElement(), CssName.PARALLAX_CONTAINER);
         super.add(div);
-        div.setStyleName("parallax");
+        div.setStyleName(CssName.PARALLAX);
     }
 
     @Override

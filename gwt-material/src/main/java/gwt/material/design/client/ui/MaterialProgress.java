@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.Div;
 
@@ -46,7 +47,7 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
     private ProgressType type;
 
     public MaterialProgress() {
-        super("progress");
+        super(CssName.PROGRESS);
         getElement().getStyle().setMargin(0, Unit.PX);
         add(div);
         setType(ProgressType.INDETERMINATE);
