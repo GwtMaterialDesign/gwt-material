@@ -309,7 +309,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     }
 
     /**
-     * Gets the tempory search objects.
+     * Gets the temporary search objects.
      */
     public List<SearchObject> getTempSearches() {
         return tempSearches;

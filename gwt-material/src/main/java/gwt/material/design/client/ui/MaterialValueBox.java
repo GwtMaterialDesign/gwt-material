@@ -100,7 +100,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         @Override
         public void setValue(V value) {
             super.setValue(value);
-            if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
+            if (valueBoxBase.getText() != null && !valueBoxBase.getText().isEmpty()) {
                 label.addStyleName("active");
             } else {
                 label.removeStyleName("active");

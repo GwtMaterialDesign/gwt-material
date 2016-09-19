@@ -31,7 +31,6 @@ import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.ui.html.Label;
-import gwt.material.design.client.ui.html.Option;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -101,7 +100,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                 }
                 return true;
             });
-            initializeMaterial();
+            initialize();
         }
     }
 
@@ -109,8 +108,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void setPlaceholder(String placeholder) {
         lblName.setText(placeholder);
 
-        if (initialized && placeholder != null) {
-            initializeMaterial();
+        if (placeholder != null) {
+            reinitialize();
         }
     }
 
@@ -123,6 +122,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         return getSelectElement().getOptions().getItem(index);
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+        clear();
+    }
+
     /**
      * Removes all items from the list box.
      */
@@ -130,11 +135,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void clear() {
         values.clear();
         listBox.clear();
-
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     protected SelectElement getSelectElement() {
@@ -146,9 +147,18 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * called every time the contents of the list box
      * changes, to keep the Materialize CSS design updated.
      */
-    protected void initializeMaterial() {
+    protected void initialize() {
         $(listBox.getElement()).material_select();
         initialized = true;
+    }
+
+    /**
+     * Initialize if we have already initialized before.
+     */
+    protected void reinitialize() {
+        if (initialized) {
+            initialize();
+        }
     }
 
     /**
@@ -158,9 +168,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setMultipleSelect(boolean multipleSelect) {
         listBox.setMultipleSelect(multipleSelect);
-        if (initialized) {
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -177,9 +185,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
         getOptionElement(0).setDisabled(true);
 
-        if (initialized) {
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     @Override
@@ -254,10 +260,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, Direction dir, String value, int index) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), dir, value, index);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -274,19 +277,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setValue(int index, String value) {
         listBox.setValue(index, value);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     @Override
     public void setTitle(String title) {
         listBox.setTitle(title);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -305,10 +302,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item, Direction dir) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item), dir);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -324,10 +318,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item));
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -342,10 +333,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item, String value) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item), value);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -363,10 +351,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item, Direction dir, String value) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item), dir, value);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -384,10 +369,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, int index) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), index);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -408,10 +390,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, Direction dir, int index) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), dir, index);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -433,10 +412,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, String value, int index) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), value, index);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -451,10 +427,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemSelected(int index, boolean selected) {
         listBox.setItemSelected(index, selected);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -469,10 +442,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemText(int index, String text) {
         listBox.setItemText(index, text);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -489,18 +459,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemText(int index, String text, Direction dir) {
         listBox.setItemText(index, text, dir);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     public void setName(String name) {
         listBox.setName(name);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -516,10 +480,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setSelectedIndex(int index) {
         listBox.setSelectedIndex(index);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -531,10 +492,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setVisibleItemCount(int visibleItems) {
         listBox.setVisibleItemCount(visibleItems);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**
@@ -645,9 +603,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void removeItem(int index) {
         values.remove(index);
         listBox.removeItem(index);
-        if (initialized) {
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     // utility methods
@@ -731,10 +687,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public void setEnabled(boolean enabled) {
         listBox.setEnabled(enabled);
-        if (initialized) {
-            // reinitialize
-            initializeMaterial();
-        }
+        reinitialize();
     }
 
     /**

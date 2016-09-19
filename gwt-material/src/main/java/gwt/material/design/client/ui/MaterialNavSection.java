@@ -56,7 +56,7 @@ public class MaterialNavSection extends UnorderedList implements HasPosition {
     private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
 
     /**
-     * Container for App Toolbar and App Sidebar , contains Material
+     * Container for App Toolbar and App Sidebar, contains Material
      * Links, Icons or any other material components.
      */
     public MaterialNavSection() {

@@ -69,8 +69,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      * Configurable features enum see {@link #enableFeature(Feature, boolean)}.
      */
     public enum Feature {
-        // Feature for adding or inserting children
-        // before this widget has loaded (attached).
+        /** Feature for adding or inserting children
+         * before this widget has loaded (attached). */
         ONLOAD_ADD_QUEUE
     }
 
@@ -147,7 +147,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         }
 
         if(isFeatureEnabled(Feature.ONLOAD_ADD_QUEUE) && onLoadAdd != null) {
-            // Check the on load add items.
+            // Check the on-load-add items.
             for (Appender item : onLoadAdd) {
                 if(item.index == -1) {
                     add(item.widget, (Element) getElement());
@@ -962,7 +962,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     /**
      * Add an {@code AttachHandler} for attachment events.
      * @param handler Attach event handler.
-     * @param oneTime Only execute this handler once, then detach.
+     * @param oneTime Only execute this handler once, then detach handler.
      * @return The events handler registration.
      */
     public HandlerRegistration addAttachHandler(final AttachEvent.Handler handler, boolean oneTime) {

@@ -73,10 +73,12 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     @Override
     protected void onLoad() {
         super.onLoad();
+
+        if(clickHandler != null) {
+            clickHandler.removeHandler();
+        }
+
         if(getType() == FABType.CLICK_ONLY) {
-            if(clickHandler != null) {
-                clickHandler.removeHandler();
-            }
             clickHandler = addClickHandler(clickEvent -> {
                 if(toggle) {
                     open();

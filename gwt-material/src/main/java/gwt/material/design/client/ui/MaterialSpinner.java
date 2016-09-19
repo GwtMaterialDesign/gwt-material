@@ -50,6 +50,8 @@ public class MaterialSpinner extends MaterialWidget {
     private Div circle3 = new Div();
     private Div gapPatch = new Div();
 
+    private String color;
+
     public MaterialSpinner() {
         super(Document.get().createDivElement(), "spinner-layer");
         add(circleClipperLeft);
@@ -74,6 +76,12 @@ public class MaterialSpinner extends MaterialWidget {
     }
 
     public void setColor(String color) {
+        removeStyleName("spinner-" + this.color);
+        this.color = color;
         addStyleName("spinner-" + color);
+    }
+
+    public String getColor() {
+        return color;
     }
 }
