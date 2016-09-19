@@ -100,7 +100,7 @@ public class MaterialLoader {
             if (!(container instanceof RootPanel)) {
                 div.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
             }
-            div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
+            div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.PROGRESS_WRAPPER);
             progress.getElement().getStyle().setProperty("margin", "auto");
             div.add(progress);
             container.add(div);

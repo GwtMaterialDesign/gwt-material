@@ -77,6 +77,7 @@ public interface CssName {
     String PARALLAX = "parallax";
     String PRELOADER_WRAPPER = "preloader-wrapper";
     String PROGRESS = "progress";
+    String PROGRESS_WRAPPER = "progress_wrapper";
     String RANGE_FIELD = "range-field";
     String THUMB = "thumb";
     String VALUE = "value";
