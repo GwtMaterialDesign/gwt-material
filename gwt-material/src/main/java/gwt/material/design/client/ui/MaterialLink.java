@@ -34,11 +34,11 @@ import gwt.material.design.client.constants.IconType;
  * <pre>
  * {@code
  * Links
- * <m:MaterialLink href="#normal" text="Normal Link" textColor="red" iconType="POLYMER" iconPosition="LEFT"/>
+ * <m:MaterialLink href="#normal" text="Normal Link" textColor="RED" iconType="POLYMER" iconPosition="LEFT"/>
  *
- * <m:MaterialLink href="#material" text="Link with Href" textColor="red" iconType="POLYMER" iconPosition="LEFT"/>
+ * <m:MaterialLink href="#material" text="Link with Href" textColor="RED" iconType="POLYMER" iconPosition="LEFT"/>
  *
- * <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="black" iconType="POLYMER" iconPosition="LEFT" iconColor="red"/>}
+ * <m:MaterialLink href="#design" text="Link with Different Icon color" textColor="BLACK" iconType="POLYMER" iconPosition="LEFT" iconColor="RED"/>}
  * </pre>
  *
  * @author kevzlou7979

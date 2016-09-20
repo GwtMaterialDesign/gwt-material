@@ -65,23 +65,23 @@ import gwt.material.design.client.constants.CssName;
  * </m:MaterialCard>
  *
  * <!-- Reveal Card -->
- * <m:MaterialCard backgroundColor="white" grid="l3">
+ * <m:MaterialCard backgroundColor="WHITE" grid="l3">
  *   <m:MaterialCardImage waves="LIGHT">
  *     <m:MaterialImage url="http://assets.materialup.com/uploads/b6992fb2-7bf4-401d-a233-e34a486b9337/gif.gif"/>
  *   </m:MaterialCardImage>
  *
- *   <m:MaterialCardContent textColor="black">
- *     <m:MaterialCardTitle text="Sample" iconType="MORE_VERT" iconPosition="RIGHT" textColor="black"/>
+ *   <m:MaterialCardContent textColor="BLACK">
+ *     <m:MaterialCardTitle text="Sample" iconType="MORE_VERT" iconPosition="RIGHT" textColor="BLACK"/>
  *   </m:MaterialCardContent>
  *
  *   <m:MaterialCardReveal>
- *     <m:MaterialCardTitle text="Sample" iconType="CLOSE" iconPosition="RIGHT" textColor="black"/>
+ *     <m:MaterialCardTitle text="Sample" iconType="CLOSE" iconPosition="RIGHT" textColor="BLACK"/>
  *     <m:MaterialLabel text="Here is some more information about this product that is only revealed once clicked on." />
  *   </m:MaterialCardReveal>
  *
  *   <m:MaterialCardAction>
- *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
- *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" textColor="BLUE" iconType="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" textColor="BLUE" iconType="POLYMER" iconPosition="LEFT"/>
  *   </m:MaterialCardAction>
  * </m:MaterialCard>}
  * </pre>

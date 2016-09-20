@@ -35,7 +35,7 @@ import com.google.gwt.dom.client.Document;
 * 
 * <pre>
 * {@code 
-* <m:MaterialSpinner color="red" />
+* <m:MaterialSpinner color="RED" />
 }
 * </pre>
 * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>

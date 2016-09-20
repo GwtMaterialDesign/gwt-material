@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
  *{@code
 
-<m:MaterialSplashScreen backgroundColor="blue" textColor="white" textAlign="CENTER">
+<m:MaterialSplashScreen backgroundColor="BLUE" textColor="WHITE" textAlign="CENTER">
     <m:MaterialImage resource="{res.ic_splash}" width="300px"/>
     <m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" />
 </m:MaterialSplashScreen>

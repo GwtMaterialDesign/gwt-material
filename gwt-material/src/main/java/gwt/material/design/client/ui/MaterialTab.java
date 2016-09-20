@@ -39,10 +39,10 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  *{@code
-<m:MaterialTab ui:field="tab"  backgroundColor="blue">
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
+<m:MaterialTab ui:field="tab"  backgroundColor="BLUE">
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="WHITE"/></m:MaterialTabItem>
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="WHITE"/></m:MaterialTabItem>
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="WHITE"/></m:MaterialTabItem>
 </m:MaterialTab>
 <i:Panel m:id="tab1">
 <i:Title title="Tab 1" description="Tab 1 Content"/>

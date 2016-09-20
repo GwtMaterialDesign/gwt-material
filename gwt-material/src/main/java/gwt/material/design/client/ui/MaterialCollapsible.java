@@ -48,7 +48,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *   <!-- ITEM 1 -->
  *   <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
- *       <m:MaterialLink text="First" iconType="POLYMER" iconPosition="LEFT" textColor="black"/>
+ *       <m:MaterialLink text="First" iconType="POLYMER" iconPosition="LEFT" textColor="BLACK"/>
  *     </m:MaterialCollapsibleHeader>
  *     <m:MaterialCollapsibleBody>
  *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
@@ -61,7 +61,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *   <!-- ITEM 1 -->
  *   <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
- *       <m:MaterialLink text="First" iconType="POLYMER" iconPosition="LEFT" textColor="black"/>
+ *       <m:MaterialLink text="First" iconType="POLYMER" iconPosition="LEFT" textColor="BLACK"/>
  *     </m:MaterialCollapsibleHeader>
  *     <m:MaterialCollapsibleBody>
  *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
@@ -74,7 +74,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *   <!-- ITEM 1 -->
  *     <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
- *       <m:MaterialLink text="First" iconType="POLYMER" iconPosition="LEFT" textColor="black"/>
+ *       <m:MaterialLink text="First" iconType="POLYMER" iconPosition="LEFT" textColor="BLACK"/>
  *     </m:MaterialCollapsibleHeader>
  *     <m:MaterialCollapsibleBody>
  *       <m:MaterialLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>

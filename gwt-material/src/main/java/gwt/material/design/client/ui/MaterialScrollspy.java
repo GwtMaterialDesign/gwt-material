@@ -50,7 +50,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
         </m:MaterialPanel>
     </m:MaterialColumn>
     <m:MaterialColumn grid="l2" addStyleNames="hide-on-small-only">
-        <m:MaterialScrollspy addStyleNames="pinned" color="green">
+        <m:MaterialScrollspy addStyleNames="pinned" textColor="GREEN">
             <m:MaterialLink href="#topic1" text="Topic 1"/>
             <m:MaterialLink href="#topic2" text="Topic 2"/>
             <m:MaterialLink href="#topic3" text="Topic 3"/>

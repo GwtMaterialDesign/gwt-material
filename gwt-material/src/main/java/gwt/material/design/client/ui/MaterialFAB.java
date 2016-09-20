@@ -44,11 +44,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <pre>
  *{@code
  *<m:MaterialFAB>
- *   <m:MaterialButton type="FLOATING" backgroundColor="blue" iconType="POLYMER" size="LARGE"/>
+ *   <m:MaterialButton type="FLOATING" backgroundColor="BLUE" iconType="POLYMER" size="LARGE"/>
  *   <m:MaterialFABList>
- *     <m:MaterialButton type="FLOATING" backgroundColor="red" iconType="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="orange" iconType="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="white" iconType="POLYMER" iconColor="black"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="RED" iconType="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="ORANGE" iconType="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="WHITE" iconType="POLYMER" iconColor="BLACK"/>
  *   </m:MaterialFABList>
  * </m:MaterialFAB>}
  * </pre>

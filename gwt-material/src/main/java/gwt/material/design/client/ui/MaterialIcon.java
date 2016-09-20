@@ -40,8 +40,8 @@ import gwt.material.design.client.base.HasSeparator;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  *{@code <m:MaterialIcon waves="LIGHT" iconType="POLYMER"/>
- * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" textColor="blue" type="CIRCLE"/>
- * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>}
+ * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" textColor="BLUE" type="CIRCLE"/>
+ * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" backgroundColor="BLUE" textColor="WHITE" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>}
  * </pre>
  *
  * @author kevzlou7979

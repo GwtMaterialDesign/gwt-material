@@ -39,19 +39,19 @@ import com.google.gwt.user.client.ui.Widget;
 *
 * <pre>
 * {@code
-<m:MaterialFooter backgroundColor="blue">
+<m:MaterialFooter backgroundColor="BLUE">
     <m:MaterialRow>
         <m:MaterialColumn grid="s12 m6 l6">
-            <m:MaterialTitle fontSize="0.7em" color="white" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
-            <m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="blue lighten-2" waves="LIGHT"/>
+            <m:MaterialTitle fontSize="0.7em" color="WHITE" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+            <m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="BLUE_LIGHTEN_2" waves="LIGHT"/>
         </m:MaterialColumn>
         <m:MaterialColumn grid="s12 m6 l6">
-            <m:MaterialTitle fontSize="0.7em" color="white" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
-            <m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="blue lighten-2" waves="LIGHT"/>
+            <m:MaterialTitle fontSize="0.7em" color="WHITE" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+            <m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="BLUE_LIGHTEN_2" waves="LIGHT"/>
         </m:MaterialColumn>
     </m:MaterialRow>
 
-    <m:MaterialFooterCopyright backgroundColor="blue darken-1">
+    <m:MaterialFooterCopyright backgroundColor="BLUE_DARKEN_2">
         <m:MaterialLabel text=" © 2014 Copyright Text"/>
     </m:MaterialFooterCopyright>
 </m:MaterialFooter> }

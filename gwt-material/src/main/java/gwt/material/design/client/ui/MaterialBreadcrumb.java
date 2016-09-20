@@ -34,7 +34,7 @@ import gwt.material.design.client.constants.IconType;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
- * <m:MaterialNavBar backgroundColor="blue">
+ * <m:MaterialNavBar backgroundColor="BLUE">
  *     <m:MaterialBreadcrumb text="First" href="#first"/>
  *     <m:MaterialBreadcrumb text="Second" href="#second"/>
  *     <m:MaterialBreadcrumb text="Third" href="#third"/>

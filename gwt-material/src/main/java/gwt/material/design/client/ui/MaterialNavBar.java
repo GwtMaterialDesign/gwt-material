@@ -43,13 +43,13 @@ import gwt.material.design.client.ui.html.Nav;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
- * <m:MaterialNavBar backgroundColor="blue" >
+ * <m:MaterialNavBar backgroundColor="BLUE" >
  *     <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
  *     <m:MaterialNavSection position="RIGHT">
- *         <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="white" waves="LIGHT"/>
- *         <m:MaterialLink  iconType="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="white" waves="LIGHT"/>
- *         <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
- *          <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="WHITE" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="WHITE" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="WHITE" waves="LIGHT"/>
+ *          <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="WHITE" waves="LIGHT"/>
  *     </m:MaterialNavSection>
  * </m:MaterialNavBar>
  * }
