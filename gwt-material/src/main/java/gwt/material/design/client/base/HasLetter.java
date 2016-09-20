@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.base;
 
+import gwt.material.design.client.constants.Color;
+
 /**
  * @author kevzlou7979
  */
@@ -37,11 +39,11 @@ public interface HasLetter {
     /**
      * Set the letter color.
      */
-    public void setLetterColor(String letterColor);
+    public void setLetterColor(Color letterColor);
 
     /**
      * Set the letter background color.
      */
-    public void setLetterBackgroundColor(String letterBackgroundColor);
+    public void setLetterBackgroundColor(Color letterBackgroundColor);
 
 }

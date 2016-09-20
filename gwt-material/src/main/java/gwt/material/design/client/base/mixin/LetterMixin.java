@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
 
 import gwt.material.design.client.base.HasLetter;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
 
@@ -45,12 +46,12 @@ public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractM
     }
 
     @Override
-    public void setLetterColor(String letterColor) {
+    public void setLetterColor(Color letterColor) {
         span.setTextColor(letterColor);
     }
 
     @Override
-    public void setLetterBackgroundColor(String letterBackgroundColor) {
+    public void setLetterBackgroundColor(Color letterBackgroundColor) {
         span.setBackgroundColor(letterBackgroundColor);
     }
 }

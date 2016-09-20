@@ -25,6 +25,7 @@ import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -62,7 +63,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialTab extends UnorderedList implements HasType<TabType> {
 
     private int tabIndex;
-    private String indicatorColor;
+    private Color indicatorColor;
 
     private MaterialWidget indicator;
     private ColorsMixin<MaterialWidget> indicatorColorMixin;
@@ -103,7 +104,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         }
     }
 
-    public void setIndicatorColor(String indicatorColor) {
+    public void setIndicatorColor(Color indicatorColor) {
         this.indicatorColor = indicatorColor;
 
         if(indicatorColorMixin != null && indicatorColor != null) {

@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.mixin.TextMixin;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -73,7 +74,7 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 

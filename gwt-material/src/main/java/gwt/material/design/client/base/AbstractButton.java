@@ -45,10 +45,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.constants.ButtonSize;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
 
 /**
@@ -83,12 +80,12 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         setWaves(waves);
     }
 
-    protected AbstractButton(final ButtonType type, String text, String bgColor, WavesType waves) {
+    protected AbstractButton(final ButtonType type, String text, Color bgColor, WavesType waves) {
         this(type, text, bgColor);
         setWaves(waves);
     }
 
-    protected AbstractButton(final ButtonType type, String text, String bgColor) {
+    protected AbstractButton(final ButtonType type, String text, Color bgColor) {
         this(type, text);
         setBackgroundColor(bgColor);
     }

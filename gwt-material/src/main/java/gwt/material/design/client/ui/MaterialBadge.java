@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
 
@@ -73,7 +74,7 @@ public class MaterialBadge extends Span implements HasText {
      * @param textColor text color of the badge
      * @param bgColor background color of the badge
      */
-    public MaterialBadge(String text, String textColor, String bgColor) {
+    public MaterialBadge(String text, Color textColor, Color bgColor) {
         this();
         setText(text);
         setTextColor(textColor);

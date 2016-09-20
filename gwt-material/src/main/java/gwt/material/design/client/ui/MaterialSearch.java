@@ -27,6 +27,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.base.HasActive;
 import gwt.material.design.client.base.SearchObject;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
@@ -141,8 +142,8 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     // Populate the search result items
                     for (final SearchObject obj : getListSearches()) {
                         MaterialLink link = new MaterialLink();
-                        link.setIconColor("grey");
-                        link.setTextColor("black");
+                        link.setIconColor(Color.GREY);
+                        link.setTextColor(Color.BLACK);
                         // Generate an icon
                         if (obj.getIcon() != null) {
                             link.setIconType(obj.getIcon());
@@ -258,12 +259,12 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     @Override
     public void setActive(boolean active) {
         if(active) {
-            this.setTextColor("black");
-            iconClose.setIconColor("black");
-            iconSearch.setIconColor("black");
+            this.setTextColor(Color.BLACK);
+            iconClose.setIconColor(Color.BLACK);
+            iconSearch.setIconColor(Color.BLACK);
         }else{
-            iconClose.setIconColor("white");
-            iconSearch.setIconColor("white");
+            iconClose.setIconColor(Color.WHITE);
+            iconSearch.setIconColor(Color.WHITE);
         }
     }
 

@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.base;
 
+import gwt.material.design.client.constants.Color;
+
 public interface HasColors {
 
     /**
@@ -26,16 +28,16 @@ public interface HasColors {
      * <pre>panel.setBackgroundColor("blue");</pre><br/>
      * Refer to - http://gwtmaterialdesign.github.io/gwt-material-demo/#!colors for the color pallete.
      */
-    void setBackgroundColor(String bgColor);
+    void setBackgroundColor(Color bgColor);
 
-    String getBackgroundColor();
+    Color getBackgroundColor();
 
     /**
      * Set the text color of material components, for example:<br/><br/>
      * <pre>panel.setTextColor("blue darken-2");</pre><br/>
      * Refer to - http://gwtmaterialdesign.github.io/gwt-material-demo/#!colors for the color pallete.
      */
-    void setTextColor(String textColor);
+    void setTextColor(Color textColor);
 
-    String getTextColor();
+    Color getTextColor();
 }

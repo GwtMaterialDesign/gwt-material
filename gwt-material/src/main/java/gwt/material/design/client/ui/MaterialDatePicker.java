@@ -478,7 +478,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 

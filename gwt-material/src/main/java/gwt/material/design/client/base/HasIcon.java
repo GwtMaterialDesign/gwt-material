@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.base;
 
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
@@ -57,7 +58,7 @@ public interface HasIcon {
     /**
      * Sets the color of the icon.
      */
-    void setIconColor(String iconColor);
+    void setIconColor(Color iconColor);
 
     /**
      * Make the icon prefix in its container.

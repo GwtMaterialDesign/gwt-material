@@ -21,10 +21,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
 
 import com.google.gwt.dom.client.Document;
@@ -86,7 +83,7 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 

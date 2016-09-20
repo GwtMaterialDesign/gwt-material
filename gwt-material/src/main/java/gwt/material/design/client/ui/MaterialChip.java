@@ -27,10 +27,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Image;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.LetterMixin;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
@@ -89,7 +86,7 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         setUrl(imageUrl);
     }
 
-    public MaterialChip(String text, String bgColor, String textColor) {
+    public MaterialChip(String text, Color bgColor, Color textColor) {
         this(text);
         setBackgroundColor(bgColor);
         setTextColor(textColor);
@@ -168,7 +165,7 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 
@@ -193,12 +190,12 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
     }
 
     @Override
-    public void setLetterColor(String letterColor) {
+    public void setLetterColor(Color letterColor) {
         letterMixin.setLetterColor(letterColor);
     }
 
     @Override
-    public void setLetterBackgroundColor(String letterBackgroundColor) {
+    public void setLetterBackgroundColor(Color letterBackgroundColor) {
         letterMixin.setLetterBackgroundColor(letterBackgroundColor);
     }
 }

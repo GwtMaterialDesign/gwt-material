@@ -64,7 +64,7 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
         title.insert(icon, 0);
     }
 
-    public MaterialNoResult(String bgColor, String textColor, IconType iconType, String title, String description) {
+    public MaterialNoResult(Color bgColor, Color textColor, IconType iconType, String title, String description) {
         this();
         setBackgroundColor(bgColor);
         setTextColor(textColor);
@@ -109,7 +109,7 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 

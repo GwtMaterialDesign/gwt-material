@@ -20,10 +20,7 @@
 package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialIcon;
 
 /**
@@ -93,7 +90,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 
