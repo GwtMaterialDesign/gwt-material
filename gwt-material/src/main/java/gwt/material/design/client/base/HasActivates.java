@@ -26,5 +26,8 @@ public interface HasActivates {
      */
     void setActivates(String activates);
 
+    /**
+     * Get the data-activates attribute.
+     */
     String getActivates();
 }

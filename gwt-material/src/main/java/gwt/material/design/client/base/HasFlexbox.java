@@ -27,6 +27,7 @@ import gwt.material.design.client.constants.*;
  * Interface that determines the class implements Flexbox layout
  *
  * @author chriswjones
+ *
  * @see FlexboxMixin
  * @see MaterialWidget
  */

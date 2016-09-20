@@ -158,39 +158,37 @@ public class MaterialPager extends MaterialWidget {
     protected PagerListItem getOrCreateLiElementLeft() {
         linkLeft = new PagerListItem();
         linkLeft.setFixed(true);
-        MaterialLink mLink = createLinkLeft();
         linkLeft.addHandler(event -> {
             if (linkLeft.isEnabled())
             onPageSelection(currentPage - 1);
             event.preventDefault();
             event.stopPropagation();
         }, ClickEvent.getType());
-        this.linkLeft.add(mLink);
+        linkLeft.add(createLinkLeft());
 
         addPageSelectionHandler(event ->  {
             MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1);
         });
 
-        return this.linkLeft;
+        return linkLeft;
     }
 
     protected PagerListItem getOrCreateLiElementRight() {
         linkRight = new PagerListItem();
         linkRight.setFixed(true);
-        MaterialLink mLink = createLinkRight();
         linkRight.addHandler(event -> {
             if (linkRight.isEnabled())
             onPageSelection(currentPage + 1);
             event.stopPropagation();
             event.preventDefault();
         }, ClickEvent.getType());
-        this.linkRight.add(mLink);
+        linkRight.add(createLinkRight());
 
         addPageSelectionHandler(event -> {
             MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages);
         });
 
-        return this.linkRight;
+        return linkRight;
     }
 
     protected PagerListItem createLiElementIndicator() {

@@ -23,7 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.HasDismissible;
 import gwt.material.design.client.base.HasTransition;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -82,7 +82,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 // @formatter:on
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
-        HasDismissable, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
+        HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
 
     static class ModalManager {
             private static List<MaterialModal> modals;
@@ -251,12 +251,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public void setDismissable(boolean dismissable) {
-        this.dismissable = dismissable;
+    public void setDismissible(boolean dismissible) {
+        this.dismissable = dismissible;
     }
 
     @Override
-    public boolean isDismissable() {
+    public boolean isDismissible() {
         return dismissable;
     }
 

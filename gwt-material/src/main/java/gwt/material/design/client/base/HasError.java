@@ -29,9 +29,18 @@ public interface HasError {
      */
     void setError(String error);
 
+    /**
+     * Set the success message marking a widget as success.
+     */
     void setSuccess(String success);
-    
+
+    /**
+     * Apply a widgets help text.
+     */
     void setHelperText(String helperText);
 
+    /**
+     * Clear the error or success states.
+     */
     void clearErrorOrSuccess();
 }

@@ -56,6 +56,9 @@ public class MaterialTabItem extends ListItem {
         }
     }
 
+    /**
+     * Select this tab item.
+     */
     public void selectTab() {
         for(Widget child : getChildren()) {
             if(child instanceof HasHref) {

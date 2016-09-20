@@ -19,12 +19,12 @@
  */
 package gwt.material.design.client.base;
 
-public interface HasDismissable {
+public interface HasDismissible {
 
     /**
-     * Set dismissable when swiping left / right.
+     * Set dismissible when swiping left / right.
      */
-    void setDismissable(boolean dismissable);
+    void setDismissible(boolean dismissible);
 
-    boolean isDismissable();
+    boolean isDismissible();
 }

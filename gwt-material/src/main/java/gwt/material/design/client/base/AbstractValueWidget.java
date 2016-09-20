@@ -181,6 +181,9 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return getValidatorMixin().addValidationChangedHandler(handler);
     }
 
+    /**
+     * Enable or disable the default blank validator.
+     */
     public void setAllowBlank(boolean allowBlank) {
         this.allowBlank = allowBlank;
 
@@ -196,6 +199,9 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         }
     }
 
+    /**
+     * Will this widget allow blank values upon validation.
+     */
     public boolean isAllowBlank() {
         return allowBlank;
     }
