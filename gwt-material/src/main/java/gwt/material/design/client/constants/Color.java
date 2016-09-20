@@ -26,6 +26,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * @author kevzlou7979
  */
 public enum  Color implements CssType {
+    DEFAULT(""),
     BLACK("black"),
     WHITE("white"),
     TRANSPARENT("transparent"),
@@ -314,7 +315,7 @@ public enum  Color implements CssType {
         return cssClass;
     }
 
-    public static IconType fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, IconType.class, IconType.BLOCK);
+    public static Color fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, Color.class, Color.DEFAULT);
     }
 }
