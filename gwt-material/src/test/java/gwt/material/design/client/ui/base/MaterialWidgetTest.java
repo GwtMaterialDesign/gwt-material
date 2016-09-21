@@ -34,7 +34,7 @@ public class MaterialWidgetTest extends GWTTestCase {
 
     @Override
     public String getModuleName() {
-        return "gwt.material.design.GWTMaterialDesign";
+        return "gwt.material.design.GwtMaterialDesign";
     }
 
     public <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
