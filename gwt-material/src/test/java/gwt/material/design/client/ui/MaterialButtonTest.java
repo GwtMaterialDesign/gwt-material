@@ -19,7 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.AbstractButtonTest;
 import org.junit.Test;
 
 /**
@@ -27,12 +27,11 @@ import org.junit.Test;
  *
  * @kevzlou7979
  */
-public class MaterialButtonTest extends MaterialWidgetTest {
+public class MaterialButtonTest extends AbstractButtonTest {
 
     @Test
     public void testButton() {
         MaterialButton button = new MaterialButton();
-        button.setText("Sample");
-        checkEnabled(button);
+        checkBaseButton(button);
     }
 }
