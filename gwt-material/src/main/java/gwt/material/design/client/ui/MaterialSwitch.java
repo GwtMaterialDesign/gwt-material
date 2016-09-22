@@ -73,6 +73,17 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         addClickHandler(event -> setValue(!getValue()));
     }
 
+    public MaterialSwitch(String onLabel, String offLabel) {
+        this();
+        setOnLabel(onLabel);
+        setOffLabel(offLabel);
+    }
+
+    public MaterialSwitch(String onLabel, String offLabel, Boolean value) {
+        this(onLabel, offLabel);
+        setValue(value);
+    }
+
     /**
      * Creates a material switch with default value.
      */

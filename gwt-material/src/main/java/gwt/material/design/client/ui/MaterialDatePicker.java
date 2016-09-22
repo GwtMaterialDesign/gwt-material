@@ -106,6 +106,21 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         add(lblError);
     }
 
+    public MaterialDatePicker(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialDatePicker(String placeholder, Date value) {
+        this(placeholder);
+        setDate(value);
+    }
+
+    public MaterialDatePicker(String placeholder, Date value, MaterialDatePickerType selectionType) {
+        this(placeholder, value);
+        setSelectionType(selectionType);
+    }
+
     @Override
     public void onLoad() {
         super.onLoad();
@@ -130,15 +145,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void clear() {
         if (initialize) {
             clearErrorOrSuccess();
-            label.removeStyleName("active");
-            dateInput.removeStyleName("valid");
+            label.removeStyleName(CssName.ACTIVE);
+            dateInput.removeStyleName(CssName.VALID);
             dateInput.clear();
         }
     }
 
     public void removeErrorModifiers() {
-        dateInput.addStyleName("valid");
-        dateInput.removeStyleName("invalid");
+        dateInput.addStyleName(CssName.VALID);
+        dateInput.removeStyleName(CssName.INVALID);
         lblName.removeStyleName("green-text");
         lblName.removeStyleName("red-text");
     }
@@ -216,7 +231,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
                 options.selectMonths = true;
                 break;
             case YEAR:
-                options.selectMonths = true;
+                options.selectYears = true;
                 break;
         }
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();

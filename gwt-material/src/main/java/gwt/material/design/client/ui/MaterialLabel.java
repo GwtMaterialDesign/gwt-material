@@ -20,17 +20,16 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.HasText;
-import gwt.material.design.client.base.*;
-
 import com.google.gwt.dom.client.Style.Unit;
-import gwt.material.design.client.base.mixin.ColorsMixin;
+import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.HasFontSize;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
-import gwt.material.design.client.base.mixin.SeparatorMixin;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
  * Material Label will extend to GWT Label functionality with other material specifications
  *
@@ -55,6 +54,11 @@ public class MaterialLabel extends MaterialWidget implements HasFontSize, HasTex
     public MaterialLabel(String text) {
         this();
         setText(text);
+    }
+
+    public MaterialLabel(String text, Color textColor) {
+        this(text);
+        setTextColor(textColor);
     }
 
     @Override

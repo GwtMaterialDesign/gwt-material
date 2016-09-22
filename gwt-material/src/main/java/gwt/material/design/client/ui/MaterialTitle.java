@@ -19,15 +19,15 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Style.Unit;
 import gwt.material.design.client.base.HasTitle;
 import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Heading;
 import gwt.material.design.client.ui.html.Paragraph;
 
-import com.google.gwt.dom.client.Style.Unit;
-
 //@formatter:off
+
 /**
  * Title is a component that will easily add Title and description widgets
  *

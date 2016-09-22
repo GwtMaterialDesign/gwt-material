@@ -19,14 +19,13 @@
  */
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasGrid;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Frame;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
 * Material Video get any youtube url that will inherit responsive design
 *
@@ -50,6 +49,11 @@ public class MaterialVideo extends MaterialWidget {
     public MaterialVideo() {
         super(Document.get().createDivElement(), CssName.VIDEO_CONTAINER);
         add(frame);
+    }
+
+    public MaterialVideo(String url) {
+        this();
+        setUrl(url);
     }
 
     public String getUrl() {

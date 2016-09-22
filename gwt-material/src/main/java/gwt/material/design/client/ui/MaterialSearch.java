@@ -19,7 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
@@ -117,6 +119,19 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         iconClose.addMouseDownHandler(mouseDownEvent -> {
             CloseEvent.fire(MaterialSearch.this, getText());
         });
+    }
+
+    public MaterialSearch(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialSearch(String placeholder, Color backgroundColor, Color iconColor , boolean active, int shadow) {
+        this(placeholder);
+        setBackgroundColor(backgroundColor);
+        setIconColor(iconColor);
+        setActive(active);
+        setShadow(shadow);
     }
 
     @Override

@@ -53,6 +53,16 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
         setType(ProgressType.INDETERMINATE);
     }
 
+    public MaterialProgress(ProgressType type) {
+        this();
+        setType(type);
+    }
+
+    public MaterialProgress(ProgressType type, Double percent) {
+        this(type);
+        setPercent(percent);
+    }
+
     @Override
     public void setType(ProgressType type) {
         if(this.type != null) {
