@@ -92,6 +92,11 @@ public class MaterialButton extends AbstractIconButton {
         setTextColor(textColor);
     }
 
+    @Deprecated
+    public MaterialButton(String text, IconType icon, ButtonType type, String bgColor, String textColor) {
+        this(text, icon, type, Color.fromStyleName(bgColor), Color.fromStyleName(textColor));
+    }
+
     @Override
     protected Element createElement() {
         return Document.get().createPushButtonElement();

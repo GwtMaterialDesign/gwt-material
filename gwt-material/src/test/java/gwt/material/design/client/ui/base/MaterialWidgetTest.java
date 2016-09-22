@@ -65,6 +65,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         checkFontWeight(widget);
         checkTruncate(widget);
         checkChildren(widget);
+
     }
 
     public <T extends MaterialWidget> void checkChildren(T widget) {

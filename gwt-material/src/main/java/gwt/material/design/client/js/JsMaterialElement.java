@@ -226,4 +226,10 @@ public class JsMaterialElement extends JQueryElement {
      */
     @JsMethod(namespace = "Materialize")
     public static native double toast(String message, int duration, String classname, Functions.Func callback);
+
+    /**
+     * Character Component
+     */
+    @JsMethod
+    public native JsMaterialElement characterCounter();
 }

@@ -24,6 +24,8 @@ import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasCounter;
 import gwt.material.design.client.ui.MaterialValueBox;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
+
 public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin<T> implements HasCounter {
 
     private int length = 0;
@@ -37,11 +39,11 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
         this.length = length;
         Element e = uiObject.getElement();
 
-        if(uiObject instanceof MaterialValueBox) {
-            e = ((MaterialValueBox)uiObject).asValueBoxBase().getElement();
+        if (uiObject instanceof MaterialValueBox) {
+            e = ((MaterialValueBox) uiObject).asValueBoxBase().getElement();
         }
 
-        if(e != null) {
+        if (e != null) {
             e.setAttribute("length", String.valueOf(length));
             initCounter(e);
         }
@@ -54,9 +56,10 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
 
     /**
      * Initialize the character counter provided by the textbase elements
+     *
      * @param e - element to initialize the feature
      */
-    protected native void initCounter(Element e) /*-{
-        $wnd.jQuery(e).characterCounter();
-    }-*/;
+    protected void initCounter(Element e) {
+        $(e).characterCounter();
+    }
 }

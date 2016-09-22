@@ -78,6 +78,12 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
         icon.setIconColor(iconColor);
     }
 
+    @Deprecated
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
     @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);

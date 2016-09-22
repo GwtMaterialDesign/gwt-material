@@ -35,10 +35,10 @@ import gwt.material.design.client.ui.html.Span;
 /**
  * Chips can be used to represent small blocks of information.
  * They are most commonly used either for contacts or for tags.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code// Simple Chips
+ * {@code// Simple Chips
  * <m:MaterialChip text="Default" iconType="close"/>
  *
  * // Static Chip
@@ -90,6 +90,11 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         this(text);
         setBackgroundColor(bgColor);
         setTextColor(textColor);
+    }
+
+    @Deprecated
+    public MaterialChip(String text, String bgColor, String textColor) {
+        this(text, Color.fromStyleName(bgColor), Color.fromStyleName(textColor));
     }
 
     public void setText(String text) {
@@ -169,6 +174,12 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         icon.setIconColor(iconColor);
     }
 
+    @Deprecated
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
     @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
@@ -194,8 +205,20 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         letterMixin.setLetterColor(letterColor);
     }
 
+    @Deprecated
+    @Override
+    public void setLetterColor(String letterColor) {
+        letterMixin.setLetterColor(letterColor);
+    }
+
     @Override
     public void setLetterBackgroundColor(Color letterBackgroundColor) {
+        letterMixin.setLetterBackgroundColor(letterBackgroundColor);
+    }
+
+    @Deprecated
+    @Override
+    public void setLetterBackgroundColor(String letterBackgroundColor) {
         letterMixin.setLetterBackgroundColor(letterBackgroundColor);
     }
 }

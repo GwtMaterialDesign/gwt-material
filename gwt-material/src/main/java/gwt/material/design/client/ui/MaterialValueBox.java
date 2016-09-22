@@ -541,6 +541,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         icon.setIconColor(iconColor);
     }
 
+    @Deprecated
+    @Override
+    public void setIconColor(String iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
     @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);

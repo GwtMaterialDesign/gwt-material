@@ -112,6 +112,11 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         }
     }
 
+    @Deprecated
+    public void setIndicatorColor(String indicatorColor) {
+        setIndicatorColor(Color.fromStyleName(indicatorColor));
+    }
+
     /**
      * Select a given tab by id.
      * @param tabId Tab to selects id.

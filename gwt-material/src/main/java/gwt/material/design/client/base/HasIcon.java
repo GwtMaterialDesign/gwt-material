@@ -60,6 +60,8 @@ public interface HasIcon {
      */
     void setIconColor(Color iconColor);
 
+    void setIconColor(String iconColor);
+
     /**
      * Make the icon prefix in its container.
      */
