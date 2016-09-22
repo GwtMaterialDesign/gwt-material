@@ -107,6 +107,8 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     public MaterialCollapsible() {
         super(Document.get().createULElement(), CssName.COLLAPSIBLE);
 
+        // Items need to be added after the widget has loaded to avoid
+        // premature configuration issues.
         enableFeature(Feature.ONLOAD_ADD_QUEUE, true);
     }
 
@@ -191,6 +193,9 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         }
     }
 
+    /**
+     * Is the collapsible an 'accordion' type.
+     */
     public boolean isAccordion() {
         return accordion;
     }
@@ -223,14 +228,25 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         }
     }
 
+    /**
+     * Open the given collapsible item.
+     * @param index the one-based collapsible item index.
+     */
     public void open(int index) {
         setActive(index, true);
     }
 
+    /**
+     * Close the given collapsible item.
+     * @param index the one-based collapsible item index.
+     */
     public void close(int index) {
         setActive(index, false);
     }
 
+    /**
+     * Close all the collapsible items.
+     */
     public void closeAll() {
         clearActive();
         if(initialized) {

@@ -22,7 +22,8 @@ package gwt.material.design.client.constants;
 import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
- * Color constants
+ * Color constants.
+ *
  * @author kevzlou7979
  */
 public enum  Color implements CssType {

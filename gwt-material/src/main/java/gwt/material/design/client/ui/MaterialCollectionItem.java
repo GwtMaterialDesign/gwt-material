@@ -21,14 +21,11 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasAvatar;
-import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.HasDismissible;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
@@ -45,7 +42,7 @@ import gwt.material.design.client.js.JsMaterialElement;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
  */
 //@formatter:on
-public class MaterialCollectionItem extends MaterialWidget implements HasDismissable, HasAvatar {
+public class MaterialCollectionItem extends MaterialWidget implements HasDismissible, HasAvatar {
 
     private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, CssName.AVATAR);
     private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, CssName.DISMISSABLE);
@@ -107,12 +104,12 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
     }
 
     @Override
-    public void setDismissable(boolean dismissable) {
-        dismissableMixin.setOn(dismissable);
+    public void setDismissible(boolean dismissible) {
+        dismissableMixin.setOn(dismissible);
     }
 
     @Override
-    public boolean isDismissable() {
+    public boolean isDismissible() {
         return dismissableMixin.isOn();
     }
 

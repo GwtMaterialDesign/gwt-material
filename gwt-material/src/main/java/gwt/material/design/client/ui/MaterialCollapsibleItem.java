@@ -126,6 +126,9 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         }
     }
 
+    /**
+     * Collapse the cody panel.
+     */
     public void collapse() {
         if(body != null) {
             setActive(false);
@@ -133,6 +136,9 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         }
     }
 
+    /**
+     * Make this item active.
+     */
     public void setActive(boolean active) {
         removeStyleName("active");
         if(active) {

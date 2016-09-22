@@ -104,7 +104,9 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
         return icon.isIconPrefix();
     }
 
-    public void ensureIconAttached() {
+    /** Ensure the icon is attached in slot 0.
+     */
+    protected void ensureIconAttached() {
         if(icon != null && !icon.isAttached()) {
             insert(icon, 0);
         }

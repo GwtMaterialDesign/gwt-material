@@ -105,7 +105,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     private SearchObject selectedObject;
     /**
      * -1 means that the selected index is not yet selected.
-     * It will increment or decrement once triggere by key up / down events
+     * It will increment or decrement once trigger by key up / down events
      */
     private int curSel = -1;
 
@@ -268,16 +268,16 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
     @Override
     public HandlerRegistration addCloseHandler(final CloseHandler<String> handler) {
-        return addHandler((CloseHandler<String>) event -> handler.onClose(event), CloseEvent.getType());
+        return addHandler((CloseHandler<String>) handler::onClose, CloseEvent.getType());
     }
 
     @Override
     public void setActive(boolean active) {
         if(active) {
-            this.setTextColor(Color.BLACK);
+            setTextColor(Color.BLACK);
             iconClose.setIconColor(Color.BLACK);
             iconSearch.setIconColor(Color.BLACK);
-        }else{
+        } else {
             iconClose.setIconColor(Color.WHITE);
             iconSearch.setIconColor(Color.WHITE);
         }

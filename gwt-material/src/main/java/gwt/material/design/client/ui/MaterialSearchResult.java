@@ -38,5 +38,4 @@ public class MaterialSearchResult extends MaterialWidget {
     public MaterialSearchResult() {
         super(Document.get().createDivElement(), CssName.SEARCH_RESULT, CssName.Z_DEPTH_1);
     }
-
 }

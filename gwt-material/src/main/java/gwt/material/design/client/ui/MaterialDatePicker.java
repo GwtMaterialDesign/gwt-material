@@ -171,9 +171,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     protected void initHandlers(Element picker) {
         JsDatePickerOptions events = new JsDatePickerOptions();
-        events.open = () -> {
-            onOpen();
-        };
+        events.open = this::onOpen;
 
         events.close = () -> {
             onClose();
@@ -253,10 +251,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         setValue(date);
     }
 
+    /**
+     * Get the minimum date limit.
+     */
     public Date getDateMin() {
         return dateMin;
     }
 
+    /**
+     * Set the minimum date limit.
+     */
     public void setDateMin(Date dateMin) {
         this.dateMin = dateMin;
         if (initialize && dateMin != null) {
@@ -264,14 +268,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         }
     }
 
-    protected void setPickerDateMin(JsDate date, Element picker) {
-
-    }
-
+    /**
+     * Get the maximum date limit.
+     */
     public Date getDateMax() {
         return dateMax;
     }
 
+    /**
+     * Set the maximum date limit.
+     */
     public void setDateMax(Date dateMax) {
         this.dateMax = dateMax;
         if (initialize && dateMax != null) {
@@ -279,16 +285,19 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         }
     }
 
+    /**
+     * Set the pickers date.
+     */
     public void setPickerDate(JsDate date, Element picker) {
         $(picker).pickadate("picker").set("select", date, () -> {
             DOM.createFieldSet().setPropertyObject("muted", true);
         });
     }
 
-    public Date getDate() {
-        return getPickerDate();
-    }
 
+    /**
+     * Get the pickers date.
+     */
     protected Date getPickerDate() {
         try {
             return $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
@@ -296,6 +305,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Date getDate() {
+        return getPickerDate();
     }
 
     /**
@@ -311,10 +324,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         $(picker).pickadate("picker").clear();
     }
 
+    @Override
     public String getPlaceholder() {
         return placeholder;
     }
 
+    @Override
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
 
@@ -323,10 +338,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         }
     }
 
+    /**
+     * Get the pickers selection type.
+     */
     public MaterialDatePickerType getSelectionType() {
         return selectionType;
     }
 
+    /**
+     * Set the pickers selection type.
+     */
     public void setSelectionType(MaterialDatePickerType selectionType) {
         this.selectionType = selectionType;
     }

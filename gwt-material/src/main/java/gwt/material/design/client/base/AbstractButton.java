@@ -21,28 +21,7 @@ package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.HasAllMouseHandlers;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.*;
@@ -144,6 +123,9 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return cssTypeMixin.getType();
     }
 
+    /**
+     * Set the buttons size.
+     */
     public void setSize(ButtonSize size) {
         if(this.size != null) {
             removeStyleName(this.size.getCssName());
@@ -155,17 +137,29 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         }
     }
 
+    /**
+     * Get the buttons size.
+     */
     public ButtonSize getSize() {
         return size;
     }
 
+    /**
+     * Get the buttons span text.
+     */
     public String getText() {
         return span.getText();
     }
 
+    /**
+     * Set the buttons span text.
+     */
     public void setText(String text) {
         span.setText(text);
-        add(span);
+
+        if(!span.isAttached()) {
+            add(span);
+        }
     }
 
     /**
