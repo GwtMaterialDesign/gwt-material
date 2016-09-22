@@ -174,12 +174,6 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         icon.setIconColor(iconColor);
     }
 
-    @Deprecated
-    @Override
-    public void setIconColor(String iconColor) {
-        icon.setIconColor(iconColor);
-    }
-
     @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
@@ -205,20 +199,8 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         letterMixin.setLetterColor(letterColor);
     }
 
-    @Deprecated
-    @Override
-    public void setLetterColor(String letterColor) {
-        letterMixin.setLetterColor(letterColor);
-    }
-
     @Override
     public void setLetterBackgroundColor(Color letterBackgroundColor) {
-        letterMixin.setLetterBackgroundColor(letterBackgroundColor);
-    }
-
-    @Deprecated
-    @Override
-    public void setLetterBackgroundColor(String letterBackgroundColor) {
         letterMixin.setLetterBackgroundColor(letterBackgroundColor);
     }
 }

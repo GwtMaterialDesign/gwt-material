@@ -81,11 +81,6 @@ public class MaterialBadge extends Span implements HasText {
         setBackgroundColor(bgColor);
     }
 
-    @Deprecated
-    public MaterialBadge(String text, String textColor, String bgColor) {
-        this(text, Color.fromStyleName(textColor), Color.fromStyleName(bgColor));
-    }
-
     @Override
     public String getText() {
         return getElement().getInnerHTML();

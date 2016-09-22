@@ -540,12 +540,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getColorsMixin().setBackgroundColor(bgColor);
     }
 
-    @Deprecated
-    @Override
-    public void setBackgroundColor(String bgColor) {
-        setBackgroundColor(Color.fromStyleName(bgColor));
-    }
-
     @Override
     public Color getBackgroundColor() {
         return getColorsMixin().getBackgroundColor();
@@ -554,12 +548,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public void setTextColor(Color textColor) {
         getColorsMixin().setTextColor(textColor);
-    }
-
-    @Deprecated
-    @Override
-    public void setTextColor(String textColor) {
-        setTextColor(Color.fromStyleName(textColor));
     }
 
     @Override

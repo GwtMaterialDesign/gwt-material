@@ -49,12 +49,6 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
         }
     }
 
-    @Deprecated
-    @Override
-    public void setBackgroundColor(String bgColor) {
-        setBackgroundColor(Color.fromStyleName(bgColor));
-    }
-
     @Override
     public Color getBackgroundColor() {
         return bgColor;
@@ -70,12 +64,6 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
         if(this.textColor != null && !this.textColor.getCssName().isEmpty()) {
             uiObject.addStyleName(ensureTextColorFormat(textColor.getCssName()));
         }
-    }
-
-    @Deprecated
-    @Override
-    public void setTextColor(String textColor) {
-        setTextColor(Color.fromStyleName(textColor));
     }
 
     @Override

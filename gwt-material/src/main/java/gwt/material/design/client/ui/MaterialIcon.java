@@ -81,11 +81,6 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
         setBackgroundColor(bgColor);
     }
 
-    @Deprecated
-    public MaterialIcon(IconType iconType, String bgColor) {
-        this(iconType, Color.fromStyleName(bgColor));
-    }
-
     /**
      * Sets an icon with textColor and backgroundColor.
      */
@@ -94,11 +89,6 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
         setIconType(iconType);
         setTextColor(textColor);
         setBackgroundColor(bgColor);
-    }
-
-    @Deprecated
-    public MaterialIcon(IconType iconType, String textColor, String bgColor) {
-        this(iconType, Color.fromStyleName(textColor), Color.fromStyleName(bgColor));
     }
 
     public void setInnerText(String innerText) {
@@ -140,12 +130,6 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 
     @Override
     public void setIconColor(Color iconColor) {
-        colorsMixin.setTextColor(iconColor);
-    }
-
-    @Deprecated
-    @Override
-    public void setIconColor(String iconColor) {
         colorsMixin.setTextColor(iconColor);
     }
 

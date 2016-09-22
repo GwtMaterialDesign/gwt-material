@@ -41,12 +41,8 @@ public interface HasLetter {
      */
     public void setLetterColor(Color letterColor);
 
-    public void setLetterColor(String letterColor);
-
     /**
      * Set the letter background color.
      */
     public void setLetterBackgroundColor(Color letterBackgroundColor);
-
-    public void setLetterBackgroundColor(String letterBackgroundColor);
 }

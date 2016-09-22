@@ -30,8 +30,6 @@ public interface HasColors {
      */
     void setBackgroundColor(Color bgColor);
 
-    void setBackgroundColor(String bgColor);
-
     Color getBackgroundColor();
 
     /**
@@ -40,8 +38,6 @@ public interface HasColors {
      * Refer to - http://gwtmaterialdesign.github.io/gwt-material-demo/#!colors for the color pallete.
      */
     void setTextColor(Color textColor);
-
-    void setTextColor(String textColor);
 
     Color getTextColor();
 }

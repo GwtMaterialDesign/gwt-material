@@ -73,11 +73,6 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
         setDescription(description);
     }
 
-    @Deprecated
-    public MaterialNoResult(String bgColor, String textColor, IconType iconType, String title, String description) {
-        this(Color.fromStyleName(bgColor), Color.fromStyleName(textColor), iconType, title, description);
-    }
-
     @Override
     public void setDescription(String description) {
         title.setDescription(description);
@@ -115,12 +110,6 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
 
     @Override
     public void setIconColor(Color iconColor) {
-        icon.setIconColor(iconColor);
-    }
-
-    @Deprecated
-    @Override
-    public void setIconColor(String iconColor) {
         icon.setIconColor(iconColor);
     }
 

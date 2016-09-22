@@ -94,12 +94,6 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
         icon.setIconColor(iconColor);
     }
 
-    @Deprecated
-    @Override
-    public void setIconColor(String color) {
-        icon.setIconColor(Color.fromStyleName(color));
-    }
-
     @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);

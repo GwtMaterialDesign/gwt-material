@@ -50,20 +50,8 @@ public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractM
         span.setTextColor(letterColor);
     }
 
-    @Deprecated
-    @Override
-    public void setLetterColor(String letterColor) {
-        span.setTextColor(letterColor);
-    }
-
     @Override
     public void setLetterBackgroundColor(Color letterBackgroundColor) {
-        span.setBackgroundColor(letterBackgroundColor);
-    }
-
-    @Deprecated
-    @Override
-    public void setLetterBackgroundColor(String letterBackgroundColor) {
         span.setBackgroundColor(letterBackgroundColor);
     }
 }

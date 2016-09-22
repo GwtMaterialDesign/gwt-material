@@ -87,12 +87,6 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
         icon.setIconColor(iconColor);
     }
 
-    @Deprecated
-    @Override
-    public void setIconColor(String iconColor) {
-        icon.setIconColor(iconColor);
-    }
-
     @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
