@@ -33,7 +33,8 @@ import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.HasName;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 import gwt.material.design.client.base.*;
@@ -42,10 +43,10 @@ import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.FocusableMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
 import gwt.material.design.client.events.DragLeaveEvent;
+import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
@@ -614,25 +615,31 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.setSelectionRange(pos, length);
     }
 
+    public ReadOnlyMixin<MaterialValueBox, ValueBoxBase> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
+        }
+        return readOnlyMixin;
+    }
+
     @Override
     public void setReadOnly(boolean readOnly) {
-        readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
-        readOnlyMixin.setReadOnly(readOnly);
+        getReadOnlyMixin().setReadOnly(readOnly);
     }
 
     @Override
     public boolean isReadOnly() {
-        return readOnlyMixin.isReadOnly();
+        return getReadOnlyMixin().isReadOnly();
     }
 
     @Override
     public void setToggleReadOnly(boolean toggle) {
-        readOnlyMixin.setToggleReadOnly(toggle);
+        getReadOnlyMixin().setToggleReadOnly(toggle);
     }
 
     @Override
     public boolean isToggleReadOnly() {
-        return readOnlyMixin.isToggleReadOnly();
+        return getReadOnlyMixin().isToggleReadOnly();
     }
 
     public void setCursorPos(int pos) {

@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
@@ -86,6 +87,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
+    private HandlerRegistration valueChangeHandler;
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -113,6 +115,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     protected void onUnload() {
         super.onUnload();
+
+        if (valueChangeHandler != null) {
+            valueChangeHandler.removeHandler();
+        }
         $(listBox.getElement()).off("change");
         $(listBox.getElement()).material_select("destroy");
     }
@@ -689,7 +695,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public void setToggleReadOnly(boolean toggle) {
         getReadOnlyMixin().setToggleReadOnly(toggle);
-        addValueChangeHandler(valueChangeEvent -> {
+        valueChangeHandler = addValueChangeHandler(valueChangeEvent -> {
             setReadOnly(true);
         });
     }
