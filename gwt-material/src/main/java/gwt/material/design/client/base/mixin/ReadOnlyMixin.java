@@ -70,7 +70,6 @@ public class ReadOnlyMixin<T extends UIObject, H extends UIObject> extends Abstr
 
             $(target).off("blur");
             $(target).blur((e, param1) -> {
-                MaterialToast.fireToast("Blured");
                 setReadOnly(true);
                 return true;
             });
