@@ -28,11 +28,9 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.base.AbstractValueWidget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasOrientation;
-import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
 import gwt.material.design.client.ui.html.DateInput;
@@ -62,7 +60,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasOrientation, HasPlaceholder,
-        HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon {
+        HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -94,6 +92,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private MaterialIcon icon = new MaterialIcon();
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput);
+    private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -531,5 +530,32 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         return errorMixin;
+    }
+
+    public ReadOnlyMixin<MaterialDatePicker, DateInput> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, dateInput);
+        }
+        return readOnlyMixin;
+    }
+
+    @Override
+    public void setReadOnly(boolean value) {
+        getReadOnlyMixin().setReadOnly(value);
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return getReadOnlyMixin().isReadOnly();
+    }
+
+    @Override
+    public void setToggleReadOnly(boolean toggle) {
+        getReadOnlyMixin().setToggleReadOnly(toggle);
+    }
+
+    @Override
+    public boolean isToggleReadOnly() {
+        return getReadOnlyMixin().isToggleReadOnly();
     }
 }

@@ -133,4 +133,6 @@ public interface CssName {
     String Z_DEPTH_3 = "z-depth-3";
     String Z_DEPTH_4 = "z-depth-4";
     String Z_DEPTH_5 = "z-depth-5";
+    String READ_ONLY = "read-only";
+    String READ_ONLY_TOGGLE = "read-only-toggle";
 }

@@ -28,7 +28,11 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.HasReadOnly;
+import gwt.material.design.client.base.KeyFactory;
+import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Label;
@@ -68,7 +72,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements HasPlaceholder,
-        HasConstrainedValue<T> {
+        HasConstrainedValue<T>, HasReadOnly {
 
     private final ListBox listBox = new ListBox();
     private final Label lblName = new Label();
@@ -81,6 +85,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     protected final List<T> values = new ArrayList<>();
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
+    private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -658,5 +663,39 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setKeyFactory(KeyFactory<T, String> keyFactory) {
         this.keyFactory = keyFactory;
+    }
+
+    public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
+        }
+        return readOnlyMixin;
+    }
+
+    @Override
+    public void setReadOnly(boolean value) {
+        getReadOnlyMixin().setReadOnly(value);
+        if (!value) {
+            $(listBox.getElement()).material_select("destroy");
+            $(listBox.getElement()).material_select();
+        }
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return getReadOnlyMixin().isReadOnly();
+    }
+
+    @Override
+    public void setToggleReadOnly(boolean toggle) {
+        getReadOnlyMixin().setToggleReadOnly(toggle);
+        addValueChangeHandler(valueChangeEvent -> {
+            setReadOnly(true);
+        });
+    }
+
+    @Override
+    public boolean isToggleReadOnly() {
+        return getReadOnlyMixin().isToggleReadOnly();
     }
 }

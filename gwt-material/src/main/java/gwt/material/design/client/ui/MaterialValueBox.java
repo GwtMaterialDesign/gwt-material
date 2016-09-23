@@ -40,6 +40,7 @@ import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CounterMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.FocusableMixin;
+import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragEndEvent;
@@ -66,7 +67,7 @@ import gwt.material.design.client.ui.html.Label;
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-        HasInputType, HasPlaceholder, HasCounter {
+        HasInputType, HasPlaceholder, HasCounter, HasReadOnly {
 
     private boolean initialized;
 
@@ -83,7 +84,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
     private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
-
+    private ReadOnlyMixin<MaterialValueBox, ValueBoxBase> readOnlyMixin;
     private FocusableMixin<MaterialWidget> focusableMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
@@ -146,7 +147,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void clear() {
         valueBoxBase.setText("");
         clearErrorOrSuccess();
-        label.removeStyleName("active");
+        label.removeStyleName(CssName.ACTIVE);
     }
 
     public void removeErrorModifiers() {
@@ -161,7 +162,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         if(focusableMixin == null) { focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement())); }
         return focusableMixin;
     }
-    
+
     @Override
     public String getText() {
         return valueBoxBase.getText();
@@ -613,12 +614,25 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.setSelectionRange(pos, length);
     }
 
+    @Override
     public void setReadOnly(boolean readOnly) {
-        valueBoxBase.setReadOnly(readOnly);
+        readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
+        readOnlyMixin.setReadOnly(readOnly);
     }
 
+    @Override
     public boolean isReadOnly() {
-        return valueBoxBase.isReadOnly();
+        return readOnlyMixin.isReadOnly();
+    }
+
+    @Override
+    public void setToggleReadOnly(boolean toggle) {
+        readOnlyMixin.setToggleReadOnly(toggle);
+    }
+
+    @Override
+    public boolean isToggleReadOnly() {
+        return readOnlyMixin.isToggleReadOnly();
     }
 
     public void setCursorPos(int pos) {
