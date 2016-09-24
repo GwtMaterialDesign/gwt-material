@@ -49,6 +49,7 @@ public class MaterialWidgetTest extends GWTTestCase {
 
     public <T extends MaterialWidget> void checkWidget(T widget) {
         checkId(widget);
+        checkInitialClasses(widget);
         checkEnabled(widget);
         checkColor(widget);
         checkTextAlign(widget);
@@ -68,18 +69,26 @@ public class MaterialWidgetTest extends GWTTestCase {
 
     }
 
+    public <T extends MaterialWidget> void checkInitialClasses(T widget) {
+        widget.addAttachHandler(attachEvent -> {
+            assertNotNull(widget.getInitialClasses());
+        });
+    }
+
     public <T extends MaterialWidget> void checkChildren(T widget) {
-        int childCount = 3;
-        for (int i = 1; i <= childCount; i++) {
-            MaterialPanel panel = new MaterialPanel();
-            widget.add(panel);
+        if (widget.getChildren().size() == 0) {
+            int childCount = 3;
+            for (int i = 1; i <= childCount; i++) {
+                MaterialPanel panel = new MaterialPanel();
+                widget.add(panel);
+            }
+            assertTrue(widget.getChildren().size() != 0);
+            assertEquals(widget.getChildren().size(), 3);
+            widget.getChildren().remove(0);
+            assertEquals(widget.getChildren().size(), 2);
+            widget.clear();
+            assertEquals(widget.getChildren().size(), 0);
         }
-        assertTrue(widget.getChildren().size() != 0);
-        assertEquals(widget.getChildren().size(), 3);
-        widget.getChildren().remove(0);
-        assertEquals(widget.getChildren().size(), 2);
-        widget.clear();
-        assertEquals(widget.getChildren().size(), 0);
     }
 
     public <T extends MaterialWidget> void checkTruncate(T widget) {
