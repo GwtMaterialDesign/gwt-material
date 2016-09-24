@@ -108,6 +108,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                 }
                 return true;
             });
+            valueChangeHandler = addValueChangeHandler(valueChangeEvent -> {
+                setReadOnly(true);
+            });
             initialize();
         }
     }
@@ -695,9 +698,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public void setToggleReadOnly(boolean toggle) {
         getReadOnlyMixin().setToggleReadOnly(toggle);
-        valueChangeHandler = addValueChangeHandler(valueChangeEvent -> {
-            setReadOnly(true);
-        });
     }
 
     @Override
