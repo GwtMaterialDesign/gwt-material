@@ -20,13 +20,12 @@ package gwt.material.design.client.ui;
  * #L%
  */
 
+import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
-
-import com.google.gwt.dom.client.Document;
 
 //@formatter:off
 /**

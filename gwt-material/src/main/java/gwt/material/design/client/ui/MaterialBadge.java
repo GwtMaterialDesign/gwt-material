@@ -20,11 +20,10 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
-
-import com.google.gwt.user.client.ui.HasText;
 
 //@formatter:off
 /**

@@ -19,14 +19,13 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.ui.html.Heading;
-
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off

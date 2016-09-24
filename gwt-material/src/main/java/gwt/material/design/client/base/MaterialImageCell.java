@@ -19,10 +19,9 @@
  */
 package gwt.material.design.client.base;
 
-import gwt.material.design.client.ui.MaterialImage;
-
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import gwt.material.design.client.ui.MaterialImage;
 
 public class MaterialImageCell extends AbstractCell<MaterialImage> {
 

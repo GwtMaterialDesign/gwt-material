@@ -21,9 +21,9 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.HasInputType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.base.HasInputType;
 
 public class MaterialInput extends MaterialWidget implements HasInputType {
 

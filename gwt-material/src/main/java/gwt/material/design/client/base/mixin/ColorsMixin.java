@@ -19,9 +19,8 @@
  */
 package gwt.material.design.client.base.mixin;
 
-import gwt.material.design.client.base.HasColors;
-
 import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.HasColors;
 import gwt.material.design.client.constants.Color;
 
 /**

@@ -20,8 +20,6 @@
 package gwt.material.design.client.base.error;
 
 import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasError;

@@ -19,15 +19,14 @@
  */
 package gwt.material.design.client.base;
 
-import gwt.material.design.client.ui.MaterialNumberBox;
-
-import java.io.IOException;
-import java.text.ParseException;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.text.shared.Parser;
 import com.google.gwt.text.shared.Renderer;
 import com.google.gwt.user.client.ui.ValueBox;
+import gwt.material.design.client.ui.MaterialNumberBox;
+
+import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Base class to handle number values on {@code <input type="number">} elements.

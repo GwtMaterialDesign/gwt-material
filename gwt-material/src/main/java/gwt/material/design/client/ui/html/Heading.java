@@ -19,11 +19,10 @@
  */
 package gwt.material.design.client.ui.html;
 
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.HeadingSize;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.HeadingSize;
 
 public class Heading extends MaterialWidget {
 

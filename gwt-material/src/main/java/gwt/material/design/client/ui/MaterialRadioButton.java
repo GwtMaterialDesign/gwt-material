@@ -24,11 +24,9 @@ import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
-import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.TypeWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.RadioButtonType;
 
 //@formatter:off

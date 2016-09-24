@@ -24,7 +24,6 @@ import gwt.material.design.client.base.HasReadOnly;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.MaterialToast;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 

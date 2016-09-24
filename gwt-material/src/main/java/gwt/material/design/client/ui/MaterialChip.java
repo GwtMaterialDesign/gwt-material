@@ -21,11 +21,12 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Image;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasImage;
+import gwt.material.design.client.base.HasLetter;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;

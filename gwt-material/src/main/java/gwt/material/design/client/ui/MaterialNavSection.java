@@ -19,14 +19,13 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
-
-import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**

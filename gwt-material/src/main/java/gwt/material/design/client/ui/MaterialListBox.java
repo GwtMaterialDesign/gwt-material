@@ -20,10 +20,6 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.OptionElement;
-import gwt.material.design.client.base.HasColors;
-import gwt.material.design.client.base.HasGrid;
-import gwt.material.design.client.base.HasId;
-import gwt.material.design.client.base.HasPlaceholder;
 import gwt.material.design.client.ui.html.Option;
 
 //@formatter:off

@@ -31,9 +31,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.js.JsMaterialElement;
-import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.client.base.HasSelectables;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.HasWaves;
@@ -41,6 +38,7 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.*;
@@ -48,8 +46,10 @@ import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler
 import gwt.material.design.client.events.SideNavClosingEvent.SideNavClosingHandler;
 import gwt.material.design.client.events.SideNavOpenedEvent.SideNavOpenedHandler;
 import gwt.material.design.client.events.SideNavOpeningEvent.SideNavOpeningHandler;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.jquery.client.api.JQuery;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 

@@ -19,14 +19,13 @@
  */
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasTitle;
-import gwt.material.design.client.constants.*;
-import gwt.material.design.client.ui.html.Div;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasTitle;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.*;
+import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
 /**

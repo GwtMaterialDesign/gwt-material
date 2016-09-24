@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.base.mixin;
 
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
@@ -27,8 +28,6 @@ import gwt.material.design.client.ui.MaterialCollapsibleBody;
 import gwt.material.design.client.ui.MaterialCollapsibleItem;
 import gwt.material.design.client.ui.MaterialNavBar;
 import gwt.material.design.client.ui.MaterialProgress;
-
-import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author kevzlou7979

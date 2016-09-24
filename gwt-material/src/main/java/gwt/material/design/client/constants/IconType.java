@@ -19,9 +19,9 @@
  */
 package gwt.material.design.client.constants;
 
-import javax.annotation.Generated;
-
 import gwt.material.design.client.base.helper.EnumHelper;
+
+import javax.annotation.Generated;
 
 @Generated(value = "gwt.material.design.gen.IconTypeGenerator", date = "2016-04-15T00:43:49Z")
 public enum IconType implements CssType {

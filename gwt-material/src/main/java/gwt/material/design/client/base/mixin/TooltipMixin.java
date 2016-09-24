@@ -19,12 +19,11 @@
  */
 package gwt.material.design.client.base.mixin;
 
-import gwt.material.design.client.base.MaterialWidget;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasTooltip;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.MaterialTooltip;
-
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Mixin for the {@link MaterialTooltip} component.

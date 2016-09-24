@@ -19,10 +19,9 @@
  */
 package gwt.material.design.client.base.mixin;
 
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasScrollspy;
 import gwt.material.design.client.base.helper.StyleHelper;
-
-import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.constants.CssName;
 
 /**

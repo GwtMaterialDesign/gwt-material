@@ -21,7 +21,6 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.base.HasColors;
 import gwt.material.design.client.base.HasImage;
 
 /**

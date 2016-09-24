@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.AbstractIconButton;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;

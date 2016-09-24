@@ -19,11 +19,10 @@
  */
 package gwt.material.design.client.ui.html;
 
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.ui.MaterialListBox;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.OptionElement;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.ui.MaterialListBox;
 
 /**
  * Option widget that encapsulated a &lt;option&gt; tag. This widget is to be

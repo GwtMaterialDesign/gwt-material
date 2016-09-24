@@ -23,14 +23,7 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasFlexbox;
 import gwt.material.design.client.base.helper.BrowserPrefixHelper;
-import gwt.material.design.client.constants.Display;
-import gwt.material.design.client.constants.Flex;
-import gwt.material.design.client.constants.FlexAlignContent;
-import gwt.material.design.client.constants.FlexAlignItems;
-import gwt.material.design.client.constants.FlexAlignSelf;
-import gwt.material.design.client.constants.FlexDirection;
-import gwt.material.design.client.constants.FlexJustifyContent;
-import gwt.material.design.client.constants.FlexWrap;
+import gwt.material.design.client.constants.*;
 
 /**
  * Mixin for Flexbox layout

@@ -19,11 +19,6 @@
  */
 package gwt.material.design.client.base;
 
-import static com.google.gwt.dom.client.BrowserEvents.CLICK;
-
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.MaterialButton;
-
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.dom.client.Element;
@@ -31,6 +26,10 @@ import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.ui.MaterialButton;
+
+import static com.google.gwt.dom.client.BrowserEvents.CLICK;
 
 public class MaterialButtonCell extends AbstractCell<MaterialButton> {
 
