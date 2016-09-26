@@ -45,12 +45,13 @@ public class ReadOnlyMixin<T extends UIObject, H extends UIObject> extends Abstr
             target.getElement().setAttribute("disabled", "");
         } else {
             target.getElement().removeAttribute("disabled");
+            uiObject.removeStyleName(CssName.READ_ONLY);
         }
     }
 
     @Override
     public boolean isReadOnly() {
-        return StyleHelper.containsStyle(target.getStyleName(), CssName.READ_ONLY);
+        return StyleHelper.containsStyle(uiObject.getStyleName(), CssName.READ_ONLY);
     }
 
     @Override
@@ -77,6 +78,6 @@ public class ReadOnlyMixin<T extends UIObject, H extends UIObject> extends Abstr
 
     @Override
     public boolean isToggleReadOnly() {
-        return StyleHelper.containsStyle(target.getStyleName(), CssName.READ_ONLY_TOGGLE);
+        return StyleHelper.containsStyle(uiObject.getStyleName(), CssName.READ_ONLY_TOGGLE);
     }
 }
