@@ -704,4 +704,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public boolean isToggleReadOnly() {
         return getReadOnlyMixin().isToggleReadOnly();
     }
+
+    public ListBox getListBox() {
+        return listBox;
+    }
 }
