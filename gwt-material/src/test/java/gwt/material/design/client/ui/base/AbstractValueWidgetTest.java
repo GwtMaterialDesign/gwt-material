@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui.base;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasError;

@@ -140,7 +140,7 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
                 input.setAttribute("class", CssName.FILLED_IN);
                 break;
             case INTERMEDIATE:
-                this.addStyleName(type + "-checkbox");
+                this.addStyleName(type.getCssName() + "-checkbox");
                 break;
             default:
                 this.addStyleName(type.getCssName());

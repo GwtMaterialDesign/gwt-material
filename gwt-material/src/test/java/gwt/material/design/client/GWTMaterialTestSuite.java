@@ -39,6 +39,8 @@ public class GWTMaterialTestSuite extends TestCase {
         suite.addTestSuite(MaterialBreadcrumbTest.class);
         suite.addTestSuite(MaterialButtonTest.class);
         suite.addTestSuite(MaterialCardTest.class);
+        suite.addTestSuite(MaterialCheckBoxTest.class);
+        suite.addTestSuite(MaterialChipTest.class);
         suite.addTestSuite(MaterialDatePickerTest.class);
         suite.addTestSuite(MaterialDoubleBoxTest.class);
         suite.addTestSuite(MaterialFloatBoxTest.class);

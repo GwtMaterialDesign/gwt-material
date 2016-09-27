@@ -21,6 +21,7 @@ package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.AbstractIconButton;
+import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
@@ -34,7 +35,7 @@ public class AbstractIconButtonTest extends AbstractButtonTest {
         checkIcon(icon);
     }
 
-    protected <T extends AbstractIconButton> void checkIcon(T widget) {
+    protected <T extends HasIcon> void checkIcon(T widget) {
         MaterialIcon icon = widget.getIcon();
         icon.setIconType(IconType.POLYMER);
         assertNotNull(icon);

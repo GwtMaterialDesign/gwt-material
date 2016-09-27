@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
@@ -53,12 +55,25 @@ public class MaterialCardTest extends MaterialWidgetTest {
         MaterialCardAction action = new MaterialCardAction();
         widget.add(action);
 
-        assertEquals(widget.getChildren().size(), 3);
-        assertNotNull(content);
-        assertNotNull(title);
-        assertNotNull(action);
+        MaterialCardReveal cardReveal = new MaterialCardReveal();
+        widget.add(cardReveal);
+
+        MaterialCardImage cardImage = new MaterialCardImage();
+        widget.add(cardImage);
+
+        assertEquals(widget.getChildren().size(), 5);
         assertTrue(widget.getWidget(0) instanceof MaterialCardContent);
         assertTrue(widget.getWidget(1) instanceof MaterialCardTitle);
         assertTrue(widget.getWidget(2) instanceof MaterialCardAction);
+        assertTrue(widget.getWidget(3) instanceof MaterialCardReveal);
+        assertTrue(widget.getWidget(4) instanceof MaterialCardImage);
+        for (Widget w : widget.getChildren()) {
+            assertNotNull(w);
+            assertTrue(w instanceof MaterialWidget);
+            MaterialWidget md = (MaterialWidget) w;
+            checkWidget(md);
+        }
+        widget.clear();
+        assertEquals(widget.getChildren().size(), 0);
     }
 }

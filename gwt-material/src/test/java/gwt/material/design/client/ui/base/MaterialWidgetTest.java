@@ -245,7 +245,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(element.getId(), widget.getId());
     }
 
-    protected <T extends MaterialWidget & HasText> void checkText(T widget) {
+    protected <T extends HasText> void checkText(T widget) {
         widget.setText("test");
         assertEquals(widget.getText(), "test");
     }
