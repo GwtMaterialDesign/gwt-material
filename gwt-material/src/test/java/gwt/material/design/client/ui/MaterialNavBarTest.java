@@ -75,9 +75,9 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
     public <T extends MaterialNavBar> void checkNavBrand(T navBar) {
         MaterialNavBrand navBrand = new MaterialNavBrand();
         checkWidget(navBrand);
-        navBrand.setText("App");
         navBar.add(navBrand);
-        assertEquals(navBrand.getText(), "App");
+        checkText(navBrand);
+
         navBrand.setPosition(Position.RIGHT);
         assertTrue(navBrand.getElement().hasClassName(Position.RIGHT.getCssName()));
         navBrand.setPosition(Position.LEFT);

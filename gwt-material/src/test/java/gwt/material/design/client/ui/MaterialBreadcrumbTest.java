@@ -19,14 +19,15 @@
  */
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
-public class MaterialDatePickerTest extends AbstractValueWidgetTest {
+public class MaterialBreadcrumbTest extends MaterialWidgetTest {
 
     @Test
-    public void testDatePicker() {
-        MaterialDatePicker datePicker = new MaterialDatePicker();
-        checkAbstractValueWidget(datePicker, datePicker.getDateInput());
+    public void testBreadcrumb() {
+        MaterialBreadcrumb breadcrumb = new MaterialBreadcrumb();
+        checkWidget(breadcrumb);
+        checkText(breadcrumb);
     }
 }

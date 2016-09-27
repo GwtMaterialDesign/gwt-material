@@ -22,6 +22,7 @@ package gwt.material.design.client.base;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.*;
@@ -31,7 +32,7 @@ import gwt.material.design.client.ui.html.Span;
  * @author Ben Dol
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
-        HasTargetHistoryToken, HasType<ButtonType> {
+        HasTargetHistoryToken, HasType<ButtonType>, HasText {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
     private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
@@ -147,6 +148,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     /**
      * Get the buttons span text.
      */
+    @Override
     public String getText() {
         return span.getText();
     }
@@ -154,6 +156,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     /**
      * Set the buttons span text.
      */
+    @Override
     public void setText(String text) {
         span.setText(text);
 

@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Image;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasImage;
@@ -55,7 +56,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!chips">Material Chips</a>
  */
 //@formatter:on
-public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasLetter {
+public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasLetter, HasText {
 
     private MaterialIcon icon = new MaterialIcon();
     private Span span = new Span();
@@ -98,11 +99,13 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         this(text, Color.fromStyleName(bgColor), Color.fromStyleName(textColor));
     }
 
+    @Override
     public void setText(String text) {
         span.setText(text);
         add(span);
     }
 
+    @Override
     public String getText() {
         return span.getElement().getInnerText();
     }

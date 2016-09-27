@@ -40,6 +40,7 @@ public abstract class AbstractButtonTest extends MaterialWidgetTest {
         checkActivates(button);
         checkType(button);
         checkSize(button);
+        checkText(button);
     }
 
     protected  <T extends AbstractButton> void checkSize(T widget) {
