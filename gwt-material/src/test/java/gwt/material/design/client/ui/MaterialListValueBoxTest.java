@@ -19,6 +19,8 @@ public class MaterialListValueBoxTest extends MaterialWidgetTest {
         checkWidget(valueBox);
         checkValues(valueBox);
         checkProperties(valueBox);
+        MaterialListBox listBox = new MaterialListBox();
+        checkValueAsListBox(listBox);
     }
 
     public <T extends MaterialListValueBox<User>> void checkValues(T widget) {
@@ -48,6 +50,41 @@ public class MaterialListValueBoxTest extends MaterialWidgetTest {
 
         // Insert item test
         User inserted = new User("inserted", "Inserted");
+        widget.insertItem(inserted, 1);
+        assertNotNull(inserted);
+        assertEquals(widget.getValue(1), inserted);
+
+        // Clear test
+        widget.clear();
+        assertNull(widget.getSelectedValue());
+        assertEquals(widget.getItemCount(), 0);
+    }
+
+    public <T extends MaterialListValueBox<String>> void checkValueAsListBox(T widget) {
+        List<String> users = new ArrayList<>();
+        // Add Item test
+        for (int i = 1; i <= 5; i++) {
+            users.add("Item" + i);
+        }
+
+        for (int i = 0; i <=4; i++) {
+            assertNotNull(widget.getValue(i));
+        }
+
+        // Set selected item test
+        widget.setSelectedIndex(0);
+        assertEquals(widget.getSelectedIndex(), 0);
+        assertNotNull(widget.getSelectedValue());
+        assertEquals(users.get(0), widget.getSelectedValue());
+
+        // Remove item test
+        widget.removeItem(0);
+        users.remove(0);
+        assertEquals(widget.getItemCount(), users.size());
+        assertEquals(users.get(0), widget.getSelectedValue());
+
+        // Insert item test
+        String inserted = new String("inserted");
         widget.insertItem(inserted, 1);
         assertNotNull(inserted);
         assertEquals(widget.getValue(1), inserted);
