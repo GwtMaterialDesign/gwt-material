@@ -151,7 +151,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     public void removeErrorModifiers() {
-        dateInput.addStyleName(CssName.VALID);
+        dateInput.removeStyleName(CssName.VALID);
         dateInput.removeStyleName(CssName.INVALID);
         lblName.removeStyleName("green-text");
         lblName.removeStyleName("red-text");
@@ -557,5 +557,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public boolean isToggleReadOnly() {
         return getReadOnlyMixin().isToggleReadOnly();
+    }
+
+    public DateInput getDateInput() {
+        return dateInput;
     }
 }

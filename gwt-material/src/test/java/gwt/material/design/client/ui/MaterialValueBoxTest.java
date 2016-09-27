@@ -21,24 +21,22 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
 /**
  * Test case for ValueBox
  *
  * @author kevzlou7979
  */
-public class MaterialValueBoxTest extends MaterialWidgetTest {
+public class MaterialValueBoxTest extends AbstractValueWidgetTest {
 
-    public <T extends MaterialValueBox> void checkValueBox(T widget) {
-        checkWidget(widget);
+    public void checkValueBox(MaterialValueBox widget) {
+        checkAbstractValueWidget(widget, widget.getValueBoxBase());
         checkValue(widget);
-        checkErrorSuccess(widget);
-        checkPlaceholder(widget);
         checkIcon(widget);
     }
 
-    public <T extends MaterialValueBox> void checkValue(T widget) {
+    protected  <T extends MaterialValueBox> void checkValue(T widget) {
         if (widget instanceof MaterialTextBox || widget instanceof MaterialTextArea) {
             widget.setValue("Value");
             assertEquals(widget.getValue(), "Value");
@@ -54,25 +52,7 @@ public class MaterialValueBoxTest extends MaterialWidgetTest {
         }
     }
 
-    public <T extends MaterialValueBox> void checkErrorSuccess(T widget) {
-        Element valueBox = widget.getWidget(0).getElement();
-        widget.setError("Error");
-        assertTrue(valueBox.hasClassName(CssName.INVALID));
-        widget.setSuccess("Success");
-        assertTrue(valueBox.hasClassName(CssName.VALID));
-        widget.clearErrorOrSuccess();
-        assertFalse(valueBox.hasClassName(CssName.VALID));
-        assertFalse(valueBox.hasClassName(CssName.INVALID));
-    }
-
-    public <T extends MaterialValueBox> void checkPlaceholder(T widget) {
-        widget.setPlaceholder("Placeholder");
-        assertEquals(widget.getPlaceholder(), "Placeholder");
-        widget.setPlaceholder("");
-        assertEquals(widget.getPlaceholder(), "");
-    }
-
-    public <T extends MaterialValueBox> void checkIcon(T widget) {
+    protected <T extends MaterialValueBox> void checkIcon(T widget) {
         Element iconElement = widget.getIcon().getElement();
         widget.setIconType(IconType.POLYMER);
         assertEquals(iconElement.getInnerHTML(), IconType.POLYMER.getCssName());
@@ -88,7 +68,7 @@ public class MaterialValueBoxTest extends MaterialWidgetTest {
         assertTrue(iconElement.hasClassName(IconSize.LARGE.getCssName()));
     }
 
-    public <T extends MaterialValueBox> void checkReadOnly(T widget) {
+    protected <T extends MaterialValueBox> void checkReadOnly(T widget) {
         Element element = widget.getElement();
         widget.setReadOnly(true);
         assertTrue(element.hasAttribute("disabled"));

@@ -2,6 +2,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -30,9 +31,11 @@ public class MaterialListValueBoxTest extends MaterialWidgetTest {
             User user = new User("user" + i, "User " + i);
             users.add(user);
             widget.addItem(user);
+            //widget.addItem(user, user.getEmail());
+            //widget.add(user);
         }
 
-        for (int i = 0; i <=4; i++) {
+        for (int i = 0; i <= 4; i++) {
             assertNotNull(widget.getValue(i));
         }
 
@@ -65,9 +68,12 @@ public class MaterialListValueBoxTest extends MaterialWidgetTest {
         // Add Item test
         for (int i = 1; i <= 5; i++) {
             users.add("Item" + i);
+            widget.addItem("Item" + i);
+            //widget.addItem("Item" + i, "value" + i);
+            //widget.add("Item" + i);
         }
 
-        for (int i = 0; i <=4; i++) {
+        for (int i = 0; i <= 4; i++) {
             assertNotNull(widget.getValue(i));
         }
 
@@ -106,13 +112,17 @@ public class MaterialListValueBoxTest extends MaterialWidgetTest {
 
     @Override
     public <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
-        assertTrue(widget instanceof MaterialListValueBox);
-        final Element element = ((MaterialListValueBox<User>)widget).getListBox().getElement();
+        checkEnabled(new MaterialListValueBox<User>());
+    }
+
+    public <T extends MaterialListValueBox & HasEnabled, H extends UIObject> void checkEnabled(T widget) {
+        final Element element = widget.getListBox().getElement();
         assertFalse(element.hasAttribute(CssName.DISABLED));
         widget.setEnabled(true);
         assertFalse(element.hasAttribute(CssName.DISABLED));
         assertEquals(widget.isEnabled(), true);
         widget.setEnabled(false);
         assertTrue(element.hasAttribute(CssName.DISABLED));
+        assertEquals(widget.getListBox().isEnabled(), false);
     }
 }

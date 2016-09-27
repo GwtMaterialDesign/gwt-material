@@ -47,7 +47,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         checkWidget(widget);
     }
 
-    public <T extends MaterialWidget> void checkWidget(T widget) {
+    protected <T extends MaterialWidget> void checkWidget(T widget) {
         checkId(widget);
         checkInitialClasses(widget);
         checkEnabled(widget);
@@ -66,16 +66,15 @@ public class MaterialWidgetTest extends GWTTestCase {
         checkFontWeight(widget);
         checkTruncate(widget);
         checkChildren(widget);
-
     }
 
-    public <T extends MaterialWidget> void checkInitialClasses(T widget) {
+    protected <T extends MaterialWidget> void checkInitialClasses(T widget) {
         widget.addAttachHandler(attachEvent -> {
             assertNotNull(widget.getInitialClasses());
         });
     }
 
-    public <T extends MaterialWidget> void checkChildren(T widget) {
+    protected <T extends MaterialWidget> void checkChildren(T widget) {
         if (widget.getChildren().size() == 0) {
             int childCount = 3;
             for (int i = 1; i <= childCount; i++) {
@@ -91,7 +90,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         }
     }
 
-    public <T extends MaterialWidget> void checkTruncate(T widget) {
+    protected <T extends MaterialWidget> void checkTruncate(T widget) {
         final Element element = widget.getElement();
         widget.setTruncate(true);
         assertTrue(element.hasClassName(CssName.TRUNCATE));
@@ -99,14 +98,14 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertFalse(element.hasClassName(CssName.TRUNCATE));
     }
 
-    public <T extends MaterialWidget> void checkFontWeight(T widget) {
+    protected <T extends MaterialWidget> void checkFontWeight(T widget) {
         final Element element = widget.getElement();
         widget.setFontWeight(Style.FontWeight.BOLD);
         assertEquals(element.getStyle().getFontWeight(), Style.FontWeight.BOLD.getCssName());
         assertEquals(widget.getFontWeight(), Style.FontWeight.BOLD.getCssName());
     }
 
-    public <T extends MaterialWidget & HasHoverable> void checkHoverable(T widget) {
+    protected <T extends MaterialWidget & HasHoverable> void checkHoverable(T widget) {
         final Element element = widget.getElement();
         widget.setHoverable(true);
         assertTrue(element.hasClassName(CssName.HOVERABLE));
@@ -116,7 +115,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(widget.isHoverable(), false);
     }
 
-    public <T extends MaterialWidget & HasTooltip> void checkTooltip(T widget) {
+    protected <T extends MaterialWidget & HasTooltip> void checkTooltip(T widget) {
         final Element element = widget.getElement();
         widget.setTooltip("Tooltip");
         widget.setTooltipPosition(Position.RIGHT);
@@ -134,14 +133,14 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(widget.getTooltipHTML(), "<b>Tooltip</b>");
     }
 
-    public <T extends MaterialWidget & HasWaves> void checkWaves(T widget) {
+    protected <T extends MaterialWidget & HasWaves> void checkWaves(T widget) {
         final Element element = widget.getElement();
         widget.setWaves(WavesType.YELLOW);
         assertTrue(element.hasClassName(WavesType.YELLOW.getCssName()));
         assertEquals(widget.getWaves(), WavesType.YELLOW);
     }
 
-    public <T extends MaterialWidget & HasCircle> void checkCircle(T widget) {
+    protected <T extends MaterialWidget & HasCircle> void checkCircle(T widget) {
         final Element element = widget.getElement();
         widget.setCircle(true);
         assertTrue(element.hasClassName(CssName.CIRCLE));
@@ -150,14 +149,14 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(widget.isCircle(), false);
     }
 
-    public <T extends MaterialWidget & HasCenterOn> void checkCenterOn(T widget) {
+    protected <T extends MaterialWidget & HasCenterOn> void checkCenterOn(T widget) {
         final Element element = widget.getElement();
         widget.setCenterOn(CenterOn.CENTER_ON_SMALL);
         assertTrue(element.hasClassName(CenterOn.CENTER_ON_SMALL.getCssName()));
         assertEquals(widget.getCenterOn(), CenterOn.CENTER_ON_SMALL);
     }
 
-    public <T extends MaterialWidget & HasHideOn & HasShowOn> void checkHideOnShowOn(T widget) {
+    protected <T extends MaterialWidget & HasHideOn & HasShowOn> void checkHideOnShowOn(T widget) {
         final Element element = widget.getElement();
         widget.setHideOn(HideOn.HIDE_ON_MED);
         assertTrue(element.hasClassName(HideOn.HIDE_ON_MED.getCssName()));
@@ -167,7 +166,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(widget.getShowOn(), ShowOn.SHOW_ON_MED_UP);
     }
 
-    public <T extends MaterialWidget & HasScrollspy> void checkScrollspy(T widget) {
+    protected <T extends MaterialWidget & HasScrollspy> void checkScrollspy(T widget) {
         final Element element = widget.getElement();
         widget.setScrollspy("scrollspy-1");
         assertTrue(element.hasClassName(CssName.SECTION + " " + CssName.SCROLLSPY));
@@ -175,7 +174,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(widget.getScrollspy(), "scrollspy-1");
     }
 
-    public <T extends MaterialWidget & HasSeparator> void checkSeparator(T widget) {
+    protected <T extends MaterialWidget & HasSeparator> void checkSeparator(T widget) {
         final Element element = widget.getElement();
         widget.setSeparator(true);
         assertEquals("1px solid #e9e9e9", element.getStyle().getProperty("borderBottom"));
@@ -185,14 +184,14 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(widget.isSeparator(), false);
     }
 
-    public <T extends MaterialWidget & HasShadow> void checkShadow(T widget) {
+    protected <T extends MaterialWidget & HasShadow> void checkShadow(T widget) {
         final Element element = widget.getElement();
         widget.setShadow(1);
         assertTrue(element.hasClassName(CssName.Z_DEPTH_1));
         assertEquals(widget.getShadow(), 1);
     }
 
-    public <T extends MaterialWidget & HasGrid> void checkGrid(T widget) {
+    protected <T extends MaterialWidget & HasGrid> void checkGrid(T widget) {
         final Element element = widget.getElement();
         widget.setGrid("s12 m12 l12");
         assertTrue(element.hasClassName("col s12 m12 l12"));
@@ -205,7 +204,7 @@ public class MaterialWidgetTest extends GWTTestCase {
     }
 
 
-    public <T extends MaterialWidget & HasTextAlign> void checkTextAlign(T widget) {
+    protected <T extends MaterialWidget & HasTextAlign> void checkTextAlign(T widget) {
         final Element element = widget.getElement();
         widget.setTextAlign(TextAlign.CENTER);
         assertTrue(element.hasClassName(TextAlign.CENTER.getCssName()));
@@ -215,7 +214,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertTrue(element.hasClassName(TextAlign.RIGHT.getCssName()));
     }
 
-    public <T extends MaterialWidget & HasColors> void checkColor(T widget) {
+    protected <T extends MaterialWidget & HasColors> void checkColor(T widget) {
         final Element element = widget.getElement();
         widget.setTextColor(Color.WHITE);
         assertTrue(element.hasClassName(Color.WHITE.getCssName() + "-text"));
@@ -223,7 +222,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertTrue(element.hasClassName(Color.BLACK.getCssName()));
     }
 
-    public <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
+    protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
         final Element element = widget.getElement();
         assertFalse(element.hasClassName(CssName.DISABLED));
         assertFalse(element.hasAttribute(CssName.DISABLED));
@@ -237,7 +236,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertEquals(widget.isEnabled(), false);
     }
 
-    public <T extends MaterialWidget & HasId> void checkId(T widget) {
+    protected <T extends MaterialWidget & HasId> void checkId(T widget) {
         final Element element = widget.getElement();
         widget.setId("test");
         assertNotNull(widget.getId());

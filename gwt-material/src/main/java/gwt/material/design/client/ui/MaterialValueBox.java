@@ -665,4 +665,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         return errorMixin;
     }
+
+    public ValueBoxBase<T> getValueBoxBase() {
+        return valueBoxBase;
+    }
 }

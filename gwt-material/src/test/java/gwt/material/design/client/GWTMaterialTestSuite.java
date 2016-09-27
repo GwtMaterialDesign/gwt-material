@@ -36,13 +36,17 @@ public class GWTMaterialTestSuite extends TestCase {
         final GWTTestSuite suite = new GWTTestSuite("gwt-material test suite");
         suite.addTestSuite(MaterialWidgetTest.class);
         suite.addTestSuite(MaterialButtonTest.class);
-        suite.addTestSuite(MaterialTextBoxTest.class);
-        suite.addTestSuite(MaterialIntegerBoxTest.class);
-        suite.addTestSuite(MaterialLongBoxTest.class);
-        suite.addTestSuite(MaterialFloatBoxTest.class);
+        suite.addTestSuite(MaterialDatePickerTest.class);
         suite.addTestSuite(MaterialDoubleBoxTest.class);
-        suite.addTestSuite(MaterialTextAreaTest.class);
+        suite.addTestSuite(MaterialFloatBoxTest.class);
+        suite.addTestSuite(MaterialIntegerBoxTest.class);
+        suite.addTestSuite(MaterialLinkTest.class);
+        suite.addTestSuite(MaterialListValueBoxTest.class);
+        suite.addTestSuite(MaterialLongBoxTest.class);
+        suite.addTestSuite(MaterialNavBarTest.class);
         suite.addTestSuite(MaterialSideNavTest.class);
+        suite.addTestSuite(MaterialTextAreaTest.class);
+        suite.addTestSuite(MaterialTextBoxTest.class);
         return suite;
     }
 }

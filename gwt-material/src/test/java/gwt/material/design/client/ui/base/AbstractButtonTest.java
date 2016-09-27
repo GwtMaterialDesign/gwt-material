@@ -42,7 +42,7 @@ public abstract class AbstractButtonTest extends MaterialWidgetTest {
         checkSize(button);
     }
 
-    public <T extends AbstractButton> void checkSize(T widget) {
+    protected  <T extends AbstractButton> void checkSize(T widget) {
         final Element element = widget.getElement();
         widget.setSize(ButtonSize.LARGE);
         assertTrue(element.hasClassName(ButtonSize.LARGE.getCssName()));
@@ -52,7 +52,7 @@ public abstract class AbstractButtonTest extends MaterialWidgetTest {
         assertEquals(widget.getSize(), ButtonSize.MEDIUM);
     }
 
-    public <T extends AbstractButton & HasType<ButtonType>> void checkType(T widget) {
+    protected <T extends AbstractButton & HasType<ButtonType>> void checkType(T widget) {
         final Element element = widget.getElement();
         widget.setType(ButtonType.FLAT);
         assertTrue(element.hasClassName(ButtonType.FLAT.getCssName()));
@@ -62,7 +62,7 @@ public abstract class AbstractButtonTest extends MaterialWidgetTest {
         assertEquals(widget.getType(), ButtonType.FLOATING);
     }
 
-    public <T extends AbstractButton & HasActivates> void checkActivates(T widget) {
+    protected <T extends AbstractButton & HasActivates> void checkActivates(T widget) {
         final Element element = widget.getElement();
         widget.setActivates("test");
         assertTrue(element.hasAttribute("data-activates"));
@@ -70,7 +70,7 @@ public abstract class AbstractButtonTest extends MaterialWidgetTest {
         assertEquals(widget.getActivates(), "test");
     }
 
-    public <T extends AbstractButton & HasHref> void checkHref(T widget) {
+    protected <T extends AbstractButton & HasHref> void checkHref(T widget) {
         final Element element = widget.getElement();
         widget.setHref("href-test");
         assertTrue(element.hasAttribute("href"));
