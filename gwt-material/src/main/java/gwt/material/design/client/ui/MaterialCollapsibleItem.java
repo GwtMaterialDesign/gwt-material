@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.base.HasActive;
 import gwt.material.design.client.base.HasProgress;
 import gwt.material.design.client.base.mixin.ProgressMixin;
 import gwt.material.design.client.constants.CssName;
@@ -41,13 +42,14 @@ import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent, HasProgress {
+public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent, HasProgress, HasActive {
 
     private MaterialCollapsible parent;
     private MaterialCollapsibleBody body;
     private MaterialCollapsibleHeader header;
 
     private final ProgressMixin<MaterialCollapsibleItem> progressMixin = new ProgressMixin<>(this);
+    private boolean active;
 
     /**
      * Creates an empty collapsible item.
@@ -138,19 +140,28 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     /**
      * Make this item active.
      */
+    @Override
     public void setActive(boolean active) {
-        removeStyleName("active");
+        this.active = active;
+        removeStyleName(CssName.ACTIVE);
+        if(header != null) {
+            header.removeStyleName(CssName.ACTIVE);
+        }
         if(active) {
             if(parent != null) {
                 parent.clearActive();
             }
-            addStyleName("active");
+            addStyleName(CssName.ACTIVE);
 
             if(header != null) {
-                header.removeStyleName(CssName.ACTIVE);
                 header.addStyleName(CssName.ACTIVE);
             }
         }
+    }
+
+    @Override
+    public boolean isActive() {
+        return active;
     }
 
     @Override
@@ -166,5 +177,13 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     @Override
     public void hideProgress() {
         progressMixin.hideProgress();
+    }
+
+    public MaterialCollapsibleBody getBody() {
+        return body;
+    }
+
+    public MaterialCollapsibleHeader getHeader() {
+        return header;
     }
 }
