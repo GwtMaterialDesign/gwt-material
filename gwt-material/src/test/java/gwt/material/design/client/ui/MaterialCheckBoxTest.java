@@ -32,11 +32,12 @@ public class MaterialCheckBoxTest extends MaterialWidgetTest {
     public void testCheckBox() {
         MaterialCheckBox checkBox = new MaterialCheckBox();
         checkType(checkBox);
-        checkText(checkBox);
         checkValue(checkBox);
     }
 
     public <T extends MaterialCheckBox> void checkValue(T widget) {
+        widget.setText("test");
+        assertEquals(widget.getText(), "test");
         assertFalse(widget.getValue());
         widget.setValue(true);
         assertTrue(widget.getValue());

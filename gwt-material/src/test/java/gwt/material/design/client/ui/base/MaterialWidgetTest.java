@@ -24,7 +24,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialPanel;
@@ -243,10 +242,5 @@ public class MaterialWidgetTest extends GWTTestCase {
         assertNotNull(widget.getId());
         assertTrue(element.hasAttribute("id"));
         assertEquals(element.getId(), widget.getId());
-    }
-
-    protected <T extends HasText> void checkText(T widget) {
-        widget.setText("test");
-        assertEquals(widget.getText(), "test");
     }
 }

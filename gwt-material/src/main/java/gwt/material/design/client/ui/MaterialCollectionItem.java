@@ -26,8 +26,10 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasAvatar;
 import gwt.material.design.client.base.HasDismissible;
+import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
 import gwt.material.design.client.constants.CssName;
@@ -37,15 +39,17 @@ import gwt.material.design.client.js.JsMaterialElement;
 
 /**
  * Collection element to define every items
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
  */
 //@formatter:on
-public class MaterialCollectionItem extends MaterialWidget implements HasDismissible, HasAvatar {
+public class MaterialCollectionItem extends MaterialWidget implements HasDismissible, HasAvatar, HasType<CollectionType> {
 
     private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, CssName.AVATAR);
     private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, CssName.DISMISSABLE);
+    private final CssTypeMixin<CollectionType, MaterialCollectionItem> typeMixin = new CssTypeMixin<>(this);
 
     private HandlerRegistration handlerReg;
 
@@ -64,43 +68,47 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
         JsMaterialElement.initDismissableCollection();
     }
 
+    @Override
     public void setType(CollectionType type) {
-        switch (type) {
-            case AVATAR:
-                addStyleName(type.getCssName());
-                break;
-            case CHECKBOX:
-                if(getWidgetCount() > 0) {
-                    getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
-                }
-                if(handlerReg != null) {
-                    handlerReg.removeHandler();
-                }
-                handlerReg = addClickHandler(event -> {
-                    for(Widget w : MaterialCollectionItem.this) {
-                        if(w instanceof MaterialCollectionSecondary) {
-                            for(Widget a : (MaterialCollectionSecondary)w) {
-                                if(a instanceof HasValue) {
-                                    try {
-                                        @SuppressWarnings("unchecked")
-                                        HasValue<Boolean> cb = (HasValue<Boolean>) a;
-                                        if (cb.getValue()) {
-                                            cb.setValue(false);
-                                        } else {
-                                            cb.setValue(true);
-                                        }
-                                    } catch (ClassCastException ex) {
-                                        // Ignore non-boolean has value handlers.
-                                    }
+        typeMixin.setType(type);
+        if (type == CollectionType.CHECKBOX) {
+            applyCheckBoxType();
+        }
+    }
+
+    private void applyCheckBoxType() {
+        if (getWidgetCount() > 0) {
+            getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
+        }
+        if (handlerReg != null) {
+            handlerReg.removeHandler();
+        }
+        handlerReg = addClickHandler(event -> {
+            for (Widget w : MaterialCollectionItem.this) {
+                if (w instanceof MaterialCollectionSecondary) {
+                    for (Widget a : (MaterialCollectionSecondary) w) {
+                        if (a instanceof HasValue) {
+                            try {
+                                @SuppressWarnings("unchecked")
+                                HasValue<Boolean> cb = (HasValue<Boolean>) a;
+                                if (cb.getValue()) {
+                                    cb.setValue(false);
+                                } else {
+                                    cb.setValue(true);
                                 }
+                            } catch (ClassCastException ex) {
+                                // Ignore non-boolean has value handlers.
                             }
                         }
                     }
-                });
-                break;
-            default:
-                break;
-        }
+                }
+            }
+        });
+    }
+
+    @Override
+    public CollectionType getType() {
+        return typeMixin.getType();
     }
 
     @Override

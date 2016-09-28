@@ -24,7 +24,9 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasSelectables;
+import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.events.ClearActiveEvent;
@@ -38,11 +40,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * Collapsible are accordion elements that expand when clicked on.
  * They allow you to hide content that is not immediately relevant
  * to the user.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
- *{@code
+ * {@code
  * // Accordion
  * <m:MaterialCollapsible type="ACCORDION" grid="s12 m6 l8">
  *   <!-- ITEM 1 -->
@@ -89,7 +91,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends MaterialWidget implements HasSelectables {
+public class MaterialCollapsible extends MaterialWidget implements HasSelectables, HasType<CollapsibleType> {
 
     protected interface HasCollapsibleParent {
         void setParent(MaterialCollapsible parent);
@@ -100,6 +102,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     private int activeIndex = -1;
     private Widget activeWidget;
+    private final CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin = new CssTypeMixin<>(this);
 
     /**
      * Creates an empty collapsible
@@ -113,12 +116,12 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     }
 
     /**
-     *  Creates a list and adds the given widgets.
+     * Creates a list and adds the given widgets.
      */
     public MaterialCollapsible(final MaterialCollapsibleItem... widgets) {
         this();
 
-        for(final MaterialCollapsibleItem item : widgets) {
+        for (final MaterialCollapsibleItem item : widgets) {
             add(item);
         }
     }
@@ -131,7 +134,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         getElement().setAttribute("data-collapsible", isAccordion() ? CssName.ACCORDION : CssName.EXPANDABLE);
 
         // Activate preset activation index
-        if(activeIndex != -1 && activeWidget == null) {
+        if (activeIndex != -1 && activeWidget == null) {
             setActive(activeIndex);
         }
 
@@ -142,7 +145,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     @Override
     public void add(final Widget child) {
-        if(child instanceof MaterialCollapsibleItem) {
+        if (child instanceof MaterialCollapsibleItem) {
             ((MaterialCollapsibleItem) child).setParent(this);
         }
         super.add(child);
@@ -150,12 +153,22 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     @Override
     public boolean remove(Widget w) {
-        if(w instanceof MaterialCollapsibleItem) {
+        if (w instanceof MaterialCollapsibleItem) {
             ((MaterialCollapsibleItem) w).setParent(null);
         }
         w.removeStyleName(CssName.ACTIVE);
 
         return super.remove(w);
+    }
+
+    @Override
+    public void setType(CollapsibleType type) {
+        typeMixin.setType(type);
+    }
+
+    @Override
+    public CollapsibleType getType() {
+        return typeMixin.getType();
     }
 
     /**
@@ -170,16 +183,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         initialized = true;
     }
 
-    public void setType(CollapsibleType type) {
-        switch (type) {
-            case POPOUT:
-                addStyleName(type.getCssName());
-                break;
-            default:
-                break;
-        }
-    }
-
     /**
      * Configure if you want this collapsible container to
      * accordion its child elements or use expandable.
@@ -187,7 +190,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
     public void setAccordion(boolean accordion) {
         this.accordion = accordion;
 
-        if(initialized) {
+        if (initialized) {
             // Since we have attached already reinitialize collapsible.
             collapsible();
         }
@@ -215,12 +218,12 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      */
     public void setActive(int index, boolean active) {
         activeIndex = index;
-        if(isAttached()) {
-            if(index <= getWidgetCount()) {
+        if (isAttached()) {
+            if (index <= getWidgetCount()) {
                 activeWidget = getWidget(index - 1);
                 if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
                     ((MaterialCollapsibleItem) activeWidget).setActive(active);
-                    if(initialized) {
+                    if (initialized) {
                         collapsible();
                     }
                 }
@@ -230,6 +233,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     /**
      * Open the given collapsible item.
+     *
      * @param index the one-based collapsible item index.
      */
     public void open(int index) {
@@ -238,6 +242,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     /**
      * Close the given collapsible item.
+     *
      * @param index the one-based collapsible item index.
      */
     public void close(int index) {
@@ -249,7 +254,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
      */
     public void closeAll() {
         clearActive();
-        if(initialized) {
+        if (initialized) {
             collapsible();
         }
     }

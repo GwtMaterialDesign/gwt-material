@@ -82,4 +82,9 @@ public abstract class AbstractButtonTest extends MaterialWidgetTest {
         assertEquals(element.getAttribute("target"), "_blank");
         assertEquals(widget.getTarget(), "_blank");
     }
+
+    protected <T extends AbstractButton> void checkText(T widget) {
+        widget.setText("test");
+        assertEquals(widget.getText(), "test");
+    }
 }

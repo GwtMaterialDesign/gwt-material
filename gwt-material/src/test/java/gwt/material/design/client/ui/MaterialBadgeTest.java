@@ -19,15 +19,15 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.ui.base.AbstractButtonTest;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
-public class MaterialBadgeTest extends MaterialWidgetTest {
+public class MaterialBadgeTest extends AbstractButtonTest {
 
     @Test
     public void testBadge() {
         MaterialBadge badge = new MaterialBadge();
         checkWidget(badge);
-        checkText(badge);
     }
 }

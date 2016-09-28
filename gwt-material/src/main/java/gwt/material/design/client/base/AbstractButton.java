@@ -22,7 +22,6 @@ package gwt.material.design.client.base;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.*;
@@ -32,7 +31,7 @@ import gwt.material.design.client.ui.html.Span;
  * @author Ben Dol
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
-        HasTargetHistoryToken, HasType<ButtonType>, HasText {
+        HasTargetHistoryToken, HasType<ButtonType> {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
     private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
@@ -42,7 +41,8 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     private String targetHistoryToken;
 
-    /** Creates button with RAISED type.
+    /**
+     * Creates button with RAISED type.
      */
     protected AbstractButton() {
         setElement(createElement());
@@ -128,12 +128,12 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
      * Set the buttons size.
      */
     public void setSize(ButtonSize size) {
-        if(this.size != null) {
+        if (this.size != null) {
             removeStyleName(this.size.getCssName());
         }
         this.size = size;
 
-        if(size != null) {
+        if (size != null) {
             addStyleName(size.getCssName());
         }
     }
@@ -148,7 +148,6 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     /**
      * Get the buttons span text.
      */
-    @Override
     public String getText() {
         return span.getText();
     }
@@ -156,11 +155,10 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     /**
      * Set the buttons span text.
      */
-    @Override
     public void setText(String text) {
         span.setText(text);
 
-        if(!span.isAttached()) {
+        if (!span.isAttached()) {
             add(span);
         }
     }
@@ -169,6 +167,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
      * Set the target history token for the widget. Note, that you should use either
      * {@link #setTargetHistoryToken(String)} or {@link #setHref(String)}, but not both as
      * {@link #setHref(String)} resets the target history token.
+     *
      * @param targetHistoryToken String target history token of the widget
      */
     @Override
@@ -182,6 +181,7 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     /**
      * Get the target history token for the widget. May return {@code null} if no
      * history token has been set or if it has been reset by {@link #setHref(String)}.
+     *
      * @return String the widget's target history token.
      */
     @Override
