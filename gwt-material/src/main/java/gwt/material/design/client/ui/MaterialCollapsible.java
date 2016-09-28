@@ -19,11 +19,12 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasSelectables;
+import gwt.material.design.client.base.HasActiveParent;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
@@ -91,7 +92,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends MaterialWidget implements HasSelectables, HasType<CollapsibleType> {
+public class MaterialCollapsible extends MaterialWidget implements HasType<CollapsibleType>, HasActiveParent {
 
     protected interface HasCollapsibleParent {
         void setParent(MaterialCollapsible parent);
@@ -203,32 +204,45 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
         return accordion;
     }
 
-    /**
-     * Providing the one-based index of the
-     * {@link MaterialCollapsibleItem} to mark as active.
-     */
+    @Override
     public void setActive(int index) {
         clearActive();
         setActive(index, true);
     }
 
-    /**
-     * Providing the one-based index of the
-     * {@link MaterialCollapsibleItem} to mark as active.
-     */
+    @Override
     public void setActive(int index, boolean active) {
         activeIndex = index;
         if (isAttached()) {
             if (index <= getWidgetCount()) {
-                activeWidget = getWidget(index - 1);
-                if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
-                    ((MaterialCollapsibleItem) activeWidget).setActive(active);
-                    if (initialized) {
-                        collapsible();
+                if (index != 0) {
+                    activeWidget = getWidget(index - 1);
+                    if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
+                        ((MaterialCollapsibleItem) activeWidget).setActive(active);
+                        if (initialized) {
+                            collapsible();
+                        }
                     }
+                } else {
+                    GWT.log("The active index must be a one-base index to mark as active.");
                 }
             }
         }
+    }
+
+    @Override
+    public Widget getActive() {
+        try {
+            return activeWidget;
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public void clearActive() {
+        clearActiveClass(this);
+        ClearActiveEvent.fire(this);
     }
 
     /**
@@ -261,12 +275,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasSelectable
 
     public HandlerRegistration addClearActiveHandler(final ClearActiveHandler handler) {
         return addHandler(handler, ClearActiveEvent.TYPE);
-    }
-
-    @Override
-    public void clearActive() {
-        clearActiveClass(this);
-        ClearActiveEvent.fire(this);
     }
 
     @Override
