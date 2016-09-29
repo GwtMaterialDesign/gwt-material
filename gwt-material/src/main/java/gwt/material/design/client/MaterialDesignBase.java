@@ -115,4 +115,8 @@ public class MaterialDesignBase {
     public static native boolean isjQueryLoaded() /*-{
         return (typeof $wnd['jQuery'] !== 'undefined');
     }-*/;
+
+    public static native boolean isMaterializeLoaded() /*-{
+        return (typeof $wnd['Materialize'] !== 'undefined')
+    }-*/;
 }
