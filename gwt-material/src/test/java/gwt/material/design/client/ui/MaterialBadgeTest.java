@@ -23,6 +23,11 @@ import gwt.material.design.client.ui.base.AbstractButtonTest;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
+/**
+ * Test case for Badges
+ *
+ * @author kevzlou7979
+ */
 public class MaterialBadgeTest extends AbstractButtonTest {
 
     @Test

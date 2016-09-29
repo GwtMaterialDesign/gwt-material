@@ -23,7 +23,7 @@ import gwt.material.design.client.ui.base.AbstractIconButtonTest;
 import org.junit.Test;
 
 /**
- * Test case for Material Button
+ * Test case for Buttons
  *
  * @kevzlou7979
  */

@@ -26,6 +26,11 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
+/**
+ * Test case for Checkbox
+ *
+ * @author kevzlou7979
+ */
 public class MaterialCheckBoxTest extends MaterialWidgetTest {
 
     @Test

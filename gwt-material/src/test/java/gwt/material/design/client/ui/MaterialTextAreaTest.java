@@ -21,6 +21,11 @@ package gwt.material.design.client.ui;
 
 import org.junit.Test;
 
+/**
+ * Test case for Text Area
+ *
+ * @author kevzlou7979
+ */
 public class MaterialTextAreaTest extends MaterialValueBoxTest {
 
     @Test
@@ -31,9 +36,10 @@ public class MaterialTextAreaTest extends MaterialValueBoxTest {
 
     public <T extends MaterialTextArea> void checkResizeRule(T widget) {
         widget.setResizeRule(MaterialTextArea.ResizeRule.AUTO);
-
+        assertEquals(widget.getResizeRule(), MaterialTextArea.ResizeRule.AUTO);
         widget.setResizeRule(MaterialTextArea.ResizeRule.FOCUS);
-
+        assertEquals(widget.getResizeRule(), MaterialTextArea.ResizeRule.FOCUS);
         widget.setResizeRule(MaterialTextArea.ResizeRule.NONE);
+        assertEquals(widget.getResizeRule(), MaterialTextArea.ResizeRule.NONE);
     }
 }

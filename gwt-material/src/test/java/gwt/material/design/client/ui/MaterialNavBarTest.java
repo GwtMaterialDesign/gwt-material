@@ -29,6 +29,11 @@ import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.ListItem;
 import org.junit.Test;
 
+/**
+ * Test case for Nav Bar
+ *
+ * @author kevzlou7979
+ */
 public class MaterialNavBarTest extends MaterialWidgetTest {
 
     @Test

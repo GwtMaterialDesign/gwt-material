@@ -25,6 +25,11 @@ import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
+/**
+ * Test case for Cards
+ *
+ * @author kevzlou7979
+ */
 public class MaterialCardTest extends MaterialWidgetTest {
 
     @Test

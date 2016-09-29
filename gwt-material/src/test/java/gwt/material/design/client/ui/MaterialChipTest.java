@@ -24,6 +24,11 @@ import gwt.material.design.client.ui.base.AbstractIconButtonTest;
 import gwt.material.design.client.ui.html.Span;
 import org.junit.Test;
 
+/**
+ * Test case for Chips
+ *
+ * @author kevzlou7979
+ */
 public class MaterialChipTest extends AbstractIconButtonTest {
 
     @Test

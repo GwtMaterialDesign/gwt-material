@@ -25,13 +25,11 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.ui.HasEnabled;
 import gwt.material.design.client.MaterialDesign;
-import gwt.material.design.client.MaterialDesignBase;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.resources.WithJQueryResources;
 import gwt.material.design.client.ui.MaterialPanel;
-import gwt.material.design.client.ui.MaterialTab;
 import org.junit.Test;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -54,7 +52,7 @@ public class MaterialWidgetTest extends GWTTestCase {
         checkWidget(widget);
     }
 
-    public void testJQuery() {
+    public void checkJQuery() {
         MaterialDesign.injectJs(WithJQueryResources.INSTANCE.jQuery());
         MaterialDesign.injectJs(MaterialResources.INSTANCE.materializeJs());
         assertTrue(MaterialDesign.isjQueryLoaded());
@@ -64,7 +62,7 @@ public class MaterialWidgetTest extends GWTTestCase {
     }
 
     protected <T extends MaterialWidget> void checkWidget(T widget) {
-        testJQuery();
+        checkJQuery();
         checkId(widget);
         checkInitialClasses(widget);
         checkEnabled(widget);

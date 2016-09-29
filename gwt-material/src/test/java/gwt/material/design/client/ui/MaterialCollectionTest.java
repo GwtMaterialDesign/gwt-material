@@ -25,6 +25,11 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
+/**
+ * Test case for Collections
+ *
+ * @author kevzlou7979
+ */
 public class MaterialCollectionTest extends MaterialWidgetTest {
 
     @Test

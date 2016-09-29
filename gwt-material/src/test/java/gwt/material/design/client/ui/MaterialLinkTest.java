@@ -22,6 +22,11 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.ui.base.AbstractIconButtonTest;
 import org.junit.Test;
 
+/**
+ * Test case for Links
+ *
+ * @author kevzlou7979
+ */
 public class MaterialLinkTest extends AbstractIconButtonTest {
 
     @Test

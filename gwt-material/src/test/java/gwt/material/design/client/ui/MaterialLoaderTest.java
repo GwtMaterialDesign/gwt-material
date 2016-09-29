@@ -27,6 +27,11 @@ import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
+/**
+ * Test case for Loaders
+ *
+ * @author kevzlou7979
+ */
 public class MaterialLoaderTest extends MaterialWidgetTest {
 
     @Test
