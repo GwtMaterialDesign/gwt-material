@@ -224,7 +224,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
                         }
                     }
                 } else {
-                    GWT.log("The active index must be a one-base index to mark as active.");
+                    GWT.log("The active index must be a one-base index to mark as active.", new IndexOutOfBoundsException());
                 }
             }
         }

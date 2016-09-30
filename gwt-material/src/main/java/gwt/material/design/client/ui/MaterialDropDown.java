@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -251,8 +252,8 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         else if(activatorElem == null) {
             activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
             if (activatorElem == null) {
-                throw new IllegalStateException("There is no activator element with id: '" + activator
-                    + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.");
+                GWT.log("There is no activator element with id: '" + activator
+                        + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
             }
         }
 

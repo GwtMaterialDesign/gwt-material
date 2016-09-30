@@ -134,7 +134,7 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
                         ((MaterialCollectionItem) activeWidget).setActive(value);
                     }
                 } else {
-                    GWT.log("The active index must be a one-base index to mark as active.");
+                    GWT.log("The active index must be a one-base index to mark as active.", new RuntimeException());
                 }
             }
         }

@@ -95,7 +95,7 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
         if (percent < 100) {
             div.getElement().getStyle().setWidth(percent, Unit.PCT);
         } else {
-            GWT.log("Progress percent must not exceed to 100 percent.");
+            GWT.log("Progress percent must not exceed to 100 percent.", new RuntimeException());
         }
     }
 
