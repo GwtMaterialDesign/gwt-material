@@ -108,6 +108,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
      * It will increment or decrement once trigger by key up / down events
      */
     private int curSel = -1;
+    private boolean active;
 
     public MaterialSearch() {
         super(new TextBox());
@@ -273,6 +274,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
     @Override
     public void setActive(boolean active) {
+        this.active = active;
         if(active) {
             setTextColor(Color.BLACK);
             iconClose.setIconColor(Color.BLACK);
@@ -285,7 +287,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
     @Override
     public boolean isActive() {
-        return false;
+        return active;
     }
 
     public MaterialLink getSelectedLink() {
