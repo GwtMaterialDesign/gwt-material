@@ -29,20 +29,34 @@ import gwt.material.design.client.constants.CssType;
 public class CssTypeMixin<T extends CssType, H extends UIObject & HasType<T>> extends AbstractMixin<H> implements HasType<T> {
 
     private T type;
+    private UIObject target;
 
     public CssTypeMixin(final H widget) {
         super(widget);
     }
 
+    public CssTypeMixin(final H widget, UIObject target) {
+        super(widget);
+        this.target = target;
+    }
+
     @Override
     public void setType(T type) {
-        if(this.type != null && !this.type.getCssName().isEmpty()) {
-            uiObject.removeStyleName(this.type.getCssName());
+        if (this.type != null && !this.type.getCssName().isEmpty()) {
+            if (target != null) {
+                target.removeStyleName(this.type.getCssName());
+            } else {
+                uiObject.removeStyleName(this.type.getCssName());
+            }
         }
         this.type = type;
 
-        if(type != null && !type.getCssName().isEmpty()) {
-            uiObject.addStyleName(type.getCssName());
+        if (type != null && !type.getCssName().isEmpty()) {
+            if (target != null) {
+                target.addStyleName(type.getCssName());
+            } else {
+                uiObject.addStyleName(type.getCssName());
+            }
         }
     }
 

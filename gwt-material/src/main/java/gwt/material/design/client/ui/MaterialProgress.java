@@ -48,10 +48,9 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     private Div div = new Div();
     private double percent = 0;
-    private ProgressType type;
 
     private final ColorsMixin<Div> colorsMixin = new ColorsMixin<>(div);
-    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this);
+    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this, div);
 
     public MaterialProgress() {
         super(CssName.PROGRESS);
