@@ -57,6 +57,7 @@ public class GWTMaterialTestSuite extends TestCase {
         suite.addTestSuite(MaterialTextAreaTest.class);
         suite.addTestSuite(MaterialTextBoxTest.class);
         suite.addTestSuite(MaterialToastTest.class);
+        suite.addTestSuite(MaterialTooltipTest.class);
         return suite;
     }
 }
