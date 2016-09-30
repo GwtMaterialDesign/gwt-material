@@ -52,9 +52,11 @@ public class GWTMaterialTestSuite extends TestCase {
         suite.addTestSuite(MaterialLoaderTest.class);
         suite.addTestSuite(MaterialLongBoxTest.class);
         suite.addTestSuite(MaterialNavBarTest.class);
+        suite.addTestSuite(MaterialRangeTest.class);
         suite.addTestSuite(MaterialSideNavTest.class);
         suite.addTestSuite(MaterialTextAreaTest.class);
         suite.addTestSuite(MaterialTextBoxTest.class);
+        suite.addTestSuite(MaterialToastTest.class);
         return suite;
     }
 }

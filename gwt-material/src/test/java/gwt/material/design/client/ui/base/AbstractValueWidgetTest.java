@@ -34,7 +34,13 @@ public class AbstractValueWidgetTest extends MaterialWidgetTest {
         checkPlaceholder(widget);
     }
 
+    public <T extends AbstractValueWidget, H extends UIObject> void checkAbstractValueWidgetWoPlaceholder(T widget, H target) {
+        checkWidget(widget);
+        checkErrorSuccess(widget, target);
+    }
+
     protected <T extends MaterialWidget & HasError, H extends UIObject> void checkErrorSuccess(T widget, H target) {
+        assertNotNull(target);
         widget.setError("Error");
         assertTrue(target.getElement().hasClassName(CssName.INVALID));
         widget.setSuccess("Success");
