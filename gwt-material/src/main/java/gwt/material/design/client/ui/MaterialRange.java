@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -114,10 +115,21 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      * @return The Integer vaulue read from the given attribute or null
      */
     protected Integer getIntFromRangeElement(String attribute) {
-        if ($(rangeInputElement).attr(attribute) != null && $(rangeInputElement).attr(attribute) != "") {
-            return Integer.parseInt((String) $(rangeInputElement).attr(attribute));
+        Element ele = $(rangeInputElement).asElement();
+        if (ele != null) {
+            return ele.getPropertyInt(attribute);
         }
         return null;
+    }
+
+    /**
+     * Set the given Integer value to the attribute of the range element.
+     */
+    protected void setIntToRangeElement(String attribute, Integer val) {
+        Element ele = $(rangeInputElement).asElement();
+        if (ele != null) {
+            ele.setPropertyInt(attribute, val);
+        }
     }
 
     /**
@@ -139,14 +151,17 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     public void setValue(Integer value) {
         if (value == null) {
             GWT.log("Value must be null", new RuntimeException());
+            return;
         }
         if (value < getMin()) {
             GWT.log("Value must not be less than the minimum range value.", new RuntimeException());
+            return;
         }
         if (value > getMax()) {
             GWT.log("Value must not be greater than the maximum range value", new RuntimeException());
+            return;
         }
-        $(rangeInputElement).attr(VALUE, value);
+        setIntToRangeElement(VALUE, value);
     }
 
     /**
@@ -164,7 +179,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      * @param min value must be &lt; max
      */
     public void setMin(Integer min) {
-        $(rangeInputElement).attr(MIN, min);
+        setIntToRangeElement(MIN, min);
     }
 
     /**
@@ -182,7 +197,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      * @param max value must be &gt; min
      */
     public void setMax(Integer max) {
-        $(rangeInputElement).attr(MAX, max);
+        setIntToRangeElement(MAX, max);
     }
 
     /**
