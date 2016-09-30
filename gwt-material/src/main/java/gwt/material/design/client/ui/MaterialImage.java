@@ -120,7 +120,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
 
     @Override
     public String getCaption() {
-        return getElement().getAttribute("caption");
+        return getElement().getAttribute("data-caption");
     }
 
     @Override
