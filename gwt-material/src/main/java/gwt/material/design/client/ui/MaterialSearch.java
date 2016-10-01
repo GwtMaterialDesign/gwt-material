@@ -94,7 +94,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     /**
      * Panel to display the result items
      */
-    private MaterialSearchResult searchResult;
+    private MaterialSearchResult searchResultPanel;
     /**
      * Link selected to determine easily during the selection event (up / down key events)
      */
@@ -139,10 +139,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     protected void onLoad() {
         super.onLoad();
 
-        if(searchResult == null || !searchResult.isAttached()) {
+        if(searchResultPanel == null || !searchResultPanel.isAttached()) {
             // populate the lists of search result on search panel
-            searchResult = new MaterialSearchResult();
-            add(searchResult);
+            searchResultPanel = new MaterialSearchResult();
+            add(searchResultPanel);
         }
 
         if(!initialized) {
@@ -152,7 +152,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                 public void onKeyUp(KeyUpEvent event) {
                     String keyword = getText().toLowerCase();
                     // Clear the panel and temp objects
-                    searchResult.clear();
+                    searchResultPanel.clear();
                     tempSearches.clear();
 
                     // Populate the search result items
@@ -187,7 +187,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                         });
                         // If matches add to search result container and object to temp searches
                         if (obj.getKeyword().toLowerCase().contains(keyword)) {
-                            searchResult.add(link);
+                            searchResultPanel.add(link);
                             tempSearches.add(obj);
                         }
                     }
@@ -196,7 +196,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER && !tempSearches.isEmpty()) {
                         if (getCurSel() == -1) {
                             setSelectedObject(tempSearches.get(0));
-                            setSelectedLink((MaterialLink) searchResult.getWidget(0));
+                            setSelectedLink((MaterialLink) searchResultPanel.getWidget(0));
                         } else {
                             setSelectedObject(tempSearches.get(curSel));
                         }
@@ -209,19 +209,19 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     }
 
                     // Fire an event if theres no search result
-                    if (searchResult.getWidgetCount() == 0) {
+                    if (searchResultPanel.getWidgetCount() == 0) {
                         SearchNoResultEvent.fire(MaterialSearch.this);
                     }
 
                     // Selection logic using key down event to navigate the search results
-                    int totalItems = searchResult.getWidgetCount();
+                    int totalItems = searchResultPanel.getWidgetCount();
                     if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN) {
                         if (curSel >= totalItems) {
                             setCurSel(getCurSel());
-                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel - 1));
+                            applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel - 1));
                         } else {
                             setCurSel(getCurSel() + 1);
-                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
+                            applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
                         }
                     }
 
@@ -229,10 +229,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP) {
                         if (curSel <= -1) {
                             setCurSel(-1);
-                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
+                            applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
                         } else {
                             setCurSel(getCurSel() - 1);
-                            applyHighlightedItem((MaterialLink) searchResult.getWidget(curSel));
+                            applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
                         }
                     }
                 }
@@ -242,7 +242,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     SearchFinishEvent.fire(MaterialSearch.this);
                     curSel = -1;
                     setText(keyword);
-                    searchResult.clear();
+                    searchResultPanel.clear();
                 }
             });
 
@@ -345,6 +345,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
 
     public MaterialIcon getIconClose() {
         return iconClose;
+    }
+
+    public MaterialSearchResult getSearchResultPanel() {
+        return searchResultPanel;
     }
 }
 

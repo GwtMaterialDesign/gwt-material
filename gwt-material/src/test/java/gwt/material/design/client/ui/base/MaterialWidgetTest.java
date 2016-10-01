@@ -22,7 +22,6 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.ui.HasEnabled;
 import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.*;
@@ -39,12 +38,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  *
  * @author kebzlou7979
  */
-public class MaterialWidgetTest extends GWTTestCase {
-
-    @Override
-    public String getModuleName() {
-        return "gwt.material.design.GwtMaterialDesign";
-    }
+public class MaterialWidgetTest extends BaseEventTest {
 
     @Test
     public void testBaseWidget() {
@@ -81,6 +75,8 @@ public class MaterialWidgetTest extends GWTTestCase {
         checkFontWeight(widget);
         checkTruncate(widget);
         checkChildren(widget);
+        checkInteractionEvents(widget, true);
+        checkInteractionEvents(widget, false);
     }
 
     protected <T extends MaterialWidget> void checkInitialClasses(T widget) {
