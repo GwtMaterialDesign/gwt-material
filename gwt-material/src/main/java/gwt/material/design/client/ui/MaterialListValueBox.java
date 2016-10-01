@@ -667,6 +667,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         reinitialize();
     }
 
+    @Override
+    public boolean isEnabled() {
+        return listBox.isEnabled();
+    }
+
     /**
      * Use your own key factory for value keys.
      */

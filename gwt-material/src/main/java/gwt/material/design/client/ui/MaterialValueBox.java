@@ -662,6 +662,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public boolean isEnabled() {
+        return valueBoxBase.isEnabled();
+    }
+
+    @Override
     protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         return errorMixin;
     }
