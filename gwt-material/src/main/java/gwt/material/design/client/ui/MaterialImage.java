@@ -24,10 +24,8 @@ import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
-import gwt.material.design.client.base.HasCaption;
-import gwt.material.design.client.base.HasImage;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.constants.CssName;
@@ -58,10 +56,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage,
-        HasLoadHandlers, HasErrorHandlers {
+        HasLoadHandlers, HasErrorHandlers, HasActivates {
 
     private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
     private final ImageMixin<MaterialImage> imageMixin = new ImageMixin<>(this);
+    private final ActivatesMixin<MaterialImage> activatesMixin = new ActivatesMixin<>(this);
 
     /**
      * Creates an empty image.
@@ -170,5 +169,15 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     public HandlerRegistration addErrorHandler(final ErrorHandler handler) {
         return addDomHandler(handler, ErrorEvent.getType());
+    }
+
+    @Override
+    public void setActivates(String activates) {
+        activatesMixin.setActivates(activates);
+    }
+
+    @Override
+    public String getActivates() {
+        return activatesMixin.getActivates();
     }
 }
