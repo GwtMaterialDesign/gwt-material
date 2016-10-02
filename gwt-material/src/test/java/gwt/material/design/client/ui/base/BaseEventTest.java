@@ -14,11 +14,11 @@ public class BaseEventTest extends GWTTestCase {
 
     protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
         checkClickAndDoubleClickEvent(widget, enabled);
-        //checkAllMouseEvent(widget, enabled);
-        //checkAllTouchEvent(widget, enabled);
-        //checkAllGestureEvent(widget, enabled);
-        //checkAllKeyEvent(widget, enabled);
-        //checkFocusEvent(widget, enabled);
+        checkAllMouseEvent(widget, enabled);
+        checkAllTouchEvent(widget, enabled);
+        checkAllGestureEvent(widget, enabled);
+        checkAllKeyEvent(widget, enabled);
+        checkFocusEvent(widget, enabled);
     }
 
     protected  <T extends MaterialWidget> void checkFocusEvent(T widget, boolean enabled) {

@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
@@ -34,6 +35,11 @@ public class MaterialValueBoxTest extends AbstractValueWidgetTest {
         checkAbstractValueWidget(widget, widget.getValueBoxBase());
         checkValue(widget);
         checkIcon(widget);
+    }
+
+    @Override
+    protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
+        // TODO ValueBox overrides the interaction event implementation Need to update this later
     }
 
     protected  <T extends MaterialValueBox> void checkValue(T widget) {

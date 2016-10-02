@@ -71,7 +71,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget> {
 
     private String activator;
-    private Element activatorElem;
+    private Element activatorElement;
 
     // Options
     private int inDuration = 300;
@@ -99,10 +99,10 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         getElement().setId(this.activator);
     }
 
-    public MaterialDropDown(Element activatorElem) {
+    public MaterialDropDown(Element activatorElement) {
         this();
-        activatorElem.setAttribute("data-activates", getId());
-        this.activatorElem = activatorElem;
+        activatorElement.setAttribute("data-activates", getId());
+        this.activatorElement = activatorElement;
     }
 
     public MaterialDropDown(UIObject activator) {
@@ -247,25 +247,25 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             String uid = DOM.createUniqueId();
             ((HasActivates) parent).setActivates(uid);
             setId(uid);
-            activatorElem = parent.getElement();
+            activatorElement = parent.getElement();
         }
-        else if(activatorElem == null) {
-            activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
-            if (activatorElem == null) {
+        else if(activatorElement == null) {
+            activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
+            if (activatorElement == null) {
                 GWT.log("There is no activator element with id: '" + activator
                         + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
             }
         }
 
-        initialize(activatorElem);
+        initialize(activatorElement);
     }
 
     /**
      * Must be called after changing any options.
      */
     public void reinitialize() {
-        remove(activatorElem);
-        initialize(activatorElem);
+        remove(activatorElement);
+        initialize(activatorElement);
     }
 
     protected void initialize(Element activator) {
@@ -301,5 +301,9 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
 
     public List<Widget> getItems() {
         return children;
+    }
+
+    public Element getActivatorElement() {
+        return activatorElement;
     }
 }
