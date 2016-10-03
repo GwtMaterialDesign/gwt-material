@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.HasType;
@@ -39,11 +40,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * are distinguished by a circled icon floating above the UI and
  * have motion behaviors that include morphing, launching, and a
  * transferring anchor point.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
- *<m:MaterialFAB>
+ * {@code
+ * <m:MaterialFAB>
  *   <m:MaterialButton type="FLOATING" backgroundColor="BLUE" iconType="POLYMER" size="LARGE"/>
  *   <m:MaterialFABList>
  *     <m:MaterialButton type="FLOATING" backgroundColor="RED" iconType="POLYMER"/>
@@ -58,7 +59,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis {
+public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasCloseHandlers<MaterialFAB>, HasOpenHandlers<MaterialFAB> {
 
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
@@ -66,6 +67,8 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     private boolean toggle = true;
 
     private HandlerRegistration clickHandler;
+    private HandlerRegistration mouseOverHandler;
+    private HandlerRegistration mouseOutHandler;
 
     public MaterialFAB() {
         super(Document.get().createDivElement(), CssName.FIXED_ACTION_BTN);
@@ -75,13 +78,9 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     protected void onLoad() {
         super.onLoad();
 
-        if(clickHandler != null) {
-            clickHandler.removeHandler();
-        }
-
-        if(getType() == FABType.CLICK_ONLY) {
+        if (getType() == FABType.CLICK_ONLY) {
             clickHandler = addClickHandler(clickEvent -> {
-                if(toggle) {
+                if (toggle) {
                     open();
                     toggle = false;
                 } else {
@@ -89,6 +88,30 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
                     toggle = true;
                 }
             });
+        } else {
+            mouseOverHandler = addMouseOverHandler(mouseOverEvent -> {
+                OpenEvent.fire(this, this);
+            });
+            mouseOutHandler = addMouseOutHandler(mouseOutEvent -> {
+                CloseEvent.fire(this, this);
+            });
+        }
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        if (clickHandler != null) {
+            clickHandler.removeHandler();
+        }
+
+        if (mouseOverHandler != null) {
+            mouseOverHandler.removeHandler();
+        }
+
+        if (mouseOutHandler != null) {
+            mouseOutHandler.removeHandler();
         }
     }
 
@@ -116,6 +139,7 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
      * Open the FAB programmatically
      */
     public void open() {
+        OpenEvent.fire(this, this);
         $(getElement()).openFAB();
     }
 
@@ -123,6 +147,17 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
      * Close the FAB programmatically
      */
     public void close() {
+        CloseEvent.fire(this, this);
         $(getElement()).closeFAB();
+    }
+
+    @Override
+    public HandlerRegistration addCloseHandler(CloseHandler<MaterialFAB> handler) {
+        return addHandler(handler, CloseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOpenHandler(OpenHandler handler) {
+        return addHandler(handler, OpenEvent.getType());
     }
 }
