@@ -77,13 +77,21 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-
         <configuration>
-          <excludes>
-            <exclude>**/*GwtTest*.java</exclude>
-            <exclude>**/*Gwt*Suite*.java</exclude>
-          </excludes>
+          <useSystemClassLoader>true</useSystemClassLoader>
+          <additionalClasspathElements>
+            <additionalClasspathElement>${basedir}/src/main/java</additionalClasspathElement>
+            <additionalClasspathElement>${basedir}/src/test/java</additionalClasspathElement>
+          </additionalClasspathElements>
         </configuration>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
