@@ -40,45 +40,45 @@ public class MaterialCardTest extends MaterialWidgetTest {
         checkWidget(card);
     }
 
-    protected <T extends MaterialCard> void checkAxis(T widget) {
-        widget.setAxis(Axis.HORIZONTAL);
-        assertTrue(widget.getElement().hasClassName(Axis.HORIZONTAL.getCssName()));
-        assertEquals(widget.getAxis(), Axis.HORIZONTAL);
+    protected <T extends MaterialCard> void checkAxis(T card) {
+        card.setAxis(Axis.HORIZONTAL);
+        assertTrue(card.getElement().hasClassName(Axis.HORIZONTAL.getCssName()));
+        assertEquals(card.getAxis(), Axis.HORIZONTAL);
 
-        widget.setAxis(Axis.VERTICAL);
-        assertTrue(widget.getElement().hasClassName(Axis.VERTICAL.getCssName()));
-        assertEquals(widget.getAxis(), Axis.VERTICAL);
+        card.setAxis(Axis.VERTICAL);
+        assertTrue(card.getElement().hasClassName(Axis.VERTICAL.getCssName()));
+        assertEquals(card.getAxis(), Axis.VERTICAL);
     }
 
-    protected <T extends MaterialCard> void checkStructure(T widget) {
+    protected <T extends MaterialCard> void checkStructure(T card) {
         MaterialCardContent content = new MaterialCardContent();
-        widget.add(content);
+        card.add(content);
 
         MaterialCardTitle title = new MaterialCardTitle();
-        widget.add(title);
+        card.add(title);
 
         MaterialCardAction action = new MaterialCardAction();
-        widget.add(action);
+        card.add(action);
 
         MaterialCardReveal cardReveal = new MaterialCardReveal();
-        widget.add(cardReveal);
+        card.add(cardReveal);
 
         MaterialCardImage cardImage = new MaterialCardImage();
-        widget.add(cardImage);
+        card.add(cardImage);
 
-        assertEquals(widget.getChildren().size(), 5);
-        assertTrue(widget.getWidget(0) instanceof MaterialCardContent);
-        assertTrue(widget.getWidget(1) instanceof MaterialCardTitle);
-        assertTrue(widget.getWidget(2) instanceof MaterialCardAction);
-        assertTrue(widget.getWidget(3) instanceof MaterialCardReveal);
-        assertTrue(widget.getWidget(4) instanceof MaterialCardImage);
-        for (Widget w : widget.getChildren()) {
+        assertEquals(card.getChildren().size(), 5);
+        assertTrue(card.getWidget(0) instanceof MaterialCardContent);
+        assertTrue(card.getWidget(1) instanceof MaterialCardTitle);
+        assertTrue(card.getWidget(2) instanceof MaterialCardAction);
+        assertTrue(card.getWidget(3) instanceof MaterialCardReveal);
+        assertTrue(card.getWidget(4) instanceof MaterialCardImage);
+        for (Widget w : card.getChildren()) {
             assertNotNull(w);
             assertTrue(w instanceof MaterialWidget);
             MaterialWidget md = (MaterialWidget) w;
             checkWidget(md);
         }
-        widget.clear();
-        assertEquals(widget.getChildren().size(), 0);
+        card.clear();
+        assertEquals(card.getChildren().size(), 0);
     }
 }

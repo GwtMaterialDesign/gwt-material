@@ -45,6 +45,8 @@ public class GWTMaterialTestSuite extends TestCase {
         suite.addTestSuite(MaterialCollectionTest.class);
         suite.addTestSuite(MaterialDatePickerTest.class);
         suite.addTestSuite(MaterialDoubleBoxTest.class);
+        suite.addTestSuite(MaterialDropdownTest.class);
+        suite.addTestSuite(MaterialFABTest.class);
         suite.addTestSuite(MaterialFloatBoxTest.class);
         suite.addTestSuite(MaterialImageTest.class);
         suite.addTestSuite(MaterialIntegerBoxTest.class);
@@ -52,9 +54,15 @@ public class GWTMaterialTestSuite extends TestCase {
         suite.addTestSuite(MaterialListValueBoxTest.class);
         suite.addTestSuite(MaterialLoaderTest.class);
         suite.addTestSuite(MaterialLongBoxTest.class);
+        suite.addTestSuite(MaterialModalTest.class);
         suite.addTestSuite(MaterialNavBarTest.class);
+        suite.addTestSuite(MaterialParallaxTest.class);
+        suite.addTestSuite(MaterialRadioButtonTest.class);
         suite.addTestSuite(MaterialRangeTest.class);
+        suite.addTestSuite(MaterialSearchTest.class);
         suite.addTestSuite(MaterialSideNavTest.class);
+        suite.addTestSuite(MaterialSliderTest.class);
+        suite.addTestSuite(MaterialTabTest.class);
         suite.addTestSuite(MaterialTextAreaTest.class);
         suite.addTestSuite(MaterialTextBoxTest.class);
         suite.addTestSuite(MaterialToastTest.class);

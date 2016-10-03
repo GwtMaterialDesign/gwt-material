@@ -23,6 +23,11 @@ import gwt.material.design.client.constants.ImageType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
+/**
+ * Test case for Image
+ *
+ * @author kevzlou7979
+ */
 public class MaterialImageTest extends MaterialWidgetTest {
 
     @Test
@@ -34,28 +39,28 @@ public class MaterialImageTest extends MaterialWidgetTest {
         checkUrl(image);
     }
 
-    public <T extends MaterialImage> void checkTypes(T widget) {
-        widget.setType(ImageType.CIRCLE);
-        assertEquals(widget.getType(), ImageType.CIRCLE);
-        assertTrue(widget.getElement().hasClassName(ImageType.CIRCLE.getCssName()));
-        widget.setType(ImageType.MATERIALBOXED);
-        assertEquals(widget.getType(), ImageType.MATERIALBOXED);
-        assertTrue(widget.getElement().hasClassName(ImageType.MATERIALBOXED.getCssName()));
-        widget.setType(ImageType.DEFAULT);
-        assertEquals(widget.getType().getCssName(), "");
+    public <T extends MaterialImage> void checkTypes(T image) {
+        image.setType(ImageType.CIRCLE);
+        assertEquals(image.getType(), ImageType.CIRCLE);
+        assertTrue(image.getElement().hasClassName(ImageType.CIRCLE.getCssName()));
+        image.setType(ImageType.MATERIALBOXED);
+        assertEquals(image.getType(), ImageType.MATERIALBOXED);
+        assertTrue(image.getElement().hasClassName(ImageType.MATERIALBOXED.getCssName()));
+        image.setType(ImageType.DEFAULT);
+        assertEquals(image.getType().getCssName(), "");
     }
 
-    public <T extends MaterialImage> void checkCaption(T widget) {
+    public <T extends MaterialImage> void checkCaption(T image) {
         final String CAPTION = "Caption";
-        widget.setCaption(CAPTION);
-        assertEquals(widget.getCaption(), CAPTION);
-        assertTrue(widget.getElement().hasAttribute("data-caption"));
-        assertEquals(widget.getElement().getAttribute("data-caption"), CAPTION);
+        image.setCaption(CAPTION);
+        assertEquals(image.getCaption(), CAPTION);
+        assertTrue(image.getElement().hasAttribute("data-caption"));
+        assertEquals(image.getElement().getAttribute("data-caption"), CAPTION);
     }
 
-    public <T extends MaterialImage> void checkUrl(T widget) {
+    public <T extends MaterialImage> void checkUrl(T image) {
         final String URL = "test.png";
-        widget.setUrl(URL);
-        assertEquals(widget.getUrl(), URL);
+        image.setUrl(URL);
+        assertEquals(image.getUrl(), URL);
     }
 }

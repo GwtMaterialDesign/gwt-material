@@ -19,5 +19,34 @@
  */
 package gwt.material.design.client.ui;
 
-public class MaterialRadioButtonTest {
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.constants.RadioButtonType;
+import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import org.junit.Test;
+
+/**
+ * Test case for Radio Button
+ *
+ * @author kevzlou7979
+ */
+public class MaterialRadioButtonTest extends MaterialWidgetTest {
+
+    @Test
+    public void testRadioButton() {
+        MaterialRadioButton radioButton = new MaterialRadioButton();
+        checkType(radioButton);
+    }
+
+    public <T extends MaterialRadioButton> void checkType(T radioButton) {
+        assertNotNull(DOM.getChild(radioButton.getElement(), 0));
+        Element element = DOM.getChild(radioButton.getElement(), 0);
+        radioButton.setType(RadioButtonType.GAP);
+        assertEquals(radioButton.getType(), RadioButtonType.GAP);
+        assertTrue(element.hasClassName(RadioButtonType.GAP.getCssName()));
+        radioButton.setType(RadioButtonType.NO_GAP);
+        assertEquals(radioButton.getType(), RadioButtonType.NO_GAP);
+        assertFalse(element.hasClassName(RadioButtonType.GAP.getCssName()));
+        assertEquals(radioButton.getType().getCssName(), "");
+    }
 }

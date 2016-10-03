@@ -23,7 +23,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.events.SearchFinishEvent;
 import gwt.material.design.client.events.SearchNoResultEvent;
 
-public interface HasSearchHandler {
+public interface HasSearchHandlers {
 
     /**
      * Add Search Finish Handler.

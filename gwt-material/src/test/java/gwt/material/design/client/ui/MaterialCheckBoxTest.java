@@ -40,26 +40,26 @@ public class MaterialCheckBoxTest extends MaterialWidgetTest {
         checkValue(checkBox);
     }
 
-    public <T extends MaterialCheckBox> void checkValue(T widget) {
-        widget.setText("test");
-        assertEquals(widget.getText(), "test");
-        assertFalse(widget.getValue());
-        widget.setValue(true);
-        assertTrue(widget.getValue());
-        widget.setValue(false);
-        assertFalse(widget.getValue());
-        widget.setValue(true, true);
-        widget.addValueChangeHandler(valueChangeEvent -> {
-            assertEquals(widget.getValue(), valueChangeEvent.getValue());
+    public <T extends MaterialCheckBox> void checkValue(T checkbox) {
+        checkbox.setText("test");
+        assertEquals(checkbox.getText(), "test");
+        assertFalse(checkbox.getValue());
+        checkbox.setValue(true);
+        assertTrue(checkbox.getValue());
+        checkbox.setValue(false);
+        assertFalse(checkbox.getValue());
+        checkbox.setValue(true, true);
+        checkbox.addValueChangeHandler(valueChangeEvent -> {
+            assertEquals(checkbox.getValue(), valueChangeEvent.getValue());
         });
     }
 
-    public <T extends MaterialCheckBox> void checkType(T widget) {
-        widget.setType(CheckBoxType.FILLED);
-        Element cb = widget.getElement();
+    public <T extends MaterialCheckBox> void checkType(T checkbox) {
+        checkbox.setType(CheckBoxType.FILLED);
+        Element cb = checkbox.getElement();
         Element input = DOM.getChild(cb, 0);
         assertTrue(input.hasClassName(CssName.FILLED_IN));
-        widget.setType(CheckBoxType.INTERMEDIATE);
-        assertTrue(widget.getElement().hasClassName(CheckBoxType.INTERMEDIATE.getCssName() + "-checkbox"));
+        checkbox.setType(CheckBoxType.INTERMEDIATE);
+        assertTrue(checkbox.getElement().hasClassName(CheckBoxType.INTERMEDIATE.getCssName() + "-checkbox"));
     }
 }

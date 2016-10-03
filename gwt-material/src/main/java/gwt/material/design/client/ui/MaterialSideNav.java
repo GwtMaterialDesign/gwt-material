@@ -31,10 +31,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasSelectables;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
@@ -73,7 +70,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!sidenavs">Material SideNav</a>
  */
 //@formatter:on
-public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables {
+public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables, HasSideNavHandlers {
 
     private int width = 240;
     private Edge edge = Edge.LEFT;
@@ -149,30 +146,23 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         activator = null;
     }
 
-    /**
-     * This handler will be triggered when the side nav starts opening.
-     */
+
+    @Override
     public HandlerRegistration addOpeningHandler(SideNavOpeningHandler handler) {
         return addHandler(handler, SideNavOpeningEvent.TYPE);
     }
 
-    /**
-     * This handler will be triggered when the side nav is opened.
-     */
+    @Override
     public HandlerRegistration addOpenedHandler(SideNavOpenedHandler handler) {
         return addHandler(handler, SideNavOpenedEvent.TYPE);
     }
 
-    /**
-     * This handler will be triggered when the side nav starts closing.
-     */
+    @Override
     public HandlerRegistration addClosingHandler(SideNavClosingHandler handler) {
         return addHandler(handler, SideNavClosingEvent.TYPE);
     }
 
-    /**
-     * This handler will be triggered when the side nav is closed.
-     */
+    @Override
     public HandlerRegistration addClosedHandler(SideNavClosedHandler handler) {
         return addHandler(handler, SideNavClosedEvent.TYPE);
     }

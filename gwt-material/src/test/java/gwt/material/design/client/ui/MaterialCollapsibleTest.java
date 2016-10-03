@@ -45,11 +45,11 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest {
     }
 
     @Override
-    protected <T extends MaterialWidget> void checkChildren(T widget) {
+    protected <T extends MaterialWidget> void checkChildren(T collapsible) {
         checkStructure(new MaterialCollapsible());
     }
 
-    protected <T extends MaterialCollapsible> void checkStructure(T widget) {
+    protected <T extends MaterialCollapsible> void checkStructure(T collapsible) {
         MaterialCollapsibleItem item = new MaterialCollapsibleItem();
 
         MaterialCollapsibleHeader header = new MaterialCollapsibleHeader();
@@ -61,50 +61,50 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest {
         assertEquals(item.getChildren().size(), 2);
         assertTrue(item.getWidget(0) instanceof MaterialCollapsibleHeader);
         assertTrue(item.getWidget(1) instanceof MaterialCollapsibleBody);
-        widget.add(item);
+        collapsible.add(item);
 
         // isFeatureEnabled Default
-        assertTrue(widget.isFeatureEnabled(MaterialWidget.Feature.ONLOAD_ADD_QUEUE));
+        assertTrue(collapsible.isFeatureEnabled(MaterialWidget.Feature.ONLOAD_ADD_QUEUE));
         // Expected result -> 0 (Because feature is enabled)
-        assertEquals(widget.getChildren().size(), 0);
+        assertEquals(collapsible.getChildren().size(), 0);
         // isFeatureEnabled -> false
-        widget.enableFeature(MaterialWidget.Feature.ONLOAD_ADD_QUEUE, false);
-        assertFalse(widget.isFeatureEnabled(MaterialWidget.Feature.ONLOAD_ADD_QUEUE));
-        widget.clear();
-        widget.add(item);
-        assertEquals(widget.getChildren().size(), 1);
+        collapsible.enableFeature(MaterialWidget.Feature.ONLOAD_ADD_QUEUE, false);
+        assertFalse(collapsible.isFeatureEnabled(MaterialWidget.Feature.ONLOAD_ADD_QUEUE));
+        collapsible.clear();
+        collapsible.add(item);
+        assertEquals(collapsible.getChildren().size(), 1);
 
         // Check Multiple collapsible items
-        widget.clear();
-        generateCollapsibleItems(widget);
-        assertEquals(widget.getChildren().size(), 5);
-        widget.remove(0);
-        assertEquals(widget.getChildren().size(), 4);
-        widget.insert(item, 1);
-        assertEquals(widget.getWidget(1), item);
-        assertEquals(widget.getChildren().size(), 5);
-        widget.clear();
-        assertEquals(widget.getChildren().size(), 0);
+        collapsible.clear();
+        generateCollapsibleItems(collapsible);
+        assertEquals(collapsible.getChildren().size(), 5);
+        collapsible.remove(0);
+        assertEquals(collapsible.getChildren().size(), 4);
+        collapsible.insert(item, 1);
+        assertEquals(collapsible.getWidget(1), item);
+        assertEquals(collapsible.getChildren().size(), 5);
+        collapsible.clear();
+        assertEquals(collapsible.getChildren().size(), 0);
     }
 
-    protected <T extends MaterialCollapsible> void checkTypes(T widget) {
-        widget.enableFeature(MaterialWidget.Feature.ONLOAD_ADD_QUEUE, false);
-        widget.setType(CollapsibleType.FLAT);
-        assertEquals(widget.getType(), CollapsibleType.FLAT);
-        assertTrue(widget.getElement().hasClassName(CollapsibleType.FLAT.getCssName()));
-        widget.setType(CollapsibleType.POPOUT);
-        assertEquals(widget.getType(), CollapsibleType.POPOUT);
-        assertTrue(widget.getElement().hasClassName(CollapsibleType.POPOUT.getCssName()));
-        widget.setAccordion(true);
-        assertTrue(widget.isAccordion());
-        widget.setAccordion(false);
-        assertFalse(widget.isAccordion());
+    protected <T extends MaterialCollapsible> void checkTypes(T collapsible) {
+        collapsible.enableFeature(MaterialWidget.Feature.ONLOAD_ADD_QUEUE, false);
+        collapsible.setType(CollapsibleType.FLAT);
+        assertEquals(collapsible.getType(), CollapsibleType.FLAT);
+        assertTrue(collapsible.getElement().hasClassName(CollapsibleType.FLAT.getCssName()));
+        collapsible.setType(CollapsibleType.POPOUT);
+        assertEquals(collapsible.getType(), CollapsibleType.POPOUT);
+        assertTrue(collapsible.getElement().hasClassName(CollapsibleType.POPOUT.getCssName()));
+        collapsible.setAccordion(true);
+        assertTrue(collapsible.isAccordion());
+        collapsible.setAccordion(false);
+        assertFalse(collapsible.isAccordion());
     }
 
-    protected <T extends MaterialCollapsible> void checkPreSelection(T widget) {
-        widget.enableFeature(MaterialWidget.Feature.ONLOAD_ADD_QUEUE, false);
-        generateCollapsibleItems(widget);
-        for (Widget w : widget.getChildren()) {
+    protected <T extends MaterialCollapsible> void checkPreSelection(T collapsible) {
+        collapsible.enableFeature(MaterialWidget.Feature.ONLOAD_ADD_QUEUE, false);
+        generateCollapsibleItems(collapsible);
+        for (Widget w : collapsible.getChildren()) {
             assertTrue(w instanceof MaterialCollapsibleItem);
             MaterialCollapsibleItem item = (MaterialCollapsibleItem) w;
             assertNotNull(item.getBody());
@@ -121,8 +121,8 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest {
             assertFalse(item.getHeader().getElement().hasClassName(CssName.ACTIVE));
         }
 
-        widget.clearActive();
-        for (Widget w : widget.getChildren()) {
+        collapsible.clearActive();
+        for (Widget w : collapsible.getChildren()) {
             assertTrue(w instanceof MaterialCollapsibleItem);
             MaterialCollapsibleItem item = (MaterialCollapsibleItem) w;
             assertFalse(item.getElement().hasClassName(CssName.ACTIVE));
@@ -140,9 +140,9 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest {
         }
     }
 
-    protected <T extends MaterialCollapsible> void checkNested(T widget) {
-        generateCollapsibleItems(widget);
-        for (Widget w : widget.getChildren()) {
+    protected <T extends MaterialCollapsible> void checkNested(T collapsible) {
+        generateCollapsibleItems(collapsible);
+        for (Widget w : collapsible.getChildren()) {
             assertTrue(w instanceof MaterialCollapsibleItem);
             MaterialCollapsibleItem item = (MaterialCollapsibleItem) w;
             generateCollapsibleItems(item.getBody());
@@ -150,11 +150,11 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest {
         }
     }
 
-    protected <T extends MaterialCollapsible> void checkSecondaryItems(T widget) {
-        generateCollapsibleItems(widget);
+    protected <T extends MaterialCollapsible> void checkSecondaryItems(T collapsible) {
+        generateCollapsibleItems(collapsible);
         MaterialIcon icon1 = new MaterialIcon(IconType.DELETE);
         MaterialIcon icon2 = new MaterialIcon(IconType.PIN_DROP);
-        for (Widget w : widget.getChildren()) {
+        for (Widget w : collapsible.getChildren()) {
             assertTrue(w instanceof MaterialCollapsibleItem);
             MaterialCollapsibleItem item = (MaterialCollapsibleItem) w;
             item.getHeader().add(icon1);

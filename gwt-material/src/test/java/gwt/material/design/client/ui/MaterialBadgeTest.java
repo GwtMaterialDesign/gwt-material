@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.ui.base.AbstractButtonTest;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
 /**

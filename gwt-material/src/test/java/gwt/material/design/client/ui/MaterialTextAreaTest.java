@@ -34,12 +34,12 @@ public class MaterialTextAreaTest extends MaterialValueBoxTest {
         checkResizeRule(new MaterialTextArea());
     }
 
-    public <T extends MaterialTextArea> void checkResizeRule(T widget) {
-        widget.setResizeRule(MaterialTextArea.ResizeRule.AUTO);
-        assertEquals(widget.getResizeRule(), MaterialTextArea.ResizeRule.AUTO);
-        widget.setResizeRule(MaterialTextArea.ResizeRule.FOCUS);
-        assertEquals(widget.getResizeRule(), MaterialTextArea.ResizeRule.FOCUS);
-        widget.setResizeRule(MaterialTextArea.ResizeRule.NONE);
-        assertEquals(widget.getResizeRule(), MaterialTextArea.ResizeRule.NONE);
+    public <T extends MaterialTextArea> void checkResizeRule(T textArea) {
+        textArea.setResizeRule(MaterialTextArea.ResizeRule.AUTO);
+        assertEquals(textArea.getResizeRule(), MaterialTextArea.ResizeRule.AUTO);
+        textArea.setResizeRule(MaterialTextArea.ResizeRule.FOCUS);
+        assertEquals(textArea.getResizeRule(), MaterialTextArea.ResizeRule.FOCUS);
+        textArea.setResizeRule(MaterialTextArea.ResizeRule.NONE);
+        assertEquals(textArea.getResizeRule(), MaterialTextArea.ResizeRule.NONE);
     }
 }

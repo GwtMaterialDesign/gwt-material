@@ -39,17 +39,17 @@ public class MaterialChipTest extends AbstractIconButtonTest {
         checkLetter(chip);
     }
 
-    public <T extends MaterialChip> void checkLetter(T widget) {
-        widget.setLetter("A");
-        assertNotNull(widget.getWidget(0));
-        assertTrue(widget.getWidget(0) instanceof Span);
-        Span letter = (Span) widget.getWidget(0);
-        assertEquals(widget.getLetter(), "A");
-        assertEquals(widget.getLetter(), letter.getText());
-        widget.setLetterBackgroundColor(Color.AMBER);
+    public <T extends MaterialChip> void checkLetter(T chip) {
+        chip.setLetter("A");
+        assertNotNull(chip.getWidget(0));
+        assertTrue(chip.getWidget(0) instanceof Span);
+        Span letter = (Span) chip.getWidget(0);
+        assertEquals(chip.getLetter(), "A");
+        assertEquals(chip.getLetter(), letter.getText());
+        chip.setLetterBackgroundColor(Color.AMBER);
         assertTrue(letter.getElement().hasClassName(Color.AMBER.getCssName()));
         assertEquals(letter.getBackgroundColor(), Color.AMBER);
-        widget.setLetterColor(Color.AMBER);
+        chip.setLetterColor(Color.AMBER);
         assertTrue(letter.getElement().hasClassName(Color.AMBER.getCssName()));
         assertEquals(letter.getTextColor(), Color.AMBER);
     }

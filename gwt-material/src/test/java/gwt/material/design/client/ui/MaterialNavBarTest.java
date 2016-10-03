@@ -101,6 +101,7 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
             ListItem item = (ListItem) w;
             assertTrue(item.getWidget(0) instanceof MaterialLink);
         }
+        navBar.add(navSection);
         assertEquals(navSection.getChildren().size(), 5);
         navSection.setPosition(Position.LEFT);
         assertTrue(navSection.getElement().hasClassName(Position.LEFT.getCssName()));

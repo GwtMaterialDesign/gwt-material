@@ -19,68 +19,48 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.ui.html.Label;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
-
+/**
+ * Test case for Search
+ *
+ * @author kevzlou7979
+ */
 public class MaterialSearchTest extends MaterialValueBoxTest {
 
     @Test
     public void testSearch() {
         MaterialSearch search = new MaterialSearch();
         checkStructure(search);
+        checkSearchEvents(search);
+        checkCloseHandler(search);
         checkValueBox(search);
     }
 
-    // TODO Check Structure
-    public <T extends MaterialSearch> void checkStructure(T widget) {
-        assertEquals(widget.getType(), InputType.SEARCH);
-        assertEquals(widget.getChildren().size(), 3);
+    public <T extends MaterialSearch> void checkStructure(T search) {
+        assertEquals(search.getType(), InputType.SEARCH);
+        assertEquals(search.getChildren().size(), 3);
 
-        widget.onLoad();
-        MaterialSearchResult searchResultWidget = widget.getSearchResultPanel();
+        search.onLoad();
+        MaterialSearchResult searchResultWidget = search.getSearchResultPanel();
         assertNotNull(searchResultWidget);
 
         List<SearchObject> objects = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             SearchObject obj = new SearchObject();
             obj.setKeyword("keyword" + i);
-            obj.setLink("link"+i);
+            obj.setLink("link" + i);
             objects.add(obj);
         }
 
         // Expected result by default 0
-        widget.setListSearches(objects);
-        assertEquals(objects.size(), widget.getListSearches().size());
+        search.setListSearches(objects);
+        assertEquals(objects.size(), search.getListSearches().size());
         assertEquals(searchResultWidget.getChildren().size(), 0);
-
-
-        final boolean[] isClickFired = new boolean[1];
-        widget.addClickHandler(clickEvent -> {
-            isClickFired[0] = true;
-        });
-
-        $(widget.getElement()).trigger("click", true);
-
-        assertTrue(isClickFired[0]);
     }
-
-    // TODO Check Active
-
-    // TODO Set / Get Searches
-
-
 }

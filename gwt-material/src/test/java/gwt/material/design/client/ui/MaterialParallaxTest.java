@@ -19,5 +19,35 @@
  */
 package gwt.material.design.client.ui;
 
-public class MaterialParallaxTest {
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.html.Div;
+import org.junit.Test;
+
+public class MaterialParallaxTest extends MaterialWidgetTest {
+
+    @Test
+    public void testParallax() {
+        MaterialParallax parallax = new MaterialParallax();
+        checkWidget(parallax);
+        checkStructure(parallax);
+        generateParallaxItems(parallax);
+    }
+
+    public <T extends MaterialParallax> void checkStructure(T parallax) {
+        assertNotNull(parallax.getWidget(0));
+        assertTrue(parallax.getWidget(0) instanceof Div);
+        assertTrue(parallax.getWidget(0).getElement().hasClassName(CssName.PARALLAX));
+    }
+
+    protected void generateParallaxItems(MaterialParallax parallax) {
+        for (int i = 1; i <= 5; i++) {
+            MaterialImage image = new MaterialImage();
+            parallax.add(image);
+            assertTrue(parallax.getWidget(0) instanceof Div);
+            Div div = (Div) parallax.getWidget(0);
+            assertNotNull(div.getWidget(i - 1));
+            assertTrue(div.getWidget(i - 1) instanceof MaterialImage);
+        }
+    }
 }

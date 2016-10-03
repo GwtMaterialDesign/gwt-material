@@ -37,31 +37,38 @@ public class MaterialFABTest extends MaterialWidgetTest {
     @Test
     public void testFAB() {
         MaterialFAB fab = new MaterialFAB();
+        checkWidget(fab);
         checkStructure(fab);
         checkTypes(fab);
         checkAxis(fab);
+        checkOpenAndCloseFAB(fab);
     }
 
-    public <T extends MaterialFAB> void checkTypes(T widget) {
-        widget.setType(FABType.CLICK_ONLY);
-        assertEquals(widget.getType(), FABType.CLICK_ONLY);
-        assertTrue(widget.getElement().hasClassName(FABType.CLICK_ONLY.getCssName()));
-        widget.setType(FABType.HOVER);
-        assertEquals(widget.getType(), FABType.HOVER);
+    protected <T extends MaterialFAB> void checkOpenAndCloseFAB(T fab) {
+        checkOpenHandler(fab);
+        checkCloseHandler(fab);
+    }
+
+    public <T extends MaterialFAB> void checkTypes(T fab) {
+        fab.setType(FABType.CLICK_ONLY);
+        assertEquals(fab.getType(), FABType.CLICK_ONLY);
+        assertTrue(fab.getElement().hasClassName(FABType.CLICK_ONLY.getCssName()));
+        fab.setType(FABType.HOVER);
+        assertEquals(fab.getType(), FABType.HOVER);
         // Because Hover is empty by default
-        assertTrue(widget.getType().getCssName().isEmpty());
+        assertTrue(fab.getType().getCssName().isEmpty());
     }
 
-    public <T extends MaterialFAB> void checkAxis(T widget) {
-        widget.setAxis(Axis.HORIZONTAL);
-        assertEquals(widget.getAxis(), Axis.HORIZONTAL);
-        assertTrue(widget.getElement().hasClassName(Axis.HORIZONTAL.getCssName()));
-        widget.setAxis(Axis.VERTICAL);
-        assertEquals(widget.getAxis(), Axis.VERTICAL);
-        assertTrue(widget.getElement().hasClassName(Axis.VERTICAL.getCssName()));
+    public <T extends MaterialFAB> void checkAxis(T fab) {
+        fab.setAxis(Axis.HORIZONTAL);
+        assertEquals(fab.getAxis(), Axis.HORIZONTAL);
+        assertTrue(fab.getElement().hasClassName(Axis.HORIZONTAL.getCssName()));
+        fab.setAxis(Axis.VERTICAL);
+        assertEquals(fab.getAxis(), Axis.VERTICAL);
+        assertTrue(fab.getElement().hasClassName(Axis.VERTICAL.getCssName()));
     }
 
-    public <T extends MaterialFAB> void checkStructure(T widget) {
+    public <T extends MaterialFAB> void checkStructure(T fab) {
         MaterialButton btnLarge = new MaterialButton();
         btnLarge.setType(ButtonType.FLOATING);
         MaterialFABList fabList = new MaterialFABList();
@@ -70,14 +77,14 @@ public class MaterialFABTest extends MaterialWidgetTest {
             button.setType(ButtonType.FLOATING);
             fabList.add(button);
         }
-        widget.add(btnLarge);
-        widget.add(fabList);
+        fab.add(btnLarge);
+        fab.add(fabList);
 
-        assertEquals(widget.getChildren().size(), 2);
-        assertTrue(widget.getWidget(0) instanceof MaterialButton);
-        assertEquals(widget.getWidget(0), btnLarge);
-        assertTrue(widget.getWidget(1) instanceof MaterialFABList);
-        assertEquals(widget.getWidget(1), fabList);
+        assertEquals(fab.getChildren().size(), 2);
+        assertTrue(fab.getWidget(0) instanceof MaterialButton);
+        assertEquals(fab.getWidget(0), btnLarge);
+        assertTrue(fab.getWidget(1) instanceof MaterialFABList);
+        assertEquals(fab.getWidget(1), fabList);
 
         assertEquals(fabList.getChildren().size(), 5);
         for (Widget w : fabList.getChildren()) {

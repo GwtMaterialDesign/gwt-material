@@ -29,6 +29,10 @@ import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
 import org.junit.Test;
 
+/**
+ * Test case for Range
+ *
+ */
 public class MaterialRangeTest extends AbstractValueWidgetTest {
 
     @Test
@@ -39,10 +43,10 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
         checkValues(range);
     }
 
-    public <T extends MaterialRange> void checkStructure(T widget) {
-        assertEquals(widget.getChildren().size(), 2);
-        assertTrue(widget.getWidget(0) instanceof Paragraph);
-        Paragraph paragraph = (Paragraph) widget.getWidget(0);
+    public <T extends MaterialRange> void checkStructure(T range) {
+        assertEquals(range.getChildren().size(), 2);
+        assertTrue(range.getWidget(0) instanceof Paragraph);
+        Paragraph paragraph = (Paragraph) range.getWidget(0);
         assertTrue(paragraph.getElement().hasClassName(CssName.RANGE_FIELD));
         assertEquals(paragraph.getWidgetCount(), 2);
         assertTrue(paragraph.getWidget(0) instanceof MaterialInput);
@@ -54,34 +58,34 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
         assertTrue(thumb.getWidget(0) instanceof Span);
         assertTrue(thumb.getWidget(0).getElement().hasClassName(CssName.VALUE));
 
-        assertTrue(widget.getWidget(1) instanceof MaterialLabel);
-        assertEquals(widget.getWidget(1), widget.getLblError());
+        assertTrue(range.getWidget(1) instanceof MaterialLabel);
+        assertEquals(range.getWidget(1), range.getLblError());
     }
 
-    public <T extends MaterialRange> void checkValues(T widget) {
+    public <T extends MaterialRange> void checkValues(T range) {
         final Integer MIN = 20;
         final Integer MAX = 90;
         final Integer VALUE = 50;
-        final Element inputElement = widget.getRangeInputElement().getElement();
+        final Element inputElement = range.getRangeInputElement().getElement();
 
         // Make Sure to have not min / max / value set by default
         assertFalse(inputElement.hasAttribute("min"));
         assertFalse(inputElement.hasAttribute("max"));
         assertFalse(inputElement.hasAttribute("value"));
 
-        widget.setMin(MIN);
+        range.setMin(MIN);
         assertTrue(inputElement.hasAttribute("min"));
-        assertEquals(widget.getMin(), MIN);
+        assertEquals(range.getMin(), MIN);
         assertEquals(inputElement.getAttribute("min"), String.valueOf(MIN));
 
-        widget.setMax(MAX);
+        range.setMax(MAX);
         assertTrue(inputElement.hasAttribute("max"));
-        assertEquals(widget.getMax(), MAX);
+        assertEquals(range.getMax(), MAX);
         assertEquals(inputElement.getAttribute("max"), String.valueOf(MAX));
 
-        widget.setValue(VALUE);
+        range.setValue(VALUE);
         assertTrue(inputElement.hasAttribute("value"));
-        assertEquals(widget.getValue(), VALUE);
+        assertEquals(range.getValue(), VALUE);
         assertEquals(inputElement.getAttribute("value"), String.valueOf(VALUE));
     }
 

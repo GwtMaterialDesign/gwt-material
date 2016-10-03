@@ -54,25 +54,25 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         checkSideNavItems(sideNav);
     }
 
-    public <T extends MaterialSideNav, H extends MaterialNavBar> void checkTypes(T sidenav) {
-        final Element element = sidenav.getElement();
+    public <T extends MaterialSideNav, H extends MaterialNavBar> void checkTypes(T sideNav) {
+        final Element element = sideNav.getElement();
         // Fixed type
-        sidenav.setType(SideNavType.FIXED);
-        assertNotNull(sidenav.getId());
+        sideNav.setType(SideNavType.FIXED);
+        assertNotNull(sideNav.getId());
         assertTrue(element.hasClassName(SideNavType.FIXED.getCssName()));
-        assertEquals(sidenav.getType(), SideNavType.FIXED);
+        assertEquals(sideNav.getType(), SideNavType.FIXED);
         // Card Type
-        sidenav.setType(SideNavType.CARD);
+        sideNav.setType(SideNavType.CARD);
         assertTrue(element.hasClassName(SideNavType.CARD.getCssName()));
-        assertEquals(sidenav.getType(), SideNavType.CARD);
+        assertEquals(sideNav.getType(), SideNavType.CARD);
         // Push Type
-        sidenav.setType(SideNavType.PUSH);
+        sideNav.setType(SideNavType.PUSH);
         assertTrue(element.hasClassName(SideNavType.PUSH.getCssName()));
-        assertEquals(sidenav.getType(), SideNavType.PUSH);
+        assertEquals(sideNav.getType(), SideNavType.PUSH);
         // Mini
-        sidenav.setType(SideNavType.MINI);
+        sideNav.setType(SideNavType.MINI);
         assertTrue(element.hasClassName(SideNavType.MINI.getCssName()));
-        assertEquals(sidenav.getType(), SideNavType.MINI);
+        assertEquals(sideNav.getType(), SideNavType.MINI);
     }
 
     public <T extends MaterialSideNav, H extends MaterialNavBar> void checkBoolean(T sideNav, H navBar) {
@@ -95,14 +95,14 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         assertFalse(sideNav.isShowOnAttach());
     }
 
-    public <T extends MaterialSideNav> void checkSideNavItems(T sidenav) {
+    public <T extends MaterialSideNav> void checkSideNavItems(T sideNav) {
         for (int i = 1; i <= 5; i++) {
-            sidenav.add(new MaterialLink("Item " + i));
+            sideNav.add(new MaterialLink("Item " + i));
         }
-        assertTrue(sidenav.getChildren().size() == 5);
+        assertTrue(sideNav.getChildren().size() == 5);
 
         // Check if sidenav adds ListItem as parent widget of it's items
-        for (Widget w : sidenav.getChildren()) {
+        for (Widget w : sideNav.getChildren()) {
             assertNotNull(w);
             assertTrue(w instanceof ListItem);
             ListItem item = (ListItem) w;
@@ -110,12 +110,12 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         }
 
         // Check active links
-        ListItem link = (ListItem) sidenav.getWidget(0);
+        ListItem link = (ListItem) sideNav.getWidget(0);
         link.addStyleName(CssName.ACTIVE);
         assertTrue(link.getElement().hasClassName(CssName.ACTIVE));
 
         // Clear all active side nav items
-        sidenav.clearActive();
+        sideNav.clearActive();
         assertFalse(link.getElement().hasClassName(CssName.ACTIVE));
 
         // Check Nested Sidenav items using Collapsible Component
@@ -133,7 +133,7 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         item.add(header);
         item.add(body);
         collapsible.add(item);
-        sidenav.add(collapsible);
+        sideNav.add(collapsible);
 
         assertNotNull(item);
         assertNotNull(collapsible);
@@ -141,8 +141,8 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         assertNotNull(parentLink);
         assertNotNull(body);
         assertEquals(body.getChildren().size(), 5);
-        assertTrue(sidenav.getChildren().get(5) instanceof ListItem);
-        ListItem itemColaps = (ListItem) sidenav.getWidget(5);
+        assertTrue(sideNav.getChildren().get(5) instanceof ListItem);
+        ListItem itemColaps = (ListItem) sideNav.getWidget(5);
         assertTrue(itemColaps.getWidget(0) instanceof MaterialCollapsible);
     }
 }
