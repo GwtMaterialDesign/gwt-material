@@ -36,6 +36,7 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
 
     @Test
     public void testLoader() {
+        RootPanel.get().clear();
         checkLoaderBasic();
         checkLoaderWithinPanel();
         checkProgressBasic();

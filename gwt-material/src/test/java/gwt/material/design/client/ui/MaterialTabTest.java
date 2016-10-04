@@ -19,77 +19,55 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
-
-import static gwt.material.design.jquery.client.api.JQuery.$;
 
 public class MaterialTabTest extends MaterialWidgetTest {
 
     @Test
     public void testTab() {
+        MaterialRow row = new MaterialRow();
         MaterialTab tab = new MaterialTab();
         checkWidget(tab);
-        //checkPreselection(tab);
-        generateTabItems(tab);
+        generateTabItems(tab, row);
         checkTypes(tab);
-        RootPanel.get().add(tab);
+        row.add(tab);
     }
 
-    public void generateTabItems(MaterialTab tab) {
+    public void generateTabItems(MaterialTab tab, MaterialRow row) {
+
         for (int i = 0; i < 5; i++) {
+            // Build Tab Items
             MaterialTabItem item = new MaterialTabItem();
             MaterialLink link = new MaterialLink("Item " + i);
-            link.setHref("item" + i);
+            link.setHref("#item" + i);
             item.add(link);
             tab.add(item);
             assertTrue(item.getWidget(0) instanceof MaterialLink);
             assertEquals(tab.getWidget(i), item);
+            // Build Panel
+            MaterialPanel panel = new MaterialPanel();
+            panel.setId("item" + i);
+            row.add(panel);
         }
 
         assertEquals(tab.getChildren().size(), 5);
         for (Widget w : tab.getChildren()) {
             assertNotNull(w);
             assertTrue(w instanceof MaterialTabItem);
-            MaterialTabItem item = (MaterialTabItem) w;
-            item.selectTab();
-            //assertEquals(tab.getTabId(), "");
         }
 
         assertEquals(tab.getChildren().size(), 5);
     }
 
-    public <T extends MaterialTab> void checkTypes(T widget) {
-        widget.setType(TabType.DEFAULT);
-        assertEquals(widget.getType(), TabType.DEFAULT);
-        assertTrue(widget.getElement().getClassName().contains(TabType.DEFAULT.getCssName()));
-        widget.setType(TabType.ICON);
-        assertEquals(widget.getType(), TabType.ICON);
-        assertTrue(widget.getElement().hasClassName(TabType.ICON.getCssName()));
-    }
-
-    // TODO Need GWT Support JSINterop on Testcases
-    public <T extends MaterialTab> void checkIndicatorColor(T widget) {
-        widget.setIndicatorColor(Color.AMBER);
-    }
-
-    // TODO Tab SElection test
-    public <T extends MaterialTab> void checkPreselection(T widget) {
-        final int TAB_INDEX = 1;
-        assertNotNull(widget.getElement());
-        widget.setTabIndex(TAB_INDEX);
-        assertNotNull($(widget.getElement()));
-        /*assertEquals(widget.getTabIndex(), TAB_INDEX);
-        assertNotNull(widget.getWidget(TAB_INDEX));
-        assertTrue(widget.getWidget(TAB_INDEX) instanceof MaterialTabItem);
-        MaterialTabItem item = (MaterialTabItem) widget.getWidget(TAB_INDEX);
-        assertNotNull(item.getWidget(0));
-        assertTrue(item.getWidget(0) instanceof MaterialLink);
-        MaterialLink link = (MaterialLink) item.getWidget(0);
-        assertTrue(link.getElement().hasClassName(CssName.ACTIVE));*/
+    public <T extends MaterialTab> void checkTypes(T tab) {
+        tab.setType(TabType.DEFAULT);
+        assertEquals(tab.getType(), TabType.DEFAULT);
+        assertTrue(tab.getElement().getClassName().contains(TabType.DEFAULT.getCssName()));
+        tab.setType(TabType.ICON);
+        assertEquals(tab.getType(), TabType.ICON);
+        assertTrue(tab.getElement().hasClassName(TabType.ICON.getCssName()));
     }
 }

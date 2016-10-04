@@ -44,31 +44,31 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
         checkHeader(collection);
     }
 
-    protected <T extends MaterialCollection> void checkActive(T widget) {
+    protected <T extends MaterialCollection> void checkActive(T collection) {
         // Set active index on one-base index
-        widget.setActive(1);
+        collection.setActive(1);
         // We get the widget with one-base index which will 0
-        assertEquals(widget.getActive(), widget.getWidget(0));
-        assertTrue(widget.getChildren().get(0).getElement().hasClassName(CssName.ACTIVE));
-        widget.setActive(2);
-        assertEquals(widget.getActive(), widget.getWidget(1));
-        assertFalse(widget.getChildren().get(0).getElement().hasClassName(CssName.ACTIVE));
-        assertTrue(widget.getChildren().get(1).getElement().hasClassName(CssName.ACTIVE));
+        assertEquals(collection.getActive(), collection.getWidget(0));
+        assertTrue(collection.getChildren().get(0).getElement().hasClassName(CssName.ACTIVE));
+        collection.setActive(2);
+        assertEquals(collection.getActive(), collection.getWidget(1));
+        assertFalse(collection.getChildren().get(0).getElement().hasClassName(CssName.ACTIVE));
+        assertTrue(collection.getChildren().get(1).getElement().hasClassName(CssName.ACTIVE));
         // Clear the collection
-        widget.clearActive();
-        for (Widget w : widget.getChildren()) {
+        collection.clearActive();
+        for (Widget w : collection.getChildren()) {
             assertFalse(w.getElement().hasClassName(CssName.ACTIVE));
         }
     }
 
-    protected <T extends MaterialCollection> void checkHeader(T widget) {
-        widget.setHeader("Test");
-        assertTrue(widget.getElement().hasClassName(CssName.WITH_HEADER));
-        assertTrue(widget.getWidget(0).getElement().hasClassName(CssName.COLLECTION_HEADER));
+    protected <T extends MaterialCollection> void checkHeader(T collection) {
+        collection.setHeader("Test");
+        assertTrue(collection.getElement().hasClassName(CssName.WITH_HEADER));
+        assertTrue(collection.getWidget(0).getElement().hasClassName(CssName.COLLECTION_HEADER));
     }
 
-    protected <T extends MaterialCollection> void checkType(T widget) {
-        MaterialCollectionItem item = generateFirstItem(widget);
+    protected <T extends MaterialCollection> void checkType(T collection) {
+        MaterialCollectionItem item = generateFirstItem(collection);
         item.setType(CollectionType.CHECKBOX);
         assertTrue(item.getElement().hasClassName(CollectionType.CHECKBOX.getCssName()));
         item.setType(CollectionType.AVATAR);
@@ -76,16 +76,16 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
         assertTrue(item.getElement().hasClassName(CollectionType.AVATAR.getCssName()));
     }
 
-    protected <T extends MaterialCollection> void checkSecondary(T widget) {
-        MaterialCollectionItem item = generateFirstItem(widget);
+    protected <T extends MaterialCollection> void checkSecondary(T collection) {
+        MaterialCollectionItem item = generateFirstItem(collection);
         MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
         item.add(secondary);
         assertNotNull(secondary);
         assertEquals(item.getWidget(0), secondary);
     }
 
-    protected <T extends MaterialCollection> void checkDismissible(T widget) {
-        MaterialCollectionItem item = generateFirstItem(widget);
+    protected <T extends MaterialCollection> void checkDismissible(T collection) {
+        MaterialCollectionItem item = generateFirstItem(collection);
         item.setDismissible(true);
         assertTrue(item.isDismissible());
         assertTrue(item.getElement().hasClassName(CssName.DISMISSABLE));

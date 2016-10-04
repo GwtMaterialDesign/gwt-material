@@ -17,21 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
+package gwt.material.design.client.base;
 
-import gwt.material.design.client.ui.base.AbstractButtonTest;
-import org.junit.Test;
+import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.events.SearchFinishEvent;
+import gwt.material.design.client.events.SearchNoResultEvent;
 
-/**
- * Test case for Badges
- *
- * @author kevzlou7979
- */
-public class MaterialBadgeTest extends AbstractButtonTest {
+public interface HasSearchHandlers {
 
-    @Test
-    public void testBadge() {
-        MaterialBadge badge = new MaterialBadge();
-        checkWidget(badge);
-    }
+    /**
+     * Add Search Finish Handler.
+     */
+    HandlerRegistration addSearchFinishHandler(SearchFinishEvent.SearchFinishHandler handler);
+
+    /**
+     * Add Search No Result Handler.
+     */
+    HandlerRegistration addSearchNoResultHandler(SearchNoResultEvent.SearchNoResultHandler handler);
 }

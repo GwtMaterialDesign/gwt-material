@@ -29,6 +29,7 @@ import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
@@ -85,7 +86,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private MaterialLabel lblError = new MaterialLabel();
     private DatePickerLanguage language;
 
-    private Orientation orientation = Orientation.PORTRAIT;
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
     private boolean initialize = false;
@@ -93,6 +93,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput);
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
+    private CssNameMixin<MaterialDatePicker, Orientation> orientationMixin = new CssNameMixin<>(this);
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -125,7 +126,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         super.onLoad();
 
         if (!initialize) {
-            addStyleName(orientation.getCssName());
             initialize();
         } else {
             reinitialize();
@@ -356,7 +356,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     @Override
     public Orientation getOrientation() {
-        return orientation;
+        return orientationMixin.getCssName();
     }
 
     /**
@@ -364,7 +364,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     @Override
     public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
+        orientationMixin.setCssName(orientation);
     }
 
     @Override

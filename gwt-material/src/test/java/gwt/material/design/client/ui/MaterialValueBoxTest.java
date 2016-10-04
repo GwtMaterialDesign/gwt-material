@@ -39,7 +39,7 @@ public class MaterialValueBoxTest extends AbstractValueWidgetTest {
 
     @Override
     protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
-        // TODO ValueBox overrides the interaction event implementation Need to update this later
+        // Need to skip the tests because the target element ValueBoxBase has been added a test on GWT itself.
     }
 
     protected  <T extends MaterialValueBox> void checkValue(T widget) {
@@ -58,19 +58,19 @@ public class MaterialValueBoxTest extends AbstractValueWidgetTest {
         }
     }
 
-    protected <T extends MaterialValueBox> void checkIcon(T widget) {
-        Element iconElement = widget.getIcon().getElement();
-        widget.setIconType(IconType.POLYMER);
+    protected <T extends MaterialValueBox> void checkIcon(T valueBox) {
+        Element iconElement = valueBox.getIcon().getElement();
+        valueBox.setIconType(IconType.POLYMER);
         assertEquals(iconElement.getInnerHTML(), IconType.POLYMER.getCssName());
-        widget.setIconColor(Color.RED);
+        valueBox.setIconColor(Color.RED);
         assertTrue(iconElement.hasClassName(Color.RED.getCssName() + "-text"));
-        widget.setIconPosition(IconPosition.LEFT);
+        valueBox.setIconPosition(IconPosition.LEFT);
         assertTrue(iconElement.hasClassName(IconPosition.LEFT.getCssName()));
-        widget.setIconPrefix(true);
+        valueBox.setIconPrefix(true);
         assertTrue(iconElement.hasClassName("prefix"));
-        widget.setIconPrefix(false);
+        valueBox.setIconPrefix(false);
         assertFalse(iconElement.hasClassName("prefix"));
-        widget.setIconSize(IconSize.LARGE);
+        valueBox.setIconSize(IconSize.LARGE);
         assertTrue(iconElement.hasClassName(IconSize.LARGE.getCssName()));
     }
 

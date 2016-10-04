@@ -24,6 +24,11 @@ import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import org.junit.Test;
 
+/**
+ * Tooltip Test
+ *
+ * @author kevzlou7979
+ */
 public class MaterialTooltipTest extends MaterialWidgetTest {
 
     @Test

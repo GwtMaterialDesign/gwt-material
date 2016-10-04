@@ -55,43 +55,38 @@ public class MaterialModalTest extends MaterialWidgetTest {
         assertTrue(modal.getWidget(1) instanceof MaterialModalFooter);
     }
 
-    private <T extends MaterialModal> void checkOpenCloseEvent(T widget) {
-        final boolean[] isOpenFired = new boolean[1];
-        widget.addOpenHandler(openEvent -> {
-            assertTrue(openEvent.getTarget() == widget);
-            isOpenFired[0] = true;
-        });
-        widget.open();
-        assertTrue(isOpenFired[0]);
-
+    private <T extends MaterialModal> void checkOpenCloseEvent(T modal) {
+        checkOpenHandler(modal);
         // Check whether overlay is injected
         assertNotNull($(".lean-overlay"));
-
-        final boolean[] isCloseFired = new boolean[1];
-        widget.addCloseHandler(closeEvent -> {
-            assertTrue(closeEvent.getTarget() == widget);
-            isCloseFired[0] = true;
-        });
-        widget.close();
-        assertTrue(isCloseFired[0]);
+        checkCloseHandler(modal);
+        // Advance check on open() / close() methods to check whether open / close event fired
+        final boolean[] isFiredOpen = {false};
+        final boolean[] isFiredClose = {false};
+        modal.addOpenHandler(openEvent -> isFiredOpen[0] = true);
+        modal.addCloseHandler(closeEvent -> isFiredClose[0] = true);
+        modal.open();
+        modal.close();
+        assertTrue(isFiredOpen[0]);
+        assertTrue(isFiredClose[0]);
     }
 
-    public <T extends MaterialModal> void checkType(T widget) {
-        widget.setType(ModalType.DEFAULT);
-        assertEquals(widget.getType(), ModalType.DEFAULT);
-        widget.setType(ModalType.BOTTOM_SHEET);
-        assertEquals(widget.getType(), ModalType.BOTTOM_SHEET);
-        assertTrue(widget.getElement().hasClassName(ModalType.BOTTOM_SHEET.getCssName()));
-        widget.setType(ModalType.FIXED_FOOTER);
-        assertEquals(widget.getType(), ModalType.FIXED_FOOTER);
-        assertTrue(widget.getElement().hasClassName(ModalType.FIXED_FOOTER.getCssName()));
-        widget.setType(ModalType.WINDOW);
-        assertEquals(widget.getType(), ModalType.WINDOW);
-        assertTrue(widget.getElement().hasClassName(ModalType.WINDOW.getCssName()));
+    public <T extends MaterialModal> void checkType(T modal) {
+        modal.setType(ModalType.DEFAULT);
+        assertEquals(modal.getType(), ModalType.DEFAULT);
+        modal.setType(ModalType.BOTTOM_SHEET);
+        assertEquals(modal.getType(), ModalType.BOTTOM_SHEET);
+        assertTrue(modal.getElement().hasClassName(ModalType.BOTTOM_SHEET.getCssName()));
+        modal.setType(ModalType.FIXED_FOOTER);
+        assertEquals(modal.getType(), ModalType.FIXED_FOOTER);
+        assertTrue(modal.getElement().hasClassName(ModalType.FIXED_FOOTER.getCssName()));
+        modal.setType(ModalType.WINDOW);
+        assertEquals(modal.getType(), ModalType.WINDOW);
+        assertTrue(modal.getElement().hasClassName(ModalType.WINDOW.getCssName()));
     }
 
-    public <T extends MaterialModal> void checkDimissible(T widget) {
-        widget.setDismissible(true);
-        assertTrue(widget.isDismissible());
+    public <T extends MaterialModal> void checkDimissible(T modal) {
+        modal.setDismissible(true);
+        assertTrue(modal.isDismissible());
     }
 }

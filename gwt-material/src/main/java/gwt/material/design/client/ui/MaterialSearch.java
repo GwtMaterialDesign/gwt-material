@@ -28,6 +28,7 @@ import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.base.HasActive;
+import gwt.material.design.client.base.HasSearchHandlers;
 import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
@@ -74,7 +75,7 @@ import java.util.List;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Search</a>
  */
 //@formatter:on
-public class MaterialSearch extends MaterialValueBox<String> implements HasCloseHandlers<String>, HasActive {
+public class MaterialSearch extends MaterialValueBox<String> implements HasCloseHandlers<String>, HasActive, HasSearchHandlers {
 
     private boolean initialized;
 
@@ -332,6 +333,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     /**
      * This handler will be triggered when search is finish
      */
+    @Override
     public HandlerRegistration addSearchFinishHandler(final SearchFinishEvent.SearchFinishHandler handler) {
         return addHandler(handler, SearchFinishEvent.TYPE);
     }
@@ -339,6 +341,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     /**
      * This handler will be triggered when there's no search result
      */
+    @Override
     public HandlerRegistration addSearchNoResultHandler(final SearchNoResultEvent.SearchNoResultHandler handler) {
         return addHandler(handler, SearchNoResultEvent.TYPE);
     }

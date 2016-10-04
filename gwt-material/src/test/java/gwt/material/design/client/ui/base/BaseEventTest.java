@@ -1,9 +1,33 @@
+/*
+ * #%L
+ * GwtMaterial
+ * %%
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package gwt.material.design.client.ui.base;
 
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.junit.client.GWTTestCase;
+import gwt.material.design.client.base.HasSearchHandlers;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.events.SearchFinishEvent;
+import gwt.material.design.client.events.SearchNoResultEvent;
+import gwt.material.design.client.ui.MaterialSearch;
 
 public class BaseEventTest extends GWTTestCase {
 
@@ -21,13 +45,13 @@ public class BaseEventTest extends GWTTestCase {
         checkFocusEvent(widget, enabled);
     }
 
-    protected  <T extends MaterialWidget> void checkFocusEvent(T widget, boolean enabled) {
+    protected <T extends MaterialWidget> void checkFocusEvent(T widget, boolean enabled) {
         widget.setEnabled(enabled);
         // Check Focus
         final boolean[] isFocusFired = {false};
         widget.addFocusHandler(focusEvent -> isFocusFired[0] = true);
         fireFocusEvent(widget);
-        
+
         // Check Blur
         final boolean[] isBlurFired = {false};
         widget.addBlurHandler(blurEvent -> isBlurFired[0] = true);
@@ -423,5 +447,86 @@ public class BaseEventTest extends GWTTestCase {
                 eventHandler.onMouseOver(null);
             }
         });
+    }
+
+    public <T extends MaterialSearch & HasSearchHandlers> void checkSearchEvents(T widget) {
+        // Check Search Finish Event
+        final boolean[] isSearchFinishEvent = {false};
+        widget.addSearchFinishHandler(event -> {
+            isSearchFinishEvent[0] = true;
+        });
+        widget.fireEvent(new GwtEvent<SearchFinishEvent.SearchFinishHandler>() {
+            @Override
+            public Type<SearchFinishEvent.SearchFinishHandler> getAssociatedType() {
+                return SearchFinishEvent.TYPE;
+            }
+
+            @Override
+            protected void dispatch(SearchFinishEvent.SearchFinishHandler eventHandler) {
+                eventHandler.onSearchFinish(null);
+            }
+        });
+
+        // Check Search No Result
+        final boolean[] isSearchNoResultEvent = {false};
+        widget.addSearchNoResultHandler(event -> {
+            isSearchNoResultEvent[0] = true;
+        });
+        widget.fireEvent(new GwtEvent<SearchNoResultEvent.SearchNoResultHandler>() {
+            @Override
+            public Type<SearchNoResultEvent.SearchNoResultHandler> getAssociatedType() {
+                return SearchNoResultEvent.TYPE;
+            }
+
+            @Override
+            protected void dispatch(SearchNoResultEvent.SearchNoResultHandler eventHandler) {
+                eventHandler.onSearchNoResult(null);
+            }
+        });
+
+        assertTrue(isSearchNoResultEvent[0]);
+        assertTrue(isSearchFinishEvent[0]);
+    }
+
+    public <T extends MaterialWidget & HasCloseHandlers> void checkCloseHandler(T widget) {
+        // Check Close Event
+        final boolean[] isCloseEvent = {false};
+        widget.addCloseHandler(event -> {
+            isCloseEvent[0] = true;
+        });
+        widget.fireEvent(new GwtEvent<CloseHandler<?>>() {
+            @Override
+            public Type<CloseHandler<?>> getAssociatedType() {
+                return CloseEvent.getType();
+            }
+
+            @Override
+            protected void dispatch(CloseHandler<?> eventHandler) {
+                eventHandler.onClose(null);
+            }
+        });
+
+        assertTrue(isCloseEvent[0]);
+    }
+
+    public <T extends MaterialWidget & HasOpenHandlers> void checkOpenHandler(T widget) {
+        // Check Open Event
+        final boolean[] isOpenEvent = {false};
+        widget.addOpenHandler(event -> {
+            isOpenEvent[0] = true;
+        });
+        widget.fireEvent(new GwtEvent<OpenHandler<?>>() {
+            @Override
+            public Type<OpenHandler<?>> getAssociatedType() {
+                return OpenEvent.getType();
+            }
+
+            @Override
+            protected void dispatch(OpenHandler<?> eventHandler) {
+                eventHandler.onOpen(null);
+            }
+        });
+
+        assertTrue(isOpenEvent[0]);
     }
 }

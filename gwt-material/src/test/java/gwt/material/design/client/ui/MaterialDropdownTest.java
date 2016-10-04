@@ -28,6 +28,11 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
 import org.junit.Test;
 
+/**
+ * Test case for Dropdown
+ *
+ * @author kevzlou7979
+ */
 public class MaterialDropdownTest extends MaterialWidgetTest {
 
     @Test

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.gwtmaterialdesign</groupId>
@@ -53,8 +54,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <source.version>1.8</source.version>
         <target.version>1.8</target.version>
-        <gwt.version>2.8.0-rc1</gwt.version>
-        <gwt-maven-plugin.version>2.8.0-rc1</gwt-maven-plugin.version>
+        <gwt.version>2.8.0-rc3</gwt.version>
+        <gwt-maven-plugin.version>2.8.0-rc3</gwt-maven-plugin.version>
         <gwt.style>OBF</gwt.style>
     </properties>
 
@@ -230,6 +231,11 @@
                                 <goal>resources</goal>
                             </goals>
                         </execution>
+                        <execution>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                        </execution>
                     </executions>
                 </plugin>
 
@@ -256,7 +262,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -271,7 +277,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
