@@ -29,7 +29,7 @@
   <set-configuration-property name="CssResource.conversionMode" value="strict" />
 
   <!-- Inherit the core Web Toolkit stuff -->
-  <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.google.gwt.user.User"/>
   <inherits name="com.google.gwt.core.Core"/>
   <inherits name="com.google.gwt.resources.Resources"/>
   <inherits name="gwt.material.design.jquery.JQuery" />
@@ -39,7 +39,7 @@
   </replace-with>
 
   <!-- Specify the paths for translatable code -->
-  <source path='client'/>
+  <source path="client"/>
 
   <set-configuration-property name="CssResource.enableGss" value="true"/>
   <set-configuration-property name="CssResource.legacy" value="true"/>

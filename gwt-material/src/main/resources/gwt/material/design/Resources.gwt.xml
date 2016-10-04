@@ -26,7 +26,7 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
     "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module>
-  <inherits name='gwt.material.design.ResourcesBasic'/>
+  <inherits name="gwt.material.design.ResourcesBasic"/>
 
   <stylesheet src="css/materialize.min.css"/>
 </module>

@@ -74,25 +74,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <useSystemClassLoader>true</useSystemClassLoader>
-          <additionalClasspathElements>
-            <additionalClasspathElement>${basedir}/src/main/java</additionalClasspathElement>
-            <additionalClasspathElement>${basedir}/src/test/java</additionalClasspathElement>
-          </additionalClasspathElements>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>integration-test</phase>
-            <goals>
-              <goal>test</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 </project>
