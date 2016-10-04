@@ -1,5 +1,3 @@
-package gwt.material.design.client.js;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,16 +17,13 @@ package gwt.material.design.client.js;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.js;
 
 import gwt.material.design.jquery.client.api.Functions;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
-/**
- * Created by Mark Kevin on 6/26/2016.
- */
 @JsType(isNative = true, name="Object",  namespace = JsPackage.GLOBAL)
 public class JsModalOptions {
 

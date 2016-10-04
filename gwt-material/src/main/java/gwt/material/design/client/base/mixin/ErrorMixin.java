@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +17,12 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
@@ -34,6 +34,14 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
     private UIObject target;
     private String helperText;
 
+    public ErrorMixin(final T widget) {
+        this(widget, null);
+    }
+
+    public ErrorMixin(final T widget, final H textObject) {
+        this(widget, textObject, widget);
+    }
+
     public ErrorMixin(final T widget, final H textObject, UIObject target) {
         super(widget);
 
@@ -43,28 +51,32 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
 
     @Override
     public void setError(String error) {
-        textObject.setText(error);
-        textObject.addStyleName("field-error-label");
-        textObject.removeStyleName("field-helper-label");
-        textObject.removeStyleName("field-success-label");
-        if(target != null) {
-            target.addStyleName("field-error");
-            target.removeStyleName("field-success");
+        if(textObject != null) {
+            textObject.setText(error);
+            textObject.addStyleName(CssName.FIELD_ERROR_LABEL);
+            textObject.removeStyleName(CssName.FIELD_HELPER_LABEL);
+            textObject.removeStyleName(CssName.FIELD_SUCCESS_LABEL);
+            textObject.setVisible(true);
         }
-        textObject.setVisible(true);
+        if(target != null) {
+            target.addStyleName(CssName.FIELD_ERROR);
+            target.removeStyleName(CssName.FIELD_SUCCESS);
+        }
     }
 
     @Override
     public void setSuccess(String success) {
-        textObject.setText(success);
-        textObject.addStyleName("field-success-label");
-        textObject.removeStyleName("field-helper-label");
-        textObject.removeStyleName("field-error-label");
-        if(target != null) {
-            target.addStyleName("field-success");
-            target.removeStyleName("field-error");
+        if(textObject != null) {
+            textObject.setText(success);
+            textObject.addStyleName(CssName.FIELD_SUCCESS_LABEL);
+            textObject.removeStyleName(CssName.FIELD_HELPER_LABEL);
+            textObject.removeStyleName(CssName.FIELD_ERROR_LABEL);
+            textObject.setVisible(true);
         }
-        textObject.setVisible(true);
+        if(target != null) {
+            target.addStyleName(CssName.FIELD_SUCCESS);
+            target.removeStyleName(CssName.FIELD_ERROR);
+        }
     }
     
     @Override
@@ -75,19 +87,20 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
 
     @Override
     public void clearErrorOrSuccess() {
-        textObject.setText(helperText == null ? "" : helperText);
-        if (helperText != null){
-            textObject.addStyleName("field-helper-label");
+        if(textObject != null) {
+            textObject.setText(helperText == null ? "" : helperText);
+            if (helperText != null) {
+                textObject.addStyleName(CssName.FIELD_HELPER_LABEL);
+            } else {
+                textObject.removeStyleName(CssName.FIELD_HELPER_LABEL);
+            }
+            textObject.removeStyleName(CssName.FIELD_ERROR_LABEL);
+            textObject.removeStyleName(CssName.FIELD_SUCCESS_LABEL);
+            textObject.setVisible(helperText != null);
         }
-        else {
-            textObject.removeStyleName("field-helper-label");
+        if (target != null) {
+            target.removeStyleName(CssName.FIELD_ERROR);
+            target.removeStyleName(CssName.FIELD_SUCCESS);
         }
-        textObject.removeStyleName("field-error-label");
-        textObject.removeStyleName("field-success-label");
-        if(target != null) {
-            target.removeStyleName("field-error");
-            target.removeStyleName("field-success");
-        }
-        textObject.setVisible(helperText != null);
     }
 }

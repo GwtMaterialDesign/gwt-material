@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +17,16 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
-import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.TypeWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.RadioButtonType;
 
 //@formatter:off
@@ -49,10 +46,9 @@ import gwt.material.design.client.constants.RadioButtonType;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Radio Button</a>
  * @author kevzlou7979
  */
-public class MaterialRadioButton extends RadioButton implements HasGrid, HasType<RadioButtonType> {
+public class MaterialRadioButton extends RadioButton implements HasType<RadioButtonType> {
 
     private CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> typeMixin;
-    private final GridMixin<MaterialRadioButton> gridMixin = new GridMixin<>(this);
 
     public MaterialRadioButton() {
         super("");
@@ -97,19 +93,11 @@ public class MaterialRadioButton extends RadioButton implements HasGrid, HasType
 
     @Override
     public void setType(RadioButtonType type) {
-        // Since the input element handles the type
-        // styles we need to override the mixin.
-        typeMixin = new CssTypeMixin<>(new TypeWidget<RadioButtonType>(DOM.getChild(getElement(), 0)));
+        if(typeMixin == null) {
+            // Since the input element handles the type styles,
+            // we need to override the mixin.
+            typeMixin = new CssTypeMixin<>(new TypeWidget<>(DOM.getChild(getElement(), 0)));
+        }
         typeMixin.setType(type);
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
     }
 }

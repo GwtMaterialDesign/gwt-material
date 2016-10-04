@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
@@ -50,7 +49,7 @@ public abstract class AttributeObserver implements HasHandlers {
     }
 
     public <H extends ObservedHandler> HandlerRegistration addObservedHandler(H handler) {
-        return widget.addHandler(handler, ObservedEvent.TYPE);
+        return addObservedHandler(handler, ObservedEvent.TYPE);
     }
 
     public <H extends ObservedHandler> HandlerRegistration addObservedHandler(H handler, GwtEvent.Type<H> type) {
@@ -76,11 +75,11 @@ public abstract class AttributeObserver implements HasHandlers {
        return new MutationObserver(func);
     }-*/;
 
-    public void observe(Element e, String attr) {
+    public void observe(String attr) {
         if(observer == null) {
             observer = getObserver(createMutationObject());
         }
-        nativeObserve(e, attr);
+        nativeObserve(widget.getElement(), attr);
     }
 
     public native void nativeObserve(Element e, String attr) /*-{

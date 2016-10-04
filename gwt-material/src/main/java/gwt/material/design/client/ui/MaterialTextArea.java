@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +17,13 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextArea;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 
 import java.util.HashSet;
@@ -66,7 +59,17 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     public MaterialTextArea() {
         super(new TextArea());
         setType(InputType.TEXT);
-        valueBoxBase.setStyleName("materialize-textarea");
+        valueBoxBase.setStyleName(CssName.MATERIALIZE_TEXTAREA);
+    }
+
+    public MaterialTextArea(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialTextArea(String placeholder, int length) {
+        this(placeholder);
+        setLength(length);
     }
 
     @Override
@@ -81,12 +84,9 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     public void triggerAutoResize() {
         if(!valueBoxBase.isAttached()) {
             if (attachHandler == null) {
-                attachHandler = valueBoxBase.addAttachHandler(new Handler() {
-                    @Override
-                    public void onAttachOrDetach(AttachEvent event) {
-                        if(event.isAttached()) {
-                            triggerAutoResize(valueBoxBase.getElement());
-                        }
+                attachHandler = valueBoxBase.addAttachHandler(event -> {
+                    if(event.isAttached()) {
+                        triggerAutoResize(valueBoxBase.getElement());
                     }
                 });
             }
@@ -96,7 +96,9 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     }
 
     protected void triggerAutoResize(Element element) {
-        $(element).trigger("autoresize", null);
+        Scheduler.get().scheduleDeferred(() -> {
+            $(element).trigger("autoresize", null);
+        });
     }
 
     public ResizeRule getResizeRule() {
@@ -111,25 +113,25 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         removeResizeHandlers();
 
         switch(resizeRule) {
-            case AUTO:
-                resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> {
-                    triggerAutoResize();
-                }));
-                break;
-            case FOCUS:
-                resizeHandlers.add(addFocusHandler(event -> {
-                    if(originalHeight == null) {
-                        originalHeight = valueBoxBase.getElement().getClientHeight();
-                    }
-                    triggerAutoResize();
-                }));
+        case AUTO:
+            resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> {
+                triggerAutoResize();
+            }));
+            break;
+        case FOCUS:
+            resizeHandlers.add(addFocusHandler(event -> {
+                if(originalHeight == null) {
+                    originalHeight = valueBoxBase.getElement().getClientHeight();
+                }
+                triggerAutoResize();
+            }));
 
-                resizeHandlers.add(addBlurHandler(event -> {
-                    if(originalHeight != null) {
-                        valueBoxBase.setHeight(originalHeight + "px");
-                    }
-                }));
-                break;
+            resizeHandlers.add(addBlurHandler(event -> {
+                if(originalHeight != null) {
+                    valueBoxBase.setHeight(originalHeight + "px");
+                }
+            }));
+            break;
         }
     }
 

@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +17,15 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
-
-import com.google.gwt.user.client.ui.Widget;
 
 //@formatter:off
 /**
@@ -38,10 +36,10 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
  * {@code
  * <m:MaterialNavSection align="RIGHT">
- *     <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="white" waves="LIGHT"/>
- *     <m:MaterialLink  iconType="AUTORENEW" iconPosition="left" text="Refresh" textColor="white" waves="LIGHT"/>
- *     <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="white" waves="LIGHT"/>
- *     <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="white" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="WHITE" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="AUTORENEW" iconPosition="left" text="Refresh" textColor="WHITE" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="WHITE" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="WHITE" waves="LIGHT"/>
  * </m:MaterialNavSection>
  * }
  * </pre>
@@ -57,7 +55,7 @@ public class MaterialNavSection extends UnorderedList implements HasPosition {
     private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
 
     /**
-     * Container for App Toolbar and App Sidebar , contains Material
+     * Container for App Toolbar and App Sidebar, contains Material
      * Links, Icons or any other material components.
      */
     public MaterialNavSection() {

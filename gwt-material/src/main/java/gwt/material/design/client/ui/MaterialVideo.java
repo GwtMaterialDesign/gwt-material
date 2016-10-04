@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +17,15 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasGrid;
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Frame;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
 * Material Video get any youtube url that will inherit responsive design
 *
@@ -43,13 +42,18 @@ import com.google.gwt.user.client.ui.Frame;
 * @author Ben Dol
 */
 //@formatter:on
-public class MaterialVideo extends MaterialWidget implements HasGrid{
+public class MaterialVideo extends MaterialWidget {
 
-    private Frame frame =  new Frame();
+    private Frame frame = new Frame();
 
     public MaterialVideo() {
-        super(Document.get().createElement("div"), "video-container");
+        super(Document.get().createDivElement(), CssName.VIDEO_CONTAINER);
         add(frame);
+    }
+
+    public MaterialVideo(String url) {
+        this();
+        setUrl(url);
     }
 
     public String getUrl() {
@@ -65,6 +69,6 @@ public class MaterialVideo extends MaterialWidget implements HasGrid{
      * @param fullscreen the fullscreen to set.
      */
     public void setFullscreen(boolean fullscreen) {
-        frame.getElement().setAttribute("allowfullscreen", "true");
+        frame.getElement().setAttribute("allowfullscreen", String.valueOf(fullscreen));
     }
 }

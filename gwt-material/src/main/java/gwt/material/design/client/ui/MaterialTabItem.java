@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +17,11 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasHref;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
@@ -30,7 +30,7 @@ import gwt.material.design.client.ui.html.ListItem;
  * Item for Tab Component, which usually contains icons, links or other navigation component.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>}
+ *{@code<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="WHITE"/></m:MaterialTabItem>}
  * </pre>
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!tabs">Material Tabs</a>
  * @author kevzlou7979
@@ -42,7 +42,7 @@ public class MaterialTabItem extends ListItem {
     private MaterialTab parent;
 
     public MaterialTabItem() {
-        super("tab");
+        super(CssName.TAB);
     }
 
     @Override
@@ -52,11 +52,13 @@ public class MaterialTabItem extends ListItem {
         try {
             parent = (MaterialTab)getParent();
         } catch (ClassCastException ex) {
-            throw new ClassCastException(
-                "MaterialTabItem must be within a MaterialTab widget.");
+            throw new ClassCastException("MaterialTabItem must be within a MaterialTab widget.");
         }
     }
 
+    /**
+     * Select this tab item.
+     */
     public void selectTab() {
         for(Widget child : getChildren()) {
             if(child instanceof HasHref) {

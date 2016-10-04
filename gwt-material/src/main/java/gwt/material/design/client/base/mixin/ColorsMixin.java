@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,54 +17,56 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.HasColors;
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.HasColors;
+import gwt.material.design.client.constants.Color;
 
 /**
+ * @author kevzlou7979
  * @author Ben Dol
  */
 public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T> implements HasColors {
 
-    private String bgColor = "";
-    private String textColor = "";
+    private Color bgColor;
+    private Color textColor;
 
     public ColorsMixin(final T widget) {
         super(widget);
     }
 
     @Override
-    public void setBackgroundColor(String bgColor) {
-        if(this.bgColor != null && !this.bgColor.isEmpty()) {
-            uiObject.removeStyleName(this.bgColor);
+    public void setBackgroundColor(Color bgColor) {
+        if(this.bgColor != null && !this.bgColor.getCssName().isEmpty()) {
+            uiObject.removeStyleName(this.bgColor.getCssName());
         }
         this.bgColor = bgColor;
 
-        if(bgColor != null && !bgColor.isEmpty()) {
-            uiObject.addStyleName(bgColor);
+        if(bgColor != null && !bgColor.getCssName().isEmpty()) {
+            uiObject.addStyleName(bgColor.getCssName());
         }
     }
 
     @Override
-    public String getBackgroundColor() {
+    public Color getBackgroundColor() {
         return bgColor;
     }
 
     @Override
-    public void setTextColor(String textColor) {
-        if(this.textColor != null && !this.textColor.isEmpty()) {
-            uiObject.removeStyleName(this.textColor);
+    public void setTextColor(Color textColor) {
+        if(this.textColor != null && !this.textColor.getCssName().isEmpty()) {
+            uiObject.removeStyleName(this.textColor.getCssName());
         }
-        this.textColor = ensureTextColorFormat(textColor);
+        this.textColor = textColor;
 
-        if(this.textColor != null && !this.textColor.isEmpty()) {
-            uiObject.addStyleName(this.textColor);
+        if(this.textColor != null && !this.textColor.getCssName().isEmpty()) {
+            uiObject.addStyleName(ensureTextColorFormat(textColor.getCssName()));
         }
     }
 
     @Override
-    public String getTextColor() {
+    public Color getTextColor() {
         return textColor;
     }
 

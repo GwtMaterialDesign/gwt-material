@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +17,15 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasTitle;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.TextAlign;
-import gwt.material.design.client.ui.html.Div;
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasTitle;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.*;
+import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
 /**
@@ -50,26 +45,25 @@ import com.google.gwt.dom.client.Style.Unit;
 * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#no-result">Material No Result</a>
 */
 //@formatter:on
-public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitle{
-
+public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitle {
 
     private MaterialIcon icon = new MaterialIcon();
     private MaterialTitle title = new MaterialTitle();
     private Div div = new Div();
 
     public MaterialNoResult() {
-        super(Document.get().createDivElement(), "valign-wrapper");
+        super(Document.get().createDivElement(), CssName.VALIGN_WRAPPER);
         setTextAlign(TextAlign.CENTER);
         setHeight("100%");
         add(div);
         div.setWidth("100%");
-        div.setStyleName("valign center");
+        div.setStyleName(CssName.VALIGN + " " + CssName.CENTER);
         div.add(title);
         icon.setIconSize(IconSize.LARGE);
         title.insert(icon, 0);
     }
 
-    public MaterialNoResult(String bgColor, String textColor, IconType iconType, String title, String description) {
+    public MaterialNoResult(Color bgColor, Color textColor, IconType iconType, String title, String description) {
         this();
         setBackgroundColor(bgColor);
         setTextColor(textColor);
@@ -114,7 +108,7 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 

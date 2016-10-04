@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.error;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,10 +17,9 @@ package gwt.material.design.client.base.error;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.error;
 
 import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasError;
@@ -65,7 +62,7 @@ public class DefaultErrorHandler implements ErrorHandler {
         assert widget != null;
         this.inputWidget = widget;
         this.inputWidget.addAttachHandler(event -> {
-            init();
+            if(event.isAttached()) { init(); }
         });
     }
 

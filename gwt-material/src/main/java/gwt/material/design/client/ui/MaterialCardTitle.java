@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +17,15 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.ui.html.Span;
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.*;
+import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
 /**
@@ -45,7 +41,7 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     private Span span = new Span();
 
     public MaterialCardTitle() {
-        super(Document.get().createSpanElement(), "card-title" , "activator");
+        super(Document.get().createSpanElement(), CssName.CARD_TITLE, CssName.ACTIVATOR);
     }
 
     @Override
@@ -86,7 +82,7 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 

@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +17,13 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsSliderOptions;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -69,11 +68,13 @@ public class MaterialSlider extends MaterialWidget {
 
     private UnorderedList ul = new UnorderedList();
 
-    private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, "fullscreen");
+    private boolean fullWidth = true;
+
+    private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
 
     public MaterialSlider() {
-        super(Document.get().createDivElement(), "slider");
-        ul.setStyleName("slides");
+        super(Document.get().createDivElement(), CssName.SLIDER);
+        ul.setStyleName(CssName.SLIDES);
         super.add(ul);
     }
 
@@ -106,17 +107,21 @@ public class MaterialSlider extends MaterialWidget {
         return fsMixin.isOn();
     }
 
+    public boolean isFullWidth() {
+        return fullWidth;
+    }
+
+    public void setFullWidth(boolean fullWidth) {
+        this.fullWidth = fullWidth;
+    }
+
     /**
      * Initialize the slider when the widget is attached.
      */
     protected void initialize() {
-        initialize(getElement());
-    }
-
-    protected void initialize(Element e) {
         JsSliderOptions options = new JsSliderOptions();
-        options.full_width = true;
-        $(e).slider(options);
+        options.full_width = fullWidth;
+        $(getElement()).slider(options);
     }
 
     public void pause() {

@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +17,7 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
-
-import static com.google.gwt.dom.client.BrowserEvents.CLICK;
-import gwt.material.design.client.ui.MaterialButton;
+package gwt.material.design.client.base;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -30,6 +26,10 @@ import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.ui.MaterialButton;
+
+import static com.google.gwt.dom.client.BrowserEvents.CLICK;
 
 public class MaterialButtonCell extends AbstractCell<MaterialButton> {
 
@@ -55,7 +55,7 @@ public class MaterialButtonCell extends AbstractCell<MaterialButton> {
     @SuppressWarnings("deprecation")
     @Override
     public void render(Context context, MaterialButton value, SafeHtmlBuilder sb) {
-        value.getIcon().addStyleName("material-icons");
+        value.getIcon().addStyleName(CssName.MATERIAL_ICONS);
         sb.appendHtmlConstant(DOM.toString(value.getElement()));
     }
 

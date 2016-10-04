@@ -1,10 +1,8 @@
-package gwt.material.design.client.constants;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +17,11 @@ package gwt.material.design.client.constants;
  * limitations under the License.
  * #L%
  */
-
-import javax.annotation.Generated;
+package gwt.material.design.client.constants;
 
 import gwt.material.design.client.base.helper.EnumHelper;
+
+import javax.annotation.Generated;
 
 @Generated(value = "gwt.material.design.gen.IconTypeGenerator", date = "2016-04-15T00:43:49Z")
 public enum IconType implements CssType {

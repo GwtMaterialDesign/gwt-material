@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +17,23 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.HasDismissible;
+import gwt.material.design.client.base.HasTransition;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.js.JsModalOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -65,7 +69,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *     &#064;code
  *     &#064;UiField
  *     MaterialModal modal;
- *     modal.openModal();
+ *     modal.open();
  * }
  * </pre>
  * 
@@ -78,7 +82,41 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 // @formatter:on
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
-        HasDismissable, HasCloseHandlers<MaterialModal> {
+        HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
+
+    static class ModalManager {
+            private static List<MaterialModal> modals;
+            private static final int index = 1010;
+
+            /**
+             * Registers the modal and added to static modal lists
+             */
+        public static void register(MaterialModal modal) {
+            if(modals == null) { modals = new ArrayList<>(); }
+            modals.add(modal);
+            resetZIndex();
+        }
+
+        /**
+         *  Unregisters the modal and removed it from static modal lists
+         */
+        public static void unregister(MaterialModal modal) {
+            if(modals == null) { modals = new ArrayList<>(); }
+            if(modals.remove(modal)) {
+                resetZIndex();
+            }
+        }
+
+        /**
+         * Need to reset every time we have register / unregister process
+         */
+        protected static void resetZIndex(){
+            int i = index;
+            for(MaterialModal modal : modals) {
+                modal.setDepth(i++);
+            }
+        }
+    }
 
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
     private int inDuration = 300;
@@ -87,11 +125,18 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     private double opacity = 0.5;
 
     public MaterialModal() {
-        super(Document.get().createDivElement(), "modal");
+        super(Document.get().createDivElement(), CssName.MODAL);
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        close();
     }
 
     /**
-     * Open the modal programatically
+     * Open the modal programmatically
      * 
      * <p>
      * Note: the MaterialModal component must be added to the document before
@@ -109,13 +154,13 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @throws IllegalStateException
      *             If the MaterialModal is not added to the document
      */
-    public void openModal() {
+    public void open() {
         // the modal must be added to the document before opening
         if (this.getParent() == null) {
             throw new IllegalStateException(
-                "The MaterialModal must be added to the document before calling openModal().");
+                "The MaterialModal must be added to the document before calling open().");
         }
-        openModal(getElement(), opacity, dismissable, inDuration, outDuration);
+        open(getElement(), opacity, dismissable, inDuration, outDuration);
     }
 
     /**
@@ -132,7 +177,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @param outDuration
      *            - Transition out Duration
      */
-    protected void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
+    protected void open(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
         JsModalOptions options = new JsModalOptions();
         options.opacity = opacity;
         options.dismissible = dismissable;
@@ -142,7 +187,8 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
             onNativeClose(true);
         };
         $(e).openModal(options);
-        MaterialModalManager.register(this);
+        ModalManager.register(this);
+        OpenEvent.fire(this, this);
     }
 
     protected void onNativeClose(boolean autoClosed) {
@@ -150,23 +196,23 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     /**
-     * Close the modal programatically. It is the same as calling
-     * {@link #closeModal(boolean)} with <code>false</code> as parameter.
+     * Close the modal programmatically. It is the same as calling
+     * {@link #close(boolean)} with <code>false</code> as parameter.
      * <p>
      * Note: you may need to remove it MaterialModal from the document if you
-     * are not using UiBinder. See {@link #openModal()}.
+     * are not using UiBinder. See {@link #open()}.
      * </p>
      * 
      */
-    public void closeModal() {
-        closeModal(false);
+    public void close() {
+        close(false);
     }
 
     /**
-     * Close the modal programatically.
+     * Close the modal programmatically.
      * <p>
      * Note: you may need to remove it MaterialModal from the document if you
-     * are not using UiBinder. See {@link #openModal()}.
+     * are not using UiBinder. See {@link #open()}.
      * </p>
      * 
      * @param autoClosed
@@ -174,12 +220,13 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * 
      * @see CloseEvent
      */
-    public void closeModal(boolean autoClosed) {
-        closeModal(getElement(), autoClosed);
-        MaterialModalManager.unregister(this);
+    public void close(boolean autoClosed) {
+        close(getElement(), autoClosed);
+        ModalManager.unregister(this);
+        CloseEvent.fire(this, this);
     }
 
-    protected void closeModal(Element e, boolean autoClosed) {
+    protected void close(Element e, boolean autoClosed) {
         $(e).closeModal(() -> onNativeClose(autoClosed));
     }
 
@@ -204,12 +251,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public void setDismissable(boolean dismissable) {
-        this.dismissable = dismissable;
+    public void setDismissible(boolean dismissible) {
+        this.dismissable = dismissible;
     }
 
     @Override
-    public boolean isDismissable() {
+    public boolean isDismissible() {
         return dismissable;
     }
 
@@ -220,7 +267,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public HandlerRegistration addCloseHandler(CloseHandler<MaterialModal> handler) {
-        return this.addHandler(handler, CloseEvent.getType());
+        return addHandler(handler, CloseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOpenHandler(OpenHandler<MaterialModal> handler) {
+        return addHandler(handler, OpenEvent.getType());
     }
 
     @Override

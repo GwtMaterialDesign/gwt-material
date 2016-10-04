@@ -1,4 +1,4 @@
-package gwt.material.design.client.base.mixin;/*
+/*
  * #%L
  * GwtBootstrap3
  * %%
@@ -17,17 +17,17 @@ package gwt.material.design.client.base.mixin;/*
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
-import java.util.List;
-
+import com.google.gwt.editor.client.EditorError;
+import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.error.DefaultErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
 
-import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.HasEditorErrors;
-import com.google.gwt.user.client.ui.Widget;
+import java.util.List;
 
 /**
  * Mixin to handle error handler support.

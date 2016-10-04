@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +17,14 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.jquery.client.api.Functions;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -51,14 +51,14 @@ public class MaterialToast {
 
     public static final int DEFAULT_LIFE = 4000;
 
-    private Runnable callback;
+    private Functions.Func callback;
     private Widget[] widgets;
 
     public MaterialToast(Widget... widgets) {
         this.widgets = widgets;
     }
 
-    public MaterialToast(Runnable callback, Widget... widgets) {
+    public MaterialToast(Functions.Func callback, Widget... widgets) {
         this.callback = callback;
         this.widgets = widgets;
     }
@@ -142,10 +142,10 @@ public class MaterialToast {
         }
     }
 
-    protected void toast(String msg, int lifeMillis, String id, String className, Runnable callback) {
+    protected void toast(String msg, int lifeMillis, String id, String className, Functions.Func callback) {
         JsMaterialElement.toast(msg, lifeMillis, className, () -> {
             if(callback != null) {
-                callback.run();
+                callback.call();
             }
         });
         $(".toast." + className).attr("id", id);

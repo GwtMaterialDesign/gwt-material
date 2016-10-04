@@ -1,5 +1,3 @@
-package gwt.material.design.client.constants;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,7 +17,7 @@ package gwt.material.design.client.constants;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.constants;
 
 import com.google.gwt.resources.client.TextResource;
 import gwt.material.design.client.resources.MaterialDatePickerClientBundle;

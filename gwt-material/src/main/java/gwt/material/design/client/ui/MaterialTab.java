@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
@@ -26,6 +25,8 @@ import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -38,10 +39,10 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  *{@code
-<m:MaterialTab ui:field="tab"  backgroundColor="blue">
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="white"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="white"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="white"/></m:MaterialTabItem>
+<m:MaterialTab ui:field="tab"  backgroundColor="BLUE">
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="WHITE"/></m:MaterialTabItem>
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="WHITE"/></m:MaterialTabItem>
+<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="WHITE"/></m:MaterialTabItem>
 </m:MaterialTab>
 <i:Panel m:id="tab1">
 <i:Title title="Tab 1" description="Tab 1 Content"/>
@@ -62,7 +63,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialTab extends UnorderedList implements HasType<TabType> {
 
     private int tabIndex;
-    private String indicatorColor;
+    private Color indicatorColor;
 
     private MaterialWidget indicator;
     private ColorsMixin<MaterialWidget> indicatorColorMixin;
@@ -70,11 +71,11 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialTab() {
-        super("tabs");
+        super(CssName.TABS);
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
 
         initialize();
@@ -103,7 +104,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
         }
     }
 
-    public void setIndicatorColor(String indicatorColor) {
+    public void setIndicatorColor(Color indicatorColor) {
         this.indicatorColor = indicatorColor;
 
         if(indicatorColorMixin != null && indicatorColor != null) {

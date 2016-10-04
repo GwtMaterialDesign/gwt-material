@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,29 +17,25 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.jquery.client.api.JQuery;
-import gwt.material.design.client.base.HasSelectables;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.*;
@@ -49,10 +43,13 @@ import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler
 import gwt.material.design.client.events.SideNavClosingEvent.SideNavClosingHandler;
 import gwt.material.design.client.events.SideNavOpenedEvent.SideNavOpenedHandler;
 import gwt.material.design.client.events.SideNavOpeningEvent.SideNavOpeningHandler;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.jquery.client.api.JQuery;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
+
 //@formatter:off
 
 /**
@@ -62,8 +59,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <pre>
  * {@code
  * <m:MaterialSideNav ui:field="sideNav" width="280" m:id="mysidebar"  type="OPEN" closeOnClick="false">
- *     <m:MaterialLink href="#about" iconPosition="LEFT" iconType="OUTLINE" text="About" textColor="blue"  />
- *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" iconType="DOWNLOAD" text="Getting Started" textColor="blue"  >
+ *     <m:MaterialLink href="#about" iconPosition="LEFT" iconType="OUTLINE" text="About" textColor="BLUE"  />
+ *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" iconType="DOWNLOAD" text="Getting Started" textColor="BLUE"  >
  * </m:MaterialSideNav>
  * }
  * </pre>
@@ -73,27 +70,29 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!sidenavs">Material SideNav</a>
  */
 //@formatter:on
-public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables {
+public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables, HasSideNavHandlers {
 
     private int width = 240;
     private Edge edge = Edge.LEFT;
     private boolean closeOnClick = false;
     private boolean alwaysShowActivator = false;
     private boolean allowBodyScroll = false;
-    private boolean showOnAttach = false;
     private boolean open;
+    private Boolean showOnAttach;
 
     private Element activator;
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
-    private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, "fixed");
+    private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, CssName.FIXED);
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
      * Icons or any other material components.
      */
     public MaterialSideNav() {
-        super(Document.get().createULElement(), "side-nav");
+        super(Document.get().createULElement(), CssName.SIDE_NAV);
+
+        typeMixin.setType(SideNavType.FIXED);
     }
 
     /**
@@ -113,45 +112,57 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
 
         // Initialize the side nav
         initialize();
 
-        if(showOnAttach) {
+        if(showOnAttach != null) {
             Scheduler.get().scheduleDeferred(() -> {
-                if(Window.getClientWidth() > 960) {
+                if(showOnAttach) {
+                    if (Window.getClientWidth() > 960) {
+                        show();
+                    }
+                } else {
                     show();
+                    final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
+                    openedHandler[0] = addOpenedHandler((event) -> {
+                        hide();
+
+                        if(openedHandler[0] != null) {
+                            openedHandler[0].removeHandler();
+                        }
+                    });
                 }
             });
         }
     }
 
-    /**
-     * This handler will be triggered when the side nav starts opening.
-     */
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        activator = null;
+    }
+
+
+    @Override
     public HandlerRegistration addOpeningHandler(SideNavOpeningHandler handler) {
         return addHandler(handler, SideNavOpeningEvent.TYPE);
     }
 
-    /**
-     * This handler will be triggered when the side nav is opened.
-     */
+    @Override
     public HandlerRegistration addOpenedHandler(SideNavOpenedHandler handler) {
         return addHandler(handler, SideNavOpenedEvent.TYPE);
     }
 
-    /**
-     * This handler will be triggered when the side nav starts closing.
-     */
+    @Override
     public HandlerRegistration addClosingHandler(SideNavClosingHandler handler) {
         return addHandler(handler, SideNavClosingEvent.TYPE);
     }
 
-    /**
-     * This handler will be triggered when the side nav is closed.
-     */
+    @Override
     public HandlerRegistration addClosedHandler(SideNavClosedHandler handler) {
         return addHandler(handler, SideNavClosedEvent.TYPE);
     }
@@ -169,7 +180,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             if (widget.getInitialClasses() != null) {
                 if (widget.getInitialClasses().length > 0) {
                     String initialClass = widget.getInitialClasses()[0];
-                    if(initialClass.contains("side-profile") || initialClass.contains("collapsible")) {
+                    if(initialClass.contains(CssName.SIDE_PROFILE) || initialClass.contains(CssName.COLLAPSIBLE)) {
                         isNotSelectable = true;
                     }
                 }
@@ -197,7 +208,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             // Active click handler
             finalChild.addDomHandler(event -> {
                 clearActive();
-                finalChild.addStyleName("active");
+                finalChild.addStyleName(CssName.ACTIVE);
             }, ClickEvent.getType());
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
@@ -294,7 +305,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                         }}.schedule(500);
                     break;
                 case PUSH:
-                    applyPushType(getElement(), activator, width);
+                    applyPushType(width);
                     break;
             }
         }
@@ -307,7 +318,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */
-    protected void applyPushType(Element element, Element activator, int width) {
+    protected void applyPushType(int width) {
         $(JQuery.window()).off("resize");
         $(JQuery.window()).resize((e, param1) -> {
             pushElements(open, width);
@@ -316,18 +327,18 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void pushElements(boolean toggle, int width) {
-        int _width = 0;
-        int _duration = 200;
+        int w = 0;
+        int dur = 200;
         if(!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
             if(toggle) {
-                _width = width;
-                _duration = 300;
+                w = width;
+                dur = 300;
             }
-            applyTransition($("header").asElement(), _width, _duration);
-            applyTransition($("main").asElement(), _width, _duration);
-            applyTransition($("footer").asElement(), _width, _duration);
+            applyTransition($("header").asElement(), w, dur);
+            applyTransition($("main").asElement(), w, dur);
+            applyTransition($("footer").asElement(), w, dur);
         }
-        onPush(toggle, _width, _duration);
+        onPush(toggle, w, dur);
     }
 
     protected void applyTransition(Element elem, int width, int duration) {
@@ -364,51 +375,49 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         if(activator == null) {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             if (activator != null) {
-                SideNavType type = getType();
-                processType(type);
-
-                initialize(activator, width, closeOnClick, edge.getCssName());
-
                 if(alwaysShowActivator || !isFixed()) {
                     String style = activator.getAttribute("style");
                     activator.setAttribute("style", style + "; display: block !important");
-                    activator.removeClassName("navmenu-permanent");
+                    activator.removeClassName(CssName.NAVMENU_PERMANENT);
                 }
             } else if(strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                        "please ensure you have a MaterialNavBar with an activator setup to match " +
-                        "this widgets id.");
+                    "please ensure you have a MaterialNavBar with an activator setup to match " +
+                    "this widgets id.");
             }
         }
-    }
 
-    protected void initialize(Element e, int width, boolean closeOnClick, String edge) {
+        SideNavType type = getType();
+        processType(type);
+
         JsSideNavOptions options = new JsSideNavOptions();
         options.menuWidth = width;
-        options.edge = edge;
+        options.edge = edge != null ? edge.getCssName() : null;
         options.closeOnClick = closeOnClick;
-        $(e).sideNav(options);
 
-        $(e).off("side-nav-closing");
-        $(e).on("side-nav-closing", e1 -> {
+        JsMaterialElement element = $(activator);
+        element.sideNav(options);
+
+        element.off("side-nav-closing");
+        element.on("side-nav-closing", e1 -> {
             onClosing();
             return true;
         });
 
-        $(e).off("side-nav-closed");
-        $(e).on("side-nav-closed", e1 -> {
+        element.off("side-nav-closed");
+        element.on("side-nav-closed", e1 -> {
             onClosed();
             return true;
         });
 
-        $(e).off("side-nav-opening");
-        $(e).on("side-nav-opening", e1 -> {
+        element.off("side-nav-opening");
+        element.on("side-nav-opening", e1 -> {
             onOpening();
             return true;
         });
 
-        $(e).off("side-nav-opened");
-        $(e).on("side-nav-opened", e1 -> {
+        element.off("side-nav-opened");
+        element.on("side-nav-opened", e1 -> {
             onOpened();
             return true;
         });
@@ -503,7 +512,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Will the menu forcefully show on attachment.
      */
     public boolean isShowOnAttach() {
-        return showOnAttach;
+        return showOnAttach != null && showOnAttach;
     }
 
     /**

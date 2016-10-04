@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +17,21 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
-public interface HasDismissable {
+import gwt.material.design.client.ui.base.AbstractIconButtonTest;
+import org.junit.Test;
 
-    /**
-     * Set dismissable when swiping left / right using hammer.js.
-     */
-    void setDismissable(boolean dismissable);
+/**
+ * Test case for Links
+ *
+ * @author kevzlou7979
+ */
+public class MaterialLinkTest extends AbstractIconButtonTest {
 
-    boolean isDismissable();
+    @Test
+    public void tsetLink() {
+        MaterialLink link = new MaterialLink();
+        checkIconButton(link);
+    }
 }

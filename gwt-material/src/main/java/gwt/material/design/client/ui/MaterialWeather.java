@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 //@formatter:off
 
@@ -46,7 +45,7 @@ public class MaterialWeather extends MaterialPanel {
     public MaterialWeather() {
         super();
         HTML html = new HTML("<div id='weatherPanel' class='center-align card white-text'> <div class='row'> <ul id='weatherPanel' > <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5 >0</h5> <p style='margin-top: -5px; font-weight: 100;text-transform: capitalize;'>0</p> </li> <li style='opacity: 0;'> <div class='row'> <div class='col s12 m4 l4'> <img style='margin-top: 20px;'> </div> <div class='col s12 m8 l8'> <h2 style='font-weight: 100;'>0</h2> </div> </div> </li> </div> <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5>0</h5> <p style='margin-top: -5px; font-weight: 100;'>0</p> </li> <div class='left-align'> <li style='opacity: 0;'> <span><i > </i>0</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-device-wifi-tethering'> </i>3.9  mph</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-av-timer'></i>0  hPa</span> </li> </div> </div> </ul> </div> </div>");
-        this.getElement().appendChild(html.getElement());
+        getElement().appendChild(html.getElement());
     }
 
     private String location;
@@ -57,9 +56,9 @@ public class MaterialWeather extends MaterialPanel {
     protected void onLoad() {
         super.onLoad();
 
-        this.name = "weatherContainer";
-        this.addStyleName(name);
-        this.getElement().setId("weatherContainer");
+        name = "weatherContainer";
+        addStyleName(name);
+        getElement().setId("weatherContainer");
         showWeather(location, name, color);
     }
 
@@ -82,7 +81,6 @@ public class MaterialWeather extends MaterialPanel {
 
     public static native void showWeather(String location, String div, String color)/*-{
         $wnd.jQuery.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=53455a3a8a8a46135396f0272314f49d", function( data ) {
-
             var items = [];
             var location = data.sys.country + ", " + data.name;
             var icon = "http://gwt-material.appspot.com/bin/weather/" +data.weather[0].icon + ".png";

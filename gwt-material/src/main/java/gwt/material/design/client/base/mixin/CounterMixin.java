@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +17,14 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasCounter;
 import gwt.material.design.client.ui.MaterialValueBox;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin<T> implements HasCounter {
 
@@ -38,11 +39,11 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
         this.length = length;
         Element e = uiObject.getElement();
 
-        if(uiObject instanceof MaterialValueBox) {
-            e = ((MaterialValueBox)uiObject).asValueBoxBase().getElement();
+        if (uiObject instanceof MaterialValueBox) {
+            e = ((MaterialValueBox) uiObject).asValueBoxBase().getElement();
         }
 
-        if(e != null) {
+        if (e != null) {
             e.setAttribute("length", String.valueOf(length));
             initCounter(e);
         }
@@ -55,9 +56,10 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
 
     /**
      * Initialize the character counter provided by the textbase elements
+     *
      * @param e - element to initialize the feature
      */
-    protected native void initCounter(Element e) /*-{
-        $wnd.jQuery(e).characterCounter();
-    }-*/;
+    protected void initCounter(Element e) {
+        $(e).characterCounter();
+    }
 }

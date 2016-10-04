@@ -1,10 +1,8 @@
-package gwt.material.design.client.events;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +17,11 @@ package gwt.material.design.client.events;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.events;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
-import gwt.material.design.client.events.SideNavOpenedEvent.SideNavOpenedHandler;
 import gwt.material.design.client.events.SideNavOpeningEvent.SideNavOpeningHandler;
 
 public class SideNavOpeningEvent extends GwtEvent<SideNavOpeningHandler> {

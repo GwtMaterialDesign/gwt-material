@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +17,16 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -49,7 +48,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
      * Creates empty collapsible body.
      */
     public MaterialCollapsibleBody() {
-        super(Document.get().createDivElement(), "collapsible-body");
+        super(Document.get().createDivElement(), CssName.COLLAPSIBLE_BODY);
     }
 
     /**
@@ -110,14 +109,12 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
             item.expand();
         }
 
-        child.addStyleName("active");
+        child.addStyleName(CssName.ACTIVE);
     }
 
     protected void provideActiveClickHandler(final Widget child) {
         // Active click handler
-        child.addDomHandler(event -> {
-            makeActive(child);
-        }, ClickEvent.getType());
+        child.addDomHandler(event -> makeActive(child), ClickEvent.getType());
     }
 
     /**

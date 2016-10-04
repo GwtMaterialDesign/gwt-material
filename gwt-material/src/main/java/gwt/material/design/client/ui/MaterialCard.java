@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +17,14 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.HasAxis;
-import gwt.material.design.client.base.HasOrientation;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.Axis;
-import gwt.material.design.client.constants.Orientation;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 
@@ -67,23 +65,23 @@ import gwt.material.design.client.constants.Orientation;
  * </m:MaterialCard>
  *
  * <!-- Reveal Card -->
- * <m:MaterialCard backgroundColor="white" grid="l3">
+ * <m:MaterialCard backgroundColor="WHITE" grid="l3">
  *   <m:MaterialCardImage waves="LIGHT">
  *     <m:MaterialImage url="http://assets.materialup.com/uploads/b6992fb2-7bf4-401d-a233-e34a486b9337/gif.gif"/>
  *   </m:MaterialCardImage>
  *
- *   <m:MaterialCardContent textColor="black">
- *     <m:MaterialCardTitle text="Sample" iconType="MORE_VERT" iconPosition="RIGHT" textColor="black"/>
+ *   <m:MaterialCardContent textColor="BLACK">
+ *     <m:MaterialCardTitle text="Sample" iconType="MORE_VERT" iconPosition="RIGHT" textColor="BLACK"/>
  *   </m:MaterialCardContent>
  *
  *   <m:MaterialCardReveal>
- *     <m:MaterialCardTitle text="Sample" iconType="CLOSE" iconPosition="RIGHT" textColor="black"/>
+ *     <m:MaterialCardTitle text="Sample" iconType="CLOSE" iconPosition="RIGHT" textColor="BLACK"/>
  *     <m:MaterialLabel text="Here is some more information about this product that is only revealed once clicked on." />
  *   </m:MaterialCardReveal>
  *
  *   <m:MaterialCardAction>
- *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
- *     <m:MaterialLink text="Link 1" textColor="blue" iconType="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" textColor="BLUE" iconType="POLYMER" iconPosition="LEFT"/>
+ *     <m:MaterialLink text="Link 1" textColor="BLUE" iconType="POLYMER" iconPosition="LEFT"/>
  *   </m:MaterialCardAction>
  * </m:MaterialCard>}
  * </pre>
@@ -101,13 +99,13 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
      * Creates and empty card.
      */
     public MaterialCard() {
-        super(Document.get().createDivElement(), "card");
+        super(Document.get().createDivElement(), CssName.CARD);
     }
 
     @Override
     public void setGrid(String grid) {
         super.setGrid(grid);
-        addStyleName("no-padding");
+        addStyleName(CssName.NO_PADDING);
     }
 
     @Override
@@ -118,10 +116,5 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
     @Override
     public Axis getAxis() {
         return axisMixin.getCssName();
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        getEnabledMixin().setEnabled(this, enabled);
     }
 }

@@ -1,5 +1,3 @@
-package gwt.material.design.client.js;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,16 +17,15 @@ package gwt.material.design.client.js;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.js;
 
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
-public class Thing{
-    @JsMethod
-    public native boolean hasOwnProperty(String property);
+public class Thing {
 
     @JsMethod
-    public native boolean select();
+    public native boolean hasOwnProperty(String property);
 };

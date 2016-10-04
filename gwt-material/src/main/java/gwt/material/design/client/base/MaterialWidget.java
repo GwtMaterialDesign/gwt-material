@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +17,28 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.FontWeight;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
-import gwt.material.design.jquery.client.api.JQuery;
-import gwt.material.design.jquery.client.api.JQueryElement;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.constants.*;
+import gwt.material.design.client.events.DragEndEvent;
+import gwt.material.design.client.events.DragEnterEvent;
+import gwt.material.design.client.events.DragLeaveEvent;
+import gwt.material.design.client.events.*;
+import gwt.material.design.client.events.DragOverEvent;
+import gwt.material.design.client.events.DragStartEvent;
+import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.jquery.client.api.JQuery;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +50,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -60,8 +69,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      * Configurable features enum see {@link #enableFeature(Feature, boolean)}.
      */
     public enum Feature {
-        // Feature for adding or inserting children
-        // before this widget has loaded (attached).
+        /** Feature for adding or inserting children
+         * before this widget has loaded (attached). */
         ONLOAD_ADD_QUEUE
     }
 
@@ -138,7 +147,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         }
 
         if(isFeatureEnabled(Feature.ONLOAD_ADD_QUEUE) && onLoadAdd != null) {
-            // Check the on load add items.
+            // Check the on-load-add items.
             for (Appender item : onLoadAdd) {
                 if(item.index == -1) {
                     add(item.widget, (Element) getElement());
@@ -184,6 +193,211 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      */
     public void insert(final Widget child, final int beforeIndex) {
         insert(child, (Element) getElement(), beforeIndex, true);
+    }
+
+    // Events
+
+    @Override
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onClick(event); }
+        }, ClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseDown(event); }
+        }, MouseDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseMove(event); }
+        }, MouseMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseOut(event); }
+        }, MouseOutEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseOver(event); }
+        }, MouseOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseUp(event); }
+        }, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onMouseWheel(event); }
+        }, MouseWheelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onDoubleClick(event); }
+        }, DoubleClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragStartHandler(DragStartEvent.DragStartHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragStart(event); }
+        }, DragStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragMoveHandler(DragMoveEvent.DragMoveHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragMove(event); }
+        }, DragMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEndHandler(DragEndEvent.DragEndHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragEnd(event); }
+        }, DragEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropActivateHandler(DropActivateEvent.DropActivateHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDropActivate(event); }
+        }, DropActivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEnterHandler(DragEnterEvent.DragEnterHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragEnter(event); }
+        }, DragEnterEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragLeaveHandler(DragLeaveEvent.DragLeaveHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragLeave(event); }
+        }, DragLeaveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragOverHandler(final DragOverEvent.DragOverHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDragOver(event); }
+        }, DragOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropDeactivateHandler(DropDeactivateEvent.DropDeactivateHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDropDeactivate(event); }
+        }, DropDeactivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropHandler(DropEvent.DropHandler handler) {
+        return addHandler(event -> {
+            if(isEnabled()) { handler.onDrop(event); }
+        }, DropEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchCancel(event); }
+        }, TouchCancelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchEnd(event); }
+        }, TouchEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchMove(event); }
+        }, TouchMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onTouchStart(event); }
+        }, TouchStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onGestureChange(event); }
+        }, GestureChangeEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onGestureEnd(event); }
+        }, GestureEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onGestureStart(event); }
+        }, GestureStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onKeyDown(event); }
+        }, KeyDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onKeyPress(event); }
+        }, KeyPressEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onKeyUp(event); }
+        }, KeyUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addBlurHandler(BlurHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onBlur(event); }
+        }, BlurEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addFocusHandler(FocusHandler handler) {
+        return addDomHandler(event -> {
+            if(isEnabled()) { handler.onFocus(event); }
+        }, FocusEvent.getType());
     }
 
     protected IdMixin<MaterialWidget> getIdMixin() {
@@ -252,12 +466,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     protected ToggleStyleMixin<MaterialWidget> getCircleMixin() {
-        if(circleMixin == null) { circleMixin = new ToggleStyleMixin<>(this, "circle"); }
+        if(circleMixin == null) { circleMixin = new ToggleStyleMixin<>(this, CssName.CIRCLE); }
         return circleMixin;
     }
 
     protected ToggleStyleMixin<MaterialWidget> getHoverableMixin() {
-        if(hoverableMixin == null) { hoverableMixin = new ToggleStyleMixin<>(this, "hoverable"); }
+        if(hoverableMixin == null) { hoverableMixin = new ToggleStyleMixin<>(this, CssName.HOVERABLE); }
         return hoverableMixin;
     }
 
@@ -287,7 +501,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
-        if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, "truncate"); }
+        if(truncateMixin == null) { truncateMixin = new ToggleStyleMixin<>(this, CssName.TRUNCATE); }
         return truncateMixin;
     }
 
@@ -322,22 +536,22 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public void setBackgroundColor(String bgColor) {
+    public void setBackgroundColor(Color bgColor) {
         getColorsMixin().setBackgroundColor(bgColor);
     }
 
     @Override
-    public String getBackgroundColor() {
+    public Color getBackgroundColor() {
         return getColorsMixin().getBackgroundColor();
     }
 
     @Override
-    public void setTextColor(String textColor) {
+    public void setTextColor(Color textColor) {
         getColorsMixin().setTextColor(textColor);
     }
 
     @Override
-    public String getTextColor() {
+    public Color getTextColor() {
         return getColorsMixin().getTextColor();
     }
 
@@ -735,13 +949,35 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected void clearActiveClass(HasWidgets widget) {
         for(Widget child : widget) {
             Element element = child.getElement();
-            if(StyleHelper.containsStyle(element.getClassName(), "active")) {
-                element.removeClassName("active");
+            if(StyleHelper.containsStyle(element.getClassName(), CssName.ACTIVE)) {
+                element.removeClassName(CssName.ACTIVE);
             }
 
             if(child instanceof HasWidgets) {
                 clearActiveClass((HasWidgets)child);
             }
+        }
+    }
+
+    /**
+     * Add an {@code AttachHandler} for attachment events.
+     * @param handler Attach event handler.
+     * @param oneTime Only execute this handler once, then detach handler.
+     * @return The events handler registration.
+     */
+    public HandlerRegistration addAttachHandler(final AttachEvent.Handler handler, boolean oneTime) {
+        if(!oneTime) {
+            return addAttachHandler(handler);
+        } else {
+            final HandlerRegistration[] registration = {null};
+            registration[0] = addAttachHandler(event -> {
+                handler.onAttachOrDetach(event);
+
+                if(registration[0] != null) {
+                    registration[0].removeHandler();
+                }
+            });
+            return registration[0];
         }
     }
 

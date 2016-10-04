@@ -1,5 +1,3 @@
-package gwt.material.design.client.js;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,13 +17,10 @@ package gwt.material.design.client.js;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.js;
 
 import jsinterop.annotations.JsType;
 
-/**
- * Created by Mark Kevin on 6/27/2016.
- */
 @JsType(isNative = false)
 public class Window {
 

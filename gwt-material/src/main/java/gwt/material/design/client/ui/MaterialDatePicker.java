@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,39 +17,27 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.*;
+import com.google.gwt.core.client.JsDate;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.HasEditorErrors;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.error.ErrorHandler;
-import gwt.material.design.client.base.error.ErrorHandlerType;
-import gwt.material.design.client.base.error.HasErrorHandler;
-import gwt.material.design.client.base.mixin.BlankValidatorMixin;
-import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
+import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
-import gwt.material.design.client.base.mixin.GridMixin;
-import gwt.material.design.client.base.validator.HasBlankValidator;
-import gwt.material.design.client.base.validator.HasValidators;
-import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
-import gwt.material.design.client.base.validator.Validator;
+import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
 
 import java.util.Date;
-import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -74,9 +60,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pickers">Material Date Picker</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasError, HasOrientation, HasPlaceholder,
-        HasValue<Date>, HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasEditorErrors<Date>,
-        HasErrorHandler, HasValidators<Date>, HasBlankValidator, HasBlurHandlers, HasIcon {
+public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasOrientation, HasPlaceholder,
+        HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -92,6 +77,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private Date date;
     private Date dateMin;
     private Date dateMax;
+    private Date dateTemp;
     private String format = "dd mmmm yyyy";
     private DateInput dateInput;
     private Label label = new Label();
@@ -100,68 +86,73 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     private MaterialLabel lblError = new MaterialLabel();
     private DatePickerLanguage language;
 
-    private Orientation orientation = Orientation.PORTRAIT;
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
-    private final GridMixin<MaterialDatePicker> gridMixin = new GridMixin<>(this);
-    private final ErrorMixin<MaterialDatePicker, MaterialLabel> errorMixin;
-    private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
-    private final BlankValidatorMixin<MaterialDatePicker, Date> validatorMixin = new BlankValidatorMixin<>(this, errorHandlerMixin.getErrorHandler());
-
-    private boolean initialized = false;
+    private boolean initialize = false;
     private MaterialIcon icon = new MaterialIcon();
 
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput);
+    private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
+    private CssNameMixin<MaterialDatePicker, Orientation> orientationMixin = new CssNameMixin<>(this);
+
     public MaterialDatePicker() {
-        super(Document.get().createDivElement(), "input-field");
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
         dateInput = new DateInput();
         add(dateInput);
 
         label.add(lblName);
         add(label);
-
         add(lblError);
+    }
 
-        errorMixin = new ErrorMixin<>(this, lblError, dateInput);
+    public MaterialDatePicker(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialDatePicker(String placeholder, Date value) {
+        this(placeholder);
+        setDate(value);
+    }
+
+    public MaterialDatePicker(String placeholder, Date value, MaterialDatePickerType selectionType) {
+        this(placeholder, value);
+        setSelectionType(selectionType);
     }
 
     @Override
-    protected void onAttach() {
-        super.onAttach();
+    public void onLoad() {
+        super.onLoad();
 
-        addStyleName(orientation.getCssName());
-        pickatizedDateInput = initDatePicker(dateInput.getElement(), selectionType.name(), format);
-        initClickHandler(pickatizedDateInput, this);
-
-        label.getElement().setAttribute("for", getPickerId());
-
-        this.initialized = true;
-
-        setDate(this.date);
-        setDateMin(this.dateMin);
-        setDateMax(this.dateMax);
-        setPlaceholder(this.placeholder);
+        if (!initialize) {
+            initialize();
+        } else {
+            reinitialize();
+        }
     }
 
     @Override
-    protected void onDetach() {
-        super.onDetach();
-        removeClickHandler(pickatizedDateInput, this);
+    public void onUnload() {
+        super.onUnload();
+
+        dateTemp = getValue();
+        stop();
     }
 
     @Override
     public void clear() {
-        if (initialized) {
+        if (initialize) {
             clearErrorOrSuccess();
-            label.removeStyleName("active");
-            dateInput.removeStyleName("valid");
+            label.removeStyleName(CssName.ACTIVE);
+            dateInput.removeStyleName(CssName.VALID);
             dateInput.clear();
         }
     }
 
     public void removeErrorModifiers() {
-        dateInput.addStyleName("valid");
-        dateInput.removeStyleName("invalid");
+        dateInput.removeStyleName(CssName.VALID);
+        dateInput.removeStyleName(CssName.INVALID);
         lblName.removeStyleName("green-text");
         lblName.removeStyleName("red-text");
     }
@@ -177,29 +168,24 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         }
     }
 
-    protected void removeClickHandler(Element picker, MaterialDatePicker parent) {
-        $(picker).pickadate("picker").off("close");
-        $(picker).pickadate("picker").off("open");
-        $(picker).pickadate("picker").off("set");
-    }
+    protected void initHandlers(Element picker) {
+        JsDatePickerOptions events = new JsDatePickerOptions();
+        events.open = this::onOpen;
 
-    protected void initClickHandler(Element picker, MaterialDatePicker parent) {
-        $(picker).pickadate("picker").on("close", (e, param1) -> {
+        events.close = () -> {
             onClose();
             $(picker).blur();
-            return true;
-        });
-        $(picker).pickadate("picker").on("open", (e, param1) -> {
-            onOpen();
-            return true;
-        });
-        $(picker).pickadate("picker").set(thing -> {
-            if(thing.hasOwnProperty("clear")) {
+        };
+
+        events.set = thing -> {
+            if (thing.hasOwnProperty("clear")) {
                 onClear();
-            } else if(thing.select()) {
+            } else if (thing.hasOwnProperty("select")) {
                 onSelect();
             }
-        });
+        };
+
+        $(picker).pickadate("picker").on(events);
     }
 
     protected void onClose() {
@@ -207,14 +193,17 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     protected void onOpen() {
-        label.addStyleName("active");
+        label.addStyleName(CssName.ACTIVE);
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
     }
 
     protected void onSelect() {
-        label.addStyleName("active");
-        dateInput.addStyleName("valid");
+        label.addStyleName(CssName.ACTIVE);
+        dateInput.addStyleName(CssName.VALID);
+
+        // Ensure the value change event is
+        // triggered on selecting a date.
         ValueChangeEvent.fire(this, getValue());
     }
 
@@ -223,23 +212,33 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     public String getPickerId() {
-        JsArrayString id = (JsArrayString) $(pickatizedDateInput).pickadate("picker").get("id");
-        return id.toString();
+        return $(pickatizedDateInput).pickadate("picker").get("id").toString();
     }
 
-    public Element initDatePicker(Element inputSrc, String typeName, String format) {
+    protected void initialize() {
         JsDatePickerOptions options = new JsDatePickerOptions();
         options.container = "body";
-        options.format = format;
-        if(typeName.equals("MONTH_DAY")) {
-            options.selectMonths = true;
-        } else if(typeName.equals("YEAR_MONTH_DAY")) {
-            options.selectYears = true;
-            options.selectMonths = true;
-        } else if(typeName.equals("YEAR")) {
-            options.selectMonths = true;
+        options.format = getFormat();
+        switch (getSelectionType()) {
+            case MONTH_DAY:
+                options.selectMonths = true;
+                break;
+            case YEAR_MONTH_DAY:
+                options.selectYears = true;
+                options.selectMonths = true;
+                break;
+            case YEAR:
+                options.selectYears = true;
+                break;
         }
-        return $(inputSrc).pickadate(options).asElement();
+        pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
+        initialize = true;
+        label.getElement().setAttribute("for", getPickerId());
+        setDate(this.date);
+        setDateMin(dateMin);
+        setDateMax(dateMax);
+        setPlaceholder(this.placeholder);
+        initHandlers(pickatizedDateInput);
     }
 
     /**
@@ -251,59 +250,64 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         setValue(date);
     }
 
+    /**
+     * Get the minimum date limit.
+     */
     public Date getDateMin() {
         return dateMin;
     }
 
+    /**
+     * Set the minimum date limit.
+     */
     public void setDateMin(Date dateMin) {
         this.dateMin = dateMin;
-        if (initialized && dateMin != null) {
-            setPickerDateMin(JsDate.create((double) dateMin.getTime()), pickatizedDateInput);
+        if (initialize && dateMin != null) {
+            $(pickatizedDateInput).pickadate("picker").set("min", JsDate.create((double) dateMin.getTime()));
         }
     }
 
-    protected void setPickerDateMin(JsDate date, Element picker) {
-        $(picker).pickadate("picker").set("min", date);
-    }
-
+    /**
+     * Get the maximum date limit.
+     */
     public Date getDateMax() {
         return dateMax;
     }
 
+    /**
+     * Set the maximum date limit.
+     */
     public void setDateMax(Date dateMax) {
         this.dateMax = dateMax;
-        if (initialized && dateMax != null) {
-            setPickerDateMax(JsDate.create((double) dateMax.getTime()), pickatizedDateInput);
+        if (initialize && dateMax != null) {
+            $(pickatizedDateInput).pickadate("picker").set("max", JsDate.create((double) dateMax.getTime()));
         }
     }
 
-    public void setPickerDateMax(JsDate date, Element picker) {
-        $(picker).pickadate("picker").set("max", date);
-    }
-
+    /**
+     * Set the pickers date.
+     */
     public void setPickerDate(JsDate date, Element picker) {
         $(picker).pickadate("picker").set("select", date, () -> {
             DOM.createFieldSet().setPropertyObject("muted", true);
         });
     }
 
-    public Date getDate() {
-        return getPickerDate();
-    }
 
+    /**
+     * Get the pickers date.
+     */
     protected Date getPickerDate() {
         try {
-            JsDate selectedDate = getDatePickerValue(pickatizedDateInput);
-            return new Date((long) selectedDate.getTime());
+            return $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public JsDate getDatePickerValue(Element picker) {
-        JsDate date = $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
-        return date;
+    public Date getDate() {
+        return getPickerDate();
     }
 
     /**
@@ -319,26 +323,31 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         $(picker).pickadate("picker").clear();
     }
 
+    @Override
     public String getPlaceholder() {
         return placeholder;
     }
 
+    @Override
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
 
-        if (initialized && placeholder != null) {
+        if (initialize && placeholder != null) {
             lblName.setText(placeholder);
         }
     }
 
+    /**
+     * Get the pickers selection type.
+     */
     public MaterialDatePickerType getSelectionType() {
         return selectionType;
     }
 
+    /**
+     * Set the pickers selection type.
+     */
     public void setSelectionType(MaterialDatePickerType selectionType) {
-        if(initialized) {
-            throw new IllegalStateException("setSelectionType can be called only before initialization");
-        }
         this.selectionType = selectionType;
     }
 
@@ -347,7 +356,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
      */
     @Override
     public Orientation getOrientation() {
-        return orientation;
+        return orientationMixin.getCssName();
     }
 
     /**
@@ -355,47 +364,36 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
      */
     @Override
     public void setOrientation(Orientation orientation) {
-        if(initialized) {
-            throw new IllegalStateException("setOrientation can be called only before initialization");
-        }
-        this.orientation = orientation;
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
+        orientationMixin.setCssName(orientation);
     }
 
     @Override
     public void setError(String error) {
-        errorMixin.setError(error);
+        super.setError(error);
 
         removeErrorModifiers();
         lblName.setStyleName("red-text");
-        dateInput.addStyleName("invalid");
-
+        dateInput.addStyleName(CssName.INVALID);
+        dateInput.removeStyleName(CssName.VALID);
     }
 
     @Override
     public void setSuccess(String success) {
-        errorMixin.setSuccess(success);
+        super.setSuccess(success);
+
         lblName.setStyleName("green-text");
-        dateInput.addStyleName("valid");
+        dateInput.addStyleName(CssName.VALID);
+        dateInput.removeStyleName(CssName.INVALID);
     }
 
     @Override
     public void setHelperText(String helperText) {
-        errorMixin.setHelperText(helperText);
+        super.setHelperText(helperText);
     }
 
     @Override
     public void clearErrorOrSuccess() {
-        errorMixin.clearErrorOrSuccess();
+        super.clearErrorOrSuccess();
         removeErrorModifiers();
     }
 
@@ -404,26 +402,10 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     /**
-     * To call before initialization
-     * @param format
+     * To call before initialization.
      */
     public void setFormat(String format) {
-        if(initialized) {
-            throw new IllegalStateException("setFormat can be called only before initialization");
-        }
         this.format = format;
-    }
-
-    @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> handler) {
-        return addHandler(new ValueChangeHandler<Date>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<Date> event) {
-                if(isEnabled()) {
-                    handler.onValueChange(event);
-                }
-            }
-        }, ValueChangeEvent.getType());
     }
 
     @Override
@@ -432,142 +414,32 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     @Override
-    public void setValue(Date value) {
-        setValue(value, false);
-    }
-
-    @Override
     public void setValue(Date value, boolean fireEvents) {
         if (value == null) {
             return;
         }
         this.date = value;
-        if (initialized) {
+        if (initialize) {
             setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         }
-        if (fireEvents) {
-            ValueChangeEvent.fire(this, value);
-        }
+        super.setValue(value, fireEvents);
     }
 
     @Override
     public HandlerRegistration addCloseHandler(final CloseHandler<MaterialDatePicker> handler) {
-        return addHandler(new CloseHandler<MaterialDatePicker>() {
-            @Override
-            public void onClose(CloseEvent<MaterialDatePicker> event) {
-                if(isEnabled()) {
-                    handler.onClose(event);
-                }
-            }
-        }, CloseEvent.getType());
+        return addHandler(handler, CloseEvent.getType());
     }
 
     @Override
     public HandlerRegistration addOpenHandler(final OpenHandler<MaterialDatePicker> handler) {
-        return addHandler(new OpenHandler<MaterialDatePicker>() {
-            @Override
-            public void onOpen(OpenEvent<MaterialDatePicker> event) {
-                if(isEnabled()) {
-                    handler.onOpen(event);
-                }
-            }
-        }, OpenEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addBlurHandler(final BlurHandler handler) {
-        return addDomHandler(event -> {
-            if(isEnabled()) {
-                handler.onBlur(event);
-            }
-        }, BlurEvent.getType());
+        return addHandler(handler, OpenEvent.getType());
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         dateInput.setEnabled(enabled);
-    }
-
-    @Override
-    public boolean isAllowBlank() {
-        return validatorMixin.isAllowBlank();
-    }
-
-    @Override
-    public void setAllowBlank(boolean allowBlank) {
-        validatorMixin.setAllowBlank(allowBlank);
-    }
-
-    @Override
-    public void showErrors(List<EditorError> errors) {
-        errorHandlerMixin.showErrors(errors);
-    }
-
-    @Override
-    public ErrorHandler getErrorHandler() {
-        return errorHandlerMixin.getErrorHandler();
-    }
-
-    @Override
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        errorHandlerMixin.setErrorHandler(errorHandler);
-    }
-
-    @Override
-    public ErrorHandlerType getErrorHandlerType() {
-        return errorHandlerMixin.getErrorHandlerType();
-    }
-
-    @Override
-    public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
-        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
-    }
-
-    @Override
-    public void addValidator(Validator<Date> validator) {
-        validatorMixin.addValidator(validator);
-    }
-
-    @Override
-    public boolean isValidateOnBlur() {
-        return validatorMixin.isValidateOnBlur();
-    }
-
-    @Override
-    public boolean removeValidator(Validator<Date> validator) {
-        return validatorMixin.removeValidator(validator);
-    }
-
-    @Override
-    public void reset() {
-        validatorMixin.reset();
-    }
-
-    @Override
-    public void setValidateOnBlur(boolean validateOnBlur) {
-        validatorMixin.setValidateOnBlur(validateOnBlur);
-    }
-
-    @Override
-    public void setValidators(@SuppressWarnings("unchecked") Validator<Date>... validators) {
-        validatorMixin.setValidators(validators);
-    }
-
-    @Override
-    public boolean validate() {
-        return validatorMixin.validate();
-    }
-
-    @Override
-    public boolean validate(boolean show) {
-        return validatorMixin.validate(show);
-    }
-
-    @Override
-    public HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
-        return (HandlerRegistration)validatorMixin.addValidationChangedHandler(handler);
     }
 
     public DatePickerLanguage getLanguage() {
@@ -580,27 +452,36 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
         if (language.getJs() != null) {
             ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
         }
+        stop();
+        reinitialize();
     }
 
     /**
-     * Re initialize the datepicker
+     * Re initialize the datepicker.
      */
     public void reinitialize() {
-        stop();
         Scheduler.get().scheduleDeferred(() -> {
-            initDatePicker(dateInput.getElement(), selectionType.name(), format);
+            initialize();
+            if (pickatizedDateInput != null) {
+                if (dateTemp != null) {
+                    $(pickatizedDateInput).pickadate("picker").set("select", dateTemp, () -> {
+                        DOM.createFieldSet().setPropertyObject("muted", true);
+                    });
+                }
+            }
         });
+
     }
 
     /**
      * Stop the datepicker instance
      */
     public void stop() {
-        stop(pickatizedDateInput);
+        $(pickatizedDateInput).pickadate("picker").stop();
     }
 
-    protected void stop(Element picker) {
-        $(picker).pickadate("picker").stop();
+    protected void start() {
+        $(pickatizedDateInput).pickadate("picker").start();
     }
 
     @Override
@@ -632,7 +513,7 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 
@@ -644,5 +525,41 @@ public class MaterialDatePicker extends MaterialWidget implements HasGrid, HasEr
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    @Override
+    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        return errorMixin;
+    }
+
+    public ReadOnlyMixin<MaterialDatePicker, DateInput> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, dateInput);
+        }
+        return readOnlyMixin;
+    }
+
+    @Override
+    public void setReadOnly(boolean value) {
+        getReadOnlyMixin().setReadOnly(value);
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return getReadOnlyMixin().isReadOnly();
+    }
+
+    @Override
+    public void setToggleReadOnly(boolean toggle) {
+        getReadOnlyMixin().setToggleReadOnly(toggle);
+    }
+
+    @Override
+    public boolean isToggleReadOnly() {
+        return getReadOnlyMixin().isToggleReadOnly();
+    }
+
+    public DateInput getDateInput() {
+        return dateInput;
     }
 }

@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +17,15 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.StyleHelper;
-import gwt.material.design.client.base.mixin.AbstractMixin;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
@@ -55,7 +53,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     @Override
     public boolean isEnabled() {
-        return !StyleHelper.containsStyle(uiObject.getStyleName(), "disabled");
+        return !StyleHelper.containsStyle(uiObject.getStyleName(), CssName.DISABLED);
     }
 
     @Override
@@ -75,6 +73,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     }
 
     public void setEnabled(MaterialWidget widget, boolean enabled) {
+        setEnabled(enabled);
         for(Widget child : widget.getChildren()) {
             if(child instanceof MaterialWidget) {
                 ((MaterialWidget) child).setEnabled(enabled);
@@ -85,10 +84,10 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     private void applyEnabled(boolean enabled, UIObject obj) {
         if(enabled) {
-            obj.removeStyleName("disabled");
+            obj.removeStyleName(CssName.DISABLED);
             obj.getElement().removeAttribute(DISABLED);
         } else {
-            obj.addStyleName("disabled");
+            obj.addStyleName(CssName.DISABLED);
             obj.getElement().setAttribute(DISABLED, "");
         }
     }

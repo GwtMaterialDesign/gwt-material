@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 //@formatter:off
 
@@ -42,6 +41,16 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
     public MaterialFloatBox() {
         setStep("any");
     }
+
+    public MaterialFloatBox(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialFloatBox(String placeholder, float value) {
+        this(placeholder);
+        setValue(value);
+    }
     
     @Override
     public Float getValue() {
@@ -51,5 +60,4 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
         }
         return Float.valueOf((float)number);
     }
-    
 }

@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +17,13 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
+
 //@formatter:off
 /**
 * Scrollspy is a jQuery plugin that tracks certain elements and which element the user's screen is currently centered on. Our main demo of this is our table of contents on every documentation page to the right. Clicking on these links will also scroll the page to that element.
@@ -49,7 +50,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
         </m:MaterialPanel>
     </m:MaterialColumn>
     <m:MaterialColumn grid="l2" addStyleNames="hide-on-small-only">
-        <m:MaterialScrollspy addStyleNames="pinned" color="green">
+        <m:MaterialScrollspy addStyleNames="pinned" textColor="GREEN">
             <m:MaterialLink href="#topic1" text="Topic 1"/>
             <m:MaterialLink href="#topic2" text="Topic 2"/>
             <m:MaterialLink href="#topic3" text="Topic 3"/>
@@ -69,16 +70,17 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialScrollspy extends UnorderedList {
 
     public MaterialScrollspy() {
-        super("section", "table-of-contents");
+        super(CssName.SECTION, CssName.TABLE_OF_CONTENTS);
     }
 
     @Override
     protected void onLoad() {
         super.onLoad();
-        initScrollspy();
+
+        scrollSpy();
     }
 
-    protected void initScrollspy() {
+    public void scrollSpy() {
         $(".scrollspy").scrollSpy();
     }
 }

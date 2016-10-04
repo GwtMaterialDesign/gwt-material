@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
- * GwtBootstrap3
+ * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtBootstrap3
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,21 +17,15 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
-/**
- * These are convenience methods to automatically add the {@link BlankValidator}.
- *
- * @author Steven Jardine
- */
-public interface HasBlankValidator {
+public interface HasReadOnly {
 
-    /**
-     * @return the allow blank
-     */
-    boolean isAllowBlank();
+    void setReadOnly(boolean value);
 
-    /**
-     * @param allowBlank the new allow blank
-     */
-    void setAllowBlank(boolean allowBlank);
+    boolean isReadOnly();
+
+    void setToggleReadOnly(boolean toggle);
+
+    boolean isToggleReadOnly();
 }
