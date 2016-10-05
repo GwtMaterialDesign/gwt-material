@@ -109,7 +109,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                 return true;
             });
             valueChangeHandler = addValueChangeHandler(valueChangeEvent -> {
-                setReadOnly(true);
+                if (isToggleReadOnly()) {
+                    setReadOnly(true);
+                }
             });
             initialize();
         }
