@@ -198,6 +198,24 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         OpenEvent.fire(this, this);
     }
 
+    /**
+     * Programmatically close the date picker component
+     */
+    public void close() {
+        Scheduler.get().scheduleDeferred(() -> {
+            $(pickatizedDateInput).pickadate("picker").close();
+        });
+    }
+
+    /**
+     * Programmatically open the date picker component
+     */
+    public void open() {
+        Scheduler.get().scheduleDeferred(() -> {
+            $(pickatizedDateInput).pickadate("picker").open();
+        });
+    }
+
     protected void onSelect() {
         label.addStyleName(CssName.ACTIVE);
         dateInput.addStyleName(CssName.VALID);
