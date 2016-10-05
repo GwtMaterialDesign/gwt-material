@@ -171,6 +171,30 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <!-- comment out for now because doesn't work on JDK < 8 -->
+                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <locale>en</locale>
+                    <linksource>true</linksource>
+                    <validateLinks>true</validateLinks>
+                    <links>
+                        <link>https://github.com/gwtproject/gwt/tree/master/doc/validation-package-list</link>
+                    </links>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
