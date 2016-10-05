@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material-parent</artifactId>
     <packaging>pom</packaging>
@@ -14,7 +15,6 @@
     <name>Gwt Material Parent</name>
     <description>A Material Design look and feel for GWT Apps plus Phonegap</description>
     <url>http://gwtmaterialdesign.github.io/gwt-material-demo/</url>
-
     <developers>
         <developer>
             <name>Kevzlou7979</name>
@@ -47,13 +47,16 @@
             <organizationUrl>http://gwtmaterialdesign.github.io/gwt-material-demo/</organizationUrl>
         </developer>
     </developers>
-
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.encoding>UTF-8</project.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <source.version>1.8</source.version>
+        <target.version>1.8</target.version>
         <gwt.version>2.8.0-rc3</gwt.version>
+        <gwt-maven-plugin.version>2.8.0-rc3</gwt-maven-plugin.version>
+        <gwt.style>OBF</gwt.style>
     </properties>
 
     <scm>
@@ -114,18 +117,6 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.google.gwt</groupId>
-                <artifactId>gwt</artifactId>
-                <version>${gwt.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
         <plugins>
             <plugin>
@@ -156,6 +147,54 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <!-- comment out for now because doesn't work on JDK < 8 -->
+                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <locale>en</locale>
+                    <linksource>true</linksource>
+                    <validateLinks>true</validateLinks>
+                    <links>
+                        <link>https://github.com/gwtproject/gwt/tree/master/doc/validation-package-list</link>
+                    </links>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <!-- comment out for now because doesn't work on JDK < 8 -->
+                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <locale>en</locale>
+                    <linksource>true</linksource>
+                    <validateLinks>true</validateLinks>
+                    <links>
+                        <link>https://github.com/gwtproject/gwt/tree/master/doc/validation-package-list</link>
+                    </links>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
@@ -166,12 +205,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.6</version>
-            </plugin>
-            <plugin>
-                <groupId>net.ltgt.gwt.maven</groupId>
-                <artifactId>gwt-maven-plugin</artifactId>
-                <version>1.0-rc-6</version>
-                <inherited>false</inherited>
             </plugin>
         </plugins>
 
@@ -194,25 +227,40 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>net.ltgt.gwt.maven</groupId>
-                    <artifactId>gwt-maven-plugin</artifactId>
-                    <version>1.0-rc-6</version>
-                    <extensions>true</extensions>
+                    <version>2.5.1</version>
                     <configuration>
-                        <skipModule>true</skipModule>
-                        <failOnError>true</failOnError>
+                        <source>${source.version}</source>
+                        <target>${target.version}</target>
                     </configuration>
                 </plugin>
 
                 <plugin>
-                    <!-- just here to make IDEs happy -->
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
-                    <version>2.7.0</version>
+                    <version>${gwt-maven-plugin.version}</version>
+                    <configuration>
+                        <style>${gwt.style}</style>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>gwt-compile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>gwt-resources</id>
+                            <goals>
+                                <goal>resources</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -226,7 +274,27 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>license-maven-plugin</artifactId>
+                                        <artifactId>
+                                            gwt-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.7.0,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>resources</goal>
+                                            <goal>compile</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>
+                                            license-maven-plugin
+                                        </artifactId>
                                         <versionRange>[1.5,)</versionRange>
                                         <goals>
                                             <goal>update-file-header</goal>
@@ -245,6 +313,26 @@
     </build>
 
     <profiles>
+        <!-- Disable doclint on JDK 8 -->
+        <profile>
+            <id>nodoclint</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <configuration>
+                                <additionalparam>-Xdoclint:none</additionalparam>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
@@ -275,4 +363,3 @@
     </profiles>
 
 </project>
-
