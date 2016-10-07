@@ -191,6 +191,12 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod
     public native JsMaterialElement render(boolean value);
 
+    @JsMethod
+    public native void open();
+
+    @JsMethod
+    public native void close();
+
     /**
      * Dismissable CollectionItem Component
      */

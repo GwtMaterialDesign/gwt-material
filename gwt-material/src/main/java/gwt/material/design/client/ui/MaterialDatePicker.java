@@ -25,6 +25,8 @@ import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
@@ -81,7 +83,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private String format = "dd mmmm yyyy";
     private DateInput dateInput;
     private Label label = new Label();
-    private MaterialLabel lblName = new MaterialLabel();
+    private MaterialLabel lblPlaceholder = new MaterialLabel();
     private Element pickatizedDateInput;
     private MaterialLabel lblError = new MaterialLabel();
     private DatePickerLanguage language;
@@ -91,7 +93,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private boolean initialize = false;
     private MaterialIcon icon = new MaterialIcon();
 
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput);
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
     private CssNameMixin<MaterialDatePicker, Orientation> orientationMixin = new CssNameMixin<>(this);
 
@@ -101,7 +103,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         dateInput = new DateInput();
         add(dateInput);
 
-        label.add(lblName);
+        label.add(lblPlaceholder);
         add(label);
         add(lblError);
     }
@@ -124,7 +126,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public void onLoad() {
         super.onLoad();
-
         if (!initialize) {
             initialize();
         } else {
@@ -148,13 +149,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             dateInput.removeStyleName(CssName.VALID);
             dateInput.clear();
         }
-    }
-
-    public void removeErrorModifiers() {
-        dateInput.removeStyleName(CssName.VALID);
-        dateInput.removeStyleName(CssName.INVALID);
-        lblName.removeStyleName("green-text");
-        lblName.removeStyleName("red-text");
     }
 
     /**
@@ -190,12 +184,32 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     protected void onClose() {
         CloseEvent.fire(this, this);
+        fireEvent(new BlurEvent() {});
     }
 
     protected void onOpen() {
         label.addStyleName(CssName.ACTIVE);
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
+        fireEvent(new FocusEvent() {});
+    }
+
+    /**
+     * Programmatically close the date picker component
+     */
+    public void close() {
+        Scheduler.get().scheduleDeferred(() -> {
+            $(pickatizedDateInput).pickadate("picker").close();
+        });
+    }
+
+    /**
+     * Programmatically open the date picker component
+     */
+    public void open() {
+        Scheduler.get().scheduleDeferred(() -> {
+            $(pickatizedDateInput).pickadate("picker").open();
+        });
     }
 
     protected void onSelect() {
@@ -333,7 +347,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         this.placeholder = placeholder;
 
         if (initialize && placeholder != null) {
-            lblName.setText(placeholder);
+            lblPlaceholder.setText(placeholder);
         }
     }
 
@@ -370,9 +384,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public void setError(String error) {
         super.setError(error);
-
-        removeErrorModifiers();
-        lblName.setStyleName("red-text");
         dateInput.addStyleName(CssName.INVALID);
         dateInput.removeStyleName(CssName.VALID);
     }
@@ -380,21 +391,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public void setSuccess(String success) {
         super.setSuccess(success);
-
-        lblName.setStyleName("green-text");
         dateInput.addStyleName(CssName.VALID);
         dateInput.removeStyleName(CssName.INVALID);
     }
 
     @Override
-    public void setHelperText(String helperText) {
-        super.setHelperText(helperText);
-    }
-
-    @Override
     public void clearErrorOrSuccess() {
         super.clearErrorOrSuccess();
-        removeErrorModifiers();
+        dateInput.removeStyleName(CssName.VALID);
+        dateInput.removeStyleName(CssName.INVALID);
     }
 
     public String getFormat() {

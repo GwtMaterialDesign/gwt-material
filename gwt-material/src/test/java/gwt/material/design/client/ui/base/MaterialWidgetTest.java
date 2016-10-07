@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
@@ -234,7 +235,11 @@ public class MaterialWidgetTest extends BaseEventTest {
     }
 
     protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
-        final Element element = widget.getElement();
+        checkEnabled(widget, widget);
+    }
+
+    protected <T extends MaterialWidget & HasEnabled, H extends MaterialWidget> void  checkEnabled(T widget, H target) {
+        final Element element = target.getElement();
         assertFalse(element.hasClassName(CssName.DISABLED));
         assertFalse(element.hasAttribute(CssName.DISABLED));
         widget.setEnabled(true);
@@ -244,7 +249,7 @@ public class MaterialWidgetTest extends BaseEventTest {
         widget.setEnabled(false);
         assertTrue(element.hasClassName(CssName.DISABLED));
         assertTrue(element.hasAttribute(CssName.DISABLED));
-        assertEquals(widget.isEnabled(), false);
+        assertEquals(target.isEnabled(), false);
     }
 
     protected <T extends MaterialWidget & HasId> void checkId(T widget) {

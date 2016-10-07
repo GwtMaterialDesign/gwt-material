@@ -29,9 +29,10 @@ import gwt.material.design.client.constants.CssName;
  */
 public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasText>
         extends AbstractMixin<T> implements HasError {
-    
+
     private H textObject;
     private UIObject target;
+    private UIObject lblPlaceholder;
     private String helperText;
 
     public ErrorMixin(final T widget) {
@@ -49,36 +50,49 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
         this.target = target;
     }
 
+    public ErrorMixin(final T widget, final H textObject, UIObject target, UIObject lblPlaceholder) {
+        this(widget, textObject, target);
+        this.lblPlaceholder = lblPlaceholder;
+    }
+
     @Override
     public void setError(String error) {
-        if(textObject != null) {
+        if (textObject != null) {
             textObject.setText(error);
             textObject.addStyleName(CssName.FIELD_ERROR_LABEL);
             textObject.removeStyleName(CssName.FIELD_HELPER_LABEL);
             textObject.removeStyleName(CssName.FIELD_SUCCESS_LABEL);
             textObject.setVisible(true);
         }
-        if(target != null) {
+        if (target != null) {
             target.addStyleName(CssName.FIELD_ERROR);
             target.removeStyleName(CssName.FIELD_SUCCESS);
+        }
+        if (lblPlaceholder != null) {
+            lblPlaceholder.removeStyleName("green-text");
+            lblPlaceholder.addStyleName("red-text");
         }
     }
 
     @Override
     public void setSuccess(String success) {
-        if(textObject != null) {
+        if (textObject != null) {
             textObject.setText(success);
             textObject.addStyleName(CssName.FIELD_SUCCESS_LABEL);
             textObject.removeStyleName(CssName.FIELD_HELPER_LABEL);
             textObject.removeStyleName(CssName.FIELD_ERROR_LABEL);
             textObject.setVisible(true);
         }
-        if(target != null) {
+        if (target != null) {
             target.addStyleName(CssName.FIELD_SUCCESS);
             target.removeStyleName(CssName.FIELD_ERROR);
         }
+        if (lblPlaceholder != null) {
+            lblPlaceholder.removeStyleName("red-text");
+            lblPlaceholder.addStyleName("green-text");
+        }
     }
-    
+
     @Override
     public void setHelperText(String helperText) {
         this.helperText = helperText;
@@ -87,7 +101,7 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
 
     @Override
     public void clearErrorOrSuccess() {
-        if(textObject != null) {
+        if (textObject != null) {
             textObject.setText(helperText == null ? "" : helperText);
             if (helperText != null) {
                 textObject.addStyleName(CssName.FIELD_HELPER_LABEL);
@@ -101,6 +115,10 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
         if (target != null) {
             target.removeStyleName(CssName.FIELD_ERROR);
             target.removeStyleName(CssName.FIELD_SUCCESS);
+        }
+        if (lblPlaceholder != null) {
+            lblPlaceholder.removeStyleName("red-text");
+            lblPlaceholder.removeStyleName("green-text");
         }
     }
 }

@@ -40,6 +40,30 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         checkOpenHandler(datePicker);
         checkCloseHandler(datePicker);
         checkOptions(datePicker);
+        checkOpenCloseControl(datePicker);
+    }
+
+    public <T extends MaterialDatePicker> void checkOpenCloseControl(T datePicker) {
+        final boolean[] isBlurFired = {false};
+        datePicker.addBlurHandler(blurEvent -> {
+            isBlurFired[0] = true;
+        });
+
+        fireBlurEvent(datePicker);
+        assertTrue(isBlurFired[0]);
+
+        final boolean[] isOpenFired = {false};
+        datePicker.addOpenHandler(openEvent -> {
+            isOpenFired[0] = true;
+        });
+        final boolean[] isCloseFired = {false};
+        datePicker.addCloseHandler(closeEvent -> {
+            isCloseFired[0] = true;
+        });
+        datePicker.open();
+        datePicker.close();
+        assertTrue(isOpenFired[0]);
+        assertTrue(isCloseFired[0]);
     }
 
     public <T extends MaterialDatePicker> void checkOptions(T datePicker) {
