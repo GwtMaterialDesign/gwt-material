@@ -32,7 +32,7 @@ public abstract class AttributeObserver implements HasHandlers {
 
     Widget widget;
     JavaScriptObject observer;
-    
+
     public AttributeObserver(Widget widget) {
         this.widget = widget;
     }
@@ -58,25 +58,25 @@ public abstract class AttributeObserver implements HasHandlers {
 
     protected native JavaScriptObject getMutationFunction(String attr1, String attr2) /*-{
         var that = this;
-        return function(mutations) {
-            mutations.forEach(function(mutation) {
+        return function (mutations) {
+            mutations.forEach(function (mutation) {
                 var old = mutation.oldValue;
                 var value = mutation.target[attr1][attr2];
 
-                if(mutation.attributeName == attr1 && old !== null && old.slice(0, attr2.length) == attr2) {
+                if (mutation.attributeName == attr1 && old !== null && old.slice(0, attr2.length) == attr2) {
                     that.@gwt.material.design.client.base.AttributeObserver::fireObserved(Ljava/lang/String;Ljava/lang/String;)(
                         old, value);
                 }
             });
         }
     }-*/;
-    
+
     protected static native JavaScriptObject getObserver(JavaScriptObject func) /*-{
-       return new MutationObserver(func);
+        return new MutationObserver(func);
     }-*/;
 
     public void observe(String attr) {
-        if(observer == null) {
+        if (observer == null) {
             observer = getObserver(createMutationObject());
         }
         nativeObserve(widget.getElement(), attr);

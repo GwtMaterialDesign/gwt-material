@@ -45,7 +45,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
         super.setUiObject(uiObject);
 
         // Clean up previous handler
-        if(handler != null) {
+        if (handler != null) {
             handler.removeHandler();
             handler = null;
         }
@@ -58,11 +58,11 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     @Override
     public void setEnabled(boolean enabled) {
-        if(!uiObject.isAttached() && handler == null) {
+        if (!uiObject.isAttached() && handler == null) {
             handler = uiObject.addAttachHandler(event -> {
-                if(event.isAttached()) {
+                if (event.isAttached()) {
                     applyEnabled(enabled, uiObject);
-                } else if(handler != null) {
+                } else if (handler != null) {
                     handler.removeHandler();
                     handler = null;
                 }
@@ -74,8 +74,8 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     public void setEnabled(MaterialWidget widget, boolean enabled) {
         setEnabled(enabled);
-        for(Widget child : widget.getChildren()) {
-            if(child instanceof MaterialWidget) {
+        for (Widget child : widget.getChildren()) {
+            if (child instanceof MaterialWidget) {
                 ((MaterialWidget) child).setEnabled(enabled);
                 setEnabled((MaterialWidget) child, enabled);
             }
@@ -83,7 +83,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     }
 
     private void applyEnabled(boolean enabled, UIObject obj) {
-        if(enabled) {
+        if (enabled) {
             obj.removeStyleName(CssName.DISABLED);
             obj.getElement().removeAttribute(DISABLED);
         } else {

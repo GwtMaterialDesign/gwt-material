@@ -23,6 +23,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
  * Types of Button.<br>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  */

@@ -24,6 +24,7 @@ import gwt.material.design.client.constants.Type;
 
 /**
  * Used to provide custom {@link Type} mixin elements.
+ *
  * @param <T>
  */
 public class TypeWidget<T extends Type> extends MaterialWidget implements HasType<T> {

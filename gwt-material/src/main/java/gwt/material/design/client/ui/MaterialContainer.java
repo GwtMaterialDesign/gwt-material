@@ -24,23 +24,24 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
+
 /**
-* Material Container is a wrapper of MAIN element, primary content of your app.
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code
-* <m:MaterialContainer>
-*     <!-- Content goes here -->
-* </m:MaterialContainer>
-* }
-* </pre>
-*
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Column</a>
-*/
+ * Material Container is a wrapper of MAIN element, primary content of your app.
+ * <p>
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialContainer>
+ *     <!-- Content goes here -->
+ * </m:MaterialContainer>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Column</a>
+ */
 //@formatter:on
 public class MaterialContainer extends MaterialWidget {
 
@@ -56,7 +57,7 @@ public class MaterialContainer extends MaterialWidget {
      */
     public MaterialContainer(final Widget... widgets) {
         this();
-        for(Widget w : widgets) {
+        for (Widget w : widgets) {
             add(w);
         }
     }

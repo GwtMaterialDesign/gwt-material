@@ -25,7 +25,7 @@ import javax.annotation.Generated;
 
 @Generated(value = "gwt.material.design.gen.IconTypeGenerator", date = "2016-04-15T00:43:49Z")
 public enum IconType implements CssType {
-    
+
     DEFAULT(""),
     ROTATION_3D("3d_rotation"),
     AC_UNIT("ac_unit"),

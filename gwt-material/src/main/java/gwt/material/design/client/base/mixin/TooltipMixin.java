@@ -27,9 +27,8 @@ import gwt.material.design.client.ui.MaterialTooltip;
 
 /**
  * Mixin for the {@link MaterialTooltip} component.
- * 
+ *
  * @author gilberto-torrezan
- * 
  * @see HasTooltip
  * @see MaterialWidget
  */
@@ -47,8 +46,7 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
 
         if (tooltip != null) {
             tooltip.setWidget(uiObject);
-        }
-        else if(uiObject.isAttached()) {
+        } else if (uiObject.isAttached()) {
             initializeTooltip();
         }
     }

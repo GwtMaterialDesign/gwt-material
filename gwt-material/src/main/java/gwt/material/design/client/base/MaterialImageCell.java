@@ -27,7 +27,7 @@ public class MaterialImageCell extends AbstractCell<MaterialImage> {
 
     @Override
     public void render(com.google.gwt.cell.client.Cell.Context context,
-            MaterialImage value, SafeHtmlBuilder sb) {
-         sb.appendHtmlConstant(value.getElement().getString());
+                       MaterialImage value, SafeHtmlBuilder sb) {
+        sb.appendHtmlConstant(value.getElement().getString());
     }
 }

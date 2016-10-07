@@ -24,12 +24,14 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
-* Card Element for revealed content once title is triggered. 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!cards">Material Cards</a>
-*/
+ * Card Element for revealed content once title is triggered.
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!cards">Material Cards</a>
+ */
 //@formatter:on
 public class MaterialCardReveal extends MaterialWidget {
 

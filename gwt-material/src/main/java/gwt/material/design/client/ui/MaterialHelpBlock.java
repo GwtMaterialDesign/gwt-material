@@ -53,7 +53,7 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
     public void setIconType(IconType iconType) {
         icon.setIconType(iconType);
 
-        if(!icon.isAttached()) {
+        if (!icon.isAttached()) {
             insert(icon, 0);
         }
     }

@@ -31,38 +31,38 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
-* Our slider is a simple and elegant image carousel. You can also have captions that will be transitioned on their own depending on their alignment. You can also have indicators that show up on the bottom of the slider. Note: This is also Hammer.js compatible! Try swiping with your finger to scroll through the slider.
-*
-* <h3>UiBinder Usage:</h3>
-* <pre>
-*{@code<m:MaterialSection>
-*     <m:MaterialSlider fullScreen="false">
-        <m:MaterialSlideItem>
-            <m:MaterialImage url="http://lorempixel.com/580/250/nature/1"/>
-            <m:MaterialSlideCaption align="LEFT">
-                <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
-            </m:MaterialSlideCaption>
-        </m:MaterialSlideItem>
-        <m:MaterialSlideItem>
-            <m:MaterialImage url="http://lorempixel.com/580/250/nature/2"/>
-            <m:MaterialSlideCaption align="CENTER">
-                <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
-            </m:MaterialSlideCaption>
-        </m:MaterialSlideItem>
-        <m:MaterialSlideItem>
-            <m:MaterialImage url="http://lorempixel.com/580/250/nature/3"/>
-            <m:MaterialSlideCaption align="RIGHT">
-                 <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
-            </m:MaterialSlideCaption>
-        </m:MaterialSlideItem>
-    </m:MaterialSlider>
-* }
-* </pre>
-*
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!media">Material Slide</a>
-*/
+ * Our slider is a simple and elegant image carousel. You can also have captions that will be transitioned on their own depending on their alignment. You can also have indicators that show up on the bottom of the slider. Note: This is also Hammer.js compatible! Try swiping with your finger to scroll through the slider.
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code<m:MaterialSection>
+ *     <m:MaterialSlider fullScreen="false">
+ * <m:MaterialSlideItem>
+ * <m:MaterialImage url="http://lorempixel.com/580/250/nature/1"/>
+ * <m:MaterialSlideCaption align="LEFT">
+ * <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+ * </m:MaterialSlideCaption>
+ * </m:MaterialSlideItem>
+ * <m:MaterialSlideItem>
+ * <m:MaterialImage url="http://lorempixel.com/580/250/nature/2"/>
+ * <m:MaterialSlideCaption align="CENTER">
+ * <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+ * </m:MaterialSlideCaption>
+ * </m:MaterialSlideItem>
+ * <m:MaterialSlideItem>
+ * <m:MaterialImage url="http://lorempixel.com/580/250/nature/3"/>
+ * <m:MaterialSlideCaption align="RIGHT">
+ * <m:MaterialTitle tile="This is our big Tagline" description="Here's our small slogan."/>
+ * </m:MaterialSlideCaption>
+ * </m:MaterialSlideItem>
+ * </m:MaterialSlider>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!media">Material Slide</a>
+ */
 //@formatter:on
 public class MaterialSlider extends MaterialWidget {
 

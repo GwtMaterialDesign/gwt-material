@@ -28,14 +28,15 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 /**
  * Pushpin is our fixed positioning plugin. You can check out our live examples: the fixed Table of Contents on the right.
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  * MaterialPushpin.apply(target, source.getOffsetHeight() + 600);
-}
+ * }
  * </pre>
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pushpin">Material PushPin</a>
+ *
  * @author kevzlou7979
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pushpin">Material PushPin</a>
  */
 public class MaterialPushpin {
 

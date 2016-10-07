@@ -39,7 +39,7 @@ import gwt.material.design.client.ui.html.Nav;
 /**
  * Material NavBar represents as a app tool bar, that contains NavBrand,
  * NavSection and initialize Material Sidenav.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
@@ -53,7 +53,7 @@ import gwt.material.design.client.ui.html.Nav;
  *     </m:MaterialNavSection>
  * </m:MaterialNavBar>
  * }
- *<pre>
+ * <pre>
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Nav Bar</a>
@@ -109,7 +109,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     }
 
     protected void applyType(String type, Element element) {
-        if(type.equals(NavBarType.SHRINK.getCssName())) {
+        if (type.equals(NavBarType.SHRINK.getCssName())) {
             JsMaterialElement.initShrink(element, 300);
         } else {
             GWT.log("Default type of navbar was applied");

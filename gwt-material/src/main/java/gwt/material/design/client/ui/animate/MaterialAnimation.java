@@ -57,7 +57,7 @@ public class MaterialAnimation {
     }
 
     public void animate(Widget w) {
-        animate(w,null);
+        animate(w, null);
     }
 
     public void animate(Widget w, Runnable callback) {

@@ -44,7 +44,7 @@ public class FieldMatchValidator<T> extends AbstractValidator<T> {
     /**
      * Constructor.
      *
-     * @param verifyField the verify field
+     * @param verifyField        the verify field
      * @param invalidMessageArgs the invalid message args
      */
     public FieldMatchValidator(final HasValue<T> verifyField, final Object... invalidMessageArgs) {
@@ -56,7 +56,7 @@ public class FieldMatchValidator<T> extends AbstractValidator<T> {
     /**
      * Constructor.
      *
-     * @param verifyField the field to verify matches with this one.
+     * @param verifyField            the field to verify matches with this one.
      * @param invalidMessageOverride the invalid message override
      */
     public FieldMatchValidator(final HasValue<T> verifyField, final String invalidMessageOverride) {

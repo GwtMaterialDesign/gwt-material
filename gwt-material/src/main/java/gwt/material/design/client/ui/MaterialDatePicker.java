@@ -184,14 +184,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     protected void onClose() {
         CloseEvent.fire(this, this);
-        fireEvent(new BlurEvent() {});
+        fireEvent(new BlurEvent() {
+        });
     }
 
     protected void onOpen() {
         label.addStyleName(CssName.ACTIVE);
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
-        fireEvent(new FocusEvent() {});
+        fireEvent(new FocusEvent() {
+        });
     }
 
     /**

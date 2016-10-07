@@ -31,6 +31,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
 
 /**
  * CollapsibleItem element to define the header
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
@@ -50,20 +51,20 @@ public class MaterialCollapsibleHeader extends MaterialWidget {
      */
     public MaterialCollapsibleHeader(final Widget... widgets) {
         this();
-        for(Widget w : widgets) {
+        for (Widget w : widgets) {
             add(w);
         }
     }
 
     @Override
     public void add(Widget child) {
-        if(child instanceof UnorderedList) {
-            for(Widget w : (UnorderedList) child) {
-                if(w instanceof ListItem) {
+        if (child instanceof UnorderedList) {
+            for (Widget w : (UnorderedList) child) {
+                if (w instanceof ListItem) {
                     w.getElement().getStyle().setDisplay(Style.Display.BLOCK);
                 }
             }
-        } else if(child instanceof ListItem) {
+        } else if (child instanceof ListItem) {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
         }
         super.add(child);

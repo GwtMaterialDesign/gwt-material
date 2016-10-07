@@ -26,7 +26,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  *
  * @author kevzlou7979
  */
-public enum  Color implements CssType {
+public enum Color implements CssType {
     DEFAULT(""),
     BLACK("black"),
     WHITE("white"),

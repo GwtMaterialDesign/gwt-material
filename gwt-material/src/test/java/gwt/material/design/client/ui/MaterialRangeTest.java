@@ -31,7 +31,6 @@ import org.junit.Test;
 
 /**
  * Test case for Range
- *
  */
 public class MaterialRangeTest extends AbstractValueWidgetTest {
 

@@ -21,6 +21,7 @@ package gwt.material.design.client.constants;
 
 /**
  * Predefined css style / class names
+ *
  * @author kebzlou7979
  */
 public interface CssName {

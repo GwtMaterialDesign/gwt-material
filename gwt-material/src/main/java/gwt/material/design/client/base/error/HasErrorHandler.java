@@ -21,7 +21,7 @@ package gwt.material.design.client.base.error;
 
 /**
  * Has an error handler.
- * 
+ *
  * @author Steven Jardine
  */
 public interface HasErrorHandler {

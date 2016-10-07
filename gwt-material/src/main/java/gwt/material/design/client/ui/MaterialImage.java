@@ -34,12 +34,13 @@ import gwt.material.design.client.constants.ImageType;
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
+
 /**
  * Images can be styled in different ways using Material Design
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
- *{@code//Simple Image
+ * {@code//Simple Image
  * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif"/>
  *
  * // Circle Image

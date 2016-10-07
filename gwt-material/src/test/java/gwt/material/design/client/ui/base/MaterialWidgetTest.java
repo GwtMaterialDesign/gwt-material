@@ -238,7 +238,7 @@ public class MaterialWidgetTest extends BaseEventTest {
         checkEnabled(widget, widget);
     }
 
-    protected <T extends MaterialWidget & HasEnabled, H extends MaterialWidget> void  checkEnabled(T widget, H target) {
+    protected <T extends MaterialWidget & HasEnabled, H extends MaterialWidget> void checkEnabled(T widget, H target) {
         final Element element = target.getElement();
         assertFalse(element.hasClassName(CssName.DISABLED));
         assertFalse(element.hasAttribute(CssName.DISABLED));

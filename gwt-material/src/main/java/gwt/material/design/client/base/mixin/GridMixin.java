@@ -37,23 +37,23 @@ public class GridMixin<T extends UIObject & HasGrid> extends AbstractMixin<T> im
 
     @Override
     public void setGrid(String grid) {
-        if(this.grid != null && !this.grid.isEmpty()) {
+        if (this.grid != null && !this.grid.isEmpty()) {
             uiObject.removeStyleName(CssName.COL + " " + this.grid);
         }
 
         this.grid = grid;
-        if(grid != null) {
+        if (grid != null) {
             uiObject.addStyleName(CssName.COL + " " + grid);
         }
     }
 
     @Override
     public void setOffset(String offset) {
-        if(this.offset != null && !this.offset.isEmpty()) {
+        if (this.offset != null && !this.offset.isEmpty()) {
             uiObject.removeStyleName(this.offset);
         }
 
-        if(offset != null) {
+        if (offset != null) {
             String cssName = "";
             for (String val : offset.split(" ")) {
                 cssName = cssName + " offset-" + val;

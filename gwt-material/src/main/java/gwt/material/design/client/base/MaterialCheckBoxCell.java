@@ -68,7 +68,7 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
         String type = event.getType();
 
         boolean enterPressed = (BrowserEvents.KEYDOWN.equals(type) && event.getKeyCode() == KeyCodes.KEY_ENTER)
-            || event.getType().equals(BrowserEvents.CLICK);
+                || event.getType().equals(BrowserEvents.CLICK);
 
         if (BrowserEvents.CHANGE.equals(type) || enterPressed) {
             InputElement input = parent.getFirstChild().getFirstChild().cast();
@@ -114,10 +114,10 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
         String id = Document.get().createUniqueId();
 
         sb.append(SafeHtmlUtils.fromSafeConstant(
-            "<span class=\"gwt-CheckBox\">" +
-                "<input type=\"checkbox\" class=\"filled-in\" tabindex=\"-1\" value=\"on\" id=\"" + id + "\" " + state + "/>" +
-                "<label for=\"" + id + "\"></label>" +
-            "</span>"));
+                "<span class=\"gwt-CheckBox\">" +
+                        "<input type=\"checkbox\" class=\"filled-in\" tabindex=\"-1\" value=\"on\" id=\"" + id + "\" " + state + "/>" +
+                        "<label for=\"" + id + "\"></label>" +
+                        "</span>"));
 
     }
 }

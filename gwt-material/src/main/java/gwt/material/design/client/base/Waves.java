@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsMaterialElement;
 
 public class Waves {
-    
+
     public static final String WAVES_STYLE = "waves-effect";
 
     /**
@@ -36,12 +36,13 @@ public class Waves {
 
     /**
      * Detect and apply waves, now or when the widget is attached.
+     *
      * @param widget target widget to ensure is attached first
      */
     public static void detectAndApply(Widget widget) {
-        if(!widget.isAttached()) {
+        if (!widget.isAttached()) {
             widget.addAttachHandler(event -> {
-                if(event.isAttached()) {
+                if (event.isAttached()) {
                     detectAndApply();
                 }
             });

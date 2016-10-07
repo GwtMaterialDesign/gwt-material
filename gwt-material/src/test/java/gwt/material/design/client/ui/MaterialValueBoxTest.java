@@ -42,7 +42,7 @@ public class MaterialValueBoxTest extends AbstractValueWidgetTest {
         // Need to skip the tests because the target element ValueBoxBase has been added a test on GWT itself.
     }
 
-    protected  <T extends MaterialValueBox> void checkValue(T widget) {
+    protected <T extends MaterialValueBox> void checkValue(T widget) {
         if (widget instanceof MaterialTextBox || widget instanceof MaterialTextArea) {
             widget.setValue("Value");
             assertEquals(widget.getValue(), "Value");

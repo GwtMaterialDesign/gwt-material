@@ -45,8 +45,8 @@ import gwt.material.design.client.ui.html.Span;
  * }
  * </pre>
  *
- *@author kevzlou7979
- *@see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
+ * @author kevzlou7979
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
  */
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
@@ -96,7 +96,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     protected void onLoad() {
         super.onLoad();
 
-        if(!initialized) {
+        if (!initialized) {
             label.add(offLabel);
             label.add(input);
             label.add(span);
@@ -130,13 +130,13 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     public void setValue(Boolean value, boolean fireEvents) {
         boolean oldValue = getValue();
-        if(value) {
+        if (value) {
             input.getElement().setAttribute("checked", "true");
         } else {
             input.getElement().removeAttribute("checked");
         }
 
-        if(fireEvents && oldValue != value) {
+        if (fireEvents && oldValue != value) {
             ValueChangeEvent.fire(this, getValue());
         }
     }

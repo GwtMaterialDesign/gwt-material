@@ -26,12 +26,14 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
-* Card Element for card image. 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!cards">Material Cards</a>
-*/
+ * Card Element for card image.
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!cards">Material Cards</a>
+ */
 //@formatter:on
 public class MaterialCardImage extends MaterialWidget {
 
@@ -41,7 +43,7 @@ public class MaterialCardImage extends MaterialWidget {
 
     @Override
     public void add(final Widget child) {
-        if(child instanceof MaterialImage) {
+        if (child instanceof MaterialImage) {
             child.addStyleName(CssName.ACTIVATOR);
         }
         add(child, (Element) getElement());

@@ -37,6 +37,7 @@ import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 
 /**
  * Collapsible element to define every items
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
@@ -68,31 +69,30 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
      */
     public MaterialCollapsibleItem(final Widget... widgets) {
         this();
-        for(Widget w : widgets) {
+        for (Widget w : widgets) {
             add(w);
         }
     }
 
     @Override
     public void add(Widget child) {
-        if(child instanceof MaterialCollapsibleBody) {
-            body = (MaterialCollapsibleBody)child;
-        }
-        else if(child instanceof MaterialCollapsibleHeader) {
-            header = (MaterialCollapsibleHeader)child;
+        if (child instanceof MaterialCollapsibleBody) {
+            body = (MaterialCollapsibleBody) child;
+        } else if (child instanceof MaterialCollapsibleHeader) {
+            header = (MaterialCollapsibleHeader) child;
         }
         super.add(child);
     }
 
     @Override
     public boolean remove(Widget w) {
-        if(w instanceof HasCollapsibleParent) {
-            ((HasCollapsibleParent)w).setParent(null);
+        if (w instanceof HasCollapsibleParent) {
+            ((HasCollapsibleParent) w).setParent(null);
         }
 
-        if(w.equals(body)) {
+        if (w.equals(body)) {
             body = null;
-        } else if(w.equals(header)) {
+        } else if (w.equals(header)) {
             header = null;
         }
         return super.remove(w);
@@ -101,8 +101,8 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void setParent(MaterialCollapsible parent) {
         this.parent = parent;
 
-        for(Widget child : this) {
-            if(child instanceof HasCollapsibleParent) {
+        for (Widget child : this) {
+            if (child instanceof HasCollapsibleParent) {
                 ((HasCollapsibleParent) child).setParent(parent);
             }
         }
@@ -121,7 +121,7 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
      * Expand the body panel.
      */
     public void expand() {
-        if(body != null) {
+        if (body != null) {
             setActive(true);
             body.setDisplay(Display.BLOCK);
         }
@@ -131,7 +131,7 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
      * Collapse the cody panel.
      */
     public void collapse() {
-        if(body != null) {
+        if (body != null) {
             setActive(false);
             body.setDisplay(Display.NONE);
         }
@@ -144,16 +144,16 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void setActive(boolean active) {
         this.active = active;
         removeStyleName(CssName.ACTIVE);
-        if(header != null) {
+        if (header != null) {
             header.removeStyleName(CssName.ACTIVE);
         }
-        if(active) {
-            if(parent != null) {
+        if (active) {
+            if (parent != null) {
                 parent.clearActive();
             }
             addStyleName(CssName.ACTIVE);
 
-            if(header != null) {
+            if (header != null) {
                 header.addStyleName(CssName.ACTIVE);
             }
         }

@@ -33,12 +33,12 @@ public class StyleMixin<H extends UIObject> extends AbstractMixin<H> {
     }
 
     public void setStyle(String style) {
-        if(this.style != null && !this.style.isEmpty()) {
+        if (this.style != null && !this.style.isEmpty()) {
             uiObject.removeStyleName(this.style);
         }
         this.style = style;
 
-        if(style != null && !style.isEmpty()) {
+        if (style != null && !style.isEmpty()) {
             uiObject.addStyleName(style);
         }
     }

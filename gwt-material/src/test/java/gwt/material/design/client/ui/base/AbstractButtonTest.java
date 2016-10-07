@@ -43,7 +43,7 @@ public abstract class AbstractButtonTest extends MaterialWidgetTest {
         checkText(button);
     }
 
-    protected  <T extends AbstractButton> void checkSize(T widget) {
+    protected <T extends AbstractButton> void checkSize(T widget) {
         final Element element = widget.getElement();
         widget.setSize(ButtonSize.LARGE);
         assertTrue(element.hasClassName(ButtonSize.LARGE.getCssName()));

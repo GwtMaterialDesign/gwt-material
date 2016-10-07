@@ -29,10 +29,10 @@ public class TitleMixin<T extends MaterialWidget & HasTitle> extends AbstractMix
     private Span titleElem = new Span();
     private Span descElem = new Span();
 
-   public TitleMixin(final T widget) {
-       super(widget);
-       widget.add(titleElem);
-       widget.add(descElem);
+    public TitleMixin(final T widget) {
+        super(widget);
+        widget.add(titleElem);
+        widget.add(descElem);
     }
 
     @Override

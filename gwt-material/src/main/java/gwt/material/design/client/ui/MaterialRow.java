@@ -25,25 +25,26 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
-* Material Row is a container (needed to define) for every Component that implements HasGrid functionality.
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code 
-* <m:MaterialRow>
-*     <m:MaterialColumn grid='s12 m6 l6'/>
-*     <m:MaterialColumn grid='s12 m6 l6'/>
-* </m:MaterialRow>
-* }
-* </pre>
-* </p>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Row</a>
-*/
+ * Material Row is a container (needed to define) for every Component that implements HasGrid functionality.
+ * <p>
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialRow>
+ *     <m:MaterialColumn grid='s12 m6 l6'/>
+ *     <m:MaterialColumn grid='s12 m6 l6'/>
+ * </m:MaterialRow>
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Row</a>
+ */
 //@formatter:on
 public class MaterialRow extends MaterialWidget {
 

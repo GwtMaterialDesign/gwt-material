@@ -54,7 +54,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
  * SideNav is a material component that gives you a lists of menus and other navigation components.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
@@ -96,7 +96,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     /**
-     *  Creates a list and adds the given widgets.
+     * Creates a list and adds the given widgets.
      */
     public MaterialSideNav(final Widget... widgets) {
         this();
@@ -118,9 +118,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        if(showOnAttach != null) {
+        if (showOnAttach != null) {
             Scheduler.get().scheduleDeferred(() -> {
-                if(showOnAttach) {
+                if (showOnAttach) {
                     if (Window.getClientWidth() > 960) {
                         show();
                     }
@@ -130,7 +130,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                     openedHandler[0] = addOpenedHandler((event) -> {
                         hide();
 
-                        if(openedHandler[0] != null) {
+                        if (openedHandler[0] != null) {
                             openedHandler[0].removeHandler();
                         }
                     });
@@ -168,32 +168,32 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     public Widget wrap(Widget child) {
-        if(child instanceof MaterialImage) {
+        if (child instanceof MaterialImage) {
             child.getElement().getStyle().setProperty("border", "1px solid #e9e9e9");
             child.getElement().getStyle().setProperty("textAlign", "center");
         }
 
         // Check whether the widget is not selectable by default
         boolean isNotSelectable = false;
-        if(child instanceof MaterialWidget) {
+        if (child instanceof MaterialWidget) {
             MaterialWidget widget = (MaterialWidget) child;
             if (widget.getInitialClasses() != null) {
                 if (widget.getInitialClasses().length > 0) {
                     String initialClass = widget.getInitialClasses()[0];
-                    if(initialClass.contains(CssName.SIDE_PROFILE) || initialClass.contains(CssName.COLLAPSIBLE)) {
+                    if (initialClass.contains(CssName.SIDE_PROFILE) || initialClass.contains(CssName.COLLAPSIBLE)) {
                         isNotSelectable = true;
                     }
                 }
             }
         }
 
-        if(!(child instanceof ListItem)) {
+        if (!(child instanceof ListItem)) {
             // Direct list item not collapsible
             final ListItem listItem = new ListItem();
-            if(child instanceof MaterialCollapsible) {
+            if (child instanceof MaterialCollapsible) {
                 listItem.getElement().getStyle().setBackgroundColor("transparent");
             }
-            if(child instanceof HasWaves) {
+            if (child instanceof HasWaves) {
                 listItem.setWaves(((HasWaves) child).getWaves());
                 ((HasWaves) child).setWaves(null);
             }
@@ -204,7 +204,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
         // Collapsible and Side Porfile should not be selectable
         final Widget finalChild = child;
-        if(!isNotSelectable) {
+        if (!isNotSelectable) {
             // Active click handler
             finalChild.addDomHandler(event -> {
                 clearActive();
@@ -291,7 +291,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void processType(SideNavType type) {
-        if(activator != null && type != null) {
+        if (activator != null && type != null) {
             addStyleName(type.getCssName());
             switch (type) {
                 case MINI:
@@ -301,8 +301,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                     new Timer() {
                         @Override
                         public void run() {
-                            if(isSmall()) { show(); }
-                        }}.schedule(500);
+                            if (isSmall()) {
+                                show();
+                            }
+                        }
+                    }.schedule(500);
                     break;
                 case PUSH:
                     applyPushType(width);
@@ -329,8 +332,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void pushElements(boolean toggle, int width) {
         int w = 0;
         int dur = 200;
-        if(!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
-            if(toggle) {
+        if (!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
+            if (toggle) {
                 w = width;
                 dur = 300;
             }
@@ -372,18 +375,18 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void initialize(boolean strict) {
-        if(activator == null) {
+        if (activator == null) {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             if (activator != null) {
-                if(alwaysShowActivator || !isFixed()) {
+                if (alwaysShowActivator || !isFixed()) {
                     String style = activator.getAttribute("style");
                     activator.setAttribute("style", style + "; display: block !important");
                     activator.removeClassName(CssName.NAVMENU_PERMANENT);
                 }
-            } else if(strict) {
+            } else if (strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                    "please ensure you have a MaterialNavBar with an activator setup to match " +
-                    "this widgets id.");
+                        "please ensure you have a MaterialNavBar with an activator setup to match " +
+                        "this widgets id.");
             }
         }
 
@@ -425,7 +428,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     protected void onClosing() {
         open = false;
-        if(getType().equals(SideNavType.PUSH)) {
+        if (getType().equals(SideNavType.PUSH)) {
             pushElements(false, width);
         }
 
@@ -438,7 +441,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     protected void onOpening() {
         open = true;
-        if(getType().equals(SideNavType.PUSH)) {
+        if (getType().equals(SideNavType.PUSH)) {
             pushElements(true, width);
         }
 
@@ -446,7 +449,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void onOpened() {
-        if(allowBodyScroll) {
+        if (allowBodyScroll) {
             RootPanel.getBodyElement().getStyle().clearOverflow();
         }
 

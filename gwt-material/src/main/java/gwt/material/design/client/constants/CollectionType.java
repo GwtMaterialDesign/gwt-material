@@ -25,6 +25,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * Types of Collection<br>
  * - AVATAR<br>
  * - DISMISSABLE<br>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  */

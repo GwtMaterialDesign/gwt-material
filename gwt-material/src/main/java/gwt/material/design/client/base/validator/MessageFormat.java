@@ -21,15 +21,15 @@ package gwt.material.design.client.base.validator;
 
 /**
  * A very simple message format implementation.
- * 
+ *
  * @author Steven Jardine
  */
 public class MessageFormat {
 
     /**
      * Format the message using the pattern and the arguments.
-     * 
-     * @param pattern the pattern in the format of "{1} this is a {2}"
+     *
+     * @param pattern   the pattern in the format of "{1} this is a {2}"
      * @param arguments the arguments.
      * @return the formatted result.
      */

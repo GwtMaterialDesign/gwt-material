@@ -39,7 +39,7 @@ public class ToggleStyleMixin<H extends UIObject> extends AbstractMixin<H> {
 
     public void setOn(boolean on) {
         uiObject.removeStyleName(style);
-        if(on) {
+        if (on) {
             uiObject.addStyleName(style);
         }
     }

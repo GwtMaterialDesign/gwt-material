@@ -24,11 +24,12 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.CssName;
 
 /**
-* Footer container for Material Modal
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Modal</a>
-*///@formatter:on
+ * Footer container for Material Modal
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Modal</a>
+ *///@formatter:on
 public class MaterialModalFooter extends MaterialPanel {
 
     public MaterialModalFooter() {

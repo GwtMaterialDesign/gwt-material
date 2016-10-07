@@ -24,6 +24,7 @@ import gwt.material.design.client.resources.MaterialDatePickerClientBundle;
 
 /**
  * Language List of DatePicker - contains 43 supported languages
+ *
  * @author kevzlou7979
  */
 public enum DatePickerLanguage {

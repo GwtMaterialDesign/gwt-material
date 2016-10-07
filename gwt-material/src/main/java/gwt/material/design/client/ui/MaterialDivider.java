@@ -26,10 +26,10 @@ import gwt.material.design.client.constants.CssName;
 
 /**
  * Dividers are 1 pixel lines that help break up your content.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
+ * {@code
  *  <m:MaterialTitle title="Title" description="Description"/>
  *  <m:MaterialDivider />
  * }
