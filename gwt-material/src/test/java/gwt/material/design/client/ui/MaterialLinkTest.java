@@ -30,7 +30,7 @@ import org.junit.Test;
 public class MaterialLinkTest extends AbstractIconButtonTest {
 
     @Test
-    public void tsetLink() {
+    public void testLink() {
         MaterialLink link = new MaterialLink();
         checkIconButton(link);
     }

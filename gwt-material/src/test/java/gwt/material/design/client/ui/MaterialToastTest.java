@@ -35,7 +35,6 @@ public class MaterialToastTest extends MaterialWidgetTest {
 
     @Test
     public void testToast() {
-        checkJQuery();
         checkToastStructure();
         checkToastWithWidget();
         checkToastWithStyling();

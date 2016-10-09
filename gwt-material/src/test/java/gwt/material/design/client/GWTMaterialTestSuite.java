@@ -21,7 +21,7 @@ package gwt.material.design.client;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
 import gwt.material.design.client.ui.*;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialBasicTest;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
@@ -34,7 +34,7 @@ public class GWTMaterialTestSuite extends TestCase {
 
     public static Test suite() {
         final GWTTestSuite suite = new GWTTestSuite("gwt-material test suite");
-        suite.addTestSuite(MaterialWidgetTest.class);
+        suite.addTestSuite(MaterialBasicTest.class);
         suite.addTestSuite(MaterialBadgeTest.class);
         suite.addTestSuite(MaterialBreadcrumbTest.class);
         suite.addTestSuite(MaterialButtonTest.class);
