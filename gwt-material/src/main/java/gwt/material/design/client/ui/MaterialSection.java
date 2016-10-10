@@ -23,14 +23,15 @@ import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 //@formatter:off
+
 /**
  * The section class is used for simple top and bottom padding. Just add
  * the section class to your div's containing large blocks of content.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
- *<m:MaterialSection>
+ * {@code
+ * <m:MaterialSection>
  *     <m:MaterialTitle title="Title" description="Description"/>
  * </m:MaterialSection>
  * }

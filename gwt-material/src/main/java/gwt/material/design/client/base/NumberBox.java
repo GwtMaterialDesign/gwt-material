@@ -30,14 +30,13 @@ import java.text.ParseException;
 
 /**
  * Base class to handle number values on {@code <input type="number">} elements.
- * 
+ * <p>
  * The parsing and formatting is done by the browser, using the user specific i18n settings.
- * 
+ *
  * @author gilberto-torrezan
- * 
  * @see MaterialNumberBox
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class NumberBox<T> extends ValueBox<T> {
 
     public NumberBox(NumberHandler handler) {
@@ -63,7 +62,7 @@ public class NumberBox<T> extends ValueBox<T> {
 
         @Override
         public String render(T object) {
-            if(object == null) {
+            if (object == null) {
                 return "";
             }
             return object.toString();

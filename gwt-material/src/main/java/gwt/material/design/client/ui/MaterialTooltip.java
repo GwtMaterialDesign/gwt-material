@@ -37,12 +37,13 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * Basic implementation for the Material Design tooltip.
  * <h3>UiBinder Example</h3>
  * <pre>
- *{@code
+ * {@code
  * <m:MaterialTooltip text="...">
  *    ...
  * </b:MaterialTooltip>
- *}
+ * }
  * </pre>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  */
@@ -76,7 +77,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     /**
      * Creates the tooltip around this widget with given title
      *
-     * @param w widget for the tooltip
+     * @param w    widget for the tooltip
      * @param text text for the tooltip
      */
     public MaterialTooltip(final Widget w, final String text) {
@@ -94,7 +95,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             return;
         }
 
-        if(attachHandler != null) {
+        if (attachHandler != null) {
             attachHandler.removeHandler();
             attachHandler = null;
         }
@@ -115,7 +116,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             return;
         }
 
-        if(!widget.isAttached()) {
+        if (!widget.isAttached()) {
             // When we attach it, configure the tooltip
             attachHandler = widget.addAttachHandler(event -> {
                 reconfigure();
@@ -238,7 +239,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      * Force the Tooltip to be destroyed
      */
     public void remove() {
-        if(widget != null) {
+        if (widget != null) {
             command(widget.getElement(), "remove");
         }
     }
@@ -321,7 +322,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         options.position = position;
         options.delay = delay;
         $(e).tooltip(options);
-        if(html!=null && !html.isEmpty()) {
+        if (html != null && !html.isEmpty()) {
             String uid = "#" + $(e).attr("data-tooltip-id");
             JQueryElement el = $(uid);
             el.find("span").html(html);

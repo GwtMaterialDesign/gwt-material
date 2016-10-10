@@ -37,14 +37,14 @@ public class DecimalMaxValidator<T> extends AbstractValidator<T> {
      * @param maxValue the max value
      */
     public DecimalMaxValidator(Number maxValue) {
-        super(Keys.DECIMAL_MAX, new Object[] { maxValue.toString() });
+        super(Keys.DECIMAL_MAX, new Object[]{maxValue.toString()});
         this.maxValue = maxValue;
     }
 
     /**
      * Constructor.
      *
-     * @param maxValue the max value
+     * @param maxValue               the max value
      * @param invalidMessageOverride the invalid message override
      */
     public DecimalMaxValidator(Number maxValue, String invalidMessageOverride) {
@@ -59,7 +59,9 @@ public class DecimalMaxValidator<T> extends AbstractValidator<T> {
 
     @Override
     public boolean isValid(T value) {
-        if (value == null) { return true; }
+        if (value == null) {
+            return true;
+        }
         if (value instanceof Number) {
             return ((Number) value).doubleValue() <= maxValue.doubleValue();
         } else {

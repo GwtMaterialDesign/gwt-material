@@ -58,12 +58,13 @@ import gwt.material.design.client.ui.html.Label;
  * MaterialValueBox is an input field that accepts any text based string from user.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialTextBox placeholder="First Name" />}
+ * {@code <m:MaterialTextBox placeholder="First Name" />}
  * </pre>
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material TextBox</a>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material TextBox</a>
  */
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
@@ -81,7 +82,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private MaterialLabel lblError = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
 
-    @Editor.Ignore protected ValueBoxBase<T> valueBoxBase;
+    @Editor.Ignore
+    protected ValueBoxBase<T> valueBoxBase;
 
     private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
     private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
@@ -131,7 +133,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     protected void onLoad() {
         super.onLoad();
 
-        if(!initialized) {
+        if (!initialized) {
             String id = DOM.createUniqueId();
             valueBoxBase.getElement().setId(id);
             label.getElement().setAttribute("for", id);
@@ -160,7 +162,9 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     @Override
     protected FocusableMixin<MaterialWidget> getFocusableMixin() {
-        if(focusableMixin == null) { focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement())); }
+        if (focusableMixin == null) {
+            focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
+        }
         return focusableMixin;
     }
 
@@ -186,7 +190,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
-        if(getType() != InputType.SEARCH) {
+        if (getType() != InputType.SEARCH) {
             lblName.setText(placeholder);
         } else {
             valueBoxBase.getElement().setAttribute("placeholder", placeholder);
@@ -202,7 +206,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setType(InputType type) {
         this.type = type;
         valueBoxBase.getElement().setAttribute("type", type.getType());
-        if(getType() != InputType.SEARCH) {
+        if (getType() != InputType.SEARCH) {
             add(label);
             label.add(lblName);
             lblError.setVisible(false);
@@ -213,7 +217,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
         return valueBoxBase.addValueChangeHandler(event -> {
-            if(isEnabled()){
+            if (isEnabled()) {
                 handler.onValueChange(event);
             }
         });
@@ -279,210 +283,270 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public HandlerRegistration addDragStartHandler(DragStartEvent.DragStartHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDragStart(event); }
+            if (isEnabled()) {
+                handler.onDragStart(event);
+            }
         }, DragStartEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDragMoveHandler(DragMoveEvent.DragMoveHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDragMove(event); }
+            if (isEnabled()) {
+                handler.onDragMove(event);
+            }
         }, DragMoveEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDragEndHandler(DragEndEvent.DragEndHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDragEnd(event); }
+            if (isEnabled()) {
+                handler.onDragEnd(event);
+            }
         }, DragEndEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDropActivateHandler(DropActivateEvent.DropActivateHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDropActivate(event); }
+            if (isEnabled()) {
+                handler.onDropActivate(event);
+            }
         }, DropActivateEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDragEnterHandler(DragEnterEvent.DragEnterHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDragEnter(event); }
+            if (isEnabled()) {
+                handler.onDragEnter(event);
+            }
         }, DragEnterEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDragLeaveHandler(DragLeaveEvent.DragLeaveHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDragLeave(event); }
+            if (isEnabled()) {
+                handler.onDragLeave(event);
+            }
         }, DragLeaveEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDragOverHandler(DragOverEvent.DragOverHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDragOver(event); }
+            if (isEnabled()) {
+                handler.onDragOver(event);
+            }
         }, DragOverEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDropDeactivateHandler(DropDeactivateEvent.DropDeactivateHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDropDeactivate(event); }
+            if (isEnabled()) {
+                handler.onDropDeactivate(event);
+            }
         }, DropDeactivateEvent.getType());
     }
 
     @Override
     public HandlerRegistration addDropHandler(DropEvent.DropHandler handler) {
         return valueBoxBase.addHandler(event -> {
-            if(isEnabled()) { handler.onDrop(event); }
+            if (isEnabled()) {
+                handler.onDrop(event);
+            }
         }, DropEvent.getType());
     }
 
     @Override
     public HandlerRegistration addKeyUpHandler(final KeyUpHandler handler) {
         return valueBoxBase.addDomHandler(event -> {
-            if(isEnabled()){ handler.onKeyUp(event); }
+            if (isEnabled()) {
+                handler.onKeyUp(event);
+            }
         }, KeyUpEvent.getType());
     }
 
     @Override
     public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
         return valueBoxBase.addChangeHandler(event -> {
-            if(isEnabled()) { handler.onChange(event); }
+            if (isEnabled()) {
+                handler.onChange(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addFocusHandler(final FocusHandler handler) {
         return valueBoxBase.addFocusHandler(event -> {
-            if(isEnabled()) { handler.onFocus(event); }
+            if (isEnabled()) {
+                handler.onFocus(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addBlurHandler(final BlurHandler handler) {
         return valueBoxBase.addBlurHandler(event -> {
-            if(isEnabled()) { handler.onBlur(event); }
+            if (isEnabled()) {
+                handler.onBlur(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addGestureStartHandler(final GestureStartHandler handler) {
         return valueBoxBase.addGestureStartHandler(event -> {
-            if(isEnabled()) { handler.onGestureStart(event); }
+            if (isEnabled()) {
+                handler.onGestureStart(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addGestureChangeHandler(final GestureChangeHandler handler) {
         return valueBoxBase.addGestureChangeHandler(event -> {
-            if(isEnabled()) { handler.onGestureChange(event); }
+            if (isEnabled()) {
+                handler.onGestureChange(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addGestureEndHandler(final GestureEndHandler handler) {
         return valueBoxBase.addGestureEndHandler(event -> {
-            if(isEnabled()) { handler.onGestureEnd(event); }
+            if (isEnabled()) {
+                handler.onGestureEnd(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addKeyDownHandler(final KeyDownHandler handler) {
         return valueBoxBase.addKeyDownHandler(event -> {
-            if(isEnabled()) { handler.onKeyDown(event); }
+            if (isEnabled()) {
+                handler.onKeyDown(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addKeyPressHandler(final KeyPressHandler handler) {
         return valueBoxBase.addKeyPressHandler(event -> {
-            if(isEnabled()) { handler.onKeyPress(event); }
+            if (isEnabled()) {
+                handler.onKeyPress(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
         return valueBoxBase.addMouseDownHandler(event -> {
-            if(isEnabled()) { handler.onMouseDown(event); }
+            if (isEnabled()) {
+                handler.onMouseDown(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
         return valueBoxBase.addMouseUpHandler(event -> {
-            if(isEnabled()) { handler.onMouseUp(event); }
+            if (isEnabled()) {
+                handler.onMouseUp(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
         return valueBoxBase.addMouseOutHandler(event -> {
-            if(isEnabled()) { handler.onMouseOut(event); }
+            if (isEnabled()) {
+                handler.onMouseOut(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
         return valueBoxBase.addMouseOverHandler(event -> {
-            if(isEnabled()) { handler.onMouseOver(event); }
+            if (isEnabled()) {
+                handler.onMouseOver(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
         return valueBoxBase.addMouseMoveHandler(event -> {
-            if(isEnabled()) { handler.onMouseMove(event); }
+            if (isEnabled()) {
+                handler.onMouseMove(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
         return valueBoxBase.addMouseWheelHandler(event -> {
-            if(isEnabled()) { handler.onMouseWheel(event); }
+            if (isEnabled()) {
+                handler.onMouseWheel(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addTouchStartHandler(final TouchStartHandler handler) {
         return valueBoxBase.addTouchStartHandler(event -> {
-            if(isEnabled()) { handler.onTouchStart(event); }
+            if (isEnabled()) {
+                handler.onTouchStart(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addTouchMoveHandler(final TouchMoveHandler handler) {
         return valueBoxBase.addTouchMoveHandler(event -> {
-            if(isEnabled()) { handler.onTouchMove(event); }
+            if (isEnabled()) {
+                handler.onTouchMove(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addTouchEndHandler(final TouchEndHandler handler) {
         return valueBoxBase.addTouchEndHandler(event -> {
-            if(isEnabled()) { handler.onTouchEnd(event); }
+            if (isEnabled()) {
+                handler.onTouchEnd(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addTouchCancelHandler(final TouchCancelHandler handler) {
         return valueBoxBase.addTouchCancelHandler(event -> {
-            if(isEnabled()) { handler.onTouchCancel(event); }
+            if (isEnabled()) {
+                handler.onTouchCancel(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
         return valueBoxBase.addDoubleClickHandler(event -> {
-            if(isEnabled()) { handler.onDoubleClick(event); }
+            if (isEnabled()) {
+                handler.onDoubleClick(event);
+            }
         });
     }
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
         return valueBoxBase.addClickHandler(event -> {
-            if(isEnabled()) { handler.onClick(event); }
+            if (isEnabled()) {
+                handler.onClick(event);
+            }
         });
     }
 

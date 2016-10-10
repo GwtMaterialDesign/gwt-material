@@ -30,7 +30,7 @@ import gwt.material.design.client.ui.html.Paragraph;
 
 /**
  * Title is a component that will easily add Title and description widgets
- *
+ * <p>
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>

@@ -25,7 +25,6 @@ import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.FABType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
-import org.junit.Test;
 
 /**
  * Test case for FAB and FABList
@@ -34,8 +33,7 @@ import org.junit.Test;
  */
 public class MaterialFABTest extends MaterialWidgetTest {
 
-    @Test
-    public void testFAB() {
+    public void init() {
         MaterialFAB fab = new MaterialFAB();
         checkWidget(fab);
         checkStructure(fab);

@@ -27,14 +27,14 @@ import gwt.material.design.client.ui.html.Option;
 /**
  * <p>Material ListBox is another dropdown component that will set / get the value depends on the selected index
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  *    <m:MaterialListBox ui:field="lstBox" />
  * }
  * </pre>
  * <h3>Java Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  *     // functions

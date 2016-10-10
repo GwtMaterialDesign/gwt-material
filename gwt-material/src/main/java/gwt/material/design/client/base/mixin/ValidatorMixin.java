@@ -46,7 +46,6 @@ import java.util.TreeSet;
  *
  * @param <W> the generic type
  * @param <V> the value type
- * 
  * @author Steven Jardine
  */
 public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> implements HasValidators<V> {
@@ -66,7 +65,7 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
     /**
      * Instantiates a new abstract validator mixin.
      *
-     * @param inputWidget the input widget
+     * @param inputWidget  the input widget
      * @param errorHandler the error handler
      */
     public ValidatorMixin(W inputWidget, ErrorHandler errorHandler) {
@@ -113,7 +112,9 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
     @Override
     public boolean removeValidator(Validator<V> validator) {
         for (ValidatorWrapper<V> wrapper : validators) {
-            if (wrapper.getValidator().equals(validator)) { return validators.remove(wrapper); }
+            if (wrapper.getValidator().equals(validator)) {
+                return validators.remove(wrapper);
+            }
         }
         return false;
     }
@@ -152,7 +153,9 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
         return validate(true);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean validate(boolean show) {
         Boolean oldValid = valid;

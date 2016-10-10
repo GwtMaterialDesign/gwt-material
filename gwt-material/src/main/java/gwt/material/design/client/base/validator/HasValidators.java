@@ -23,7 +23,7 @@ import gwt.material.design.client.base.validator.ValidationChangedEvent.HasValid
 
 /**
  * Should use when implementing classes with {@link Validator}s.
- * 
+ *
  * @param <T> the generic type
  * @author Steven Jardine
  */
@@ -35,7 +35,7 @@ public interface HasValidators<T> extends HasValidationChangedHandlers {
      * @param validator the validator
      */
     void addValidator(Validator<T> validator);
-    
+
     /**
      * Gets the validate on blur.
      *

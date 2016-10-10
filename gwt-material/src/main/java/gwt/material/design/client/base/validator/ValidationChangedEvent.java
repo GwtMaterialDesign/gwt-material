@@ -26,7 +26,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
 
 /**
  * Event fired when validation state changes.
- * 
+ *
  * @author Steven Jardine
  */
 public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.ValidationChangedHandler> {
@@ -64,7 +64,7 @@ public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.Vali
      * Fire the event.
      *
      * @param source the source
-     * @param valid the valid
+     * @param valid  the valid
      */
     public static void fire(HasHandlers source, boolean valid) {
         source.fireEvent(new ValidationChangedEvent(valid));
@@ -73,7 +73,7 @@ public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.Vali
     /**
      * Fire.
      *
-     * @param source the source
+     * @param source        the source
      * @param eventInstance the event instance
      */
     public static void fire(HasHandlers source, ValidationChangedEvent eventInstance) {

@@ -37,14 +37,14 @@ public class DecimalMinValidator<T extends Number> extends AbstractValidator<T> 
      * @param minValue the min value
      */
     public DecimalMinValidator(Number minValue) {
-        super(Keys.DECIMAL_MIN, new Object[] { minValue.toString() });
+        super(Keys.DECIMAL_MIN, new Object[]{minValue.toString()});
         this.minValue = minValue;
     }
 
     /**
      * Constructor.
      *
-     * @param minValue the min value
+     * @param minValue               the min value
      * @param invalidMessageOverride the invalid message override
      */
     public DecimalMinValidator(Number minValue, String invalidMessageOverride) {
@@ -52,13 +52,17 @@ public class DecimalMinValidator<T extends Number> extends AbstractValidator<T> 
         this.minValue = minValue;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPriority() {
         return Priority.MEDIUM;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(T value) {
         return value == null || value.doubleValue() >= minValue.doubleValue();

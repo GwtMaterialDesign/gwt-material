@@ -26,7 +26,6 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.dto.User;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +37,7 @@ import java.util.List;
  */
 public class MaterialListValueBoxTest extends MaterialWidgetTest {
 
-    @Test
-    public void testListValueBox() {
+    public void init() {
         MaterialListValueBox<User> valueBox = new MaterialListValueBox<>();
         checkWidget(valueBox);
         checkValues(valueBox);

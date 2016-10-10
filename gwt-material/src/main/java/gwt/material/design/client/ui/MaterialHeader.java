@@ -22,13 +22,14 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.ui.html.Header;
 
 //@formatter:off
+
 /**
  * Material Header acts a container for components located on Header Zone like
  * MaterialNavBar, Breadcrumbs and other elements located at top part of your application.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
+ * {@code
  *
  * <m:MaterialHeader>
  *     <m:MaterialNavBar>

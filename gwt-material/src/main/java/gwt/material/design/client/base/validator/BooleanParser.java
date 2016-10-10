@@ -25,7 +25,7 @@ import java.text.ParseException;
 
 /**
  * Parses boolean values from a {@link CharSequence}.
- * 
+ *
  * @author Steven Jardine
  */
 public class BooleanParser implements Parser<Boolean> {
@@ -59,7 +59,8 @@ public class BooleanParser implements Parser<Boolean> {
             try {
                 Integer i = Integer.valueOf(value);
                 return i != 0;
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
         return false;
     }

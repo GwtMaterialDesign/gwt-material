@@ -25,6 +25,7 @@ import com.google.gwt.resources.client.TextResource;
 
 /**
  * Client bundle for date picker - contains 43 supported languages
+ *
  * @author kevzlou7979
  */
 public interface MaterialDatePickerClientBundle extends ClientBundle {

@@ -55,13 +55,15 @@ public class MaterialInput extends MaterialWidget implements HasInputType {
 
     @Override
     public InputType getType() {
-        if (getElement().getAttribute(TYPE) == null || getElement().getAttribute(TYPE).isEmpty()) { return null; }
+        if (getElement().getAttribute(TYPE) == null || getElement().getAttribute(TYPE).isEmpty()) {
+            return null;
+        }
         return InputType.valueOf(getElement().getAttribute(TYPE));
     }
 
     public void setRequired(boolean required) {
         getElement().removeAttribute("required");
-        if(required) {
+        if (required) {
             getElement().setAttribute("required", "");
         }
     }

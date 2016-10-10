@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.ImageType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Test case for Image
@@ -30,8 +29,7 @@ import org.junit.Test;
  */
 public class MaterialImageTest extends MaterialWidgetTest {
 
-    @Test
-    public void testImage() {
+    public void init() {
         MaterialImage image = new MaterialImage();
         checkWidget(image);
         checkTypes(image);

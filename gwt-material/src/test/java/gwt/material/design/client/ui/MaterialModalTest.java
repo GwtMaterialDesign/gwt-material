@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -33,8 +32,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 public class MaterialModalTest extends MaterialWidgetTest {
 
-    @Test
-    public void testModal() {
+    public void init() {
         MaterialModal modal = new MaterialModal();
         generateModalContent(modal);
         checkWidget(modal);

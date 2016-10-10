@@ -24,12 +24,14 @@ import gwt.material.design.client.constants.Type;
 public interface HasType<T extends Type> {
     /**
      * Sets the type on the widget
+     *
      * @param type T type
      */
     void setType(T type);
 
     /**
      * Gets the type of the widget.
+     *
      * @return type of the widget
      */
     T getType();

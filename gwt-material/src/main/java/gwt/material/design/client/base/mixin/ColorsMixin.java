@@ -38,12 +38,12 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
 
     @Override
     public void setBackgroundColor(Color bgColor) {
-        if(this.bgColor != null && !this.bgColor.getCssName().isEmpty()) {
+        if (this.bgColor != null && !this.bgColor.getCssName().isEmpty()) {
             uiObject.removeStyleName(this.bgColor.getCssName());
         }
         this.bgColor = bgColor;
 
-        if(bgColor != null && !bgColor.getCssName().isEmpty()) {
+        if (bgColor != null && !bgColor.getCssName().isEmpty()) {
             uiObject.addStyleName(bgColor.getCssName());
         }
     }
@@ -55,12 +55,12 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
 
     @Override
     public void setTextColor(Color textColor) {
-        if(this.textColor != null && !this.textColor.getCssName().isEmpty()) {
+        if (this.textColor != null && !this.textColor.getCssName().isEmpty()) {
             uiObject.removeStyleName(this.textColor.getCssName());
         }
         this.textColor = textColor;
 
-        if(this.textColor != null && !this.textColor.getCssName().isEmpty()) {
+        if (this.textColor != null && !this.textColor.getCssName().isEmpty()) {
             uiObject.addStyleName(ensureTextColorFormat(textColor.getCssName()));
         }
     }
@@ -76,16 +76,16 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
     protected String ensureTextColorFormat(String textColor) {
         String formatted = "";
         boolean mainColor = true;
-        for(String style : textColor.split(" ")) {
-            if(mainColor) {
+        for (String style : textColor.split(" ")) {
+            if (mainColor) {
                 // the main color
-                if(!style.endsWith("-text")) {
+                if (!style.endsWith("-text")) {
                     style += "-text";
                 }
                 mainColor = false;
             } else {
                 // the shading type
-                if(!style.startsWith("text-")) {
+                if (!style.startsWith("text-")) {
                     style = " text-" + style;
                 }
             }

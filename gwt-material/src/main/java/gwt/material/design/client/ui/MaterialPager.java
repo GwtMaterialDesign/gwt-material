@@ -158,13 +158,13 @@ public class MaterialPager extends MaterialWidget {
         linkLeft.setFixed(true);
         linkLeft.addHandler(event -> {
             if (linkLeft.isEnabled())
-            onPageSelection(currentPage - 1);
+                onPageSelection(currentPage - 1);
             event.preventDefault();
             event.stopPropagation();
         }, ClickEvent.getType());
         linkLeft.add(createLinkLeft());
 
-        addPageSelectionHandler(event ->  {
+        addPageSelectionHandler(event -> {
             MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1);
         });
 
@@ -176,7 +176,7 @@ public class MaterialPager extends MaterialWidget {
         linkRight.setFixed(true);
         linkRight.addHandler(event -> {
             if (linkRight.isEnabled())
-            onPageSelection(currentPage + 1);
+                onPageSelection(currentPage + 1);
             event.stopPropagation();
             event.preventDefault();
         }, ClickEvent.getType());
@@ -201,8 +201,8 @@ public class MaterialPager extends MaterialWidget {
         indicator.getElement().getStyle().setBackgroundColor("inherit");
         addPageSelectionHandler(event -> {
             indicator.setText(indicatorTemplate
-                .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
-                .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
+                    .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
+                    .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
             );
         });
         return indicator;
@@ -304,7 +304,7 @@ public class MaterialPager extends MaterialWidget {
      * </ul>
      * Example
      * <pre>
-     *{@code
+     * {@code
      * Page {page} of {total}
      * }</pre>
      */

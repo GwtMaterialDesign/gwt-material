@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Error handler.
- * 
+ *
  * @author Steven Jardine
  */
 public interface ErrorHandler {
@@ -42,7 +42,7 @@ public interface ErrorHandler {
 
     /**
      * Show the errors on the input screen.
-     * 
+     *
      * @param errors the errors to display.
      */
     void showErrors(List<EditorError> errors);

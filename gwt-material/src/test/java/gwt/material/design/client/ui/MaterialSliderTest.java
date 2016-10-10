@@ -23,12 +23,10 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.UnorderedList;
-import org.junit.Test;
 
 public class MaterialSliderTest extends MaterialWidgetTest {
 
-    @Test
-    public void testSlider() {
+    public void init() {
         MaterialSlider slider = new MaterialSlider();
         checkWidget(slider);
         generateSliderItems(slider);

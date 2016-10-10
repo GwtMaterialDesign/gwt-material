@@ -26,14 +26,14 @@ package gwt.material.design.client.ui;
  * Material Integer Box is an input field that accepts any Float based string from user.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialFloatBox placeholder="Your integer" step=100/>}
+ * {@code <m:MaterialFloatBox placeholder="Your integer" step=100/>}
  * </pre>
- * 
+ * <p>
  * The parsing and formatting of the number are done natively by the browser, using the
  * i18n settings from the user.
- * 
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material FloatBox</a>
+ *
  * @author paulux84
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material FloatBox</a>
  */
 //@formatter:on
 public class MaterialFloatBox extends MaterialNumberBox<Float> {
@@ -51,13 +51,13 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
         this(placeholder);
         setValue(value);
     }
-    
+
     @Override
     public Float getValue() {
         double number = getValueAsNumber();
-        if (Double.isNaN(number)){
+        if (Double.isNaN(number)) {
             return null;
         }
-        return Float.valueOf((float)number);
+        return Float.valueOf((float) number);
     }
 }

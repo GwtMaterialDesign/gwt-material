@@ -25,9 +25,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- *  This static helper class is supposed to collect common methods used for multiple kind of UI classes.
- *  It is defined as abstract to prohibit 
- *
+ * This static helper class is supposed to collect common methods used for multiple kind of UI classes.
+ * It is defined as abstract to prohibit
  */
 public final class UiHelper {
 
@@ -49,7 +48,7 @@ public final class UiHelper {
      * Adds a mouse pressed handler to a widget. Adds a CSS style to the widget
      * as long as the mouse is pressed (or the user touches the widget on mobile browser).
      *
-     * @param widget The widget to which the style must be applied for mouse/touch event
+     * @param widget       The widget to which the style must be applied for mouse/touch event
      * @param cssStyleName CSS style name to be applied
      */
     public static void addMousePressedHandlers(final Widget widget, final String cssStyleName) {

@@ -84,11 +84,11 @@ public class ErrorHandlerMixin<V> implements HasEditorErrors<V>, HasErrorHandler
         }
         errorHandlerType = type == null ? ErrorHandlerType.DEFAULT : type;
         switch (errorHandlerType) {
-        case NONE:
-            errorHandler = null;
-            break;
-        case DEFAULT:
-            errorHandler = new DefaultErrorHandler(inputWidget);
+            case NONE:
+                errorHandler = null;
+                break;
+            case DEFAULT:
+                errorHandler = new DefaultErrorHandler(inputWidget);
         }
     }
 

@@ -19,19 +19,12 @@
  */
 package gwt.material.design.client.ui.base;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasEnabled;
-import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.resources.WithJQueryResources;
 import gwt.material.design.client.ui.MaterialPanel;
-import org.junit.Test;
-
-import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * Test case for MaterialWidget base
@@ -40,23 +33,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 public class MaterialWidgetTest extends BaseEventTest {
 
-    @Test
-    public void testBaseWidget() {
-        MaterialWidget widget = new MaterialWidget(Document.get().createDivElement());
-        checkWidget(widget);
-    }
-
-    public void checkJQuery() {
-        MaterialDesign.injectJs(WithJQueryResources.INSTANCE.jQuery());
-        MaterialDesign.injectJs(MaterialResources.INSTANCE.materializeJs());
-        assertTrue(MaterialDesign.isjQueryLoaded());
-        assertTrue(MaterialDesign.isMaterializeLoaded());
-        // gwt-material-jquery Test
-        assertNotNull($("body"));
-    }
-
     protected <T extends MaterialWidget> void checkWidget(T widget) {
-        checkJQuery();
         checkId(widget);
         checkInitialClasses(widget);
         checkEnabled(widget);
@@ -234,7 +211,11 @@ public class MaterialWidgetTest extends BaseEventTest {
     }
 
     protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
-        final Element element = widget.getElement();
+        checkEnabled(widget, widget);
+    }
+
+    protected <T extends MaterialWidget & HasEnabled, H extends MaterialWidget> void checkEnabled(T widget, H target) {
+        final Element element = target.getElement();
         assertFalse(element.hasClassName(CssName.DISABLED));
         assertFalse(element.hasAttribute(CssName.DISABLED));
         widget.setEnabled(true);
@@ -244,7 +225,7 @@ public class MaterialWidgetTest extends BaseEventTest {
         widget.setEnabled(false);
         assertTrue(element.hasClassName(CssName.DISABLED));
         assertTrue(element.hasAttribute(CssName.DISABLED));
-        assertEquals(widget.isEnabled(), false);
+        assertEquals(target.isEnabled(), false);
     }
 
     protected <T extends MaterialWidget & HasId> void checkId(T widget) {

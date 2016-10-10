@@ -38,8 +38,8 @@ public class BasicEditorError implements EditorError {
     /**
      * Create an new error.
      *
-     * @param editor the editor
-     * @param value the value
+     * @param editor  the editor
+     * @param value   the value
      * @param message the message
      */
     public BasicEditorError(Editor<?> editor, Object value, String message) {

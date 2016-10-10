@@ -39,10 +39,10 @@ public class OptGroup extends MaterialWidget {
 
     /**
      * Option label for use in hierarchical menus.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
+     * HTML Specification</a>
      */
     public String getLabel() {
         return OptGroupElement.as(this.getElement()).getLabel();
@@ -50,10 +50,10 @@ public class OptGroup extends MaterialWidget {
 
     /**
      * The control is unavailable in this context.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
+     * HTML Specification</a>
      */
     public boolean isDisabled() {
         return OptGroupElement.as(this.getElement()).isDisabled();
@@ -61,21 +61,23 @@ public class OptGroup extends MaterialWidget {
 
     /**
      * The control is unavailable in this context.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
+     * HTML Specification</a>
      */
     public void setDisabled(boolean disabled) {
         OptGroupElement.as(this.getElement()).setDisabled(disabled);
-    };
+    }
+
+    ;
 
     /**
      * Option label for use in hierarchical menus.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
+     * HTML Specification</a>
      */
     public void setLabel(String label) {
         OptGroupElement.as(this.getElement()).setLabel(label);

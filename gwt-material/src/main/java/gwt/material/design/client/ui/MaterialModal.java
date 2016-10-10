@@ -43,11 +43,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * Dialogs are content that are not original visible on a page but show up with
  * extra information if needed. The transitions should make the appearance of
  * the dialog make sense and not jarring to the user.
- *
- *
+ * <p>
+ * <p>
  * <p>
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  * <m:MaterialModal ui:field="modal" type="FIXED_FOOTER" dismissable="true" inDuration="500" outDuration="800">
@@ -60,10 +60,10 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * </m:MaterialModal>
  * }
  * </pre>
- *
+ * <p>
  * *
  * <h3>Java Usage:</h3>
- *
+ * <p>
  * <pre>
  * {
  *     &#064;code
@@ -72,37 +72,41 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *     modal.open();
  * }
  * </pre>
- * 
+ * <p>
  * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dialogs">Material
- *      Modals</a>
+ * Modals</a>
  */
 // @formatter:on
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
         HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
 
     static class ModalManager {
-            private static List<MaterialModal> modals;
-            private static final int index = 1010;
+        private static List<MaterialModal> modals;
+        private static final int index = 1010;
 
-            /**
-             * Registers the modal and added to static modal lists
-             */
+        /**
+         * Registers the modal and added to static modal lists
+         */
         public static void register(MaterialModal modal) {
-            if(modals == null) { modals = new ArrayList<>(); }
+            if (modals == null) {
+                modals = new ArrayList<>();
+            }
             modals.add(modal);
             resetZIndex();
         }
 
         /**
-         *  Unregisters the modal and removed it from static modal lists
+         * Unregisters the modal and removed it from static modal lists
          */
         public static void unregister(MaterialModal modal) {
-            if(modals == null) { modals = new ArrayList<>(); }
-            if(modals.remove(modal)) {
+            if (modals == null) {
+                modals = new ArrayList<>();
+            }
+            if (modals.remove(modal)) {
                 resetZIndex();
             }
         }
@@ -110,9 +114,9 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         /**
          * Need to reset every time we have register / unregister process
          */
-        protected static void resetZIndex(){
+        protected static void resetZIndex() {
             int i = index;
-            for(MaterialModal modal : modals) {
+            for (MaterialModal modal : modals) {
                 modal.setDepth(i++);
             }
         }
@@ -137,7 +141,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     /**
      * Open the modal programmatically
-     * 
+     * <p>
      * <p>
      * Note: the MaterialModal component must be added to the document before
      * calling this method. When declaring this modal on a UiBinder file, the
@@ -145,37 +149,31 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * must add it to a container before opening the modal. You can do it by
      * calling, for example:
      * </p>
-     * 
+     * <p>
      * <pre>
      * MaterialModal modal = new MaterialModal();
      * RootPanel.get().add(modal);
      * </pre>
-     * 
-     * @throws IllegalStateException
-     *             If the MaterialModal is not added to the document
+     *
+     * @throws IllegalStateException If the MaterialModal is not added to the document
      */
     public void open() {
         // the modal must be added to the document before opening
         if (this.getParent() == null) {
             throw new IllegalStateException(
-                "The MaterialModal must be added to the document before calling open().");
+                    "The MaterialModal must be added to the document before calling open().");
         }
         open(getElement(), opacity, dismissable, inDuration, outDuration);
     }
 
     /**
      * Open modal with additional properties
-     * 
-     * @param e
-     *            - Modal Component
-     * @param opacity
-     *            - Opacity of modal background
-     * @param dismissable
-     *            - Modal can be dismissed by clicking outside of the modal
-     * @param inDuration
-     *            - Transition in Duration
-     * @param outDuration
-     *            - Transition out Duration
+     *
+     * @param e           - Modal Component
+     * @param opacity     - Opacity of modal background
+     * @param dismissable - Modal can be dismissed by clicking outside of the modal
+     * @param inDuration  - Transition in Duration
+     * @param outDuration - Transition out Duration
      */
     protected void open(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
         JsModalOptions options = new JsModalOptions();
@@ -202,7 +200,6 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * Note: you may need to remove it MaterialModal from the document if you
      * are not using UiBinder. See {@link #open()}.
      * </p>
-     * 
      */
     public void close() {
         close(false);
@@ -214,10 +211,8 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * Note: you may need to remove it MaterialModal from the document if you
      * are not using UiBinder. See {@link #open()}.
      * </p>
-     * 
-     * @param autoClosed
-     *            Flag indicating if the modal was automatically dismissed
-     * 
+     *
+     * @param autoClosed Flag indicating if the modal was automatically dismissed
      * @see CloseEvent
      */
     public void close(boolean autoClosed) {

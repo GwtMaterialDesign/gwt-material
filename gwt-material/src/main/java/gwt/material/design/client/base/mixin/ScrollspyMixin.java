@@ -37,7 +37,7 @@ public class ScrollspyMixin<T extends UIObject & HasScrollspy> extends AbstractM
     public void setScrollspy(String scrollspy) {
         uiObject.removeStyleName(CssName.SECTION + " " + CssName.SCROLLSPY);
 
-        if(scrollspy != null) {
+        if (scrollspy != null) {
             uiObject.addStyleName(CssName.SECTION + " " + CssName.SCROLLSPY);
             setId(scrollspy);
         }
@@ -45,7 +45,7 @@ public class ScrollspyMixin<T extends UIObject & HasScrollspy> extends AbstractM
 
     @Override
     public String getScrollspy() {
-        if(StyleHelper.containsStyle(uiObject.getStyleName(), CssName.SCROLLSPY)) {
+        if (StyleHelper.containsStyle(uiObject.getStyleName(), CssName.SCROLLSPY)) {
             return getId();
         } else {
             return null;

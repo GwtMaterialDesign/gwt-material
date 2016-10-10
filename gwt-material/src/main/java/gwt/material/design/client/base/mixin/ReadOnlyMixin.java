@@ -60,7 +60,7 @@ public class ReadOnlyMixin<T extends UIObject, H extends UIObject> extends Abstr
         if (value) {
             uiObject.addStyleName(CssName.READ_ONLY_TOGGLE);
             if (uiObject instanceof MaterialWidget) {
-               ((MaterialWidget)uiObject).setEnabled(true);
+                ((MaterialWidget) uiObject).setEnabled(true);
             }
             $(target).off("mousedown");
             $(uiObject).mousedown((e, param1) -> {

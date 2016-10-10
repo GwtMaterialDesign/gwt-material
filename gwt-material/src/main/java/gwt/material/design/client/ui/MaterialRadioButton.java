@@ -36,15 +36,16 @@ import gwt.material.design.client.constants.RadioButtonType;
  * - NO-GAP <br>
  * - GAP
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  * <m:MaterialRadioButton text="Sample"/>
  * <m:MaterialRadioButton type="GAP"/>
-}
+ * }
  * </pre>
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Radio Button</a>
+ *
  * @author kevzlou7979
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Radio Button</a>
  */
 public class MaterialRadioButton extends RadioButton implements HasType<RadioButtonType> {
 
@@ -93,7 +94,7 @@ public class MaterialRadioButton extends RadioButton implements HasType<RadioBut
 
     @Override
     public void setType(RadioButtonType type) {
-        if(typeMixin == null) {
+        if (typeMixin == null) {
             // Since the input element handles the type styles,
             // we need to override the mixin.
             typeMixin = new CssTypeMixin<>(new TypeWidget<>(DOM.getChild(getElement(), 0)));

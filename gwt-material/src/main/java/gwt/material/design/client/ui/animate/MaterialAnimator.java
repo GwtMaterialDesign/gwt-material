@@ -30,9 +30,10 @@ import gwt.material.design.client.ui.html.UnorderedList;
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
-* Provides core and meaningful animation
-* @author kevzlou7979
-*/
+ * Provides core and meaningful animation
+ *
+ * @author kevzlou7979
+ */
 public class MaterialAnimator {
 
     public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
@@ -52,74 +53,74 @@ public class MaterialAnimator {
     }
 
     public static void stopAnimation(Widget w) {
-     w.removeStyleName("infinite");
+        w.removeStyleName("infinite");
     }
 
     public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback, final boolean infinite) {
-         final String name = String.valueOf(DOM.createUniqueId());
-         w.getElement().setId(name);
-         w.getElement().getStyle().setProperty("WebkitAnimationDuration",durationMillis+"ms");
-         w.getElement().getStyle().setProperty("animationDuration",durationMillis+"ms");
-         switch (transition) {
-             case SHOW_STAGGERED_LIST:
-                 if(w instanceof UnorderedList) {
-                     UnorderedList ul = (UnorderedList) w;
+        final String name = String.valueOf(DOM.createUniqueId());
+        w.getElement().setId(name);
+        w.getElement().getStyle().setProperty("WebkitAnimationDuration", durationMillis + "ms");
+        w.getElement().getStyle().setProperty("animationDuration", durationMillis + "ms");
+        switch (transition) {
+            case SHOW_STAGGERED_LIST:
+                if (w instanceof UnorderedList) {
+                    UnorderedList ul = (UnorderedList) w;
 
-                     for(Widget li : ul) {
-                         if(li instanceof ListItem) {
-                             li.getElement().getStyle().setOpacity(0);
-                         }
-                     }
-                 }
-                 break;
-             case SHOW_GRID:
-                 w.getElement().getStyle().setOpacity(0);
-                 break;
-             default:
-                 break;
-         }
+                    for (Widget li : ul) {
+                        if (li instanceof ListItem) {
+                            li.getElement().getStyle().setOpacity(0);
+                        }
+                    }
+                }
+                break;
+            case SHOW_GRID:
+                w.getElement().getStyle().setOpacity(0);
+                break;
+            default:
+                break;
+        }
 
-         new Timer() {
-             @Override
-             public void run() {
-                 switch (transition) {
-                     case SHOW_STAGGERED_LIST:
-                         showStaggeredList(name);
-                         break;
-                     case FADE_IN_IMAGE:
-                         fadeInImage(name);
-                         break;
-                     case SHOW_GRID:
-                         w.addStyleName("display-animation");
-                         showGrid(name);
-                         break;
-                     case CLOSE_GRID:
-                         w.addStyleName("display-animation");
-                         closeGrid(name);
-                         break;
-                     default:
-                         // For core animation components
-                         if(infinite) {
-                             w.addStyleName("infinite");
-                         }
-                         w.addStyleName("animated " + transition.getCssName());
-                         animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
-                         break;
-                 }
-             }
-         }.schedule(delayMillis);
+        new Timer() {
+            @Override
+            public void run() {
+                switch (transition) {
+                    case SHOW_STAGGERED_LIST:
+                        showStaggeredList(name);
+                        break;
+                    case FADE_IN_IMAGE:
+                        fadeInImage(name);
+                        break;
+                    case SHOW_GRID:
+                        w.addStyleName("display-animation");
+                        showGrid(name);
+                        break;
+                    case CLOSE_GRID:
+                        w.addStyleName("display-animation");
+                        closeGrid(name);
+                        break;
+                    default:
+                        // For core animation components
+                        if (infinite) {
+                            w.addStyleName("infinite");
+                        }
+                        w.addStyleName("animated " + transition.getCssName());
+                        animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
+                        break;
+                }
+            }
+        }.schedule(delayMillis);
 
-         w.removeStyleName("materialcss");
+        w.removeStyleName("materialcss");
     }
 
     protected static void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) {
-         $("#" + name).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", e -> {
-             if(callback != null) {
-                 callback.run();
-             }
-             $("#" + name).removeClass(oldClass);
-             return true;
-         });
+        $("#" + name).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", e -> {
+            if (callback != null) {
+                callback.run();
+            }
+            $("#" + name).removeClass(oldClass);
+            return true;
+        });
     }
 
     protected static void closeGrid(String name) {

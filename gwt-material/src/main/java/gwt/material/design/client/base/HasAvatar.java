@@ -27,6 +27,7 @@ public interface HasAvatar {
 
     /**
      * Gets the type of the widget.
+     *
      * @return type of the widget
      */
     boolean isAvatar();

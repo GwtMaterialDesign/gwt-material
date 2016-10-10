@@ -21,7 +21,7 @@ package gwt.material.design.client.constants;
 
 import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum FooterType implements CssType{
+public enum FooterType implements CssType {
     DEFAULT(""),
     FIXED("fixed");
 

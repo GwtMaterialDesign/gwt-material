@@ -42,9 +42,9 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
 
     @Override
     public void showProgress(ProgressType type) {
-        if(uiObject instanceof MaterialCollapsibleItem) {
+        if (uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(true);
-        }else if(uiObject  instanceof MaterialNavBar) {
+        } else if (uiObject instanceof MaterialNavBar) {
             ((MaterialNavBar) uiObject).add(progress);
         }
     }
@@ -56,7 +56,7 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
 
     @Override
     public void hideProgress() {
-        if(uiObject instanceof MaterialCollapsibleItem) {
+        if (uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(false);
         } else {
             progress.removeFromParent();
@@ -66,7 +66,7 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
     protected void applyCollapsibleProgress(boolean isShow) {
         MaterialCollapsibleItem item = (MaterialCollapsibleItem) uiObject;
         MaterialCollapsibleBody body = (MaterialCollapsibleBody) item.getWidget(1);
-        if(uiObject.getElement().getClassName().contains(CssName.ACTIVE)) {
+        if (uiObject.getElement().getClassName().contains(CssName.ACTIVE)) {
             if (isShow) {
                 body.setDisplay(Display.NONE);
                 item.add(progress);

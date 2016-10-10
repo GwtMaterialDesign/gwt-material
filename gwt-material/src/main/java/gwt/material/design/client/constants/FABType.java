@@ -21,7 +21,7 @@ package gwt.material.design.client.constants;
 
 import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum FABType implements CssType{
+public enum FABType implements CssType {
     HOVER(""),
     CLICK_ONLY("click-to-toggle");
 

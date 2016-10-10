@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
-import org.junit.Test;
 
 import java.util.Date;
 
@@ -33,13 +32,18 @@ import java.util.Date;
  */
 public class MaterialDatePickerTest extends AbstractValueWidgetTest {
 
-    @Test
-    public void testDatePicker() {
+    public void init() {
         MaterialDatePicker datePicker = new MaterialDatePicker();
         checkAbstractValueWidget(datePicker, datePicker.getDateInput());
+        checkOptions(datePicker);
+        checkOpenCloseControl(datePicker);
+    }
+
+    public <T extends MaterialDatePicker> void checkOpenCloseControl(T datePicker) {
+        datePicker.setEnabled(true);
+        assertTrue(datePicker.isEnabled());
         checkOpenHandler(datePicker);
         checkCloseHandler(datePicker);
-        checkOptions(datePicker);
     }
 
     public <T extends MaterialDatePicker> void checkOptions(T datePicker) {

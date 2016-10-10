@@ -28,7 +28,6 @@ import gwt.material.design.client.constants.IconType;
 //@formatter:off
 
 /**
- *
  * Using Material Link you can easily add href functionality into your app for navigation
  * <h3>UiBinder Usage:</h3>
  * <pre>
