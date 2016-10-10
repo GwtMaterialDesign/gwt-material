@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Test case for Cards
@@ -32,8 +31,7 @@ import org.junit.Test;
  */
 public class MaterialCardTest extends MaterialWidgetTest {
 
-    @Test
-    public void testCard() {
+    public void init() {
         MaterialCard card = new MaterialCard();
         checkAxis(card);
         checkStructure(card);

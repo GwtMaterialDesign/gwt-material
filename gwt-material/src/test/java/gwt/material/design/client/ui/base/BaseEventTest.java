@@ -22,19 +22,14 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.junit.client.GWTTestCase;
 import gwt.material.design.client.base.HasSearchHandlers;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.events.SearchFinishEvent;
 import gwt.material.design.client.events.SearchNoResultEvent;
 import gwt.material.design.client.ui.MaterialSearch;
+import junit.framework.TestCase;
 
-public class BaseEventTest extends GWTTestCase {
-
-    @Override
-    public String getModuleName() {
-        return "gwt.material.design.GwtMaterialDesign";
-    }
+public class BaseEventTest extends TestCase {
 
     protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
         checkClickAndDoubleClickEvent(widget, enabled);

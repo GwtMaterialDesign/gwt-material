@@ -26,7 +26,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
-import org.junit.Test;
 
 /**
  * Test case for Dropdown
@@ -35,8 +34,7 @@ import org.junit.Test;
  */
 public class MaterialDropdownTest extends MaterialWidgetTest {
 
-    @Test
-    public void testDropdown() {
+    public void init() {
         MaterialDropDown dropDown = new MaterialDropDown();
         checkWidget(dropDown);
         checkOptions(dropDown);

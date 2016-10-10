@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.ui.base.AbstractIconButtonTest;
 import gwt.material.design.client.ui.html.Span;
-import org.junit.Test;
 
 /**
  * Test case for Chips
@@ -31,8 +30,7 @@ import org.junit.Test;
  */
 public class MaterialChipTest extends AbstractIconButtonTest {
 
-    @Test
-    public void testChip() {
+    public void init() {
         MaterialChip chip = new MaterialChip();
         checkWidget(chip);
         checkIcon(chip);

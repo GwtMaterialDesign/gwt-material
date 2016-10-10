@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CollectionType;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Test case for Collections
@@ -32,8 +31,7 @@ import org.junit.Test;
  */
 public class MaterialCollectionTest extends MaterialWidgetTest {
 
-    @Test
-    public void testCollection() {
+    public void init() {
         MaterialCollection collection = new MaterialCollection();
         checkWidget(collection);
         generateCollectionItem(collection);

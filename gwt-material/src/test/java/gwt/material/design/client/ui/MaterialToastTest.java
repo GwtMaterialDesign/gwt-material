@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Timer;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -33,8 +32,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 public class MaterialToastTest extends MaterialWidgetTest {
 
-    @Test
-    public void testToast() {
+    public void init() {
         checkToastStructure();
         checkToastWithWidget();
         checkToastWithStyling();

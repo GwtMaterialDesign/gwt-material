@@ -19,8 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import org.junit.Test;
-
 /**
  * Test case for Text Area
  *
@@ -28,8 +26,7 @@ import org.junit.Test;
  */
 public class MaterialTextAreaTest extends MaterialValueBoxTest {
 
-    @Test
-    public void testTextArea() {
+    public void init() {
         checkValueBox(new MaterialTextArea());
         checkResizeRule(new MaterialTextArea());
     }

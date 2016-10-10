@@ -25,7 +25,6 @@ import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Test case for Collapsibles
@@ -34,8 +33,7 @@ import org.junit.Test;
  */
 public class MaterialCollapsibleTest extends MaterialWidgetTest {
 
-    @Test
-    public void testCollapsible() {
+    public void init() {
         MaterialCollapsible collapsible = new MaterialCollapsible();
         checkWidget(collapsible);
         checkTypes(collapsible);

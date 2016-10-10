@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.InputType;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +32,7 @@ import java.util.List;
  */
 public class MaterialSearchTest extends MaterialValueBoxTest {
 
-    @Test
-    public void testSearch() {
+    public void init() {
         MaterialSearch search = new MaterialSearch();
         checkStructure(search);
         checkSearchEvents(search);

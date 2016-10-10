@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.ui.base.AbstractIconButtonTest;
-import org.junit.Test;
 
 /**
  * Test case for Links
@@ -29,8 +28,7 @@ import org.junit.Test;
  */
 public class MaterialLinkTest extends AbstractIconButtonTest {
 
-    @Test
-    public void testLink() {
+    public void init() {
         MaterialLink link = new MaterialLink();
         checkIconButton(link);
     }

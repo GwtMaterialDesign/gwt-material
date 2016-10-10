@@ -25,7 +25,6 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
-import org.junit.Test;
 
 /**
  * Test case for Sidenav
@@ -34,8 +33,7 @@ import org.junit.Test;
  */
 public class MaterialSideNavTest extends MaterialWidgetTest {
 
-    @Test
-    public void testSideNav() {
+    public void init() {
         MaterialSideNav sideNav = new MaterialSideNav();
         final String ACTIVATOR = "sidenav";
         MaterialNavBar navBar = new MaterialNavBar();

@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Test case for Loaders
@@ -34,8 +33,7 @@ import org.junit.Test;
  */
 public class MaterialLoaderTest extends MaterialWidgetTest {
 
-    @Test
-    public void testLoader() {
+    public void init() {
         RootPanel.get().clear();
         checkLoaderBasic();
         checkLoaderWithinPanel();

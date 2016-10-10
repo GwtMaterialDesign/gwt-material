@@ -27,15 +27,13 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
-import org.junit.Test;
 
 /**
  * Test case for Range
  */
 public class MaterialRangeTest extends AbstractValueWidgetTest {
 
-    @Test
-    public void testRange() {
+    public void init() {
         MaterialRange range = new MaterialRange();
         checkAbstractValueWidgetWoPlaceholder(range, range.getLblError());
         checkStructure(range);

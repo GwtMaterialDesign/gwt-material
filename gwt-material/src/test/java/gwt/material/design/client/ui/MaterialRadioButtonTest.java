@@ -23,7 +23,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.constants.RadioButtonType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Test case for Radio Button
@@ -32,8 +31,7 @@ import org.junit.Test;
  */
 public class MaterialRadioButtonTest extends MaterialWidgetTest {
 
-    @Test
-    public void testRadioButton() {
+    public void init() {
         MaterialRadioButton radioButton = new MaterialRadioButton();
         checkType(radioButton);
     }

@@ -24,7 +24,6 @@ import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Test case for Checkbox
@@ -33,8 +32,7 @@ import org.junit.Test;
  */
 public class MaterialCheckBoxTest extends MaterialWidgetTest {
 
-    @Test
-    public void testCheckBox() {
+    public void init() {
         MaterialCheckBox checkBox = new MaterialCheckBox();
         checkType(checkBox);
         checkValue(checkBox);
