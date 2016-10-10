@@ -34,11 +34,12 @@ import gwt.material.design.client.ui.html.UnorderedList;
 //@formatter:off
 
 /**
-* CollapsibleItem element to define the body 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
-*/
+ * CollapsibleItem element to define the body
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
+ */
 //@formatter:on
 public class MaterialCollapsibleBody extends MaterialWidget implements HasCollapsibleParent {
 
@@ -56,7 +57,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
      */
     public MaterialCollapsibleBody(final Widget... widgets) {
         this();
-        for(Widget w : widgets) {
+        for (Widget w : widgets) {
             add(w);
         }
     }
@@ -65,10 +66,10 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
     public void setParent(MaterialCollapsible parent) {
         this.parent = parent;
 
-        for(Widget child : this) {
+        for (Widget child : this) {
             checkActiveState(child);
 
-            if(child instanceof HasCollapsibleParent) {
+            if (child instanceof HasCollapsibleParent) {
                 ((HasCollapsibleParent) child).setParent(parent);
             }
         }
@@ -76,15 +77,15 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
 
     @Override
     public void add(final Widget child) {
-        if(child instanceof UnorderedList) {
-            for(Widget w : (UnorderedList) child) {
-                if(w instanceof ListItem) {
+        if (child instanceof UnorderedList) {
+            for (Widget w : (UnorderedList) child) {
+                if (w instanceof ListItem) {
                     w.getElement().getStyle().setDisplay(Style.Display.BLOCK);
 
                     provideActiveClickHandler(w);
                 }
             }
-        } else if(child instanceof ListItem) {
+        } else if (child instanceof ListItem) {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
 
             provideActiveClickHandler(child);
@@ -94,8 +95,8 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
 
     @Override
     public boolean remove(Widget w) {
-        if(w instanceof HasCollapsibleParent) {
-            ((HasCollapsibleParent)w).setParent(null);
+        if (w instanceof HasCollapsibleParent) {
+            ((HasCollapsibleParent) w).setParent(null);
         }
         return super.remove(w);
     }
@@ -105,7 +106,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
 
         // mark the collapsible item as active
         MaterialCollapsibleItem item = findCollapsibleItemParent(child);
-        if(item != null) {
+        if (item != null) {
             item.expand();
         }
 
@@ -128,21 +129,21 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
         int pos = url.indexOf("#");
         String location = pos >= 0 ? url.substring(pos, url.length()) : "";
 
-        if(!href.isEmpty() && location.startsWith(href)) {
+        if (!href.isEmpty() && location.startsWith(href)) {
             ListItem li = findListItemParent(child);
-            if(li != null) {
+            if (li != null) {
                 makeActive(li);
             }
-        } else if(child instanceof HasWidgets) {
+        } else if (child instanceof HasWidgets) {
             // Recursive check
-            for(Widget w : (HasWidgets)child) {
+            for (Widget w : (HasWidgets) child) {
                 checkActiveState(w);
             }
         }
     }
 
     protected MaterialCollapsibleItem findCollapsibleItemParent(Widget widget) {
-        if(widget != null) {
+        if (widget != null) {
             if (widget instanceof MaterialCollapsibleItem) {
                 return (MaterialCollapsibleItem) widget;
             } else {
@@ -153,7 +154,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
     }
 
     protected ListItem findListItemParent(Widget widget) {
-        if(widget != null) {
+        if (widget != null) {
             if (widget instanceof ListItem) {
                 return (ListItem) widget;
             } else {

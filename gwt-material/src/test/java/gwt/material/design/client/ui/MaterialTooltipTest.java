@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 /**
  * Tooltip Test
@@ -31,8 +30,7 @@ import org.junit.Test;
  */
 public class MaterialTooltipTest extends MaterialWidgetTest {
 
-    @Test
-    public void testTooltip() {
+    public void init() {
         MaterialButton button = new MaterialButton();
         checkWidget(button);
         checkStructure(button);

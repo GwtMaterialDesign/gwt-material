@@ -53,7 +53,7 @@ public class MaterialDesignBase {
     }
 
     protected void onModuleLoaded() {
-        if(futureResources != null) {
+        if (futureResources != null) {
             for (FutureResource res : futureResources) {
                 injectJs(res.resource, res.removeTag, res.sourceUrl);
             }
@@ -69,23 +69,23 @@ public class MaterialDesignBase {
     }
 
     public static void injectJs(TextResource resource, boolean removeTag, boolean sourceUrl) {
-        if(!resource.getName().contains("jQuery")) {
-            if(!checkJQuery(sourceUrl)) {
+        if (!resource.getName().contains("jQuery")) {
+            if (!checkJQuery(sourceUrl)) {
                 // We need to wait for jQuery to load
-                if(futureResources == null) {
+                if (futureResources == null) {
                     futureResources = new ArrayList<>();
                 }
                 futureResources.add(new FutureResource(resource, removeTag, sourceUrl));
             }
         }
         String text = resource.getText() + (sourceUrl ?
-            "//# sourceURL=" + resource.getName() + ".js" : "");
+                "//# sourceURL=" + resource.getName() + ".js" : "");
 
         // Inject the script resource
         ScriptInjector.fromString(text)
-            .setWindow(ScriptInjector.TOP_WINDOW)
-            .setRemoveTag(removeTag)
-            .inject();
+                .setWindow(ScriptInjector.TOP_WINDOW)
+                .setRemoveTag(removeTag)
+                .inject();
     }
 
     public static void injectCss(TextResource resource) {
@@ -93,9 +93,9 @@ public class MaterialDesignBase {
     }
 
     protected static boolean checkJQuery(boolean debug) {
-        if(!isjQueryLoaded()) {
-            if(jqueryResource != null) {
-                if(debug) {
+        if (!isjQueryLoaded()) {
+            if (jqueryResource != null) {
+                if (debug) {
                     injectDebugJs(jqueryResource);
                 } else {
                     injectJs(jqueryResource);

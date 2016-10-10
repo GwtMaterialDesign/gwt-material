@@ -139,7 +139,7 @@ public final class StyleHelper {
     }
 
     public static Double getMeasurementValue(String value) {
-        if(value == null) {
+        if (value == null) {
             return null;
         }
         try {
@@ -150,12 +150,13 @@ public final class StyleHelper {
     }
 
     public static Style.Unit getMeasurementUnit(String value) {
-        if(value == null) { return null; }
+        if (value == null) {
+            return null;
+        }
         try {
             return Style.Unit.valueOf(
-                value.replaceAll("[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?", "").toUpperCase());
-        }
-        catch(IllegalArgumentException e) {
+                    value.replaceAll("[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?", "").toUpperCase());
+        } catch (IllegalArgumentException e) {
             // Silently catch invalid units
             return null;
         }

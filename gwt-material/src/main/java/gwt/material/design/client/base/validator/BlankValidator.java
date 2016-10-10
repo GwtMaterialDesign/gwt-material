@@ -47,16 +47,22 @@ public class BlankValidator<T> extends AbstractValidator<T> {
         super(invalidMessageOverride);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPriority() {
         return Priority.LOWEST;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(T value) {
-        if (value instanceof Collection<?>) { return ((Collection<?>) value).size() > 0; }
+        if (value instanceof Collection<?>) {
+            return ((Collection<?>) value).size() > 0;
+        }
         return value != null && !"".equals(value.toString());
     }
 }

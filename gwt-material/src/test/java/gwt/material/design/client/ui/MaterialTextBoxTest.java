@@ -19,8 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import org.junit.Test;
-
 /**
  * Test case for Text Box
  *
@@ -28,8 +26,7 @@ import org.junit.Test;
  */
 public class MaterialTextBoxTest extends MaterialValueBoxTest {
 
-    @Test
-    public void testTextBox() {
+    public void init() {
         checkValueBox(new MaterialTextBox());
     }
 }

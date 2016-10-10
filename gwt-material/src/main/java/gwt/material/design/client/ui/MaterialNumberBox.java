@@ -30,9 +30,9 @@ import gwt.material.design.client.constants.InputType;
 /**
  * Material Number Box is the base class for other numeric input boxes, such as {@link MaterialIntegerBox} and
  * {@link MaterialDoubleBox}.
- * 
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material MaterialNumberBox</a>
+ *
  * @author paulux84
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material MaterialNumberBox</a>
  */
 //@formatter:on
 public class MaterialNumberBox<T> extends MaterialValueBox<T> {
@@ -45,6 +45,7 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
     /**
      * Set step attribute to input element.
+     *
      * @param step "any" or number like for example 1 or 2.5 or 100, etc...
      */
     public void setStep(String step) {
@@ -75,16 +76,16 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
     public String getText() {
         return valueBoxBase.getText();
     }
-    
+
     /**
      * Returns the value parsed natively by the browser.
-     * 
+     *
      * @return the value set on the component, or NaN if none is set
      */
     public double getValueAsNumber() {
         return getValueAsNumber(valueBoxBase.getElement());
     }
-    
+
     /**
      * Native call to element.valueAsNumber.
      */

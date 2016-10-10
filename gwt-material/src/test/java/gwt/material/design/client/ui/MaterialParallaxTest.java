@@ -22,12 +22,10 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Div;
-import org.junit.Test;
 
 public class MaterialParallaxTest extends MaterialWidgetTest {
 
-    @Test
-    public void testParallax() {
+    public void init() {
         MaterialParallax parallax = new MaterialParallax();
         checkWidget(parallax);
         checkStructure(parallax);

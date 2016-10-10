@@ -25,6 +25,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * Types of CheckBox<br>
  * - FILLED<br>
  * - INTERMEDIATE<br>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  */

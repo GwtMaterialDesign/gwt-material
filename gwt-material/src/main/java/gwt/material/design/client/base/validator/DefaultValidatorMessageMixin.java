@@ -26,9 +26,9 @@ import java.util.MissingResourceException;
 /**
  * Default implementation of the validator message mixin. This can be replaced with your own version by using
  * a "replace-with" statment in the gwt module file.
- * 
+ * <p>
  * Example:
- * 
+ * <p>
  * <pre>
  * {@code
  * <replace-with class="...CustomValidatorMessageMixin">
@@ -36,7 +36,7 @@ import java.util.MissingResourceException;
  * </replace-with>
  * }
  * </pre>
- * 
+ *
  * @author Steven Jardine
  */
 public class DefaultValidatorMessageMixin implements ValidatorMessageMixin {

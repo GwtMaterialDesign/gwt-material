@@ -28,11 +28,11 @@ import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 //@formatter:off
+
 /**
- *
  * <p>Material NavSection is a child of MaterialNavBar that will contain toolbar items such as link, icon and other components
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  * <m:MaterialNavSection align="RIGHT">

@@ -25,12 +25,14 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
-* Collection element to define secondary content such as MaterialIcons
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
-*///@formatter:on
+ * Collection element to define secondary content such as MaterialIcons
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
+ *///@formatter:on
 public class MaterialCollectionSecondary extends MaterialWidget implements HasHref {
 
     public MaterialCollectionSecondary() {

@@ -25,6 +25,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
  * Types of CheckBox<br>
  * - FLAT<br>
  * - POPOUT<br>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  */

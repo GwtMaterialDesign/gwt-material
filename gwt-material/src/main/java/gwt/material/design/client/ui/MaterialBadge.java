@@ -25,6 +25,7 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
+
 /**
  * Badges can notify you that there are new or unread messages or notifications.
  * Add the new class to the badge to give it the background.
@@ -51,13 +52,13 @@ public class MaterialBadge extends Span {
     /**
      * @param text text of the badge
      */
-    public MaterialBadge (String text) {
+    public MaterialBadge(String text) {
         this();
         setText(text);
     }
 
     /**
-     * @param text text of the badge
+     * @param text     text of the badge
      * @param isCircle is a circle badge
      */
     public MaterialBadge(String text, boolean isCircle) {
@@ -68,9 +69,10 @@ public class MaterialBadge extends Span {
 
     /**
      * Badge with text and color
-     * @param text text of the badge
+     *
+     * @param text      text of the badge
      * @param textColor text color of the badge
-     * @param bgColor background color of the badge
+     * @param bgColor   background color of the badge
      */
     public MaterialBadge(String text, Color textColor, Color bgColor) {
         this();

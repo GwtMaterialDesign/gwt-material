@@ -39,7 +39,7 @@ public class MaterialButtonCell extends AbstractCell<MaterialButton> {
 
     @Override
     public void onBrowserEvent(Context context, Element parent, MaterialButton value, NativeEvent event, ValueUpdater<MaterialButton> valueUpdater) {
-         super.onBrowserEvent(context, parent, value, event, valueUpdater);
+        super.onBrowserEvent(context, parent, value, event, valueUpdater);
         if (CLICK.equals(event.getType())) {
             EventTarget eventTarget = event.getEventTarget();
             if (!Element.is(eventTarget)) {

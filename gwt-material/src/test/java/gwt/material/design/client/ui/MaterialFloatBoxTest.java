@@ -19,8 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import org.junit.Test;
-
 /**
  * Test case for Float Box
  *
@@ -28,8 +26,7 @@ import org.junit.Test;
  */
 public class MaterialFloatBoxTest extends MaterialValueBoxTest {
 
-    @Test
-    public void testFloatBoxTest() {
+    public void init() {
         checkValueBox(new MaterialFloatBox());
     }
 }

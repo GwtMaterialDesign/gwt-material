@@ -27,7 +27,6 @@ import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.ListItem;
-import org.junit.Test;
 
 /**
  * Test case for Nav Bar
@@ -36,8 +35,7 @@ import org.junit.Test;
  */
 public class MaterialNavBarTest extends MaterialWidgetTest {
 
-    @Test
-    public void testNavBar() {
+    public void init() {
         MaterialHeader header = new MaterialHeader();
         MaterialNavBar navBar = new MaterialNavBar();
         header.add(navBar);

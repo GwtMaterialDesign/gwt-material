@@ -19,8 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import org.junit.Test;
-
 /**
  * Test case for Long Box
  *
@@ -28,8 +26,7 @@ import org.junit.Test;
  */
 public class MaterialLongBoxTest extends MaterialValueBoxTest {
 
-    @Test
-    public void testLongBox() {
+    public void init() {
         checkValueBox(new MaterialLongBox());
     }
 }

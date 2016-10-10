@@ -26,9 +26,8 @@ import gwt.material.design.client.ui.MaterialTooltip;
 /**
  * Interface that determines the class has a {@link MaterialTooltip} attached to
  * it.
- * 
+ *
  * @author gilberto-torrezan
- * 
  * @see TooltipMixin
  * @see MaterialWidget
  */
@@ -46,7 +45,7 @@ public interface HasTooltip {
 
     /**
      * @return the position where the tooltip text should appear, relative to
-     *         the component
+     * the component
      */
     Position getTooltipPosition();
 

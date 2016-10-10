@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.ui.base.AbstractButtonTest;
-import org.junit.Test;
 
 /**
  * Test case for Breadcrumbs
@@ -29,8 +28,7 @@ import org.junit.Test;
  */
 public class MaterialBreadcrumbTest extends AbstractButtonTest {
 
-    @Test
-    public void testBreadcrumb() {
+    public void init() {
         MaterialBreadcrumb breadcrumb = new MaterialBreadcrumb();
         checkBaseButton(breadcrumb);
     }

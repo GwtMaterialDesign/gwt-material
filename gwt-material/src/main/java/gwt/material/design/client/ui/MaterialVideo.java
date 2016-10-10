@@ -27,20 +27,20 @@ import gwt.material.design.client.constants.CssName;
 //@formatter:off
 
 /**
-* Material Video get any youtube url that will inherit responsive design
-*
-* <p>
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code
-*     <m:MaterialVideo url="someurl" />
-* }
-* </pre>
-* </p>
-*
-* @author kevzlou7979
-* @author Ben Dol
-*/
+ * Material Video get any youtube url that will inherit responsive design
+ * <p>
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ *     <m:MaterialVideo url="someurl" />
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
 //@formatter:on
 public class MaterialVideo extends MaterialWidget {
 

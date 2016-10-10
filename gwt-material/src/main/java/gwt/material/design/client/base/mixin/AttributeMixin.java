@@ -35,7 +35,7 @@ public class AttributeMixin<T extends UIObject> extends AbstractMixin<T> {
     }
 
     public void setAttribute(String value) {
-        if(value != null) {
+        if (value != null) {
             uiObject.getElement().setAttribute(attribute, value);
         } else {
             uiObject.getElement().removeAttribute(attribute);
@@ -43,7 +43,7 @@ public class AttributeMixin<T extends UIObject> extends AbstractMixin<T> {
     }
 
     public void setAttribute(int value) {
-       setAttribute(String.valueOf(value));
+        setAttribute(String.valueOf(value));
     }
 
     public void setAttribute(double value) {

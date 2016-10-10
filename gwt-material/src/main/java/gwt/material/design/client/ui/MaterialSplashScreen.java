@@ -28,35 +28,37 @@ import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
+
 /**
  * An initial screen that act as a loading screen
  * in order for your apps to load fully.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
-
-<m:MaterialSplashScreen backgroundColor="BLUE" textColor="WHITE" textAlign="CENTER">
-    <m:MaterialImage resource="{res.ic_splash}" width="300px"/>
-    <m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" />
-</m:MaterialSplashScreen>
-
+ * {@code
+ *
+ * <m:MaterialSplashScreen backgroundColor="BLUE" textColor="WHITE" textAlign="CENTER">
+ * <m:MaterialImage resource="{res.ic_splash}" width="300px"/>
+ * <m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" />
+ * </m:MaterialSplashScreen>
+ *
  * }</pre>
  * <h3>Java Usage:</h3>
  * <pre>
- *{@code
+ * {@code
  *
-@UiField MaterialSplashScreen splash;
-splash.show();
-Timer t = new Timer() {
-    @Override
-    public void run() {
-        splash.hide();
-    }
-};
-t.schedule(3000);
-
+ * @UiField MaterialSplashScreen splash;
+ * splash.show();
+ * Timer t = new Timer() {
+ * @Override
+ * public void run() {
+ * splash.hide();
+ * }
+ * };
+ * t.schedule(3000);
+ *
  * }</pre>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!showcase">Material Splashscreen</a>

@@ -49,9 +49,10 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     private AttachEvent.Handler attachHandler = new AttachEvent.Handler() {
         HandlerRegistration registration;
+
         @Override
         public void onAttachOrDetach(AttachEvent event) {
-            if(registration != null) {
+            if (registration != null) {
                 registration.removeHandler();
             }
             AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
@@ -188,7 +189,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         this.allowBlank = allowBlank;
 
         // Setup the allow blank validation
-        if(!allowBlank) {
+        if (!allowBlank) {
             if (blankValidator == null) {
                 blankValidator = createBlankValidator();
             }
@@ -217,7 +218,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     protected HandlerRegistration setupBlurValidation() {
         AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
-        if(!inputWidget.isAttached()) {
+        if (!inputWidget.isAttached()) {
             return inputWidget.addAttachHandler(attachHandler);
         } else {
             return inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
@@ -225,14 +226,14 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     protected ValidatorMixin<AbstractValueWidget<V>, V> getValidatorMixin() {
-        if(validatorMixin == null) {
+        if (validatorMixin == null) {
             validatorMixin = new ValidatorMixin<>(this, getErrorHandler());
         }
         return validatorMixin;
     }
 
     protected ErrorMixin<AbstractValueWidget, ?> getErrorMixin() {
-        if(errorMixin == null) {
+        if (errorMixin == null) {
             errorMixin = new ErrorMixin<>(this);
         }
         return errorMixin;

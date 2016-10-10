@@ -24,10 +24,10 @@ import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 
 /**
  * Validation messages.
- * 
+ * <p>
  * Message functions should be the key with "_" replacing any periods. This allows the
  * ValidationMessageResolver to find the message by key.
- * 
+ *
  * @author Steven Jardine
  */
 @DefaultLocale("en")

@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.ui.base.AbstractButtonTest;
-import org.junit.Test;
 
 /**
  * Test case for Badges
@@ -29,8 +28,7 @@ import org.junit.Test;
  */
 public class MaterialBadgeTest extends AbstractButtonTest {
 
-    @Test
-    public void testBadge() {
+    public void init() {
         MaterialBadge badge = new MaterialBadge();
         checkWidget(badge);
     }

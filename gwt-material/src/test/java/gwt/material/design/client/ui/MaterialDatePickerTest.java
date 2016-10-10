@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
-import org.junit.Test;
 
 import java.util.Date;
 
@@ -33,37 +32,18 @@ import java.util.Date;
  */
 public class MaterialDatePickerTest extends AbstractValueWidgetTest {
 
-    @Test
-    public void testDatePicker() {
+    public void init() {
         MaterialDatePicker datePicker = new MaterialDatePicker();
         checkAbstractValueWidget(datePicker, datePicker.getDateInput());
-        checkOpenHandler(datePicker);
-        checkCloseHandler(datePicker);
         checkOptions(datePicker);
         checkOpenCloseControl(datePicker);
     }
 
     public <T extends MaterialDatePicker> void checkOpenCloseControl(T datePicker) {
-        final boolean[] isBlurFired = {false};
-        datePicker.addBlurHandler(blurEvent -> {
-            isBlurFired[0] = true;
-        });
-
-        fireBlurEvent(datePicker);
-        assertTrue(isBlurFired[0]);
-
-        final boolean[] isOpenFired = {false};
-        datePicker.addOpenHandler(openEvent -> {
-            isOpenFired[0] = true;
-        });
-        final boolean[] isCloseFired = {false};
-        datePicker.addCloseHandler(closeEvent -> {
-            isCloseFired[0] = true;
-        });
-        datePicker.open();
-        datePicker.close();
-        assertTrue(isOpenFired[0]);
-        assertTrue(isCloseFired[0]);
+        datePicker.setEnabled(true);
+        assertTrue(datePicker.isEnabled());
+        checkOpenHandler(datePicker);
+        checkCloseHandler(datePicker);
     }
 
     public <T extends MaterialDatePicker> void checkOptions(T datePicker) {

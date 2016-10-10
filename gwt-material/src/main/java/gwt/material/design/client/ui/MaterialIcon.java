@@ -35,10 +35,10 @@ import gwt.material.design.client.constants.*;
 /**
  * We have included 740 Material Design Icons courtesy of Google.
  * You can download them directly from the Material Design specs.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialIcon waves="LIGHT" iconType="POLYMER"/>
+ * {@code <m:MaterialIcon waves="LIGHT" iconType="POLYMER"/>
  * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" textColor="BLUE" type="CIRCLE"/>
  * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" backgroundColor="BLUE" textColor="WHITE" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>}
  * </pre>

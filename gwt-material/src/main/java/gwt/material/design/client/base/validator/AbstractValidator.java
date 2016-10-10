@@ -58,7 +58,7 @@ public abstract class AbstractValidator<T> implements Validator<T> {
     /**
      * Constructor. Looks up the message using the messageKey and replacing arguments with messageValueArgs.
      *
-     * @param messageKey the message key
+     * @param messageKey       the message key
      * @param messageValueArgs the message value args
      */
     public AbstractValidator(String messageKey, Object[] messageValueArgs) {
@@ -70,8 +70,8 @@ public abstract class AbstractValidator<T> implements Validator<T> {
     /**
      * Creates the error list.
      *
-     * @param editor the editor
-     * @param value the value
+     * @param editor     the editor
+     * @param value      the value
      * @param messageKey the message key
      * @return the list
      */
@@ -89,7 +89,7 @@ public abstract class AbstractValidator<T> implements Validator<T> {
      */
     public String getInvalidMessage(String key) {
         return invalidMessageOverride == null ? messageMixin.lookup(key, messageValueArgs) : MessageFormat.format(
-            invalidMessageOverride, messageValueArgs);
+                invalidMessageOverride, messageValueArgs);
     }
 
     /**
@@ -100,7 +100,9 @@ public abstract class AbstractValidator<T> implements Validator<T> {
      */
     public abstract boolean isValid(T value);
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final List<EditorError> validate(Editor<T> editor, T value) {
         List<EditorError> result = new ArrayList<>();

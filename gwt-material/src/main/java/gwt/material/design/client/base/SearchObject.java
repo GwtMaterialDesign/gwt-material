@@ -36,7 +36,8 @@ public class SearchObject implements Serializable {
     private String link = "";
     private Object o;
 
-    public SearchObject() {}
+    public SearchObject() {
+    }
 
     /**
      * Provides a search result with icon

@@ -25,12 +25,14 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.html.ListItem;
 
 //@formatter:off
+
 /**
-* FABList container element to define every FAB items
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material FAB</a>
-*///@formatter:on
+ * FABList container element to define every FAB items
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material FAB</a>
+ *///@formatter:on
 public class MaterialFABList extends MaterialWidget {
 
     public MaterialFABList() {

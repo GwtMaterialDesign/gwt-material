@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  * Useful for validating a group of fields that implement the {@link HasValidators} interface.
- * 
+ *
  * @author Steven Jardine
  */
 public class GroupValidator implements ValidationChangedEvent.HasValidationChangedHandlers {
@@ -58,7 +58,7 @@ public class GroupValidator implements ValidationChangedEvent.HasValidationChang
     /**
      * Adds a field to the group.
      *
-     * @param <T> the generic type
+     * @param <T>   the generic type
      * @param field the field
      */
     public <T extends Widget & HasValidators<?>> void add(final T field) {
@@ -87,7 +87,7 @@ public class GroupValidator implements ValidationChangedEvent.HasValidationChang
     /**
      * Removes a field from the validation group.
      *
-     * @param <T> the generic type
+     * @param <T>   the generic type
      * @param field the field
      * @return true, if successful
      */

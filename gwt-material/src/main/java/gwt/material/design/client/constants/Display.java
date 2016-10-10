@@ -50,7 +50,7 @@ public enum Display implements HasCssName {
     Display(HasCssName gwtDisplay) {
         this.cssName = gwtDisplay.getCssName();
     }
-    
+
     Display(String cssName) {
         this.cssName = cssName;
     }
@@ -58,10 +58,10 @@ public enum Display implements HasCssName {
     public Style.Display getGwtDisplay() {
         return Style.Display.valueOf(this.name());
     }
-    
+
     public static Display parse(String display) {
         for (Display d : Display.values()) {
-            if (d.getCssName().equals(display)){
+            if (d.getCssName().equals(display)) {
                 return d;
             }
         }

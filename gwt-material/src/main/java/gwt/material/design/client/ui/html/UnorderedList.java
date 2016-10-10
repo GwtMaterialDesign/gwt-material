@@ -37,11 +37,11 @@ public class UnorderedList extends MaterialWidget {
 
     @Override
     public void add(Widget child) {
-        if(child instanceof ListItem) {
+        if (child instanceof ListItem) {
             add(child, (Element) getElement());
         } else {
             ListItem li = new ListItem(child);
-            if(child instanceof HasWaves) {
+            if (child instanceof HasWaves) {
                 li.setWaves(((HasWaves) child).getWaves());
                 ((HasWaves) child).setWaves(null);
             }

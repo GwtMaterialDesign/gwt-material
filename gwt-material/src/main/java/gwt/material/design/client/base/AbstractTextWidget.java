@@ -70,7 +70,9 @@ public abstract class AbstractTextWidget extends AbstractValueWidget<String> imp
 
     @Override
     public LeafValueEditor<String> asEditor() {
-        if (editor == null) { editor = HasTextEditor.of(this); }
+        if (editor == null) {
+            editor = HasTextEditor.of(this);
+        }
         return editor;
     }
 }

@@ -28,19 +28,21 @@ import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
+
 /**
-* Material Spinner , is a circular loader for gwt material apps
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* <m:MaterialSpinner color="RED" />
-}
-* </pre>
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>
-* @author kevzlou7979
-* @author Ben Dol
-*/
+ * Material Spinner , is a circular loader for gwt material apps
+ * <h3>UiBinder Usage:</h3>
+ * <p>
+ * <pre>
+ * {@code
+ * <m:MaterialSpinner color="RED" />
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>
+ */
 //@formatter:on
 public class MaterialSpinner extends MaterialWidget {
 
@@ -62,9 +64,9 @@ public class MaterialSpinner extends MaterialWidget {
         add(circleClipperRight);
         circleClipperRight.add(circle3);
 
-        circleClipperLeft.setStyleName(CssName.CIRCLE_CLIPPER + " " +  CssName.LEFT);
+        circleClipperLeft.setStyleName(CssName.CIRCLE_CLIPPER + " " + CssName.LEFT);
         gapPatch.setStyleName(CssName.GAP_PATCH);
-        circleClipperRight.setStyleName(CssName.CIRCLE_CLIPPER + " " +  CssName.RIGHT);
+        circleClipperRight.setStyleName(CssName.CIRCLE_CLIPPER + " " + CssName.RIGHT);
 
         circle1.setStyleName(CssName.CIRCLE);
         circle2.setStyleName(CssName.CIRCLE);

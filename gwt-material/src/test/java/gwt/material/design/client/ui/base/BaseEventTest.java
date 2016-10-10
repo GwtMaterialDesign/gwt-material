@@ -22,19 +22,14 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.junit.client.GWTTestCase;
 import gwt.material.design.client.base.HasSearchHandlers;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.events.SearchFinishEvent;
 import gwt.material.design.client.events.SearchNoResultEvent;
 import gwt.material.design.client.ui.MaterialSearch;
+import junit.framework.TestCase;
 
-public class BaseEventTest extends GWTTestCase {
-
-    @Override
-    public String getModuleName() {
-        return "gwt.material.design.GwtMaterialDesign";
-    }
+public class BaseEventTest extends TestCase {
 
     protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
         checkClickAndDoubleClickEvent(widget, enabled);
@@ -455,23 +450,20 @@ public class BaseEventTest extends GWTTestCase {
         widget.addSearchFinishHandler(event -> {
             isSearchFinishEvent[0] = true;
         });
-        widget.fireEvent(new GwtEvent<SearchFinishEvent.SearchFinishHandler>() {
-            @Override
-            public Type<SearchFinishEvent.SearchFinishHandler> getAssociatedType() {
-                return SearchFinishEvent.TYPE;
-            }
-
-            @Override
-            protected void dispatch(SearchFinishEvent.SearchFinishHandler eventHandler) {
-                eventHandler.onSearchFinish(null);
-            }
-        });
+        fireSearchFinishHandler(widget);
 
         // Check Search No Result
         final boolean[] isSearchNoResultEvent = {false};
         widget.addSearchNoResultHandler(event -> {
             isSearchNoResultEvent[0] = true;
         });
+        fireSearchNoResultHandler(widget);
+
+        assertTrue(isSearchNoResultEvent[0]);
+        assertTrue(isSearchFinishEvent[0]);
+    }
+
+    protected <T extends MaterialSearch & HasSearchHandlers> void fireSearchNoResultHandler(T widget) {
         widget.fireEvent(new GwtEvent<SearchNoResultEvent.SearchNoResultHandler>() {
             @Override
             public Type<SearchNoResultEvent.SearchNoResultHandler> getAssociatedType() {
@@ -483,9 +475,20 @@ public class BaseEventTest extends GWTTestCase {
                 eventHandler.onSearchNoResult(null);
             }
         });
+    }
 
-        assertTrue(isSearchNoResultEvent[0]);
-        assertTrue(isSearchFinishEvent[0]);
+    protected <T extends MaterialSearch & HasSearchHandlers> void fireSearchFinishHandler(T widget) {
+        widget.fireEvent(new GwtEvent<SearchFinishEvent.SearchFinishHandler>() {
+            @Override
+            public Type<SearchFinishEvent.SearchFinishHandler> getAssociatedType() {
+                return SearchFinishEvent.TYPE;
+            }
+
+            @Override
+            protected void dispatch(SearchFinishEvent.SearchFinishHandler eventHandler) {
+                eventHandler.onSearchFinish(null);
+            }
+        });
     }
 
     public <T extends MaterialWidget & HasCloseHandlers> void checkCloseHandler(T widget) {
@@ -494,6 +497,12 @@ public class BaseEventTest extends GWTTestCase {
         widget.addCloseHandler(event -> {
             isCloseEvent[0] = true;
         });
+        fireCloseHandler(widget);
+
+        assertTrue(isCloseEvent[0]);
+    }
+
+    protected <T extends MaterialWidget & HasCloseHandlers> void fireCloseHandler(T widget) {
         widget.fireEvent(new GwtEvent<CloseHandler<?>>() {
             @Override
             public Type<CloseHandler<?>> getAssociatedType() {
@@ -505,8 +514,6 @@ public class BaseEventTest extends GWTTestCase {
                 eventHandler.onClose(null);
             }
         });
-
-        assertTrue(isCloseEvent[0]);
     }
 
     public <T extends MaterialWidget & HasOpenHandlers> void checkOpenHandler(T widget) {
@@ -515,6 +522,12 @@ public class BaseEventTest extends GWTTestCase {
         widget.addOpenHandler(event -> {
             isOpenEvent[0] = true;
         });
+        fireOpenHandler(widget);
+
+        assertTrue(isOpenEvent[0]);
+    }
+
+    protected <T extends MaterialWidget & HasOpenHandlers> void fireOpenHandler(T widget) {
         widget.fireEvent(new GwtEvent<OpenHandler<?>>() {
             @Override
             public Type<OpenHandler<?>> getAssociatedType() {
@@ -526,7 +539,5 @@ public class BaseEventTest extends GWTTestCase {
                 eventHandler.onOpen(null);
             }
         });
-
-        assertTrue(isOpenEvent[0]);
     }
 }

@@ -51,7 +51,7 @@ public class MaterialBreadcrumb extends AbstractIconButton {
         super(CssName.BREADCRUMB);
     }
 
-    public MaterialBreadcrumb (String text) {
+    public MaterialBreadcrumb(String text) {
         this();
         setText(text);
     }

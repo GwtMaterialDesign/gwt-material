@@ -19,8 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import org.junit.Test;
-
 /**
  * Test case for Integer Box
  *
@@ -28,8 +26,7 @@ import org.junit.Test;
  */
 public class MaterialIntegerBoxTest extends MaterialValueBoxTest {
 
-    @Test
-    public void testIntegerBox() {
+    public void init() {
         checkValueBox(new MaterialIntegerBox());
     }
 }

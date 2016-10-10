@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Material Search is a value box component that returs a result based on your search
- *
+ * <p>
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
@@ -53,20 +53,20 @@ import java.util.List;
  * <m:MaterialSearch placeholder="Sample"/>
  * }
  * </pre>
- *
+ * <p>
  * <h3>Populating the search result objects</h3>
  * {@code
- *
+ * <p>
  * List<SearchObject> objects = new ArrayList<>();
- *
+ * <p>
  * private void onInitSearch() {
- *   objects.add(new SearchObject(IconType.POLYMER, "Pushpin", "#!pushpin"));
- *   objects.add(new SearchObject(IconType.POLYMER, "SideNavs", "#!sidenavs"));
- *   objects.add(new SearchObject(IconType.POLYMER, "Scrollspy", "#!scrollspy"));
- *   objects.add(new SearchObject(IconType.POLYMER, "Tabs", "#!tabs"));
- *   txtSearch.setListSearches(objects);
+ * objects.add(new SearchObject(IconType.POLYMER, "Pushpin", "#!pushpin"));
+ * objects.add(new SearchObject(IconType.POLYMER, "SideNavs", "#!sidenavs"));
+ * objects.add(new SearchObject(IconType.POLYMER, "Scrollspy", "#!scrollspy"));
+ * objects.add(new SearchObject(IconType.POLYMER, "Tabs", "#!tabs"));
+ * txtSearch.setListSearches(objects);
  * }
- *
+ * <p>
  * }
  * </p>
  *
@@ -128,7 +128,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         setPlaceholder(placeholder);
     }
 
-    public MaterialSearch(String placeholder, Color backgroundColor, Color iconColor , boolean active, int shadow) {
+    public MaterialSearch(String placeholder, Color backgroundColor, Color iconColor, boolean active, int shadow) {
         this(placeholder);
         setBackgroundColor(backgroundColor);
         setIconColor(iconColor);
@@ -140,13 +140,13 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     protected void onLoad() {
         super.onLoad();
 
-        if(searchResultPanel == null || !searchResultPanel.isAttached()) {
+        if (searchResultPanel == null || !searchResultPanel.isAttached()) {
             // populate the lists of search result on search panel
             searchResultPanel = new MaterialSearchResult();
             add(searchResultPanel);
         }
 
-        if(!initialized) {
+        if (!initialized) {
             // add keyup event to filter the searches
             addKeyUpHandler(new KeyUpHandler() {
                 @Override
@@ -276,7 +276,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     @Override
     public void setActive(boolean active) {
         this.active = active;
-        if(active) {
+        if (active) {
             setTextColor(Color.BLACK);
             iconClose.setIconColor(Color.BLACK);
             iconSearch.setIconColor(Color.BLACK);

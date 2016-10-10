@@ -19,20 +19,12 @@
  */
 package gwt.material.design.client.ui.base;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.resources.WithJQueryResources;
 import gwt.material.design.client.ui.MaterialPanel;
-import org.junit.Test;
-
-import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * Test case for MaterialWidget base
@@ -41,23 +33,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 public class MaterialWidgetTest extends BaseEventTest {
 
-    @Test
-    public void testBaseWidget() {
-        MaterialWidget widget = new MaterialWidget(Document.get().createDivElement());
-        checkWidget(widget);
-    }
-
-    public void checkJQuery() {
-        MaterialDesign.injectJs(WithJQueryResources.INSTANCE.jQuery());
-        MaterialDesign.injectJs(MaterialResources.INSTANCE.materializeJs());
-        assertTrue(MaterialDesign.isjQueryLoaded());
-        assertTrue(MaterialDesign.isMaterializeLoaded());
-        // gwt-material-jquery Test
-        assertNotNull($("body"));
-    }
-
     protected <T extends MaterialWidget> void checkWidget(T widget) {
-        checkJQuery();
         checkId(widget);
         checkInitialClasses(widget);
         checkEnabled(widget);
@@ -238,7 +214,7 @@ public class MaterialWidgetTest extends BaseEventTest {
         checkEnabled(widget, widget);
     }
 
-    protected <T extends MaterialWidget & HasEnabled, H extends MaterialWidget> void  checkEnabled(T widget, H target) {
+    protected <T extends MaterialWidget & HasEnabled, H extends MaterialWidget> void checkEnabled(T widget, H target) {
         final Element element = target.getElement();
         assertFalse(element.hasClassName(CssName.DISABLED));
         assertFalse(element.hasAttribute(CssName.DISABLED));

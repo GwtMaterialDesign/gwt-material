@@ -22,12 +22,10 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import org.junit.Test;
 
 public class MaterialTabTest extends MaterialWidgetTest {
 
-    @Test
-    public void testTab() {
+    public void init() {
         MaterialRow row = new MaterialRow();
         MaterialTab tab = new MaterialTab();
         checkWidget(tab);

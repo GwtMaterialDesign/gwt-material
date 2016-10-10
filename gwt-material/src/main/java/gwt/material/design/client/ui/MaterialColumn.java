@@ -24,11 +24,12 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
+
 /**
  * MaterialColumn is panel that act as a fluid panel to easily sets your desired column.
  * We are using 12 grid layout with screens small, medium and large.
  * Just set grid='s12 m12 l12' to define your grid layout values.
- *
+ * <p>
  * <p>
  * <h4>UiBinder Usage:</h4>
  * <pre>
@@ -53,6 +54,6 @@ public class MaterialColumn extends MaterialWidget {
 
     public MaterialColumn(int small, int medium, int large) {
         this();
-        addStyleName("s"+small+" m"+medium + " l" + large);
+        addStyleName("s" + small + " m" + medium + " l" + large);
     }
 }

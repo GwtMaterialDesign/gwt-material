@@ -32,16 +32,16 @@ import com.google.gwt.user.client.ui.Widget;
 public class DOMHelper {
 
     public static Element getChildElementByClass(Element parent, String className) {
-        if(parent != null) {
+        if (parent != null) {
             for (int i = 0; i < parent.getChildCount(); i++) {
                 Node childNode = parent.getChild(i);
-                if(Element.is(childNode)) {
+                if (Element.is(childNode)) {
                     Element child = Element.as(childNode);
                     if (child.getClassName().contains(className)) {
                         return child;
                     }
 
-                    if(child.getChildCount() > 0) {
+                    if (child.getChildCount() > 0) {
                         return getChildElementByClass(child, className);
                     }
                 }
@@ -51,16 +51,16 @@ public class DOMHelper {
     }
 
     public static Element getChildElementById(Element parent, String id) {
-        if(parent != null) {
+        if (parent != null) {
             for (int i = 0; i < parent.getChildCount(); i++) {
                 Node childNode = parent.getChild(i);
-                if(Element.is(childNode)) {
+                if (Element.is(childNode)) {
                     Element child = Element.as(childNode);
                     if (child.getId().equals(id)) {
                         return child;
                     }
 
-                    if(child.getChildCount() > 0) {
+                    if (child.getChildCount() > 0) {
                         return getChildElementById(child, id);
                     }
                 }
@@ -70,7 +70,7 @@ public class DOMHelper {
     }
 
     public static Widget getChildWidgetById(HasWidgets parent, String id) {
-        if(parent != null) {
+        if (parent != null) {
             for (Widget child : parent) {
                 if (child.getElement().getId().equals(id)) {
                     return child;
@@ -85,7 +85,7 @@ public class DOMHelper {
     }
 
     public static Element getElementByAttribute(NodeList<Element> elems, String attr, String value) {
-        if(elems != null) {
+        if (elems != null) {
             for (int i = 0; i < elems.getLength(); i++) {
                 Element child = elems.getItem(i);
                 if (child.getAttribute(attr).equals(value)) {

@@ -39,7 +39,7 @@ public class SizeValidator<T> extends AbstractValidator<T> {
     private Integer minValue;
 
     public SizeValidator(Integer min, Integer max) {
-        super(Keys.SIZE, new Object[] { min, max });
+        super(Keys.SIZE, new Object[]{min, max});
         setMin(min);
         setMax(max);
     }

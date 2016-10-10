@@ -26,12 +26,14 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
+
 /**
-* Footer specific zone for copyright text
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Footer</a>
-*///@formatter:on
+ * Footer specific zone for copyright text
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Footer</a>
+ *///@formatter:on
 public class MaterialFooterCopyright extends MaterialWidget {
 
     private Div container = new Div();

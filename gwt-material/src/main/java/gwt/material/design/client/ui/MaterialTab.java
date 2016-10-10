@@ -38,26 +38,27 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
-<m:MaterialTab ui:field="tab"  backgroundColor="BLUE">
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="WHITE"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="WHITE"/></m:MaterialTabItem>
-<m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="WHITE"/></m:MaterialTabItem>
-</m:MaterialTab>
-<i:Panel m:id="tab1">
-<i:Title title="Tab 1" description="Tab 1 Content"/>
-</i:Panel>
-<i:Panel m:id="tab2">
-<i:Title title="Tab 2" description="Tab 2 Content"/>
-</i:Panel>
-<i:Panel m:id="tab3">
-<i:Title title="Tab 3" description="Tab 3 Content"/>
-</i:Panel>
-}
+ * {@code
+ * <m:MaterialTab ui:field="tab"  backgroundColor="BLUE">
+ * <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="WHITE"/></m:MaterialTabItem>
+ * <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="WHITE"/></m:MaterialTabItem>
+ * <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="WHITE"/></m:MaterialTabItem>
+ * </m:MaterialTab>
+ * <i:Panel m:id="tab1">
+ * <i:Title title="Tab 1" description="Tab 1 Content"/>
+ * </i:Panel>
+ * <i:Panel m:id="tab2">
+ * <i:Title title="Tab 2" description="Tab 2 Content"/>
+ * </i:Panel>
+ * <i:Panel m:id="tab3">
+ * <i:Title title="Tab 3" description="Tab 3 Content"/>
+ * </i:Panel>
+ * }
  * </pre>
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!tabs">Material Tabs</a>
+ *
  * @author kevzlou7979
  * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!tabs">Material Tabs</a>
  */
 //@formatter:on
 public class MaterialTab extends UnorderedList implements HasType<TabType> {
@@ -93,9 +94,9 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
         int i = 0;
-        for(Widget w : this) {
-            if(i == tabIndex) {
-                if(w instanceof MaterialTabItem) {
+        for (Widget w : this) {
+            if (i == tabIndex) {
+                if (w instanceof MaterialTabItem) {
                     ((MaterialTabItem) w).selectTab();
                     break;
                 }
@@ -107,13 +108,14 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     public void setIndicatorColor(Color indicatorColor) {
         this.indicatorColor = indicatorColor;
 
-        if(indicatorColorMixin != null && indicatorColor != null) {
+        if (indicatorColorMixin != null && indicatorColor != null) {
             indicatorColorMixin.setBackgroundColor(indicatorColor);
         }
     }
 
     /**
      * Select a given tab by id.
+     *
      * @param tabId Tab to selects id.
      */
     public void selectTab(String tabId) {
@@ -122,7 +124,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
 
     protected void initialize() {
         $(getElement()).tabs();
-        for(int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
+        for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
             $(getElement()).find(".indicator").eq(i).remove();
         }
     }

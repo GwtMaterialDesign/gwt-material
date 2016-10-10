@@ -24,17 +24,17 @@ package gwt.material.design.client.ui;
 /**
  * Material Integer Box is an input field that accepts any Integer based string
  * from user. <h3>UiBinder Usage:</h3>
- * 
+ * <p>
  * <pre>
  * {@code <m:MaterialIntegerBox placeholder="Your integer" step=100/>}
  * </pre>
- * 
+ * <p>
  * The parsing and formatting of the number are done natively by the browser,
  * using the i18n settings from the user.
- * 
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material
- *      IntegerBox</a>
+ *
  * @author paulux84
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material
+ * IntegerBox</a>
  */
 // @formatter:on
 public class MaterialIntegerBox extends MaterialNumberBox<Integer> {

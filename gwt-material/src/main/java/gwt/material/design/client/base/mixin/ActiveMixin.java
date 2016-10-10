@@ -34,7 +34,7 @@ public class ActiveMixin<T extends UIObject & HasActive> extends AbstractMixin<T
     @Override
     public void setActive(boolean active) {
         this.active = active;
-        if(active) {
+        if (active) {
             uiObject.removeStyleName(CssName.INACTIVE);
             uiObject.addStyleName(CssName.ACTIVE);
         } else {
