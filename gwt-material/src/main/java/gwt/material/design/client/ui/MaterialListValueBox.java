@@ -344,7 +344,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void addItem(T item, String value) {
         values.add(item);
-        listBox.addItem(keyFactory.generateKey(item), value);
+        listBox.addItem(value, keyFactory.generateKey(item));
         reinitialize();
     }
 
@@ -359,7 +359,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void addItem(T item, Direction dir, String value) {
         values.add(item);
-        listBox.addItem(keyFactory.generateKey(item), dir, value);
+        listBox.addItem(value, dir, keyFactory.generateKey(item));
         reinitialize();
     }
 
@@ -412,7 +412,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void insertItem(T item, String value, int index) {
         values.add(index, item);
-        listBox.insertItem(keyFactory.generateKey(item), value, index);
+        listBox.insertItem(value, keyFactory.generateKey(item), index);
         reinitialize();
     }
 

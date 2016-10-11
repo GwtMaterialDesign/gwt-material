@@ -5,7 +5,6 @@
 
 <br/>
 
-
 ## Demo
 * [1.6.0 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
 * [2.0 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
@@ -36,9 +35,6 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 ## Changelog
 You can find lists of features by version <a href="https://github.com/GwtMaterialDesign/gwt-material/wiki/Changelog">here</a>.
 
-## Current Snapshot
-2.0-SNAPSHOT
-
 ### Migration
 [Migrating from 1.3 to 1.4](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-1.3-to-1.4)
 
@@ -50,10 +46,10 @@ Contributions are welcomed by all! If you would like to submit changes be sure t
 
 Please follow the [contribution document](https://github.com/GwtMaterialDesign/gwt-material/wiki/Contributing) on the projects code style standards.
 
-##Follow Us
+## Follow Us
 <a href="https://plus.google.com/u/0/communities/108005250093449814286"> Google Plus</a>
 
-## R</li>elated Projects
+## Related Projects
 <ul>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-addins" >Addins</a></li>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-themes" >Themes</a></li>

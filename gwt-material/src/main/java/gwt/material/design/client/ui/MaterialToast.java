@@ -28,12 +28,13 @@ import gwt.material.design.jquery.client.api.Functions;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-
 //@formatter:off
 
 /**
- * GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts. These toasts are also placed and sized responsively, try it out by clicking the button below on different device sizes.
- * <p>
+ * GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts.
+ * These toasts are also placed and sized responsively, try it out by clicking the button below on
+ * different device sizes.
+ *
  * <p>
  * <h3>Java Usage:</h3>
  * <pre>
