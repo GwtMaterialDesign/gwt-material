@@ -735,6 +735,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         return errorMixin;
     }
 
+    @Ignore
     public ValueBoxBase<T> getValueBoxBase() {
         return valueBoxBase;
     }
