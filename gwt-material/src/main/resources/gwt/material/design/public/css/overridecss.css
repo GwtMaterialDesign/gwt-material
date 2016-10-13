@@ -26,13 +26,18 @@ button.btn-flat:focus {
 	background-color: inherit;
 }
 
-button.disabled, i.disabled {
+button.disabled, i.disabled, a.disabled {
 	background-color: #DFDFDF !important;
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	color: #9F9F9F !important;
-	cursor: default;
+	cursor: default !important;
+	transition: none !important;
+}
+
+i.disabled, a.disabled  {
+	background-color: #fff !important;
 }
 
 button.disabled:hover, i.disabled:hover {
@@ -42,6 +47,7 @@ button.disabled:hover, i.disabled:hover {
 }
 
 .disabled:hover {
+	cursor: default !important;
 	box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
