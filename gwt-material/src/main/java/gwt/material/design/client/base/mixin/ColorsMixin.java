@@ -61,36 +61,12 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
         this.textColor = textColor;
 
         if (this.textColor != null && !this.textColor.getCssName().isEmpty()) {
-            uiObject.addStyleName(ensureTextColorFormat(textColor.getCssName()));
+            uiObject.addStyleName(textColor.getCssName());
         }
     }
 
     @Override
     public Color getTextColor() {
         return textColor;
-    }
-
-    /**
-     * Allow for the use of text shading and auto formatting.
-     */
-    protected String ensureTextColorFormat(String textColor) {
-        String formatted = "";
-        boolean mainColor = true;
-        for (String style : textColor.split(" ")) {
-            if (mainColor) {
-                // the main color
-                if (!style.endsWith("-text")) {
-                    style += "-text";
-                }
-                mainColor = false;
-            } else {
-                // the shading type
-                if (!style.startsWith("text-")) {
-                    style = " text-" + style;
-                }
-            }
-            formatted += style;
-        }
-        return formatted;
     }
 }
