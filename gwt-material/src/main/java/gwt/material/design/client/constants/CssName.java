@@ -136,4 +136,7 @@ public interface CssName {
     String Z_DEPTH_5 = "z-depth-5";
     String READ_ONLY = "read-only";
     String READ_ONLY_TOGGLE = "read-only-toggle";
+    String INFINITE = "infinite";
+    String DISPLAY_ANIMATION= "display-animation";
+    String MATERIALIZE_CSS = "materialcss";
 }

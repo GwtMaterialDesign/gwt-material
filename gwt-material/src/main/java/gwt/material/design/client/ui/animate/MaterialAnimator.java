@@ -23,9 +23,11 @@ package gwt.material.design.client.ui.animate;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
+import gwt.material.design.jquery.client.api.Functions;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -36,7 +38,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 public class MaterialAnimator {
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, Runnable callback) {
+    public static void animate(final Transition transition, final Widget w, int delayMillis, Functions.Func callback) {
         animate(transition, w, delayMillis, 800, callback, false);
     }
 
@@ -53,10 +55,10 @@ public class MaterialAnimator {
     }
 
     public static void stopAnimation(Widget w) {
-        w.removeStyleName("infinite");
+        w.removeStyleName(CssName.INFINITE);
     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Runnable callback, final boolean infinite) {
+    public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Functions.Func callback, final boolean infinite) {
         final String name = String.valueOf(DOM.createUniqueId());
         w.getElement().setId(name);
         w.getElement().getStyle().setProperty("WebkitAnimationDuration", durationMillis + "ms");
@@ -91,17 +93,17 @@ public class MaterialAnimator {
                         fadeInImage(name);
                         break;
                     case SHOW_GRID:
-                        w.addStyleName("display-animation");
+                        w.addStyleName(CssName.DISPLAY_ANIMATION);
                         showGrid(name);
                         break;
                     case CLOSE_GRID:
-                        w.addStyleName("display-animation");
+                        w.addStyleName(CssName.DISPLAY_ANIMATION);
                         closeGrid(name);
                         break;
                     default:
                         // For core animation components
                         if (infinite) {
-                            w.addStyleName("infinite");
+                            w.addStyleName(CssName.INFINITE);
                         }
                         w.addStyleName("animated " + transition.getCssName());
                         animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
@@ -110,13 +112,13 @@ public class MaterialAnimator {
             }
         }.schedule(delayMillis);
 
-        w.removeStyleName("materialcss");
+        w.removeStyleName(CssName.MATERIALIZE_CSS);
     }
 
-    protected static void animationFinishedCallback(String name, String oldClass, int durationMillis, Runnable callback) {
+    protected static void animationFinishedCallback(String name, String oldClass, int durationMillis, Functions.Func callback) {
         $("#" + name).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", e -> {
             if (callback != null) {
-                callback.run();
+                callback.call();
             }
             $("#" + name).removeClass(oldClass);
             return true;
