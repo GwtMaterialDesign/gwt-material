@@ -130,8 +130,6 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
         MaterialWidget progressDiv = (MaterialWidget) progress.getWidget(0);
         assertEquals(progressDiv.getElement().getStyle().getWidth(), "90.0%");
         // Check color
-        progress.setColor(Color.RED);
-        assertEquals(progress.getColor(), Color.RED);
-        assertTrue(progressDiv.getElement().hasClassName(Color.RED.getCssName()));
+        checkColor(progress);
     }
 }

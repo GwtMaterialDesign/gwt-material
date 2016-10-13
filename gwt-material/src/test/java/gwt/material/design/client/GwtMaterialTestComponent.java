@@ -23,6 +23,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.resources.WithJQueryResources;
 import gwt.material.design.client.ui.*;
+import gwt.material.design.client.ui.animation.AnimationTest;
 import org.junit.Test;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -50,6 +51,11 @@ public class GwtMaterialTestComponent extends GWTTestCase {
         assertTrue(MaterialDesign.isMaterializeLoaded());
         // gwt-material-jquery Test
         assertNotNull($("body"));
+    }
+
+    @Test
+    public void testAnimation() {
+        new AnimationTest().init();
     }
 
     @Test
