@@ -32,7 +32,7 @@ public class AnimationTest extends MaterialWidgetTest {
     }
 
     protected void checkAnimation() {
-        /*MaterialPanel panel = new MaterialPanel();
+        MaterialPanel panel = new MaterialPanel();
         RootPanel.get().add(panel);
         MaterialAnimation animation = new MaterialAnimation();
         animation.delayMillis(0);
@@ -49,6 +49,6 @@ public class AnimationTest extends MaterialWidgetTest {
         assertEquals(animation.getWidget(), panel);
         // Check Advance Logic
         String WEBKIT_ANIMATION_DURATION = panel.getElement().getStyle().getProperty("WebkitAnimationDuration");
-        assertEquals(WEBKIT_ANIMATION_DURATION, animation.getDurationMillis() + "ms");*/
+        assertEquals(WEBKIT_ANIMATION_DURATION, animation.getDurationMillis() + "ms");
     }
 }
