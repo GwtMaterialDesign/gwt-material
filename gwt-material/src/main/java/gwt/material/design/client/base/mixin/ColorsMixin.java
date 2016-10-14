@@ -38,12 +38,12 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
 
     @Override
     public void setBackgroundColor(Color bgColor) {
-        if (this.bgColor != null && !this.bgColor.getCssName().isEmpty()) {
+        if (this.bgColor != null) {
             uiObject.removeStyleName(this.bgColor.getCssName());
         }
         this.bgColor = bgColor;
 
-        if (bgColor != null && !bgColor.getCssName().isEmpty()) {
+        if (bgColor != null) {
             uiObject.addStyleName(bgColor.getCssName());
         }
     }
@@ -55,12 +55,12 @@ public class ColorsMixin<T extends UIObject & HasColors> extends AbstractMixin<T
 
     @Override
     public void setTextColor(Color textColor) {
-        if (this.textColor != null && !this.textColor.getCssName().isEmpty()) {
+        if (this.textColor != null) {
             uiObject.removeStyleName(ensureTextColorFormat(this.textColor.getCssName()));
         }
         this.textColor = textColor;
 
-        if (this.textColor != null && !this.textColor.getCssName().isEmpty()) {
+        if (this.textColor != null) {
             uiObject.addStyleName(ensureTextColorFormat(textColor.getCssName()));
         }
     }
