@@ -19,6 +19,11 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
@@ -48,6 +53,7 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
 
     public <T extends MaterialDatePicker> void checkOptions(T datePicker) {
         datePicker.initialize();
+        assertNotNull(datePicker.getPickerId());
         final String FORMAT = "mm/dd/yyyy";
         final Date DATE_MIN = new Date(116, 2, 2);
         final Date DATE_MAX = new Date(116, 2, 20);
@@ -60,6 +66,12 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         assertEquals(datePicker.getDateMin(), DATE_MIN);
         datePicker.setDateMax(DATE_MAX);
         assertEquals(datePicker.getDateMax(), DATE_MAX);
+        // Check Date
+        final Date DATE = new Date(116, 2, 5);
+        datePicker.setDate(DATE);
+        assertEquals(datePicker.getDate(), DATE);
+        assertEquals(datePicker.getValue(), DATE);
+        datePicker.setEnabled(true);
         // Check Language
         datePicker.setLanguage(LANGUAGE);
         assertEquals(datePicker.getLanguage(), LANGUAGE);

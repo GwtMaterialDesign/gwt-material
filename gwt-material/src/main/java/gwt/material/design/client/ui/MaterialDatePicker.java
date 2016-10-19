@@ -315,7 +315,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     protected Date getPickerDate() {
         try {
-            return $(pickatizedDateInput).pickadate("picker").get("select", getFormat());
+            JsDate pickerDate = $(pickatizedDateInput).pickadate("picker").get("select").obj;
+            return new Date((long) pickerDate.getTime());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
