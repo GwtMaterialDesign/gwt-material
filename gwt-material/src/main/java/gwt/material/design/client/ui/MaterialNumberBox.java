@@ -37,9 +37,8 @@ import gwt.material.design.client.constants.InputType;
 //@formatter:on
 public class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
-    @UiConstructor
-    public MaterialNumberBox() {
-        initValueBox(new NumberBox<T>(new NumberHandler<T>(this)));
+    protected MaterialNumberBox() {
+        initValueBox(new NumberBox<>(new NumberHandler<>(this)));
         setType(InputType.NUMBER);
     }
 
@@ -75,6 +74,16 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
     @Override
     public String getText() {
         return valueBoxBase.getText();
+    }
+
+    /**
+     * This is expected to be overridden in the inherited classes.
+     */
+    @Override
+    public T getValue() {
+        throw new RuntimeException("MaterialNumberBox#getValue should not be called directly, " +
+            "please make sure you are not using the MaterialNumberBox directly. See MaterialIntegerBox, " +
+            "MaterialDoubleBox, MaterialFloatBox, MaterialLongBox for correct implementations.");
     }
 
     /**
