@@ -102,6 +102,11 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
                 attachHandler = null;
             }
 
+            // Detach new child
+            if (w != null) {
+                w.removeFromParent();
+            }
+
             // Remove old child
             if (widget != null) {
                 remove(widget);
