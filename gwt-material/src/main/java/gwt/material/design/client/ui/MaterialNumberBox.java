@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.uibinder.client.UiConstructor;
 import gwt.material.design.client.base.NumberBox;
 import gwt.material.design.client.base.NumberBox.NumberHandler;
 import gwt.material.design.client.constants.InputType;
@@ -35,7 +34,7 @@ import gwt.material.design.client.constants.InputType;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material MaterialNumberBox</a>
  */
 //@formatter:on
-public class MaterialNumberBox<T> extends MaterialValueBox<T> {
+public abstract class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
     protected MaterialNumberBox() {
         initValueBox(new NumberBox<>(new NumberHandler<>(this)));
@@ -72,19 +71,11 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
     }
 
     @Override
-    public String getText() {
-        return valueBoxBase.getText();
+    public T getValue() {
+        return parseNumber(getValueAsNumber());
     }
 
-    /**
-     * This is expected to be overridden in the inherited classes.
-     */
-    @Override
-    public T getValue() {
-        throw new RuntimeException("MaterialNumberBox#getValue should not be called directly, " +
-            "please make sure you are not using the MaterialNumberBox directly. See MaterialIntegerBox, " +
-            "MaterialDoubleBox, MaterialFloatBox, MaterialLongBox for correct implementations.");
-    }
+    protected abstract T parseNumber(double number);
 
     /**
      * Returns the value parsed natively by the browser.
@@ -101,5 +92,4 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
     protected native double getValueAsNumber(Element el)/*-{
         return el.valueAsNumber;
     }-*/;
-
 }

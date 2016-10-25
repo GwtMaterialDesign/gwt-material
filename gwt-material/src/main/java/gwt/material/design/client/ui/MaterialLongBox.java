@@ -54,8 +54,7 @@ public class MaterialLongBox extends MaterialNumberBox<Long> {
     }
 
     @Override
-    public Long getValue() {
-        double number = getValueAsNumber();
+    protected Long parseNumber(double number) {
         if (Double.isNaN(number)) {
             return null;
         }
