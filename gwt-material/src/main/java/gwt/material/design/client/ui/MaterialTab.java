@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
@@ -119,13 +120,15 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
      * @param tabId Tab to selects id.
      */
     public void selectTab(String tabId) {
-        $(getElement()).tabs("select_tab", tabId);
+        Scheduler.get().scheduleDeferred(() -> $(getElement()).tabs("select_tab", tabId));
     }
 
     protected void initialize() {
-        $(getElement()).tabs();
-        for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
-            $(getElement()).find(".indicator").eq(i).remove();
+        if (getWidgetCount() > 0) {
+            $(getElement()).tabs();
+            for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
+                $(getElement()).find(".indicator").eq(i).remove();
+            }
         }
     }
 
