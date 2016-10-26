@@ -53,8 +53,7 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
     }
 
     @Override
-    public Float getValue() {
-        double number = getValueAsNumber();
+    protected Float parseNumber(double number) {
         if (Double.isNaN(number)) {
             return null;
         }

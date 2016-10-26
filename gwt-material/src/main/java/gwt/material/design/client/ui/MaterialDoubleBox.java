@@ -54,8 +54,7 @@ public class MaterialDoubleBox extends MaterialNumberBox<Double> {
     }
 
     @Override
-    public Double getValue() {
-        double number = getValueAsNumber();
+    protected Double parseNumber(double number) {
         if (Double.isNaN(number)) {
             return null;
         }
