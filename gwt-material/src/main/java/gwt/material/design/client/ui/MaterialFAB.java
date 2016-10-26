@@ -139,7 +139,18 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
      * Open the FAB programmatically
      */
     public void open() {
-        OpenEvent.fire(this, this);
+        open(true);
+    }
+
+    /**
+     * Open the FAB programatically
+     *
+     * @param fireEvent - Flag whether this component fires Open Event
+     */
+    public void open(boolean fireEvent) {
+        if (fireEvent) {
+            OpenEvent.fire(this, this);
+        }
         $(getElement()).openFAB();
     }
 
@@ -147,7 +158,18 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
      * Close the FAB programmatically
      */
     public void close() {
-        CloseEvent.fire(this, this);
+        close(true);
+    }
+
+    /**
+     * Close the FAB programmatically
+     *
+     * @param fireEvent - Flag whether this component fires Close Event
+     */
+    public void close(boolean fireEvent) {
+        if (fireEvent) {
+            CloseEvent.fire(this, this);
+        }
         $(getElement()).closeFAB();
     }
 

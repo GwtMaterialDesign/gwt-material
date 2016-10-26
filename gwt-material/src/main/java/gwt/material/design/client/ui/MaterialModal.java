@@ -136,7 +136,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     protected void onUnload() {
         super.onUnload();
 
-        close();
+        close(false, false);
     }
 
     /**
@@ -158,12 +158,35 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @throws IllegalStateException If the MaterialModal is not added to the document
      */
     public void open() {
+        open(true);
+    }
+
+    /**
+     * Open the modal programmatically
+     * <p>
+     * <p>
+     * Note: the MaterialModal component must be added to the document before
+     * calling this method. When declaring this modal on a UiBinder file, the
+     * MaterialModal is already added, but if you call it using pure Java, you
+     * must add it to a container before opening the modal. You can do it by
+     * calling, for example:
+     * </p>
+     * <p>
+     * <pre>
+     * MaterialModal modal = new MaterialModal();
+     * RootPanel.get().add(modal);
+     * </pre>
+     * @param fireEvent - Flag whether this component fires Open Event
+     *
+     * @throws IllegalStateException If the MaterialModal is not added to the document
+     */
+    public void open(boolean fireEvent) {
         // the modal must be added to the document before opening
         if (this.getParent() == null) {
             throw new IllegalStateException(
                     "The MaterialModal must be added to the document before calling open().");
         }
-        open(getElement(), opacity, dismissable, inDuration, outDuration);
+        open(getElement(), opacity, dismissable, inDuration, outDuration, fireEvent);
     }
 
     /**
@@ -174,8 +197,9 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @param dismissable - Modal can be dismissed by clicking outside of the modal
      * @param inDuration  - Transition in Duration
      * @param outDuration - Transition out Duration
+     * @param fireEvent   - Flag whether this component fires Open Event
      */
-    protected void open(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) {
+    protected void open(Element e, double opacity, boolean dismissable, int inDuration, int outDuration, boolean fireEvent) {
         JsModalOptions options = new JsModalOptions();
         options.opacity = opacity;
         options.dismissible = dismissable;
@@ -186,7 +210,9 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         };
         $(e).openModal(options);
         ModalManager.register(this);
-        OpenEvent.fire(this, this);
+        if (fireEvent) {
+            OpenEvent.fire(this, this);
+        }
     }
 
     protected void onNativeClose(boolean autoClosed) {
@@ -216,9 +242,26 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @see CloseEvent
      */
     public void close(boolean autoClosed) {
+        close(autoClosed, true);
+    }
+
+    /**
+     * Close the modal programmatically.
+     * <p>
+     * Note: you may need to remove it MaterialModal from the document if you
+     * are not using UiBinder. See {@link #open()}.
+     * </p>
+     *
+     * @param autoClosed Flag indicating if the modal was automatically dismissed
+     * @param fireEvent Flag whether this component fires Close Event
+     * @see CloseEvent
+     */
+    public void close(boolean autoClosed, boolean fireEvent) {
+        if (fireEvent) {
+            CloseEvent.fire(this, this);
+        }
         close(getElement(), autoClosed);
         ModalManager.unregister(this);
-        CloseEvent.fire(this, this);
     }
 
     protected void close(Element e, boolean autoClosed) {
