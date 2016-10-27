@@ -126,6 +126,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         }
         $(listBox.getElement()).off("change");
         $(listBox.getElement()).material_select("destroy");
+        initialized = false;
     }
 
     @Override
