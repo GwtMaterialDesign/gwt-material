@@ -204,4 +204,8 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
     public void setLetterBackgroundColor(Color letterBackgroundColor) {
         letterMixin.setLetterBackgroundColor(letterBackgroundColor);
     }
+
+    public LetterMixin<MaterialChip> getLetterMixin() {
+        return letterMixin;
+    }
 }

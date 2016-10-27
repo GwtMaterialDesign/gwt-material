@@ -54,4 +54,8 @@ public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractM
     public void setLetterBackgroundColor(Color letterBackgroundColor) {
         span.setBackgroundColor(letterBackgroundColor);
     }
+
+    public Span getSpan() {
+        return span;
+    }
 }
