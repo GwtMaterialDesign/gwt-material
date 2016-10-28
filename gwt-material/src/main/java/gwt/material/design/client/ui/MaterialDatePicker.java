@@ -138,7 +138,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         super.onUnload();
 
         dateTemp = getValue();
-        stop();
+        initialize = false;
     }
 
     @Override
