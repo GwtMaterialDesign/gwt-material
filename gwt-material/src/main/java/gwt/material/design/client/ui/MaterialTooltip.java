@@ -100,11 +100,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             attachHandler = null;
         }
 
-        // Detach new child
-        if (w != null) {
-            w.removeFromParent();
-        }
-
         // Remove old child
         if (widget != null) {
             remove(widget);
@@ -232,7 +227,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     protected void configure() {
-        configure(widget.getElement(), text, position.getCssName(), delayMs);
+        configure(text, position.getCssName(), delayMs);
     }
 
     /**
@@ -240,7 +235,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     public void remove() {
         if (widget != null) {
-            command(widget.getElement(), "remove");
+            command("remove");
         }
     }
 
@@ -316,21 +311,16 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         return asWidget().toString();
     }
 
-    protected void configure(Element e, String tooltip, String position, int delay) {
+    protected void configure(String tooltip, String position, int delay) {
         JsTooltipOptions options = new JsTooltipOptions();
         options.tooltip = tooltip;
         options.position = position;
         options.delay = delay;
-        $(e).tooltip(options);
-        if (html != null && !html.isEmpty()) {
-            String uid = "#" + $(e).attr("data-tooltip-id");
-            JQueryElement el = $(uid);
-            el.find("span").html(html);
-        }
+        $(widget.getElement()).tooltip(options);
     }
 
-    protected void command(Element e, String command) {
-        $(e).tooltip(command);
+    protected void command(String command) {
+        $(widget.getElement()).tooltip(command);
     }
 
     /**
@@ -345,5 +335,9 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     public void setTooltipHTML(String html) {
         this.html = html;
+
+        if (html != null && !html.isEmpty()) {
+            $("#" + widget.getElement().getAttribute("data-tooltip-id")).find("span").html(html);
+        }
     }
 }
