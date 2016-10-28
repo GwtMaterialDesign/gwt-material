@@ -56,7 +56,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     private Widget widget;
     private String id;
     private String html;
-    private boolean initialize;
 
     private HandlerRegistration attachHandler;
 
@@ -91,42 +90,39 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     @Override
     public void setWidget(final Widget w) {
-        if (!initialize) {
-            // Validate
-            if (w == widget) {
-                return;
-            }
+        // Validate
+        if (w == widget) {
+            return;
+        }
 
-            if (attachHandler != null) {
-                attachHandler.removeHandler();
-                attachHandler = null;
-            }
+        if (attachHandler != null) {
+            attachHandler.removeHandler();
+            attachHandler = null;
+        }
 
-            // Detach new child
-            if (w != null) {
-                w.removeFromParent();
-            }
+        // Detach new child
+        if (w != null) {
+            w.removeFromParent();
+        }
 
-            // Remove old child
-            if (widget != null) {
-                remove(widget);
-            }
+        // Remove old child
+        if (widget != null) {
+            remove(widget);
+        }
 
-            // Logical attach, but don't physical attach; done by jquery.
-            widget = w;
-            if (widget == null) {
-                return;
-            }
+        // Logical attach, but don't physical attach; done by jquery.
+        widget = w;
+        if (widget == null) {
+            return;
+        }
 
-            if (!widget.isAttached()) {
-                // When we attach it, configure the tooltip
-                attachHandler = widget.addAttachHandler(event -> {
-                    reconfigure();
-                });
-            } else {
+        if (!widget.isAttached()) {
+            // When we attach it, configure the tooltip
+            attachHandler = widget.addAttachHandler(event -> {
                 reconfigure();
-            }
-            initialize = true;
+            });
+        } else {
+            reconfigure();
         }
     }
 
