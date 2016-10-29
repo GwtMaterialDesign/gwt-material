@@ -19,14 +19,12 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.js.JsTooltipOptions;
-import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -85,9 +83,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         setText(text);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setWidget(final Widget w) {
         // Validate
@@ -121,9 +116,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void add(final Widget child) {
         if (getWidget() != null) {
@@ -132,25 +124,16 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         setWidget(child);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setWidget(final IsWidget w) {
         setWidget(w.asWidget());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Widget getWidget() {
         return widget;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setId(final String id) {
         this.id = id;
@@ -159,17 +142,11 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getId() {
         return (widget == null) ? id : widget.getElement().getId();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setPosition(final Position position) {
         this.position = position;
@@ -177,9 +154,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         widget.getElement().setAttribute("data-position", position.getCssName());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Position getPosition() {
         return position;
@@ -239,17 +213,11 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void clear() {
         widget = null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Iterator<Widget> iterator() {
         // Simple iterator for the widget
@@ -280,9 +248,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         };
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean remove(final Widget w) {
         // Validate.
@@ -295,17 +260,11 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Widget asWidget() {
         return widget;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return asWidget().toString();
@@ -336,8 +295,8 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     public void setTooltipHTML(String html) {
         this.html = html;
 
-        if (html != null && !html.isEmpty()) {
-            $("#" + widget.getElement().getAttribute("data-tooltip-id")).find("span").html(html);
-        }
+        $("#" + widget.getElement().getAttribute("data-tooltip-id"))
+            .find("span")
+            .html(html != null ? html : "");
     }
 }

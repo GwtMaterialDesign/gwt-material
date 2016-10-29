@@ -188,6 +188,9 @@ public class JsMaterialElement extends JQueryElement {
     public native void clear();
 
     @JsMethod
+    public native JsMaterialElement off(JsDatePickerOptions options);
+
+    @JsMethod
     public native JsMaterialElement on(JsDatePickerOptions options);
 
     @JsMethod
