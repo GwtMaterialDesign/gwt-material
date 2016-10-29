@@ -7,7 +7,7 @@
 
 ## Demo
 * [2.0-rc1 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
-* [2.1 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
+* [2.0 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
@@ -23,12 +23,12 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
     <version>2.0-rc1</version>
 </dependency>
 ```
-### Snapshot Version 2.1-SNAPSHOT
+### Snapshot Version 2.0-SNAPSHOT
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.1-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
 </dependency>
 ```
 

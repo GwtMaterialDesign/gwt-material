@@ -177,9 +177,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         if(options.set == null) {
             options.set = thing -> {
                 if (thing.hasOwnProperty("clear")) {
-                    onClear();
+                    clear();
                 } else if (thing.hasOwnProperty("select")) {
-                    onSelect();
+                    select();
                 }
             };
         }
@@ -255,17 +255,13 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         });
     }
 
-    protected void onSelect() {
+    protected void select() {
         label.addStyleName(CssName.ACTIVE);
         dateInput.addStyleName(CssName.VALID);
 
         // Ensure the value change event is
         // triggered on selecting a date.
         ValueChangeEvent.fire(this, getValue());
-    }
-
-    protected void onClear() {
-        clear();
     }
 
     public String getPickerId() {
