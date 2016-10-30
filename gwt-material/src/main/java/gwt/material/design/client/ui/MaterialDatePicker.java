@@ -160,10 +160,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         }
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
         label.getElement().setAttribute("for", getPickerId());
-        setDate(date);
-        setDateMin(dateMin);
-        setDateMax(dateMax);
-        setPlaceholder(placeholder);
 
         if(options.open == null) {
             options.open = this::onOpen;
@@ -187,7 +183,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         $(pickatizedDateInput).pickadate("picker")
             .off(options)
             .on(options);
+
         initialized = true;
+
+        // Set up date specific settings.
+        // These values require initialization.
+        setDate(date);
+        setDateMin(dateMin);
+        setDateMax(dateMax);
     }
 
     /**
@@ -206,12 +209,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     @Override
     public void clear() {
-        if (initialized) {
-            clearErrorOrSuccess();
-            label.removeStyleName(CssName.ACTIVE);
-            dateInput.removeStyleName(CssName.VALID);
-            dateInput.clear();
-        }
+        clearErrorOrSuccess();
+        label.removeStyleName(CssName.ACTIVE);
+        dateInput.removeStyleName(CssName.VALID);
+        dateInput.clear();
     }
 
     /**
@@ -289,6 +290,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setDateMin(Date dateMin) {
         this.dateMin = dateMin;
+
         if (initialized && dateMin != null) {
             $(pickatizedDateInput).pickadate("picker").set("min", JsDate.create((double) dateMin.getTime()));
         }
@@ -306,6 +308,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setDateMax(Date dateMax) {
         this.dateMax = dateMax;
+
         if (initialized && dateMax != null) {
             $(pickatizedDateInput).pickadate("picker").set("max", JsDate.create((double) dateMax.getTime()));
         }
@@ -360,7 +363,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
 
-        if (initialized && placeholder != null) {
+        if (placeholder != null) {
             lblPlaceholder.setText(placeholder);
         }
     }
