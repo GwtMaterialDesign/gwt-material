@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,26 +17,24 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
-public class StyleAttributeObserver extends AttributeObserver {
+public interface HasActiveParent extends HasSelectables {
 
-    private String style;
+    /**
+     * Providing the one-based index of the parent widget to mark as active.
+     */
+    void setActive(int index);
 
-    public StyleAttributeObserver(Widget widget, String style) {
-        super(widget);
-        this.style = style;
-    }
+    /**
+     * Providing the active value and one-based index of the parent widget to mark as active.
+     */
+    void setActive(int index, boolean value);
 
-    @Override
-    protected JavaScriptObject createMutationObject() {
-        return getMutationFunction("style", style);
-    }
-
-    public void observe(Element e) {
-        super.observe(e, "style");
-    }
+    /**
+     * Get currently the active widget of it's parent
+     */
+    Widget getActive();
 }

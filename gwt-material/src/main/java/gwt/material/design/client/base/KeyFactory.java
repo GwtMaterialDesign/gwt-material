@@ -1,5 +1,3 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,12 +17,13 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.base;
 
 public interface KeyFactory<T, R> {
 
     /**
      * Generate a unique key based on an object and given return type.
+     *
      * @param object the object the key is representing.
      * @return a unique key Object signifying the given object.
      */

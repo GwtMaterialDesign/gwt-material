@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,28 +17,21 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.text.shared.Parser;
-import com.google.gwt.text.shared.Renderer;
-import com.google.gwt.text.shared.testing.PassthroughParser;
-import com.google.gwt.text.shared.testing.PassthroughRenderer;
 import com.google.gwt.uibinder.client.UiConstructor;
-import gwt.material.design.client.constants.InputType;
+import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.HasInputType;
-import gwt.material.design.client.base.ValueBoxBase;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.InputType;
 
-public class  MaterialInput extends ValueBoxBase<String> implements HasInputType {
+public class MaterialInput extends MaterialWidget implements HasInputType {
 
     private static final String MIN = "min";
     private static final String MAX = "max";
 
     public MaterialInput() {
-        this(PassthroughRenderer.instance(), PassthroughParser.instance());
-    }
-
-    public MaterialInput(Renderer<String> renderer, Parser<String> parser) {
-        super(Document.get().createElement("input"), renderer, parser);
+        super(DOM.createElement("input"));
     }
 
     @UiConstructor
@@ -64,13 +55,15 @@ public class  MaterialInput extends ValueBoxBase<String> implements HasInputType
 
     @Override
     public InputType getType() {
-        if (getElement().getAttribute(TYPE) == null || getElement().getAttribute(TYPE).isEmpty()) { return null; }
+        if (getElement().getAttribute(TYPE) == null || getElement().getAttribute(TYPE).isEmpty()) {
+            return null;
+        }
         return InputType.valueOf(getElement().getAttribute(TYPE));
     }
 
     public void setRequired(boolean required) {
         getElement().removeAttribute("required");
-        if(required) {
+        if (required) {
             getElement().setAttribute("required", "");
         }
     }

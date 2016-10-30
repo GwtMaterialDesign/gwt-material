@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +17,10 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.HasType;
@@ -32,7 +28,10 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.Axis;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.FABType;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -41,51 +40,78 @@ import gwt.material.design.client.constants.FABType;
  * are distinguished by a circled icon floating above the UI and
  * have motion behaviors that include morphing, launching, and a
  * transferring anchor point.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
- *<m:MaterialFAB>
- *   <m:MaterialButton type="FLOATING" backgroundColor="blue" iconType="POLYMER" size="LARGE"/>
+ * {@code
+ * <m:MaterialFAB>
+ *   <m:MaterialButton type="FLOATING" backgroundColor="BLUE" iconType="POLYMER" size="LARGE"/>
  *   <m:MaterialFABList>
- *     <m:MaterialButton type="FLOATING" backgroundColor="red" iconType="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="orange" iconType="POLYMER"/>
- *     <m:MaterialButton type="FLOATING" backgroundColor="white" iconType="POLYMER" iconColor="black"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="RED" iconType="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="ORANGE" iconType="POLYMER"/>
+ *     <m:MaterialButton type="FLOATING" backgroundColor="WHITE" iconType="POLYMER" iconColor="BLACK"/>
  *   </m:MaterialFABList>
  * </m:MaterialFAB>}
  * </pre>
  * </p>
  *
  * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#buttons">Material FAB</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasClickHandlers {
+public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasCloseHandlers<MaterialFAB>, HasOpenHandlers<MaterialFAB> {
 
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
+
     private boolean toggle = true;
 
+    private HandlerRegistration clickHandler;
+    private HandlerRegistration mouseOverHandler;
+    private HandlerRegistration mouseOutHandler;
+
     public MaterialFAB() {
-        super(Document.get().createDivElement(), "fixed-action-btn");
+        super(Document.get().createDivElement(), CssName.FIXED_ACTION_BTN);
     }
 
     @Override
     protected void onLoad() {
         super.onLoad();
-        if(getType() == FABType.CLICK_ONLY) {
-            addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    if(toggle) {
-                        openFAB();
-                        toggle = false;
-                    }else{
-                        closeFAB();
-                        toggle = true;
-                    }
+
+        if (getType() == FABType.CLICK_ONLY) {
+            clickHandler = addClickHandler(clickEvent -> {
+                if (toggle) {
+                    open();
+                    toggle = false;
+                } else {
+                    close();
+                    toggle = true;
                 }
             });
+        } else {
+            mouseOverHandler = addMouseOverHandler(mouseOverEvent -> {
+                OpenEvent.fire(this, this);
+            });
+            mouseOutHandler = addMouseOutHandler(mouseOutEvent -> {
+                CloseEvent.fire(this, this);
+            });
+        }
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        if (clickHandler != null) {
+            clickHandler.removeHandler();
+        }
+
+        if (mouseOverHandler != null) {
+            mouseOverHandler.removeHandler();
+        }
+
+        if (mouseOutHandler != null) {
+            mouseOutHandler.removeHandler();
         }
     }
 
@@ -112,34 +138,48 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     /**
      * Open the FAB programmatically
      */
-    public void openFAB() {
-        openFAB(getElement());
+    public void open() {
+        open(true);
     }
 
-    public native void openFAB(Element e) /*-{
-        $wnd.jQuery(e).openFAB();
-    }-*/;
+    /**
+     * Open the FAB programatically
+     *
+     * @param fireEvent - Flag whether this component fires Open Event
+     */
+    public void open(boolean fireEvent) {
+        if (fireEvent) {
+            OpenEvent.fire(this, this);
+        }
+        $(getElement()).openFAB();
+    }
 
     /**
      * Close the FAB programmatically
      */
-    public void closeFAB() {
-        closeFAB(getElement());
+    public void close() {
+        close(true);
     }
 
-    public native void closeFAB(Element e) /*-{
-        $wnd.jQuery(e).closeFAB();
-    }-*/;
+    /**
+     * Close the FAB programmatically
+     *
+     * @param fireEvent - Flag whether this component fires Close Event
+     */
+    public void close(boolean fireEvent) {
+        if (fireEvent) {
+            CloseEvent.fire(this, this);
+        }
+        $(getElement()).closeFAB();
+    }
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
-            }
-        }, ClickEvent.getType());
+    public HandlerRegistration addCloseHandler(CloseHandler<MaterialFAB> handler) {
+        return addHandler(handler, CloseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOpenHandler(OpenHandler handler) {
+        return addHandler(handler, OpenEvent.getType());
     }
 }

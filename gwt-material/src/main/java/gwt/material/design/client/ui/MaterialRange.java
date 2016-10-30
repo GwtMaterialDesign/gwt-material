@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,51 +17,51 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
 
 /**
  * Material Range - a slider that initialize the minimum and maximum values.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code<m:MaterialRange value="2" min="20" max="50" value="25"/>}
+ * {@code <m:MaterialRange value="2" min="20" max="50" value="25"/>}
  * </pre>
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material Range</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Range</a>
  */
 //@formatter:on
-public class MaterialRange extends MaterialWidget implements HasChangeHandlers, HasError {
+public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasError {
 
     private Paragraph paragraph = new Paragraph();
-    private MaterialInput input = new MaterialInput();
+    private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
 
     private static String VALUE = "value";
     private static String MAX = "max";
     private static String MIN = "min";
-    private static String INPUT = "INPUT";
     private MaterialLabel lblError = new MaterialLabel();
-
-    // cache the embedded range input element
-    private Element rangeElement = null;
 
     private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
@@ -71,17 +69,17 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
      * Creates a range
      */
     public MaterialRange() {
-        super(Document.get().createElement("form"));
+        super(Document.get().createFormElement());
         getElement().setAttribute("action", "#");
         lblError.setVisible(false);
-        paragraph.setStyleName("range-field");
+        paragraph.setStyleName(CssName.RANGE_FIELD);
 
-        input.setType(InputType.RANGE);
-        paragraph.add(input);
+        rangeInputElement.setType(InputType.RANGE);
+        paragraph.add(rangeInputElement);
 
-        thumb.getElement().setClassName("thumb");
+        thumb.getElement().setClassName(CssName.THUMB);
         Span value = new Span();
-        value.getElement().setClassName("value");
+        value.getElement().setClassName(CssName.VALUE);
         thumb.add(value);
 
         paragraph.add(thumb);
@@ -93,8 +91,9 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
 
     /**
      * Creates a range with specified values
-     * @param min - start min value
-     * @param max - end max value
+     *
+     * @param min   - start min value
+     * @param max   - end max value
      * @param value - default range value
      */
     public MaterialRange(Integer min, Integer max, Integer value) {
@@ -110,28 +109,15 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
     }
 
     /**
-     * Try to identify the embedded range elements input field (see ui xml)
-     * @return The found element or null if none found.
-     */
-    protected Element getRangeElement() {
-        if (rangeElement == null) {
-            NodeList<Element> elements = this.getElement().getElementsByTagName(INPUT);
-            if (elements != null && elements.getLength() > 0) {
-                rangeElement = elements.getItem(0);
-            }
-        }
-        return rangeElement;
-    }
-
-    /**
      * Retrieve the Integer value from the given Attribute of the range element
+     *
      * @param attribute The name of the attribute on the range element
      * @return The Integer vaulue read from the given attribute or null
      */
     protected Integer getIntFromRangeElement(String attribute) {
-        Element ele = getRangeElement();
-        if(ele != null) {
-          return ele.getPropertyInt(attribute);
+        Element ele = $(rangeInputElement).asElement();
+        if (ele != null) {
+            return ele.getPropertyInt(attribute);
         }
         return null;
     }
@@ -139,34 +125,48 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
     /**
      * Set the given Integer value to the attribute of the range element.
      */
-    protected void setIntToRangeElement(String attribute,Integer val) {
-        Element ele = getRangeElement();
-        if(ele != null) {
-            ele.setPropertyInt(attribute,val);
+    protected void setIntToRangeElement(String attribute, Integer val) {
+        Element ele = $(rangeInputElement).asElement();
+        if (ele != null) {
+            ele.setPropertyInt(attribute, val);
         }
     }
 
     /**
      * Read the current value
+     *
      * @return The Integer value or null
      */
+    @Override
     public Integer getValue() {
         return getIntFromRangeElement(VALUE);
     }
 
     /**
      * Write the current value
+     *
      * @param value value must be &gt;= min and &lt;= max
      */
+    @Override
     public void setValue(Integer value) {
-        if (value == null)return;
-        if (value < getMin())return;
-        if (value > getMax())return;
-        setIntToRangeElement(VALUE,value);
+        if (value == null) {
+            GWT.log("Value must be null", new RuntimeException());
+            return;
+        }
+        if (value < getMin()) {
+            GWT.log("Value must not be less than the minimum range value.", new RuntimeException());
+            return;
+        }
+        if (value > getMax()) {
+            GWT.log("Value must not be greater than the maximum range value", new RuntimeException());
+            return;
+        }
+        setIntToRangeElement(VALUE, value);
     }
 
     /**
      * Read the min value
+     *
      * @return The Integer or null
      */
     public Integer getMin() {
@@ -175,14 +175,16 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
 
     /**
      * Write the current min value
+     *
      * @param min value must be &lt; max
      */
     public void setMin(Integer min) {
-        setIntToRangeElement(MIN,min);
+        setIntToRangeElement(MIN, min);
     }
 
     /**
      * Read the max value
+     *
      * @return The Integer or null
      */
     public Integer getMax() {
@@ -191,10 +193,11 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
 
     /**
      * Write the current max value
+     *
      * @param max value must be &gt; min
      */
     public void setMax(Integer max) {
-        setIntToRangeElement(MAX,max);
+        setIntToRangeElement(MAX, max);
     }
 
     /**
@@ -204,14 +207,7 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
      */
     @Override
     public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
-        return addDomHandler(new ChangeHandler() {
-            @Override
-            public void onChange(ChangeEvent event) {
-                if(isEnabled()){
-                    handler.onChange(event);
-                }
-            }
-        }, ChangeEvent.getType());
+        return addDomHandler(handler, ChangeEvent.getType());
     }
 
     @Override
@@ -223,7 +219,7 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
     public void setSuccess(String success) {
         errorMixin.setSuccess(success);
     }
-    
+
     @Override
     public void setHelperText(String helperText) {
         errorMixin.setHelperText(helperText);
@@ -232,5 +228,13 @@ public class MaterialRange extends MaterialWidget implements HasChangeHandlers, 
     @Override
     public void clearErrorOrSuccess() {
         errorMixin.clearErrorOrSuccess();
+    }
+
+    public MaterialLabel getLblError() {
+        return lblError;
+    }
+
+    public MaterialInput getRangeInputElement() {
+        return rangeInputElement;
     }
 }

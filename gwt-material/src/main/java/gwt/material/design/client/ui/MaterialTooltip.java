@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,31 +17,31 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
+
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.*;
+import gwt.material.design.client.base.HasId;
+import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.js.JsTooltipOptions;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.HasOneWidget;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.base.HasId;
-import gwt.material.design.client.base.HasPosition;
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
  * Basic implementation for the Material Design tooltip.
  * <h3>UiBinder Example</h3>
  * <pre>
- *{@code<m:MaterialTooltip text="...">
+ * {@code
+ * <m:MaterialTooltip text="...">
  *    ...
  * </b:MaterialTooltip>
- *}
+ * }
  * </pre>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  */
@@ -55,6 +53,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
     private Widget widget;
     private String id;
+    private String html;
 
     private HandlerRegistration attachHandler;
 
@@ -76,7 +75,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     /**
      * Creates the tooltip around this widget with given title
      *
-     * @param w widget for the tooltip
+     * @param w    widget for the tooltip
      * @param text text for the tooltip
      */
     public MaterialTooltip(final Widget w, final String text) {
@@ -84,9 +83,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         setText(text);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setWidget(final Widget w) {
         // Validate
@@ -94,14 +90,9 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             return;
         }
 
-        if(attachHandler != null) {
+        if (attachHandler != null) {
             attachHandler.removeHandler();
             attachHandler = null;
-        }
-
-        // Detach new child
-        if (w != null) {
-            w.removeFromParent();
         }
 
         // Remove old child
@@ -115,22 +106,16 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             return;
         }
 
-        if(!widget.isAttached()) {
+        if (!widget.isAttached()) {
             // When we attach it, configure the tooltip
-            attachHandler = widget.addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(final AttachEvent event) {
-                    reconfigure();
-                }
+            attachHandler = widget.addAttachHandler(event -> {
+                reconfigure();
             });
         } else {
             reconfigure();
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void add(final Widget child) {
         if (getWidget() != null) {
@@ -139,25 +124,16 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         setWidget(child);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setWidget(final IsWidget w) {
         setWidget(w.asWidget());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Widget getWidget() {
         return widget;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setId(final String id) {
         this.id = id;
@@ -166,17 +142,11 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getId() {
         return (widget == null) ? id : widget.getElement().getId();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setPosition(final Position position) {
         this.position = position;
@@ -184,9 +154,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         widget.getElement().setAttribute("data-position", position.getCssName());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Position getPosition() {
         return position;
@@ -234,29 +201,23 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     protected void configure() {
-        configure(widget.getElement(), text, position.getCssName(), delayMs);
+        configure(text, position.getCssName(), delayMs);
     }
 
     /**
      * Force the Tooltip to be destroyed
      */
     public void remove() {
-        if(widget != null) {
-            command(widget.getElement(), "remove");
+        if (widget != null) {
+            command("remove");
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void clear() {
         widget = null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Iterator<Widget> iterator() {
         // Simple iterator for the widget
@@ -287,9 +248,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         };
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean remove(final Widget w) {
         // Validate.
@@ -302,31 +260,43 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Widget asWidget() {
         return widget;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return asWidget().toString();
     }
 
-    protected native void configure(Element e, String tooltip, String position, int delay) /*-{
-        $wnd.jQuery(e).tooltip({
-            tooltip: tooltip,
-            position: position,
-            delay: delay
-        });
-    }-*/;
+    protected void configure(String tooltip, String position, int delay) {
+        JsTooltipOptions options = new JsTooltipOptions();
+        options.tooltip = tooltip;
+        options.position = position;
+        options.delay = delay;
+        $(widget.getElement()).tooltip(options);
+    }
 
-    protected native void command(final Element e, final String command) /*-{
-        $wnd.jQuery(e).tooltip(command);
-    }-*/;
+    protected void command(String command) {
+        $(widget.getElement()).tooltip(command);
+    }
+
+    /**
+     * Get the html of the tooltip.
+     */
+    public String getTooltipHTML() {
+        return html;
+    }
+
+    /**
+     * Set the html as value inside the tooltip.
+     */
+    public void setTooltipHTML(String html) {
+        this.html = html;
+
+        $("#" + widget.getElement().getAttribute("data-tooltip-id"))
+            .find("span")
+            .html(html != null ? html : "");
+    }
 }

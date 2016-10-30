@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +17,14 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
+import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialIcon;
-
-import com.google.gwt.dom.client.Style;
 
 public interface HasIcon {
 
@@ -58,7 +57,7 @@ public interface HasIcon {
     /**
      * Sets the color of the icon.
      */
-    void setIconColor(String iconColor);
+    void setIconColor(Color iconColor);
 
     /**
      * Make the icon prefix in its container.

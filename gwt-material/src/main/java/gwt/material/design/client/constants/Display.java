@@ -1,10 +1,8 @@
-package gwt.material.design.client.constants;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.constants;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.constants;
 
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.HasCssName;
@@ -51,7 +50,7 @@ public enum Display implements HasCssName {
     Display(HasCssName gwtDisplay) {
         this.cssName = gwtDisplay.getCssName();
     }
-    
+
     Display(String cssName) {
         this.cssName = cssName;
     }
@@ -59,10 +58,10 @@ public enum Display implements HasCssName {
     public Style.Display getGwtDisplay() {
         return Style.Display.valueOf(this.name());
     }
-    
+
     public static Display parse(String display) {
         for (Display d : Display.values()) {
-            if (d.getCssName().equals(display)){
+            if (d.getCssName().equals(display)) {
                 return d;
             }
         }

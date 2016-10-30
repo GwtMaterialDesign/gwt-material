@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.error;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,10 +17,9 @@ package gwt.material.design.client.base.error;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.error;
 
 import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasError;
@@ -34,9 +31,9 @@ import java.util.List;
  * This is the default {@link ErrorHandler} implementation.
  * If there is a {@link MaterialHelpBlock} that is a child then error messages
  * will be displayed in the {@link MaterialHelpBlock}.
- *
+ * <p>
  * Example:
- *
+ * <p>
  * <pre>{@code
  * <m:MaterialRow>
  *     <m:TextBox m:id="username" ui:field="username" />
@@ -64,9 +61,8 @@ public class DefaultErrorHandler implements ErrorHandler {
         super();
         assert widget != null;
         this.inputWidget = widget;
-        this.inputWidget.addAttachHandler(new Handler() {
-            @Override
-            public void onAttachOrDetach(AttachEvent event) {
+        this.inputWidget.addAttachHandler(event -> {
+            if (event.isAttached()) {
                 init();
             }
         });
@@ -78,7 +74,7 @@ public class DefaultErrorHandler implements ErrorHandler {
 
     @Override
     public void clearErrors() {
-        if(inputWidget instanceof HasError) {
+        if (inputWidget instanceof HasError) {
             ((HasError) inputWidget).clearErrorOrSuccess();
         }
         if (helpBlock != null) {
@@ -95,7 +91,7 @@ public class DefaultErrorHandler implements ErrorHandler {
      * @return the found {@link MaterialHelpBlock} of null if not found.
      */
     protected MaterialHelpBlock findHelpBlock(Widget widget) {
-        if(widget != null) {
+        if (widget != null) {
             if (widget instanceof MaterialHelpBlock) {
                 return (MaterialHelpBlock) widget;
             }
@@ -117,11 +113,13 @@ public class DefaultErrorHandler implements ErrorHandler {
      * Initialize the instance.
      */
     public void init() {
-        if (initialized) { return; }
+        if (initialized) {
+            return;
+        }
         Widget parent = inputWidget.getParent();
         while (parent != null && !parent.getClass().getName().equals("com.google.gwt.user.client.ui.Widget")) {
             helpBlock = findHelpBlock(inputWidget);
-            if(helpBlock != null) {
+            if (helpBlock != null) {
                 break;
             } else {
                 parent = parent.getParent();
@@ -136,10 +134,12 @@ public class DefaultErrorHandler implements ErrorHandler {
         String errorMsg = "";
         for (int index = 0; index < errors.size(); index++) {
             errorMsg = errors.get(0).getMessage();
-            if (index + 1 < errors.size()) { errorMsg += "; "; }
+            if (index + 1 < errors.size()) {
+                errorMsg += "; ";
+            }
         }
 
-        if(inputWidget instanceof HasError) {
+        if (inputWidget instanceof HasError) {
             ((HasError) inputWidget).setError(errorMsg);
         }
 

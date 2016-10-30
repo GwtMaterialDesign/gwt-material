@@ -16,71 +16,71 @@ package gwt.material.design.client.base;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 
 public class Suggestion extends MultiWordSuggestion {
-  private String suggestion;
-  private String display;
+    private String suggestion;
+    private String display;
 
-  public Suggestion() {
-  }
-
-  public Suggestion(String display, String suggestion) {
-    this.display = display;
-    this.setSuggestion(suggestion);
-  }
-
-  @Override
-  public String getDisplayString() {
-    return (display);
-  }
-
-  @Override
-  public String getReplacementString() {
-    return display;
-  }
-
-  /**
-   * @return the display
-   */
-  public String getDisplay() {
-    return display;
-  }
-
-  /**
-   * @param display the display to set
-   */
-  public void setDisplay(String display) {
-    this.display = display;
-  }
-
-  /**
-   * @return the suggestion
-   */
-  public String getSuggestion() {
-    return suggestion;
-  }
-
-  /**
-   * @param suggestion the suggestion to set
-   */
-  public void setSuggestion(String suggestion) {
-    this.suggestion = suggestion;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == this) {
-      return true;
+    public Suggestion() {
     }
-    if (obj instanceof Suggestion) {
-      Suggestion that = (Suggestion) obj;
-      if (this.display != null && this.suggestion != null) {
-        return this.display.equals(that.display) && this.suggestion.equals(that.suggestion);
-      }
-    }
-    return false;
-  }
 
-  @Override
-  public int hashCode() {
-    return String.valueOf(display).hashCode() + String.valueOf(suggestion).hashCode();
-  }
+    public Suggestion(String display, String suggestion) {
+        this.display = display;
+        this.setSuggestion(suggestion);
+    }
+
+    @Override
+    public String getDisplayString() {
+        return (display);
+    }
+
+    @Override
+    public String getReplacementString() {
+        return display;
+    }
+
+    /**
+     * @return the display
+     */
+    public String getDisplay() {
+        return display;
+    }
+
+    /**
+     * @param display the display to set
+     */
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
+    /**
+     * @return the suggestion
+     */
+    public String getSuggestion() {
+        return suggestion;
+    }
+
+    /**
+     * @param suggestion the suggestion to set
+     */
+    public void setSuggestion(String suggestion) {
+        this.suggestion = suggestion;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof Suggestion) {
+            Suggestion that = (Suggestion) obj;
+            if (this.display != null && this.suggestion != null) {
+                return this.display.equals(that.display) && this.suggestion.equals(that.suggestion);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return String.valueOf(display).hashCode() + String.valueOf(suggestion).hashCode();
+    }
 }

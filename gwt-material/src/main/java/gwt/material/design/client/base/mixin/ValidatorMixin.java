@@ -22,16 +22,13 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.event.shared.HandlerRegistration;
-import com.google.web.bindery.event.shared.SimpleEventBus;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent;
@@ -49,7 +46,6 @@ import java.util.TreeSet;
  *
  * @param <W> the generic type
  * @param <V> the value type
- * 
  * @author Steven Jardine
  */
 public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> implements HasValidators<V> {
@@ -69,7 +65,7 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
     /**
      * Instantiates a new abstract validator mixin.
      *
-     * @param inputWidget the input widget
+     * @param inputWidget  the input widget
      * @param errorHandler the error handler
      */
     public ValidatorMixin(W inputWidget, ErrorHandler errorHandler) {
@@ -81,11 +77,8 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
     }
 
     protected HandlerRegistration setupValueChangeValidation() {
-        return inputWidget.addHandler(new ValueChangeHandler<V>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<V> event) {
-                validate(false);
-            }
+        return inputWidget.addHandler(event -> {
+            validate(false);
         }, ValueChangeEvent.getType());
     }
 
@@ -119,7 +112,9 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
     @Override
     public boolean removeValidator(Validator<V> validator) {
         for (ValidatorWrapper<V> wrapper : validators) {
-            if (wrapper.getValidator().equals(validator)) { return validators.remove(wrapper); }
+            if (wrapper.getValidator().equals(validator)) {
+                return validators.remove(wrapper);
+            }
         }
         return false;
     }
@@ -158,7 +153,9 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
         return validate(true);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean validate(boolean show) {
         Boolean oldValid = valid;

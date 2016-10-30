@@ -1,10 +1,3 @@
-package gwt.material.design.client.base.validator;
-
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HasHandlers;
-import com.google.web.bindery.event.shared.HandlerRegistration;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -24,10 +17,16 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
+
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HasHandlers;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 
 /**
  * Event fired when validation state changes.
- * 
+ *
  * @author Steven Jardine
  */
 public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.ValidationChangedHandler> {
@@ -56,26 +55,25 @@ public class ValidationChangedEvent extends GwtEvent<ValidationChangedEvent.Vali
          *
          * @param event the event
          */
-        public void onValidationChanged(ValidationChangedEvent event);
+        void onValidationChanged(ValidationChangedEvent event);
     }
 
-    protected static final Type<ValidationChangedHandler> TYPE = new Type<ValidationChangedHandler>();
+    protected static final Type<ValidationChangedHandler> TYPE = new Type<>();
 
     /**
      * Fire the event.
      *
      * @param source the source
-     * @param valid the valid
+     * @param valid  the valid
      */
     public static void fire(HasHandlers source, boolean valid) {
-        ValidationChangedEvent eventInstance = new ValidationChangedEvent(valid);
-        source.fireEvent(eventInstance);
+        source.fireEvent(new ValidationChangedEvent(valid));
     }
 
     /**
      * Fire.
      *
-     * @param source the source
+     * @param source        the source
      * @param eventInstance the event instance
      */
     public static void fire(HasHandlers source, ValidationChangedEvent eventInstance) {

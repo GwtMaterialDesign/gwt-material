@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +17,19 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.ui.html.Header;
 
 //@formatter:off
+
 /**
  * Material Header acts a container for components located on Header Zone like
  * MaterialNavBar, Breadcrumbs and other elements located at top part of your application.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
+ * {@code
  *
  * <m:MaterialHeader>
  *     <m:MaterialNavBar>
@@ -43,12 +42,9 @@ import gwt.material.design.client.base.MaterialWidget;
  * </p>
  *
  * @author kevzlou7979
- * @see <a href="http://gwt-material-demo.herokuapp.com/#navBar">Material Header</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Header</a>
  */
 //@formatter:on
-public class MaterialHeader extends MaterialWidget {
+public class MaterialHeader extends Header {
 
-    public MaterialHeader() {
-        super(Document.get().createElement("header"));
-    }
 }

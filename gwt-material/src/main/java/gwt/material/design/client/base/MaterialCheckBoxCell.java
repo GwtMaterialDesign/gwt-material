@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +17,11 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
 import com.google.gwt.cell.client.AbstractEditableCell;
 import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.dom.client.BrowserEvents;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.InputElement;
-import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.*;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -73,7 +68,7 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
         String type = event.getType();
 
         boolean enterPressed = (BrowserEvents.KEYDOWN.equals(type) && event.getKeyCode() == KeyCodes.KEY_ENTER)
-            || event.getType().equals(BrowserEvents.CLICK);
+                || event.getType().equals(BrowserEvents.CLICK);
 
         if (BrowserEvents.CHANGE.equals(type) || enterPressed) {
             InputElement input = parent.getFirstChild().getFirstChild().cast();
@@ -119,10 +114,10 @@ public class MaterialCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
         String id = Document.get().createUniqueId();
 
         sb.append(SafeHtmlUtils.fromSafeConstant(
-            "<span class=\"gwt-CheckBox\">" +
-                "<input type=\"checkbox\" class=\"filled-in\" tabindex=\"-1\" value=\"on\" id=\"" + id + "\" " + state + "/>" +
-                "<label for=\"" + id + "\"></label>" +
-            "</span>"));
+                "<span class=\"gwt-CheckBox\">" +
+                        "<input type=\"checkbox\" class=\"filled-in\" tabindex=\"-1\" value=\"on\" id=\"" + id + "\" " + state + "/>" +
+                        "<label for=\"" + id + "\"></label>" +
+                        "</span>"));
 
     }
 }

@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
@@ -48,20 +47,20 @@ public class WavesMixin<T extends Widget & HasWaves> extends AbstractMixin<T> im
     @Override
     public void setWaves(WavesType waves) {
         uiObject.removeStyleName(Waves.WAVES_STYLE);
-        if(this.waves != null) {
+        if (this.waves != null) {
             uiObject.removeStyleName(this.waves.getCssName());
         }
 
         this.waves = waves;
 
-        if(waves != null) {
+        if (waves != null) {
             boolean enabled = !(uiObject instanceof HasEnabled) || ((HasEnabled) uiObject).isEnabled();
-            if(enabled) {
+            if (enabled) {
                 uiObject.addStyleName(Waves.WAVES_STYLE);
             }
 
             uiObject.addStyleName(waves.getCssName());
-            if(enabled) {
+            if (enabled) {
                 Waves.detectAndApply(uiObject);
             }
         }

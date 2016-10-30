@@ -1,9 +1,3 @@
-package gwt.material.design.client.base.error;
-
-import com.google.gwt.editor.client.EditorError;
-
-import java.util.List;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -23,10 +17,15 @@ import java.util.List;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.error;
+
+import com.google.gwt.editor.client.EditorError;
+
+import java.util.List;
 
 /**
  * Error handler.
- * 
+ *
  * @author Steven Jardine
  */
 public interface ErrorHandler {
@@ -43,7 +42,7 @@ public interface ErrorHandler {
 
     /**
      * Show the errors on the input screen.
-     * 
+     *
      * @param errors the errors to display.
      */
     void showErrors(List<EditorError> errors);

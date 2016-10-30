@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui.animate;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +17,10 @@ package gwt.material.design.client.ui.animate;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui.animate;
 
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.jquery.client.api.Functions;
 
 /**
  * Stateful object holding animation details.
@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class MaterialAnimation {
 
+    private Widget widget;
     private Transition transition = Transition.BOUNCE;
     private int delayMillis = 0;
     private int durationMillis = 800;
@@ -57,11 +58,33 @@ public class MaterialAnimation {
         return this;
     }
 
-    public void animate(Widget w) {
-        animate(w,null);
+    public void animate(Widget widget) {
+        this.widget = widget;
+        animate(widget, null);
     }
 
-    public void animate(Widget w,Runnable callback) {
-        MaterialAnimator.animate(transition, w, delayMillis, durationMillis, callback, infinite);
+    public void animate(Widget widget, Functions.Func callback) {
+        this.widget = widget;
+        MaterialAnimator.animate(transition, widget, delayMillis, durationMillis, callback, infinite);
+    }
+
+    public Widget getWidget() {
+        return widget;
+    }
+
+    public Transition getTransition() {
+        return transition;
+    }
+
+    public int getDelayMillis() {
+        return delayMillis;
+    }
+
+    public int getDurationMillis() {
+        return durationMillis;
+    }
+
+    public boolean isInfinite() {
+        return infinite;
     }
 }

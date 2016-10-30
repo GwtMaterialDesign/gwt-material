@@ -32,7 +32,7 @@ public final class CodeHelper {
         String[] arr$ = splitted;
         int len$ = splitted.length;
 
-        for(int i$ = 0; i$ < len$; ++i$) {
+        for (int i$ = 0; i$ < len$; ++i$) {
             String s = arr$[i$];
             builder.append(SafeHtmlUtils.fromTrustedString(SafeHtmlUtils.htmlEscapeAllowEntities(s)));
             builder.appendHtmlConstant("<br>");

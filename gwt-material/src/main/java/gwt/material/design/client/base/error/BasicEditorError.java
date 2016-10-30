@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.error;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.error;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.error;
 
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorError;
@@ -39,8 +38,8 @@ public class BasicEditorError implements EditorError {
     /**
      * Create an new error.
      *
-     * @param editor the editor
-     * @param value the value
+     * @param editor  the editor
+     * @param value   the value
      * @param message the message
      */
     public BasicEditorError(Editor<?> editor, Object value, String message) {

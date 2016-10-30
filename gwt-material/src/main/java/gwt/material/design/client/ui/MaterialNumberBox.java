@@ -1,13 +1,8 @@
-package gwt.material.design.client.ui;
-
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.uibinder.client.UiConstructor;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +17,9 @@ import com.google.gwt.uibinder.client.UiConstructor;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.NumberBox;
 import gwt.material.design.client.base.NumberBox.NumberHandler;
 import gwt.material.design.client.constants.InputType;
@@ -32,21 +29,21 @@ import gwt.material.design.client.constants.InputType;
 /**
  * Material Number Box is the base class for other numeric input boxes, such as {@link MaterialIntegerBox} and
  * {@link MaterialDoubleBox}.
- * 
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material MaterialNumberBox</a>
+ *
  * @author paulux84
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material MaterialNumberBox</a>
  */
 //@formatter:on
-public class MaterialNumberBox<T> extends MaterialValueBox<T> {
+public abstract class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
-    @UiConstructor
-    public MaterialNumberBox() {
-        initValueBox(new NumberBox<T>(new NumberHandler<T>(this)));
+    protected MaterialNumberBox() {
+        initValueBox(new NumberBox<>(new NumberHandler<>(this)));
         setType(InputType.NUMBER);
     }
 
     /**
      * Set step attribute to input element.
+     *
      * @param step "any" or number like for example 1 or 2.5 or 100, etc...
      */
     public void setStep(String step) {
@@ -74,24 +71,25 @@ public class MaterialNumberBox<T> extends MaterialValueBox<T> {
     }
 
     @Override
-    public String getText() {
-        return valueBoxBase.getText();
+    public T getValue() {
+        return parseNumber(getValueAsNumber());
     }
-    
+
+    protected abstract T parseNumber(double number);
+
     /**
      * Returns the value parsed natively by the browser.
-     * 
+     *
      * @return the value set on the component, or NaN if none is set
      */
     public double getValueAsNumber() {
         return getValueAsNumber(valueBoxBase.getElement());
     }
-    
+
     /**
      * Native call to element.valueAsNumber.
      */
     protected native double getValueAsNumber(Element el)/*-{
         return el.valueAsNumber;
     }-*/;
-
 }

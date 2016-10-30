@@ -1,5 +1,3 @@
-package gwt.material.design.client.resources;
-
 /*
  * #%L
  * GwtMaterial
@@ -19,7 +17,7 @@ package gwt.material.design.client.resources;
  * limitations under the License.
  * #L%
  */
-
+package gwt.material.design.client.resources;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
@@ -27,6 +25,7 @@ import com.google.gwt.resources.client.TextResource;
 
 /**
  * Client bundle for date picker - contains 43 supported languages
+ *
  * @author kevzlou7979
  */
 public interface MaterialDatePickerClientBundle extends ClientBundle {

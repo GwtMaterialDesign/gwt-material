@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,34 +17,33 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.js.JsMaterialElement;
 
 public class Waves {
-    
+
     public static final String WAVES_STYLE = "waves-effect";
 
     /**
      * Initialize any uninitialized wave elements.
      */
-    public static native void detectAndApply() /*-{
-        $wnd.Waves.displayEffect();
-    }-*/;
+    public static void detectAndApply() {
+        JsMaterialElement.displayEffect();
+    }
 
     /**
      * Detect and apply waves, now or when the widget is attached.
+     *
      * @param widget target widget to ensure is attached first
      */
     public static void detectAndApply(Widget widget) {
-        if(!widget.isAttached()) {
-            widget.addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-                    if(event.isAttached()) {
-                        detectAndApply();
-                    }
+        if (!widget.isAttached()) {
+            widget.addAttachHandler(event -> {
+                if (event.isAttached()) {
+                    detectAndApply();
                 }
             });
         } else {

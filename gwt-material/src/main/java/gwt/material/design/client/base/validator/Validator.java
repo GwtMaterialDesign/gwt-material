@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
 
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorError;
@@ -38,25 +37,36 @@ public interface Validator<T> {
      */
     public static class Priority {
 
-        /** HIGHEST priority */
+        /**
+         * HIGHEST priority
+         */
         public static final int HIGHEST = 0;
 
-        /** HIGH priority */
+        /**
+         * HIGH priority
+         */
         public static final int HIGH = 25;
 
-        /** MEDIUM priority */
+        /**
+         * MEDIUM priority
+         */
         public static final int MEDIUM = 50;
 
-        /** LOW priority */
+        /**
+         * LOW priority
+         */
         public static final int LOW = 75;
 
-        /** LOWEST priority */
+        /**
+         * LOWEST priority
+         */
         public static final int LOWEST = 100;
 
     }
 
     /**
      * Priority value for this validator. Lower the number, higher the priority.
+     *
      * @return the priority.
      */
     int getPriority();
@@ -65,7 +75,7 @@ public interface Validator<T> {
      * Validate the field.
      *
      * @param editor the {@link Editor}.
-     * @param value the value
+     * @param value  the value
      * @return the list
      */
     List<EditorError> validate(Editor<T> editor, T value);

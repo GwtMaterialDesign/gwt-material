@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui.html;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +17,14 @@ package gwt.material.design.client.ui.html;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui.html;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import gwt.material.design.client.base.MaterialWidget;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
  * @author guaido79
@@ -39,7 +40,7 @@ public class DateInput extends MaterialWidget {
         clearDpValue(getElement());
     }
 
-    protected native void clearDpValue(Element e) /*-{
-        $wnd.jQuery(e).val('');
-    }-*/;
+    protected void clearDpValue(Element e) {
+        $(e).val("");
+    }
 }

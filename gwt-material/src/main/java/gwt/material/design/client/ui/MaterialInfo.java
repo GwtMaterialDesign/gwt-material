@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +17,24 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import gwt.material.design.client.constants.CssName;
 
 public class MaterialInfo {
 
     public MaterialInfo() {
     }
 
-    public  void showInfo(HTMLPanel panel, ImageResource resource, String message) {
+    public void showInfo(HTMLPanel panel, ImageResource resource, String message) {
         panel.clear();
 
         HTMLPanel container = new HTMLPanel("");
-        container.addStyleName("materialInfo");
+        container.addStyleName(CssName.MATERIAL_INFO);
         Label label = new Label(message);
         container.add(new Image(resource));
         container.add(label);

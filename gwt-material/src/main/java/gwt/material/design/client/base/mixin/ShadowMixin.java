@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasShadow;
@@ -39,7 +38,7 @@ public class ShadowMixin<T extends UIObject & HasShadow> extends AbstractMixin<T
         uiObject.removeStyleName("z-depth-" + this.shadow);
         this.shadow = shadow;
 
-        if(shadow >= 0) {
+        if (shadow >= 0) {
             uiObject.addStyleName("z-depth-" + shadow);
         }
     }

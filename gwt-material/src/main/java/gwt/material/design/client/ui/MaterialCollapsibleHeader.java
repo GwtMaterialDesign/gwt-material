@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +17,13 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -33,123 +31,42 @@ import gwt.material.design.client.ui.html.UnorderedList;
 
 /**
  * CollapsibleItem element to define the header
+ *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#collapsibles">Material Collapsibles</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsibleHeader extends MaterialWidget implements HasAllMouseHandlers, HasClickHandlers {
+public class MaterialCollapsibleHeader extends MaterialWidget {
 
-    /** Creates empty collapsible header.
+    /**
+     * Creates empty collapsible header.
      */
     public MaterialCollapsibleHeader() {
-        super(Document.get().createDivElement(), "collapsible-header");
+        super(Document.get().createDivElement(), CssName.COLLAPSIBLE_HEADER);
     }
 
-    /** Adds other components as header.
+    /**
+     * Adds other components as header.
      */
     public MaterialCollapsibleHeader(final Widget... widgets) {
         this();
-        for(Widget w : widgets) {
+        for (Widget w : widgets) {
             add(w);
         }
     }
 
     @Override
     public void add(Widget child) {
-        if(child instanceof UnorderedList) {
-            for(Widget w : (UnorderedList) child) {
-                if(w instanceof ListItem) {
+        if (child instanceof UnorderedList) {
+            for (Widget w : (UnorderedList) child) {
+                if (w instanceof ListItem) {
                     w.getElement().getStyle().setDisplay(Style.Display.BLOCK);
                 }
             }
-        } else if(child instanceof ListItem) {
+        } else if (child instanceof ListItem) {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
         }
         super.add(child);
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
-            }
-        }, ClickEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return addDomHandler(new MouseDownHandler() {
-            @Override
-            public void onMouseDown(MouseDownEvent event) {
-                if(isEnabled()){
-                    handler.onMouseDown(event);
-                }
-            }
-        }, MouseDownEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return addDomHandler(new MouseMoveHandler() {
-            @Override
-            public void onMouseMove(MouseMoveEvent event) {
-                if(isEnabled()){
-                    handler.onMouseMove(event);
-                }
-            }
-        }, MouseMoveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return addDomHandler(new MouseOutHandler() {
-            @Override
-            public void onMouseOut(MouseOutEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOut(event);
-                }
-            }
-        }, MouseOutEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return addDomHandler(new MouseOverHandler() {
-            @Override
-            public void onMouseOver(MouseOverEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOver(event);
-                }
-            }
-        }, MouseOverEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return addDomHandler(new MouseUpHandler() {
-            @Override
-            public void onMouseUp(MouseUpEvent event) {
-                if(isEnabled()){
-                    handler.onMouseUp(event);
-                }
-            }
-        }, MouseUpEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return addDomHandler(new MouseWheelHandler() {
-            @Override
-            public void onMouseWheel(MouseWheelEvent event) {
-                if(isEnabled()){
-                    handler.onMouseWheel(event);
-                }
-            }
-        }, MouseWheelEvent.getType());
     }
 }

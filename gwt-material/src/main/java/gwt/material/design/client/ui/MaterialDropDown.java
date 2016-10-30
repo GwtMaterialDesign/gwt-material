@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,53 +17,62 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.JsDropdownOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
+
 //@formatter:off
 
 /**
  * You can add dropdown easily by specifying it's item
  * content and add a UiHandler on it to implement any event.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code
- *<m:MaterialDropDown>
+ * {@code
+ * <m:MaterialDropDown>
  *   <m:MaterialLink text="First" />
  *   <m:MaterialLink text="Second" />
  *   <m:MaterialLink text="Third" />
  * </m:MaterialDropDown>
  * }
  * </pre>
+ *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#dropdowns">Material DropDowns</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dropdown">Material DropDowns</a>
  */
 //@formatter:on
 public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget> {
 
     private String activator;
-    private Element activatorElem;
+    private Element activatorElement;
 
     // Options
     private int inDuration = 300;
@@ -78,26 +85,26 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     private List<Widget> children = new ArrayList<>();
 
     public MaterialDropDown() {
-        setInitialClasses("dropdown-content");
+        setInitialClasses(CssName.DROPDOWN_CONTENT);
         setId(DOM.createUniqueId());
     }
 
     /**
      * Material Dropdown - adds a list item selection when button, link, icon button pressed.
+     *
      * @param activator - data-activates attribute name of your dropdown activator.
      */
     @UiConstructor
     public MaterialDropDown(String activator) {
         this();
         this.activator = activator;
-
         getElement().setId(this.activator);
     }
 
-    public MaterialDropDown(Element activatorElem) {
+    public MaterialDropDown(Element activatorElement) {
         this();
-        activatorElem.setAttribute("data-activates", getId());
-        this.activatorElem = activatorElem;
+        activatorElement.setAttribute("data-activates", getId());
+        this.activatorElement = activatorElement;
     }
 
     public MaterialDropDown(UIObject activator) {
@@ -107,7 +114,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     @Override
     protected void onLoad() {
         super.onLoad();
-
         initialize();
     }
 
@@ -206,36 +212,29 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     @Override
     public void add(final Widget child) {
         String tagName = child.getElement().getTagName();
-        if(child instanceof ListItem || tagName.toLowerCase().startsWith("li")) {
+        if (child instanceof ListItem || tagName.toLowerCase().startsWith("li")) {
             child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             add(child, (Element) getElement());
         } else {
             ListItem li = new ListItem(child);
             children.add(child);
-            child.addDomHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    SelectionEvent.fire(MaterialDropDown.this, child);
-                }
+            child.addDomHandler(event -> {
+                SelectionEvent.fire(MaterialDropDown.this, child);
             }, ClickEvent.getType());
 
             // Checks if there are sub dropdown components
-            if(child instanceof MaterialLink) {
+
+            if (child instanceof MaterialLink) {
                 MaterialLink link = (MaterialLink) child;
-                for(int i = 0; i < link.getWidgetCount(); i++) {
-                    if(link.getWidget(i) instanceof MaterialDropDown) {
-                        link.addClickHandler(new ClickHandler() {
-                            @Override
-                            public void onClick(ClickEvent event) {
-                                event.stopPropagation();
-                            }
-                        });
+                for (int i = 0; i < link.getWidgetCount(); i++) {
+                    if (link.getWidget(i) instanceof MaterialDropDown) {
+                        link.addClickHandler(DomEvent::stopPropagation);
                         link.stopTouchStartEvent();
                     }
                 }
             }
 
-            if(child instanceof HasWaves) {
+            if (child instanceof HasWaves) {
                 li.setWaves(((HasWaves) child).getWaves());
                 ((HasWaves) child).setWaves(null);
             }
@@ -245,53 +244,57 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     protected void initialize() {
-        if(activatorElem == null) {
-            activatorElem = DOMHelper.getElementByAttribute("data-activates", activator);
-            if (activatorElem == null) {
-                throw new IllegalStateException("There is no activator element with id: '" + activator
-                        + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.");
+        Widget parent = getParent();
+        if (parent instanceof HasActivates) {
+            String uid = DOM.createUniqueId();
+            ((HasActivates) parent).setActivates(uid);
+            setId(uid);
+            activatorElement = parent.getElement();
+        } else if (activatorElement == null) {
+            activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
+            if (activatorElement == null) {
+                GWT.log("There is no activator element with id: '" + activator
+                        + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
             }
         }
-        initialize(activatorElem);
+
+        initialize(activatorElement);
     }
 
     /**
      * Must be called after changing any options.
      */
     public void reinitialize() {
-        remove(activatorElem);
-        initialize(activatorElem);
+        remove(activatorElement);
+        initialize(activatorElement);
     }
 
-    /**
-     * Initialize the dropdown components.
-     */
-    protected native void initialize(Element activator)/*-{
-        var that = this;
-        $wnd.jQuery(document).ready(function() {
-            $wnd.jQuery(activator).dropdown({
-                inDuration: that.@gwt.material.design.client.ui.MaterialDropDown::inDuration,
-                outDuration: that.@gwt.material.design.client.ui.MaterialDropDown::outDuration,
-                constrain_width: that.@gwt.material.design.client.ui.MaterialDropDown::constrainWidth, // Does not change width of dropdown to that of the activator
-                hover: that.@gwt.material.design.client.ui.MaterialDropDown::hover, // Activate on hover
-                gutter: that.@gwt.material.design.client.ui.MaterialDropDown::gutter, // Spacing from edge
-                belowOrigin: that.@gwt.material.design.client.ui.MaterialDropDown::belowOrigin, // Displays dropdown below the button
-                alignment: that.@gwt.material.design.client.ui.MaterialDropDown::alignment // Displays dropdown with edge aligned to the left of button
-            });
-        });
-    }-*/;
+    protected void initialize(Element activator) {
+        JsDropdownOptions options = new JsDropdownOptions();
+        options.constrain_width = constrainWidth;
+        options.inDuration = inDuration;
+        options.outDuration = outDuration;
+        options.hover = hover;
+        options.gutter = gutter;
+        options.belowOrigin = belowOrigin;
+        options.alignment = alignment;
+        $(activator).dropdown(options);
+    }
 
-    protected native void remove(Element activator)/*-{
-        $wnd.jQuery(activator).dropdown("remove");
-    }-*/;
+    protected void remove(Element activator) {
+        $(activator).dropdown("remove");
+    }
 
     @Override
     public HandlerRegistration addSelectionHandler(final SelectionHandler<Widget> handler) {
         return addHandler(new SelectionHandler<Widget>() {
             @Override
             public void onSelection(SelectionEvent<Widget> event) {
-                if(isEnabled()){
-                    handler.onSelection(event);
+                Widget widget = event.getSelectedItem();
+                if (widget instanceof HasEnabled) {
+                    if (((HasEnabled) widget).isEnabled() && isEnabled()) {
+                        handler.onSelection(event);
+                    }
                 }
             }
         }, SelectionEvent.getType());
@@ -299,5 +302,9 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
 
     public List<Widget> getItems() {
         return children;
+    }
+
+    public Element getActivatorElement() {
+        return activatorElement;
     }
 }

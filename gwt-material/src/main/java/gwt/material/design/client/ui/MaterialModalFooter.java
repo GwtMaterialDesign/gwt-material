@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +17,22 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 //@formatter:off
+
+import gwt.material.design.client.constants.CssName;
+
 /**
-* Footer container for Material Modal
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#dialogs">Material Modal</a>
-*///@formatter:on
+ * Footer container for Material Modal
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Modal</a>
+ *///@formatter:on
 public class MaterialModalFooter extends MaterialPanel {
 
     public MaterialModalFooter() {
-        super("modal-footer");
+        super(CssName.MODAL_FOOTER);
     }
 }

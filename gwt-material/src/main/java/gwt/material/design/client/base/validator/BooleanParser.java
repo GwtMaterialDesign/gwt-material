@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
 
 import com.google.gwt.text.shared.Parser;
 
@@ -26,7 +25,7 @@ import java.text.ParseException;
 
 /**
  * Parses boolean values from a {@link CharSequence}.
- * 
+ *
  * @author Steven Jardine
  */
 public class BooleanParser implements Parser<Boolean> {
@@ -60,7 +59,8 @@ public class BooleanParser implements Parser<Boolean> {
             try {
                 Integer i = Integer.valueOf(value);
                 return i != 0;
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
         return false;
     }

@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +17,10 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
@@ -34,6 +29,7 @@ import gwt.material.design.client.base.BaseCheckBox;
 import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.constants.CheckBoxType;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 
@@ -56,9 +52,9 @@ import gwt.material.design.client.constants.CheckBoxType;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">CheckBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/!#forms">CheckBox</a>
  */
-public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, HasGrid {
+public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
 
     private Object object;
     private String old;
@@ -103,7 +99,6 @@ public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, 
 
     public MaterialCheckBox(String label, CheckBoxType type) {
         super(label);
-
         setType(type);
     }
 
@@ -116,25 +111,10 @@ public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, 
     }
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
-            }
-        }, ClickEvent.getType());
-    }
-
-    @Override
     protected void onLoad() {
         super.onLoad();
-        if(isVisible()) {
-            this.getElement().getStyle().setDisplay(Display.BLOCK);
-        }else {
-            this.getElement().getStyle().setDisplay(Display.NONE);
-        }
+
+        getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
     }
 
     public String getOld() {
@@ -146,7 +126,7 @@ public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, 
      */
     public void setOld(String old) {
         this.old = old;
-        this.addStyleName("oldCheckBox");
+        this.addStyleName(CssName.OLD_CHECKBOX);
     }
 
     /**
@@ -157,10 +137,10 @@ public class MaterialCheckBox extends BaseCheckBox implements HasClickHandlers, 
             case FILLED:
                 Element cb = this.getElement();
                 Element input = DOM.getChild(cb, 0);
-                input.setAttribute("class", "filled-in");
+                input.setAttribute("class", CssName.FILLED_IN);
                 break;
             case INTERMEDIATE:
-                this.addStyleName(type + "-checkbox");
+                this.addStyleName(type.getCssName() + "-checkbox");
                 break;
             default:
                 this.addStyleName(type.getCssName());

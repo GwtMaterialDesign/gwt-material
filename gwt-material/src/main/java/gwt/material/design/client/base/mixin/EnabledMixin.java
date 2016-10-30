@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +17,19 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
-
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
+ * @author kevzlou7979
  */
 public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T> implements HasEnabled {
     private static final String DISABLED = "disabled";
@@ -45,7 +45,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
         super.setUiObject(uiObject);
 
         // Clean up previous handler
-        if(handler != null) {
+        if (handler != null) {
             handler.removeHandler();
             handler = null;
         }
@@ -53,38 +53,41 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     @Override
     public boolean isEnabled() {
-        return !StyleHelper.containsStyle(uiObject.getStyleName(), "disabled");
+        return !StyleHelper.containsStyle(uiObject.getStyleName(), CssName.DISABLED);
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-        setEnabled(uiObject, enabled);
-    }
-
-    private void setEnabled(final Widget widget, final boolean enabled) {
-        if(!widget.isAttached() && handler == null) {
-            handler = widget.addAttachHandler(new AttachEvent.Handler() {
-                @Override
-                public void onAttachOrDetach(AttachEvent event) {
-                    if(event.isAttached()) {
-                        applyEnabled(enabled, widget);
-                    } else if(handler != null) {
-                        handler.removeHandler();
-                        handler = null;
-                    }
+        if (!uiObject.isAttached() && handler == null) {
+            handler = uiObject.addAttachHandler(event -> {
+                if (event.isAttached()) {
+                    applyEnabled(enabled, uiObject);
+                } else if (handler != null) {
+                    handler.removeHandler();
+                    handler = null;
                 }
             });
         } else {
-            applyEnabled(enabled, widget);
+            applyEnabled(enabled, uiObject);
+        }
+    }
+
+    public void setEnabled(MaterialWidget widget, boolean enabled) {
+        setEnabled(enabled);
+        for (Widget child : widget.getChildren()) {
+            if (child instanceof MaterialWidget) {
+                ((MaterialWidget) child).setEnabled(enabled);
+                setEnabled((MaterialWidget) child, enabled);
+            }
         }
     }
 
     private void applyEnabled(boolean enabled, UIObject obj) {
-        if(enabled) {
-            obj.removeStyleName("disabled");
+        if (enabled) {
+            obj.removeStyleName(CssName.DISABLED);
             obj.getElement().removeAttribute(DISABLED);
         } else {
-            obj.addStyleName("disabled");
+            obj.addStyleName(CssName.DISABLED);
             obj.getElement().setAttribute(DISABLED, "");
         }
     }

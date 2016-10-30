@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,52 +17,66 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
 
 /**
-* Material Progress indicator to define intermediate and determinate progress bars
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-* <m:MaterialProgress />
-}
-* </pre>
-* @see <a href="http://gwt-material-demo.herokuapp.com/#loaders">Material Progress</a>
-* @author kevzlou7979
-*/
+ * Material Progress indicator to define intermediate and determinate progress bars
+ * <h3>UiBinder Usage:</h3>
+ * <p>
+ * <pre>
+ * {@code
+ * <m:MaterialProgress />
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>
+ */
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     private Div div = new Div();
     private double percent = 0;
-    private String color;
-    private ProgressType type;
+
+    private final ColorsMixin<Div> colorsMixin = new ColorsMixin<>(div);
+    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this, div);
 
     public MaterialProgress() {
-        super("progress");
+        super(CssName.PROGRESS);
         getElement().getStyle().setMargin(0, Unit.PX);
         add(div);
         setType(ProgressType.INDETERMINATE);
     }
 
+    public MaterialProgress(ProgressType type) {
+        this();
+        setType(type);
+    }
+
+    public MaterialProgress(ProgressType type, Double percent) {
+        this(type);
+        setPercent(percent);
+    }
+
     @Override
     public void setType(ProgressType type) {
-        if(this.type != null) {
-            div.removeStyleName(this.type.getCssName());
-        }
-        this.type = type;
-        div.addStyleName(type.getCssName());
+        typeMixin.setType(type);
     }
 
     @Override
     public ProgressType getType() {
-        return type;
+        return typeMixin.getType();
     }
 
     /**
@@ -79,25 +91,26 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
      */
     public void setPercent(double percent) {
         this.percent = percent;
-        div.getElement().getStyle().setWidth(percent, Unit.PCT);
+        if (percent <= 100) {
+            div.getElement().getStyle().setWidth(percent, Unit.PCT);
+        } else {
+            GWT.log("Progress percent must not exceed to 100 percent.", new RuntimeException());
+        }
     }
 
     /**
      * Get the progress bar color.
      */
-    public String getColor() {
-        return color;
+    public Color getColor() {
+        return colorsMixin.getBackgroundColor();
     }
 
     /**
      * Set the color of the progress bar.
+     *
      * @param color String value of the color.
      */
-    public void setColor(String color) {
-        if(this.color != null) {
-            div.removeStyleName(this.color);
-        }
-        this.color = color;
-        div.addStyleName(color);
+    public void setColor(Color color) {
+        colorsMixin.setBackgroundColor(color);
     }
 }

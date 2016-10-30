@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui.html;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +17,22 @@ package gwt.material.design.client.ui.html;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.ui.MaterialListBox;
+package gwt.material.design.client.ui.html;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.OptionElement;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.ui.MaterialListBox;
 
 /**
  * Option widget that encapsulated a &lt;option&gt; tag. This widget is to be
  * used in conjunction with {@link MaterialListBox}:
- * 
+ * <p>
  * <p>
  * <blockquote>
- * 
+ * <p>
  * <pre>
- * {@code 
+ * {@code
  * <m:MaterialListBox >
  *     <m:html.Option text="One" value="1"/>
  *     <m:html.Option text="Two" value="2"/>
@@ -42,13 +40,12 @@ import com.google.gwt.dom.client.OptionElement;
  *  </m:MaterialListBox>
  * }
  * </pre>
- * 
+ * <p>
  * </blockquote>
  * </p>
- * 
- * @see OptionElement
- * 
+ *
  * @author gilberto-torrezan
+ * @see OptionElement
  */
 public class Option extends MaterialWidget {
 
@@ -66,14 +63,16 @@ public class Option extends MaterialWidget {
      */
     public int getIndex() {
         return OptionElement.as(this.getElement()).getIndex();
-    };
+    }
+
+    ;
 
     /**
      * Option label for use in hierarchical menus.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
+     * HTML Specification</a>
      */
     public String getLabel() {
         return OptionElement.as(this.getElement()).getLabel();
@@ -88,10 +87,10 @@ public class Option extends MaterialWidget {
 
     /**
      * The current form control value.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C
+     * HTML Specification</a>
      */
     public String getValue() {
         return OptionElement.as(this.getElement()).getValue();
@@ -101,10 +100,10 @@ public class Option extends MaterialWidget {
      * Represents the value of the HTML selected attribute. The value of this
      * attribute does not change if the state of the corresponding form control,
      * in an interactive user agent, changes.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-selected">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-selected">W3C
+     * HTML Specification</a>
      */
     public boolean isDefaultSelected() {
         return OptionElement.as(this.getElement()).isDefaultSelected();
@@ -112,10 +111,10 @@ public class Option extends MaterialWidget {
 
     /**
      * The control is unavailable in this context.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
+     * HTML Specification</a>
      */
     public boolean isDisabled() {
         return OptionElement.as(this.getElement()).isDisabled();
@@ -129,38 +128,44 @@ public class Option extends MaterialWidget {
      */
     public boolean isSelected() {
         return OptionElement.as(this.getElement()).isSelected();
-    };
+    }
+
+    ;
 
     /**
      * Represents the value of the HTML selected attribute. The value of this
      * attribute does not change if the state of the corresponding form control,
      * in an interactive user agent, changes.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-selected">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-selected">W3C
+     * HTML Specification</a>
      */
     public void setDefaultSelected(boolean selected) {
         OptionElement.as(this.getElement()).setDefaultSelected(selected);
-    };
+    }
+
+    ;
 
     /**
      * The control is unavailable in this context.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C
+     * HTML Specification</a>
      */
     public void setDisabled(boolean disabled) {
         OptionElement.as(this.getElement()).setDisabled(disabled);
-    };
+    }
+
+    ;
 
     /**
      * Option label for use in hierarchical menus.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C
+     * HTML Specification</a>
      */
     public void setLabel(String label) {
         OptionElement.as(this.getElement()).setLabel(label);
@@ -185,10 +190,10 @@ public class Option extends MaterialWidget {
 
     /**
      * The current form control value.
-     * 
+     *
      * @see <a
-     *      href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C
-     *      HTML Specification</a>
+     * href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C
+     * HTML Specification</a>
      */
     public void setValue(String value) {
         OptionElement.as(this.getElement()).setValue(value);

@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,13 +17,14 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
 
 /**
  * Mixin for looking up validation messages. This can be replaced with your own version by using a
  * "replace-with" statment in the gwt module file.
- * 
+ * <p>
  * Example:
- * 
+ * <p>
  * <pre>
  * {@code
  * <replace-with class="...CustomValidatorMessageMixin">
@@ -33,7 +32,7 @@ package gwt.material.design.client.base.validator;
  * </replace-with>
  * }
  * </pre>
- * 
+ *
  * @author Steven Jardine
  */
 public interface ValidatorMessageMixin {
@@ -49,24 +48,24 @@ public interface ValidatorMessageMixin {
     /**
      * Lookup a message using the given key and replace the arguments in the given message with the supplied
      * values.
-     * 
+     * <p>
      * <pre>
      * {@code
      * Message:
      * {1} is a {2}
-     * 
+     *
      * Call:
      * lookup("key", "This", "test.");
-     * 
+     *
      * Returns:
      * This is a test.
      * }
      * </pre>
      *
-     * @param key the key
+     * @param key       the key
      * @param msgValues the values used in the message.
      * @return the message associated with the given key with the message values replaced.
      */
     String lookup(String key, Object[] msgValues);
-    
+
 }

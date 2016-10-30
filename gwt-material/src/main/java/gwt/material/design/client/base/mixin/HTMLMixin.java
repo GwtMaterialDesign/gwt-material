@@ -24,6 +24,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.UIObject;
 
+import static gwt.material.design.jquery.client.api.JQuery.$;
+
 /**
  * @author Grant Slender
  */
@@ -48,8 +50,7 @@ public class HTMLMixin<T extends UIObject> extends TextMixin<T> implements HasHT
         }
     }
 
-    protected native void setInnerHTML(Element e, String html) /*-{
-        $wnd.jQuery(e).html(html);
-    }-*/;
-
+    protected void setInnerHTML(Element e, String html) {
+        $(e).html(html);
+    }
 }

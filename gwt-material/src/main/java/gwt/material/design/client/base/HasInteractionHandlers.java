@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +17,10 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
-public interface HasDismissable {
+import com.google.gwt.event.dom.client.*;
 
-    /**
-     * Set dismissable when swiping left / right using hammer.js.
-     */
-    void setDismissable(boolean dismissable);
-
-    boolean isDismissable();
+public interface HasInteractionHandlers extends HasClickHandlers, HasDoubleClickHandlers, HasAllMouseHandlers,
+        HasAllDragAndDropHandlers, HasAllTouchHandlers, HasAllGestureHandlers, HasAllKeyHandlers {
 }

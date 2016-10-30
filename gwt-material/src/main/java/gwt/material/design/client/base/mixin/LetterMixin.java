@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +17,12 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
 import gwt.material.design.client.base.HasLetter;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
 
 public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractMixin<T> implements HasLetter {
@@ -30,7 +31,7 @@ public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractM
 
     public LetterMixin(final T widget) {
         super(widget);
-        span.setStyleName("letter");
+        span.setStyleName(CssName.LETTER);
     }
 
     @Override
@@ -45,12 +46,16 @@ public class LetterMixin<T extends MaterialWidget & HasLetter> extends AbstractM
     }
 
     @Override
-    public void setLetterColor(String letterColor) {
+    public void setLetterColor(Color letterColor) {
         span.setTextColor(letterColor);
     }
 
     @Override
-    public void setLetterBackgroundColor(String letterBackgroundColor) {
+    public void setLetterBackgroundColor(Color letterBackgroundColor) {
         span.setBackgroundColor(letterBackgroundColor);
+    }
+
+    public Span getSpan() {
+        return span;
     }
 }

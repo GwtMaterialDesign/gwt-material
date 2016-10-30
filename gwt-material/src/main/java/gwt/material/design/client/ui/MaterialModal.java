@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +17,25 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasDismissable;
-import gwt.material.design.client.base.HasTransition;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.constants.ModalType;
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.HasDismissible;
+import gwt.material.design.client.base.HasTransition;
+import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.ModalType;
+import gwt.material.design.client.js.JsModalOptions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -40,11 +43,11 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * Dialogs are content that are not original visible on a page but show up with
  * extra information if needed. The transitions should make the appearance of
  * the dialog make sense and not jarring to the user.
- *
- *
+ * <p>
+ * <p>
  * <p>
  * <h3>UiBinder Usage:</h3>
- *
+ * <p>
  * <pre>
  * {@code
  * <m:MaterialModal ui:field="modal" type="FIXED_FOOTER" dismissable="true" inDuration="500" outDuration="800">
@@ -57,29 +60,67 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * </m:MaterialModal>
  * }
  * </pre>
- *
+ * <p>
  * *
  * <h3>Java Usage:</h3>
- *
+ * <p>
  * <pre>
  * {
  *     &#064;code
  *     &#064;UiField
  *     MaterialModal modal;
- *     modal.openModal();
+ *     modal.open();
  * }
  * </pre>
- * 
+ * <p>
  * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#dialogs">Material
- *      Modals</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dialogs">Material
+ * Modals</a>
  */
 // @formatter:on
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
-    HasDismissable, HasCloseHandlers<MaterialModal> {
+        HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
+
+    static class ModalManager {
+        private static List<MaterialModal> modals;
+        private static final int index = 1010;
+
+        /**
+         * Registers the modal and added to static modal lists
+         */
+        public static void register(MaterialModal modal) {
+            if (modals == null) {
+                modals = new ArrayList<>();
+            }
+            modals.add(modal);
+            resetZIndex();
+        }
+
+        /**
+         * Unregisters the modal and removed it from static modal lists
+         */
+        public static void unregister(MaterialModal modal) {
+            if (modals == null) {
+                modals = new ArrayList<>();
+            }
+            if (modals.remove(modal)) {
+                resetZIndex();
+            }
+        }
+
+        /**
+         * Need to reset every time we have register / unregister process
+         */
+        protected static void resetZIndex() {
+            int i = index;
+            for (MaterialModal modal : modals) {
+                modal.setDepth(i++);
+            }
+        }
+    }
 
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
     private int inDuration = 300;
@@ -88,12 +129,19 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     private double opacity = 0.5;
 
     public MaterialModal() {
-        super(Document.get().createDivElement(), "modal");
+        super(Document.get().createDivElement(), CssName.MODAL);
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        close(false, false);
     }
 
     /**
-     * Open the modal programatically
-     * 
+     * Open the modal programmatically
+     * <p>
      * <p>
      * Note: the MaterialModal component must be added to the document before
      * calling this method. When declaring this modal on a UiBinder file, the
@@ -101,88 +149,124 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * must add it to a container before opening the modal. You can do it by
      * calling, for example:
      * </p>
-     * 
+     * <p>
      * <pre>
      * MaterialModal modal = new MaterialModal();
      * RootPanel.get().add(modal);
      * </pre>
-     * 
-     * @throws IllegalStateException
-     *             If the MaterialModal is not added to the document
+     *
+     * @throws IllegalStateException If the MaterialModal is not added to the document
      */
-    public void openModal() {
+    public void open() {
+        open(true);
+    }
+
+    /**
+     * Open the modal programmatically
+     * <p>
+     * <p>
+     * Note: the MaterialModal component must be added to the document before
+     * calling this method. When declaring this modal on a UiBinder file, the
+     * MaterialModal is already added, but if you call it using pure Java, you
+     * must add it to a container before opening the modal. You can do it by
+     * calling, for example:
+     * </p>
+     * <p>
+     * <pre>
+     * MaterialModal modal = new MaterialModal();
+     * RootPanel.get().add(modal);
+     * </pre>
+     * @param fireEvent - Flag whether this component fires Open Event
+     *
+     * @throws IllegalStateException If the MaterialModal is not added to the document
+     */
+    public void open(boolean fireEvent) {
         // the modal must be added to the document before opening
         if (this.getParent() == null) {
             throw new IllegalStateException(
-                "The MaterialModal must be added to the document before calling openModal().");
+                    "The MaterialModal must be added to the document before calling open().");
         }
-        openModal(getElement(), opacity, dismissable, inDuration, outDuration);
+        open(getElement(), opacity, dismissable, inDuration, outDuration, fireEvent);
     }
 
     /**
      * Open modal with additional properties
-     * 
-     * @param e
-     *            - Modal Component
-     * @param opacity
-     *            - Opacity of modal background
-     * @param dismissable
-     *            - Modal can be dismissed by clicking outside of the modal
-     * @param inDuration
-     *            - Transition in Duration
-     * @param outDuration
-     *            - Transition out Duration
+     *
+     * @param e           - Modal Component
+     * @param opacity     - Opacity of modal background
+     * @param dismissable - Modal can be dismissed by clicking outside of the modal
+     * @param inDuration  - Transition in Duration
+     * @param outDuration - Transition out Duration
+     * @param fireEvent   - Flag whether this component fires Open Event
      */
-    protected native void openModal(Element e, double opacity, boolean dismissable, int inDuration, int outDuration) /*-{
-        var obj = this;
-        $wnd.jQuery(e).openModal({
-            opacity: opacity,
-            dismissible: dismissable,
-            in_duration: inDuration,
-            out_duration: outDuration,
-            complete: function () { obj.@gwt.material.design.client.ui.MaterialModal::onNativeClose(Z)(true); }
-        });
-    }-*/;
+    protected void open(Element e, double opacity, boolean dismissable, int inDuration, int outDuration, boolean fireEvent) {
+        JsModalOptions options = new JsModalOptions();
+        options.opacity = opacity;
+        options.dismissible = dismissable;
+        options.in_duration = inDuration;
+        options.out_duration = outDuration;
+        options.complete = () -> {
+            onNativeClose(true);
+        };
+        $(e).openModal(options);
+        ModalManager.register(this);
+        if (fireEvent) {
+            OpenEvent.fire(this, this);
+        }
+    }
 
     protected void onNativeClose(boolean autoClosed) {
         CloseEvent.fire(this, this, autoClosed);
     }
 
     /**
-     * Close the modal programatically. It is the same as calling
-     * {@link #closeModal(boolean)} with <code>false</code> as parameter.
+     * Close the modal programmatically. It is the same as calling
+     * {@link #close(boolean)} with <code>false</code> as parameter.
      * <p>
      * Note: you may need to remove it MaterialModal from the document if you
-     * are not using UiBinder. See {@link #openModal()}.
+     * are not using UiBinder. See {@link #open()}.
      * </p>
-     * 
      */
-    public void closeModal() {
-        closeModal(false);
+    public void close() {
+        close(false);
     }
 
     /**
-     * Close the modal programatically.
+     * Close the modal programmatically.
      * <p>
      * Note: you may need to remove it MaterialModal from the document if you
-     * are not using UiBinder. See {@link #openModal()}.
+     * are not using UiBinder. See {@link #open()}.
      * </p>
-     * 
-     * @param autoClosed
-     *            Flag indicating if the modal was automatically dismissed
-     * 
+     *
+     * @param autoClosed Flag indicating if the modal was automatically dismissed
      * @see CloseEvent
      */
-    public void closeModal(boolean autoClosed) {
-        closeModal(getElement(), autoClosed);
+    public void close(boolean autoClosed) {
+        close(autoClosed, true);
     }
 
-    protected native void closeModal(Element e, boolean autoClosed) /*-{
-        var obj = this;
-        $wnd.jQuery(e).closeModal({
-            complete: function () { obj.@gwt.material.design.client.ui.MaterialModal::onNativeClose(Z)(autoClosed); }
-        });
-    }-*/;
+    /**
+     * Close the modal programmatically.
+     * <p>
+     * Note: you may need to remove it MaterialModal from the document if you
+     * are not using UiBinder. See {@link #open()}.
+     * </p>
+     *
+     * @param autoClosed Flag indicating if the modal was automatically dismissed
+     * @param fireEvent Flag whether this component fires Close Event
+     * @see CloseEvent
+     */
+    public void close(boolean autoClosed, boolean fireEvent) {
+        if (fireEvent) {
+            CloseEvent.fire(this, this);
+        }
+        close(getElement(), autoClosed);
+        ModalManager.unregister(this);
+    }
+
+    protected void close(Element e, boolean autoClosed) {
+        $(e).closeModal(() -> onNativeClose(autoClosed));
+    }
 
     @Override
     public void setType(ModalType type) {
@@ -205,12 +289,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public void setDismissable(boolean dismissable) {
-        this.dismissable = dismissable;
+    public void setDismissible(boolean dismissible) {
+        this.dismissable = dismissible;
     }
 
     @Override
-    public boolean isDismissable() {
+    public boolean isDismissible() {
         return dismissable;
     }
 
@@ -221,7 +305,16 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public HandlerRegistration addCloseHandler(CloseHandler<MaterialModal> handler) {
-        return this.addHandler(handler, CloseEvent.getType());
+        return addHandler(handler, CloseEvent.getType());
     }
 
+    @Override
+    public HandlerRegistration addOpenHandler(OpenHandler<MaterialModal> handler) {
+        return addHandler(handler, OpenEvent.getType());
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
 }

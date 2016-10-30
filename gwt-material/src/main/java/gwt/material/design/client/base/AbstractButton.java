@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,44 +17,21 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.HasAllMouseHandlers;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.constants.ButtonSize;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
 
 /**
  * @author Ben Dol
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
-        HasTargetHistoryToken, HasType<ButtonType>, HasClickHandlers, HasAllMouseHandlers,
-        HasDoubleClickHandlers {
+        HasTargetHistoryToken, HasType<ButtonType> {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
     private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
@@ -66,7 +41,8 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     private String targetHistoryToken;
 
-    /** Creates button with RAISED type.
+    /**
+     * Creates button with RAISED type.
      */
     protected AbstractButton() {
         setElement(createElement());
@@ -79,17 +55,17 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         setInitialClasses(initialClass);
     }
 
-    protected AbstractButton(String text, String bgColor, WavesType waves) {
+    protected AbstractButton(String text, Color bgColor, WavesType waves) {
         this(null, text, bgColor);
         setWaves(waves);
     }
 
-    protected AbstractButton(final ButtonType type, String text, String bgColor, WavesType waves) {
+    protected AbstractButton(final ButtonType type, String text, Color bgColor, WavesType waves) {
         this(type, text, bgColor);
         setWaves(waves);
     }
 
-    protected AbstractButton(final ButtonType type, String text, String bgColor) {
+    protected AbstractButton(final ButtonType type, String text, Color bgColor) {
         this(type, text);
         setBackgroundColor(bgColor);
     }
@@ -128,9 +104,9 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     @Override
     public void setActivates(String activates) {
-        removeStyleName(getActivates() + " dropdown-button");
+        removeStyleName(getActivates() + " " + CssName.DROPDOWN_BUTTON);
         activatesMixin.setActivates(activates);
-        addStyleName(activates + " dropdown-button");
+        addStyleName(activates + " " + CssName.DROPDOWN_BUTTON);
     }
 
     @Override
@@ -148,34 +124,50 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         return cssTypeMixin.getType();
     }
 
+    /**
+     * Set the buttons size.
+     */
     public void setSize(ButtonSize size) {
-        if(this.size != null) {
+        if (this.size != null) {
             removeStyleName(this.size.getCssName());
         }
         this.size = size;
 
-        if(size != null) {
+        if (size != null) {
             addStyleName(size.getCssName());
         }
     }
 
+    /**
+     * Get the buttons size.
+     */
     public ButtonSize getSize() {
         return size;
     }
 
+    /**
+     * Get the buttons span text.
+     */
     public String getText() {
         return span.getText();
     }
 
+    /**
+     * Set the buttons span text.
+     */
     public void setText(String text) {
         span.setText(text);
-        add(span);
+
+        if (!span.isAttached()) {
+            add(span);
+        }
     }
 
     /**
      * Set the target history token for the widget. Note, that you should use either
-     * {@link #setTargetHistoryToken(String)}or {@link #setHref(String)}, but not both as
+     * {@link #setTargetHistoryToken(String)} or {@link #setHref(String)}, but not both as
      * {@link #setHref(String)} resets the target history token.
+     *
      * @param targetHistoryToken String target history token of the widget
      */
     @Override
@@ -189,106 +181,11 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     /**
      * Get the target history token for the widget. May return {@code null} if no
      * history token has been set or if it has been reset by {@link #setHref(String)}.
+     *
      * @return String the widget's target history token.
      */
     @Override
     public String getTargetHistoryToken() {
         return targetHistoryToken;
-    }
-
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
-            }
-        }, ClickEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return addDomHandler(new MouseDownHandler() {
-            @Override
-            public void onMouseDown(MouseDownEvent event) {
-                if(isEnabled()){
-                    handler.onMouseDown(event);
-                }
-            }
-        }, MouseDownEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return addDomHandler(new MouseMoveHandler() {
-            @Override
-            public void onMouseMove(MouseMoveEvent event) {
-                if(isEnabled()){
-                    handler.onMouseMove(event);
-                }
-            }
-        }, MouseMoveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return addDomHandler(new MouseOutHandler() {
-            @Override
-            public void onMouseOut(MouseOutEvent event) {
-                if(isEnabled()) {
-                    handler.onMouseOut(event);
-                }
-            }
-        }, MouseOutEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return addDomHandler(new MouseOverHandler() {
-            @Override
-            public void onMouseOver(MouseOverEvent event) {
-                if(isEnabled()) {
-                    handler.onMouseOver(event);
-                }
-            }
-        }, MouseOverEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return addDomHandler(new MouseUpHandler() {
-            @Override
-            public void onMouseUp(MouseUpEvent event) {
-                if(isEnabled()) {
-                    handler.onMouseUp(event);
-                }
-            }
-        }, MouseUpEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return addDomHandler(new MouseWheelHandler() {
-            @Override
-            public void onMouseWheel(MouseWheelEvent event) {
-                if(isEnabled()) {
-                    handler.onMouseWheel(event);
-                }
-            }
-        }, MouseWheelEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
-        return addDomHandler(new DoubleClickHandler() {
-            @Override
-            public void onDoubleClick(DoubleClickEvent event) {
-                if(isEnabled()) {
-                    handler.onDoubleClick(event);
-                }
-            }
-        }, DoubleClickEvent.getType());
     }
 }

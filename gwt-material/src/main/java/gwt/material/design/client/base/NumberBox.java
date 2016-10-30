@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,27 +17,26 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.ui.MaterialNumberBox;
-
-import java.io.IOException;
-import java.text.ParseException;
+package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.text.shared.Parser;
 import com.google.gwt.text.shared.Renderer;
 import com.google.gwt.user.client.ui.ValueBox;
+import gwt.material.design.client.ui.MaterialNumberBox;
+
+import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Base class to handle number values on {@code <input type="number">} elements.
- * 
+ * <p>
  * The parsing and formatting is done by the browser, using the user specific i18n settings.
- * 
+ *
  * @author gilberto-torrezan
- * 
  * @see MaterialNumberBox
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class NumberBox<T> extends ValueBox<T> {
 
     public NumberBox(NumberHandler handler) {
@@ -65,7 +62,7 @@ public class NumberBox<T> extends ValueBox<T> {
 
         @Override
         public String render(T object) {
-            if(object == null) {
+            if (object == null) {
                 return "";
             }
             return object.toString();

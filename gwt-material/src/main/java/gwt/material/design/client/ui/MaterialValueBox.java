@@ -1,13 +1,8 @@
-package gwt.material.design.client.ui;
-
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,15 +17,15 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.AutoDirectionHandler;
@@ -38,48 +33,45 @@ import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.HasName;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.error.*;
-import gwt.material.design.client.base.error.ErrorHandler;
-import gwt.material.design.client.base.mixin.BlankValidatorMixin;
 import gwt.material.design.client.base.mixin.CounterMixin;
-import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.base.validator.HasBlankValidator;
-import gwt.material.design.client.base.validator.HasValidators;
-import gwt.material.design.client.base.validator.ValidationChangedEvent.ValidationChangedHandler;
-import gwt.material.design.client.base.validator.Validator;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.base.mixin.ReadOnlyMixin;
+import gwt.material.design.client.constants.*;
+import gwt.material.design.client.events.DragEndEvent;
+import gwt.material.design.client.events.DragEnterEvent;
+import gwt.material.design.client.events.DragLeaveEvent;
+import gwt.material.design.client.events.*;
+import gwt.material.design.client.events.DragOverEvent;
+import gwt.material.design.client.events.DragStartEvent;
+import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.client.ui.html.Label;
-
-import java.util.List;
 
 //@formatter:off
 
 /**
- * Material Text Box is an input field that accepts any text based string from user.
+ * MaterialValueBox is an input field that accepts any text based string from user.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialTextBox placeholder="First Name" />}
+ * {@code <m:MaterialTextBox placeholder="First Name" />}
  * </pre>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material TextBox</a>
+ *
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material TextBox</a>
  */
 //@formatter:on
-public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHandlers, HasName, HasDirectionEstimator,
-        HasValue<T>, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasKeyUpHandlers,
-        HasClickHandlers, HasDoubleClickHandlers, HasAllDragAndDropHandlers, HasAllFocusHandlers, HasIcon,
-        HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasError, HasInputType,
-        HasPlaceholder, HasCounter, HasEditorErrors<T>, HasErrorHandler, HasValidators<T>, HasBlankValidator {
+public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
+        HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
+        HasInputType, HasPlaceholder, HasCounter, HasReadOnly {
+
+    private boolean initialized;
 
     private String placeholder;
     private InputType type = InputType.TEXT;
@@ -90,13 +82,12 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     private MaterialLabel lblError = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
 
+    @Editor.Ignore
+    protected ValueBoxBase<T> valueBoxBase;
+
     private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
-    private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
-    private final BlankValidatorMixin<MaterialValueBox<T>, T> validatorMixin = new BlankValidatorMixin<>(this,
-            errorHandlerMixin.getErrorHandler());
-
-    @Ignore protected ValueBoxBase<T> valueBoxBase;
-
+    private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
+    private ReadOnlyMixin<MaterialValueBox, ValueBoxBase> readOnlyMixin;
     private FocusableMixin<MaterialWidget> focusableMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
@@ -110,18 +101,16 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         @Override
         public void setValue(V value) {
             super.setValue(value);
-            if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
-                label.addStyleName("active");
+            if (valueBoxBase.getText() != null && !valueBoxBase.getText().isEmpty()) {
+                label.addStyleName(CssName.ACTIVE);
             } else {
-                label.removeStyleName("active");
+                label.removeStyleName(CssName.ACTIVE);
             }
         }
     }
 
-    private final ErrorMixin<MaterialValueBox<T>, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
-
     protected MaterialValueBox() {
-        super(Document.get().createDivElement(), "input-field");
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD);
     }
 
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
@@ -141,15 +130,18 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
         super.onLoad();
 
-        String id = DOM.createUniqueId();
-        valueBoxBase.getElement().setId(id);
-        label.getElement().setAttribute("for", id);
+        if (!initialized) {
+            String id = DOM.createUniqueId();
+            valueBoxBase.getElement().setId(id);
+            label.getElement().setAttribute("for", id);
 
-        // Make valueBoxBase the primary focus target
-        getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
+            // Make valueBoxBase the primary focus target
+            getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
+            initialized = true;
+        }
     }
 
     /**
@@ -158,14 +150,22 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public void clear() {
         valueBoxBase.setText("");
         clearErrorOrSuccess();
-        label.removeStyleName("active");
+        label.removeStyleName(CssName.ACTIVE);
     }
 
     public void removeErrorModifiers() {
-        valueBoxBase.getElement().removeClassName("valid");
-        valueBoxBase.getElement().removeClassName("invalid");
+        valueBoxBase.getElement().removeClassName(CssName.VALID);
+        valueBoxBase.getElement().removeClassName(CssName.INVALID);
         lblName.removeStyleName("green-text");
         lblName.removeStyleName("red-text");
+    }
+
+    @Override
+    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
+        if (focusableMixin == null) {
+            focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
+        }
+        return focusableMixin;
     }
 
     @Override
@@ -178,7 +178,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         valueBoxBase.setText(text);
 
         if (text != null && !text.isEmpty()) {
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         }
     }
 
@@ -190,7 +190,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     @Override
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
-        if(getType() != InputType.SEARCH) {
+        if (getType() != InputType.SEARCH) {
             lblName.setText(placeholder);
         } else {
             valueBoxBase.getElement().setAttribute("placeholder", placeholder);
@@ -206,7 +206,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     public void setType(InputType type) {
         this.type = type;
         valueBoxBase.getElement().setAttribute("type", type.getType());
-        if(getType() != InputType.SEARCH) {
+        if (getType() != InputType.SEARCH) {
             add(label);
             label.add(lblName);
             lblError.setVisible(false);
@@ -216,12 +216,9 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
-        return valueBoxBase.addValueChangeHandler(new ValueChangeHandler<T>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<T> event) {
-                if(isEnabled()){
-                    handler.onValueChange(event);
-                }
+        return valueBoxBase.addValueChangeHandler(event -> {
+            if (isEnabled()) {
+                handler.onValueChange(event);
             }
         });
     }
@@ -232,16 +229,11 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
-    public void setValue(T value) {
-        setValue(value, false);
-    }
-
-    @Override
     public void setValue(T value, boolean fireEvents) {
         valueBoxBase.setValue(value, fireEvents);
 
         if (value != null && !value.toString().isEmpty()) {
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         }
     }
 
@@ -289,367 +281,296 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
+    public HandlerRegistration addDragStartHandler(DragStartEvent.DragStartHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragStart(event);
+            }
+        }, DragStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragMoveHandler(DragMoveEvent.DragMoveHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragMove(event);
+            }
+        }, DragMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEndHandler(DragEndEvent.DragEndHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragEnd(event);
+            }
+        }, DragEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropActivateHandler(DropActivateEvent.DropActivateHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDropActivate(event);
+            }
+        }, DropActivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEnterHandler(DragEnterEvent.DragEnterHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragEnter(event);
+            }
+        }, DragEnterEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragLeaveHandler(DragLeaveEvent.DragLeaveHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragLeave(event);
+            }
+        }, DragLeaveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragOverHandler(DragOverEvent.DragOverHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragOver(event);
+            }
+        }, DragOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropDeactivateHandler(DropDeactivateEvent.DropDeactivateHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDropDeactivate(event);
+            }
+        }, DropDeactivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropHandler(DropEvent.DropHandler handler) {
+        return valueBoxBase.addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDrop(event);
+            }
+        }, DropEvent.getType());
+    }
+
+    @Override
     public HandlerRegistration addKeyUpHandler(final KeyUpHandler handler) {
-        return addDomHandler(new KeyUpHandler() {
-            @Override
-            public void onKeyUp(KeyUpEvent event) {
-                if(isEnabled()){
-                    handler.onKeyUp(event);
-                }
+        return valueBoxBase.addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onKeyUp(event);
             }
         }, KeyUpEvent.getType());
     }
 
     @Override
     public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
-        return valueBoxBase.addChangeHandler(new ChangeHandler() {
-            @Override
-            public void onChange(ChangeEvent event) {
-                if(isEnabled()){
-                    handler.onChange(event);
-                }
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragEndHandler(final DragEndHandler handler) {
-        return valueBoxBase.addDragEndHandler(new DragEndHandler() {
-            @Override
-            public void onDragEnd(DragEndEvent event) {
-                if(isEnabled()){
-                    handler.onDragEnd(event);
-                }
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragEnterHandler(final DragEnterHandler handler) {
-        return valueBoxBase.addDragEnterHandler(new DragEnterHandler() {
-            @Override
-            public void onDragEnter(DragEnterEvent event) {
-                if(isEnabled()){
-                    handler.onDragEnter(event);
-                }
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragLeaveHandler(final DragLeaveHandler handler) {
-        return valueBoxBase.addDragLeaveHandler(new DragLeaveHandler() {
-            @Override
-            public void onDragLeave(DragLeaveEvent event) {
-                if(isEnabled()) {
-                    handler.onDragLeave(event);
-                }
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragHandler(final DragHandler handler) {
-        return valueBoxBase.addDragHandler(new DragHandler() {
-            @Override
-            public void onDrag(final DragEvent event) {
-                if(isEnabled()){
-                    handler.onDrag(event);
-                }
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragOverHandler(final DragOverHandler handler) {
-        return valueBoxBase.addDragOverHandler(new DragOverHandler() {
-            @Override
-            public void onDragOver(DragOverEvent event) {
-                if(isEnabled()){
-                    handler.onDragOver(event);
-                }
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDragStartHandler(final DragStartHandler handler) {
-        return valueBoxBase.addDragStartHandler(new DragStartHandler() {
-            @Override
-            public void onDragStart(DragStartEvent event) {
-                if(isEnabled()){
-                    handler.onDragStart(event);
-                }
-            }
-        });
-    }
-
-    @Override
-    public HandlerRegistration addDropHandler(final DropHandler handler) {
-        return valueBoxBase.addDropHandler(new DropHandler() {
-            @Override
-            public void onDrop(DropEvent event) {
-                if(isEnabled()){
-                    handler.onDrop(event);
-                }
+        return valueBoxBase.addChangeHandler(event -> {
+            if (isEnabled()) {
+                handler.onChange(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addFocusHandler(final FocusHandler handler) {
-        return valueBoxBase.addFocusHandler(new FocusHandler() {
-            @Override
-            public void onFocus(FocusEvent event) {
-                if(isEnabled()){
-                    handler.onFocus(event);
-                }
+        return valueBoxBase.addFocusHandler(event -> {
+            if (isEnabled()) {
+                handler.onFocus(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addBlurHandler(final BlurHandler handler) {
-        return valueBoxBase.addBlurHandler(new BlurHandler() {
-            @Override
-            public void onBlur(BlurEvent event) {
-                if(isEnabled()){
-                    handler.onBlur(event);
-                }
+        return valueBoxBase.addBlurHandler(event -> {
+            if (isEnabled()) {
+                handler.onBlur(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addGestureStartHandler(final GestureStartHandler handler) {
-        return valueBoxBase.addGestureStartHandler(new GestureStartHandler() {
-            @Override
-            public void onGestureStart(GestureStartEvent event) {
-                if(isEnabled()){
-                    handler.onGestureStart(event);
-                }
+        return valueBoxBase.addGestureStartHandler(event -> {
+            if (isEnabled()) {
+                handler.onGestureStart(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addGestureChangeHandler(final GestureChangeHandler handler) {
-        return valueBoxBase.addGestureChangeHandler(new GestureChangeHandler() {
-            @Override
-            public void onGestureChange(GestureChangeEvent event) {
-                if(isEnabled()){
-                    handler.onGestureChange(event);
-                }
+        return valueBoxBase.addGestureChangeHandler(event -> {
+            if (isEnabled()) {
+                handler.onGestureChange(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addGestureEndHandler(final GestureEndHandler handler) {
-        return valueBoxBase.addGestureEndHandler(new GestureEndHandler() {
-            @Override
-            public void onGestureEnd(GestureEndEvent event) {
-                if(isEnabled()){
-                    handler.onGestureEnd(event);
-                }
+        return valueBoxBase.addGestureEndHandler(event -> {
+            if (isEnabled()) {
+                handler.onGestureEnd(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addKeyDownHandler(final KeyDownHandler handler) {
-        return valueBoxBase.addKeyDownHandler(new KeyDownHandler() {
-            @Override
-            public void onKeyDown(KeyDownEvent event) {
-                if(isEnabled()){
-                    handler.onKeyDown(event);
-                }
+        return valueBoxBase.addKeyDownHandler(event -> {
+            if (isEnabled()) {
+                handler.onKeyDown(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addKeyPressHandler(final KeyPressHandler handler) {
-        return valueBoxBase.addKeyPressHandler(new KeyPressHandler() {
-            @Override
-            public void onKeyPress(KeyPressEvent event) {
-                if(isEnabled()){
-                    handler.onKeyPress(event);
-                }
+        return valueBoxBase.addKeyPressHandler(event -> {
+            if (isEnabled()) {
+                handler.onKeyPress(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return valueBoxBase.addMouseDownHandler(new MouseDownHandler() {
-            @Override
-            public void onMouseDown(MouseDownEvent event) {
-                if(isEnabled()){
-                    handler.onMouseDown(event);
-                }
+        return valueBoxBase.addMouseDownHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseDown(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return valueBoxBase.addMouseUpHandler(new MouseUpHandler() {
-            @Override
-            public void onMouseUp(MouseUpEvent event) {
-                if(isEnabled()){
-                    handler.onMouseUp(event);
-                }
+        return valueBoxBase.addMouseUpHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseUp(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return valueBoxBase.addMouseOutHandler(new MouseOutHandler() {
-            @Override
-            public void onMouseOut(MouseOutEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOut(event);
-                }
+        return valueBoxBase.addMouseOutHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseOut(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return valueBoxBase.addMouseOverHandler(new MouseOverHandler() {
-            @Override
-            public void onMouseOver(MouseOverEvent event) {
-                if(isEnabled()){
-                    handler.onMouseOver(event);
-                }
+        return valueBoxBase.addMouseOverHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseOver(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return valueBoxBase.addMouseMoveHandler(new MouseMoveHandler() {
-            @Override
-            public void onMouseMove(MouseMoveEvent event) {
-                if(isEnabled()){
-                    handler.onMouseMove(event);
-                }
+        return valueBoxBase.addMouseMoveHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseMove(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return valueBoxBase.addMouseWheelHandler(new MouseWheelHandler() {
-            @Override
-            public void onMouseWheel(MouseWheelEvent event) {
-                if(isEnabled()){
-                    handler.onMouseWheel(event);
-                }
+        return valueBoxBase.addMouseWheelHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseWheel(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchStartHandler(final TouchStartHandler handler) {
-        return valueBoxBase.addTouchStartHandler(new TouchStartHandler() {
-            @Override
-            public void onTouchStart(TouchStartEvent event) {
-                if(isEnabled()){
-                    handler.onTouchStart(event);
-                }
+        return valueBoxBase.addTouchStartHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchStart(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchMoveHandler(final TouchMoveHandler handler) {
-        return valueBoxBase.addTouchMoveHandler(new TouchMoveHandler() {
-            @Override
-            public void onTouchMove(TouchMoveEvent event) {
-                if(isEnabled()){
-                    handler.onTouchMove(event);
-                }
+        return valueBoxBase.addTouchMoveHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchMove(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchEndHandler(final TouchEndHandler handler) {
-        return valueBoxBase.addTouchEndHandler(new TouchEndHandler() {
-            @Override
-            public void onTouchEnd(TouchEndEvent event) {
-                if(isEnabled()){
-                    handler.onTouchEnd(event);
-                }
+        return valueBoxBase.addTouchEndHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchEnd(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addTouchCancelHandler(final TouchCancelHandler handler) {
-        return valueBoxBase.addTouchCancelHandler(new TouchCancelHandler() {
-            @Override
-            public void onTouchCancel(TouchCancelEvent event) {
-                if(isEnabled()){
-                    handler.onTouchCancel(event);
-                }
+        return valueBoxBase.addTouchCancelHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchCancel(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
-        return valueBoxBase.addDoubleClickHandler(new DoubleClickHandler() {
-            @Override
-            public void onDoubleClick(DoubleClickEvent event) {
-                if(isEnabled()){
-                    handler.onDoubleClick(event);
-                }
+        return valueBoxBase.addDoubleClickHandler(event -> {
+            if (isEnabled()) {
+                handler.onDoubleClick(event);
             }
         });
     }
 
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return valueBoxBase.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
+        return valueBoxBase.addClickHandler(event -> {
+            if (isEnabled()) {
+                handler.onClick(event);
             }
         });
     }
 
     @Override
     public void setError(String error) {
-        errorMixin.setError(error);
+        super.setError(error);
 
         removeErrorModifiers();
         lblName.setStyleName("red-text");
-        valueBoxBase.getElement().addClassName("invalid");
+        valueBoxBase.getElement().addClassName(CssName.INVALID);
     }
 
     @Override
     public void setSuccess(String success) {
-        errorMixin.setSuccess(success);
+        super.setSuccess(success);
 
         removeErrorModifiers();
         lblName.setStyleName("green-text");
-        valueBoxBase.getElement().addClassName("valid");
-    }
-
-    @Override
-    public void setHelperText(String helperText) {
-        errorMixin.setHelperText(helperText);
+        valueBoxBase.getElement().addClassName(CssName.VALID);
     }
 
     @Override
     public void clearErrorOrSuccess() {
-        errorMixin.clearErrorOrSuccess();
+        super.clearErrorOrSuccess();
         removeErrorModifiers();
     }
 
@@ -682,7 +603,7 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         icon.setIconColor(iconColor);
     }
 
@@ -706,14 +627,9 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         return counterMixin.getLength();
     }
 
-    @Ignore
+    @Editor.Ignore
     public ValueBoxBase<T> asValueBoxBase() {
         return valueBoxBase;
-    }
-
-    @Override
-    public void showErrors(List<EditorError> errors) {
-        errorHandlerMixin.showErrors(errors);
     }
 
     @Override
@@ -728,15 +644,12 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
 
     @Override
     public void setFocus(final boolean focused) {
-        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-            @Override
-            public void execute() {
-                valueBoxBase.setFocus(focused);
-                if (focused) {
-                    label.addStyleName("active");
-                } else {
-                    updateLabelActiveStyle();
-                }
+        Scheduler.get().scheduleDeferred(() -> {
+            valueBoxBase.setFocus(focused);
+            if (focused) {
+                label.addStyleName(CssName.ACTIVE);
+            } else {
+                updateLabelActiveStyle();
             }
         });
     }
@@ -748,9 +661,9 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
      */
     protected void updateLabelActiveStyle() {
         if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
-            label.addStyleName("active");
+            label.addStyleName(CssName.ACTIVE);
         } else {
-            label.removeStyleName("active");
+            label.removeStyleName(CssName.ACTIVE);
         }
     }
 
@@ -766,12 +679,31 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
         valueBoxBase.setSelectionRange(pos, length);
     }
 
-    public void setReadOnly(boolean readOnly) {
-        valueBoxBase.setReadOnly(readOnly);
+    public ReadOnlyMixin<MaterialValueBox, ValueBoxBase> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
+        }
+        return readOnlyMixin;
     }
 
+    @Override
+    public void setReadOnly(boolean readOnly) {
+        getReadOnlyMixin().setReadOnly(readOnly);
+    }
+
+    @Override
     public boolean isReadOnly() {
-        return valueBoxBase.isReadOnly();
+        return getReadOnlyMixin().isReadOnly();
+    }
+
+    @Override
+    public void setToggleReadOnly(boolean toggle) {
+        getReadOnlyMixin().setToggleReadOnly(toggle);
+    }
+
+    @Override
+    public boolean isToggleReadOnly() {
+        return getReadOnlyMixin().isToggleReadOnly();
     }
 
     public void setCursorPos(int pos) {
@@ -794,77 +726,17 @@ public class MaterialValueBox<T> extends MaterialWidget implements HasChangeHand
     }
 
     @Override
-    public boolean isAllowBlank() {
-        return validatorMixin.isAllowBlank();
+    public boolean isEnabled() {
+        return valueBoxBase.isEnabled();
     }
 
     @Override
-    public void setAllowBlank(boolean allowBlank) {
-        validatorMixin.setAllowBlank(allowBlank);
+    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        return errorMixin;
     }
 
-    @Override
-    public ErrorHandler getErrorHandler() {
-        return errorHandlerMixin.getErrorHandler();
-    }
-
-    @Override
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        errorHandlerMixin.setErrorHandler(errorHandler);
-    }
-
-    @Override
-    public ErrorHandlerType getErrorHandlerType() {
-        return errorHandlerMixin.getErrorHandlerType();
-    }
-
-    @Override
-    public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
-        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
-    }
-
-    @Override
-    public void addValidator(Validator<T> validator) {
-        validatorMixin.addValidator(validator);
-    }
-
-    @Override
-    public boolean isValidateOnBlur() {
-        return validatorMixin.isValidateOnBlur();
-    }
-
-    @Override
-    public boolean removeValidator(Validator<T> validator) {
-        return validatorMixin.removeValidator(validator);
-    }
-
-    @Override
-    public void reset() {
-        validatorMixin.reset();
-    }
-
-    @Override
-    public void setValidateOnBlur(boolean validateOnBlur) {
-        validatorMixin.setValidateOnBlur(validateOnBlur);
-    }
-
-    @Override
-    public void setValidators(@SuppressWarnings("unchecked") Validator<T>... validators) {
-        validatorMixin.setValidators(validators);
-    }
-
-    @Override
-    public boolean validate() {
-        return validatorMixin.validate();
-    }
-
-    @Override
-    public boolean validate(boolean show) {
-        return validatorMixin.validate(show);
-    }
-
-    @Override
-    public HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
-        return (HandlerRegistration)validatorMixin.addValidationChangedHandler(handler);
+    @Ignore
+    public ValueBoxBase<T> getValueBoxBase() {
+        return valueBoxBase;
     }
 }

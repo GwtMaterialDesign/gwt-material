@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,38 +17,36 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-
-import gwt.material.design.client.base.mixin.ColorsMixin;
-import gwt.material.design.client.base.mixin.CssNameMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasSeparator;
-import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.base.mixin.ColorsMixin;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.constants.*;
 
 //@formatter:off
 
 /**
  * We have included 740 Material Design Icons courtesy of Google.
  * You can download them directly from the Material Design specs.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- *{@code <m:MaterialIcon waves="LIGHT" iconType="POLYMER"/>
- * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" textColor="blue" type="CIRCLE"/>
- * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" backgroundColor="blue" textColor="white" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>}
+ * {@code <m:MaterialIcon waves="LIGHT" iconType="POLYMER"/>
+ * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" textColor="BLUE" type="CIRCLE"/>
+ * <m:MaterialIcon waves="LIGHT" iconType="POLYMER" backgroundColor="BLUE" textColor="WHITE" type="CIRCLE" tooltip="Tooltip" tooltipLocation="BOTTOM"/>}
  * </pre>
  *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://www.google.com/design/icons/">Search Google Icons</a>
- * @see <a href="http://gwt-material-demo.herokuapp.com/#icons">Material Icons Documentation</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!icons">Material Icons Documentation</a>
  */
 //@formatter:on
 public class MaterialIcon extends AbstractButton implements HasSeparator, HasIcon {
@@ -59,11 +55,12 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     private final CssNameMixin<MaterialIcon, IconSize> sizeMixin = new CssNameMixin<>(this);
     private final ToggleStyleMixin<MaterialIcon> prefixMixin = new ToggleStyleMixin<>(this, "prefix");
     private final ColorsMixin<MaterialIcon> colorsMixin = new ColorsMixin<>(this);
+
     /**
      * Creates an empty icon.
      */
     public MaterialIcon() {
-        super("material-icons");
+        super(CssName.MATERIAL_ICONS);
     }
 
     /**
@@ -75,9 +72,18 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     }
 
     /**
+     * Sets an icon with backgroundColor.
+     */
+    public MaterialIcon(IconType iconType, Color bgColor) {
+        this();
+        setIconType(iconType);
+        setBackgroundColor(bgColor);
+    }
+
+    /**
      * Sets an icon with textColor and backgroundColor.
      */
-    public MaterialIcon(IconType iconType, String textColor, String bgColor) {
+    public MaterialIcon(IconType iconType, Color textColor, Color bgColor) {
         this();
         setIconType(iconType);
         setTextColor(textColor);
@@ -122,7 +128,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     }
 
     @Override
-    public void setIconColor(String iconColor) {
+    public void setIconColor(Color iconColor) {
         colorsMixin.setTextColor(iconColor);
     }
 

@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,48 +17,56 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.jquery.client.api.Functions;
 
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
+
 /**
-* GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts. These toasts are also placed and sized responsively, try it out by clicking the button below on different device sizes.
-*
-* <p>
-* <h3>Java Usage:</h3>
-* <pre>
-* {@code
-* MaterialToast.fireToast("I love Material Design");
-* }
-* </pre>
-* </p>
-*
-* @author kevzlou7979
-* @author Ben Dol
-*/
+ * GWT Material provides an easy way for you to send unobtrusive alerts to your users through toasts.
+ * These toasts are also placed and sized responsively, try it out by clicking the button below on
+ * different device sizes.
+ *
+ * <p>
+ * <h3>Java Usage:</h3>
+ * <pre>
+ * {@code
+ * MaterialToast.fireToast("I love Material Design");
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
 //@formatter:on
 public class MaterialToast {
 
     public static final int DEFAULT_LIFE = 4000;
 
-    private Runnable callback;
+    private Functions.Func callback;
     private Widget[] widgets;
 
     public MaterialToast(Widget... widgets) {
         this.widgets = widgets;
     }
 
-    public MaterialToast(Runnable callback, Widget... widgets) {
+    public MaterialToast(Functions.Func callback, Widget... widgets) {
         this.callback = callback;
         this.widgets = widgets;
     }
 
     /**
      * Quick fire your toast.
+     *
      * @param msg Message text for your toast.
      */
     public static void fireToast(String msg) {
@@ -69,7 +75,8 @@ public class MaterialToast {
 
     /**
      * Quick fire your toast.
-     * @param msg Message text for your toast.
+     *
+     * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
      */
     public static void fireToast(String msg, int lifeMillis) {
@@ -78,9 +85,10 @@ public class MaterialToast {
 
     /**
      * Quick fire your toast.
-     * @param msg Message text for your toast.
+     *
+     * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
-     * @param className class name to custom style your toast.
+     * @param className  class name to custom style your toast.
      */
     public static void fireToast(String msg, int lifeMillis, String className) {
         new MaterialToast().toast(msg, lifeMillis, className);
@@ -88,7 +96,8 @@ public class MaterialToast {
 
     /**
      * Quick fire your toast.
-     * @param msg Message text for your toast.
+     *
+     * @param msg       Message text for your toast.
      * @param className class name to custom style your toast.
      */
     public static void fireToast(String msg, String className) {
@@ -103,7 +112,7 @@ public class MaterialToast {
     }
 
     /**
-     * @param msg Message text for your toast.
+     * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
      */
     public void toast(String msg, int lifeMillis) {
@@ -111,7 +120,7 @@ public class MaterialToast {
     }
 
     /**
-     * @param msg Message text for your toast.
+     * @param msg       Message text for your toast.
      * @param className class name to custom style your toast.
      */
     public void toast(String msg, String className) {
@@ -119,18 +128,18 @@ public class MaterialToast {
     }
 
     /**
-     * @param msg Message text for your toast.
+     * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
-     * @param className class name to custom style your toast.
+     * @param className  class name to custom style your toast.
      */
     public void toast(String msg, int lifeMillis, String className) {
         String genId = DOM.createUniqueId();
-        if(className == null) {
+        if (className == null) {
             className = genId;
         }
         toast(msg, lifeMillis, genId, className, callback);
 
-        if(widgets != null) {
+        if (widgets != null) {
             for (Widget widget : widgets) {
                 widget.getElement().getStyle().setPaddingLeft(30, Unit.PX);
                 RootPanel.get(genId).add(widget);
@@ -138,12 +147,12 @@ public class MaterialToast {
         }
     }
 
-    protected static native void toast(String msg, int lifeMillis, String id, String className, Runnable callback)/*-{
-        $wnd.Materialize.toast(msg, lifeMillis, className, function() {
-            if(callback != null) {
-                callback.@java.lang.Runnable::run()();
+    protected void toast(String msg, int lifeMillis, String id, String className, Functions.Func callback) {
+        JsMaterialElement.toast(msg, lifeMillis, className, () -> {
+            if (callback != null) {
+                callback.call();
             }
         });
-        $wnd.jQuery(".toast." + className).attr('id',  id);
-    }-*/;
+        $(".toast." + className).attr("id", id);
+    }
 }

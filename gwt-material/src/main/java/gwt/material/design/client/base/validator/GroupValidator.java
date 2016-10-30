@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
 
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,7 +31,7 @@ import java.util.Map;
 
 /**
  * Useful for validating a group of fields that implement the {@link HasValidators} interface.
- * 
+ *
  * @author Steven Jardine
  */
 public class GroupValidator implements ValidationChangedEvent.HasValidationChangedHandlers {
@@ -59,7 +58,7 @@ public class GroupValidator implements ValidationChangedEvent.HasValidationChang
     /**
      * Adds a field to the group.
      *
-     * @param <T> the generic type
+     * @param <T>   the generic type
      * @param field the field
      */
     public <T extends Widget & HasValidators<?>> void add(final T field) {
@@ -67,13 +66,10 @@ public class GroupValidator implements ValidationChangedEvent.HasValidationChang
         if (field.isAttached()) {
             updateStateAndNotify();
         }
-        registrations.put(field, field.addValidationChangedHandler(new ValidationChangedHandler() {
-            @Override
-            public void onValidationChanged(ValidationChangedEvent event) {
-                fields.put(field, event.isValid());
-                if (fireEvents) {
-                    updateStateAndNotify();
-                }
+        registrations.put(field, field.addValidationChangedHandler(event -> {
+            fields.put(field, event.isValid());
+            if (fireEvents) {
+                updateStateAndNotify();
             }
         }));
     }
@@ -91,7 +87,7 @@ public class GroupValidator implements ValidationChangedEvent.HasValidationChang
     /**
      * Removes a field from the validation group.
      *
-     * @param <T> the generic type
+     * @param <T>   the generic type
      * @param field the field
      * @return true, if successful
      */

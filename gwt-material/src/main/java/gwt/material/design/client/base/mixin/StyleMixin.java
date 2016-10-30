@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
 
@@ -34,12 +33,12 @@ public class StyleMixin<H extends UIObject> extends AbstractMixin<H> {
     }
 
     public void setStyle(String style) {
-        if(this.style != null && !this.style.isEmpty()) {
+        if (this.style != null && !this.style.isEmpty()) {
             uiObject.removeStyleName(this.style);
         }
         this.style = style;
 
-        if(style != null && !style.isEmpty()) {
+        if (style != null && !style.isEmpty()) {
             uiObject.addStyleName(style);
         }
     }

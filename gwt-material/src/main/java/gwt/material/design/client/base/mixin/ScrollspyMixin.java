@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +17,12 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.HasScrollspy;
-import gwt.material.design.client.base.helper.StyleHelper;
+package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.HasScrollspy;
+import gwt.material.design.client.base.helper.StyleHelper;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
@@ -36,17 +35,17 @@ public class ScrollspyMixin<T extends UIObject & HasScrollspy> extends AbstractM
 
     @Override
     public void setScrollspy(String scrollspy) {
-        uiObject.removeStyleName("section scrollspy");
+        uiObject.removeStyleName(CssName.SECTION + " " + CssName.SCROLLSPY);
 
-        if(scrollspy != null) {
-            uiObject.addStyleName("section scrollspy");
+        if (scrollspy != null) {
+            uiObject.addStyleName(CssName.SECTION + " " + CssName.SCROLLSPY);
             setId(scrollspy);
         }
     }
 
     @Override
     public String getScrollspy() {
-        if(StyleHelper.containsStyle(uiObject.getStyleName(), "scrollspy")) {
+        if (StyleHelper.containsStyle(uiObject.getStyleName(), CssName.SCROLLSPY)) {
             return getId();
         } else {
             return null;

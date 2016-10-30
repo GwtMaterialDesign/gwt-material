@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,23 +17,24 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 //@formatter:off
 
 /**
  * Material Integer Box is an input field that accepts any Double based string
  * from user. <h3>UiBinder Usage:</h3>
- * 
+ * <p>
  * <pre>
  * {@code <m:MaterialIntegerBox placeholder="Your doble" step=100/>}
  * </pre>
- * 
+ * <p>
  * The parsing and formatting of the number are done natively by the browser,
  * using the i18n settings from the user.
- * 
- * @see <a href="http://gwt-material-demo.herokuapp.com/#forms">Material
- *      DoubleBox</a>
+ *
  * @author paulux84
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material
+ * DoubleBox</a>
  */
 // @formatter:on
 public class MaterialDoubleBox extends MaterialNumberBox<Double> {
@@ -44,13 +43,21 @@ public class MaterialDoubleBox extends MaterialNumberBox<Double> {
         setStep("any");
     }
 
+    public MaterialDoubleBox(String placeholder) {
+        this();
+        setPlaceholder(placeholder);
+    }
+
+    public MaterialDoubleBox(String placeholder, double value) {
+        this(placeholder);
+        setValue(value);
+    }
+
     @Override
-    public Double getValue() {
-        double number = getValueAsNumber();
+    protected Double parseNumber(double number) {
         if (Double.isNaN(number)) {
             return null;
         }
         return number;
     }
-
 }

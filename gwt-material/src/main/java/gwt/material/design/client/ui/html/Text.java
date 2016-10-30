@@ -78,7 +78,7 @@ public class Text extends Widget implements HasText {
     public String getText() {
         return text.getData();
     }
-    
+
     @Override
     public boolean isAttached() {
         return isAttached;

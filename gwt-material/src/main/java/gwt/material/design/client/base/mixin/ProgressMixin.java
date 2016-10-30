@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +17,17 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasProgress;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.MaterialCollapsibleBody;
 import gwt.material.design.client.ui.MaterialCollapsibleItem;
 import gwt.material.design.client.ui.MaterialNavBar;
 import gwt.material.design.client.ui.MaterialProgress;
-
-import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * @author kevzlou7979
@@ -43,9 +42,9 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
 
     @Override
     public void showProgress(ProgressType type) {
-        if(uiObject instanceof MaterialCollapsibleItem) {
+        if (uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(true);
-        }else if(uiObject  instanceof MaterialNavBar) {
+        } else if (uiObject instanceof MaterialNavBar) {
             ((MaterialNavBar) uiObject).add(progress);
         }
     }
@@ -57,7 +56,7 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
 
     @Override
     public void hideProgress() {
-        if(uiObject instanceof MaterialCollapsibleItem) {
+        if (uiObject instanceof MaterialCollapsibleItem) {
             applyCollapsibleProgress(false);
         } else {
             progress.removeFromParent();
@@ -67,7 +66,7 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
     protected void applyCollapsibleProgress(boolean isShow) {
         MaterialCollapsibleItem item = (MaterialCollapsibleItem) uiObject;
         MaterialCollapsibleBody body = (MaterialCollapsibleBody) item.getWidget(1);
-        if(uiObject.getElement().getClassName().contains("active")) {
+        if (uiObject.getElement().getClassName().contains(CssName.ACTIVE)) {
             if (isShow) {
                 body.setDisplay(Display.NONE);
                 item.add(progress);

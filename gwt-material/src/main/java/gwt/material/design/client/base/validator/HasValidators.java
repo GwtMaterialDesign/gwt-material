@@ -1,7 +1,3 @@
-package gwt.material.design.client.base.validator;
-
-import gwt.material.design.client.base.validator.ValidationChangedEvent.HasValidationChangedHandlers;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -21,10 +17,13 @@ import gwt.material.design.client.base.validator.ValidationChangedEvent.HasValid
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
+
+import gwt.material.design.client.base.validator.ValidationChangedEvent.HasValidationChangedHandlers;
 
 /**
  * Should use when implementing classes with {@link Validator}s.
- * 
+ *
  * @param <T> the generic type
  * @author Steven Jardine
  */
@@ -36,7 +35,7 @@ public interface HasValidators<T> extends HasValidationChangedHandlers {
      * @param validator the validator
      */
     void addValidator(Validator<T> validator);
-    
+
     /**
      * Gets the validate on blur.
      *

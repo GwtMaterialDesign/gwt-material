@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,25 +17,27 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
+import gwt.material.design.client.constants.Color;
 
 public interface HasColors {
 
     /**
      * Sets the background color of material components, for example:<br/><br/>
-     * <pre>panel.setBackgroundColor("blue");</pre><br/>
-     * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
+     * <pre>panel.setBackgroundColor(BLUE);</pre><br/>
+     * Refer to - http://gwtmaterialdesign.github.io/gwt-material-demo/#!colors for the color pallete.
      */
-    void setBackgroundColor(String bgColor);
+    void setBackgroundColor(Color bgColor);
 
-    String getBackgroundColor();
+    Color getBackgroundColor();
 
     /**
      * Set the text color of material components, for example:<br/><br/>
-     * <pre>panel.setTextColor("blue darken-2");</pre><br/>
-     * Refer to - http://gwt-material-demo.herokuapp.com/#colors for the color pallete.
+     * <pre>panel.setTextColor(BLUE_DARKEN_2);</pre><br/>
+     * Refer to - http://gwtmaterialdesign.github.io/gwt-material-demo/#!colors for the color pallete.
      */
-    void setTextColor(String textColor);
+    void setTextColor(Color textColor);
 
-    String getTextColor();
+    Color getTextColor();
 }

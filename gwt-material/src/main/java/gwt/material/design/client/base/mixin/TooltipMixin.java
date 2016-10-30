@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +17,18 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.mixin;
 
-import gwt.material.design.client.base.MaterialWidget;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasTooltip;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.MaterialTooltip;
 
-import com.google.gwt.user.client.ui.Widget;
-
 /**
  * Mixin for the {@link MaterialTooltip} component.
- * 
+ *
  * @author gilberto-torrezan
- * 
  * @see HasTooltip
  * @see MaterialWidget
  */
@@ -49,8 +46,7 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
 
         if (tooltip != null) {
             tooltip.setWidget(uiObject);
-        }
-        else if(uiObject.isAttached()) {
+        } else if (uiObject.isAttached()) {
             initializeTooltip();
         }
     }
@@ -92,5 +88,16 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
     public void setTooltipDelayMs(int delayMs) {
         initializeTooltip();
         tooltip.setDelayMs(delayMs);
+    }
+
+    @Override
+    public void setTooltipHTML(String html) {
+        initializeTooltip();
+        tooltip.setTooltipHTML(html);
+    }
+
+    @Override
+    public String getTooltipHTML() {
+        return tooltip.getTooltipHTML();
     }
 }

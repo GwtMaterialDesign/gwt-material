@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,13 +17,14 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
 
 /**
  * Wraps a validator in order to provide sorting capability.
- * 
+ * <p>
  * We sort based on priority first, then insertion order. The hashCode and equals function should prevent a
  * set from containing 2 validators of the same type.
- * 
+ *
  * @author Steven Jardine
  */
 public class ValidatorWrapper<T> implements Comparable<ValidatorWrapper<T>> {
@@ -41,7 +40,7 @@ public class ValidatorWrapper<T> implements Comparable<ValidatorWrapper<T>> {
     /**
      * Constructor.
      *
-     * @param validator the validator
+     * @param validator      the validator
      * @param insertionOrder the insertion order
      */
     public ValidatorWrapper(Validator<T> validator, int insertionOrder) {
@@ -53,7 +52,9 @@ public class ValidatorWrapper<T> implements Comparable<ValidatorWrapper<T>> {
 
     @Override
     public int compareTo(ValidatorWrapper<T> other) {
-        if (this == other || getName().equals(other.getName())) { return 0; }
+        if (this == other || getName().equals(other.getName())) {
+            return 0;
+        }
         int result = getPriority().compareTo(other.getPriority());
         if (result == 0) {
             result = getInsertionOrder().compareTo(other.getInsertionOrder());

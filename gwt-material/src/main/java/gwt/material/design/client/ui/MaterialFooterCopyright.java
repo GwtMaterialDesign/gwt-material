@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,27 +17,30 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.ui.html.Div;
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
+
 /**
-* Footer specific zone for copyright text
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
-*///@formatter:on
+ * Footer specific zone for copyright text
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Footer</a>
+ *///@formatter:on
 public class MaterialFooterCopyright extends MaterialWidget {
 
     private Div container = new Div();
 
     public MaterialFooterCopyright() {
-        super(Document.get().createDivElement(), "footer-copyright");
-        container.setStyleName("container");
+        super(Document.get().createDivElement(), CssName.FOOTER_COPYRIGHT);
+        container.setStyleName(CssName.CONTAINER);
         super.add(container);
     }
 

@@ -1,5 +1,3 @@
-package gwt.material.design.client.base.validator;
-
 /*
  * #%L
  * GwtBootstrap3
@@ -19,16 +17,17 @@ package gwt.material.design.client.base.validator;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base.validator;
 
 import com.google.gwt.i18n.client.ConstantsWithLookup;
 import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 
 /**
  * Validation messages.
- * 
+ * <p>
  * Message functions should be the key with "_" replacing any periods. This allows the
  * ValidationMessageResolver to find the message by key.
- * 
+ *
  * @author Steven Jardine
  */
 @DefaultLocale("en")

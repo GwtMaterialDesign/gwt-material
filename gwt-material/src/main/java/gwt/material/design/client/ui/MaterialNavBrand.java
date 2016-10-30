@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,35 +17,36 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasPosition;
-import gwt.material.design.client.base.mixin.CssNameMixin;
-import gwt.material.design.client.ui.html.Div;
-import gwt.material.design.client.base.HasHref;
-import gwt.material.design.client.constants.Position;
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.HasHref;
+import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.ui.html.Div;
 
 //@formatter:off
+
 /**
-* 
-* <p>Material NavBrand is a child of MaterialNavBar that will contain text or image logo
-* <h3>UiBinder Usage:</h3>
-* 
-* <pre>
-* {@code 
-<m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
-}
-</pre>
-* </p>
-* 
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#navigations">Material NavBrand</a>
-*/
+ * <p>Material NavBrand is a child of MaterialNavBar that will contain text or image logo
+ * <h3>UiBinder Usage:</h3>
+ * <p>
+ * <pre>
+ * {@code
+ * <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material NavBrand</a>
+ */
 //@formatter:on
 public class MaterialNavBrand extends MaterialWidget implements HasText, HasHref, HasPosition {
 
@@ -58,10 +57,18 @@ public class MaterialNavBrand extends MaterialWidget implements HasText, HasHref
     /**
      * Material NavBrand is a component wherein you can pass a text / logo branding of your app
      */
-    @UiConstructor
     public MaterialNavBrand() {
-        super(Document.get().createElement("a"), "brand-logo");
+        super(Document.get().createAnchorElement(), CssName.BRAND_LOGO);
+    }
 
+    public MaterialNavBrand(String text) {
+        this();
+        setText(text);
+    }
+
+    public MaterialNavBrand(String text, Color textColor) {
+        this(text);
+        setTextColor(textColor);
     }
 
     @Override

@@ -1,10 +1,8 @@
-package gwt.material.design.client.base;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +17,14 @@ package gwt.material.design.client.base;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.constants.Type;
 
 /**
  * Used to provide custom {@link Type} mixin elements.
+ *
  * @param <T>
  */
 public class TypeWidget<T extends Type> extends MaterialWidget implements HasType<T> {

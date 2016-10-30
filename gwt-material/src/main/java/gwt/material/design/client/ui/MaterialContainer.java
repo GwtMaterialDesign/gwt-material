@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,30 +17,31 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
-
 import gwt.material.design.client.base.MaterialWidget;
 
 //@formatter:off
+
 /**
-* Material Container is a wrapper of MAIN element, primary content of your app.
-* 
-* <p>
-* <h3>UiBinder Usage:</h3>
-* <pre>
-* {@code
-* <m:MaterialContainer>
-*     <!-- Content goes here -->
-* </m:MaterialContainer>
-* }
-* </pre>
-*
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#grid">Material Column</a>
-*/
+ * Material Container is a wrapper of MAIN element, primary content of your app.
+ * <p>
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialContainer>
+ *     <!-- Content goes here -->
+ * </m:MaterialContainer>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Column</a>
+ */
 //@formatter:on
 public class MaterialContainer extends MaterialWidget {
 
@@ -58,7 +57,7 @@ public class MaterialContainer extends MaterialWidget {
      */
     public MaterialContainer(final Widget... widgets) {
         this();
-        for(Widget w : widgets) {
+        for (Widget w : widgets) {
             add(w);
         }
     }

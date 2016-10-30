@@ -21,46 +21,47 @@ package gwt.material.design.client.ui;
  */
 
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.FooterType;
 import gwt.material.design.client.ui.html.Div;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.Widget;
-
 
 //@formatter:off
-/**
-* Footers are a great way to organize a lot of site navigation and information at the end of a page. This is where the user will look once hes finished scrolling through the current page or is looking for additional information about your website.
-* <h3>UiBinder Usage:</h3>
-*
-* <pre>
-* {@code
-<m:MaterialFooter backgroundColor="blue">
-    <m:MaterialRow>
-        <m:MaterialColumn grid="s12 m6 l6">
-            <m:MaterialTitle fontSize="0.7em" color="white" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
-            <m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="blue lighten-2" waves="LIGHT"/>
-        </m:MaterialColumn>
-        <m:MaterialColumn grid="s12 m6 l6">
-            <m:MaterialTitle fontSize="0.7em" color="white" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
-            <m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="blue lighten-2" waves="LIGHT"/>
-        </m:MaterialColumn>
-    </m:MaterialRow>
 
-    <m:MaterialFooterCopyright backgroundColor="blue darken-1">
-        <m:MaterialLabel text=" © 2014 Copyright Text"/>
-    </m:MaterialFooterCopyright>
-</m:MaterialFooter> }
-* </pre>
-* </p>
-*
-* @author kevzlou7979
-* @author Ben Dol
-* @see <a href="http://gwt-material-demo.herokuapp.com/#footer">Material Footer</a>
-*/
+/**
+ * Footers are a great way to organize a lot of site navigation and information at the end of a page. This is where the user will look once hes finished scrolling through the current page or is looking for additional information about your website.
+ * <h3>UiBinder Usage:</h3>
+ * <p>
+ * <pre>
+ * {@code
+ * <m:MaterialFooter backgroundColor="BLUE">
+ * <m:MaterialRow>
+ * <m:MaterialColumn grid="s12 m6 l6">
+ * <m:MaterialTitle fontSize="0.7em" color="WHITE" title="Join The Discussion" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+ * <m:MaterialButton ui:field="btnChat" text="CHAT" backgroundColor="BLUE_LIGHTEN_2" waves="LIGHT"/>
+ * </m:MaterialColumn>
+ * <m:MaterialColumn grid="s12 m6 l6">
+ * <m:MaterialTitle fontSize="0.7em" color="WHITE" title="GWT Phonegap" description="We provide Gitter Chat rooms in order for GWT Developers discussed and collaborate about GWT Material Design and Phonegap Integration."/>
+ * <m:MaterialButton ui:field="btnDownloadPhonegap" text="GWT Material APK" backgroundColor="BLUE_LIGHTEN_2" waves="LIGHT"/>
+ * </m:MaterialColumn>
+ * </m:MaterialRow>
+ *
+ * <m:MaterialFooterCopyright backgroundColor="BLUE_DARKEN_2">
+ * <m:MaterialLabel text=" © 2014 Copyright Text"/>
+ * </m:MaterialFooterCopyright>
+ * </m:MaterialFooter> }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Footer</a>
+ */
 //@formatter:on
 public class MaterialFooter extends MaterialWidget implements HasType<FooterType> {
 
@@ -68,14 +69,14 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
     private final CssTypeMixin<FooterType, MaterialFooter> typeMixin = new CssTypeMixin<>(this);
 
     public MaterialFooter() {
-        super(Document.get().createElement("footer"), "page-footer");
-        container.setStyleName("container");
+        super(Document.get().createElement("footer"), CssName.PAGE_FOOTER);
+        container.setStyleName(CssName.CONTAINER);
         super.add(container);
     }
 
     @Override
     public void add(Widget child) {
-        if(child instanceof MaterialFooterCopyright) {
+        if (child instanceof MaterialFooterCopyright) {
             super.add(child);
         } else {
             container.add(child);

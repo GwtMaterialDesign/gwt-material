@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 GwtMaterialDesign
+ * Copyright (C) 2015 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,40 +17,43 @@ package gwt.material.design.client.ui;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
-
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.HasAvatar;
-import gwt.material.design.client.base.HasDismissable;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.UiHelper;
+import gwt.material.design.client.base.mixin.ActiveMixin;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CollectionType;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.JsMaterialElement;
 
 //@formatter:off
 
 /**
  * Collection element to define every items
+ *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwt-material-demo.herokuapp.com/#collections">Material Collections</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
  */
 //@formatter:on
-public class MaterialCollectionItem extends MaterialWidget implements HasClickHandlers, HasDismissable, HasAvatar {
+public class MaterialCollectionItem extends MaterialWidget implements HasDismissible, HasAvatar, HasType<CollectionType>, HasActive {
 
-    private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, "avatar");
-    private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, "dismissable");
+    private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, CssName.AVATAR);
+    private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, CssName.DISMISSABLE);
+    private final CssTypeMixin<CollectionType, MaterialCollectionItem> typeMixin = new CssTypeMixin<>(this);
+    private final ActiveMixin<MaterialCollectionItem> activeMixin = new ActiveMixin<>(this);
 
     private HandlerRegistration handlerReg;
 
     public MaterialCollectionItem() {
-        super(Document.get().createLIElement(), "collection-item");
+        super(Document.get().createLIElement(), CssName.COLLECTION_ITEM);
         UiHelper.addMousePressedHandlers(this);
     }
 
@@ -62,59 +63,60 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
         initDismissableCollection();
     }
 
-    protected native void initDismissableCollection() /*-{
-        $wnd.initDismissableCollection();
-    }-*/;
+    protected void initDismissableCollection() {
+        JsMaterialElement.initDismissableCollection();
+    }
 
+    @Override
     public void setType(CollectionType type) {
-        switch (type) {
-            case AVATAR:
-                addStyleName(type.getCssName());
-                break;
-            case CHECKBOX:
-                if(getWidgetCount() > 0) {
-                    getWidget(0).getElement().getStyle().setProperty("display" , "inline");
-                }
-                if(handlerReg != null) {
-                    handlerReg.removeHandler();
-                }
-                handlerReg = addClickHandler(new ClickHandler() {
-                    @Override
-                    public void onClick(ClickEvent event) {
-                        for(Widget w : MaterialCollectionItem.this) {
-                            if(w instanceof MaterialCollectionSecondary) {
-                                for(Widget a : (MaterialCollectionSecondary)w) {
-                                    if(a instanceof HasValue) {
-                                        try {
-                                            @SuppressWarnings("unchecked")
-                                            HasValue<Boolean> cb = (HasValue<Boolean>) a;
-                                            if (cb.getValue()) {
-                                                cb.setValue(false);
-                                            } else {
-                                                cb.setValue(true);
-                                            }
-                                        } catch (ClassCastException ex) {
-                                            // Ignore non-boolean has value handlers.
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-                break;
-            default:
-                break;
+        typeMixin.setType(type);
+        if (type == CollectionType.CHECKBOX) {
+            applyCheckBoxType();
         }
     }
 
-    @Override
-    public void setDismissable(boolean dismissable) {
-        dismissableMixin.setOn(dismissable);
+    private void applyCheckBoxType() {
+        if (getWidgetCount() > 0) {
+            getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
+        }
+        if (handlerReg != null) {
+            handlerReg.removeHandler();
+        }
+        handlerReg = addClickHandler(event -> {
+            for (Widget w : MaterialCollectionItem.this) {
+                if (w instanceof MaterialCollectionSecondary) {
+                    for (Widget a : (MaterialCollectionSecondary) w) {
+                        if (a instanceof HasValue) {
+                            try {
+                                @SuppressWarnings("unchecked")
+                                HasValue<Boolean> cb = (HasValue<Boolean>) a;
+                                if (cb.getValue()) {
+                                    cb.setValue(false);
+                                } else {
+                                    cb.setValue(true);
+                                }
+                            } catch (ClassCastException ex) {
+                                // Ignore non-boolean has value handlers.
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
-    public boolean isDismissable() {
+    public CollectionType getType() {
+        return typeMixin.getType();
+    }
+
+    @Override
+    public void setDismissible(boolean dismissible) {
+        dismissableMixin.setOn(dismissible);
+    }
+
+    @Override
+    public boolean isDismissible() {
         return dismissableMixin.isOn();
     }
 
@@ -129,14 +131,12 @@ public class MaterialCollectionItem extends MaterialWidget implements HasClickHa
     }
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if(isEnabled()){
-                    handler.onClick(event);
-                }
-            }
-        }, ClickEvent.getType());
+    public void setActive(boolean active) {
+        activeMixin.setActive(active);
+    }
+
+    @Override
+    public boolean isActive() {
+        return activeMixin.isActive();
     }
 }
