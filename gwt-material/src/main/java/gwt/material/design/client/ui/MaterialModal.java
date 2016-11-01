@@ -50,7 +50,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <p>
  * <pre>
  * {@code
- * <m:MaterialModal ui:field="modal" type="FIXED_FOOTER" dismissable="true" inDuration="500" outDuration="800">
+ * <m:MaterialModal ui:field="modal" type="FIXED_FOOTER" dismissible="true" inDuration="500" outDuration="800">
  *     <m:MaterialModalContent>
  *         <m:MaterialTitle title="Title" description="Description" />
  *     </m:MaterialModalContent>
@@ -125,7 +125,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
     private int inDuration = 300;
     private int outDuration = 200;
-    private boolean dismissable = false;
+    private boolean dismissible = false;
     private double opacity = 0.5;
 
     public MaterialModal() {
@@ -186,7 +186,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
             throw new IllegalStateException(
                     "The MaterialModal must be added to the document before calling open().");
         }
-        open(getElement(), opacity, dismissable, inDuration, outDuration, fireEvent);
+        open(getElement(), opacity, dismissible, inDuration, outDuration, fireEvent);
     }
 
     /**
@@ -290,12 +290,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public void setDismissible(boolean dismissible) {
-        this.dismissable = dismissible;
+        this.dismissible = dismissible;
     }
 
     @Override
     public boolean isDismissible() {
-        return dismissable;
+        return dismissible;
     }
 
     @Override

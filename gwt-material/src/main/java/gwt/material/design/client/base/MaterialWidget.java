@@ -146,16 +146,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         super.onLoad();
 
         if (initialClasses != null) {
-            for (String intial : initialClasses) {
-                if (!intial.isEmpty()) {
-                    removeStyleName(intial);
-                    addStyleName(intial);
+            for (String initial : initialClasses) {
+                if (!initial.isEmpty()) {
+                    removeStyleName(initial);
+                    addStyleName(initial);
                 }
             }
         }
 
         if (isFeatureEnabled(Feature.ONLOAD_ADD_QUEUE) && onLoadAdd != null) {
-            // Check the on-load-add items.
+            // Check the onLoadAdd items.
             for (Appender item : onLoadAdd) {
                 if (item.index == -1) {
                     add(item.widget, (Element) getElement());
