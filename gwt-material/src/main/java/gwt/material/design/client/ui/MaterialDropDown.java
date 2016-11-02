@@ -81,7 +81,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     private boolean hover = false;
     private boolean belowOrigin = false;
     private int gutter = 0;
-    private String alignment = Alignment.LEFT.getCssName();
+    private Alignment alignment = Alignment.LEFT;
     private List<Widget> children = new ArrayList<>();
 
     public MaterialDropDown() {
@@ -187,11 +187,11 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
      * Defines the edge the menu is aligned to. Default: 'left'
      */
     public void setAlignment(Alignment alignment) {
-        this.alignment = alignment.getCssName();
+        this.alignment = alignment;
     }
 
     public Alignment getAlignment() {
-        return Alignment.fromStyleName(alignment);
+        return alignment;
     }
 
     /**
@@ -253,8 +253,8 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         } else if (activatorElement == null) {
             activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
             if (activatorElement == null) {
-                GWT.log("There is no activator element with id: '" + activator
-                        + "' in the DOM, cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
+                GWT.log("There is no activator element with id: '" + activator + "' in the DOM, " +
+                    "cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
             }
         }
 
@@ -277,7 +277,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         options.hover = hover;
         options.gutter = gutter;
         options.belowOrigin = belowOrigin;
-        options.alignment = alignment;
+        options.alignment = alignment.getCssName();
         $(activator).dropdown(options);
     }
 
