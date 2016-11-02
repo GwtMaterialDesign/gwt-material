@@ -92,6 +92,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
     private boolean initialized = false;
+    private boolean autoClose = false;
+    private HandlerRegistration autoCloseHandler;
     private MaterialIcon icon = new MaterialIcon();
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
@@ -138,6 +140,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         super.onUnload();
 
         dateTemp = getValue();
+
+        if (autoCloseHandler != null) {
+            autoCloseHandler.removeHandler();
+        }
     }
 
     protected void initialize() {
@@ -181,8 +187,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         }
 
         $(pickatizedDateInput).pickadate("picker")
-            .off(options)
-            .on(options);
+                .off(options)
+                .on(options);
+
+        // Provide a feature to autoClose the picker when picking value
+        if (isAutoClose()) {
+            autoCloseHandler = addValueChangeHandler(valueChangeEvent -> {
+                close();
+            });
+        }
 
         initialized = true;
 
@@ -566,5 +579,13 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     public DateInput getDateInput() {
         return dateInput;
+    }
+
+    public boolean isAutoClose() {
+        return autoClose;
+    }
+
+    public void setAutoClose(boolean autoClose) {
+        this.autoClose = autoClose;
     }
 }
