@@ -141,8 +141,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
         dateTemp = getValue();
 
-        if (autoCloseHandler != null) {
+        if (!autoClose && autoCloseHandler != null) {
             autoCloseHandler.removeHandler();
+            autoCloseHandler = null;
         }
     }
 
@@ -583,12 +584,18 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
-        if (autoClose) {
-            autoCloseHandler = addValueChangeHandler(valueChangeEvent -> {
+
+        // If auto close is set to true, we will add a new auto close handler
+        if (autoClose && autoCloseHandler == null) {
+            autoCloseHandler = addValueChangeHandler(event -> {
                 close();
             });
-        } else {
+        }
+
+        // If auto close is set to false, check whether auto close handler is not null before removing
+        if (!autoClose && autoCloseHandler != null) {
             autoCloseHandler.removeHandler();
+            autoCloseHandler = null;
         }
     }
 }
