@@ -583,7 +583,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
-        if (isAutoClose()) {
+        if (autoClose) {
             autoCloseHandler = addValueChangeHandler(valueChangeEvent -> {
                 close();
             });
