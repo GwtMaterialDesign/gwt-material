@@ -42,6 +42,28 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         checkAbstractValueWidget(datePicker, datePicker.getDateInput());
         checkOptions(datePicker);
         checkOpenCloseControl(datePicker);
+        checkAutoClose(datePicker);
+    }
+
+    public <T extends MaterialDatePicker> void checkAutoClose(T datePicker) {
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, false);
+        // Test multiple set to autoclose (leaks checking)
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, false);
+        checkAutoClose(datePicker, false);
+    }
+
+    protected void checkAutoClose(MaterialDatePicker datePicker, boolean autoClose) {
+        datePicker.setAutoClose(autoClose);
+        if (autoClose) {
+            assertTrue(datePicker.isAutoClose());
+            assertNotNull(datePicker.autoCloseHandler);
+        } else {
+            assertFalse(datePicker.isAutoClose());
+            assertNull(datePicker.autoCloseHandler);
+        }
     }
 
     public <T extends MaterialDatePicker> void checkOpenCloseControl(T datePicker) {
