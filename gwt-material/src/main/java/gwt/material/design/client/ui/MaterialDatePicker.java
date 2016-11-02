@@ -190,13 +190,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
                 .off(options)
                 .on(options);
 
-        // Provide a feature to autoClose the picker when picking value
-        if (isAutoClose()) {
-            autoCloseHandler = addValueChangeHandler(valueChangeEvent -> {
-                close();
-            });
-        }
-
         initialized = true;
 
         // Set up date specific settings.
@@ -585,7 +578,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         return autoClose;
     }
 
+    /**
+     * Provide a feature to autoClose the picker when picking value
+     */
     public void setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
+        if (isAutoClose()) {
+            autoCloseHandler = addValueChangeHandler(valueChangeEvent -> {
+                close();
+            });
+        } else {
+            autoCloseHandler.removeHandler();
+        }
     }
 }
