@@ -90,9 +90,9 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     /**
-     * Material Dropdown - adds a list item selection when button, link, icon button pressed.
+     * Adds a list item selection when button, link, icon button pressed.
      *
-     * @param activator - data-activates attribute name of your dropdown activator.
+     * @param activator data-activates attribute name of your dropdown activator.
      */
     @UiConstructor
     public MaterialDropDown(String activator) {

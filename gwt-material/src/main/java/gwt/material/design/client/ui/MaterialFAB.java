@@ -59,12 +59,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material FAB</a>
  */
 //@formatter:on
-public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasCloseHandlers<MaterialFAB>, HasOpenHandlers<MaterialFAB> {
+public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasCloseHandlers<MaterialFAB>,
+        HasOpenHandlers<MaterialFAB> {
 
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
-
-    private boolean toggle = true;
 
     private HandlerRegistration clickHandler;
     private HandlerRegistration mouseOverHandler;
@@ -80,12 +79,12 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
 
         if (getType() == FABType.CLICK_ONLY) {
             clickHandler = addClickHandler(clickEvent -> {
-                if (toggle) {
-                    open();
-                    toggle = false;
-                } else {
-                    close();
-                    toggle = true;
+                if(isEnabled()) {
+                    if (!isOpen()) {
+                        open();
+                    } else {
+                        close();
+                    }
                 }
             });
         } else {
@@ -104,14 +103,15 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
 
         if (clickHandler != null) {
             clickHandler.removeHandler();
+            clickHandler = null;
         }
-
         if (mouseOverHandler != null) {
             mouseOverHandler.removeHandler();
+            mouseOverHandler = null;
         }
-
         if (mouseOutHandler != null) {
             mouseOutHandler.removeHandler();
+            mouseOutHandler = null;
         }
     }
 
@@ -143,9 +143,9 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     }
 
     /**
-     * Open the FAB programatically
+     * Open the FAB programmatically
      *
-     * @param fireEvent - Flag whether this component fires Open Event
+     * @param fireEvent flag whether this component fires Open Event
      */
     public void open(boolean fireEvent) {
         if (fireEvent) {
@@ -164,13 +164,17 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     /**
      * Close the FAB programmatically
      *
-     * @param fireEvent - Flag whether this component fires Close Event
+     * @param fireEvent flag whether this component fires Close Event
      */
     public void close(boolean fireEvent) {
         if (fireEvent) {
             CloseEvent.fire(this, this);
         }
         $(getElement()).closeFAB();
+    }
+
+    public boolean isOpen() {
+        return getElement().hasClassName(CssName.ACTIVE);
     }
 
     @Override
