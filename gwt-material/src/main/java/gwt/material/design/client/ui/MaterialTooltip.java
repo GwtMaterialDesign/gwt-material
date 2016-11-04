@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsTooltipOptions;
 
 import java.util.Iterator;
@@ -56,6 +57,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     private String html;
 
     private HandlerRegistration attachHandler;
+    private HandlerRegistration htmlAttachHandler;
 
     /**
      * Creates the empty Tooltip
@@ -294,9 +296,16 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     public void setTooltipHTML(String html) {
         this.html = html;
-
-        $("#" + widget.getElement().getAttribute("data-tooltip-id"))
-            .find("span")
-            .html(html != null ? html : "");
+        if (htmlAttachHandler != null) {
+            htmlAttachHandler.removeHandler();
+            htmlAttachHandler = null;
+        }
+        if (widget.isAttached()) {
+            JsMaterialElement.$("#" + this.widget.getElement().getAttribute("data-tooltip-id")).find("span").html(html != null?html:"");
+        } else {
+            htmlAttachHandler = widget.addAttachHandler(attachEvent -> {
+                JsMaterialElement.$("#" + this.widget.getElement().getAttribute("data-tooltip-id")).find("span").html(html != null?html:"");
+            });
+        }
     }
 }
