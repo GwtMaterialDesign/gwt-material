@@ -285,26 +285,44 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     /**
+     * @deprecated Use {@link #getHtml}
+     */
+    @Deprecated
+    public String getTooltipHTML() {
+        return getHtml();
+    }
+
+    /**
+     * @deprecated Use {@link #setHtml}
+     */
+    @Deprecated
+    public void setTooltipHTML(String html) {
+        setHtml(html);
+    }
+
+    /**
      * Get the html of the tooltip.
      */
-    public String getTooltipHTML() {
+    public String getHtml() {
         return html;
     }
 
     /**
      * Set the html as value inside the tooltip.
      */
-    public void setTooltipHTML(String html) {
+    public void setHtml(String html) {
         this.html = html;
         if (htmlAttachHandler != null) {
             htmlAttachHandler.removeHandler();
             htmlAttachHandler = null;
         }
+
+        JsMaterialElement element = JsMaterialElement.$("#" + widget.getElement().getAttribute("data-tooltip-id"));
         if (widget.isAttached()) {
-            JsMaterialElement.$("#" + this.widget.getElement().getAttribute("data-tooltip-id")).find("span").html(html != null?html:"");
+            element.find("span").html(html != null ? html : "");
         } else {
             htmlAttachHandler = widget.addAttachHandler(attachEvent -> {
-                JsMaterialElement.$("#" + this.widget.getElement().getAttribute("data-tooltip-id")).find("span").html(html != null?html:"");
+                element.find("span").html(html != null ? html : "");
             });
         }
     }

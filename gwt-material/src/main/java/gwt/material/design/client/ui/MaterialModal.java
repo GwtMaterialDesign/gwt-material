@@ -194,15 +194,15 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      *
      * @param e           - Modal Component
      * @param opacity     - Opacity of modal background
-     * @param dismissable - Modal can be dismissed by clicking outside of the modal
+     * @param dismissible - Modal can be dismissed by clicking outside of the modal
      * @param inDuration  - Transition in Duration
      * @param outDuration - Transition out Duration
      * @param fireEvent   - Flag whether this component fires Open Event
      */
-    protected void open(Element e, double opacity, boolean dismissable, int inDuration, int outDuration, boolean fireEvent) {
+    protected void open(Element e, double opacity, boolean dismissible, int inDuration, int outDuration, boolean fireEvent) {
         JsModalOptions options = new JsModalOptions();
         options.opacity = opacity;
-        options.dismissible = dismissable;
+        options.dismissible = dismissible;
         options.in_duration = inDuration;
         options.out_duration = outDuration;
         options.complete = () -> {

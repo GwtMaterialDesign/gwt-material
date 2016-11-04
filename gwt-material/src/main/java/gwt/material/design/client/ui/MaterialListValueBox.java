@@ -123,6 +123,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
         if (valueChangeHandler != null) {
             valueChangeHandler.removeHandler();
+            valueChangeHandler = null;
         }
         $(listBox.getElement()).off("change");
         $(listBox.getElement()).material_select("destroy");
