@@ -941,3 +941,8 @@ input:-webkit-autofill {
 .read-only .select-wrapper .caret {
 	display: none !important;
 }
+
+/** Fixed Horizontal FAB **/
+.horizontal.fixed-action-btn ul {
+	left: auto;
+}
