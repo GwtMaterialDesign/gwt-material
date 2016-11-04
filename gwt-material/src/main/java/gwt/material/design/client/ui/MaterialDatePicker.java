@@ -574,20 +574,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     /**
-     * Provide a feature to autoClose the picker when picking value
+     * Enable auto close
      */
     public void setAutoClose(boolean autoClose) {
-        // If auto close is set to true, we will add a new auto close handler
-        if (autoClose && autoCloseHandler == null) {
-            autoCloseHandler = addValueChangeHandler(event -> {
-                close();
-            });
-        }
-
-        // If auto close is set to false, check whether auto close handler is not null before removing
-        if (!autoClose && autoCloseHandler != null) {
+        if (autoCloseHandler != null) {
             autoCloseHandler.removeHandler();
             autoCloseHandler = null;
+        }
+
+        if (autoClose) {
+            autoCloseHandler = addValueChangeHandler(event -> close());
         }
     }
 }
