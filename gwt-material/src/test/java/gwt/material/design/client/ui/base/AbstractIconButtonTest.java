@@ -28,6 +28,11 @@ import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialIcon;
 
+/**
+ * Test case for Abstract button icon
+ *
+ * @author kevzlou7979
+ */
 public class AbstractIconButtonTest extends AbstractButtonTest {
 
     public void checkIconButton(AbstractIconButton icon) {

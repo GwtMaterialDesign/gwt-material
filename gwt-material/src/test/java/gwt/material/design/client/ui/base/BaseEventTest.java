@@ -29,6 +29,11 @@ import gwt.material.design.client.events.SearchNoResultEvent;
 import gwt.material.design.client.ui.MaterialSearch;
 import junit.framework.TestCase;
 
+/**
+ * Test case for GMD Events
+ *
+ * @author kevzlou7979
+ */
 public class BaseEventTest extends TestCase {
 
     protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {

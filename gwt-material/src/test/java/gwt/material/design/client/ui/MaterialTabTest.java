@@ -23,6 +23,11 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
+/**
+ * Test case for Tabs
+ *
+ * @author kevzlou7979
+ */
 public class MaterialTabTest extends MaterialWidgetTest {
 
     public void init() {

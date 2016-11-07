@@ -24,6 +24,11 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.UnorderedList;
 
+/**
+ * Test case for Slider
+ *
+ * @author kevzlou7979
+ */
 public class MaterialSliderTest extends MaterialWidgetTest {
 
     public void init() {

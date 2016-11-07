@@ -25,6 +25,11 @@ import gwt.material.design.client.ui.animate.MaterialAnimation;
 import gwt.material.design.client.ui.animate.Transition;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
+/**
+ * Test case for Core Animations
+ *
+ * @author kevzlou7979
+ */
 public class AnimationTest extends MaterialWidgetTest {
 
     public void init() {

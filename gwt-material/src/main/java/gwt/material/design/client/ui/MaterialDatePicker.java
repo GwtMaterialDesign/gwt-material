@@ -86,7 +86,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private DateInput dateInput;
     private Label label = new Label();
     private MaterialLabel lblPlaceholder = new MaterialLabel();
-    private Element pickatizedDateInput;
+    protected Element pickatizedDateInput;
     private MaterialLabel lblError = new MaterialLabel();
     private DatePickerLanguage language;
     private JsDatePickerOptions options;

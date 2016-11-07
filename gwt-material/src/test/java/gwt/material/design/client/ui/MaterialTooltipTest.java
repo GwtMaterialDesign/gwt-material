@@ -24,7 +24,7 @@ import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Tooltip Test
+ * Test case for Tooltips
  *
  * @author kevzlou7979
  */
