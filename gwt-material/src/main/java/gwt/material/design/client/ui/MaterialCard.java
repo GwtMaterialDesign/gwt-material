@@ -35,7 +35,7 @@ import gwt.material.design.client.constants.CssName;
  * length.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code<!-- Basic Card -->
+ * {@code <!-- Basic Card -->
  * <m:MaterialCard backgroundColor="blue-grey darken-1" grid="l3">
  *   <m:MaterialCardContent textColor="white">
  *     <m:MaterialCardTitle text="Sample" iconType="POLYMER" iconPosition="RIGHT"/>

@@ -35,8 +35,4 @@ public class MaterialModalContent extends MaterialPanel {
     public MaterialModalContent() {
         super(CssName.MODAL_CONTENT);
     }
-
-    public void setHeight(String height) {
-        super.setHeight(height + "px");
-    }
 }

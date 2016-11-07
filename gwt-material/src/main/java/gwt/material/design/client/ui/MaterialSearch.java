@@ -75,7 +75,8 @@ import java.util.List;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Search</a>
  */
 //@formatter:on
-public class MaterialSearch extends MaterialValueBox<String> implements HasCloseHandlers<String>, HasActive, HasSearchHandlers {
+public class MaterialSearch extends MaterialValueBox<String> implements HasCloseHandlers<String>,
+        HasActive, HasSearchHandlers {
 
     private boolean initialized;
 

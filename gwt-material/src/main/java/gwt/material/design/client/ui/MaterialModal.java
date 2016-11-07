@@ -44,8 +44,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * extra information if needed. The transitions should make the appearance of
  * the dialog make sense and not jarring to the user.
  * <p>
- * <p>
- * <p>
  * <h3>UiBinder Usage:</h3>
  * <p>
  * <pre>
@@ -142,14 +140,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     /**
      * Open the modal programmatically
      * <p>
-     * <p>
      * Note: the MaterialModal component must be added to the document before
      * calling this method. When declaring this modal on a UiBinder file, the
      * MaterialModal is already added, but if you call it using pure Java, you
      * must add it to a container before opening the modal. You can do it by
      * calling, for example:
      * </p>
-     * <p>
      * <pre>
      * MaterialModal modal = new MaterialModal();
      * RootPanel.get().add(modal);
@@ -164,14 +160,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     /**
      * Open the modal programmatically
      * <p>
-     * <p>
      * Note: the MaterialModal component must be added to the document before
      * calling this method. When declaring this modal on a UiBinder file, the
      * MaterialModal is already added, but if you call it using pure Java, you
      * must add it to a container before opening the modal. You can do it by
      * calling, for example:
      * </p>
-     * <p>
      * <pre>
      * MaterialModal modal = new MaterialModal();
      * RootPanel.get().add(modal);
