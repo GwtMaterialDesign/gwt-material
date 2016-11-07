@@ -404,7 +404,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             element.root.removeClass(this.orientation.getCssName());
         }
         this.orientation = orientation;
-        if(initialized) {
+        if(initialized && orientation != null) {
             element.root.addClass(orientation.getCssName());
         }
     }
