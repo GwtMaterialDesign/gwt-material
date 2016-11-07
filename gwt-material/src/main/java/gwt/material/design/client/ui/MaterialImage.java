@@ -149,13 +149,11 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     public int getWidth() {
-        ImageElement imageElement = getElement().cast();
-        return imageElement.getWidth();
+        return ((ImageElement)getElement().cast()).getWidth();
     }
 
     public int getHeight() {
-        ImageElement imageElement = getElement().cast();
-        return imageElement.getHeight();
+        return ((ImageElement)getElement().cast()).getHeight();
     }
 
     @Override

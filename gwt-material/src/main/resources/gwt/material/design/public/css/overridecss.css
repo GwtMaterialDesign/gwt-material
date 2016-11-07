@@ -108,23 +108,56 @@ ul li button.btn-floating {
 }
 
 /** Date Picker landscape **/
-.landscape .picker__date-display {
-	width: 298px !important;
-	display: inline-block !important;
-	height: 350px !important;
-}
 .landscape .picker__frame {
-	max-width: 600px !important;
+	margin: 0 auto;
+	max-width: 585px;
+	width: 585px;
+	max-height: 350px !important;
 }
+
+.landscape .picker__wrap {
+	height: 0 !important;
+}
+
+.landscape .picker__date-display {
+	text-align: center;
+	background-color: #26a69a;
+	color: #fff;
+	padding-bottom: 15px;
+	font-weight: 300;
+	float: left;
+	width: 40%;
+	height: 342px;
+	clear: both;
+}
+
 .landscape .picker__calendar-container {
-	width: 300px !important;
-	display: inline-block !important;
-	vertical-align: top !important;
+	padding: 0 1rem;
+	float: left;
+	width: 60%;
 }
+
 .landscape .picker__footer {
-	position: absolute !important;
-	right: 0 !important;
-	bottom: 0 !important;
+	text-align: right;
+	padding: 5px 10px;
+	/*clear: both;*/
+	width: 60%;
+	/*float: right;*/
+
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	top: 300px
+}
+
+.landscape .picker__month-display {
+	text-transform: uppercase;
+	font-size: 2rem;
+	margin-top: 78px;
+}
+
+.landscape .picker__day--infocus {
+	padding: 0.60rem 0 !important;
 }
 
 /** Chips **/

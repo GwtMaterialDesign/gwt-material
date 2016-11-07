@@ -201,8 +201,8 @@ public class MaterialPager extends MaterialWidget {
         indicator.getElement().getStyle().setBackgroundColor("inherit");
         addPageSelectionHandler(event -> {
             indicator.setText(indicatorTemplate
-                    .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
-                    .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
+                .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
+                .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
             );
         });
         return indicator;
@@ -225,19 +225,19 @@ public class MaterialPager extends MaterialWidget {
     }
 
     protected void onPageSelection(int page) {
-        this.currentPage = page;
+        currentPage = page;
 
-        if (this.currentPage > calcShowingPageTo) {
+        if (currentPage > calcShowingPageTo) {
             moveNextPagesRange();
         }
-        if (this.currentPage < calcShowingPageFrom) {
+        if (currentPage < calcShowingPageFrom) {
             movePreviousPagesRange();
         }
 
         PageSelectionEvent event = new PageSelectionEvent();
-        event.setPageFrom(this.currentPage);
+        event.setPageFrom(currentPage);
         event.setPageTo(page);
-        event.setTotalPage(this.calcTotalPages);
+        event.setTotalPage(calcTotalPages);
 
         fireEvent(event);
     }
@@ -321,7 +321,6 @@ public class MaterialPager extends MaterialWidget {
     }
 
     static class PagerListItem extends ListItem {
-
         private boolean fixed;
         private boolean enabled;
 

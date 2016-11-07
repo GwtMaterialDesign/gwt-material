@@ -36,6 +36,8 @@ import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
+import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.client.js.Window;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
 
@@ -88,16 +90,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private MaterialLabel lblError = new MaterialLabel();
     private DatePickerLanguage language;
     private JsDatePickerOptions options;
+    private Orientation orientation;
 
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
     private boolean initialized = false;
+    private boolean detectOrientation = false;
     protected HandlerRegistration autoCloseHandler;
     private MaterialIcon icon = new MaterialIcon();
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
-    private CssNameMixin<MaterialDatePicker, Orientation> orientationMixin = new CssNameMixin<>(this);
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -192,6 +195,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         setDate(date);
         setDateMin(dateMin);
         setDateMax(dateMax);
+        setOrientation(orientation);
     }
 
     /**
@@ -324,7 +328,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         });
     }
 
-
     /**
      * Get the pickers date.
      */
@@ -388,7 +391,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     @Override
     public Orientation getOrientation() {
-        return orientationMixin.getCssName();
+        return orientation;
     }
 
     /**
@@ -396,7 +399,40 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     @Override
     public void setOrientation(Orientation orientation) {
-        orientationMixin.setCssName(orientation);
+        JsMaterialElement element = $(pickatizedDateInput).pickadate("picker");
+        if(initialized && this.orientation != null) {
+            element.root.removeClass(this.orientation.getCssName());
+        }
+        this.orientation = orientation;
+        if(initialized) {
+            element.root.addClass(orientation.getCssName());
+        }
+    }
+
+    public void setDetectOrientation(boolean detectOrientation) {
+        this.detectOrientation = detectOrientation;
+
+        window().off("resize.datepicker-orientation");
+
+        if(detectOrientation) {
+            window().on("resize.datepicker-orientation", e -> {
+                detectAndApplyOrientation();
+                return true;
+            });
+            detectAndApplyOrientation();
+        }
+    }
+
+    public boolean isDetectOrientation() {
+        return detectOrientation;
+    }
+
+    protected void detectAndApplyOrientation() {
+        if (Window.matchMedia("(orientation: portrait)")) {
+            setOrientation(Orientation.PORTRAIT);
+        } else {
+            setOrientation(Orientation.LANDSCAPE);
+        }
     }
 
     @Override
