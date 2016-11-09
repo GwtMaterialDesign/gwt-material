@@ -386,6 +386,7 @@ nav .nav-wrapper .collapsible-body {
 .collection-item.waves-effect {
 	display: block;
 	padding-bottom: 0;
+	will-change: initial;
 }
 
 .collection .collection-item .secondary-content i {
