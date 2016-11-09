@@ -301,16 +301,12 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
      * Programmatically open the search input field component
      */
     public void open() {
-        if (openHandler != null) {
-            openHandler.removeHandler();
-            openHandler = null;
+        if (openHandler == null) {
+            openHandler = addOpenHandler(openEvent -> {
+                setActive(true);
+                $(valueBoxBase.getElement()).focus();
+            });
         }
-
-        openHandler = addOpenHandler(openEvent -> {
-            setActive(true);
-            $(valueBoxBase.getElement()).focus();
-        });
-
         OpenEvent.fire(MaterialSearch.this, getText());
     }
 
