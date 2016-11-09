@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -111,7 +112,6 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
      */
     private int curSel = -1;
     private boolean active;
-    private HandlerRegistration openHandler;
 
     public MaterialSearch() {
         super(new TextBox());
@@ -301,12 +301,8 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
      * Programmatically open the search input field component
      */
     public void open() {
-        if (openHandler == null) {
-            openHandler = addOpenHandler(openEvent -> {
-                setActive(true);
-                $(valueBoxBase.getElement()).focus();
-            });
-        }
+        setActive(true);
+        Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).focus());
         OpenEvent.fire(MaterialSearch.this, getText());
     }
 
