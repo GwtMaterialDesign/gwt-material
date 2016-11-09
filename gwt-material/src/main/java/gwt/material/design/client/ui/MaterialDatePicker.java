@@ -97,6 +97,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private boolean initialized = false;
     private boolean detectOrientation = false;
     protected HandlerRegistration autoCloseHandler;
+    protected HandlerRegistration orientationHandler;
     private MaterialIcon icon = new MaterialIcon();
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
@@ -412,12 +413,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setDetectOrientation(boolean detectOrientation) {
         this.detectOrientation = detectOrientation;
 
-        window().off("resize.datepicker-orientation");
+        if(orientationHandler != null) {
+            orientationHandler.removeHandler();
+            orientationHandler = null;
+        }
 
         if(detectOrientation) {
-            window().on("resize.datepicker-orientation", e -> {
+            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
                 detectAndApplyOrientation();
-                return true;
             });
             detectAndApplyOrientation();
         }

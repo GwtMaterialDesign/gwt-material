@@ -93,11 +93,11 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
     @Override
     public void setTooltipHTML(String html) {
         initializeTooltip();
-        tooltip.setTooltipHTML(html);
+        tooltip.setHtml(html);
     }
 
     @Override
     public String getTooltipHTML() {
-        return tooltip.getTooltipHTML();
+        return tooltip.getHtml();
     }
 }
