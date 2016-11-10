@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
@@ -317,12 +318,16 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             htmlAttachHandler = null;
         }
 
-        JsMaterialElement element = JsMaterialElement.$("#" + widget.getElement().getAttribute("data-tooltip-id"));
+        Element element = widget.getElement();
         if (widget.isAttached()) {
-            element.find("span").html(html != null ? html : "");
+            JsMaterialElement.$("#" + element.getAttribute("data-tooltip-id"))
+                .find("span")
+                .html(html != null ? html : "");
         } else {
             htmlAttachHandler = widget.addAttachHandler(attachEvent -> {
-                element.find("span").html(html != null ? html : "");
+                JsMaterialElement.$("#" + element.getAttribute("data-tooltip-id"))
+                    .find("span")
+                    .html(html != null ? html : "");
             });
         }
     }
