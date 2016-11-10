@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsPushpinOptions;
@@ -80,11 +79,6 @@ public class MaterialPushpin {
             options.top = (top != null) ? top : 0;
             options.offset = (offset != null) ? offset : 0;
             options.bottom = (bottom != null) ? bottom : "Infinity";
-
-            GWT.log(top + " : Top");
-            GWT.log(offset + " : Offset");
-            GWT.log(bottom + " : Bottom");
-
             $(widget.getElement()).pushpin(options);
         });
     }
