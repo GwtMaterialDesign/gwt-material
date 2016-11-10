@@ -947,6 +947,10 @@ input:-webkit-autofill {
 	text-overflow: ellipsis;
 }
 
+.side-nav .collapsible-body li {
+	overflow: hidden;
+}
+
 .side-nav .collapsible-body li.active {
 	background-color: #eeeeee !important;
 }
