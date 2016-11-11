@@ -54,9 +54,9 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     private boolean initialized;
 
     private MaterialInput input = new MaterialInput();
-    private Span span = new Span();
-    private Label label = new Label();
     private MaterialLabel lblError = new MaterialLabel();
+    private Label label = new Label();
+    private Span span = new Span();
     private Span onLabel = new Span();
     private Span offLabel = new Span();
 

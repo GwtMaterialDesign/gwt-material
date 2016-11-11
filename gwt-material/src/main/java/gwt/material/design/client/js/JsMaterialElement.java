@@ -175,6 +175,9 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod
     public native JsMaterialElement get(String key);
 
+    @JsProperty(name = "$root")
+    public JsMaterialElement root;
+
     @JsProperty
     public JsDate obj;
 

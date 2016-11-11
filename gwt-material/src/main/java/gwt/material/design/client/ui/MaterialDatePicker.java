@@ -36,6 +36,8 @@ import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
+import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.client.js.Window;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
 
@@ -84,21 +86,22 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private DateInput dateInput;
     private Label label = new Label();
     private MaterialLabel lblPlaceholder = new MaterialLabel();
-    private Element pickatizedDateInput;
+    protected Element pickatizedDateInput;
     private MaterialLabel lblError = new MaterialLabel();
     private DatePickerLanguage language;
     private JsDatePickerOptions options;
+    private Orientation orientation;
 
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
     private boolean initialized = false;
-    private boolean autoClose = false;
-    private HandlerRegistration autoCloseHandler;
+    private boolean detectOrientation = false;
+    protected HandlerRegistration autoCloseHandler;
+    protected HandlerRegistration orientationHandler;
     private MaterialIcon icon = new MaterialIcon();
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
-    private CssNameMixin<MaterialDatePicker, Orientation> orientationMixin = new CssNameMixin<>(this);
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -140,10 +143,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         super.onUnload();
 
         dateTemp = getValue();
-
-        if (autoCloseHandler != null) {
-            autoCloseHandler.removeHandler();
-        }
     }
 
     protected void initialize() {
@@ -190,13 +189,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
                 .off(options)
                 .on(options);
 
-        // Provide a feature to autoClose the picker when picking value
-        if (isAutoClose()) {
-            autoCloseHandler = addValueChangeHandler(valueChangeEvent -> {
-                close();
-            });
-        }
-
         initialized = true;
 
         // Set up date specific settings.
@@ -204,6 +196,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         setDate(date);
         setDateMin(dateMin);
         setDateMax(dateMax);
+        setOrientation(orientation);
     }
 
     /**
@@ -336,7 +329,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         });
     }
 
-
     /**
      * Get the pickers date.
      */
@@ -400,7 +392,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     @Override
     public Orientation getOrientation() {
-        return orientationMixin.getCssName();
+        return orientation;
     }
 
     /**
@@ -408,7 +400,42 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     @Override
     public void setOrientation(Orientation orientation) {
-        orientationMixin.setCssName(orientation);
+        JsMaterialElement element = $(pickatizedDateInput).pickadate("picker");
+        if(initialized && this.orientation != null) {
+            element.root.removeClass(this.orientation.getCssName());
+        }
+        this.orientation = orientation;
+        if(initialized && orientation != null) {
+            element.root.addClass(orientation.getCssName());
+        }
+    }
+
+    public void setDetectOrientation(boolean detectOrientation) {
+        this.detectOrientation = detectOrientation;
+
+        if(orientationHandler != null) {
+            orientationHandler.removeHandler();
+            orientationHandler = null;
+        }
+
+        if(detectOrientation) {
+            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
+                detectAndApplyOrientation();
+            });
+            detectAndApplyOrientation();
+        }
+    }
+
+    public boolean isDetectOrientation() {
+        return detectOrientation;
+    }
+
+    protected void detectAndApplyOrientation() {
+        if (Window.matchMedia("(orientation: portrait)")) {
+            setOrientation(Orientation.PORTRAIT);
+        } else {
+            setOrientation(Orientation.LANDSCAPE);
+        }
     }
 
     @Override
@@ -582,10 +609,20 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     public boolean isAutoClose() {
-        return autoClose;
+        return autoCloseHandler != null;
     }
 
+    /**
+     * Enables or disables auto closing when selecting a date.
+     */
     public void setAutoClose(boolean autoClose) {
-        this.autoClose = autoClose;
+        if (autoCloseHandler != null) {
+            autoCloseHandler.removeHandler();
+            autoCloseHandler = null;
+        }
+
+        if (autoClose) {
+            autoCloseHandler = addValueChangeHandler(event -> close());
+        }
     }
 }

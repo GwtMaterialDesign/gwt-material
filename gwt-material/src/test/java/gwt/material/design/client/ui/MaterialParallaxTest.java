@@ -23,6 +23,11 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Div;
 
+/**
+ * Test case for Parallax
+ *
+ * @author kevzlou7979
+ */
 public class MaterialParallaxTest extends MaterialWidgetTest {
 
     public void init() {

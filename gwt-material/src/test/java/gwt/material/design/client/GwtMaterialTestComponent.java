@@ -28,6 +28,11 @@ import org.junit.Test;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
+/**
+ * Test Wrapper for GMD Components
+ *
+ * @author kevzlou7979
+ */
 public class GwtMaterialTestComponent extends GWTTestCase {
 
 

@@ -27,9 +27,9 @@ import gwt.material.design.client.base.helper.EnumHelper;
 public enum ShowOn implements CssType {
     SHOW_ON_SMALL("show-on-small"),
     SHOW_ON_LARGE("show-on-large"),
-    SHOW_ON_MED("show-on-med"),
+    SHOW_ON_MED("show-on-medium"),
     SHOW_ON_MED_UP("show-on-medium-and-up"),
-    SHOW_ON_MED_DOWN("hide-on-med-and-up"),
+    SHOW_ON_MED_DOWN("hide-on-medium-and-up"),
     NONE("");
 
     private final String cssClass;

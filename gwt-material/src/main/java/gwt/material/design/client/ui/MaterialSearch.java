@@ -19,12 +19,11 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.base.HasActive;
@@ -40,6 +39,8 @@ import gwt.material.design.client.ui.html.Label;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
 
@@ -75,7 +76,8 @@ import java.util.List;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Search</a>
  */
 //@formatter:on
-public class MaterialSearch extends MaterialValueBox<String> implements HasCloseHandlers<String>, HasActive, HasSearchHandlers {
+public class MaterialSearch extends MaterialValueBox<String> implements HasOpenHandlers<String>, HasCloseHandlers<String>,
+        HasActive, HasSearchHandlers {
 
     private boolean initialized;
 
@@ -118,9 +120,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         label.getElement().setAttribute("for", "search");
         add(label);
         add(iconClose);
-        iconClose.addMouseDownHandler(mouseDownEvent -> {
-            CloseEvent.fire(MaterialSearch.this, getText());
-        });
+        iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText()));
     }
 
     public MaterialSearch(String placeholder) {
@@ -147,7 +147,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         }
 
         if (!initialized) {
-            // add keyup event to filter the searches
+            // Add Key Up event to filter the searches
             addKeyUpHandler(new KeyUpHandler() {
                 @Override
                 public void onKeyUp(KeyUpEvent event) {
@@ -209,7 +209,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                         reset(selLink.getText());
                     }
 
-                    // Fire an event if theres no search result
+                    // Fire an event if there's no search result
                     if (searchResultPanel.getWidgetCount() == 0) {
                         SearchNoResultEvent.fire(MaterialSearch.this);
                     }
@@ -243,6 +243,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
                     SearchFinishEvent.fire(MaterialSearch.this);
                     curSel = -1;
                     setText(keyword);
+                    $(valueBoxBase.getElement()).focus();
                     searchResultPanel.clear();
                 }
             });
@@ -274,6 +275,11 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     }
 
     @Override
+    public HandlerRegistration addOpenHandler(OpenHandler<String> handler) {
+        return addHandler((OpenHandler<String>) handler::onOpen, OpenEvent.getType());
+    }
+
+    @Override
     public void setActive(boolean active) {
         this.active = active;
         if (active) {
@@ -289,6 +295,15 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
     @Override
     public boolean isActive() {
         return active;
+    }
+
+    /**
+     * Programmatically open the search input field component
+     */
+    public void open() {
+        setActive(true);
+        Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).focus());
+        OpenEvent.fire(MaterialSearch.this, getText());
     }
 
     public MaterialLink getSelectedLink() {
@@ -354,5 +369,3 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasClose
         return searchResultPanel;
     }
 }
-
-

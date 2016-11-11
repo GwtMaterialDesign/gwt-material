@@ -43,7 +43,8 @@ import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
  */
 //@formatter:on
-public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent, HasProgress, HasActive {
+public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent,
+        HasProgress, HasActive {
 
     private MaterialCollapsible parent;
     private MaterialCollapsibleBody body;

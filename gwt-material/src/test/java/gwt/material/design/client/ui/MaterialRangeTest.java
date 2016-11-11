@@ -30,6 +30,8 @@ import gwt.material.design.client.ui.html.Span;
 
 /**
  * Test case for Range
+ *
+ * @author kevzlou7979
  */
 public class MaterialRangeTest extends AbstractValueWidgetTest {
 

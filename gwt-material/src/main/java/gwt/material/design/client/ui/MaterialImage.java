@@ -40,7 +40,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <h3>UiBinder Usage:</h3>
  * <p>
  * <pre>
- * {@code//Simple Image
+ * {@code //Simple Image
  * <m:MaterialImage url="http://assets.materialup.com/uploads/0587e4a8-6a46-4e27-b8bf-836e4350fe82/candycons.gif"/>
  *
  * // Circle Image
@@ -105,7 +105,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     protected void onLoad() {
         super.onLoad();
-        onInitMaterialDesign();
+        $(".materialboxed").materialbox();
     }
 
     @Override
@@ -126,10 +126,6 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     public void setCaption(String caption) {
         getElement().setAttribute("data-caption", caption);
-    }
-
-    public void onInitMaterialDesign() {
-        $(".materialboxed").materialbox();
     }
 
     @Override
@@ -153,13 +149,11 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     public int getWidth() {
-        ImageElement imageElement = getElement().cast();
-        return imageElement.getWidth();
+        return ((ImageElement)getElement().cast()).getWidth();
     }
 
     public int getHeight() {
-        ImageElement imageElement = getElement().cast();
-        return imageElement.getHeight();
+        return ((ImageElement)getElement().cast()).getHeight();
     }
 
     @Override

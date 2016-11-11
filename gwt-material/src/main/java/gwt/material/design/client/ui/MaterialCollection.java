@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasActiveParent;
@@ -109,7 +110,7 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
      * Sets the header of the collection component.
      */
     public void setHeader(String header) {
-        span.getElement().setInnerHTML(header);
+        span.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(header));
         addStyleName(CssName.WITH_HEADER);
         ListItem item = new ListItem(span);
         UiHelper.addMousePressedHandlers(item);

@@ -19,11 +19,13 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsTooltipOptions;
 
 import java.util.Iterator;
@@ -56,6 +58,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     private String html;
 
     private HandlerRegistration attachHandler;
+    private HandlerRegistration htmlAttachHandler;
 
     /**
      * Creates the empty Tooltip
@@ -283,20 +286,49 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     /**
+     * @deprecated Use {@link #getHtml}
+     */
+    @Deprecated
+    public String getTooltipHTML() {
+        return getHtml();
+    }
+
+    /**
+     * @deprecated Use {@link #setHtml}
+     */
+    @Deprecated
+    public void setTooltipHTML(String html) {
+        setHtml(html);
+    }
+
+    /**
      * Get the html of the tooltip.
      */
-    public String getTooltipHTML() {
+    public String getHtml() {
         return html;
     }
 
     /**
      * Set the html as value inside the tooltip.
      */
-    public void setTooltipHTML(String html) {
+    public void setHtml(String html) {
         this.html = html;
+        if (htmlAttachHandler != null) {
+            htmlAttachHandler.removeHandler();
+            htmlAttachHandler = null;
+        }
 
-        $("#" + widget.getElement().getAttribute("data-tooltip-id"))
-            .find("span")
-            .html(html != null ? html : "");
+        Element element = widget.getElement();
+        if (widget.isAttached()) {
+            JsMaterialElement.$("#" + element.getAttribute("data-tooltip-id"))
+                .find("span")
+                .html(html != null ? html : "");
+        } else {
+            htmlAttachHandler = widget.addAttachHandler(attachEvent -> {
+                JsMaterialElement.$("#" + element.getAttribute("data-tooltip-id"))
+                    .find("span")
+                    .html(html != null ? html : "");
+            });
+        }
     }
 }

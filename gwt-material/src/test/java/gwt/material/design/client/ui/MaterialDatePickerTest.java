@@ -19,19 +19,17 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
 import java.util.Date;
 
+import static gwt.material.design.client.js.JsMaterialElement.$;
+
 /**
- * Test case fir Datepicker
+ * Test case for Datepicker
  *
  * @author kevzlou7979
  */
@@ -40,8 +38,37 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
     public void init() {
         MaterialDatePicker datePicker = new MaterialDatePicker();
         checkAbstractValueWidget(datePicker, datePicker.getDateInput());
-        checkOptions(datePicker);
+        datePicker.initialize();
+        assertNotNull(datePicker.getPickerId());
+        checkFormat(datePicker);
+        checkDateMinAndMax(datePicker);
+        checkDateValue(datePicker);
+        checkOrientation(datePicker);
+        checkLanguage(datePicker);
+        checkSelectionType(datePicker);
         checkOpenCloseControl(datePicker);
+        checkAutoClose(datePicker);
+    }
+
+    public <T extends MaterialDatePicker> void checkAutoClose(T datePicker) {
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, false);
+        // Test multiple set to autoclose (leaks checking)
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, false);
+        checkAutoClose(datePicker, false);
+    }
+
+    protected void checkAutoClose(MaterialDatePicker datePicker, boolean autoClose) {
+        datePicker.setAutoClose(autoClose);
+        if (autoClose) {
+            assertTrue(datePicker.isAutoClose());
+            assertNotNull(datePicker.autoCloseHandler);
+        } else {
+            assertFalse(datePicker.isAutoClose());
+            assertNull(datePicker.autoCloseHandler);
+        }
     }
 
     public <T extends MaterialDatePicker> void checkOpenCloseControl(T datePicker) {
@@ -51,38 +78,46 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         checkCloseHandler(datePicker);
     }
 
-    public <T extends MaterialDatePicker> void checkOptions(T datePicker) {
-        datePicker.initialize();
-        assertNotNull(datePicker.getPickerId());
+    public <T extends MaterialDatePicker> void checkFormat(T datePicker) {
         final String FORMAT = "mm/dd/yyyy";
-        final Date DATE_MIN = new Date(116, 2, 2);
-        final Date DATE_MAX = new Date(116, 2, 20);
-        final DatePickerLanguage LANGUAGE = DatePickerLanguage.DA;
-        // Check Format
         datePicker.setFormat(FORMAT);
         assertEquals(datePicker.getFormat(), FORMAT);
-        // Check Date Min and Date Max
+    }
+
+    public <T extends MaterialDatePicker> void checkDateMinAndMax(T datePicker) {
+        final Date DATE_MIN = new Date(116, 2, 2);
+        final Date DATE_MAX = new Date(116, 2, 20);
         datePicker.setDateMin(DATE_MIN);
         assertEquals(datePicker.getDateMin(), DATE_MIN);
         datePicker.setDateMax(DATE_MAX);
         assertEquals(datePicker.getDateMax(), DATE_MAX);
-        // Check Date
+    }
+
+    public <T extends MaterialDatePicker> void checkDateValue(T datePicker) {
         final Date DATE = new Date(116, 2, 5);
         datePicker.setDate(DATE);
         assertEquals(datePicker.getDate(), DATE);
         assertEquals(datePicker.getValue(), DATE);
         datePicker.setEnabled(true);
-        // Check Language
+    }
+
+    public <T extends MaterialDatePicker> void checkLanguage(T datePicker) {
+        final DatePickerLanguage LANGUAGE = DatePickerLanguage.DA;
         datePicker.setLanguage(LANGUAGE);
         assertEquals(datePicker.getLanguage(), LANGUAGE);
-        // Check Orientation
+    }
+
+    public <T extends MaterialDatePicker> void checkOrientation(T datePicker) {
+        JsMaterialElement element = $(datePicker.pickatizedDateInput).pickadate("picker");
         datePicker.setOrientation(Orientation.LANDSCAPE);
         assertEquals(datePicker.getOrientation(), Orientation.LANDSCAPE);
-        assertTrue(datePicker.getElement().hasClassName(Orientation.LANDSCAPE.getCssName()));
+        assertTrue(element.root.hasClass(Orientation.LANDSCAPE.getCssName()));
         datePicker.setOrientation(Orientation.PORTRAIT);
         assertEquals(datePicker.getOrientation(), Orientation.PORTRAIT);
-        assertTrue(datePicker.getElement().hasClassName(Orientation.PORTRAIT.getCssName()));
-        // Check Selection Type
+        assertTrue(element.root.hasClass(Orientation.PORTRAIT.getCssName()));
+    }
+
+    public <T extends MaterialDatePicker> void checkSelectionType(T datePicker) {
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.DAY);
         assertEquals(datePicker.getSelectionType(), MaterialDatePicker.MaterialDatePickerType.DAY);
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR_MONTH_DAY);
@@ -92,4 +127,5 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR);
         assertEquals(datePicker.getSelectionType(), MaterialDatePicker.MaterialDatePickerType.YEAR);
     }
+
 }

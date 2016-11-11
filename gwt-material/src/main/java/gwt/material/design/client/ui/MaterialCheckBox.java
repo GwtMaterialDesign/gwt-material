@@ -25,9 +25,11 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.BaseCheckBox;
 import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.mixin.GridMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.constants.CssName;
 
@@ -57,9 +59,9 @@ import gwt.material.design.client.constants.CssName;
 public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
 
     private Object object;
-    private String old;
 
     private final GridMixin<MaterialCheckBox> gridMixin = new GridMixin<>(this);
+    private ToggleStyleMixin<MaterialCheckBox> toggleOldMixin = new ToggleStyleMixin<>(this, CssName.OLD_CHECKBOX);
 
     public MaterialCheckBox() {
         super();
@@ -117,16 +119,15 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
     }
 
-    public String getOld() {
-        return old;
+    public boolean isOld() {
+        return toggleOldMixin.isOn();
     }
 
     /**
      * Used the old checkbox.
      */
-    public void setOld(String old) {
-        this.old = old;
-        this.addStyleName(CssName.OLD_CHECKBOX);
+    public void setOld(boolean old) {
+        toggleOldMixin.setOn(old);
     }
 
     /**
@@ -135,15 +136,14 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
     public void setType(CheckBoxType type) {
         switch (type) {
             case FILLED:
-                Element cb = this.getElement();
-                Element input = DOM.getChild(cb, 0);
+                Element input = DOM.getChild(getElement(), 0);
                 input.setAttribute("class", CssName.FILLED_IN);
                 break;
             case INTERMEDIATE:
-                this.addStyleName(type.getCssName() + "-checkbox");
+                addStyleName(type.getCssName() + "-checkbox");
                 break;
             default:
-                this.addStyleName(type.getCssName());
+                addStyleName(type.getCssName());
                 break;
         }
     }

@@ -20,11 +20,13 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.Window;
 
 //@formatter:off
 
@@ -35,7 +37,7 @@ import gwt.material.design.client.constants.CssName;
  * length.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code<!-- Basic Card -->
+ * {@code <!-- Basic Card -->
  * <m:MaterialCard backgroundColor="blue-grey darken-1" grid="l3">
  *   <m:MaterialCardContent textColor="white">
  *     <m:MaterialCardTitle text="Sample" iconType="POLYMER" iconPosition="RIGHT"/>
@@ -94,6 +96,8 @@ import gwt.material.design.client.constants.CssName;
 public class MaterialCard extends MaterialWidget implements HasAxis {
 
     private final CssNameMixin<MaterialCard, Axis> axisMixin = new CssNameMixin<>(this);
+    private boolean detectOrientation = false;
+    protected HandlerRegistration orientationHandler;
 
     /**
      * Creates and empty card.
@@ -116,5 +120,33 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
     @Override
     public Axis getAxis() {
         return axisMixin.getCssName();
+    }
+
+    public void setDetectOrientation(boolean detectOrientation) {
+        this.detectOrientation = detectOrientation;
+
+        if(orientationHandler != null) {
+            orientationHandler.removeHandler();
+            orientationHandler = null;
+        }
+
+        if(detectOrientation) {
+            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
+                detectAndApplyOrientation();
+            });
+            detectAndApplyOrientation();
+        }
+    }
+
+    protected void detectAndApplyOrientation() {
+        if (Window.matchMedia("(orientation: portrait)")) {
+            setAxis(Axis.VERTICAL);
+        } else {
+            setAxis(Axis.HORIZONTAL);
+        }
+    }
+
+    public boolean isDetectOrientation() {
+        return detectOrientation;
     }
 }

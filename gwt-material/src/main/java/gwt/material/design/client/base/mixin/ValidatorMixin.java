@@ -161,7 +161,7 @@ public class ValidatorMixin<W extends Widget & HasValue<V> & Editor<V>, V> imple
         Boolean oldValid = valid;
         valid = true;
         if (errorHandler != null && !validators.isEmpty()) {
-            List<EditorError> errors = new ArrayList<EditorError>();
+            List<EditorError> errors = new ArrayList<>();
             for (ValidatorWrapper<V> wrapper : validators) {
                 Validator<V> validator = wrapper.getValidator();
                 List<EditorError> result = validator.validate(inputWidget, inputWidget.getValue());

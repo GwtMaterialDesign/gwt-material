@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasFontSize;
 import gwt.material.design.client.base.MaterialWidget;
@@ -83,6 +84,6 @@ public class MaterialLabel extends MaterialWidget implements HasFontSize, HasTex
 
     @Override
     public void setText(String text) {
-        getElement().setInnerHTML(text);
+        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(text));
     }
 }

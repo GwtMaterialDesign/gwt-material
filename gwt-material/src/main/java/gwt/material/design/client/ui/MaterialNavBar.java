@@ -89,7 +89,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
         super.onLoad();
 
         if (typeMixin.getType() != null) {
-            applyType(typeMixin.getType().getCssName(), getElement());
+            applyType(typeMixin.getType(), getElement());
         }
     }
 
@@ -108,8 +108,8 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
         typeMixin.setType(type);
     }
 
-    protected void applyType(String type, Element element) {
-        if (type.equals(NavBarType.SHRINK.getCssName())) {
+    protected void applyType(NavBarType type, Element element) {
+        if (type.equals(NavBarType.SHRINK)) {
             JsMaterialElement.initShrink(element, 300);
         } else {
             GWT.log("Default type of navbar was applied");

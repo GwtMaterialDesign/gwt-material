@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsPushpinOptions;
 
@@ -40,16 +41,45 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 public class MaterialPushpin {
 
-    public static void apply(Widget widget, double offset) {
-        apply(widget, 0, 0, offset);
+    /**
+     * A pushpinned element has 3 states. One above and below the scrolling threshold,
+     * and the pinned state where the element becomes fixed.
+     *
+     * @param widget - Target widget to apply the pushpin feature
+     * @param offset - The offset from the top the element will be fixed at. (Default: 0)
+     */
+    public static void apply(Widget widget, Double offset) {
+        apply(widget, null, null, offset);
     }
 
-    public static void apply(Widget widget, double top, double bottom, double offset) {
-        JsPushpinOptions options = new JsPushpinOptions();
-        options.top = top;
-        options.offset = offset;
-        options.bottom = bottom;
+    /**
+     * A pushpinned element has 3 states. One above and below the scrolling threshold,
+     * and the pinned state where the element becomes fixed.
+     *
+     * @param widget - Target widget to apply the pushpin feature
+     * @param top    - The distance in pixels from the top of the page where the element becomes fixed. (Default: 0)
+    * @param offset - The offset from the top the element will be fixed at. (Default: 0)
+     */
+    public static void apply(Widget widget, Double top, Double offset) {
+        apply(widget, top, null, offset);
+    }
 
-        $(widget.getElement()).pushpin(options);
+    /**
+     * A pushpinned element has 3 states. One above and below the scrolling threshold,
+     * and the pinned state where the element becomes fixed.
+     *
+     * @param widget - Target widget to apply the pushpin feature
+     * @param top    - The distance in pixels from the top of the page where the element becomes fixed. (Default: 0)
+     * @param bottom - The distance in pixels from the top of the page where the elements stops being fixed. (Default: Infinity)
+     * @param offset - The offset from the top the element will be fixed at. (Default: 0)
+     */
+    public static void apply(Widget widget, Double top, Double bottom, Double offset) {
+        Scheduler.get().scheduleDeferred(() -> {
+            JsPushpinOptions options = new JsPushpinOptions();
+            options.top = (top != null) ? top : 0;
+            options.offset = (offset != null) ? offset : 0;
+            options.bottom = (bottom != null) ? bottom : "Infinity";
+            $(widget.getElement()).pushpin(options);
+        });
     }
 }

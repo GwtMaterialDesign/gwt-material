@@ -35,9 +35,8 @@ public class MaterialInfo {
 
         HTMLPanel container = new HTMLPanel("");
         container.addStyleName(CssName.MATERIAL_INFO);
-        Label label = new Label(message);
         container.add(new Image(resource));
-        container.add(label);
+        container.add(new Label(message));
         panel.add(container);
     }
 }

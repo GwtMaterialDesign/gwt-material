@@ -385,8 +385,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 }
             } else if (strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                        "please ensure you have a MaterialNavBar with an activator setup to match " +
-                        "this widgets id.");
+                    "please ensure you have a MaterialNavBar with an activator setup to match " +
+                    "this widgets id.");
             }
         }
 

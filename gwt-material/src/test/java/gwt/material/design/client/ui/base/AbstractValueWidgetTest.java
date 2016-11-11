@@ -26,6 +26,11 @@ import gwt.material.design.client.base.HasPlaceholder;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
+/**
+ * Test case for Abstract value widget
+ *
+ * @author kevzlou7979
+ */
 public class AbstractValueWidgetTest extends MaterialWidgetTest {
 
     public <T extends AbstractValueWidget & HasPlaceholder, H extends UIObject> void checkAbstractValueWidget(T widget, H target) {
