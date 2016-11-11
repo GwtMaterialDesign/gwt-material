@@ -105,7 +105,6 @@ public final class StyleHelper {
      */
     public static boolean containsStyle(final String styleNames,
                                         final String style) {
-
         if (styleNames == null || style == null) {
             return false;
         }

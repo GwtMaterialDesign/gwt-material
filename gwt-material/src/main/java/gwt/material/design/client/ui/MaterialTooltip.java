@@ -320,12 +320,12 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
         Element element = widget.getElement();
         if (widget.isAttached()) {
-            JsMaterialElement.$("#" + element.getAttribute("data-tooltip-id"))
+            $("#" + element.getAttribute("data-tooltip-id"))
                 .find("span")
                 .html(html != null ? html : "");
         } else {
             htmlAttachHandler = widget.addAttachHandler(attachEvent -> {
-                JsMaterialElement.$("#" + element.getAttribute("data-tooltip-id"))
+                $("#" + element.getAttribute("data-tooltip-id"))
                     .find("span")
                     .html(html != null ? html : "");
             });
