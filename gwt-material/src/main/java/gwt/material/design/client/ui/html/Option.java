@@ -65,8 +65,6 @@ public class Option extends MaterialWidget {
         return OptionElement.as(this.getElement()).getIndex();
     }
 
-    ;
-
     /**
      * Option label for use in hierarchical menus.
      *
@@ -130,8 +128,6 @@ public class Option extends MaterialWidget {
         return OptionElement.as(this.getElement()).isSelected();
     }
 
-    ;
-
     /**
      * Represents the value of the HTML selected attribute. The value of this
      * attribute does not change if the state of the corresponding form control,
@@ -145,8 +141,6 @@ public class Option extends MaterialWidget {
         OptionElement.as(this.getElement()).setDefaultSelected(selected);
     }
 
-    ;
-
     /**
      * The control is unavailable in this context.
      *
@@ -157,8 +151,6 @@ public class Option extends MaterialWidget {
     public void setDisabled(boolean disabled) {
         OptionElement.as(this.getElement()).setDisabled(disabled);
     }
-
-    ;
 
     /**
      * Option label for use in hierarchical menus.
@@ -199,4 +191,9 @@ public class Option extends MaterialWidget {
         OptionElement.as(this.getElement()).setValue(value);
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        setDisabled(!enabled);
+    }
 }

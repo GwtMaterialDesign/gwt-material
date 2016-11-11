@@ -20,14 +20,28 @@ package gwt.material.design.client.base.helper;
  * #L%
  */
 
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Color;
 
 public class ColorHelper {
+
+    /**
+     * Returns first enum constant found..
+     *
+     * @param styleName    Space-separated list of styles
+     * @param enumClass    Type of enum
+     * @param defaultValue Default value of no match was found
+     * @return First enum constant found or default value
+     */
+    public static <E extends Enum<? extends Style.HasCssName>> E fromStyleName(final String styleName,
+                                                                               final Class<E> enumClass,
+                                                                               final E defaultValue) {
+        return EnumHelper.fromStyleName(styleName, enumClass, defaultValue, true);
+    }
 
     public static String setupComputedBackgroundColor(Color color) {
         MaterialWidget temp = new MaterialWidget(Document.get().createDivElement());
@@ -45,5 +59,4 @@ public class ColorHelper {
         var cs = $wnd.document.defaultView.getComputedStyle(e, null);
         return cs.getPropertyValue('background-color');
     }-*/;
-
 }
