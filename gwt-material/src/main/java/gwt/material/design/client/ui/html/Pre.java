@@ -36,4 +36,9 @@ public class Pre extends AbstractTextWidget {
         this();
         setHTML(text);
     }
+
+    @Override
+    public void setHTML(String html) {
+        getElement().setInnerHTML(html);
+    }
 }
