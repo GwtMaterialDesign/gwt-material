@@ -21,6 +21,7 @@ package gwt.material.design.client.ui.html;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.MaterialWidget;
 
@@ -35,9 +36,9 @@ public class Span extends MaterialWidget implements HasText {
         super(e, initialClass);
     }
 
-    public Span(String string) {
+    public Span(String text) {
         this();
-        getElement().setInnerHTML(string);
+        setText(text);
     }
 
     @Override
@@ -48,6 +49,6 @@ public class Span extends MaterialWidget implements HasText {
     @Override
     public void setText(String text) {
         this.text = text;
-        getElement().setInnerHTML(text);
+        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(text));
     }
 }

@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import gwt.material.design.client.base.HasTitle;
 import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.ui.html.Div;
@@ -74,6 +75,6 @@ public class MaterialTitle extends Div implements HasTitle {
 
     @Override
     public void setTitle(String title) {
-        header.getElement().setInnerHTML(title);
+        header.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(title));
     }
 }

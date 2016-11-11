@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.editor.ui.client.adapters.HasTextEditor;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HasHTML;
 
 /**
@@ -65,7 +66,7 @@ public abstract class AbstractTextWidget extends AbstractValueWidget<String> imp
 
     @Override
     public void setHTML(final String html) {
-        getElement().setInnerHTML(html);
+        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(html));
     }
 
     @Override

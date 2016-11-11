@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.Span;
@@ -88,6 +89,6 @@ public class MaterialBadge extends Span {
 
     @Override
     public void setText(String text) {
-        getElement().setInnerHTML(text);
+        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(text));
     }
 }
