@@ -55,7 +55,7 @@
         <source.version>1.8</source.version>
         <target.version>1.8</target.version>
         <gwt.version>2.8.0</gwt.version>
-        <gwt-maven-plugin.version>2.8.0-rc3</gwt-maven-plugin.version>
+        <gwt-maven-plugin.version>2.8.0</gwt-maven-plugin.version>
         <gwt.style>OBF</gwt.style>
     </properties>
 
