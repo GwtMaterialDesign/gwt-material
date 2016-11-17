@@ -52,10 +52,6 @@ import gwt.material.design.client.ui.html.Option;
 //@formatter:on
 public class MaterialListBox extends MaterialListValueBox<String> {
 
-    public MaterialListBox() {
-        super();
-    }
-
     public void add(Option option) {
         getSelectElement().add(OptionElement.as(option.getElement()), null);
         values.add(option.getValue());

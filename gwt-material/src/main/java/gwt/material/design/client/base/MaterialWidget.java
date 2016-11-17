@@ -127,6 +127,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     public MaterialWidget(Element element) {
         setElement(element);
+
+        if(element.hasParentElement()) {
+            // We are already attached to the DOM.
+            // This will happen in instances where
+            // we are taking an element from JQuery.
+            onAttach();
+        }
     }
 
     public MaterialWidget(Element element, String... initialClass) {
