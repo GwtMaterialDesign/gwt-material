@@ -31,7 +31,6 @@ import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
@@ -522,7 +521,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      * Stop the datepicker instance.
      */
     public void stop() {
-        $(pickatizedDateInput).pickadate("picker").stop();
+        if (pickatizedDateInput != null) {
+            $(pickatizedDateInput).pickadate("picker").stop();
+        }
     }
 
     protected void start() {
