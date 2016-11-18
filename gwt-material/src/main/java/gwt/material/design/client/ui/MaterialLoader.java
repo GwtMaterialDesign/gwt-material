@@ -79,9 +79,11 @@ public class MaterialLoader {
             div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
             div.add(preLoader);
             container.add(div);
+            RootPanel.get().getElement().getStyle().setOverflow(Style.Overflow.HIDDEN);
         } else {
             div.removeFromParent();
             preLoader.removeFromParent();
+            RootPanel.get().getElement().getStyle().setOverflow(Style.Overflow.AUTO);
         }
     }
 
