@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsPushpinOptions;
@@ -32,7 +33,16 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <p>
  * <pre>
  * {@code
+ * // CAN BE CALLED AS A HELPER STATIC CONTEXT
  * MaterialPushpin.apply(target, source.getOffsetHeight() + 600);
+ *
+ * // INSTANTIATE THE PUSHPIN COMPONENT
+ * MaterialPushpin pushpin = new MaterialPushpin();
+ * pushpin.setWidget(source);
+ * pushpin.setTop(300.0);
+ * pushpin.setOffset(64.0);
+ * pushpin.setBottom(500.0);
+ * pushpin.apply();
  * }
  * </pre>
  *
@@ -40,6 +50,30 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pushpin">Material PushPin</a>
  */
 public class MaterialPushpin {
+
+    private Widget widget;
+    private Double offset;
+    private Double top;
+    private Double bottom;
+
+    public MaterialPushpin() {}
+
+    /**
+     * Apply the pushpin feature into the target widget
+     */
+    public void apply() {
+        Scheduler.get().scheduleDeferred(() -> {
+            JsPushpinOptions options = new JsPushpinOptions();
+            options.top = (top != null) ? top : 0;
+            options.offset = (offset != null) ? offset : 0;
+            options.bottom = (bottom != null) ? bottom : "Infinity";
+            if (widget != null) {
+                $(widget.getElement()).pushpin(options);
+            } else {
+                GWT.log("Please set your widget before applying the pushpin", new IllegalStateException());
+            }
+        });
+    }
 
     /**
      * A pushpinned element has 3 states. One above and below the scrolling threshold,
@@ -74,12 +108,68 @@ public class MaterialPushpin {
      * @param offset - The offset from the top the element will be fixed at. (Default: 0)
      */
     public static void apply(Widget widget, Double top, Double bottom, Double offset) {
-        Scheduler.get().scheduleDeferred(() -> {
-            JsPushpinOptions options = new JsPushpinOptions();
-            options.top = (top != null) ? top : 0;
-            options.offset = (offset != null) ? offset : 0;
-            options.bottom = (bottom != null) ? bottom : "Infinity";
-            $(widget.getElement()).pushpin(options);
-        });
+        MaterialPushpin pushpin = new MaterialPushpin();
+        pushpin.setWidget(widget);
+        pushpin.setTop(top);
+        pushpin.setBottom(bottom);
+        pushpin.setOffset(offset);
+        pushpin.apply();
+    }
+
+    /**
+     * Get the target widget which the pushpin was applied
+     */
+    public Widget getWidget() {
+        return widget;
+    }
+
+    /**
+     * Set the target widget to apply the pushpin feature
+     */
+    public void setWidget(Widget widget) {
+        this.widget = widget;
+    }
+
+    /**
+     * Get the offset from the top the element will be fixd at.
+     */
+    public Double getOffset() {
+        return offset;
+    }
+
+    /**
+     * Set the offset from the top the element will be fixed at. (Default: 0)
+     */
+    public void setOffset(Double offset) {
+        this.offset = offset;
+    }
+
+    /**
+     * Get the distance in pixels from the top of the page where the element becomes fixed. (Default: 0)
+     * @return
+     */
+    public Double getTop() {
+        return top;
+    }
+
+    /**
+     * Set the distance in pixels from the top of the page where the element becomes fixed. (Default: 0)
+     */
+    public void setTop(Double top) {
+        this.top = top;
+    }
+
+    /**
+     * Get the distance in pixels from the top of the page where the elements stops being fixed. (Default: Infinity)
+     */
+    public Double getBottom() {
+        return bottom;
+    }
+
+    /**
+     * Set the distance in pixels from the top of the page where the elements stops being fixed. (Default: Infinity)
+     */
+    public void setBottom(Double bottom) {
+        this.bottom = bottom;
     }
 }
