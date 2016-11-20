@@ -78,7 +78,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private boolean alwaysShowActivator = false;
     private boolean allowBodyScroll = false;
     private boolean open;
-    private Boolean showOnAttach;
+    private Boolean showOnAttach = true;
 
     private Element activator;
 
