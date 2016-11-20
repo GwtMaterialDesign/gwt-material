@@ -118,22 +118,14 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        if (showOnAttach != null) {
-            Scheduler.get().scheduleDeferred(() -> {
-                if (showOnAttach) {
-                    if (Window.getClientWidth() > 960) {
-                        show();
-                    }
-                } else {
-                    show();
-                    final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
-                    openedHandler[0] = addOpenedHandler((event) -> {
-                        hide();
+        // Ensure the side nav starts closed
+        setLeft(-getWidth());
 
-                        if (openedHandler[0] != null) {
-                            openedHandler[0].removeHandler();
-                        }
-                    });
+        if (showOnAttach) {
+            Scheduler.get().scheduleDeferred(() -> {
+                // We are ignoring cases with mobile
+                if (Window.getClientWidth() > 960) {
+                    show();
                 }
             });
         }
@@ -322,8 +314,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Push the header, footer, and main to the right part when Close type is applied.
      */
     protected void applyPushType(int width) {
-        $(JQuery.window()).off("resize");
-        $(JQuery.window()).resize((e, param1) -> {
+        $(JQuery.window()).off("resize").resize((e, param1) -> {
             pushElements(open, width);
             return true;
         });
