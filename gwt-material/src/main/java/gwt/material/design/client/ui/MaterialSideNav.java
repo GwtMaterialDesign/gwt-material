@@ -78,7 +78,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private boolean alwaysShowActivator = false;
     private boolean allowBodyScroll = false;
     private boolean open;
-    private Boolean showOnAttach = true;
+    private Boolean showOnAttach;
 
     private Element activator;
 
@@ -118,16 +118,21 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        // Ensure the side nav starts closed
-        setLeft(-getWidth());
+        if(showOnAttach != null) {
+            // Ensure the side nav starts closed
+            setLeft(-getWidth());
 
-        if (showOnAttach) {
-            Scheduler.get().scheduleDeferred(() -> {
-                // We are ignoring cases with mobile
-                if (Window.getClientWidth() > 960) {
-                    show();
-                }
-            });
+            if (showOnAttach) {
+                Scheduler.get().scheduleDeferred(() -> {
+                    // We are ignoring cases with mobile
+                    if (Window.getClientWidth() > 960) {
+                        show();
+                    }
+                });
+            }
+        } else {
+            setLeft(0);
+            open = true;
         }
     }
 
@@ -376,8 +381,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 }
             } else if (strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                    "please ensure you have a MaterialNavBar with an activator setup to match " +
-                    "this widgets id.");
+                        "please ensure you have a MaterialNavBar with an activator setup to match " +
+                        "this widgets id.");
             }
         }
 
@@ -510,8 +515,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     /**
-     * Show the menu upon attachment, this isn't always required.
-     * Some menu types will automatically show themselves by default.
+     * Show the menu upon attachment.<br>
+     * Note that you shouldn't apply this setting if you want your side nav to appear static.
+     * otherwise when set to <code>true</code> will slide in from the left.
      */
     public void setShowOnAttach(boolean showOnAttach) {
         this.showOnAttach = showOnAttach;
