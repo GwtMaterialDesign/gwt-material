@@ -982,3 +982,7 @@ input:-webkit-autofill {
 .horizontal.fixed-action-btn ul {
 	left: auto;
 }
+
+.weatherContainer .card {
+	background-color: initial !important;
+}
