@@ -131,6 +131,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 });
             }
         } else {
+            setLeft(0);
             $(activator).trigger("menu-out", null);
         }
     }
