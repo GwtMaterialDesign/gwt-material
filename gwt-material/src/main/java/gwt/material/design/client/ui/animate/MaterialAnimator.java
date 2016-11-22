@@ -20,6 +20,7 @@ package gwt.material.design.client.ui.animate;
  * #L%
  */
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
@@ -61,8 +62,10 @@ public class MaterialAnimator {
     public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Functions.Func callback, final boolean infinite) {
         final String name = String.valueOf(DOM.createUniqueId());
         w.getElement().setId(name);
-        w.getElement().getStyle().setProperty("WebkitAnimationDuration", durationMillis + "ms");
-        w.getElement().getStyle().setProperty("animationDuration", durationMillis + "ms");
+
+        $(w.getElement()).css("animation-duration", durationMillis + "ms");
+        $(w.getElement()).css("-webkit-animation-duration", durationMillis + "ms");
+
         switch (transition) {
             case SHOW_STAGGERED_LIST:
                 if (w instanceof UnorderedList) {
@@ -106,7 +109,7 @@ public class MaterialAnimator {
                             w.addStyleName(CssName.INFINITE);
                         }
                         w.addStyleName("animated " + transition.getCssName());
-                        animationFinishedCallback(name, "animated " + transition.getCssName(), durationMillis, callback);
+                        animationFinishedCallback(w.getElement(), "animated " + transition.getCssName(), durationMillis, callback);
                         break;
                 }
             }
@@ -115,14 +118,16 @@ public class MaterialAnimator {
         w.removeStyleName(CssName.MATERIALIZE_CSS);
     }
 
-    protected static void animationFinishedCallback(String name, String oldClass, int durationMillis, Functions.Func callback) {
-        $("#" + name).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", e -> {
-            if (callback != null) {
-                callback.call();
+    protected static void animationFinishedCallback(Element element, String oldClass, int durationMillis, Functions.Func callback) {
+        new Timer() {
+            @Override
+            public void run() {
+                if (callback != null) {
+                    callback.call();
+                }
+                $(element).removeClass(oldClass);
             }
-            $("#" + name).removeClass(oldClass);
-            return true;
-        });
+        }.schedule(durationMillis);
     }
 
     protected static void closeGrid(String name) {
