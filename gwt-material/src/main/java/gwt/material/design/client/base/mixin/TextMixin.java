@@ -20,6 +20,7 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.UIObject;
 
 /**
@@ -36,6 +37,6 @@ public class TextMixin<T extends UIObject> extends AbstractMixin<T> {
     }
 
     public void setText(final String text) {
-        uiObject.getElement().setInnerText(text);
+        uiObject.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(text));
     }
 }

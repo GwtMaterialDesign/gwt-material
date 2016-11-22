@@ -21,10 +21,14 @@ package gwt.material.design.client.ui.html;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.HeadingSize;
 
-public class Heading extends MaterialWidget {
+public class Heading extends MaterialWidget implements HasText {
+
+    private final TextMixin<Heading> textMixin = new TextMixin<>(this);
 
     @UiConstructor
     public Heading(HeadingSize size) {
@@ -33,5 +37,15 @@ public class Heading extends MaterialWidget {
 
     public void setFontWeight(int fontWeight) {
         getElement().getStyle().setProperty("fontWeight", String.valueOf(fontWeight));
+    }
+
+    @Override
+    public String getText() {
+        return textMixin.getText();
+    }
+
+    @Override
+    public void setText(String text) {
+        textMixin.setText(text);
     }
 }

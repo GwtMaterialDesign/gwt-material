@@ -125,6 +125,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     public MaterialWidget() {
     }
 
+    public MaterialWidget(JQueryElement jQueryElement) {
+        setElement(jQueryElement.asElement());
+
+        // We are already attached to the DOM.
+        // This will happen in instances where
+        // we are taking an element from JQuery.
+        onAttach();
+    }
+
     public MaterialWidget(Element element) {
         setElement(element);
     }
@@ -205,6 +214,22 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      */
     public void insert(final Widget child, final int beforeIndex) {
         insert(child, (Element) getElement(), beforeIndex, true);
+    }
+
+    /**
+     * Set the style attribute of your element.
+     * Note that this will override any {@link Element#getStyle()} changes and vice-versa.
+     */
+    public void setStyle(String style) {
+        getElement().setAttribute("style", style);
+    }
+
+    /**
+     * Set the 'class' attribute of this element.
+     * Note that this will override {@link #addStyleName(String)} and vice-versa.
+     */
+    public void setClass(String cssClasses) {
+        getElement().setAttribute("class", cssClasses);
     }
 
     // Events

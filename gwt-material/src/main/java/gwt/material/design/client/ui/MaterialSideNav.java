@@ -120,7 +120,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
         if(showOnAttach != null) {
             // Ensure the side nav starts closed
-            setLeft(-getWidth());
+            $(activator).trigger("menu-in", null);
 
             if (showOnAttach) {
                 Scheduler.get().scheduleDeferred(() -> {
@@ -131,8 +131,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 });
             }
         } else {
-            setLeft(0);
-            open = true;
+            $(activator).trigger("menu-out", null);
         }
     }
 

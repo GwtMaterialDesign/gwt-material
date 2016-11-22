@@ -2054,7 +2054,7 @@ $(document).ready(function(){
           });
         }
 
-        function removeMenu(restoreNav) {
+        function removeMenu(restoreNav, blockTransitions) {
           $this.trigger("side-nav-closing");
           panning = false;
           menuOut = false;
@@ -2062,45 +2062,72 @@ $(document).ready(function(){
           // Reenable scrolling
           $('body').css('overflow', '');
 
-          $('#sidenav-overlay').velocity({opacity: 0}, {duration: 200, queue: false, easing: 'easeOutQuad',
-            complete: function() {
-              $(this).remove();
-            } });
+          if(!blockTransitions) {
+            $('#sidenav-overlay').velocity({opacity: 0}, {
+              duration: 200, queue: false, easing: 'easeOutQuad',
+              complete: function () {
+                $(this).remove();
+              }
+            });
+          } else {
+            $('#sidenav-overlay').remove();
+          }
           if (options.edge === 'left') {
             // Reset phantom div
             dragTarget.css({width: '', right: '', left: '0'});
-            menu_id.velocity(
-              {left: -1 * (options.menuWidth + 10)},
-              { duration: 200,
-                queue: false,
-                easing: 'easeOutCubic',
-                complete: function() {
-                  if (restoreNav === true) {
-                    // Restore Fixed sidenav
-                    //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
-                    menu_id.css('width', options.menuWidth);
+            if(!blockTransitions) {
+              menu_id.velocity(
+                {left: -1 * (options.menuWidth + 10)}, {
+                  duration: 200,
+                  queue: false,
+                  easing: 'easeOutCubic',
+                  complete: function () {
+                    if (restoreNav === true) {
+                      // Restore Fixed sidenav
+                      //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
+                      menu_id.css('width', options.menuWidth);
+                    }
+                    $this.trigger("side-nav-closed");
                   }
-                  $this.trigger("side-nav-closed");
-                }
-            });
+                });
+            } else {
+              menu_id.css("left", (-1 * (options.menuWidth + 10)) + "px");
+              if (restoreNav === true) {
+                // Restore Fixed sidenav
+                //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
+                menu_id.css('width', options.menuWidth);
+              }
+              $this.trigger("side-nav-closed");
+            }
           }
           else {
             // Reset phantom div
             dragTarget.css({width: '', right: '0', left: ''});
-            menu_id.velocity(
-              {right: -1 * (options.menuWidth + 10)},
-              { duration: 200,
-                queue: false,
-                easing: 'easeOutCubic',
-                complete: function() {
-                  if (restoreNav === true) {
-                    // Restore Fixed sidenav
-                    //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
-                    menu_id.css('width', options.menuWidth);
+            if(!blockTransitions) {
+              menu_id.velocity(
+                {right: -1 * (options.menuWidth + 10)},
+                {
+                  duration: 200,
+                  queue: false,
+                  easing: 'easeOutCubic',
+                  complete: function () {
+                    if (restoreNav === true) {
+                      // Restore Fixed sidenav
+                      //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
+                      menu_id.css('width', options.menuWidth);
+                    }
+                    $this.trigger("side-nav-closed");
                   }
-                  $this.trigger("side-nav-closed");
-                }
-              });
+                });
+            } else {
+              enu_id.css("right", (-1 * (options.menuWidth + 10)) + "px");
+              if (restoreNav === true) {
+                // Restore Fixed sidenav
+                //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
+                menu_id.css('width', options.menuWidth);
+              }
+              $this.trigger("side-nav-closed");
+            }
           }
         }
 
@@ -2232,54 +2259,84 @@ $(document).ready(function(){
           }
         });
 
-          $this.click(function() {
-            if (menuOut === true) {
-              menuOut = false;
-              panning = false;
-              removeMenu();
-            }
-            else {
+          var menuOutFunc = function(transitions) {
               $this.trigger("side-nav-opening");
 
               // Disable Scrolling
               $('body').css('overflow', 'hidden');
               // Push current drag target on top of DOM tree
               $('body').append(dragTarget);
-              
+
               if (options.edge === 'left') {
-                dragTarget.css({width: '50%', right: 0, left: ''});
-                menu_id.velocity({left: 0}, {duration: 300, queue: false, easing: 'easeOutQuad'});
+                  dragTarget.css({width: '50%', right: 0, left: ''});
+                  if(transitions) {
+                      menu_id.velocity({left: 0}, {duration: 300, queue: false, easing: 'easeOutQuad'});
+                  } else {
+                      menu_id.css("left", "0");
+                  }
               }
               else {
-                dragTarget.css({width: '50%', right: '', left: 0});
-                menu_id.velocity({right: 0}, {duration: 300, queue: false, easing: 'easeOutQuad'});
-                menu_id.css('left','');
+                  dragTarget.css({width: '50%', right: '', left: 0});
+                  if(transitions) {
+                      menu_id.velocity({right: 0}, {duration: 300, queue: false, easing: 'easeOutQuad'});
+                  } else {
+                      menu_id.css("right", "0");
+                  }
+                  menu_id.css('left','');
               }
 
               var overlay = $('<div id="sidenav-overlay"></div>');
               overlay.css('opacity', 0)
-              .click(function(){
-                menuOut = false;
-                panning = false;
-                removeMenu();
-                overlay.velocity({opacity: 0}, {duration: 300, queue: false, easing: 'easeOutQuad',
-                  complete: function() {
-                    $(this).remove();
-                  } });
-
-              });
+                  .click(function(){
+                      menuOut = false;
+                      panning = false;
+                      removeMenu();
+                      if(transitions) {
+                          overlay.velocity({opacity: 0}, {
+                              duration: 300, queue: false, easing: 'easeOutQuad',
+                              complete: function () {
+                                  $(this).remove();
+                              }
+                          });
+                      } else {
+                        overlay.remove();
+                      }
+                  });
               $('body').append(overlay);
-              overlay.velocity({opacity: 1}, {duration: 300, queue: false, easing: 'easeOutQuad',
-                complete: function () {
-                  menuOut = true;
-                  panning = false;
-                  $this.trigger("side-nav-opened");
-                }
-              });
-            }
+              if(transitions) {
+                  overlay.velocity({opacity: 1}, {
+                      duration: 300, queue: false, easing: 'easeOutQuad',
+                      complete: function () {
+                          menuOut = true;
+                          panning = false;
+                          $this.trigger("side-nav-opened");
+                      }
+                  });
+              } else {
+                overlay.css("opacity", "1");
+                menuOut = true;
+                panning = false;
+                $this.trigger("side-nav-opened");
+              }
+          };
 
+          var menuInFunc = function(transitions) {
+              menuOut = false;
+              panning = false;
+              removeMenu(false, !transitions);
+          };
+
+          $this.click(function() {
+            if (menuOut === true) {
+                menuInFunc(true);
+            } else {
+              menuOutFunc(true);
+            }
             return false;
           });
+
+          $this.on("menu-out", menuOutFunc);
+          $this.on("menu-in", menuInFunc);
       });
 
 
@@ -2289,6 +2346,12 @@ $(document).ready(function(){
     },
     hide : function() {
       $('#sidenav-overlay').trigger('click');
+    },
+    menuOut : function() {
+      this.trigger('menu-out');
+    },
+    menuIn : function() {
+      this.trigger('menu-in');
     }
   };
 
