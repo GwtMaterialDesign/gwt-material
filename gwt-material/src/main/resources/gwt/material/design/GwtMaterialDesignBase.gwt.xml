@@ -42,5 +42,5 @@
   <source path="client"/>
 
   <set-configuration-property name="CssResource.enableGss" value="true"/>
-  <set-configuration-property name="CssResource.legacy" value="true"/>
+  <!--<set-configuration-property name="CssResource.legacy" value="true"/>-->
 </module>
