@@ -142,13 +142,8 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         return getIntFromRangeElement(VALUE);
     }
 
-    /**
-     * Write the current value
-     *
-     * @param value value must be &gt;= min and &lt;= max
-     */
     @Override
-    public void setValue(Integer value) {
+    public void setValue(Integer value, boolean fireEvents) {
         if (value == null) {
             GWT.log("Value must be null", new RuntimeException());
             return;
@@ -162,6 +157,8 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
             return;
         }
         setIntToRangeElement(VALUE, value);
+
+        super.setValue(value, fireEvents);
     }
 
     /**
