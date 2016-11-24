@@ -46,19 +46,17 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     private boolean allowBlank = true;
     private BlankValidator<V> blankValidator;
+    private HandlerRegistration blurHandler;
 
     private AttachEvent.Handler attachHandler = new AttachEvent.Handler() {
-        HandlerRegistration registration;
-
         @Override
         public void onAttachOrDetach(AttachEvent event) {
-            if (registration != null) {
-                registration.removeHandler();
+            if (blurHandler == null) {
+                AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
+                blurHandler = inputWidget.addBlurHandler(blurEvent -> {
+                    validate(isValidateOnBlur());
+                });
             }
-            AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
-            registration = inputWidget.addBlurHandler(blurEvent -> {
-                validate(isValidateOnBlur());
-            });
         }
     };
 
@@ -160,6 +158,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public void setValidateOnBlur(boolean validateOnBlur) {
         getValidatorMixin().setValidateOnBlur(validateOnBlur);
+        setupBlurValidation();
     }
 
     @Override
@@ -216,12 +215,14 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return new BlankValidator<>();
     }
 
-    protected HandlerRegistration setupBlurValidation() {
+    protected void setupBlurValidation() {
         AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
         if (!inputWidget.isAttached()) {
-            return inputWidget.addAttachHandler(attachHandler);
+            inputWidget.addAttachHandler(attachHandler);
         } else {
-            return inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
+            if(blurHandler == null) {
+                blurHandler = inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
+            }
         }
     }
 

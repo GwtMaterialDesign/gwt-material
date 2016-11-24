@@ -34,7 +34,7 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:off
 
 /**
- * Material Label will extend to GWT Label functionality with other material specifications
+ * Material Label will extend to GWT Label functionality with other material specifications.
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
