@@ -46,19 +46,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     private boolean allowBlank = true;
     private BlankValidator<V> blankValidator;
-    private HandlerRegistration blurHandler;
-
-    private AttachEvent.Handler attachHandler = new AttachEvent.Handler() {
-        @Override
-        public void onAttachOrDetach(AttachEvent event) {
-            if (blurHandler == null) {
-                AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
-                blurHandler = inputWidget.addBlurHandler(blurEvent -> {
-                    validate(isValidateOnBlur());
-                });
-            }
-        }
-    };
+    private HandlerRegistration blurHandler, attachHandler;
 
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
 
@@ -216,9 +204,17 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     protected void setupBlurValidation() {
-        AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
+        final AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
         if (!inputWidget.isAttached()) {
-            inputWidget.addAttachHandler(attachHandler);
+            if(attachHandler == null) {
+                attachHandler = inputWidget.addAttachHandler(event -> {
+                    if (blurHandler == null) {
+                        blurHandler = inputWidget.addBlurHandler(blurEvent -> {
+                            validate(isValidateOnBlur());
+                        });
+                    }
+                });
+            }
         } else {
             if(blurHandler == null) {
                 blurHandler = inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
