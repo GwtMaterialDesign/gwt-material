@@ -82,7 +82,7 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
         assertEquals(range.getMax(), MAX);
         assertEquals(inputElement.getAttribute("max"), String.valueOf(MAX));
 
-        range.setValue(VALUE);
+        range.setValue(VALUE, true);
         assertTrue(inputElement.hasAttribute("value"));
         assertEquals(range.getValue(), VALUE);
         assertEquals(inputElement.getAttribute("value"), String.valueOf(VALUE));

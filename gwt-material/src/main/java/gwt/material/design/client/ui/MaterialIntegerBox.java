@@ -50,7 +50,7 @@ public class MaterialIntegerBox extends MaterialNumberBox<Integer> {
 
     public MaterialIntegerBox(String placeholder, int value) {
         this(placeholder);
-        setValue(value);
+        setValue(value, true);
     }
 
     @Override

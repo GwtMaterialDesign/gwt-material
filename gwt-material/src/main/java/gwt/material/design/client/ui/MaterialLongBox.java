@@ -50,7 +50,7 @@ public class MaterialLongBox extends MaterialNumberBox<Long> {
 
     public MaterialLongBox(String placeholder, long value) {
         this(placeholder);
-        setValue(value);
+        setValue(value, true);
     }
 
     @Override
