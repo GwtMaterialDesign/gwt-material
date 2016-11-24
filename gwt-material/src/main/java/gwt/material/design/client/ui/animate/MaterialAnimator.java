@@ -21,7 +21,6 @@ package gwt.material.design.client.ui.animate;
  */
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
@@ -59,12 +58,16 @@ public class MaterialAnimator {
         w.removeStyleName(CssName.INFINITE);
     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, final int durationMillis, final Functions.Func callback, final boolean infinite) {
-        final String name = String.valueOf(DOM.createUniqueId());
-        w.getElement().setId(name);
+    public static void animate(final Transition transition,
+                               final Widget w,
+                               int delayMillis,
+                               final int durationMillis,
+                               final Functions.Func callback,
+                               final boolean infinite) {
+        final JsMaterialElement element = $(w.getElement());
 
-        $(w.getElement()).css("animation-duration", durationMillis + "ms");
-        $(w.getElement()).css("-webkit-animation-duration", durationMillis + "ms");
+        element.css("animation-duration", durationMillis + "ms");
+        element.css("-webkit-animation-duration", durationMillis + "ms");
 
         switch (transition) {
             case SHOW_STAGGERED_LIST:
@@ -90,18 +93,18 @@ public class MaterialAnimator {
             public void run() {
                 switch (transition) {
                     case SHOW_STAGGERED_LIST:
-                        showStaggeredList(name);
+                        JsMaterialElement.showStaggeredList(element);
                         break;
                     case FADE_IN_IMAGE:
-                        fadeInImage(name);
+                        JsMaterialElement.fadeInImage(element);
                         break;
                     case SHOW_GRID:
                         w.addStyleName(CssName.DISPLAY_ANIMATION);
-                        showGrid(name);
+                        JsMaterialElement.closeGrid(element);
                         break;
                     case CLOSE_GRID:
                         w.addStyleName(CssName.DISPLAY_ANIMATION);
-                        closeGrid(name);
+                        JsMaterialElement.closeGrid(element);
                         break;
                     default:
                         // For core animation components
@@ -128,21 +131,5 @@ public class MaterialAnimator {
                 $(element).removeClass(oldClass);
             }
         }.schedule(durationMillis);
-    }
-
-    protected static void closeGrid(String name) {
-        JsMaterialElement.closeGrid("#" + name);
-    }
-
-    protected static void showGrid(String name) {
-        JsMaterialElement.showGrid("#" + name);
-    }
-
-    protected static void fadeInImage(String name) {
-        JsMaterialElement.fadeInImage("#" + name);
-    }
-
-    protected static void showStaggeredList(String name) {
-        JsMaterialElement.showStaggeredList("#" + name);
     }
 }
