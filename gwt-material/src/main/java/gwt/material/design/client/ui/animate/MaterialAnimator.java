@@ -112,24 +112,22 @@ public class MaterialAnimator {
                             w.addStyleName(CssName.INFINITE);
                         }
                         w.addStyleName("animated " + transition.getCssName());
-                        animationFinishedCallback(w.getElement(), "animated " + transition.getCssName(), durationMillis, callback);
+                        new Timer() {
+                            @Override
+                            public void run() {
+                                if (callback != null) {
+                                    callback.call();
+                                }
+                                if (!infinite) {
+                                    $(element).removeClass(transition.getCssName());
+                                }
+                            }
+                        }.schedule(durationMillis);
                         break;
                 }
             }
         }.schedule(delayMillis);
 
         w.removeStyleName(CssName.MATERIALIZE_CSS);
-    }
-
-    protected static void animationFinishedCallback(Element element, String oldClass, int durationMillis, Functions.Func callback) {
-        new Timer() {
-            @Override
-            public void run() {
-                if (callback != null) {
-                    callback.call();
-                }
-                $(element).removeClass(oldClass);
-            }
-        }.schedule(durationMillis);
     }
 }
