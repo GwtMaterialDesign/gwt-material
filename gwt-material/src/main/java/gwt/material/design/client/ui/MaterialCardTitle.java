@@ -54,7 +54,10 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     @Override
     public void setText(String text) {
         span.setText(text);
-        add(span);
+
+        if(!span.isAttached()) {
+            add(span);
+        }
     }
 
     @Override

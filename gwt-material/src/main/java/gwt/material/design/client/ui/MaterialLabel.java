@@ -26,8 +26,10 @@ import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasFontSize;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
 
@@ -46,6 +48,7 @@ import gwt.material.design.client.constants.CssName;
 //@formatter:on
 public class MaterialLabel extends MaterialWidget implements HasFontSize, HasText {
 
+    private final TextMixin<MaterialLabel> textMixin = new TextMixin<>(this);
     private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
 
     public MaterialLabel() {
@@ -79,11 +82,11 @@ public class MaterialLabel extends MaterialWidget implements HasFontSize, HasTex
 
     @Override
     public String getText() {
-        return getElement().getInnerHTML();
+        return textMixin.getText();
     }
 
     @Override
     public void setText(String text) {
-        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(text));
+        textMixin.setText(text);
     }
 }

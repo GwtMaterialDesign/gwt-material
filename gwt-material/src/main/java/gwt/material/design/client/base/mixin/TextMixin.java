@@ -24,7 +24,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.UIObject;
 
 /**
- * @author Grant Slender
+ * @author Ben Dol
  */
 public class TextMixin<T extends UIObject> extends AbstractMixin<T> {
 
@@ -37,6 +37,6 @@ public class TextMixin<T extends UIObject> extends AbstractMixin<T> {
     }
 
     public void setText(final String text) {
-        uiObject.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(text));
+        uiObject.getElement().setInnerText(SafeHtmlUtils.htmlEscape(text));
     }
 }

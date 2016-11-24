@@ -23,8 +23,11 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.TextMixin;
 
 public class Paragraph extends MaterialWidget implements HasText {
+
+    private final TextMixin<Paragraph> textMixin = new TextMixin<>(this);
 
     public Paragraph() {
         super(Document.get().createElement("p"));
@@ -40,19 +43,13 @@ public class Paragraph extends MaterialWidget implements HasText {
         setText(text);
     }
 
-    /**
-     * @return the text
-     */
     @Override
     public String getText() {
-        return getElement().getInnerText();
+        return textMixin.getText();
     }
 
-    /**
-     * @param text the text to set
-     */
     @Override
     public void setText(String text) {
-        getElement().setInnerText(text);
+        textMixin.setText(text);
     }
 }
