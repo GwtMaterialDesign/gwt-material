@@ -51,7 +51,7 @@ public abstract class AbstractTextWidget extends AbstractValueWidget<String> imp
 
     @Override
     public void setText(final String text) {
-        setValue(text, true);
+        setValue(text);
     }
 
     @Override

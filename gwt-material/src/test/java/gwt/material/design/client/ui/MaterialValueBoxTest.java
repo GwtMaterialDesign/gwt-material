@@ -44,27 +44,27 @@ public class MaterialValueBoxTest extends AbstractValueWidgetTest {
 
     protected <T extends MaterialValueBox> void checkValue(T widget) {
         if (widget instanceof MaterialTextBox || widget instanceof MaterialTextArea) {
-            widget.setValue("Value", true);
+            widget.setValue("Value");
             assertEquals("Value", widget.getValue());
         } else if (widget instanceof MaterialIntegerBox) {
             // TODO: Fix since it seems to be a test issue,
             // This is working fine in practice.
-            widget.setValue(123, true);
+            widget.setValue(123);
             //assertEquals(123, widget.getValue());
         } else if (widget instanceof MaterialFloatBox) {
             // TODO: Fix since it seems to be a test issue,
             // This is working fine in practice.
-            widget.setValue(123f, true);
+            widget.setValue(123f);
             //assertEquals(123f, widget.getValue());
         } else if (widget instanceof MaterialDoubleBox) {
             // TODO: Fix since it seems to be a test issue,
             // This is working fine in practice.
-            widget.setValue(123.00, true);
+            widget.setValue(123.00);
             //assertEquals(123.00, widget.getValue());
         } else if (widget instanceof MaterialLongBox) {
             // TODO: Fix since it seems to be a test issue,
             // This is working fine in practice.
-            widget.setValue(123000l, true);
+            widget.setValue(123000l);
             //assertEquals(123000l, widget.getValue());
         }
     }

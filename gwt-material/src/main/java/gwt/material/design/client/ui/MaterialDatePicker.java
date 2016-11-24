@@ -280,7 +280,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      * @param date - must not be <code>null</code>
      */
     public void setDate(Date date) {
-        setValue(date, true);
+        setValue(date);
     }
 
     /**

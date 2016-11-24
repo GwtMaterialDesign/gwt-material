@@ -49,7 +49,7 @@ public class MaterialFloatBox extends MaterialNumberBox<Float> {
 
     public MaterialFloatBox(String placeholder, float value) {
         this(placeholder);
-        setValue(value, true);
+        setValue(value);
     }
 
     @Override

@@ -100,11 +100,11 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         this();
         setMin(min);
         setMax(max);
-        setValue(value, true);
+        setValue(value);
     }
 
     public void reset() {
-        setValue(getMin(), true);
+        setValue(getMin());
         clearErrorOrSuccess();
     }
 

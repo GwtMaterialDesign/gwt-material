@@ -50,7 +50,7 @@ public class MaterialDoubleBox extends MaterialNumberBox<Double> {
 
     public MaterialDoubleBox(String placeholder, double value) {
         this(placeholder);
-        setValue(value, true);
+        setValue(value);
     }
 
     @Override
