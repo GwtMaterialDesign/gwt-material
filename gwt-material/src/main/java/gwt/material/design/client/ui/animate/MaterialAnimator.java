@@ -29,7 +29,6 @@ import gwt.material.design.jquery.client.api.Functions;
  * @deprecated use {@link MaterialAnimation}.
  * @author kevzlou7979
  */
-@Deprecated
 public class MaterialAnimator {
 
     public static void animate(final Transition transition, final Widget w, int delayMillis, Functions.Func callback) {
