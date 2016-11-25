@@ -33,7 +33,7 @@ package gwt.material.design.client.ui;
  * i18n settings from the user.
  *
  * @author paulux84
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material FloatBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material FloatBox</a>
  */
 //@formatter:on
 public class MaterialFloatBox extends MaterialNumberBox<Float> {

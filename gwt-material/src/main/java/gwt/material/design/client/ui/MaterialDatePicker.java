@@ -60,7 +60,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pickers">Material Date Picker</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#pickers">Material Date Picker</a>
  */
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasOrientation, HasPlaceholder,

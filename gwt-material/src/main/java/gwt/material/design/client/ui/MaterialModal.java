@@ -75,7 +75,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dialogs">Material
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material
  * Modals</a>
  */
 // @formatter:on

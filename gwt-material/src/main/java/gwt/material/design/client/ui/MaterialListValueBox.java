@@ -69,7 +69,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material ListBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material ListBox</a>
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements HasPlaceholder,
@@ -218,10 +218,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void setAcceptableValues(Collection<T> values) {
         this.values.clear();
         clear();
-
-        for (T value : values) {
-            addItem(value);
-        }
+        values.forEach(this::addItem);
     }
 
 

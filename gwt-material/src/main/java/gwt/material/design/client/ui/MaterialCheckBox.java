@@ -54,7 +54,7 @@ import gwt.material.design.client.constants.CssName;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/!#forms">CheckBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">CheckBox</a>
  */
 public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
 

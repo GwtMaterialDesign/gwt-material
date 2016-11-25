@@ -60,7 +60,7 @@ import gwt.material.design.client.ui.html.Div;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!footer">Material Footer</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#footer">Material Footer</a>
  */
 //@formatter:on
 public class MaterialFooter extends MaterialWidget implements HasType<FooterType> {

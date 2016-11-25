@@ -42,7 +42,7 @@ import gwt.material.design.client.ui.html.Header;
  * </p>
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Header</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Header</a>
  */
 //@formatter:on
 public class MaterialHeader extends Header {

@@ -37,7 +37,7 @@ import gwt.material.design.client.ui.html.Span;
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!badges">Material Badge</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#badges">Material Badge</a>
  */
 //@formatter:on
 public class MaterialBadge extends Span {
