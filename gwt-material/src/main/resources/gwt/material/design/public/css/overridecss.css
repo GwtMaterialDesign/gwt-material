@@ -914,13 +914,21 @@ nav .input-field {
 	padding: 0;
 }
 
+/** Fixed the input label position **/
+.input-field label {
+	left: 0 !important;
+}
+.row > .input-field label {
+	left: 0.75rem !important;
+}
+
 .dropdown-content {
 	z-index: 995 !important;
 }
 
 /** Fixed the autofill bg color on chrome **/
 input:-webkit-autofill {
-	-webkit-box-shadow: 0 0 0px 100px white inset !important;
+	transition: background-color 5000s ease-in-out 0s !important;
 }
 
 /** Fixed breadcrumb **/
