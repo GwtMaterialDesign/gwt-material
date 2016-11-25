@@ -123,46 +123,46 @@ public class MaterialAnimation {
             @Override
             public void run() {
                 switch (transition) {
-                    case SHOW_STAGGERED_LIST:
-                        JsMaterialElement.showStaggeredList(element);
-                        break;
-                    case FADE_IN_IMAGE:
-                        JsMaterialElement.fadeInImage(element);
-                        break;
-                    case SHOW_GRID:
-                        widget.addStyleName(CssName.DISPLAY_ANIMATION);
-                        JsMaterialElement.closeGrid(element);
-                        break;
-                    case CLOSE_GRID:
-                        widget.addStyleName(CssName.DISPLAY_ANIMATION);
-                        JsMaterialElement.closeGrid(element);
-                        break;
-                    default:
-                        // For core animation components
-                        if (infinite) {
-                            widget.addStyleName(CssName.INFINITE);
-                        }
-                        widget.addStyleName("animated " + transition.getCssName());
+                case SHOW_STAGGERED_LIST:
+                    JsMaterialElement.showStaggeredList(element);
+                    break;
+                case FADE_IN_IMAGE:
+                    JsMaterialElement.fadeInImage(element);
+                    break;
+                case SHOW_GRID:
+                    widget.addStyleName(CssName.DISPLAY_ANIMATION);
+                    JsMaterialElement.closeGrid(element);
+                    break;
+                case CLOSE_GRID:
+                    widget.addStyleName(CssName.DISPLAY_ANIMATION);
+                    JsMaterialElement.closeGrid(element);
+                    break;
+                default:
+                    // For core animation components
+                    if (infinite) {
+                        widget.addStyleName(CssName.INFINITE);
+                    }
+                    widget.addStyleName("animated " + transition.getCssName());
 
-                        // Only start the end timer if its not already active.
-                        if(endTimer == null) {
-                            endTimer = new Timer() {
-                                @Override
-                                public void run() {
-                                    if (callback != null) {
-                                        callback.call();
-                                    }
-                                    if (!infinite) {
-                                        $(element).removeClass("animated " + transition.getCssName());
-                                    }
-
-                                    endTimer = null;
-                                    startTimer = null;
+                    // Only start the end timer if its not already active.
+                    if(endTimer == null) {
+                        endTimer = new Timer() {
+                            @Override
+                            public void run() {
+                                if (callback != null) {
+                                    callback.call();
                                 }
-                            };
-                            endTimer.schedule(durationMillis);
-                        }
-                        break;
+                                if (!infinite) {
+                                    $(element).removeClass("animated " + transition.getCssName());
+                                }
+
+                                endTimer = null;
+                                startTimer = null;
+                            }
+                        };
+                        endTimer.schedule(durationMillis);
+                    }
+                    break;
                 }
             }
         };
@@ -190,15 +190,32 @@ public class MaterialAnimation {
         return transition;
     }
 
+    public void setTransition(Transition transition) {
+        this.transition = transition;
+    }
+
     public int getDelayMillis() {
         return delayMillis;
+    }
+
+    public void setDelayMillis(int delayMillis) {
+        this.delayMillis = delayMillis;
     }
 
     public int getDurationMillis() {
         return durationMillis;
     }
 
+    public void setDurationMillis(int durationMillis) {
+        this.durationMillis = durationMillis;
+    }
+
     public boolean isInfinite() {
         return infinite;
+    }
+
+    public void setInfinite(boolean infinite) {
+        this.infinite = infinite;
+        stopAnimation();
     }
 }
