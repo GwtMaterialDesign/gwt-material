@@ -20,22 +20,16 @@ package gwt.material.design.client.ui.animate;
  * #L%
  */
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.js.JsMaterialElement;
-import gwt.material.design.client.ui.html.ListItem;
-import gwt.material.design.client.ui.html.UnorderedList;
 import gwt.material.design.jquery.client.api.Functions;
 
-import static gwt.material.design.client.js.JsMaterialElement.$;
-
 /**
- * Provides core and meaningful animation
+ * Provides core and meaningful animation.
  *
+ * @deprecated use {@link MaterialAnimation}.
  * @author kevzlou7979
  */
+@Deprecated
 public class MaterialAnimator {
 
     public static void animate(final Transition transition, final Widget w, int delayMillis, Functions.Func callback) {
@@ -54,80 +48,17 @@ public class MaterialAnimator {
         animate(transition, w, delayMillis, 800, null, false);
     }
 
-    public static void stopAnimation(Widget w) {
-        w.removeStyleName(CssName.INFINITE);
-    }
-
     public static void animate(final Transition transition,
                                final Widget w,
                                int delayMillis,
                                final int durationMillis,
                                final Functions.Func callback,
                                final boolean infinite) {
-        final JsMaterialElement element = $(w.getElement());
-
-        element.css("animation-duration", durationMillis + "ms");
-        element.css("-webkit-animation-duration", durationMillis + "ms");
-
-        switch (transition) {
-            case SHOW_STAGGERED_LIST:
-                if (w instanceof UnorderedList) {
-                    UnorderedList ul = (UnorderedList) w;
-
-                    for (Widget li : ul) {
-                        if (li instanceof ListItem) {
-                            li.getElement().getStyle().setOpacity(0);
-                        }
-                    }
-                }
-                break;
-            case SHOW_GRID:
-                w.getElement().getStyle().setOpacity(0);
-                break;
-            default:
-                break;
-        }
-
-        new Timer() {
-            @Override
-            public void run() {
-                switch (transition) {
-                    case SHOW_STAGGERED_LIST:
-                        JsMaterialElement.showStaggeredList(element);
-                        break;
-                    case FADE_IN_IMAGE:
-                        JsMaterialElement.fadeInImage(element);
-                        break;
-                    case SHOW_GRID:
-                        w.addStyleName(CssName.DISPLAY_ANIMATION);
-                        JsMaterialElement.closeGrid(element);
-                        break;
-                    case CLOSE_GRID:
-                        w.addStyleName(CssName.DISPLAY_ANIMATION);
-                        JsMaterialElement.closeGrid(element);
-                        break;
-                    default:
-                        // For core animation components
-                        if (infinite) {
-                            w.addStyleName(CssName.INFINITE);
-                        }
-                        w.addStyleName("animated " + transition.getCssName());
-                        new Timer() {
-                            @Override
-                            public void run() {
-                                if (callback != null) {
-                                    callback.call();
-                                }
-                                if (!infinite) {
-                                    $(element).removeClass(transition.getCssName());
-                                }
-                            }
-                        }.schedule(durationMillis);
-                        break;
-                }
-            }
-        }.schedule(delayMillis);
-
-        w.removeStyleName(CssName.MATERIALIZE_CSS);
+        new MaterialAnimation()
+                .transition(transition)
+                .delayMillis(delayMillis)
+                .durationMillis(durationMillis)
+                .infinite(infinite)
+                .animate(w, callback);
     }
 }

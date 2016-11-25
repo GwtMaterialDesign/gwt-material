@@ -19,8 +19,15 @@
  */
 package gwt.material.design.client.ui.animate;
 
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.client.ui.html.UnorderedList;
 import gwt.material.design.jquery.client.api.Functions;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
  * Stateful object holding animation details.
@@ -34,7 +41,13 @@ public class MaterialAnimation {
     private int durationMillis = 800;
     private boolean infinite;
 
+    private Timer startTimer, endTimer;
+
     public MaterialAnimation() {
+    }
+
+    public MaterialAnimation(Widget widget) {
+        this.widget = widget;
     }
 
     public MaterialAnimation transition(Transition transition) {
@@ -58,14 +71,115 @@ public class MaterialAnimation {
         return this;
     }
 
+    public void animate() {
+        animate(widget);
+    }
+
     public void animate(Widget widget) {
-        this.widget = widget;
         animate(widget, null);
     }
 
+    public void animate(Functions.Func callback) {
+        animate(widget, callback);
+    }
+
     public void animate(Widget widget, Functions.Func callback) {
-        this.widget = widget;
-        MaterialAnimator.animate(transition, widget, delayMillis, durationMillis, callback, infinite);
+        if(widget != null) {
+            this.widget = widget;
+        } else {
+            throw new NullPointerException("Cannot animate on a null widget.");
+        }
+
+        if(startTimer != null) {
+            // Exit early since we are already animating.
+            return;
+        }
+
+        final JsMaterialElement element = $(widget.getElement());
+
+        element.css("animation-duration", durationMillis + "ms");
+        element.css("-webkit-animation-duration", durationMillis + "ms");
+
+        switch (transition) {
+            case SHOW_STAGGERED_LIST:
+                if (widget instanceof UnorderedList) {
+                    UnorderedList ul = (UnorderedList) widget;
+
+                    for (Widget li : ul) {
+                        if (li instanceof ListItem) {
+                            li.getElement().getStyle().setOpacity(0);
+                        }
+                    }
+                }
+                break;
+            case SHOW_GRID:
+                widget.getElement().getStyle().setOpacity(0);
+                break;
+            default:
+                break;
+        }
+
+        startTimer = new Timer() {
+            @Override
+            public void run() {
+                switch (transition) {
+                    case SHOW_STAGGERED_LIST:
+                        JsMaterialElement.showStaggeredList(element);
+                        break;
+                    case FADE_IN_IMAGE:
+                        JsMaterialElement.fadeInImage(element);
+                        break;
+                    case SHOW_GRID:
+                        widget.addStyleName(CssName.DISPLAY_ANIMATION);
+                        JsMaterialElement.closeGrid(element);
+                        break;
+                    case CLOSE_GRID:
+                        widget.addStyleName(CssName.DISPLAY_ANIMATION);
+                        JsMaterialElement.closeGrid(element);
+                        break;
+                    default:
+                        // For core animation components
+                        if (infinite) {
+                            widget.addStyleName(CssName.INFINITE);
+                        }
+                        widget.addStyleName("animated " + transition.getCssName());
+
+                        // Only start the end timer if its not already active.
+                        if(endTimer == null) {
+                            endTimer = new Timer() {
+                                @Override
+                                public void run() {
+                                    if (callback != null) {
+                                        callback.call();
+                                    }
+                                    if (!infinite) {
+                                        $(element).removeClass("animated " + transition.getCssName());
+                                    }
+
+                                    endTimer = null;
+                                    startTimer = null;
+                                }
+                            };
+                            endTimer.schedule(durationMillis);
+                        }
+                        break;
+                }
+            }
+        };
+        startTimer.schedule(delayMillis);
+
+        widget.removeStyleName(CssName.MATERIALIZE_CSS);
+    }
+
+    /**
+     * Stop an animation.
+     */
+    public void stopAnimation() {
+        if(widget != null) {
+            widget.removeStyleName("animated");
+            widget.removeStyleName(transition.getCssName());
+            widget.removeStyleName(CssName.INFINITE);
+        }
     }
 
     public Widget getWidget() {
