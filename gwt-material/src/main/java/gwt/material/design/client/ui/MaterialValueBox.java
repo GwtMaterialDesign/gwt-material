@@ -73,12 +73,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     private boolean initialized;
 
-    private String placeholder;
     private InputType type = InputType.TEXT;
 
     private ValueBoxEditor<T> editor;
     private Label label = new Label();
-    private MaterialLabel lblName = new MaterialLabel();
     private MaterialLabel lblError = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
 
@@ -156,8 +154,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void removeErrorModifiers() {
         valueBoxBase.getElement().removeClassName(CssName.VALID);
         valueBoxBase.getElement().removeClassName(CssName.INVALID);
-        lblName.removeStyleName("green-text");
-        lblName.removeStyleName("red-text");
+        label.removeStyleName("green-text");
+        label.removeStyleName("red-text");
     }
 
     @Override
@@ -182,19 +180,26 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         }
     }
 
+    /**
+     * Set the label of this field.
+     * <p>
+     * This will be displayed above the field when values are
+     * assigned to the box, otherwise the value is displayed
+     * inside the box.
+     * </p>
+     */
+    public void setLabel(String label) {
+        this.label.setText(label);
+    }
+
     @Override
     public String getPlaceholder() {
-        return placeholder;
+        return valueBoxBase.getElement().getAttribute("placeholder");
     }
 
     @Override
     public void setPlaceholder(String placeholder) {
-        this.placeholder = placeholder;
-        if (getType() != InputType.SEARCH) {
-            lblName.setText(placeholder);
-        } else {
-            valueBoxBase.getElement().setAttribute("placeholder", placeholder);
-        }
+        valueBoxBase.getElement().setAttribute("placeholder", placeholder);
     }
 
     @Override
@@ -208,7 +213,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.getElement().setAttribute("type", type.getType());
         if (getType() != InputType.SEARCH) {
             add(label);
-            label.add(lblName);
             lblError.setVisible(false);
             add(lblError);
         }
@@ -555,7 +559,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         super.setError(error);
 
         removeErrorModifiers();
-        lblName.setStyleName("red-text");
+        label.setStyleName("red-text");
         valueBoxBase.getElement().addClassName(CssName.INVALID);
     }
 
@@ -564,7 +568,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         super.setSuccess(success);
 
         removeErrorModifiers();
-        lblName.setStyleName("green-text");
+        label.setStyleName("green-text");
         valueBoxBase.getElement().addClassName(CssName.VALID);
     }
 

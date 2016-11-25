@@ -916,7 +916,7 @@ nav .input-field {
 
 /** Fixed the input label position **/
 .input-field label{
-	left: 0;
+	left: 0 !important;
 }
 .dropdown-content {
 	z-index: 995 !important;
