@@ -28,6 +28,7 @@ import gwt.material.design.client.constants.CssName;
 
 /**
  * Material Video get any youtube url that will inherit responsive design
+ *
  * <p>
  * <p>
  * <h3>UiBinder Usage:</h3>
@@ -40,6 +41,8 @@ import gwt.material.design.client.constants.CssName;
  *
  * @author kevzlou7979
  * @author Ben Dol
+ *
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Video</a>
  */
 //@formatter:on
 public class MaterialVideo extends MaterialWidget {

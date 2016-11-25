@@ -34,7 +34,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
- * Material Text Area represents a multiple line textbox where users can define comment, detail and etc.
+ * Material Text Area represents a multiple line text box where users can define comment, detail and etc.
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code <m:MaterialTextArea placeholder="Your Comment" />
@@ -43,7 +43,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material TextArea</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material TextArea</a>
  */
 //@formatter:on
 public class MaterialTextArea extends MaterialValueBox<String> {
@@ -115,9 +115,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
 
         switch (resizeRule) {
             case AUTO:
-                resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> {
-                    triggerAutoResize();
-                }));
+                resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> triggerAutoResize()));
                 break;
             case FOCUS:
                 resizeHandlers.add(addFocusHandler(event -> {
@@ -138,9 +136,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
 
     protected void removeResizeHandlers() {
         if (resizeHandlers != null) {
-            for (HandlerRegistration handlerReg : resizeHandlers) {
-                handlerReg.removeHandler();
-            }
+            resizeHandlers.forEach(HandlerRegistration::removeHandler);
         }
     }
 }

@@ -41,7 +41,7 @@ import gwt.material.design.client.ui.html.Div;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Progress</a>
  */
 //@formatter:on
 public class MaterialSpinner extends MaterialWidget {

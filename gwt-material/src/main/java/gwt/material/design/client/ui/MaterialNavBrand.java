@@ -45,7 +45,7 @@ import gwt.material.design.client.ui.html.Div;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material NavBrand</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material NavBrand</a>
  */
 //@formatter:on
 public class MaterialNavBrand extends MaterialWidget implements HasText, HasHref, HasPosition {

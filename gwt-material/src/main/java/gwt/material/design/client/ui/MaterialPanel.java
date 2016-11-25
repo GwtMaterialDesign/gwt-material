@@ -28,12 +28,12 @@ import gwt.material.design.client.base.MaterialWidget;
  * A normal panel that has some material features like : shadow and ripple effect
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code<m:MaterialPanel backgroundColor="WHITE" waves="BLUE" shadow="3"/>}
+ * {@code <m:MaterialPanel backgroundColor="WHITE" waves="BLUE" shadow="3"/>}
  * </pre>
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!shadow">Material Panels</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#shadow">Material Panels</a>
  */
 public class MaterialPanel extends MaterialWidget {
 

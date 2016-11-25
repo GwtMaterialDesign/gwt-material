@@ -49,7 +49,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Range</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material Range</a>
  */
 //@formatter:on
 public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasError {

@@ -157,16 +157,15 @@ public class MaterialPager extends MaterialWidget {
         linkLeft = new PagerListItem();
         linkLeft.setFixed(true);
         linkLeft.addHandler(event -> {
-            if (linkLeft.isEnabled())
+            if (linkLeft.isEnabled()) {
                 onPageSelection(currentPage - 1);
+            }
             event.preventDefault();
             event.stopPropagation();
         }, ClickEvent.getType());
         linkLeft.add(createLinkLeft());
 
-        addPageSelectionHandler(event -> {
-            MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1);
-        });
+        addPageSelectionHandler(event -> MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1));
 
         return linkLeft;
     }
@@ -175,16 +174,15 @@ public class MaterialPager extends MaterialWidget {
         linkRight = new PagerListItem();
         linkRight.setFixed(true);
         linkRight.addHandler(event -> {
-            if (linkRight.isEnabled())
+            if (linkRight.isEnabled()) {
                 onPageSelection(currentPage + 1);
+            }
             event.stopPropagation();
             event.preventDefault();
         }, ClickEvent.getType());
         linkRight.add(createLinkRight());
 
-        addPageSelectionHandler(event -> {
-            MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages);
-        });
+        addPageSelectionHandler(event -> MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages));
 
         return linkRight;
     }
@@ -243,7 +241,7 @@ public class MaterialPager extends MaterialWidget {
     }
 
     public void addPageSelectionHandler(PageSelectionHandler handler) {
-        this.addHandler(handler, TYPE);
+        addHandler(handler, TYPE);
     }
 
     public boolean isEnableIndicator() {

@@ -47,7 +47,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pushpin">Material PushPin</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#pushpin">Material PushPin</a>
  */
 public class MaterialPushpin {
 

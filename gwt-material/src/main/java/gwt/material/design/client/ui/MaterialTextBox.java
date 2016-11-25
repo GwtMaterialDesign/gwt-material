@@ -34,7 +34,7 @@ import gwt.material.design.client.constants.InputType;
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material TextBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material TextBox</a>
  */
 //@formatter:on
 public class MaterialTextBox extends MaterialValueBox<String> {

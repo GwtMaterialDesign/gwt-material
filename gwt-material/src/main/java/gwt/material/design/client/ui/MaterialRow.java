@@ -43,7 +43,7 @@ import gwt.material.design.client.constants.CssName;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Row</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#grid">Material Row</a>
  */
 //@formatter:on
 public class MaterialRow extends MaterialWidget {

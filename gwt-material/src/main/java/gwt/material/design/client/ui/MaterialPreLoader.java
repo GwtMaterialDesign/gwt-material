@@ -40,7 +40,7 @@ import gwt.material.design.client.constants.LoaderSize;
  * <pre>
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material PreLoader</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material PreLoader</a>
  */
 //@formatter:on
 public class MaterialPreLoader extends MaterialWidget {

@@ -40,13 +40,13 @@ import gwt.material.design.client.ui.html.Span;
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code<m:MaterialSwitch value="true"/>
+ * {@code <m:MaterialSwitch value="true"/>
  * <m:MaterialSwitch value="true" disabled="true"/>
  * }
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Switch</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material Switch</a>
  */
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
@@ -59,6 +59,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     private Span span = new Span();
     private Span onLabel = new Span();
     private Span offLabel = new Span();
+    private HandlerRegistration clickHandler;
 
     private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
@@ -105,13 +106,15 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
             lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
             label.add(onLabel);
 
-            // register click handler here in order to have it at first position
+            // Register click handler here in order to have it at first position
             // and therefore it will deal with clicks as first and setup the value
             // right before others get notified.
-            addClickHandler(event -> {
-                event.preventDefault();
-                event.stopPropagation();
-            });
+            if (clickHandler == null) {
+                clickHandler = addClickHandler(event -> {
+                    event.preventDefault();
+                    event.stopPropagation();
+                });
+            }
 
             initialized = true;
         }

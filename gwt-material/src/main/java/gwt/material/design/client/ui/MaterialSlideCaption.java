@@ -30,7 +30,7 @@ import gwt.material.design.client.constants.CssName;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!media">Material Slide</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slide</a>
  */
 //@formatter:on
 public class MaterialSlideCaption extends MaterialWidget {

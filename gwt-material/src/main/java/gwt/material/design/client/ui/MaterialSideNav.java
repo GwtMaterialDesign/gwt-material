@@ -67,7 +67,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!sidenavs">Material SideNav</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  */
 //@formatter:on
 public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables, HasSideNavHandlers {
@@ -358,7 +358,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     /**
-     * reinitialize the side nav configurations when changing
+     * Reinitialize the side nav configurations when changing
      * properties.
      */
     public void reinitialize() {
