@@ -926,9 +926,12 @@ nav .input-field {
 	z-index: 995 !important;
 }
 
-/** Fixed the autofill bg color on chrome **/
+@-webkit-keyframes autofill {
+	to { background: transparent; }
+}
 input:-webkit-autofill {
-	transition: background-color 5000s ease-in-out 0s !important;
+	-webkit-animation-name: autofill !important;
+	-webkit-animation-fill-mode: both !important;;
 }
 
 /** Fixed breadcrumb **/
