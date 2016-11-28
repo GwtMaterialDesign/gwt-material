@@ -28,7 +28,7 @@ import gwt.material.design.client.constants.CssName;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dialogs">Material Modal</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Modal</a>
  *///@formatter:on
 public class MaterialModalContent extends MaterialPanel {
 

@@ -38,6 +38,8 @@ import com.google.gwt.user.client.ui.HTML;
  * @author kevzlou7979
  * @author Ben Dol
  * @author paulux84
+ *
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Weather</a>
  */
 //@formatter:on
 public class MaterialWeather extends MaterialPanel {

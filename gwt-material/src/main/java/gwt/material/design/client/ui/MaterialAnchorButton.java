@@ -41,7 +41,7 @@ import gwt.material.design.client.constants.ButtonType;
  * // Adding icon
  * <m:MaterialButton text="Button" waves="LIGHT" backgroundColor="BLUE" iconType="CLOUD" iconPosition="LEFT"/>
  *
- * // FLOATING+ Button
+ * // FLOATING Button
  * <m:MaterialButton type="FLOATING" waves="LIGHT" size="LARGE"  iconType="ADD"/>
  *
  * // FLAT Button
@@ -52,7 +52,7 @@ import gwt.material.design.client.constants.ButtonType;
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!buttons">Material Button</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#buttons">Material Button</a>
  */
 //@formatter:on
 public class MaterialAnchorButton extends AbstractIconButton {

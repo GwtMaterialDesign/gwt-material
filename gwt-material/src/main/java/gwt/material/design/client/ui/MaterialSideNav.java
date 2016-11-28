@@ -67,7 +67,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!sidenavs">Material SideNav</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  */
 //@formatter:on
 public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables, HasSideNavHandlers {
@@ -118,24 +118,21 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        if (showOnAttach != null) {
-            Scheduler.get().scheduleDeferred(() -> {
-                if (showOnAttach) {
+        if(showOnAttach != null) {
+            // Ensure the side nav starts closed
+            $(activator).trigger("menu-in", null);
+
+            if (showOnAttach) {
+                Scheduler.get().scheduleDeferred(() -> {
+                    // We are ignoring cases with mobile
                     if (Window.getClientWidth() > 960) {
                         show();
                     }
-                } else {
-                    show();
-                    final HandlerRegistration[] openedHandler = new HandlerRegistration[1];
-                    openedHandler[0] = addOpenedHandler((event) -> {
-                        hide();
-
-                        if (openedHandler[0] != null) {
-                            openedHandler[0].removeHandler();
-                        }
-                    });
-                }
-            });
+                });
+            }
+        } else {
+            setLeft(0);
+            $(activator).trigger("menu-out", null);
         }
     }
 
@@ -322,8 +319,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * Push the header, footer, and main to the right part when Close type is applied.
      */
     protected void applyPushType(int width) {
-        $(JQuery.window()).off("resize");
-        $(JQuery.window()).resize((e, param1) -> {
+        $(JQuery.window()).off("resize").resize((e, param1) -> {
             pushElements(open, width);
             return true;
         });
@@ -362,7 +358,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     /**
-     * reinitialize the side nav configurations when changing
+     * Reinitialize the side nav configurations when changing
      * properties.
      */
     public void reinitialize() {
@@ -385,8 +381,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 }
             } else if (strict) {
                 throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                    "please ensure you have a MaterialNavBar with an activator setup to match " +
-                    "this widgets id.");
+                        "please ensure you have a MaterialNavBar with an activator setup to match " +
+                        "this widgets id.");
             }
         }
 
@@ -519,8 +515,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     /**
-     * Show the menu upon attachment, this isn't always required.
-     * Some menu types will automatically show themselves by default.
+     * Show the menu upon attachment.<br>
+     * Note that you shouldn't apply this setting if you want your side nav to appear static.
+     * otherwise when set to <code>true</code> will slide in from the left.
      */
     public void setShowOnAttach(boolean showOnAttach) {
         this.showOnAttach = showOnAttach;

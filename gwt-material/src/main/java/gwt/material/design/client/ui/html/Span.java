@@ -21,12 +21,13 @@ package gwt.material.design.client.ui.html;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.TextMixin;
 
 public class Span extends MaterialWidget implements HasText {
-    private String text;
+
+    private final TextMixin<Span> textMixin = new TextMixin<>(this);
 
     public Span() {
         super(Document.get().createSpanElement());
@@ -43,12 +44,11 @@ public class Span extends MaterialWidget implements HasText {
 
     @Override
     public String getText() {
-        return text;
+        return textMixin.getText();
     }
 
     @Override
     public void setText(String text) {
-        this.text = text;
-        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(text));
+        textMixin.setText(text);
     }
 }

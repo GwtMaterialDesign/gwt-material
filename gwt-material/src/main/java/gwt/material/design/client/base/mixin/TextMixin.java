@@ -20,10 +20,11 @@ package gwt.material.design.client.base.mixin;
  * #L%
  */
 
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.UIObject;
 
 /**
- * @author Grant Slender
+ * @author Ben Dol
  */
 public class TextMixin<T extends UIObject> extends AbstractMixin<T> {
 

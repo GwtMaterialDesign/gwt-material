@@ -46,21 +46,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     private boolean allowBlank = true;
     private BlankValidator<V> blankValidator;
-
-    private AttachEvent.Handler attachHandler = new AttachEvent.Handler() {
-        HandlerRegistration registration;
-
-        @Override
-        public void onAttachOrDetach(AttachEvent event) {
-            if (registration != null) {
-                registration.removeHandler();
-            }
-            AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
-            registration = inputWidget.addBlurHandler(blurEvent -> {
-                validate(isValidateOnBlur());
-            });
-        }
-    };
+    private HandlerRegistration blurHandler, attachHandler;
 
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
 
@@ -160,6 +146,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public void setValidateOnBlur(boolean validateOnBlur) {
         getValidatorMixin().setValidateOnBlur(validateOnBlur);
+        setupBlurValidation();
     }
 
     @Override
@@ -216,12 +203,22 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return new BlankValidator<>();
     }
 
-    protected HandlerRegistration setupBlurValidation() {
-        AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
+    protected void setupBlurValidation() {
+        final AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
         if (!inputWidget.isAttached()) {
-            return inputWidget.addAttachHandler(attachHandler);
+            if(attachHandler == null) {
+                attachHandler = inputWidget.addAttachHandler(event -> {
+                    if (blurHandler == null) {
+                        blurHandler = inputWidget.addBlurHandler(blurEvent -> {
+                            validate(isValidateOnBlur());
+                        });
+                    }
+                });
+            }
         } else {
-            return inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
+            if(blurHandler == null) {
+                blurHandler = inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
+            }
         }
     }
 

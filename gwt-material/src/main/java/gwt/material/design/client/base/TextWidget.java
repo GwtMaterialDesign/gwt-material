@@ -17,30 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui.html;
+package gwt.material.design.client.base;
 
-import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.TextMixin;
 
-public class Paragraph extends MaterialWidget implements HasText {
+public class TextWidget extends MaterialWidget implements HasText {
 
-    private final TextMixin<Paragraph> textMixin = new TextMixin<>(this);
+    private final TextMixin<TextWidget> textMixin = new TextMixin<>(this);
 
-    public Paragraph() {
-        super(Document.get().createElement("p"));
+    public TextWidget() {
+        super(DOM.createDiv());
     }
 
-    public Paragraph(Widget item) {
-        this();
-        add(item);
+    public TextWidget(Element element) {
+        super(element);
     }
 
-    public Paragraph(String text) {
-        this();
-        setText(text);
+    public TextWidget(Element element, String... initialClass) {
+        super(element, initialClass);
     }
 
     @Override

@@ -26,7 +26,7 @@ import gwt.material.design.client.constants.CssName;
 //@formatter:off
 
 /**
- * MaterialColumn is panel that act as a fluid panel to easily sets your desired column.
+ * MaterialColumn is a panel that act as a fluid panel to easily sets your desired column.
  * We are using 12 grid layout with screens small, medium and large.
  * Just set grid='s12 m12 l12' to define your grid layout values.
  * <p>
@@ -43,7 +43,7 @@ import gwt.material.design.client.constants.CssName;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!grid">Material Column</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#grid">Material Column</a>
  */
 //@formatter:on
 public class MaterialColumn extends MaterialWidget {

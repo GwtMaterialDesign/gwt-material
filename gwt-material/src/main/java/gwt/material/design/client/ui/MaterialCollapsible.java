@@ -47,7 +47,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <pre>
  * {@code
  * // Accordion
- * <m:MaterialCollapsible type="ACCORDION" grid="s12 m6 l8">
+ * <m:MaterialCollapsible accordion="true" grid="s12 m6 l8">
  *   <!-- ITEM 1 -->
  *   <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
@@ -60,7 +60,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * </m:MaterialCollapsible>
  *
  * // Expandable
- * <m:MaterialCollapsible type="EXPANDABLE" grid="s12 m6 l8">
+ * <m:MaterialCollapsible accordion="false" grid="s12 m6 l8">
  *   <!-- ITEM 1 -->
  *   <m:MaterialCollapsibleItem>
  *     <m:MaterialCollapsibleHeader>
@@ -89,7 +89,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#collapsible">Material Collapsibles</a>
  */
 //@formatter:on
 public class MaterialCollapsible extends MaterialWidget implements HasType<CollapsibleType>, HasActiveParent {

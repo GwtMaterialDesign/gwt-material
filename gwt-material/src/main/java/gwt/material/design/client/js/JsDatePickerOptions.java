@@ -40,11 +40,5 @@ public class JsDatePickerOptions {
     public String format;
 
     @JsProperty
-    public Functions.Func open;
-
-    @JsProperty
-    public Functions.Func close;
-
-    @JsProperty
     public Functions.Func1<Thing> set;
 }

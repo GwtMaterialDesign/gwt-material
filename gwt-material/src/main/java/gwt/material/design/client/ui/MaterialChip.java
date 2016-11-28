@@ -40,7 +40,7 @@ import gwt.material.design.client.ui.html.Span;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code// Simple Chips
- * <m:MaterialChip text="Default" iconType="close"/>
+ * <m:MaterialChip text="Default" iconType="CLOSE"/>
  *
  * // Static Chip
  * <m:MaterialChip text="Apple" />
@@ -52,7 +52,7 @@ import gwt.material.design.client.ui.html.Span;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!chips">Material Chips</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#chips">Material Chips</a>
  */
 //@formatter:on
 public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasLetter {

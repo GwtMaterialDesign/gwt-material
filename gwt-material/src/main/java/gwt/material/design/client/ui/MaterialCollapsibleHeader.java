@@ -34,7 +34,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collapsible">Material Collapsibles</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#collapsible">Material Collapsibles</a>
  */
 //@formatter:on
 public class MaterialCollapsibleHeader extends MaterialWidget {

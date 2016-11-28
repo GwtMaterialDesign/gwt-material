@@ -31,7 +31,7 @@ import gwt.material.design.client.constants.InputType;
  * {@link MaterialDoubleBox}.
  *
  * @author paulux84
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material MaterialNumberBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material MaterialNumberBox</a>
  */
 //@formatter:on
 public abstract class MaterialNumberBox<T> extends MaterialValueBox<T> {

@@ -36,30 +36,33 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
- * The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.
+ * The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids.
+ * Then when you click on each tab, only the container with the corresponding tab id will become visible.
+ *
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
  * <m:MaterialTab ui:field="tab"  backgroundColor="BLUE">
- * <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="WHITE"/></m:MaterialTabItem>
- * <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="WHITE"/></m:MaterialTabItem>
- * <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="WHITE"/></m:MaterialTabItem>
+ *     <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 1" href="#tab1" textColor="WHITE"/></m:MaterialTabItem>
+ *     <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 2" href="#tab2" textColor="WHITE"/></m:MaterialTabItem>
+ *     <m:MaterialTabItem waves="YELLOW" grid="l4"><i:Link text="Tab 3" href="#tab3" textColor="WHITE"/></m:MaterialTabItem>
  * </m:MaterialTab>
- * <i:Panel m:id="tab1">
- * <i:Title title="Tab 1" description="Tab 1 Content"/>
- * </i:Panel>
- * <i:Panel m:id="tab2">
- * <i:Title title="Tab 2" description="Tab 2 Content"/>
- * </i:Panel>
+ *
+ * <m:MaterialPanel m:id="tab1">
+ *     <m:MaterialTitle title="Tab 1" description="Tab 1 Content"/>
+ * </m:MaterialPanel>
+ * <m:MaterialPanel m:id="tab2">
+ *     <m:MaterialTitle title="Tab 2" description="Tab 2 Content"/>
+ * <m:MaterialPanel>
  * <i:Panel m:id="tab3">
- * <i:Title title="Tab 3" description="Tab 3 Content"/>
- * </i:Panel>
+ *     <m:MaterialTitle title="Tab 3" description="Tab 3 Content"/>
+ * </m:MaterialPanel>
  * }
  * </pre>
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!tabs">Material Tabs</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
  */
 //@formatter:on
 public class MaterialTab extends UnorderedList implements HasType<TabType> {

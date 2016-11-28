@@ -38,8 +38,8 @@ import gwt.material.design.client.ui.html.Div;
  * {@code
  *
  * <m:MaterialSplashScreen backgroundColor="BLUE" textColor="WHITE" textAlign="CENTER">
- * <m:MaterialImage resource="{res.ic_splash}" width="300px"/>
- * <m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" />
+ *     <m:MaterialImage resource="{res.ic_splash}" width="300px"/>
+ *     <m:MaterialTitle title="gwt-material" description="Material Design Look and Feel for GWT Apps" />
  * </m:MaterialSplashScreen>
  *
  * }</pre>
@@ -50,10 +50,10 @@ import gwt.material.design.client.ui.html.Div;
  * @UiField MaterialSplashScreen splash;
  * splash.show();
  * Timer t = new Timer() {
- * @Override
- * public void run() {
- * splash.hide();
- * }
+ *     @Override
+ *     public void run() {
+ *         splash.hide();
+ *     }
  * };
  * t.schedule(3000);
  *
@@ -61,7 +61,7 @@ import gwt.material.design.client.ui.html.Div;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!showcase">Material Splashscreen</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#showcase">Material Splashscreen</a>
  */
 //@formatter:on
 public class MaterialSplashScreen extends MaterialWidget {
@@ -86,10 +86,10 @@ public class MaterialSplashScreen extends MaterialWidget {
     }
 
     public void show() {
-        getElement().getStyle().setDisplay(Display.BLOCK.getGwtDisplay());
+        setDisplay(Display.BLOCK);
     }
 
     public void hide() {
-        getElement().getStyle().setDisplay(Display.NONE.getGwtDisplay());
+        setDisplay(Display.NONE);
     }
 }

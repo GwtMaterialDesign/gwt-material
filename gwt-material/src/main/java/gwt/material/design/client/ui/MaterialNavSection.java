@@ -36,8 +36,8 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * <pre>
  * {@code
  * <m:MaterialNavSection align="RIGHT">
- *     <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="left" text="Account"  textColor="WHITE" waves="LIGHT"/>
- *     <m:MaterialLink  iconType="AUTORENEW" iconPosition="left" text="Refresh" textColor="WHITE" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="WHITE" waves="LIGHT"/>
+ *     <m:MaterialLink  iconType="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="WHITE" waves="LIGHT"/>
  *     <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="WHITE" waves="LIGHT"/>
  *     <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="WHITE" waves="LIGHT"/>
  * </m:MaterialNavSection>
@@ -47,7 +47,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material NavSection</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material NavSection</a>
  */
 //@formatter:on
 public class MaterialNavSection extends UnorderedList implements HasPosition {

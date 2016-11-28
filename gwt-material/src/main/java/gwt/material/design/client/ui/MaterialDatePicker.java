@@ -31,7 +31,6 @@ import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
@@ -61,7 +60,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!pickers">Material Date Picker</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#pickers">Material Date Picker</a>
  */
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasOrientation, HasPlaceholder,
@@ -133,7 +132,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void onLoad() {
         super.onLoad();
 
-        if(!initialized) {
+        if (!initialized) {
             initialize();
         }
     }
@@ -146,7 +145,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     protected void initialize() {
-        if(options == null) {
+        if (options == null) {
             options = new JsDatePickerOptions();
         }
         options.container = "body";
@@ -166,16 +165,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
         label.getElement().setAttribute("for", getPickerId());
 
-        if(options.open == null) {
-            options.open = this::onOpen;
-        }
-        if(options.close == null) {
-            options.close = () -> {
-                onClose();
-                $(pickatizedDateInput).blur();
-            };
-        }
-        if(options.set == null) {
+        if (options.set == null) {
             options.set = thing -> {
                 if (thing.hasOwnProperty("clear")) {
                     clear();
@@ -186,8 +176,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         }
 
         $(pickatizedDateInput).pickadate("picker")
-                .off(options)
-                .on(options);
+                .off("open").off("close").off(options)
+                .on(options).on("open", (e, param1) -> {
+                    onOpen();
+                    return true;
+                }).on("close", (e, param1) -> {
+                    onClose();
+                    $(pickatizedDateInput).blur();
+                    return true;
+                });
 
         initialized = true;
 
@@ -234,14 +231,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     protected void onClose() {
         CloseEvent.fire(this, this);
-        fireEvent(new BlurEvent(){});
+        fireEvent(new BlurEvent() {
+        });
     }
 
     protected void onOpen() {
         label.addStyleName(CssName.ACTIVE);
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
-        fireEvent(new FocusEvent(){});
+        fireEvent(new FocusEvent() {
+        });
     }
 
     /**
@@ -401,11 +400,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public void setOrientation(Orientation orientation) {
         JsMaterialElement element = $(pickatizedDateInput).pickadate("picker");
-        if(initialized && this.orientation != null) {
+        if (initialized && this.orientation != null) {
             element.root.removeClass(this.orientation.getCssName());
         }
         this.orientation = orientation;
-        if(initialized && orientation != null) {
+        if (initialized && orientation != null) {
             element.root.addClass(orientation.getCssName());
         }
     }
@@ -413,12 +412,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setDetectOrientation(boolean detectOrientation) {
         this.detectOrientation = detectOrientation;
 
-        if(orientationHandler != null) {
+        if (orientationHandler != null) {
             orientationHandler.removeHandler();
             orientationHandler = null;
         }
 
-        if(detectOrientation) {
+        if (detectOrientation) {
             orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
                 detectAndApplyOrientation();
             });
@@ -522,7 +521,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      * Stop the datepicker instance.
      */
     public void stop() {
-        $(pickatizedDateInput).pickadate("picker").stop();
+        if (pickatizedDateInput != null) {
+            $(pickatizedDateInput).pickadate("picker").stop();
+        }
     }
 
     protected void start() {

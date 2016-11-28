@@ -37,12 +37,16 @@ import gwt.material.design.client.ui.html.Div;
  * <p>
  * <pre>
  * {@code
- * <m:MaterialProgress />
+ * // INDETERMINATE Type
+ * <m:MaterialProgress type="INDETERMINATE" />
+ *
+ * // DETERMINATE Type
+ * <m:MaterialProgress type="DETERMINATE" percent="80" />
  * }
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!loader">Material Progress</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Progress</a>
  */
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 

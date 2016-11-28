@@ -17,25 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
-
-import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.CssName;
-
-//@formatter:off
+package gwt.material.design.client.constants;
 
 /**
- * Material Slide Caption is a child component of Material Slide Item that contains title and description labels
+ * Types of Loader.<br>
  *
  * @author kevzlou7979
- * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slide</a>
  */
-//@formatter:on
-public class MaterialSlideCaption extends MaterialWidget {
+public enum LoaderType {
 
-    public MaterialSlideCaption() {
-        super(Document.get().createDivElement(), CssName.CAPTION);
-    }
+    CIRCULAR, PROGRESS
 }

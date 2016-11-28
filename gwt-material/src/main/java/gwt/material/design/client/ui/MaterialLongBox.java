@@ -26,14 +26,14 @@ package gwt.material.design.client.ui;
  * from user. <h3>UiBinder Usage:</h3>
  * <p>
  * <pre>
- * {@code <m:MaterialLongBox placeholder="Your Long" step=100/>}
+ * {@code <m:MaterialLongBox placeholder="Your Long" step="100"/>}
  * </pre>
  * <p>
  * The parsing and formatting of the number are done natively by the browser,
  * using the i18n settings from the user.
  *
  * @author paulux84
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material
  * IntegerBox</a>
  */
 // @formatter:on

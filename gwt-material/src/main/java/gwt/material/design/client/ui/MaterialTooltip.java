@@ -46,6 +46,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
+ *
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Tooltip</a>
  */
 public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition {
 
@@ -111,9 +113,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
         if (!widget.isAttached()) {
             // When we attach it, configure the tooltip
-            attachHandler = widget.addAttachHandler(event -> {
-                reconfigure();
-            });
+            attachHandler = widget.addAttachHandler(event -> reconfigure());
         } else {
             reconfigure();
         }

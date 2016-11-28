@@ -66,7 +66,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!dropdown">Material DropDowns</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dropdown">Material DropDown</a>
  */
 //@formatter:on
 public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget> {
@@ -90,7 +90,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     /**
-     * Adds a list item selection when button, link, icon button pressed.
+     * Add a list item selection when button, link, icon button pressed.
      *
      * @param activator data-activates attribute name of your dropdown activator.
      */

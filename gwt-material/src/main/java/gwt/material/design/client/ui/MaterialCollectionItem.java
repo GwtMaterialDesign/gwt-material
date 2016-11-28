@@ -40,7 +40,7 @@ import gwt.material.design.client.js.JsMaterialElement;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!collections">Material Collections</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#collections">Material Collections</a>
  */
 //@formatter:on
 public class MaterialCollectionItem extends MaterialWidget implements HasDismissible, HasAvatar, HasType<CollectionType>, HasActive {
@@ -81,6 +81,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
         }
         if (handlerReg != null) {
             handlerReg.removeHandler();
+            handlerReg = null;
         }
         handlerReg = addClickHandler(event -> {
             for (Widget w : MaterialCollectionItem.this) {

@@ -47,8 +47,8 @@ import gwt.material.design.client.ui.html.Paragraph;
 //@formatter:on
 public class MaterialTitle extends Div implements HasTitle {
 
-    Heading header = new Heading(HeadingSize.H4);
-    Paragraph paragraph = new Paragraph();
+    private Heading header = new Heading(HeadingSize.H4);
+    private Paragraph paragraph = new Paragraph();
 
     public MaterialTitle() {
         header.setFontWeight(300);

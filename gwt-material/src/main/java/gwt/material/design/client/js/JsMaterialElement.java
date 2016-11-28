@@ -194,6 +194,9 @@ public class JsMaterialElement extends JQueryElement {
     public native JsMaterialElement off(JsDatePickerOptions options);
 
     @JsMethod
+    public native JsMaterialElement off(String action);
+
+    @JsMethod
     public native JsMaterialElement on(JsDatePickerOptions options);
 
     @JsMethod
@@ -221,16 +224,16 @@ public class JsMaterialElement extends JQueryElement {
      * Animation Component
      */
     @JsMethod(namespace = JsPackage.GLOBAL)
-    public static native void closeGrid(String selector);
+    public static native void closeGrid(Object selector);
 
     @JsMethod(namespace = JsPackage.GLOBAL)
-    public static native void showGrid(String selector);
+    public static native void showGrid(Object selector);
 
     @JsMethod(namespace = "Materialize")
-    public static native double fadeInImage(String selector);
+    public static native double fadeInImage(Object selector);
 
     @JsMethod(namespace = "Materialize")
-    public static native double showStaggeredList(String selector);
+    public static native double showStaggeredList(Object selector);
 
     @JsMethod(namespace = "Waves")
     public static native void displayEffect();

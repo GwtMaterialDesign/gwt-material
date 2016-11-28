@@ -30,7 +30,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
 
 /**
- * Mateiral Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling. Check out the demo to get a better idea of it.
+ * Material Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling. Check out the demo to get a better idea of it.
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
@@ -57,7 +57,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <pre>
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!showcase">Material Parallax</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#showcase">Material Parallax</a>
  */
 //@formatter:on
 public class MaterialParallax extends MaterialWidget {

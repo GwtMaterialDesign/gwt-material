@@ -34,7 +34,7 @@ import gwt.material.design.client.ui.html.Span;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!cards">Material Cards</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#cards">Material Cards</a>
  */
 //@formatter:on
 public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasText {
@@ -54,7 +54,10 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     @Override
     public void setText(String text) {
         span.setText(text);
-        add(span);
+
+        if(!span.isAttached()) {
+            add(span);
+        }
     }
 
     @Override

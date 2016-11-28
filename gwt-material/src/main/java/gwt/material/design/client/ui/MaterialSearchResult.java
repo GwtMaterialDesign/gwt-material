@@ -27,10 +27,10 @@ import gwt.material.design.client.constants.CssName;
 
 /**
  * Material Search Result is a panel used to display the list of suggested items during the
- * keyup events triggered on search component.
+ * key up events triggered on search component.
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Search</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Search</a>
  */
 //@formatter:on
 public class MaterialSearchResult extends MaterialWidget {

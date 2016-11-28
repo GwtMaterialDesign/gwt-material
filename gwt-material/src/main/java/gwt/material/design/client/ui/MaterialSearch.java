@@ -45,7 +45,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 //@formatter:off
 
 /**
- * Material Search is a value box component that returs a result based on your search
+ * Material Search is a value box component that returns a result based on your search
  * <p>
  * <p>
  * <h3>UiBinder Usage:</h3>
@@ -73,7 +73,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!navbar">Material Search</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Search</a>
  */
 //@formatter:on
 public class MaterialSearch extends MaterialValueBox<String> implements HasOpenHandlers<String>, HasCloseHandlers<String>,

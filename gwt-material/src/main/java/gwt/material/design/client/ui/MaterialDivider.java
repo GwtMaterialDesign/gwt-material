@@ -36,7 +36,7 @@ import gwt.material.design.client.constants.CssName;
  * </pre>
  *
  * @author kevzlou7979
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!helper">Material Divider</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#helper">Material Divider</a>
  */
 //@formatter:on
 public class MaterialDivider extends MaterialWidget {

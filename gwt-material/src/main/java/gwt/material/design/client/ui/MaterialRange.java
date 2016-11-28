@@ -49,7 +49,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!forms">Material Range</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material Range</a>
  */
 //@formatter:on
 public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasError {
@@ -142,13 +142,8 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         return getIntFromRangeElement(VALUE);
     }
 
-    /**
-     * Write the current value
-     *
-     * @param value value must be &gt;= min and &lt;= max
-     */
     @Override
-    public void setValue(Integer value) {
+    public void setValue(Integer value, boolean fireEvents) {
         if (value == null) {
             GWT.log("Value must be null", new RuntimeException());
             return;
@@ -162,6 +157,8 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
             return;
         }
         setIntToRangeElement(VALUE, value);
+
+        super.setValue(value, fireEvents);
     }
 
     /**

@@ -38,8 +38,8 @@ import gwt.material.design.client.js.Window;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code <!-- Basic Card -->
- * <m:MaterialCard backgroundColor="blue-grey darken-1" grid="l3">
- *   <m:MaterialCardContent textColor="white">
+ * <m:MaterialCard backgroundColor="BLUE_GREY_DARKEN_1" grid="l3">
+ *   <m:MaterialCardContent textColor="WHITE">
  *     <m:MaterialCardTitle text="Sample" iconType="POLYMER" iconPosition="RIGHT"/>
  *     <m:MaterialLabel text="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively." />
  *   </m:MaterialCardContent>
@@ -50,13 +50,13 @@ import gwt.material.design.client.js.Window;
  * </m:MaterialCard>
  *
  * <!-- Image Card -->
- * <m:MaterialCard backgroundColor="white" grid="l3">
+ * <m:MaterialCard backgroundColor="WHITE" grid="l3">
  *   <m:MaterialCardImage waves="LIGHT">
  *     <m:MaterialImage url="http://assets.materialup.com/uploads/ac9bf2ac-bf1c-4dc0-b655-0e13bf523bc8/20150710-__.png"/>
  *     <m:MaterialCardTitle text="Sample" iconPosition="RIGHT"/>
  *   </m:MaterialCardImage>
  *
- *   <m:MaterialCardContent textColor="black">
+ *   <m:MaterialCardContent textColor="BLACK">
  *     <m:MaterialLabel text="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively." />
  *   </m:MaterialCardContent>
  *
@@ -90,7 +90,7 @@ import gwt.material.design.client.js.Window;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#!cards">Material Cards</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#cards">Material Cards</a>
  */
 //@formatter:on
 public class MaterialCard extends MaterialWidget implements HasAxis {
@@ -100,7 +100,7 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
     protected HandlerRegistration orientationHandler;
 
     /**
-     * Creates and empty card.
+     * Creates an empty card.
      */
     public MaterialCard() {
         super(Document.get().createDivElement(), CssName.CARD);
