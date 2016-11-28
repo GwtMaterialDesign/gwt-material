@@ -21,13 +21,11 @@ package gwt.material.design.client;
  */
 
 import com.google.gwt.core.client.EntryPoint;
-import gwt.material.design.client.resources.WithJQueryResources;
 
 public class MaterialWithJQuery extends MaterialDesignBase implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        jqueryResource = WithJQueryResources.INSTANCE.jQuery();
         load();
     }
 }
