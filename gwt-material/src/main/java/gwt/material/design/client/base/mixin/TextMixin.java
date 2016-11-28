@@ -37,6 +37,6 @@ public class TextMixin<T extends UIObject> extends AbstractMixin<T> {
     }
 
     public void setText(final String text) {
-        uiObject.getElement().setInnerText(text != null ? SafeHtmlUtils.htmlEscape(text) : "");
+        uiObject.getElement().setInnerText(text);
     }
 }
