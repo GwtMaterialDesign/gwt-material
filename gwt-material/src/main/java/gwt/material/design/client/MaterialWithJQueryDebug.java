@@ -21,7 +21,6 @@ package gwt.material.design.client;
  */
 
 import com.google.gwt.core.client.EntryPoint;
-import gwt.material.design.client.resources.WithJQueryDebugResources;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -30,7 +29,6 @@ public class MaterialWithJQueryDebug extends MaterialDesignDebugBase implements 
 
     @Override
     public void onModuleLoad() {
-        jqueryResource = WithJQueryDebugResources.INSTANCE.jQueryDebug();
         load();
     }
 }

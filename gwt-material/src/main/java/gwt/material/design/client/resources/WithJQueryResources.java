@@ -19,12 +19,10 @@
  */
 package gwt.material.design.client.resources;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
 public interface WithJQueryResources extends ClientBundle {
-    WithJQueryResources INSTANCE = GWT.create(WithJQueryResources.class);
 
     @Source("js/jquery-2.1.1.min.js")
     TextResource jQuery();

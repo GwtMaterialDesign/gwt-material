@@ -29,6 +29,14 @@
   <inherits name="gwt.material.design.GwtMaterialDesignBase"/>
   <inherits name="gwt.material.design.ResourcesBasic"/>
 
+  <replace-with class="gwt.material.design.client.JQueryProvider.JQueryCompressed">
+    <when-type-is class="gwt.material.design.client.JQueryProvider"/>
+  </replace-with>
+
+  <replace-with class="gwt.material.design.client.resources.WithJQueryResources">
+    <when-type-is class="gwt.material.design.client.resources.JQueryResource"/>
+  </replace-with>
+
   <!-- Specify the app entry point class -->
   <entry-point class="gwt.material.design.client.MaterialWithJQuery"/>
 </module>

@@ -20,6 +20,7 @@ package gwt.material.design.client;
  * #L%
  */
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
@@ -41,7 +42,7 @@ public class MaterialDesignBase {
         }
     }
 
-    static TextResource jqueryResource;
+    static final JQueryProvider jQueryProvider = GWT.create(JQueryProvider.class);
     static List<FutureResource> futureResources;
 
     protected void load() {
@@ -93,18 +94,19 @@ public class MaterialDesignBase {
     }
 
     protected static boolean checkJQuery(boolean debug) {
-        if (!isjQueryLoaded()) {
-            if (jqueryResource != null) {
-                if (debug) {
-                    injectDebugJs(jqueryResource);
-                } else {
-                    injectJs(jqueryResource);
-                }
+        if (!isjQueryLoaded() && isProvidingJQuery()) {
+            if (debug) {
+                injectDebugJs(jQueryProvider.jQuery());
             } else {
-                return false;
+                injectJs(jQueryProvider.jQuery());
             }
         }
         return true;
+    }
+
+    public static boolean isProvidingJQuery() {
+        return jQueryProvider instanceof JQueryProvider.JQueryDebug ||
+               jQueryProvider instanceof JQueryProvider.JQueryCompressed;
     }
 
     /**
