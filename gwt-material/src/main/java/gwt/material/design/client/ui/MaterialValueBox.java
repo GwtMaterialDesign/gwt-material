@@ -560,6 +560,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
         removeErrorModifiers();
         label.setStyleName("red-text");
+        label.addStyleName(CssName.ACTIVE);
         valueBoxBase.getElement().addClassName(CssName.INVALID);
     }
 
@@ -569,6 +570,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
         removeErrorModifiers();
         label.setStyleName("green-text");
+        label.addStyleName(CssName.ACTIVE);
         valueBoxBase.getElement().addClassName(CssName.VALID);
     }
 
