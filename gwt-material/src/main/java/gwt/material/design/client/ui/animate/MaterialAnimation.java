@@ -131,7 +131,7 @@ public class MaterialAnimation {
                     break;
                 case SHOW_GRID:
                     widget.addStyleName(CssName.DISPLAY_ANIMATION);
-                    JsMaterialElement.closeGrid(element);
+                    JsMaterialElement.showGrid(element);
                     break;
                 case CLOSE_GRID:
                     widget.addStyleName(CssName.DISPLAY_ANIMATION);
