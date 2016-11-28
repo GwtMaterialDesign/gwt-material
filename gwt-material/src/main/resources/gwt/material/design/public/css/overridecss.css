@@ -993,3 +993,7 @@ input:-webkit-autofill {
 .weatherContainer .card {
 	background-color: initial !important;
 }
+
+.input-field input[type=search]+label {
+	left: 1rem !important;
+}
