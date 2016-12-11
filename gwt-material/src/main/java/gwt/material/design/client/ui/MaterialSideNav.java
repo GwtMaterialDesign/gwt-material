@@ -131,7 +131,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 });
             }
         } else {
-            setLeft(0);
+            if(!getType().equals(SideNavType.CARD)) {
+                setLeft(0);
+            }
             $(activator).trigger("menu-out", null);
         }
     }
