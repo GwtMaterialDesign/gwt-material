@@ -31,7 +31,7 @@ public class JsDatePickerOptions {
     public String container;
 
     @JsProperty
-    public boolean selectYears;
+    public int selectYears;
 
     @JsProperty
     public boolean selectMonths;
