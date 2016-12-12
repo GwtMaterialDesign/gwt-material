@@ -85,6 +85,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
     private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, CssName.FIXED);
 
+    private HandlerRegistration fixedResizeHandler;
+
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
      * Icons or any other material components.
@@ -293,6 +295,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         if (activator != null && type != null) {
             addStyleName(type.getCssName());
             switch (type) {
+                case FIXED:
+                    applyFixedType();
+                    break;
                 case MINI:
                     setWidth(64);
                     break;
@@ -325,6 +330,22 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             pushElements(open, width);
             return true;
         });
+    }
+
+    /**
+     * Show on desktop when window is resize and hide it on mobile.
+     */
+    protected void applyFixedType() {
+        if (fixedResizeHandler == null) {
+            fixedResizeHandler = Window.addResizeHandler((resizeEvent) -> {
+                hide();
+                if (!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
+                    if (!isOpen()) {
+                        show();
+                    }
+                }
+            });
+        }
     }
 
     protected void pushElements(boolean toggle, int width) {
