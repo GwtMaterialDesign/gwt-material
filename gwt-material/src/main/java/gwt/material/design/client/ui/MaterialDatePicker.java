@@ -102,6 +102,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
 
+    private int yearsToDisplay = 10;
+
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
@@ -155,13 +157,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
                 options.selectMonths = true;
                 break;
             case YEAR_MONTH_DAY:
-                options.selectYears = true;
+                options.selectYears = yearsToDisplay;
                 options.selectMonths = true;
                 break;
             case YEAR:
-                options.selectYears = true;
+                options.selectYears = yearsToDisplay;
                 break;
         }
+
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
         label.getElement().setAttribute("for", getPickerId());
 
@@ -178,13 +181,13 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         $(pickatizedDateInput).pickadate("picker")
                 .off("open").off("close").off(options)
                 .on(options).on("open", (e, param1) -> {
-                    onOpen();
-                    return true;
-                }).on("close", (e, param1) -> {
-                    onClose();
-                    $(pickatizedDateInput).blur();
-                    return true;
-                });
+            onOpen();
+            return true;
+        }).on("close", (e, param1) -> {
+            onClose();
+            $(pickatizedDateInput).blur();
+            return true;
+        });
 
         initialized = true;
 
@@ -384,6 +387,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setSelectionType(MaterialDatePickerType selectionType) {
         this.selectionType = selectionType;
+    }
+
+    /**
+     * Set the pickers selection type with the ability to set the number of years to display
+     * in the dropdown list.
+     */
+    public void setSelectionType(MaterialDatePickerType selectionType, int yearsToDisplay) {
+        this.selectionType = selectionType;
+        this.yearsToDisplay = yearsToDisplay;
     }
 
     /**
@@ -625,5 +637,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         if (autoClose) {
             autoCloseHandler = addValueChangeHandler(event -> close());
         }
+    }
+
+    public int getYearsToDisplay() {
+        return yearsToDisplay;
+    }
+
+    /**
+     * Ability to set the number of years to display
+     * in the dropdown list.
+     */
+    public void setYearsToDisplay(int yearsToDisplay) {
+        this.yearsToDisplay = yearsToDisplay;
     }
 }
