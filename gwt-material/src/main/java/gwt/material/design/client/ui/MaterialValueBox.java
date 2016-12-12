@@ -190,6 +190,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
      */
     public void setLabel(String label) {
         this.label.setText(label);
+
+        if(!getPlaceholder().isEmpty()) {
+            this.label.setStyleName(CssName.ACTIVE);
+        }
     }
 
     @Override
@@ -200,6 +204,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public void setPlaceholder(String placeholder) {
         valueBoxBase.getElement().setAttribute("placeholder", placeholder);
+
+        if(!label.getText().isEmpty()) {
+            label.setStyleName(CssName.ACTIVE);
+        }
     }
 
     @Override
