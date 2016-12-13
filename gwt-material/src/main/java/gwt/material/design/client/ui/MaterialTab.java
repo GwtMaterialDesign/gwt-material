@@ -21,6 +21,10 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -65,7 +69,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
  */
 //@formatter:on
-public class MaterialTab extends UnorderedList implements HasType<TabType> {
+public class MaterialTab extends UnorderedList implements HasType<TabType>, HasSelectionHandlers<Integer> {
 
     private int tabIndex;
     private Color indicatorColor;
@@ -129,6 +133,15 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     protected void initialize() {
         if (getWidgetCount() > 0) {
             $(getElement()).tabs();
+
+            for (Widget w : getChildren()) {
+                if (w instanceof MaterialTabItem) {
+                    ((MaterialTabItem) w).addMouseDownHandler(e -> {
+                         SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(w));
+                    });
+                }
+            }
+
             for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
                 $(getElement()).find(".indicator").eq(i).remove();
             }
@@ -147,5 +160,10 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     @Override
     public TabType getType() {
         return typeMixin.getType();
+    }
+
+    @Override
+    public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> handler) {
+        return addHandler(handler, SelectionEvent.getType());
     }
 }
