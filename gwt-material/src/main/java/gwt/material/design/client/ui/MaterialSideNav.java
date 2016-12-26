@@ -144,6 +144,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void onUnload() {
         super.onUnload();
 
+        $("#sidenav-overlay").remove();
         activator = null;
     }
 
