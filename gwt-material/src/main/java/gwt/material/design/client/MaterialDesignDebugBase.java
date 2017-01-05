@@ -27,9 +27,11 @@ public class MaterialDesignDebugBase extends MaterialDesignBase {
     @Override
     public void load() {
         checkJQuery(true);
-        injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
-        injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
-        injectDebugJs(MaterialDebugResources.INSTANCE.shrinkJsDebug());
+        if(!isMaterializeLoaded()) {
+            injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
+            injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
+            injectDebugJs(MaterialDebugResources.INSTANCE.shrinkJsDebug());
+        }
         onModuleLoaded();
     }
 }

@@ -143,7 +143,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     /**
-     * Resets the textbox by removing its content and resetting visual state.
+     * Resets the text box by removing its content and resetting visual state.
      */
     public void clear() {
         valueBoxBase.setText("");
