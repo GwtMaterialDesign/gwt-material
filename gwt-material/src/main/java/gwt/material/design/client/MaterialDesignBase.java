@@ -47,9 +47,11 @@ public class MaterialDesignBase {
 
     protected void load() {
         checkJQuery(false);
-        injectJs(MaterialResources.INSTANCE.materializeJs());
-        injectJs(MaterialResources.INSTANCE.animationJs());
-        injectJs(MaterialResources.INSTANCE.shrinkJs());
+        if(!isMaterializeLoaded()) {
+            injectJs(MaterialResources.INSTANCE.materializeJs());
+            injectJs(MaterialResources.INSTANCE.animationJs());
+            injectJs(MaterialResources.INSTANCE.shrinkJs());
+        }
         onModuleLoaded();
     }
 
