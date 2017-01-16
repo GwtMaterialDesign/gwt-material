@@ -238,7 +238,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public void setValue(T value, boolean fireEvents) {
         int index = values.indexOf(value);
-        if (index > 0) {
+        if (index >= 0) {
             T before = getValue();
             setSelectedIndex(index);
 
