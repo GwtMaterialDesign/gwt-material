@@ -54,6 +54,6 @@ public class MaterialColumn extends MaterialWidget {
 
     public MaterialColumn(int small, int medium, int large) {
         this();
-        addStyleName("s" + small + " m" + medium + " l" + large);
+        setGrid("s" + small + " m" + medium + " l" + large);
     }
 }
