@@ -37,7 +37,7 @@ You can find lists of features by version <a href="https://github.com/GwtMateria
 
 ### Migration
 [Migrating from 1.3 to 1.4](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-1.3-to-1.4) <br/>
-[Migrating from 1.x to 2.0](https://github.com/GwtMaterialDesign/gwt-material/wiki/2.0---API-Changes)
+[Migrating from 1.x to 2.0](https://github.com/GwtMaterialDesign/gwt-material/wiki/2.0-API-Changes)
 
 ## License
 [Apache 2.0 License](https://github.com/GwtMaterialDesign/gwt-material/blob/master/LICENSE)
