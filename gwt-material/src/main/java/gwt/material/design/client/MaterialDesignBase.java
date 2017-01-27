@@ -95,15 +95,14 @@ public class MaterialDesignBase {
     }
 
     protected static boolean checkJQuery(boolean debug) {
-        boolean loaded = isjQueryLoaded();
-        if (!loaded && isProvidingJQuery()) {
+        if (!isjQueryLoaded() && isProvidingJQuery()) {
             if (debug) {
                 injectDebugJs(jQueryProvider.jQuery());
             } else {
                 injectJs(jQueryProvider.jQuery());
             }
         }
-        return loaded;
+        return isjQueryLoaded();
     }
 
     public static boolean isProvidingJQuery() {
