@@ -80,7 +80,7 @@ public class MaterialDesignBase {
             futureResources.add(new FutureResource(resource, removeTag, sourceUrl));
         } else {
             String text = resource.getText() + (sourceUrl ?
-                    "//# sourceURL=" + resource.getName() + ".js" : "");
+                "//# sourceURL=" + resource.getName() + ".js" : "");
 
             // Inject the script resource
             ScriptInjector.fromString(text)
@@ -95,14 +95,15 @@ public class MaterialDesignBase {
     }
 
     protected static boolean checkJQuery(boolean debug) {
-        if (!isjQueryLoaded() && isProvidingJQuery()) {
+        boolean loaded = isjQueryLoaded();
+        if (!loaded && isProvidingJQuery()) {
             if (debug) {
                 injectDebugJs(jQueryProvider.jQuery());
             } else {
                 injectJs(jQueryProvider.jQuery());
             }
         }
-        return true;
+        return loaded;
     }
 
     public static boolean isProvidingJQuery() {
