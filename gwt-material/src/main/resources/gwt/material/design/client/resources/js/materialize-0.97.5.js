@@ -2033,6 +2033,7 @@ $(document).ready(function(){
                 removeMenu(true);
               }
               else {
+                menu_id.css('left', '');
                 //menu_id.removeAttr('style'); GWT MATERIAL MODIFICATION
                 menu_id.css('width', options.menuWidth);
               }
