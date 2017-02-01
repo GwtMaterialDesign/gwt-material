@@ -138,16 +138,16 @@ ul li button.btn-floating {
 .landscape .picker__footer {
 	text-align: right;
 	padding: 5px 10px;
-	/*clear: both;*/
 	width: 60%;
-	/*float: right;*/
-
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	top: 320px
+	top: 300px;
+	height: 40px;
 }
-
+.landscape .picker__box {
+	height: 342px;
+}
 .landscape .picker__month-display {
 	text-transform: uppercase;
 	font-size: 2rem;
@@ -155,7 +155,9 @@ ul li button.btn-floating {
 }
 
 .landscape .picker__day--infocus {
-	padding: 0.90rem 0 !important;
+	padding: 8px !important;
+	width: 36px !important;
+	margin: auto !important;
 }
 
 /** Chips **/
