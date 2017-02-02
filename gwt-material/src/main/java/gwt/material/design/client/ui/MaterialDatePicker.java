@@ -103,6 +103,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
 
     private int yearsToDisplay = 10;
+    private DatePickerContainer container = DatePickerContainer.SELF;
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -150,7 +151,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         if (options == null) {
             options = new JsDatePickerOptions();
         }
-        options.container = "body";
+
         options.format = getFormat();
         switch (getSelectionType()) {
             case MONTH_DAY:
@@ -163,6 +164,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             case YEAR:
                 options.selectYears = yearsToDisplay;
                 break;
+        }
+
+        if (container == DatePickerContainer.BODY) {
+            options.container = "body";
         }
 
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
@@ -649,5 +654,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setYearsToDisplay(int yearsToDisplay) {
         this.yearsToDisplay = yearsToDisplay;
+    }
+
+    public DatePickerContainer getContainer() {
+        return container;
+    }
+
+    /**
+     * Set the Root Picker Container (Default : SELF)
+     */
+    public void setContainer(DatePickerContainer container) {
+        this.container = container;
     }
 }
