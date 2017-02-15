@@ -1036,6 +1036,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getElement().getStyle().setBottom(value, Style.Unit.PX);
     }
 
+    public void setLineHeight(double value) {
+        getElement().getStyle().setLineHeight(value, Style.Unit.PX);
+    }
+
     @Override
     public void setHoverable(boolean hoverable) {
         getHoverableMixin().setOn(hoverable);
