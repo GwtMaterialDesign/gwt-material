@@ -38,10 +38,7 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.mixin.CounterMixin;
-import gwt.material.design.client.base.mixin.ErrorMixin;
-import gwt.material.design.client.base.mixin.FocusableMixin;
-import gwt.material.design.client.base.mixin.ReadOnlyMixin;
+import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
@@ -69,7 +66,7 @@ import gwt.material.design.client.ui.html.Label;
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-        HasInputType, HasPlaceholder, HasCounter, HasReadOnly {
+        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive {
 
     private boolean initialized;
 
@@ -87,6 +84,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
     private ReadOnlyMixin<MaterialValueBox, ValueBoxBase> readOnlyMixin;
     private FocusableMixin<MaterialWidget> focusableMixin;
+    private ActiveMixin<MaterialValueBox> activeMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -698,6 +696,23 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
         }
         return readOnlyMixin;
+    }
+
+    public ActiveMixin<MaterialValueBox> getActiveMixin() {
+        if (activeMixin == null) {
+            activeMixin = new ActiveMixin<>(this, label);
+        }
+        return activeMixin;
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        getActiveMixin().setActive(active);
+    }
+
+    @Override
+    public boolean isActive() {
+        return getActiveMixin().isActive();
     }
 
     @Override
