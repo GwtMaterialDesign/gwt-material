@@ -85,7 +85,6 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         paragraph.add(thumb);
         add(paragraph);
 
-        lblError.getElement().getStyle().setMarginTop(-10, Unit.PX);
         add(lblError);
     }
 

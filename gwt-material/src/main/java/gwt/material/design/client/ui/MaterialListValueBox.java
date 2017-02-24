@@ -29,10 +29,8 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
-import gwt.material.design.client.base.AbstractValueWidget;
-import gwt.material.design.client.base.HasPlaceholder;
-import gwt.material.design.client.base.HasReadOnly;
-import gwt.material.design.client.base.KeyFactory;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
@@ -89,10 +87,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private HandlerRegistration valueChangeHandler;
 
+    private MaterialLabel lblError = new MaterialLabel();
+
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
-        add(listBox);
-        add(lblName);
         toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
     }
 
@@ -113,6 +111,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                     setReadOnly(true);
                 }
             });
+            add(listBox);
+            add(lblName);
+            add(lblError);
             initialize();
         }
     }
@@ -713,5 +714,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     public ListBox getListBox() {
         return listBox;
+    }
+
+    @Override
+    public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        MaterialWidget target = new MaterialWidget($(getElement()).find(".select-dropdown"));
+        return new ErrorMixin<>(this, lblError, target, lblName);
     }
 }

@@ -271,7 +271,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
 
     protected void initialize(Element activator) {
         JsDropdownOptions options = new JsDropdownOptions();
-        options.constrainwidth = constrainWidth;
+        options.constrain_width = constrainWidth;
         options.inDuration = inDuration;
         options.outDuration = outDuration;
         options.hover = hover;
