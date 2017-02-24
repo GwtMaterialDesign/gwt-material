@@ -19,6 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.HideOn;
@@ -46,6 +49,26 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
         checkStructure(navBar);
         checkActivates(navBar);
         checkTypes(navBar);
+        MaterialNavSection section = new MaterialNavSection();
+        checkSelectionEvent(section);
+    }
+
+    public <T extends MaterialNavSection> void checkSelectionEvent(T widget) {
+        final boolean[] isSelectionEventFired = {false};
+        widget.addSelectionHandler(selectionEvent -> isSelectionEventFired[0] = true);
+        widget.fireEvent(new GwtEvent<SelectionHandler<?>>() {
+            @Override
+            public Type<SelectionHandler<?>> getAssociatedType() {
+                return SelectionEvent.getType();
+            }
+
+            @Override
+            protected void dispatch(SelectionHandler eventHandler) {
+                eventHandler.onSelection(null);
+            }
+        });
+
+        assertEquals(isSelectionEventFired[0], true);
     }
 
     public <T extends MaterialNavBar> void checkTypes(T navBar) {
