@@ -19,6 +19,11 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -35,8 +40,27 @@ public class MaterialTabTest extends MaterialWidgetTest {
         MaterialTab tab = new MaterialTab();
         checkWidget(tab);
         generateTabItems(tab, row);
+        checkEvents(tab);
         checkTypes(tab);
         row.add(tab);
+    }
+
+    public void checkEvents(MaterialTab widget) {
+        final boolean[] isSelectionEventFired = {false};
+        widget.addSelectionHandler(selectionEvent -> isSelectionEventFired[0] = true);
+        widget.fireEvent(new GwtEvent<SelectionHandler<?>>() {
+            @Override
+            public Type<SelectionHandler<?>> getAssociatedType() {
+                return SelectionEvent.getType();
+            }
+
+            @Override
+            protected void dispatch(SelectionHandler eventHandler) {
+                eventHandler.onSelection(null);
+            }
+        });
+        
+        assertEquals(isSelectionEventFired[0], true);
     }
 
     public void generateTabItems(MaterialTab tab, MaterialRow row) {
