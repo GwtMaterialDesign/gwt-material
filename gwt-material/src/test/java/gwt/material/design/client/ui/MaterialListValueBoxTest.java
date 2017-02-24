@@ -21,11 +21,14 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.dto.User;
+import gwt.material.design.client.ui.html.Label;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +52,17 @@ public class MaterialListValueBoxTest extends MaterialWidgetTest {
     @Override
     protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
         // TODO ListValueBox overrides the interaction event implementation Need to update this later
+    }
+
+    @Override
+    protected <T extends MaterialWidget> void checkChildren(T widget) {
+        MaterialListBox listbox = new MaterialListBox();
+        RootPanel.get().add(listbox);
+        assertEquals(listbox.getChildren().size(), 3);
+
+        assertTrue(listbox.getWidget(0) instanceof ListBox);
+        assertTrue(listbox.getWidget(1) instanceof Label);
+        assertTrue(listbox.getWidget(2) instanceof MaterialLabel);
     }
 
     public <T extends MaterialListValueBox<User>> void checkValues(T listValueBox) {
