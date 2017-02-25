@@ -20,9 +20,11 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.ValueBoxBase;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
+import gwt.material.design.client.ui.html.Label;
 
 /**
  * Test case for ValueBox
@@ -35,6 +37,24 @@ public class MaterialValueBoxTest extends AbstractValueWidgetTest {
         checkAbstractValueWidget(widget, widget.getValueBoxBase());
         checkValue(widget);
         checkIcon(widget);
+        checkActiveState(widget);
+    }
+
+    public <T extends MaterialValueBox> void checkActiveState(T widget) {
+        if (!(widget instanceof MaterialSearch)) {
+            widget.setLabel("Label");
+            widget.setPlaceholder("Placeholder");
+
+            widget.setActive(true);
+            assertTrue(widget.isActive());
+            assertTrue(widget.getWidget(2) instanceof Label);
+            assertEquals(widget.getWidget(2).getElement().getInnerHTML(), "Label");
+            assertTrue(widget.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
+
+            widget.setActive(false);
+            assertFalse(widget.isActive());
+            assertFalse(widget.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
+        }
     }
 
     @Override
