@@ -19,9 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasPosition;
@@ -57,7 +55,7 @@ import java.util.List;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material NavSection</a>
  */
 //@formatter:on
-public class MaterialNavSection extends UnorderedList implements HasPosition, HasValueChangeHandlers<Integer> {
+public class MaterialNavSection extends UnorderedList implements HasPosition, HasSelectionHandlers<Integer> {
 
     private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
     private List<HandlerRegistration> handlers = new ArrayList<>();
@@ -81,7 +79,7 @@ public class MaterialNavSection extends UnorderedList implements HasPosition, Ha
         super.onLoad();
         for (Widget widget : getChildren()) {
             if (widget instanceof ListItem) {
-                handlers.add(((ListItem) widget).addClickHandler(clickEvent -> ValueChangeEvent.fire(this, getWidgetIndex(widget))));
+                handlers.add(((ListItem) widget).addClickHandler(clickEvent -> SelectionEvent.fire(this, getWidgetIndex(widget))));
             }
         }
     }
@@ -104,7 +102,7 @@ public class MaterialNavSection extends UnorderedList implements HasPosition, Ha
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Integer> valueChangeHandler) {
-        return addHandler(valueChangeHandler, ValueChangeEvent.getType());
+    public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> selectionHandler) {
+        return addHandler(selectionHandler, SelectionEvent.getType());
     }
 }

@@ -19,6 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.HideOn;
@@ -46,6 +49,26 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
         checkStructure(navBar);
         checkActivates(navBar);
         checkTypes(navBar);
+        MaterialNavSection section = new MaterialNavSection();
+        checkSelectionEvent(section);
+    }
+
+    public <T extends MaterialNavSection> void checkSelectionEvent(T widget) {
+        final boolean[] isSelectionEventFired = {false};
+        widget.addSelectionHandler(selectionEvent -> isSelectionEventFired[0] = true);
+        widget.fireEvent(new GwtEvent<SelectionHandler<?>>() {
+            @Override
+            public Type<SelectionHandler<?>> getAssociatedType() {
+                return SelectionEvent.getType();
+            }
+
+            @Override
+            protected void dispatch(SelectionHandler eventHandler) {
+                eventHandler.onSelection(null);
+            }
+        });
+
+        assertEquals(isSelectionEventFired[0], true);
     }
 
     public <T extends MaterialNavBar> void checkTypes(T navBar) {
@@ -66,11 +89,13 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
     public <T extends MaterialNavBar> void checkStructure(T navBar) {
         assertTrue(navBar.getWidget(0) instanceof Div);
         Div div = (Div) navBar.getWidget(0);
-        assertTrue(div.getWidget(0) instanceof MaterialLink);
+        if (!navBar.getActivates().isEmpty()) {
+            assertTrue(div.getWidget(0) instanceof MaterialLink);
+            MaterialLink navMenu = (MaterialLink) div.getWidget(0);
+            assertEquals(navMenu, navBar.getNavMenu());
+            assertTrue(navBar.getNavMenu().getElement().hasClassName(CssName.BUTTON_COLLAPSE));
+        }
         assertTrue(div.getElement().hasClassName(CssName.NAV_WRAPPER));
-        MaterialLink navMenu = (MaterialLink) div.getWidget(0);
-        assertEquals(navMenu, navBar.getNavMenu());
-        assertTrue(navBar.getNavMenu().getElement().hasClassName(CssName.BUTTON_COLLAPSE));
         navBar.clear();
         assertEquals(div.getChildren().size(), 0);
     }

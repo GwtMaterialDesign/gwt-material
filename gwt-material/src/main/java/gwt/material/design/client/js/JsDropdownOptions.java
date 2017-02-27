@@ -33,7 +33,7 @@ public class JsDropdownOptions {
     public int outDuration;
 
     @JsProperty
-    public boolean constrainwidth;
+    public boolean constrain_width;
 
     @JsProperty
     public boolean hover;
