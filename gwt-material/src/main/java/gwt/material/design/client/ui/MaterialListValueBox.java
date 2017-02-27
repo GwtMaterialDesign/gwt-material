@@ -233,7 +233,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     @Override
     public void setValue(T value) {
-        setValue(value, false);
+        setValue(value, true);
     }
 
     @Override
