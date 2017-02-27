@@ -63,7 +63,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     @Override
     public void setValue(V value) {
-        setValue(value, false);
+        setValue(value, true);
     }
 
     @Override
