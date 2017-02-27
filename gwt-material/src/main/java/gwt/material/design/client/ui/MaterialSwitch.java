@@ -146,7 +146,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
 
     @Override
     public void setValue(Boolean value) {
-        setValue(value, true);
+        setValue(value, false);
     }
 
     /**
