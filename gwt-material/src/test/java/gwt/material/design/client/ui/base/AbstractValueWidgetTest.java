@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui.base;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasError;
@@ -53,6 +54,34 @@ public class AbstractValueWidgetTest extends MaterialWidgetTest {
         widget.clearErrorOrSuccess();
         assertFalse(target.getElement().hasClassName(CssName.VALID));
         assertFalse(target.getElement().hasClassName(CssName.INVALID));
+    }
+
+    protected <T extends MaterialWidget & HasError, H extends UIObject, L extends UIObject> void checkLabelErrorSuccess(T widget, H target, L label) {
+        if (target != null) {
+            checkErrorSuccess(widget, target);
+        }
+
+        final String ERROR = "error";
+        Element element = label.getElement();
+        widget.setError(ERROR);
+        assertTrue(element.hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_SUCCESS_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_HELPER_LABEL));
+        assertEquals(label.getElement().getInnerText(), ERROR);
+
+        final String SUCCESS = "success";
+        widget.setSuccess(SUCCESS);
+        assertTrue(element.hasClassName(CssName.FIELD_SUCCESS_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_HELPER_LABEL));
+        assertEquals(label.getElement().getInnerText(), SUCCESS);
+
+        final String INFO = "info";
+        widget.setHelperText(INFO);
+        assertTrue(element.hasClassName(CssName.FIELD_HELPER_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_SUCCESS_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertEquals(label.getElement().getInnerText(), INFO);
     }
 
     protected <T extends HasPlaceholder> void checkPlaceholder(T widget) {

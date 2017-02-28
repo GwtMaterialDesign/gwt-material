@@ -207,6 +207,11 @@ public class GwtMaterialTestComponent extends GWTTestCase {
     }
 
     @Test
+    public void testSwitch() {
+        new MaterialSwitchTest().init();
+    }
+
+    @Test
     public void testTab() {
         new MaterialTabTest().init();
     }
