@@ -37,6 +37,7 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         MaterialSwitch mSwitch = new MaterialSwitch();
         checkWidget(mSwitch);
         checkStructure(mSwitch);
+        checkBooleanValue(mSwitch);
     }
 
     protected <T extends MaterialSwitch> void checkStructure(T mSwitch) {
