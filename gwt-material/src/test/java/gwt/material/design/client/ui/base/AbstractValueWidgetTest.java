@@ -26,6 +26,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.HasPlaceholder;
@@ -101,7 +102,7 @@ public class AbstractValueWidgetTest extends MaterialWidgetTest {
         assertEquals(widget.getPlaceholder(), "");
     }
 
-    protected <T extends MaterialWidget & HasValue> void checkValueChangeEvent(T widget, Object value, Object secondValue) {
+    protected <T extends Widget & HasValue> void checkValueChangeEvent(T widget, Object value, Object secondValue) {
         RootPanel.get().add(widget);
         // Ensure the widget is attached to the root panel
         assertTrue(widget.isAttached());

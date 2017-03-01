@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.constants.RadioButtonType;
+import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
@@ -29,11 +30,12 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  *
  * @author kevzlou7979
  */
-public class MaterialRadioButtonTest extends MaterialWidgetTest {
+public class MaterialRadioButtonTest extends AbstractValueWidgetTest {
 
     public void init() {
         MaterialRadioButton radioButton = new MaterialRadioButton();
         checkType(radioButton);
+        checkValueChangeEvent(radioButton, true, false);
     }
 
     public <T extends MaterialRadioButton> void checkType(T radioButton) {
