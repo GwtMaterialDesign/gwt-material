@@ -27,6 +27,8 @@ package gwt.material.design.client.ui;
 public class MaterialLongBoxTest extends MaterialValueBoxTest {
 
     public void init() {
-        checkValueBox(new MaterialLongBox());
+        MaterialLongBox longBox = new MaterialLongBox();
+        checkValueBox(longBox);
+        checkValueChangeEvent(longBox, 100000l,200000l);
     }
 }

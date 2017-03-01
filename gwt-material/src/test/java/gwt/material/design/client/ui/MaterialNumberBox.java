@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.NumberBox;
 import gwt.material.design.client.base.NumberBox.NumberHandler;
 import gwt.material.design.client.constants.InputType;
@@ -86,4 +87,11 @@ public abstract class MaterialNumberBox<T> extends MaterialValueBox<T> {
     public double getValueAsNumber() {
         return Double.parseDouble((String) $(valueBoxBase.getElement()).val());
     }
+
+    /**
+     * Native call to element.valueAsNumber.
+     */
+    protected native double getValueAsNumber(Element el)/*-{
+        return el.valueAsNumber;
+    }-*/;
 }

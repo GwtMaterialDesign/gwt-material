@@ -38,6 +38,7 @@ public class MaterialSearchTest extends MaterialValueBoxTest {
         checkSearchEvents(search);
         checkCloseHandler(search);
         checkValueBox(search);
+        checkValueChangeEvent(search, "Value 1", "Value 2");
     }
 
     public <T extends MaterialSearch> void checkStructure(T search) {
