@@ -19,8 +19,10 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.html.Label;
@@ -38,6 +40,25 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         checkWidget(mSwitch);
         checkStructure(mSwitch);
         checkBooleanValue(mSwitch);
+        checkEnabled(mSwitch);
+    }
+
+    @Override
+    protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
+        super.checkEnabled(widget);
+        Label label = (Label) widget.getWidget(0);
+        MaterialInput input = (MaterialInput) label.getWidget(1);
+        Span lever = (Span) label.getWidget(2);
+
+        widget.setEnabled(true);
+        assertTrue(widget.isEnabled());
+        assertTrue(input.isEnabled());
+        assertTrue(lever.isEnabled());
+
+        widget.setEnabled(false);
+        assertFalse(widget.isEnabled());
+        assertFalse(input.isEnabled());
+        assertFalse(lever.isEnabled());
     }
 
     protected <T extends MaterialSwitch> void checkStructure(T mSwitch) {
