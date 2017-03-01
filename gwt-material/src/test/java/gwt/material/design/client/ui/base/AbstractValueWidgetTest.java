@@ -23,13 +23,18 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.HasPlaceholder;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.ui.MaterialListBox;
+import gwt.material.design.client.ui.MaterialListValueBox;
 import gwt.material.design.client.ui.MaterialSwitch;
+import gwt.material.design.client.ui.dto.User;
 
 /**
  * Test case for Abstract value widget
@@ -96,38 +101,28 @@ public class AbstractValueWidgetTest extends MaterialWidgetTest {
         assertEquals(widget.getPlaceholder(), "");
     }
 
-    protected <T extends MaterialSwitch> void checkBooleanValue(T widget) {
+    protected <T extends MaterialWidget & HasValue> void checkValueChangeEvent(T widget, Object value, Object secondValue) {
+        RootPanel.get().add(widget);
+        // Ensure the widget is attached to the root panel
+        assertTrue(widget.isAttached());
         // Register value change handler that listens when the widget
         // set the value
         final boolean[] isValueChanged = {false};
         widget.addValueChangeHandler(event -> isValueChanged[0] = true);
-
         // By default setValue(boolean) will not fire the value change event.
-        widget.setValue(true);
-        assertTrue(widget.getValue());
+        widget.setValue(value);
+        assertEquals(widget.getValue(), value);
         // Expected result : false
-        assertEquals(isValueChanged[0], false);
+        assertFalse(isValueChanged[0]);
         // Calling setValue(value, fireEvents) with fireEvents set to false
-        widget.setValue(true, false);
+        widget.setValue(value, false);
         // Expected result : false
         assertFalse(isValueChanged[0]);
         // Calling setValue(value, fireEvents) with fireEvents set to true
+        widget.setValue(secondValue, true);
         // Expected result : true
-        widget.setValue(true, true);
-        assertTrue(widget.getValue());
-    }
-
-    protected <T extends MaterialWidget> void fireValueChangeEvent(T widget) {
-        widget.fireEvent(new GwtEvent<ValueChangeHandler<?>>() {
-            @Override
-            public Type<ValueChangeHandler<?>> getAssociatedType() {
-                return ValueChangeEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(ValueChangeHandler eventHandler) {
-                eventHandler.onValueChange(null);
-            }
-        });
+        assertTrue(isValueChanged[0]);
+        // Expected result : secondValue
+        assertEquals(widget.getValue(), secondValue);
     }
 }

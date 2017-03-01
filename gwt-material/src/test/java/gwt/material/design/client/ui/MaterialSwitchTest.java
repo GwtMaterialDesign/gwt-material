@@ -39,7 +39,7 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         MaterialSwitch mSwitch = new MaterialSwitch();
         checkWidget(mSwitch);
         checkStructure(mSwitch);
-        checkBooleanValue(mSwitch);
+        checkValueChangeEvent(mSwitch, true, false);
     }
 
     @Override
