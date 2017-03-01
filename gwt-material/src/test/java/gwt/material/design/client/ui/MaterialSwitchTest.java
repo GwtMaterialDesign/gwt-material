@@ -40,25 +40,24 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         checkWidget(mSwitch);
         checkStructure(mSwitch);
         checkBooleanValue(mSwitch);
-        checkEnabled(mSwitch);
     }
 
     @Override
     protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
         super.checkEnabled(widget);
-        Label label = (Label) widget.getWidget(0);
+        MaterialSwitch mSwitch = new MaterialSwitch();
+        RootPanel.get().add(mSwitch);
+
+        Label label = (Label) mSwitch.getWidget(0);
         MaterialInput input = (MaterialInput) label.getWidget(1);
-        Span lever = (Span) label.getWidget(2);
 
-        widget.setEnabled(true);
-        assertTrue(widget.isEnabled());
+        mSwitch.setEnabled(true);
+        assertTrue(mSwitch.isEnabled());
         assertTrue(input.isEnabled());
-        assertTrue(lever.isEnabled());
 
-        widget.setEnabled(false);
-        assertFalse(widget.isEnabled());
+        mSwitch.setEnabled(false);
+        assertFalse(mSwitch.isEnabled());
         assertFalse(input.isEnabled());
-        assertFalse(lever.isEnabled());
     }
 
     protected <T extends MaterialSwitch> void checkStructure(T mSwitch) {
@@ -77,6 +76,7 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         // Input Element checking
         assertTrue(label.getWidget(1) instanceof MaterialInput);
         MaterialInput input = (MaterialInput) label.getWidget(1);
+        checkInputAttribute(mSwitch, input);
 
         // Lever Element checking
         assertTrue(label.getWidget(2) instanceof Span);
@@ -94,5 +94,13 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         Widget lblError = mSwitch.getWidget(1);
         assertTrue(lblError instanceof MaterialLabel);
         checkLabelErrorSuccess(mSwitch, null, lblError);
+    }
+
+    protected void checkInputAttribute(MaterialSwitch widget, MaterialInput input) {
+        assertTrue(input.getElement().hasAttribute("checked"));
+        widget.setValue(false);
+        assertFalse(input.getElement().hasAttribute("checked"));
+        widget.setValue(true);
+        assertTrue(input.getElement().hasAttribute("checked"));
     }
 }

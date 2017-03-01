@@ -20,12 +20,9 @@
 package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasError;
@@ -99,8 +96,7 @@ public class AbstractValueWidgetTest extends MaterialWidgetTest {
         assertEquals(widget.getPlaceholder(), "");
     }
 
-    protected <T extends MaterialWidget & HasValue<Boolean>> void checkBooleanValue(T widget) {
-        
+    protected <T extends MaterialSwitch> void checkBooleanValue(T widget) {
         // Register value change handler that listens when the widget
         // set the value
         final boolean[] isValueChanged = {false};
@@ -111,13 +107,14 @@ public class AbstractValueWidgetTest extends MaterialWidgetTest {
         assertTrue(widget.getValue());
         // Expected result : false
         assertEquals(isValueChanged[0], false);
+        // Calling setValue(value, fireEvents) with fireEvents set to false
+        widget.setValue(true, false);
         // Expected result : false
-        widget.setValue(false, false);
-        assertFalse(widget.getValue());
+        assertFalse(isValueChanged[0]);
+        // Calling setValue(value, fireEvents) with fireEvents set to true
         // Expected result : true
         widget.setValue(true, true);
         assertTrue(widget.getValue());
-        widget.getValue();
     }
 
     protected <T extends MaterialWidget> void fireValueChangeEvent(T widget) {
