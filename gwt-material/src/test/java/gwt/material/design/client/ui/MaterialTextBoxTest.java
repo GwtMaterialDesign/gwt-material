@@ -27,6 +27,8 @@ package gwt.material.design.client.ui;
 public class MaterialTextBoxTest extends MaterialValueBoxTest {
 
     public void init() {
-        checkValueBox(new MaterialTextBox());
+        MaterialTextBox txtBox = new MaterialTextBox();
+        checkValueBox(txtBox);
+        checkValueChangeEvent(txtBox.getValueBoxBase(), "Value 1", "Value 2");
     }
 }

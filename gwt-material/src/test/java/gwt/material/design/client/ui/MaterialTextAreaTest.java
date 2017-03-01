@@ -27,8 +27,10 @@ package gwt.material.design.client.ui;
 public class MaterialTextAreaTest extends MaterialValueBoxTest {
 
     public void init() {
-        checkValueBox(new MaterialTextArea());
-        checkResizeRule(new MaterialTextArea());
+        MaterialTextArea txtArea = new MaterialTextArea();
+        checkValueBox(txtArea);
+        checkResizeRule(txtArea);
+        checkValueChangeEvent(txtArea, "Value 1", "Value 2");
     }
 
     public <T extends MaterialTextArea> void checkResizeRule(T textArea) {
