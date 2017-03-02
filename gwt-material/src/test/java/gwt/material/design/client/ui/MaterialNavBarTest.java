@@ -88,16 +88,17 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
 
     public <T extends MaterialNavBar> void checkStructure(T navBar) {
         assertTrue(navBar.getWidget(0) instanceof Div);
-        Div div = (Div) navBar.getWidget(0);
+        Div navWrapper = (Div) navBar.getWidget(0);
         if (!navBar.getActivates().isEmpty()) {
-            assertTrue(div.getWidget(0) instanceof MaterialLink);
-            MaterialLink navMenu = (MaterialLink) div.getWidget(0);
+            assertTrue(navWrapper.getWidget(0) instanceof MaterialLink);
+            MaterialLink navMenu = (MaterialLink) navWrapper.getWidget(0);
+            assertTrue(navWrapper.getWidget(1) instanceof MaterialNavSection);
             assertEquals(navMenu, navBar.getNavMenu());
             assertTrue(navBar.getNavMenu().getElement().hasClassName(CssName.BUTTON_COLLAPSE));
         }
-        assertTrue(div.getElement().hasClassName(CssName.NAV_WRAPPER));
+        assertTrue(navWrapper.getElement().hasClassName(CssName.NAV_WRAPPER));
         navBar.clear();
-        assertEquals(div.getChildren().size(), 0);
+        assertEquals(navWrapper.getChildren().size(), 0);
     }
 
     public <T extends MaterialNavBar> void checkNavBrand(T navBar) {

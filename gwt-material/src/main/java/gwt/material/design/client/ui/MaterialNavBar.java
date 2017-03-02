@@ -93,7 +93,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
             applyType(typeMixin.getType(), getElement());
         }
         if ($("#" + activatesMixin.getActivates()).asElement() != null) {
-            div.add(navMenu);
+            div.insert(navMenu, 0);
         }
     }
 
