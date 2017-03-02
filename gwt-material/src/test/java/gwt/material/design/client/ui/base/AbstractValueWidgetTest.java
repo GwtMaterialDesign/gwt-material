@@ -117,14 +117,16 @@ public class AbstractValueWidgetTest extends MaterialWidgetTest {
         // Expected result : false
         assertFalse(isValueChanged[0]);
         // Calling setValue(value, fireEvents) with fireEvents set to false
-        widget.setValue(value, false);
+        widget.setValue(secondValue, false);
+        // Expected result : secondValue
+        assertEquals(widget.getValue(), secondValue);
         // Expected result : false
         assertFalse(isValueChanged[0]);
         // Calling setValue(value, fireEvents) with fireEvents set to true
-        widget.setValue(secondValue, true);
+        widget.setValue(value, true);
         // Expected result : true
         assertTrue(isValueChanged[0]);
-        // Expected result : secondValue
-        assertEquals(widget.getValue(), secondValue);
+        // Expected result : value
+        assertEquals(widget.getValue(), value);
     }
 }
