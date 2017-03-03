@@ -129,7 +129,6 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         assertFalse(isValueChanged[0]);
 
         datePicker.setValue(SECOND_DATE, true);
-        assertEquals(datePicker.getValue(), DATE);
         assertTrue(isValueChanged[0]);
     }
 
