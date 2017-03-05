@@ -828,7 +828,6 @@ footer.fixed{
 	}
 	/** Search Bar Responsive design **/
 	.input-field input[type=search] {
-		padding-left: 2rem !important;
 		width: calc(100% - 10rem) !important;
 		margin-bottom: 0 !important;
 	}
