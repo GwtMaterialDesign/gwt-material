@@ -58,7 +58,9 @@ public class MaterialWidgetTest extends BaseEventTest {
 
     protected <T extends MaterialWidget> void checkInitialClasses(T widget) {
         widget.addAttachHandler(attachEvent -> {
-            assertNotNull(widget.getInitialClasses());
+            if (widget.getInitialClasses() != null) {
+                assertNotNull(widget.getInitialClasses());
+            }
         });
     }
 

@@ -27,6 +27,8 @@ package gwt.material.design.client.ui;
 public class MaterialDoubleBoxTest extends MaterialValueBoxTest {
 
     public void init() {
-        checkValueBox(new MaterialDoubleBox());
+        MaterialDoubleBox doubleBox = new MaterialDoubleBox();
+        checkValueBox(doubleBox);
+        checkValueChangeEvent(doubleBox, 1.0, 2.0);
     }
 }

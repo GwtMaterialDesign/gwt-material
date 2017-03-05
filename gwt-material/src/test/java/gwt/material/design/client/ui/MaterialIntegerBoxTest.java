@@ -27,6 +27,8 @@ package gwt.material.design.client.ui;
 public class MaterialIntegerBoxTest extends MaterialValueBoxTest {
 
     public void init() {
-        checkValueBox(new MaterialIntegerBox());
+        MaterialIntegerBox integerBox = new MaterialIntegerBox();
+        checkValueBox(integerBox);
+        checkValueChangeEvent(integerBox, 1, 2);
     }
 }

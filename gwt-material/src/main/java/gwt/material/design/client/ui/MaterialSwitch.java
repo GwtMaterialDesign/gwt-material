@@ -71,7 +71,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         span.setStyleName(CssName.LEVER);
         input.setType(InputType.CHECKBOX);
 
-        addClickHandler(event -> setValue(!getValue()));
+        addClickHandler(event -> setValue(!getValue(), true));
     }
 
     public MaterialSwitch(String onLabel, String offLabel) {
@@ -146,7 +146,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
 
     @Override
     public void setValue(Boolean value) {
-        setValue(value, true);
+        setValue(value, false);
     }
 
     /**

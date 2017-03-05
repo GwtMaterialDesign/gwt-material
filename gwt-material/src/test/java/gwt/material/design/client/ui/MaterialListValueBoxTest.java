@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.dto.User;
 import gwt.material.design.client.ui.html.Label;
 
@@ -38,7 +38,7 @@ import java.util.List;
  *
  * @author kevzlou7979
  */
-public class MaterialListValueBoxTest extends MaterialWidgetTest {
+public class MaterialListValueBoxTest extends AbstractValueWidgetTest {
 
     public void init() {
         MaterialListValueBox<User> valueBox = new MaterialListValueBox<>();
@@ -85,6 +85,9 @@ public class MaterialListValueBoxTest extends MaterialWidgetTest {
         assertEquals(listValueBox.getSelectedIndex(), 0);
         assertNotNull(listValueBox.getSelectedValue());
         assertEquals(users.get(0), listValueBox.getSelectedValue());
+
+        // Check ValueChange Event
+        checkValueChangeEvent(listValueBox, users.get(0), users.get(1));
 
         // Remove item test
         listValueBox.removeItem(0);

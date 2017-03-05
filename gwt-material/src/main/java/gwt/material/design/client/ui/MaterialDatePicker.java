@@ -269,13 +269,20 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         });
     }
 
+    public boolean isOpen() {
+        return Boolean.parseBoolean($(pickatizedDateInput).pickadate("picker").get("open").toString());
+    }
+
     protected void select() {
         label.addStyleName(CssName.ACTIVE);
         dateInput.addStyleName(CssName.VALID);
 
         // Ensure the value change event is
-        // triggered on selecting a date.
-        ValueChangeEvent.fire(this, getValue());
+        // triggered on selecting a date if the picker is open
+        // to avoid conflicts on setValue(value, fireEvents).
+        if (isOpen()) {
+            ValueChangeEvent.fire(this, getValue());
+        }
     }
 
     public String getPickerId() {
@@ -292,6 +299,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     /**
+     *
      * Get the minimum date limit.
      */
     public Date getDateMin() {
