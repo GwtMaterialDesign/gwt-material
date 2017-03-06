@@ -936,9 +936,6 @@ input:-webkit-autofill {
 }
 
 /** Fixed breadcrumb **/
-.breadcrumb:nth-child(2):before {
-	display: none;
-}
 
 .breadcrumb i{
 	float: none !important;
