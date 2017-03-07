@@ -19,7 +19,9 @@
  */
 package gwt.material.design.client.base.pwa;
 
-public interface HasAppManifest {
+public interface HasPwaFeature {
 
-    void setupAppManifest(String manifestUrl);
+    void configure();
+
+    void setupManifest(String manifestUrl);
 }

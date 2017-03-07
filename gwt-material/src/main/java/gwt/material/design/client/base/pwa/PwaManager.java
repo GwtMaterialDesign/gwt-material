@@ -23,12 +23,24 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 
-public class PwaManager implements HasAppManifest {
+public class PwaManager implements HasPwaFeature {
 
     private static PwaManager instance = GWT.create(PwaManager.class);
+    public static boolean initialized = false;
 
     @Override
-    public void setupAppManifest(String manifestUrl) {
+    public void configure() {
+        if (!initialized) {
+            String pwaManifest = System.getProperty("manifest");
+            if (pwaManifest != null && !pwaManifest.isEmpty()) {
+                PwaManager.getInstance().setupManifest(pwaManifest);
+            }
+            initialized = true;
+        }
+    }
+
+    @Override
+    public void setupManifest(String manifestUrl) {
         Element head = Document.get().getElementsByTagName("head").getItem(0);
         Element linkManifest = Document.get().createLinkElement();
         linkManifest.setAttribute("rel", "manifest");

@@ -26,7 +26,6 @@ import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
 import gwt.material.design.client.base.pwa.PwaManager;
 import gwt.material.design.client.resources.MaterialResources;
-import gwt.material.design.client.ui.MaterialToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,10 +63,7 @@ public class MaterialDesignBase {
             }
         }
 
-        String pwaManifest = System.getProperty("manifest");
-        if (pwaManifest != null && !pwaManifest.isEmpty()) {
-            PwaManager.getInstance().setupAppManifest(pwaManifest);
-        }
+        PwaManager.getInstance().configure();
     }
 
     public static void injectJs(TextResource resource) {
