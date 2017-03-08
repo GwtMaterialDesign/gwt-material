@@ -34,6 +34,8 @@ import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
+import static gwt.material.design.jquery.client.api.JQuery.$;
+
 //@formatter:off
 
 /**
@@ -71,7 +73,6 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     public MaterialNavBar() {
         div.setStyleName(CssName.NAV_WRAPPER);
-        div.add(navMenu);
         super.add(div);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName(CssName.BUTTON_COLLAPSE);
@@ -90,6 +91,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
         if (typeMixin.getType() != null) {
             applyType(typeMixin.getType(), getElement());
+        }
+        if ($("#" + activatesMixin.getActivates()).asElement() != null) {
+            div.insert(navMenu, 0);
         }
     }
 

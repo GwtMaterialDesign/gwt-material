@@ -21,6 +21,10 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -30,6 +34,9 @@ import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
+
+import java.util.List;
+import java.util.ArrayList;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -65,7 +72,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
  */
 //@formatter:on
-public class MaterialTab extends UnorderedList implements HasType<TabType> {
+public class MaterialTab extends UnorderedList implements HasType<TabType>, HasSelectionHandlers<Integer> {
 
     private int tabIndex;
     private Color indicatorColor;
@@ -74,6 +81,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     private ColorsMixin<MaterialWidget> indicatorColorMixin;
 
     private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
+    private List<HandlerRegistration> handlers = new ArrayList<>();
 
     public MaterialTab() {
         super(CssName.TABS);
@@ -129,6 +137,23 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     protected void initialize() {
         if (getWidgetCount() > 0) {
             $(getElement()).tabs();
+
+            if (handlers.size() > 0) {
+                for (HandlerRegistration handler : handlers) {
+                    handler.removeHandler();
+                }
+                handlers.clear();
+            }
+
+            for (Widget w : getChildren()) {
+                if (w instanceof MaterialTabItem) {
+                    HandlerRegistration handler = ((MaterialTabItem) w).addMouseDownHandler(e -> {
+                        SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(w));
+                    });
+                    handlers.add(handler);
+                }
+            }
+
             for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
                 $(getElement()).find(".indicator").eq(i).remove();
             }
@@ -147,5 +172,10 @@ public class MaterialTab extends UnorderedList implements HasType<TabType> {
     @Override
     public TabType getType() {
         return typeMixin.getType();
+    }
+
+    @Override
+    public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> handler) {
+        return addHandler(handler, SelectionEvent.getType());
     }
 }

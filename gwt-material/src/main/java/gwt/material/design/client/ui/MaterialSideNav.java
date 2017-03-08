@@ -85,6 +85,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
     private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, CssName.FIXED);
 
+    private HandlerRegistration fixedResizeHandler;
+
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
      * Icons or any other material components.
@@ -131,7 +133,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 });
             }
         } else {
-            setLeft(0);
+            if(!getType().equals(SideNavType.CARD)) {
+                setLeft(0);
+            }
             $(activator).trigger("menu-out", null);
         }
     }
@@ -140,6 +144,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void onUnload() {
         super.onUnload();
 
+        $("#sidenav-overlay").remove();
         activator = null;
     }
 

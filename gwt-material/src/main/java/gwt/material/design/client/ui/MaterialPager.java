@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Event;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
@@ -240,8 +241,8 @@ public class MaterialPager extends MaterialWidget {
         fireEvent(event);
     }
 
-    public void addPageSelectionHandler(PageSelectionHandler handler) {
-        addHandler(handler, TYPE);
+    public HandlerRegistration addPageSelectionHandler(PageSelectionHandler handler) {
+        return addHandler(handler, TYPE);
     }
 
     public boolean isEnableIndicator() {

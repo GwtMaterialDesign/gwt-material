@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.DatePickerContainer;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.js.JsMaterialElement;
@@ -48,6 +49,18 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         checkSelectionType(datePicker);
         checkOpenCloseControl(datePicker);
         checkAutoClose(datePicker);
+        checkContainaer(datePicker);
+    }
+
+    public <T extends MaterialDatePicker> void checkContainaer(T datePicker) {
+        // Check the default container - SELF
+        assertEquals(datePicker.getContainer(), DatePickerContainer.SELF);
+
+        datePicker.setContainer(DatePickerContainer.BODY);
+        assertEquals(datePicker.getContainer(), DatePickerContainer.BODY);
+
+        datePicker.setContainer(DatePickerContainer.SELF);
+        assertEquals(datePicker.getContainer(), DatePickerContainer.SELF);
     }
 
     public <T extends MaterialDatePicker> void checkAutoClose(T datePicker) {
@@ -95,10 +108,28 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
 
     public <T extends MaterialDatePicker> void checkDateValue(T datePicker) {
         final Date DATE = new Date(116, 2, 5);
+        final Date SECOND_DATE = new Date(116, 1, 0);
+
+        boolean[] isValueChanged = {false};
+        datePicker.addValueChangeHandler(event -> isValueChanged[0] = true);
+
         datePicker.setDate(DATE);
         assertEquals(datePicker.getDate(), DATE);
+
         assertEquals(datePicker.getValue(), DATE);
+
         datePicker.setEnabled(true);
+
+        datePicker.setValue(DATE);
+        assertEquals(datePicker.getValue(), DATE);
+
+        datePicker.setValue(DATE);
+        datePicker.setValue(DATE, false);
+        assertEquals(datePicker.getValue(), DATE);
+        assertFalse(isValueChanged[0]);
+
+        datePicker.setValue(SECOND_DATE, true);
+        assertTrue(isValueChanged[0]);
     }
 
     public <T extends MaterialDatePicker> void checkLanguage(T datePicker) {

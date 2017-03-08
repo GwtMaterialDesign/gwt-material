@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsTooltipOptions;
 
 import java.util.Iterator;
@@ -113,8 +112,20 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
         if (!widget.isAttached()) {
             // When we attach it, configure the tooltip
-            attachHandler = widget.addAttachHandler(event -> reconfigure());
+            attachHandler = widget.addAttachHandler(event -> {
+                if(event.isAttached()) {
+                    reconfigure();
+                } else {
+                    remove();
+                }
+            });
         } else {
+            // ensure the tooltip is removed on detachment
+            attachHandler = widget.addAttachHandler(event -> {
+                if(!event.isAttached()) {
+                    remove();
+                }
+            });
             reconfigure();
         }
     }

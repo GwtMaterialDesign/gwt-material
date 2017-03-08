@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
+package gwt.material.design.client.constants;
 
-/**
- * Test case for Double Box
- *
- * @author kevzlou7979
- */
-public class MaterialDoubleBoxTest extends MaterialValueBoxTest {
+public enum DatePickerContainer {
 
-    public void init() {
-        MaterialDoubleBox doubleBox = new MaterialDoubleBox();
-        checkValueBox(doubleBox);
-        checkValueChangeEvent(doubleBox, 1.0, 2.0);
-    }
+    BODY, SELF
 }

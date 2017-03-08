@@ -102,6 +102,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
 
+    private int yearsToDisplay = 10;
+    private DatePickerContainer container = DatePickerContainer.SELF;
+
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
@@ -148,20 +151,25 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         if (options == null) {
             options = new JsDatePickerOptions();
         }
-        options.container = "body";
+
         options.format = getFormat();
         switch (getSelectionType()) {
             case MONTH_DAY:
                 options.selectMonths = true;
                 break;
             case YEAR_MONTH_DAY:
-                options.selectYears = true;
+                options.selectYears = yearsToDisplay;
                 options.selectMonths = true;
                 break;
             case YEAR:
-                options.selectYears = true;
+                options.selectYears = yearsToDisplay;
                 break;
         }
+
+        if (container == DatePickerContainer.BODY) {
+            options.container = "body";
+        }
+
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
         label.getElement().setAttribute("for", getPickerId());
 
@@ -178,13 +186,13 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         $(pickatizedDateInput).pickadate("picker")
                 .off("open").off("close").off(options)
                 .on(options).on("open", (e, param1) -> {
-                    onOpen();
-                    return true;
-                }).on("close", (e, param1) -> {
-                    onClose();
-                    $(pickatizedDateInput).blur();
-                    return true;
-                });
+            onOpen();
+            return true;
+        }).on("close", (e, param1) -> {
+            onClose();
+            $(pickatizedDateInput).blur();
+            return true;
+        });
 
         initialized = true;
 
@@ -261,13 +269,20 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         });
     }
 
+    public boolean isOpen() {
+        return Boolean.parseBoolean($(pickatizedDateInput).pickadate("picker").get("open").toString());
+    }
+
     protected void select() {
         label.addStyleName(CssName.ACTIVE);
         dateInput.addStyleName(CssName.VALID);
 
         // Ensure the value change event is
-        // triggered on selecting a date.
-        ValueChangeEvent.fire(this, getValue());
+        // triggered on selecting a date if the picker is open
+        // to avoid conflicts on setValue(value, fireEvents).
+        if (isOpen()) {
+            ValueChangeEvent.fire(this, getValue());
+        }
     }
 
     public String getPickerId() {
@@ -284,6 +299,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     /**
+     *
      * Get the minimum date limit.
      */
     public Date getDateMin() {
@@ -384,6 +400,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setSelectionType(MaterialDatePickerType selectionType) {
         this.selectionType = selectionType;
+    }
+
+    /**
+     * Set the pickers selection type with the ability to set the number of years to display
+     * in the dropdown list.
+     */
+    public void setSelectionType(MaterialDatePickerType selectionType, int yearsToDisplay) {
+        this.selectionType = selectionType;
+        this.yearsToDisplay = yearsToDisplay;
     }
 
     /**
@@ -625,5 +650,28 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         if (autoClose) {
             autoCloseHandler = addValueChangeHandler(event -> close());
         }
+    }
+
+    public int getYearsToDisplay() {
+        return yearsToDisplay;
+    }
+
+    /**
+     * Ability to set the number of years to display
+     * in the dropdown list.
+     */
+    public void setYearsToDisplay(int yearsToDisplay) {
+        this.yearsToDisplay = yearsToDisplay;
+    }
+
+    public DatePickerContainer getContainer() {
+        return container;
+    }
+
+    /**
+     * Set the Root Picker Container (Default : SELF)
+     */
+    public void setContainer(DatePickerContainer container) {
+        this.container = container;
     }
 }

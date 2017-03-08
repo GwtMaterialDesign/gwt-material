@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
@@ -62,6 +61,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private static String MAX = "max";
     private static String MIN = "min";
     private MaterialLabel lblError = new MaterialLabel();
+    private HandlerRegistration changeHandler;
 
     private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
 
@@ -85,8 +85,16 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         paragraph.add(thumb);
         add(paragraph);
 
-        lblError.getElement().getStyle().setMarginTop(-10, Unit.PX);
         add(lblError);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        if (changeHandler == null) {
+            changeHandler = addChangeHandler(changeEvent -> setValue(getValue(),true));
+        }
     }
 
     /**
@@ -204,7 +212,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      */
     @Override
     public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
-        return addDomHandler(handler, ChangeEvent.getType());
+        return getRangeInputElement().addDomHandler(handler, ChangeEvent.getType());
     }
 
     @Override

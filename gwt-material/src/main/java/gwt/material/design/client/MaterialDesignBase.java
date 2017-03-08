@@ -47,9 +47,11 @@ public class MaterialDesignBase {
 
     protected void load() {
         checkJQuery(false);
-        injectJs(MaterialResources.INSTANCE.materializeJs());
-        injectJs(MaterialResources.INSTANCE.animationJs());
-        injectJs(MaterialResources.INSTANCE.shrinkJs());
+        if(!isMaterializeLoaded()) {
+            injectJs(MaterialResources.INSTANCE.materializeJs());
+            injectJs(MaterialResources.INSTANCE.animationJs());
+            injectJs(MaterialResources.INSTANCE.shrinkJs());
+        }
         onModuleLoaded();
     }
 
@@ -70,23 +72,22 @@ public class MaterialDesignBase {
     }
 
     public static void injectJs(TextResource resource, boolean removeTag, boolean sourceUrl) {
-        if (!resource.getName().contains("jQuery")) {
-            if (!checkJQuery(sourceUrl)) {
-                // We need to wait for jQuery to load
-                if (futureResources == null) {
-                    futureResources = new ArrayList<>();
-                }
-                futureResources.add(new FutureResource(resource, removeTag, sourceUrl));
+        if (!resource.getName().contains("jQuery") && !checkJQuery(sourceUrl)) {
+            // We need to wait for jQuery to load
+            if (futureResources == null) {
+                futureResources = new ArrayList<>();
             }
-        }
-        String text = resource.getText() + (sourceUrl ?
+            futureResources.add(new FutureResource(resource, removeTag, sourceUrl));
+        } else {
+            String text = resource.getText() + (sourceUrl ?
                 "//# sourceURL=" + resource.getName() + ".js" : "");
 
-        // Inject the script resource
-        ScriptInjector.fromString(text)
+            // Inject the script resource
+            ScriptInjector.fromString(text)
                 .setWindow(ScriptInjector.TOP_WINDOW)
                 .setRemoveTag(removeTag)
                 .inject();
+        }
     }
 
     public static void injectCss(TextResource resource) {
@@ -101,7 +102,7 @@ public class MaterialDesignBase {
                 injectJs(jQueryProvider.jQuery());
             }
         }
-        return true;
+        return isjQueryLoaded();
     }
 
     public static boolean isProvidingJQuery() {

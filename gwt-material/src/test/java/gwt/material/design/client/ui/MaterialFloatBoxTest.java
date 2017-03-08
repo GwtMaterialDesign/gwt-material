@@ -27,6 +27,8 @@ package gwt.material.design.client.ui;
 public class MaterialFloatBoxTest extends MaterialValueBoxTest {
 
     public void init() {
-        checkValueBox(new MaterialFloatBox());
+        MaterialFloatBox floatBox = new MaterialFloatBox();
+        checkValueBox(floatBox);
+        checkValueChangeEvent(floatBox, 1.0f, 2.0f);
     }
 }

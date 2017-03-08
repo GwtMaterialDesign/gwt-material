@@ -38,8 +38,8 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
     public void init() {
         MaterialRange range = new MaterialRange();
         checkAbstractValueWidgetWoPlaceholder(range, range.getLblError());
-        checkStructure(range);
         checkValues(range);
+        checkStructure(range);
     }
 
     public <T extends MaterialRange> void checkStructure(T range) {
@@ -63,8 +63,9 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
 
     public <T extends MaterialRange> void checkValues(T range) {
         final Integer MIN = 20;
-        final Integer MAX = 90;
+        final Integer MAX = 100;
         final Integer VALUE = 50;
+        final Integer SECOND_VALUE = 100;
         final Element inputElement = range.getRangeInputElement().getElement();
 
         // Make Sure to have not min / max / value set by default
@@ -86,6 +87,8 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
         assertTrue(inputElement.hasAttribute("value"));
         assertEquals(range.getValue(), VALUE);
         assertEquals(inputElement.getAttribute("value"), String.valueOf(VALUE));
+
+        checkValueChangeEvent(range, VALUE, SECOND_VALUE);
     }
 
     @Override
