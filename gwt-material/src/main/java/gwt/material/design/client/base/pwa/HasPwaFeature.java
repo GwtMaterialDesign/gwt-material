@@ -24,4 +24,6 @@ public interface HasPwaFeature {
     void configure();
 
     void setupManifest(String manifestUrl);
+
+    void setupServiceWorker(String serviceWorkerUrl);
 }

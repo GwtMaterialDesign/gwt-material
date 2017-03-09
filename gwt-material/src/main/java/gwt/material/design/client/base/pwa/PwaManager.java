@@ -22,6 +22,7 @@ package gwt.material.design.client.base.pwa;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.base.pwa.serviceworker.Navigator;
 
 public class PwaManager implements HasPwaFeature {
 
@@ -33,7 +34,12 @@ public class PwaManager implements HasPwaFeature {
         if (!initialized) {
             String pwaManifest = System.getProperty("manifest");
             if (pwaManifest != null && !pwaManifest.isEmpty()) {
-                PwaManager.getInstance().setupManifest(pwaManifest);
+                setupManifest(pwaManifest);
+            }
+
+            String serviceWorker = System.getProperty("serviceWorker");
+            if (serviceWorker != null && !serviceWorker.isEmpty()) {
+                setupServiceWorker(serviceWorker);
             }
             initialized = true;
         }
@@ -46,6 +52,19 @@ public class PwaManager implements HasPwaFeature {
         linkManifest.setAttribute("rel", "manifest");
         linkManifest.setAttribute("href", manifestUrl);
         head.appendChild(linkManifest);
+    }
+
+    @Override
+    public void setupServiceWorker(String serviceWorkerUrl) {
+        if (Navigator.serviceWorker != null) {
+            Navigator.serviceWorker.register(serviceWorkerUrl)
+                    .then(arg -> {
+                        GWT.log("Registered service worker successfully");
+                        return null;
+                    });
+        } else {
+            GWT.log("Service worker unavailable in this browser");
+        }
     }
 
     public static PwaManager getInstance() {
