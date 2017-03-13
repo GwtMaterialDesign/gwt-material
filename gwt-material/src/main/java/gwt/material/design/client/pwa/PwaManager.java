@@ -17,12 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base.pwa;
+package gwt.material.design.client.pwa;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.base.pwa.serviceworker.Navigator;
+import gwt.material.design.client.pwa.serviceworker.Navigator;
 
 public class PwaManager implements HasPwaFeature {
 

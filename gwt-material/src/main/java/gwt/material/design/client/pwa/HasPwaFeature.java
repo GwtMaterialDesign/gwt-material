@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base.pwa;
+package gwt.material.design.client.pwa;
 
 public interface HasPwaFeature {
 

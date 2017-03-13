@@ -1,4 +1,4 @@
-package gwt.material.design.client.base.pwa.serviceworker;
+package gwt.material.design.client.pwa.serviceworker;
 
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
