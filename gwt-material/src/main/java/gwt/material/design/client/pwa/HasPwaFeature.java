@@ -21,11 +21,28 @@ package gwt.material.design.client.pwa;
 
 public interface HasPwaFeature {
 
+    /**
+     * Configures the whole application structure of progressive web app to be
+     * integrated to Gwt Material Design
+     */
     void configure();
 
+    /**
+     * Set up the manifest.json file to enable the Installable feature of GMD PWA
+     * @param manifestUrl - the url of your manifest.json file
+     */
     void setupManifest(String manifestUrl);
 
+    /**
+     * Set up the service worker configuration file (service-worker.js) to enable
+     * the Offline Feature of your GMD PWA App.
+     * @param serviceWorkerUrl
+     */
     void setupServiceWorker(String serviceWorkerUrl);
 
+    /**
+     * Returns a network status of your GMD PWA App.
+     * @return true if your network status is Online.
+     */
     boolean isOnline();
 }

@@ -24,6 +24,23 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.pwa.serviceworker.Navigator;
 
+//@formatter:off
+
+/**
+ * Progressive Web Apps (PWA) are reliable, fast, and engaging, <br/>
+ * although there are many things that can take a PWA from a baseline to exemplary experience. <br/><br/>
+ * PWA supports: <br/>
+ * 1. Installable @see(https://gwtmaterialdesign.github.io/gwt-material-demo/pwa/) <br/>
+ * - Using Web App Manifest you can configure how your app will behave like native web app by adding it to your homescreen.<br/><br/>
+ * 2. Service Worker  <br/>
+ * - Enables offline support for your progressive web app.<br/><br/>
+ * 3. Push Notifications <br/>
+ * - A rich notification service provided by google.
+ *
+ * @author kevzlou7979
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#pwa">Progressive Web Apps</a>
+ */
+//@formatter:on
 public class PwaManager implements HasPwaFeature {
 
     private static PwaManager instance = GWT.create(PwaManager.class);
