@@ -26,4 +26,6 @@ public interface HasPwaFeature {
     void setupManifest(String manifestUrl);
 
     void setupServiceWorker(String serviceWorkerUrl);
+
+    boolean isOnline();
 }

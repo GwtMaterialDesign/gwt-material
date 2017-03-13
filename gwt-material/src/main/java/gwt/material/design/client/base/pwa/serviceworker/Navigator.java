@@ -12,6 +12,7 @@ public class Navigator {
 	@JsProperty
 	public static ServiceWorkerContainer serviceWorker;
 	
-	
+	@JsProperty
+	public static boolean onLine;
 
 }

@@ -63,8 +63,13 @@ public class PwaManager implements HasPwaFeature {
                         return null;
                     });
         } else {
-            GWT.log("Service worker unavailable in this browser");
+            GWT.log("Service worker is not supported by this browser.");
         }
+    }
+
+    @Override
+    public boolean isOnline() {
+        return Navigator.onLine;
     }
 
     public static PwaManager getInstance() {
