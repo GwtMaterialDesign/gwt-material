@@ -52,6 +52,7 @@ public class MaterialDesignBase {
             injectJs(MaterialResources.INSTANCE.materializeJs());
             injectJs(MaterialResources.INSTANCE.animationJs());
             injectJs(MaterialResources.INSTANCE.shrinkJs());
+            injectJs(MaterialResources.INSTANCE.pushNotificationJs());
         }
         onModuleLoaded();
     }

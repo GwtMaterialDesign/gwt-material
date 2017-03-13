@@ -34,4 +34,7 @@ public interface MaterialDebugResources extends ClientBundle {
 
     @Source("js/shrink.js")
     TextResource shrinkJsDebug();
+
+    @Source("js/push.js")
+    TextResource pushNotificationJsDebug();
 }
