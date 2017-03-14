@@ -34,6 +34,13 @@ public interface HasPwaFeature {
     void setupManifest(String manifestUrl);
 
     /**
+     * Added a meta tag theme color to provide the browser's address
+     * bar a designated color by your app.
+     * @param themeColor - Hexadecimal value for your the background color of the address bar
+     */
+    void setupMetaThemeColor(String themeColor);
+
+    /**
      * Set up the service worker configuration file (service-worker.js) to enable
      * the Offline Feature of your GMD PWA App.
      * @param serviceWorkerUrl

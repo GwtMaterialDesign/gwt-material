@@ -58,6 +58,11 @@ public class PwaManager implements HasPwaFeature {
             if (serviceWorker != null && !serviceWorker.isEmpty()) {
                 setupServiceWorker(serviceWorker);
             }
+
+            String metaThemeColor = System.getProperty("metaThemeColor");
+            if (metaThemeColor != null && !metaThemeColor.isEmpty()) {
+                setupMetaThemeColor(metaThemeColor);
+            }
             initialized = true;
         }
     }
@@ -69,6 +74,15 @@ public class PwaManager implements HasPwaFeature {
         linkManifest.setAttribute("rel", "manifest");
         linkManifest.setAttribute("href", manifestUrl);
         head.appendChild(linkManifest);
+    }
+
+    @Override
+    public void setupMetaThemeColor(String themeColor) {
+        Element head = Document.get().getElementsByTagName("head").getItem(0);
+        Element metaThemeColor = Document.get().createMetaElement();
+        metaThemeColor.setAttribute("name", "theme-color");
+        metaThemeColor.setAttribute("content", themeColor);
+        head.appendChild(metaThemeColor);
     }
 
     @Override
