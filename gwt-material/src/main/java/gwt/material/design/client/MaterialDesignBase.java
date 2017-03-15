@@ -64,7 +64,7 @@ public class MaterialDesignBase {
             }
         }
 
-        PwaManager.getInstance().configure();
+        PwaManager.getInstance().load();
     }
 
     public static void injectJs(TextResource resource) {

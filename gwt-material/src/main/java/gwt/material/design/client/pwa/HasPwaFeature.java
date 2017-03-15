@@ -25,7 +25,18 @@ public interface HasPwaFeature {
      * Configures the whole application structure of progressive web app to be
      * integrated to Gwt Material Design
      */
-    void configure();
+    void load();
+
+    /**
+     * Reloads the PWA Feature and reconfigure it.
+     */
+    void reload();
+
+    /**
+     * Unregisters / Uninstall the PWA Feature into
+     * your GMD App.
+     */
+    void unLoad();
 
     /**
      * Set up the manifest.json file to enable the Installable feature of GMD PWA

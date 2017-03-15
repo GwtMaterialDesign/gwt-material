@@ -31,7 +31,7 @@ import gwt.material.design.client.pwa.serviceworker.Navigator;
  * although there are many things that can take a PWA from a baseline to exemplary experience. <br/><br/>
  * PWA supports: <br/>
  * 1. Installable @see(https://gwtmaterialdesign.github.io/gwt-material-demo/pwa/) <br/>
- * - Using Web App Manifest you can configure how your app will behave like native web app by adding it to your homescreen.<br/><br/>
+ * - Using Web App Manifest you can load how your app will behave like native web app by adding it to your homescreen.<br/><br/>
  * 2. Service Worker  <br/>
  * - Enables offline support for your progressive web app.<br/><br/>
  * 3. Push Notifications <br/>
@@ -46,9 +46,12 @@ public class PwaManager implements HasPwaFeature {
     private static PwaManager instance = GWT.create(PwaManager.class);
     public static boolean initialized = false;
 
+    private Element headElement, manifestElement, themeColorElement;
+
     @Override
-    public void configure() {
+    public void load() {
         if (!initialized) {
+            headElement = Document.get().getElementsByTagName("head").getItem(0);
             String pwaManifest = System.getProperty("manifest");
             if (pwaManifest != null && !pwaManifest.isEmpty()) {
                 setupManifest(pwaManifest);
@@ -68,21 +71,39 @@ public class PwaManager implements HasPwaFeature {
     }
 
     @Override
+    public void reload() {
+        unLoad();
+        load();
+    }
+
+    @Override
+    public void unLoad() {
+        // Unregister the manifest
+        if (manifestElement != null) {
+            manifestElement.removeFromParent();
+        }
+        // Unregister the theme color
+        if (themeColorElement != null) {
+            themeColorElement.removeFromParent();
+        }
+
+        initialized = false;
+    }
+
+    @Override
     public void setupManifest(String manifestUrl) {
-        Element head = Document.get().getElementsByTagName("head").getItem(0);
-        Element linkManifest = Document.get().createLinkElement();
-        linkManifest.setAttribute("rel", "manifest");
-        linkManifest.setAttribute("href", manifestUrl);
-        head.appendChild(linkManifest);
+        manifestElement = Document.get().createLinkElement();
+        manifestElement.setAttribute("rel", "manifest");
+        manifestElement.setAttribute("href", manifestUrl);
+        headElement.appendChild(manifestElement);
     }
 
     @Override
     public void setupMetaThemeColor(String themeColor) {
-        Element head = Document.get().getElementsByTagName("head").getItem(0);
-        Element metaThemeColor = Document.get().createMetaElement();
-        metaThemeColor.setAttribute("name", "theme-color");
-        metaThemeColor.setAttribute("content", themeColor);
-        head.appendChild(metaThemeColor);
+        themeColorElement = Document.get().createMetaElement();
+        themeColorElement.setAttribute("name", "theme-color");
+        themeColorElement.setAttribute("content", themeColor);
+        headElement.appendChild(themeColorElement);
     }
 
     @Override
