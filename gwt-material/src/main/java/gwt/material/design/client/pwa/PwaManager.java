@@ -23,6 +23,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.pwa.serviceworker.Navigator;
+import gwt.material.design.client.pwa.serviceworker.ServiceWorker;
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerRegistration;
 
 //@formatter:off
@@ -136,6 +137,27 @@ public class PwaManager implements HasPwaFeature {
                 return null;
             });
         }
+    }
+
+    @Override
+    public void updateServiceWorker() {
+        if (Navigator.serviceWorker != null) {
+            Navigator.serviceWorker.getRegistration().then(obj -> {
+                ServiceWorkerRegistration registration = (ServiceWorkerRegistration) obj;
+                if (registration != null) {
+                    registration.update();
+                    GWT.log("Successfully updated Service Worker");
+                } else {
+                    GWT.log("There's no Service worker that is registered.");
+                }
+                return null;
+            });
+        }
+    }
+
+    @Override
+    public ServiceWorker getServiceWorker() {
+        return Navigator.serviceWorker.controller;
     }
 
     @Override
