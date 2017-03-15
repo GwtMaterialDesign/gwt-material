@@ -59,6 +59,11 @@ public interface HasPwaFeature {
     void setupServiceWorker(String serviceWorkerUrl);
 
     /**
+     * Unregister the Service Worker
+     */
+    void unRegisterServiceWorker();
+
+    /**
      * Returns a network status of your GMD PWA App.
      * @return true if your network status is Online.
      */

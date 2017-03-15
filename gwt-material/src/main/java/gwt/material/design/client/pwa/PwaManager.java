@@ -23,6 +23,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.pwa.serviceworker.Navigator;
+import gwt.material.design.client.pwa.serviceworker.ServiceWorkerRegistration;
 
 //@formatter:off
 
@@ -87,6 +88,8 @@ public class PwaManager implements HasPwaFeature {
             themeColorElement.removeFromParent();
         }
 
+        // Unregister the service worker
+        unRegisterServiceWorker();
         initialized = false;
     }
 
@@ -116,6 +119,22 @@ public class PwaManager implements HasPwaFeature {
                     });
         } else {
             GWT.log("Service worker is not supported by this browser.");
+        }
+    }
+
+    @Override
+    public void unRegisterServiceWorker() {
+        if (Navigator.serviceWorker != null) {
+            Navigator.serviceWorker.getRegistration().then(obj -> {
+                ServiceWorkerRegistration registration = (ServiceWorkerRegistration) obj;
+                if (registration != null) {
+                    registration.unregister();
+                    GWT.log("Successfully unregistered Service Worker");
+                } else {
+                    GWT.log("There's no Service worker that is registered.");
+                }
+                return null;
+            });
         }
     }
 

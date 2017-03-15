@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.pwa.PwaManager;
+import gwt.material.design.client.pwa.serviceworker.Navigator;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -32,6 +33,7 @@ public class PwaManagerTest extends MaterialWidgetTest {
         PwaManager.getInstance().load();
         checkManifest();
         checkMetaThemeColor();
+        checkServiceWorker();
     }
 
     protected void checkManifest() {
@@ -62,6 +64,11 @@ public class PwaManagerTest extends MaterialWidgetTest {
         // Reload the PWA Manager
         PwaManager.getInstance().reload();
         assertNotNull($(getMetaThemeColor()));
+    }
+
+    protected void checkServiceWorker() {
+        PwaManager.getInstance().setupServiceWorker("service-worker.js");
+
     }
 
     protected Element getMetaThemeColor() {
