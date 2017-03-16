@@ -111,7 +111,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         }
 
         if (!widget.isAttached()) {
-            // When we attach it, configure the tooltip
+            // When we attach it, load the tooltip
             attachHandler = widget.addAttachHandler(event -> {
                 if(event.isAttached()) {
                     reconfigure();

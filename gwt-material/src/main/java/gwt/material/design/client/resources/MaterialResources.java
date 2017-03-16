@@ -34,4 +34,8 @@ public interface MaterialResources extends ClientBundle {
 
     @Source("js/shrink.min.js")
     TextResource shrinkJs();
+
+    @Source("js/push.min.js")
+    TextResource pushNotificationJs();
+
 }
