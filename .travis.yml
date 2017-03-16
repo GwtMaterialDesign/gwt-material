@@ -7,7 +7,7 @@ cache:
   - $HOME/.m2
 before_install:
 # install the gwt-material-jquery because it will depends on built in jquery
-- git clone -b master https://github.com/GwtMaterialDesign/gwt-material-jquery.git
+- git clone -b release_1.1 https://github.com/GwtMaterialDesign/gwt-material-jquery.git
 - cd gwt-material-jquery
 - mvn install -DskipTests=true -DdryRun=true
 - cd ..

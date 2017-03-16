@@ -41,11 +41,6 @@
   <!-- Specify the paths for translatable code -->
   <source path="client"/>
 
-  <!-- PWA Configurations -->
-  <set-configuration-property name="manifest" value="manifest.json" />
-  <set-configuration-property name="serviceWorker" value="service-worker.js" />
-  <set-configuration-property name="metaThemeColor" value="#ffffff" />
-
   <set-configuration-property name="CssResource.enableGss" value="true"/>
   <!--<set-configuration-property name="CssResource.legacy" value="true"/>-->
 </module>

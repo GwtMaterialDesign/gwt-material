@@ -22,9 +22,9 @@ package gwt.material.design.client.pwa;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.pwa.serviceworker.Navigator;
-import gwt.material.design.client.pwa.serviceworker.ServiceWorker;
-import gwt.material.design.client.pwa.serviceworker.ServiceWorkerRegistration;
+import gwt.material.design.jscore.client.api.Navigator;
+import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
+import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
 
 //@formatter:off
 

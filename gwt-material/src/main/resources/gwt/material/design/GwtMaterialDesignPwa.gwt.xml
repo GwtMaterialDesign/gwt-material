@@ -37,6 +37,11 @@
     <when-type-is class="gwt.material.design.client.resources.JQueryResource"/>
   </replace-with>
 
+  <!-- PWA Configurations -->
+  <set-configuration-property name="manifest" value="manifest.json" />
+  <set-configuration-property name="serviceWorker" value="service-worker.js" />
+  <set-configuration-property name="metaThemeColor" value="#ffffff" />
+
   <!-- Specify the app entry point class -->
   <entry-point class="gwt.material.design.client.MaterialDesignPwa"/>
 </module>
