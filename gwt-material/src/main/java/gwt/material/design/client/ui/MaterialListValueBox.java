@@ -93,6 +93,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
         toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
     }
+    
+    public MaterialListValueBox(KeyFactory<T, String> keyFactory) {
+        this();
+        this.keyFactory = keyFactory;
+    }
 
     @Override
     protected void onLoad() {
