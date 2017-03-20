@@ -20,19 +20,14 @@ package gwt.material.design.client;
  * #L%
  */
 
-import gwt.material.design.client.resources.MaterialDebugResources;
+import com.google.gwt.core.client.EntryPoint;
+import gwt.material.design.client.pwa.PwaManager;
 
-public class MaterialDesignDebugBase extends MaterialDesignBase {
+public class MaterialDesignPwa extends MaterialDesignBase implements EntryPoint {
 
     @Override
-    public void load() {
-        checkJQuery(true);
-        if(!isMaterializeLoaded()) {
-            injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
-            injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
-            injectDebugJs(MaterialDebugResources.INSTANCE.shrinkJsDebug());
-            injectDebugJs(MaterialDebugResources.INSTANCE.pushNotificationJsDebug());
-        }
-        onModuleLoaded();
+    public void onModuleLoad() {
+        load();
+        PwaManager.getInstance().load();
     }
 }

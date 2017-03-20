@@ -26,26 +26,17 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
     "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module>
-  <set-configuration-property name="CssResource.conversionMode" value="strict" />
+  <inherits name="gwt.material.design.GwtMaterialDesignBase"/>
+  <inherits name="gwt.material.design.Resources"/>
 
-  <!-- Inherit the core Web Toolkit stuff -->
-  <inherits name="com.google.gwt.user.User"/>
-  <inherits name="com.google.gwt.core.Core"/>
-  <inherits name="com.google.gwt.resources.Resources"/>
-  <inherits name="gwt.material.design.jquery.JQuery" />
-
-  <replace-with class="gwt.material.design.client.base.validator.DefaultValidatorMessageMixin">
-    <when-type-is class="gwt.material.design.client.base.validator.ValidatorMessageMixin" />
+  <replace-with class="gwt.material.design.client.JQueryProvider.JQueryCompressed">
+    <when-type-is class="gwt.material.design.client.JQueryProvider"/>
   </replace-with>
 
-  <!-- Specify the paths for translatable code -->
-  <source path="client"/>
+  <replace-with class="gwt.material.design.client.resources.WithJQueryResources">
+    <when-type-is class="gwt.material.design.client.resources.JQueryResource"/>
+  </replace-with>
 
-  <!-- PWA Configurations -->
-  <set-configuration-property name="manifest" value="manifest.json" />
-  <set-configuration-property name="serviceWorker" value="service-worker.js" />
-  <set-configuration-property name="metaThemeColor" value="#ffffff" />
-
-  <set-configuration-property name="CssResource.enableGss" value="true"/>
-  <!--<set-configuration-property name="CssResource.legacy" value="true"/>-->
+  <!-- Specify the app entry point class -->
+  <entry-point class="gwt.material.design.client.MaterialDesignPwa"/>
 </module>

@@ -235,4 +235,9 @@ public class GwtMaterialTestComponent extends GWTTestCase {
     public void testTooltip() {
         new MaterialTooltipTest().init();
     }
+
+    @Test
+    public void testPWAFeature() {
+        new PwaManagerTest().init();
+    }
 }
