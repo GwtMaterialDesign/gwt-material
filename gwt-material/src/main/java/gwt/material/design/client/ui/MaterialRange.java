@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -33,6 +32,8 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
+
+import java.util.logging.Level;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -152,21 +153,26 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
     @Override
     public void setValue(Integer value, boolean fireEvents) {
-        if (value == null) {
-            GWT.log("Value must be null", new RuntimeException());
-            return;
+        try {
+            checkRangeValue(value);
+            setIntToRangeElement(VALUE, value);
+        } catch(Exception e) {
+            getLogger().log(Level.SEVERE, e.getMessage());
         }
-        if (value < getMin()) {
-            GWT.log("Value must not be less than the minimum range value.", new RuntimeException());
-            return;
-        }
-        if (value > getMax()) {
-            GWT.log("Value must not be greater than the maximum range value", new RuntimeException());
-            return;
-        }
-        setIntToRangeElement(VALUE, value);
 
         super.setValue(value, fireEvents);
+    }
+
+    protected void checkRangeValue(Integer value) throws Exception {
+        if (value == null) {
+            throw new Exception("Value must be null");
+        }
+        if (value < getMin()) {
+            throw new Exception("Value must not be less than the minimum range value.");
+        }
+        if (value > getMax()) {
+            throw new Exception("Value must not be greater than the maximum range value");
+        }
     }
 
     /**
