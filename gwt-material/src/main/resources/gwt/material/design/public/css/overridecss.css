@@ -291,6 +291,12 @@ table .gwt-CheckBox label {
 		overflow: auto !important;
 	}
 }
+
+@media only screen and (min-width : 992px) {
+	.side-nav.fixed, .side-nav.card {
+		left: 0 !important;
+	}
+}
 /**SIDEBAR **/
 .side-nav li > div {
 	width: 100%;
