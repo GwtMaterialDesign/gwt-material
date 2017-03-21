@@ -29,6 +29,8 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.Div;
 
+import java.util.logging.Level;
+
 //@formatter:off
 
 /**
@@ -98,7 +100,7 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
         if (percent <= 100) {
             div.getElement().getStyle().setWidth(percent, Unit.PCT);
         } else {
-            GWT.log("Progress percent must not exceed to 100 percent.", new RuntimeException());
+            getLogger().log(Level.SEVERE, "Progress percent must not exceed to 100 percent.");
         }
     }
 

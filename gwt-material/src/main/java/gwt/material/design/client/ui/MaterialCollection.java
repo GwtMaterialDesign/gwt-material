@@ -33,6 +33,8 @@ import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.ui.html.Heading;
 import gwt.material.design.client.ui.html.ListItem;
 
+import java.util.logging.Level;
+
 //@formatter:off
 
 /**
@@ -135,7 +137,7 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
                         ((MaterialCollectionItem) activeWidget).setActive(value);
                     }
                 } else {
-                    GWT.log("The active index must be a one-base index to mark as active.", new RuntimeException());
+                    getLogger().log(Level.SEVERE, "The active index must be a one-base index to mark as active.");
                 }
             }
         }
