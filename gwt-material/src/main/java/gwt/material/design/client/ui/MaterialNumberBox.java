@@ -73,7 +73,10 @@ public abstract class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
     @Override
     public T getValue() {
-        return (T) getValueAsNumber();
+        if (getValueAsNumber() != null) {
+            return parseNumber(getValueAsNumber());
+        }
+        return null;
     }
 
     protected abstract T parseNumber(double number);
