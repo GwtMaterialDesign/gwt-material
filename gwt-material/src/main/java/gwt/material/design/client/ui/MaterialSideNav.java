@@ -48,6 +48,8 @@ import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.jquery.client.api.JQuery;
 
+import java.util.logging.Level;
+
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
@@ -376,18 +378,16 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void initialize(boolean strict) {
-        if (activator == null) {
+        try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
-            if (activator != null) {
-                if (alwaysShowActivator || !isFixed()) {
-                    String style = activator.getAttribute("style");
-                    activator.setAttribute("style", style + "; display: block !important");
-                    activator.removeClassName(CssName.NAVMENU_PERMANENT);
-                }
-            } else if (strict) {
-                throw new RuntimeException("Cannot find an activator for the MaterialSideNav, " +
-                        "please ensure you have a MaterialNavBar with an activator setup to match " +
-                        "this widgets id.");
+            if (alwaysShowActivator || !isFixed()) {
+                String style = activator.getAttribute("style");
+                activator.setAttribute("style", style + "; display: block !important");
+                activator.removeClassName(CssName.NAVMENU_PERMANENT);
+            }
+        } catch (Exception ex) {
+            if (strict) {
+                getLogger().log(Level.SEVERE,"Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.", ex);
             }
         }
 

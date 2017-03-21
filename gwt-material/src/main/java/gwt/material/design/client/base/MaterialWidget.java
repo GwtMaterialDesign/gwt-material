@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -54,6 +55,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
+    private final Logger logger = Logger.getLogger(MaterialWidget.class.getName());
 
     public static JQueryElement window() {
         if (window == null) {
@@ -1171,5 +1173,9 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         } else {
             return false;
         }
+    }
+
+    public Logger getLogger() {
+        return logger;
     }
 }
