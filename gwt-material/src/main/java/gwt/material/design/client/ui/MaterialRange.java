@@ -33,8 +33,6 @@ import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
 
-import java.util.logging.Level;
-
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
@@ -153,26 +151,18 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
     @Override
     public void setValue(Integer value, boolean fireEvents) {
-        try {
-            checkRangeValue(value);
-            setIntToRangeElement(VALUE, value);
-        } catch(Exception e) {
-            getLogger().log(Level.SEVERE, e.getMessage());
-        }
-
-        super.setValue(value, fireEvents);
-    }
-
-    protected void checkRangeValue(Integer value) throws Exception {
         if (value == null) {
-            throw new Exception("Value must not be null");
+            throw new IllegalArgumentException("Value must not be null");
         }
         if (value < getMin()) {
-            throw new Exception("Value must not be less than the minimum range value.");
+            throw new IllegalArgumentException("Value must not be less than the minimum range value.");
         }
         if (value > getMax()) {
-            throw new Exception("Value must not be greater than the maximum range value");
+            throw new IllegalArgumentException("Value must not be greater than the maximum range value");
         }
+        setIntToRangeElement(VALUE, value);
+
+        super.setValue(value, fireEvents);
     }
 
     /**

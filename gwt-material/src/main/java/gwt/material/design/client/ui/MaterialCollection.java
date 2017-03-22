@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,8 +31,6 @@ import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.ui.html.Heading;
 import gwt.material.design.client.ui.html.ListItem;
-
-import java.util.logging.Level;
 
 //@formatter:off
 
@@ -137,7 +134,7 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
                         ((MaterialCollectionItem) activeWidget).setActive(value);
                     }
                 } else {
-                    getLogger().log(Level.SEVERE, "The active index must be a one-base index to mark as active.");
+                    throw new IllegalArgumentException("The active index must be a one-base index to mark as active.");
                 }
             }
         }

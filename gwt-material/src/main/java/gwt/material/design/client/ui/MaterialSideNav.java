@@ -387,7 +387,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             }
         } catch (Exception ex) {
             if (strict) {
-                getLogger().log(Level.SEVERE,"Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.", ex);
+                throw new IllegalArgumentException("Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.");
             }
         }
 
