@@ -165,7 +165,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
     protected void checkRangeValue(Integer value) throws Exception {
         if (value == null) {
-            throw new Exception("Value must be null");
+            throw new Exception("Value must not be null");
         }
         if (value < getMin()) {
             throw new Exception("Value must not be less than the minimum range value.");
