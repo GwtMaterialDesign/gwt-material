@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.ScriptInjector;
@@ -339,9 +340,13 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      * Set the pickers date.
      */
     public void setPickerDate(JsDate date, Element picker) {
-        $(picker).pickadate("picker").set("select", date, () -> {
-            DOM.createFieldSet().setPropertyObject("muted", true);
-        });
+        try {
+            $(picker).pickadate("picker").set("select", date, () -> {
+                DOM.createFieldSet().setPropertyObject("muted", true);
+            });
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -502,6 +507,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public void setValue(Date value, boolean fireEvents) {
         if (value == null) {
+            clearValues();
             return;
         }
         this.date = value;
@@ -510,6 +516,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             label.addStyleName(CssName.ACTIVE);
         }
         super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public void setValue(Date value) {
+        setValue(value, false);
     }
 
     @Override
