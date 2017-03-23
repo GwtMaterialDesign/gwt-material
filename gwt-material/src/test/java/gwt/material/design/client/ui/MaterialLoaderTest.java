@@ -109,6 +109,7 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
         assertTrue(loaderWrapper.getWidget(0) instanceof MaterialProgress);
         MaterialProgress progress = (MaterialProgress) loaderWrapper.getWidget(0);
         checkProgress(progress);
+        checkProgressValue(progress);
 
         MaterialLoader.showLoading(false);
         assertEquals(panel.getWidgetCount(), 0);
@@ -128,8 +129,21 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
         assertNotNull(progress.getWidget(0));
         assertTrue(progress.getWidget(0) instanceof MaterialWidget);
         MaterialWidget progressDiv = (MaterialWidget) progress.getWidget(0);
-        assertEquals(progressDiv.getElement().getStyle().getWidth(), "90.0%");
+        assertEquals(progressDiv.getElement().getStyle().getWidth(), "90%");
         // Check color
         checkColor(progress);
+    }
+
+    protected void checkProgressValue(MaterialProgress progress) {
+        progress.setPercent(50);
+        assertEquals(progress.getPercent(), (double) 50);
+
+        // Check if progress value is less than 0
+        progress.setPercent(-10);
+        assertEquals(progress.getPercent(), (double) 0);
+
+        // Check if progress value is greater than 100
+        progress.setPercent(100);
+        assertEquals(progress.getPercent(), (double) 100);
     }
 }
