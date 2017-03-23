@@ -91,6 +91,8 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     /**
      * Set progress width as percent unit.
+     * If percent is greater than 100 then reset the progress in the maximum value (100%)
+     * If percent is less than 0 then reset the progress in the minimum value (0%)
      */
     public void setPercent(double percent) {
 
