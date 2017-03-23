@@ -48,8 +48,6 @@ import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.jquery.client.api.JQuery;
 
-import java.util.logging.Level;
-
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
@@ -77,7 +75,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private int width = 240;
     private Edge edge = Edge.LEFT;
     private boolean closeOnClick = false;
-    private boolean alwaysShowActivator = false;
+    private boolean alwaysShowActivator = true;
     private boolean allowBodyScroll = false;
     private boolean open;
     private Boolean showOnAttach;
@@ -122,7 +120,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         // Initialize the side nav
         initialize();
 
-        if(showOnAttach != null) {
+        if (showOnAttach != null) {
             // Ensure the side nav starts closed
             $(activator).trigger("menu-in", null);
 
@@ -135,7 +133,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 });
             }
         } else {
-            if(!getType().equals(SideNavType.CARD)) {
+            if (!getType().equals(SideNavType.CARD)) {
                 setLeft(0);
             }
             $(activator).trigger("menu-out", null);
@@ -380,9 +378,13 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void initialize(boolean strict) {
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
-            if (alwaysShowActivator || !isFixed()) {
+            if (!isFixed()) {
                 String style = activator.getAttribute("style");
-                activator.setAttribute("style", style + "; display: block !important");
+                if (alwaysShowActivator) {
+                    activator.setAttribute("style", style + "; display: block !important");
+                } else {
+                    activator.setAttribute("style", style + "; display: none !important");
+                }
                 activator.removeClassName(CssName.NAVMENU_PERMANENT);
             }
         } catch (Exception ex) {
