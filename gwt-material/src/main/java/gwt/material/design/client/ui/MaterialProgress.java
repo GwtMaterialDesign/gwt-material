@@ -93,12 +93,17 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
      * Set progress width as percent unit.
      */
     public void setPercent(double percent) {
-        this.percent = percent;
-        if (percent <= 100) {
-            div.getElement().getStyle().setWidth(percent, Unit.PCT);
-        } else {
-            throw new IllegalArgumentException("Progress percent must not exceed to 100 percent.");
+
+        if (percent > 100) {
+            percent = 100;
         }
+
+        if (percent < 0) {
+            percent = 0;
+        }
+
+        this.percent = percent;
+        div.getElement().getStyle().setWidth(percent, Unit.PCT);
     }
 
     /**
