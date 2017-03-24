@@ -296,6 +296,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         if (activator != null && type != null) {
             addStyleName(type.getCssName());
             switch (type) {
+                case FIXED:
+                    applyFixedType();
+                    break;
                 case MINI:
                     setWidth(64);
                     break;
@@ -318,6 +321,17 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     protected boolean isSmall() {
         return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
+    }
+
+    protected void applyFixedType() {
+        $(JQuery.window()).off("resize").resize((e, param1) -> {
+            if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
+                addStyleName(CssName.OPEN);
+            } else {
+                removeStyleName(CssName.OPEN);
+            }
+            return true;
+        });
     }
 
     /**

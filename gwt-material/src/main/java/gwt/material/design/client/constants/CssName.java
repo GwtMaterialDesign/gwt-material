@@ -87,6 +87,7 @@ public interface CssName {
     String TABLE_OF_CONTENTS = "table-of-contents";
     String SEARCH_RESULT = "search-result";
     String SIDE_NAV = "side-nav";
+    String OPEN = "open";
     String SIDE_PROFILE = "side-profile";
     String NAVMENU_PERMANENT = "navmenu-permanent";
     String CAPTION = "caption";
