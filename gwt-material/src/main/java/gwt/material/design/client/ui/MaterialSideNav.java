@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -324,15 +323,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
     }
 
-    //TODO APPLY FIXED TYPE
     protected void applyFixedType() {
         $(JQuery.window()).off("resize").resize((e, param1) -> {
-            if (!alwaysShowActivator) {
-                if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
-                    addStyleName(CssName.OPEN);
-                } else {
-                    removeStyleName(CssName.OPEN);
-                }
+            if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
+                addStyleName(CssName.OPEN);
+            } else {
+                removeStyleName(CssName.OPEN);
             }
             return true;
         });
@@ -393,7 +389,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         initialize(true);
     }
 
-    //TODO INITIALIZE
     protected void initialize(boolean strict) {
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
