@@ -35,9 +35,7 @@ import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.Edge;
-import gwt.material.design.client.constants.SideNavType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler;
 import gwt.material.design.client.events.SideNavClosingEvent.SideNavClosingHandler;
@@ -339,6 +337,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     protected void applyPushType(int width) {
         $(JQuery.window()).off("resize").resize((e, param1) -> {
+            if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
+                show();
+            }
             pushElements(open, width);
             return true;
         });
@@ -392,12 +393,13 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void initialize(boolean strict) {
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
+            MaterialWidget navMenu = new MaterialWidget(activator);
             if (!isFixed()) {
-                String style = activator.getAttribute("style");
+                navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
                 if (alwaysShowActivator) {
-                    activator.setAttribute("style", style + "; display: block !important");
+                    navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
                 } else {
-                    activator.setAttribute("style", style + "; display: none !important");
+                    navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
                 }
                 activator.removeClassName(CssName.NAVMENU_PERMANENT);
             }
