@@ -22,7 +22,6 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.pwa.PwaManager;
-import gwt.material.design.client.pwa.serviceworker.Navigator;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;

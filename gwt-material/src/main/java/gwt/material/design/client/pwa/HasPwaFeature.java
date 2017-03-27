@@ -20,7 +20,7 @@
 package gwt.material.design.client.pwa;
 
 import gwt.material.design.client.pwa.manifest.HasManifest;
-import gwt.material.design.client.pwa.serviceworker.HasServiceWorker;
+import gwt.material.design.jscore.client.api.serviceworker.HasServiceWorker;
 
 public interface HasPwaFeature extends HasServiceWorker, HasManifest {
 
