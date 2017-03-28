@@ -394,8 +394,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             MaterialWidget navMenu = new MaterialWidget(activator);
+            navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
             if (!isFixed()) {
-                navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
                 if (alwaysShowActivator) {
                     navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
                 } else {
