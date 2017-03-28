@@ -81,9 +81,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private Element activator;
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
-    private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, CssName.FIXED);
-
-    private HandlerRegistration fixedResizeHandler;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -266,18 +263,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         this.edge = edge;
     }
 
-    public boolean isFixed() {
-        return fixedMixin.isOn();
-    }
-
-    /**
-     * Fixed determines its display state on loading
-     * (fixed being visible on load).
-     */
-    public void setFixed(boolean fixed) {
-        fixedMixin.setOn(fixed);
-    }
-
     /**
      * Define the menu's type specification.
      */
@@ -395,7 +380,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             MaterialWidget navMenu = new MaterialWidget(activator);
             navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (!isFixed()) {
+            if (typeMixin.getType() != SideNavType.FIXED) {
                 if (alwaysShowActivator) {
                     navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
                 } else {
