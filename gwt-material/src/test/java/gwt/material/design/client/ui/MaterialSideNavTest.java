@@ -20,11 +20,16 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.HideOn;
+import gwt.material.design.client.constants.ShowOn;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * Test case for Sidenav
@@ -50,8 +55,43 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         checkTypes(sideNav);
         checkBoolean(sideNav, navBar);
         checkSideNavItems(sideNav);
+        checkActivator();
     }
 
+    public void checkActivator() {
+        final String ACTIVATES = "sideNav";
+        MaterialNavBar navBar = new MaterialNavBar();
+        navBar.setActivates(ACTIVATES);
+
+        MaterialSideNav sideNav = new MaterialSideNav();
+        sideNav.setType(SideNavType.PUSH);
+        assertEquals(sideNav.getType(), SideNavType.PUSH);
+        sideNav.setId(ACTIVATES);
+        assertEquals(sideNav.getId(), ACTIVATES);
+
+        // Attach the navbar and sidenav
+        RootPanel.get().add(navBar);
+        assertTrue(navBar.isAttached());
+        RootPanel.get().add(sideNav);
+        assertTrue(sideNav.isAttached());
+
+        // Check Nav Menu
+        assertNotNull(navBar.getNavMenu());
+        final Element navMenuElement = navBar.getNavMenu().getElement();
+
+        // isAlwaysShowActivator() must be true by default
+        assertTrue(sideNav.isAlwaysShowActivator());
+
+        // If PUSH and Activator:true (expected has classname : show_on_large)
+        sideNav.setAlwaysShowActivator(true);
+        assertTrue(navMenuElement.hasClassName(ShowOn.SHOW_ON_LARGE.getCssName()));
+
+        // If PUSH and Activator:false (expected has classname : hide_on_large)
+        sideNav.setAlwaysShowActivator(false);
+        sideNav.reinitialize();
+        assertTrue(navMenuElement.hasClassName(HideOn.HIDE_ON_LARGE.getCssName()));
+
+    }
     public <T extends MaterialSideNav, H extends MaterialNavBar> void checkTypes(T sideNav) {
         final Element element = sideNav.getElement();
         // Fixed type
