@@ -334,7 +334,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     protected void applyOverlayType() {
         setShowOnAttach(false);
-        getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
         if (overlayOpeningHandler == null) {
             overlayOpeningHandler = addOpeningHandler(event -> {
                 Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
