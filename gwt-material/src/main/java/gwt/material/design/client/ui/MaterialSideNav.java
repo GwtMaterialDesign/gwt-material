@@ -34,7 +34,6 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler;
@@ -309,9 +308,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void applyFixedType() {
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
-                addStyleName(CssName.OPEN);
-            } else {
-                removeStyleName(CssName.OPEN);
+                Scheduler.get().scheduleDeferred(() -> show());
             }
             return true;
         });
@@ -380,14 +377,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             MaterialWidget navMenu = new MaterialWidget(activator);
             navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (typeMixin.getType() != SideNavType.FIXED) {
-                if (alwaysShowActivator) {
-                    navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
-                } else {
-                    navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
-                }
-                activator.removeClassName(CssName.NAVMENU_PERMANENT);
+            if (alwaysShowActivator) {
+                navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
+            } else {
+                navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
             }
+            activator.removeClassName(CssName.NAVMENU_PERMANENT);
         } catch (Exception ex) {
             if (strict) {
                 throw new IllegalArgumentException("Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.");
