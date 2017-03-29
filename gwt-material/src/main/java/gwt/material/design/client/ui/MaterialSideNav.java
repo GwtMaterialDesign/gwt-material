@@ -81,6 +81,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
     private HandlerRegistration overlayOpeningHandler;
+    private HandlerRegistration floatOpeningHandler;
+    private HandlerRegistration floatClosingHandler;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -327,6 +329,19 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void applyFloatType() {
         $("header").css("paddingLeft", "0px");
         $("main").css("paddingLeft", width + "px");
+        $("main").css("transition", "0.2s all");
+
+        if (floatOpeningHandler == null) {
+            floatOpeningHandler = addOpeningHandler(event -> {
+                $("main").css("paddingLeft", width + "px");
+            });
+        }
+
+        if (floatClosingHandler == null) {
+            floatClosingHandler = addClosingHandler(event -> {
+                $("main").css("paddingLeft", "0px");
+            });
+        }
     }
 
     /**
