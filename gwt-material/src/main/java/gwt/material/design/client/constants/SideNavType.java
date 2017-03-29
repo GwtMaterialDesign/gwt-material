@@ -29,6 +29,8 @@ public enum SideNavType implements CssType {
     FIXED("fixed"),
     PUSH("push"),
     MINI("mini"),
+    OVERLAY("overlay"),
+    FLOAT("float"),
     CARD("card");
 
     private final String cssClass;

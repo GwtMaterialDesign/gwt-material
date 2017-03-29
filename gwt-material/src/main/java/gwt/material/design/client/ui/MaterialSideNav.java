@@ -80,6 +80,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private Element activator;
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
+    private HandlerRegistration overlayOpeningHandler;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -284,6 +285,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 case MINI:
                     setWidth(64);
                     break;
+                case OVERLAY:
+                    applyOverlayType();
+                    break;
+                case FLOAT:
+                    applyFloatType();
+                    break;
                 case CARD:
                     new Timer() {
                         @Override
@@ -305,6 +312,42 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
     }
 
+    protected MaterialWidget getNavMenu() {
+        Element navMenuElement = DOMHelper.getElementByAttribute("data-activates", getId());
+        if (navMenuElement != null) {
+            return new MaterialWidget(navMenuElement);
+        }
+        return null;
+    }
+
+    /**
+     * Provides a float sidenav that will overlay on top of the content not the navbar without
+     * any grey overlay behind it.
+     */
+    protected void applyFloatType() {
+        $("header").css("paddingLeft", "0px");
+        $("main").css("paddingLeft", width + "px");
+    }
+
+    /**
+     * Provides an overlay sidenav just like when opening sidenav on mobile / tablet
+     */
+    protected void applyOverlayType() {
+        setShowOnAttach(false);
+        getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
+        if (overlayOpeningHandler == null) {
+            overlayOpeningHandler = addOpeningHandler(event -> {
+                Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
+            });
+        }
+        $("header").css("paddingLeft", "0px");
+        $("main").css("paddingLeft", "0px");
+    }
+
+    /**
+     * Provides a Fixed type sidenav which by default on desktop - activator will notbe visible
+     * but you can configure it by setting the property setAlwaysShowActivator() to true
+     */
     protected void applyFixedType() {
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
@@ -312,6 +355,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             }
             return true;
         });
+
+
+        $("header").css("paddingLeft", width + "px");
+        $("main").css("paddingLeft", width + "px");
+        $("footer").css("paddingLeft", width + "px");
     }
 
     /**
@@ -375,14 +423,13 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void initialize(boolean strict) {
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
-            MaterialWidget navMenu = new MaterialWidget(activator);
-            navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (alwaysShowActivator) {
-                navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
+            getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
+            if (alwaysShowActivator && getType() != SideNavType.FIXED) {
+                getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
             } else {
-                navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
+                getNavMenu().setHideOn(HideOn.HIDE_ON_LARGE);
             }
-            activator.removeClassName(CssName.NAVMENU_PERMANENT);
+            getNavMenu().removeStyleName(CssName.NAVMENU_PERMANENT);
         } catch (Exception ex) {
             if (strict) {
                 throw new IllegalArgumentException("Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.");
