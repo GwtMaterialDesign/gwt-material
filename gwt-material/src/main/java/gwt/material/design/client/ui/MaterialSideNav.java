@@ -349,7 +349,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         $(elem).css("transition", duration + "ms");
         $(elem).css("-moz-transition", duration + "ms");
         $(elem).css("-webkit-transition", duration + "ms");
-        $(elem).css("margin-left", width + "px");
+        if(getEdge().equals(Edge.LEFT)){
+            $(elem).css("margin-left", width + "px");
+        }else{
+            $(elem).css("margin-right", width + "px");
+        }
     }
 
     protected void onPush(boolean toggle, int width, int duration) {
