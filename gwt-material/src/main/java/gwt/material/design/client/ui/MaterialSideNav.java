@@ -26,7 +26,6 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -83,6 +82,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private HandlerRegistration overlayOpeningHandler;
     private HandlerRegistration floatOpeningHandler;
     private HandlerRegistration floatClosingHandler;
+    private HandlerRegistration cardOpeningHandler;
+    private HandlerRegistration cardClosingHandler;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -290,21 +291,14 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 case OVERLAY:
                     applyOverlayType();
                     break;
+                case CARD:
+                    applyCardType();
+                    break;
                 case FLOAT:
                     applyFloatType();
                     break;
-                case CARD:
-                    new Timer() {
-                        @Override
-                        public void run() {
-                            if (isSmall()) {
-                                show();
-                            }
-                        }
-                    }.schedule(500);
-                    break;
                 case PUSH:
-                    applyPushType(width);
+                    applyPushType(this.width);
                     break;
             }
         }
@@ -323,17 +317,36 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     /**
+     * Applies a card that contains a shadow and this type
+     * is good for few sidenav link items
+     */
+    protected void applyCardType() {
+        if (cardOpeningHandler == null) {
+            cardOpeningHandler = addOpenedHandler(event -> setLeft(0));
+        }
+
+        if (cardClosingHandler == null) {
+            cardClosingHandler = addClosedHandler(event -> {
+                // The additional 20 is the margin of the card sidenav so that
+                // it will be hidden fully.
+                setLeft(-(width + 20));
+            });
+        }
+    }
+
+
+    /**
      * Provides a float sidenav that will overlay on top of the content not the navbar without
      * any grey overlay behind it.
      */
     protected void applyFloatType() {
         $("header").css("paddingLeft", "0px");
-        $("main").css("paddingLeft", width + "px");
+        $("main").css("paddingLeft", this.width + "px");
         $("main").css("transition", "0.2s all");
 
         if (floatOpeningHandler == null) {
             floatOpeningHandler = addOpeningHandler(event -> {
-                $("main").css("paddingLeft", width + "px");
+                $("main").css("paddingLeft", this.width + "px");
             });
         }
 
@@ -371,9 +384,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         });
 
 
-        $("header").css("paddingLeft", width + "px");
-        $("main").css("paddingLeft", width + "px");
-        $("footer").css("paddingLeft", width + "px");
+        $("header").css("paddingLeft", this.width + "px");
+        $("main").css("paddingLeft", this.width + "px");
+        $("footer").css("paddingLeft", this.width + "px");
     }
 
     /**
@@ -384,7 +397,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
                 show();
             }
-            pushElements(open, width);
+            pushElements(open, this.width);
             return true;
         });
     }
@@ -489,7 +502,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void onClosing() {
         open = false;
         if (getType().equals(SideNavType.PUSH)) {
-            pushElements(false, width);
+            pushElements(false, this.width);
         }
 
         SideNavClosingEvent.fire(this);
@@ -502,7 +515,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void onOpening() {
         open = true;
         if (getType().equals(SideNavType.PUSH)) {
-            pushElements(true, width);
+            pushElements(true, this.width);
         }
 
         SideNavOpeningEvent.fire(this);
