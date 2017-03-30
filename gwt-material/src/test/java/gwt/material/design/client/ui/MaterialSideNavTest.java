@@ -107,6 +107,10 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         sideNav.setType(SideNavType.PUSH);
         assertTrue(element.hasClassName(SideNavType.PUSH.getCssName()));
         assertEquals(sideNav.getType(), SideNavType.PUSH);
+        // Push With Header
+        sideNav.setType(SideNavType.PUSH_WITH_HEADER);
+        assertTrue(element.hasClassName(SideNavType.PUSH_WITH_HEADER.getCssName()));
+        assertEquals(sideNav.getType(), SideNavType.PUSH_WITH_HEADER);
         // Mini
         sideNav.setType(SideNavType.MINI);
         assertTrue(element.hasClassName(SideNavType.MINI.getCssName()));
@@ -116,9 +120,9 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         assertTrue(element.hasClassName(SideNavType.OVERLAY.getCssName()));
         assertEquals(sideNav.getType(), SideNavType.OVERLAY);
         // Float
-        sideNav.setType(SideNavType.FLOAT);
-        assertTrue(element.hasClassName(SideNavType.FLOAT.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.FLOAT);
+        sideNav.setType(SideNavType.OVERLAY_WITH_HEADER);
+        assertTrue(element.hasClassName(SideNavType.OVERLAY_WITH_HEADER.getCssName()));
+        assertEquals(sideNav.getType(), SideNavType.OVERLAY_WITH_HEADER);
     }
 
     public <T extends MaterialSideNav, H extends MaterialNavBar> void checkBoolean(T sideNav, H navBar) {
