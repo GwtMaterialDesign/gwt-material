@@ -340,9 +340,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * any grey overlay behind it.
      */
     protected void applyFloatType() {
-        $("header").css("paddingLeft", "0px");
-        $("main").css("paddingLeft", this.width + "px");
-        $("main").css("transition", "0.2s all");
+        Scheduler.get().scheduleDeferred(() -> {
+            $("header").css("paddingLeft", "0px");
+            $("main").css("paddingLeft", this.width + "px");
+            $("main").css("transition", "0.2s all");
+        });
 
         if (floatOpeningHandler == null) {
             floatOpeningHandler = addOpeningHandler(event -> {
@@ -367,8 +369,10 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
             });
         }
-        $("header").css("paddingLeft", "0px");
-        $("main").css("paddingLeft", "0px");
+        Scheduler.get().scheduleDeferred(() -> {
+            $("header").css("paddingLeft", "0px");
+            $("main").css("paddingLeft", "0px");
+        });
     }
 
     /**
@@ -384,9 +388,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         });
 
 
-        $("header").css("paddingLeft", this.width + "px");
-        $("main").css("paddingLeft", this.width + "px");
-        $("footer").css("paddingLeft", this.width + "px");
+        Scheduler.get().scheduleDeferred(() -> {
+            $("header").css("paddingLeft", this.width + "px");
+            $("main").css("paddingLeft", this.width + "px");
+            $("footer").css("paddingLeft", this.width + "px");
+        });
     }
 
     /**
