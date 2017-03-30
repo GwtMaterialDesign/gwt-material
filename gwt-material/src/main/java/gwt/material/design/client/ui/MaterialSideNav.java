@@ -340,11 +340,13 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * any grey overlay behind it.
      */
     protected void applyFloatType() {
-        Scheduler.get().scheduleDeferred(() -> {
-            $("header").css("paddingLeft", "0px");
-            $("main").css("paddingLeft", this.width + "px");
-            $("main").css("transition", "0.2s all");
-        });
+        $("main").css("transition", "0.2s all");
+        if (showOnAttach != null && showOnAttach) {
+            Scheduler.get().scheduleDeferred(() -> {
+                $("header").css("paddingLeft", "0px");
+                $("main").css("paddingLeft", this.width + "px");
+            });
+        }
 
         if (floatOpeningHandler == null) {
             floatOpeningHandler = addOpeningHandler(event -> {
