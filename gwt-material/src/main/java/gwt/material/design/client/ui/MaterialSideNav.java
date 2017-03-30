@@ -80,8 +80,10 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
     private HandlerRegistration overlayOpeningHandler;
-    private HandlerRegistration floatOpeningHandler;
-    private HandlerRegistration floatClosingHandler;
+    private HandlerRegistration pushWithHeaderOpeningHandler;
+    private HandlerRegistration pushWithHeaderClosingHandler;
+    private HandlerRegistration cardOpenedHandler;
+    private HandlerRegistration cardClosedHandler;
     private HandlerRegistration cardOpeningHandler;
     private HandlerRegistration cardClosingHandler;
 
@@ -285,20 +287,23 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 case FIXED:
                     applyFixedType();
                     break;
-                case MINI:
-                    setWidth(64);
-                    break;
                 case OVERLAY:
                     applyOverlayType();
+                    break;
+                case OVERLAY_WITH_HEADER:
+                    applyOverlayWithHeaderType();
+                    break;
+                case PUSH:
+                    applyPushType();
+                    break;
+                case PUSH_WITH_HEADER:
+                    applyPushWithHeaderType();
                     break;
                 case CARD:
                     applyCardType();
                     break;
-                case FLOAT:
-                    applyFloatType();
-                    break;
-                case PUSH:
-                    applyPushType(this.width);
+                case MINI:
+                    setWidth(64);
                     break;
             }
         }
@@ -317,67 +322,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     /**
-     * Applies a card that contains a shadow and this type
-     * is good for few sidenav link items
-     */
-    protected void applyCardType() {
-        if (cardOpeningHandler == null) {
-            cardOpeningHandler = addOpenedHandler(event -> setLeft(0));
-        }
-
-        if (cardClosingHandler == null) {
-            cardClosingHandler = addClosedHandler(event -> {
-                // The additional 20 is the margin of the card sidenav so that
-                // it will be hidden fully.
-                setLeft(-(width + 20));
-            });
-        }
-    }
-
-
-    /**
-     * Provides a float sidenav that will overlay on top of the content not the navbar without
-     * any grey overlay behind it.
-     */
-    protected void applyFloatType() {
-        $("main").css("transition", "0.2s all");
-        if (showOnAttach != null && showOnAttach) {
-            Scheduler.get().scheduleDeferred(() -> {
-                $("header").css("paddingLeft", "0px");
-                $("main").css("paddingLeft", this.width + "px");
-            });
-        }
-
-        if (floatOpeningHandler == null) {
-            floatOpeningHandler = addOpeningHandler(event -> {
-                $("main").css("paddingLeft", this.width + "px");
-            });
-        }
-
-        if (floatClosingHandler == null) {
-            floatClosingHandler = addClosingHandler(event -> {
-                $("main").css("paddingLeft", "0px");
-            });
-        }
-    }
-
-    /**
-     * Provides an overlay sidenav just like when opening sidenav on mobile / tablet
-     */
-    protected void applyOverlayType() {
-        setShowOnAttach(false);
-        if (overlayOpeningHandler == null) {
-            overlayOpeningHandler = addOpeningHandler(event -> {
-                Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
-            });
-        }
-        Scheduler.get().scheduleDeferred(() -> {
-            $("header").css("paddingLeft", "0px");
-            $("main").css("paddingLeft", "0px");
-        });
-    }
-
-    /**
      * Provides a Fixed type sidenav which by default on desktop - activator will notbe visible
      * but you can configure it by setting the property setAlwaysShowActivator() to true
      */
@@ -391,16 +335,67 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
 
         Scheduler.get().scheduleDeferred(() -> {
-            $("header").css("paddingLeft", this.width + "px");
-            $("main").css("paddingLeft", this.width + "px");
-            $("footer").css("paddingLeft", this.width + "px");
+            pushElement(getHeader(), this.width);
+            pushElement(getMain(), this.width);
+            pushElement(getFooter(), this.width);
         });
+    }
+
+    /**
+     * Provides an overlay sidenav just like when opening sidenav on mobile / tablet
+     */
+    protected void applyOverlayType() {
+        setShowOnAttach(false);
+        if (overlayOpeningHandler == null) {
+            overlayOpeningHandler = addOpeningHandler(event -> {
+                Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
+            });
+        }
+        Scheduler.get().scheduleDeferred(() -> {
+            pushElement(getHeader(), 0);
+            pushElement(getMain(), 0);
+        });
+    }
+
+    /**
+     * Provides an overlay sidenav that will float on top of the content not the navbar without
+     * any grey overlay behind it.
+     */
+    protected void applyOverlayWithHeaderType() {
+        setShowOnAttach(false);
+        $("main").css("transition", "0.2s all");
+        if (showOnAttach != null && showOnAttach) {
+            Scheduler.get().scheduleDeferred(() -> {
+                pushElement(getHeader(), 0);
+                pushElement(getMain(), 0);
+            });
+        }
+    }
+
+    /**
+     * Applies a card that contains a shadow and this type
+     * is good for few sidenav link items
+     */
+    protected void applyCardType() {
+        $("main").css("transition", "0.2s all");
+        if (cardOpeningHandler == null) {
+            cardOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), width + 20 ));
+        }
+        if (cardOpenedHandler == null) {
+            cardOpenedHandler = addOpenedHandler(event -> setLeft(0));
+        }
+        if (cardClosingHandler == null) {
+            cardClosingHandler = addClosingHandler(event -> pushElement(getMain(), 0));
+        }
+        if (cardClosedHandler == null) {
+            cardClosedHandler = addClosedHandler(event -> setLeft(-(width + 20)));
+        }
     }
 
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */
-    protected void applyPushType(int width) {
+    protected void applyPushType() {
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
                 show();
@@ -408,6 +403,40 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             pushElements(open, this.width);
             return true;
         });
+    }
+
+    protected void applyPushWithHeaderType() {
+        $("main").css("transition", "0.2s all");
+        if (showOnAttach != null && showOnAttach) {
+            Scheduler.get().scheduleDeferred(() -> {
+                pushElement(getHeader(), 0);
+                pushElement(getMain(), this.width);
+            });
+        }
+
+        if (pushWithHeaderOpeningHandler == null) {
+            pushWithHeaderOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), this.width));
+        }
+
+        if (pushWithHeaderClosingHandler == null) {
+            pushWithHeaderClosingHandler = addClosingHandler(event -> pushElement(getMain(), 0));
+        }
+    }
+
+    protected void pushElement(Element element, int paddingLeft) {
+        $(element).css("paddingLeft", paddingLeft + "px");
+    }
+
+    protected Element getMain() {
+        return $("main").asElement();
+    }
+
+    protected Element getHeader() {
+        return $("header").asElement();
+    }
+
+    protected Element getFooter() {
+        return $("footer").asElement();
     }
 
     protected void pushElements(boolean toggle, int width) {

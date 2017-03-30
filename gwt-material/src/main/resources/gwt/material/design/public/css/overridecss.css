@@ -411,7 +411,7 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 	.side-nav.mini {
 		top: 55px;
 	}
-	ul.side-nav.float {
+	ul.side-nav.overlay-with-header {
 		margin-top: 0px;
 		background: white;
 		-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -770,7 +770,7 @@ footer.fixed{
 
 
 /** SideNav Card **/
-.side-nav.card, .side-nav.float{
+.side-nav.card, .side-nav.overlay-with-header{
 	position: absolute;
 }
 .side-nav.card {
@@ -782,14 +782,18 @@ footer.fixed{
 }
 
 /** SideNav Float **/
-.side-nav.float {
+.side-nav.overlay-with-header {
+	margin-top: 64px;
+	height: calc(100vh - 64px);
+}
+.side-nav.push-with-header {
 	background-color: transparent;
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	margin-top: 64px;
+	height: calc(100vh - 64px);
 }
-
 /** Sidenav Mini **/
 .side-nav.mini {
 	top: 65px;
@@ -812,7 +816,7 @@ footer.fixed{
 	visibility: hidden;
 }
 @media screen and (max-width: 992px) {
-	.side-nav.fixed, .side-nav.card, .side-nav.float {
+	.side-nav.fixed, .side-nav.card, .side-nav.overlay-with-header, .side-nav.push-with-header {
 		margin: 0;
 		top: 0 !important;
 		left: 0;
