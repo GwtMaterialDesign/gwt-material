@@ -26,7 +26,6 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -34,7 +33,6 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler;
@@ -81,9 +79,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private Element activator;
 
     private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
-    private final ToggleStyleMixin<MaterialSideNav> fixedMixin = new ToggleStyleMixin<>(this, CssName.FIXED);
-
-    private HandlerRegistration fixedResizeHandler;
+    private HandlerRegistration overlayOpeningHandler;
+    private HandlerRegistration floatOpeningHandler;
+    private HandlerRegistration floatClosingHandler;
+    private HandlerRegistration cardOpeningHandler;
+    private HandlerRegistration cardClosingHandler;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -266,18 +266,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         this.edge = edge;
     }
 
-    public boolean isFixed() {
-        return fixedMixin.isOn();
-    }
-
-    /**
-     * Fixed determines its display state on loading
-     * (fixed being visible on load).
-     */
-    public void setFixed(boolean fixed) {
-        fixedMixin.setOn(fixed);
-    }
-
     /**
      * Define the menu's type specification.
      */
@@ -300,18 +288,17 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 case MINI:
                     setWidth(64);
                     break;
+                case OVERLAY:
+                    applyOverlayType();
+                    break;
                 case CARD:
-                    new Timer() {
-                        @Override
-                        public void run() {
-                            if (isSmall()) {
-                                show();
-                            }
-                        }
-                    }.schedule(500);
+                    applyCardType();
+                    break;
+                case FLOAT:
+                    applyFloatType();
                     break;
                 case PUSH:
-                    applyPushType(width);
+                    applyPushType(this.width);
                     break;
             }
         }
@@ -321,15 +308,85 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
     }
 
+    protected MaterialWidget getNavMenu() {
+        Element navMenuElement = DOMHelper.getElementByAttribute("data-activates", getId());
+        if (navMenuElement != null) {
+            return new MaterialWidget(navMenuElement);
+        }
+        return null;
+    }
+
+    /**
+     * Applies a card that contains a shadow and this type
+     * is good for few sidenav link items
+     */
+    protected void applyCardType() {
+        if (cardOpeningHandler == null) {
+            cardOpeningHandler = addOpenedHandler(event -> setLeft(0));
+        }
+
+        if (cardClosingHandler == null) {
+            cardClosingHandler = addClosedHandler(event -> {
+                // The additional 20 is the margin of the card sidenav so that
+                // it will be hidden fully.
+                setLeft(-(width + 20));
+            });
+        }
+    }
+
+
+    /**
+     * Provides a float sidenav that will overlay on top of the content not the navbar without
+     * any grey overlay behind it.
+     */
+    protected void applyFloatType() {
+        $("header").css("paddingLeft", "0px");
+        $("main").css("paddingLeft", this.width + "px");
+        $("main").css("transition", "0.2s all");
+
+        if (floatOpeningHandler == null) {
+            floatOpeningHandler = addOpeningHandler(event -> {
+                $("main").css("paddingLeft", this.width + "px");
+            });
+        }
+
+        if (floatClosingHandler == null) {
+            floatClosingHandler = addClosingHandler(event -> {
+                $("main").css("paddingLeft", "0px");
+            });
+        }
+    }
+
+    /**
+     * Provides an overlay sidenav just like when opening sidenav on mobile / tablet
+     */
+    protected void applyOverlayType() {
+        setShowOnAttach(false);
+        if (overlayOpeningHandler == null) {
+            overlayOpeningHandler = addOpeningHandler(event -> {
+                Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
+            });
+        }
+        $("header").css("paddingLeft", "0px");
+        $("main").css("paddingLeft", "0px");
+    }
+
+    /**
+     * Provides a Fixed type sidenav which by default on desktop - activator will notbe visible
+     * but you can configure it by setting the property setAlwaysShowActivator() to true
+     */
     protected void applyFixedType() {
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
-                addStyleName(CssName.OPEN);
-            } else {
-                removeStyleName(CssName.OPEN);
+                Scheduler.get().scheduleDeferred(() -> show());
             }
             return true;
         });
+
+
+        $("header").css("paddingLeft", this.width + "px");
+        $("main").css("paddingLeft", this.width + "px");
+        $("footer").css("paddingLeft", this.width + "px");
     }
 
     /**
@@ -340,7 +397,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
                 show();
             }
-            pushElements(open, width);
+            pushElements(open, this.width);
             return true;
         });
     }
@@ -393,16 +450,13 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void initialize(boolean strict) {
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
-            MaterialWidget navMenu = new MaterialWidget(activator);
-            navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (!isFixed()) {
-                if (alwaysShowActivator) {
-                    navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
-                } else {
-                    navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
-                }
-                activator.removeClassName(CssName.NAVMENU_PERMANENT);
+            getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
+            if (alwaysShowActivator && getType() != SideNavType.FIXED) {
+                getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
+            } else {
+                getNavMenu().setHideOn(HideOn.HIDE_ON_LARGE);
             }
+            getNavMenu().removeStyleName(CssName.NAVMENU_PERMANENT);
         } catch (Exception ex) {
             if (strict) {
                 throw new IllegalArgumentException("Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.");
@@ -448,7 +502,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void onClosing() {
         open = false;
         if (getType().equals(SideNavType.PUSH)) {
-            pushElements(false, width);
+            pushElements(false, this.width);
         }
 
         SideNavClosingEvent.fire(this);
@@ -461,7 +515,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void onOpening() {
         open = true;
         if (getType().equals(SideNavType.PUSH)) {
-            pushElements(true, width);
+            pushElements(true, this.width);
         }
 
         SideNavOpeningEvent.fire(this);
