@@ -768,6 +768,9 @@ footer.fixed{
 	padding-top: 0 !important;
 }
 
+ul.side-nav.right-aligned {
+	position: fixed;
+}
 
 /** SideNav Card **/
 .side-nav.card, .side-nav.overlay-with-header{
@@ -831,6 +834,7 @@ footer.fixed{
 	}
 	header, footer, main{
 		margin-left: 0 !important;
+		margin-right: 0 !important;
 	}
 	nav.pinned{
 		width: 100% !important;
