@@ -382,13 +382,25 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             cardOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), width + 20 ));
         }
         if (cardOpenedHandler == null) {
-            cardOpenedHandler = addOpenedHandler(event -> setLeft(0));
+            cardOpenedHandler = addOpenedHandler(event -> {
+                if (getEdge() == Edge.LEFT) {
+                    setLeft(0);
+                } else {
+                    setRight(0);
+                }
+            });
         }
         if (cardClosingHandler == null) {
             cardClosingHandler = addClosingHandler(event -> pushElement(getMain(), 0));
         }
         if (cardClosedHandler == null) {
-            cardClosedHandler = addClosedHandler(event -> setLeft(-(width + 20)));
+            cardClosedHandler = addClosedHandler(event -> {
+                if (getEdge() == Edge.LEFT) {
+                    setLeft(-(width + 20));
+                } else {
+                    setRight(-(width + 20));
+                }
+            });
         }
     }
 
@@ -423,8 +435,13 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         }
     }
 
-    protected void pushElement(Element element, int paddingLeft) {
-        $(element).css("paddingLeft", paddingLeft + "px");
+    protected void pushElement(Element element, int value) {
+        if (getEdge() == Edge.RIGHT) {
+            $(element).css("paddingRight", value + "px");
+        } else {
+            $(element).css("paddingLeft", value + "px");
+        }
+
     }
 
     protected Element getMain() {
@@ -447,6 +464,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 w = width;
                 dur = 300;
             }
+
             applyTransition($("header").asElement(), w, dur);
             applyTransition($("main").asElement(), w, dur);
             applyTransition($("footer").asElement(), w, dur);
@@ -458,7 +476,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         $(elem).css("transition", duration + "ms");
         $(elem).css("-moz-transition", duration + "ms");
         $(elem).css("-webkit-transition", duration + "ms");
-        $(elem).css("margin-left", width + "px");
+        if (getEdge() == Edge.LEFT) {
+            $(elem).css("margin-left", width + "px");
+        } else {
+            $(elem).css("margin-right", width + "px");
+        }
     }
 
     protected void onPush(boolean toggle, int width, int duration) {
