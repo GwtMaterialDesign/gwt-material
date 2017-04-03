@@ -94,8 +94,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
-    private boolean initialized = false;
-    private boolean detectOrientation = false;
+    private boolean initialized;
+    private boolean detectOrientation;
+    private boolean suppressChangeEvent;
+
     protected HandlerRegistration autoCloseHandler;
     protected HandlerRegistration orientationHandler;
     private MaterialIcon icon = new MaterialIcon();
@@ -281,7 +283,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         // Ensure the value change event is
         // triggered on selecting a date if the picker is open
         // to avoid conflicts on setValue(value, fireEvents).
-        if (isOpen()) {
+        if (isOpen() && !suppressChangeEvent) {
             ValueChangeEvent.fire(this, getValue());
         }
     }
@@ -512,7 +514,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         }
         this.date = value;
         if (initialized) {
+            suppressChangeEvent = !fireEvents;
             setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
+            suppressChangeEvent = false;
             label.addStyleName(CssName.ACTIVE);
         }
         super.setValue(value, fireEvents);
