@@ -696,6 +696,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     protected void onDetach() {
         super.onDetach();
         getNavMenu().setVisibility(Style.Visibility.HIDDEN);
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
         pushElement(getHeader(), 0);
         pushElement(getMain(), 0);
         pushElementMargin(getFooter(), 0);
