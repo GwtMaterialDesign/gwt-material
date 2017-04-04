@@ -326,6 +326,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * but you can configure it by setting the property setAlwaysShowActivator() to true
      */
     protected void applyFixedType() {
+        applyBodyScroll();
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
                 Scheduler.get().scheduleDeferred(() -> show());
