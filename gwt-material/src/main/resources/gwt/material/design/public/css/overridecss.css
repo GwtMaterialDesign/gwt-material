@@ -303,7 +303,7 @@ table .gwt-CheckBox label {
 }
 ul.side-nav a {
 	width: 100%;
-	display: flex;
+	display: flex !important;
 	line-height: normal;
 	align-items: center;
 }
@@ -808,6 +808,9 @@ ul.side-nav.right-aligned {
 .side-nav.mini li div {
 	padding-bottom: 10px;
 	padding-top: 10px;
+}
+.side-nav.mini li a span {
+	display: none;
 }
 
 /** Sidenav Close **/
