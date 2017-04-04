@@ -691,4 +691,19 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     public void setEnabled(boolean enabled) {
         getEnabledMixin().setEnabled(this, enabled);
     }
+
+    @Override
+    protected void onDetach() {
+        super.onDetach();
+        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
+        pushElement(getHeader(), 0);
+        pushElement(getMain(), 0);
+        pushElementMargin(getFooter(), 0);
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
+    }
 }

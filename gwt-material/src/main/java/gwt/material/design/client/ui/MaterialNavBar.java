@@ -97,9 +97,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
         Element sideNavElement = $("#" + activatesMixin.getActivates()).asElement();
 
         if (sideNavElement == null) {
-            navMenu.setVisible(false);
+            navMenu.setVisibility(Style.Visibility.HIDDEN);
         } else {
-            navMenu.setVisible(true);
+            navMenu.setVisibility(Style.Visibility.VISIBLE);
         }
     }
 
