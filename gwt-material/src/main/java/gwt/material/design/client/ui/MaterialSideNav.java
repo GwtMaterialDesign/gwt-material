@@ -370,6 +370,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 pushElement(getMain(), 0);
             });
         }
+
+        if (isAllowBodyScroll()) {
+            $("header").css("position", "fixed");
+            $("header").css("zIndex", "999");
+            $(getElement()).css("position", "fixed");
+        }
     }
 
     /**
@@ -423,6 +429,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             Scheduler.get().scheduleDeferred(() -> {
                 pushElement(getHeader(), 0);
                 pushElement(getMain(), this.width);
+                pushElement(getFooter(), this.width);
             });
         }
 
