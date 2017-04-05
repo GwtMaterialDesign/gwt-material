@@ -326,6 +326,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * but you can configure it by setting the property setAlwaysShowActivator() to true
      */
     protected void applyFixedType() {
+        applyBodyScroll();
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
                 Scheduler.get().scheduleDeferred(() -> show());
@@ -363,7 +364,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     protected void applyOverlayWithHeaderType() {
         setShowOnAttach(false);
-        $("main").css("transition", "0.2s all");
+        applyTransition(getMain(), 200);
+        applyBodyScroll();
         if (showOnAttach != null && showOnAttach) {
             Scheduler.get().scheduleDeferred(() -> {
                 pushElement(getHeader(), 0);
@@ -377,7 +379,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * is good for few sidenav link items
      */
     protected void applyCardType() {
-        $("main").css("transition", "0.2s all");
+        applyTransition(getMain(), 200);
         if (cardOpeningHandler == null) {
             cardOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), width + 20 ));
         }
@@ -418,20 +420,29 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     }
 
     protected void applyPushWithHeaderType() {
-        $("main").css("transition", "0.2s all");
+        applyTransition(getMain(), 200);
+        applyTransition(getFooter(), 200);
+        applyBodyScroll();
         if (showOnAttach != null && showOnAttach) {
             Scheduler.get().scheduleDeferred(() -> {
                 pushElement(getHeader(), 0);
                 pushElement(getMain(), this.width);
+                pushElementMargin(getFooter(), this.width);
             });
         }
 
         if (pushWithHeaderOpeningHandler == null) {
-            pushWithHeaderOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), this.width));
+            pushWithHeaderOpeningHandler = addOpeningHandler(event -> {
+                pushElement(getMain(), this.width);
+                pushElementMargin(getFooter(), this.width);
+            });
         }
 
         if (pushWithHeaderClosingHandler == null) {
-            pushWithHeaderClosingHandler = addClosingHandler(event -> pushElement(getMain(), 0));
+            pushWithHeaderClosingHandler = addClosingHandler(event -> {
+                pushElement(getMain(), 0);
+                pushElementMargin(getFooter(), 0);
+            });
         }
     }
 
@@ -442,6 +453,23 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             $(element).css("paddingLeft", value + "px");
         }
 
+    }
+
+    protected void pushElementMargin(Element element, int value) {
+        if (getEdge() == Edge.LEFT) {
+            $(element).css("margin-left", value + "px");
+        } else {
+            $(element).css("margin-right", value + "px");
+        }
+    }
+
+    protected void applyBodyScroll() {
+        if (isAllowBodyScroll()) {
+            $("header").css("width", "100%");
+            $("header").css("position", "fixed");
+            $("header").css("zIndex", "999");
+            $(getElement()).css("position", "fixed");
+        }
     }
 
     protected Element getMain() {
@@ -465,22 +493,23 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 dur = 300;
             }
 
-            applyTransition($("header").asElement(), w, dur);
-            applyTransition($("main").asElement(), w, dur);
-            applyTransition($("footer").asElement(), w, dur);
+            applyTransition(getHeader(), dur);
+            pushElementMargin(getHeader(), w);
+
+            applyTransition(getMain(), dur);
+            pushElementMargin(getMain(), w);
+
+            applyTransition(getFooter(), dur);
+            pushElementMargin(getFooter(), w);
         }
         onPush(toggle, w, dur);
     }
 
-    protected void applyTransition(Element elem, int width, int duration) {
+    protected void applyTransition(Element elem, int duration) {
         $(elem).css("transition", duration + "ms");
-        $(elem).css("-moz-transition", duration + "ms");
-        $(elem).css("-webkit-transition", duration + "ms");
-        if (getEdge() == Edge.LEFT) {
-            $(elem).css("margin-left", width + "px");
-        } else {
-            $(elem).css("margin-right", width + "px");
-        }
+        $(elem).css("WebkitTransition", duration + "ms");
+        $(elem).css("MozTransition", duration + "ms");
+
     }
 
     protected void onPush(boolean toggle, int width, int duration) {
@@ -662,5 +691,22 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     @Override
     public void setEnabled(boolean enabled) {
         getEnabledMixin().setEnabled(this, enabled);
+    }
+
+    @Override
+    protected void onDetach() {
+        super.onDetach();
+        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
+        pushElement(getHeader(), 0);
+        pushElement(getMain(), 0);
+        pushElementMargin(getFooter(), 0);
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
     }
 }
