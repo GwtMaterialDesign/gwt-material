@@ -30,6 +30,7 @@ public enum SideNavType implements CssType {
     PUSH("push"),
     PUSH_WITH_HEADER("push-with-header"),
     MINI("mini"),
+    MINI_WITH_EXPAND("mini-with-expand"),
     OVERLAY("overlay"),
     OVERLAY_WITH_HEADER("overlay-with-header"),
     CARD("card");

@@ -808,7 +808,29 @@ ul.side-nav.right-aligned {
 .side-nav.mini li a span {
 	display: none;
 }
-
+/** Sidenav Mini with Expand **/
+ul.side-nav.mini-with-expand {
+	left: 0px !important;
+	margin-top: 64px !important;
+	transition: 0.4s all;
+	-webkit-transition: 0.4s all;
+	-moz-transition: 0.4s all;
+}
+ul.side-nav.mini-with-expand.right-aligned {
+	right: 0px !important;
+	left: inherit !important;
+}
+ul.side-nav.mini-with-expand.expanded li a span {
+	opacity: 1;
+	visibility: visible;
+}
+ul.side-nav.mini-with-expand li a span {
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
+}
 /** Sidenav Close **/
 .side-nav.close{
 	top: 0 !important;
