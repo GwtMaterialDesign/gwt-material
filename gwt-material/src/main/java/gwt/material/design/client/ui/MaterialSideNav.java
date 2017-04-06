@@ -86,6 +86,8 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private HandlerRegistration cardClosedHandler;
     private HandlerRegistration cardOpeningHandler;
     private HandlerRegistration cardClosingHandler;
+    private HandlerRegistration miniWithOpeningExpandHandler;
+    private HandlerRegistration miniWithClosingExpandHandler;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -305,6 +307,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 case MINI:
                     setWidth(64);
                     break;
+                case MINI_WITH_EXPAND:
+                    applyMiniWithExpand();
+                    break;
             }
         }
     }
@@ -444,6 +449,53 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 pushElementMargin(getFooter(), 0);
             });
         }
+    }
+
+    protected void applyMiniWithExpand() {
+        applyBodyScroll();
+        applyTransition(getMain(), 400);
+        applyTransition(getFooter(), 400);
+
+        int originalWidth = this.width;
+        int miniWidth = 64;
+        pushElement(getMain(), miniWidth);
+        pushElementMargin(getFooter(), miniWidth);
+        setShowOnAttach(false);
+        setWidth(miniWidth);
+
+        if (miniWithOpeningExpandHandler == null) {
+            miniWithOpeningExpandHandler = addOpeningHandler(event -> expand(originalWidth));
+        }
+
+        if (miniWithClosingExpandHandler == null) {
+            miniWithClosingExpandHandler = addClosingHandler(event -> collapse(miniWidth));
+        }
+
+        // Add Opening when sidenav link is clicked by default
+        for (Widget w : getChildren()) {
+            if (w instanceof MaterialWidget) {
+                $(w.getElement()).off("click").on("click", (e, param1) -> {
+                    if (!getElement().hasClassName("expanded")) {
+                        show();
+                    }
+                    return true;
+                });
+            }
+        }
+    }
+
+    protected void expand(int width) {
+        addStyleName("expanded");
+        setWidth(width);
+        pushElement(getMain(), width);
+        pushElementMargin(getFooter(), width);
+    }
+
+    protected void collapse(int width) {
+        removeStyleName("expanded");
+        setWidth(width);
+        pushElement(getMain(), width);
+        pushElementMargin(getFooter(), width);
     }
 
     protected void pushElement(Element element, int value) {
