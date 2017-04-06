@@ -71,7 +71,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private int width = 240;
     private Edge edge = Edge.LEFT;
     private boolean closeOnClick = false;
-    private boolean expandOnClick = false;
     private boolean alwaysShowActivator = true;
     private boolean allowBodyScroll = false;
     private boolean open;
@@ -258,10 +257,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     public void setCloseOnClick(boolean closeOnClick) {
         this.closeOnClick = closeOnClick;
-    }
-
-    public void setExpandOnClick(boolean expandOnClick) {
-        this.expandOnClick = expandOnClick;
     }
 
     public Edge getEdge() {
@@ -478,7 +473,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
         // Add Opening when sidenav link is clicked by default
         for (Widget w : getChildren()) {
-            if (w instanceof MaterialWidget && expandOnClick) {
+            if (w instanceof MaterialWidget) {
                 $(w.getElement()).off("click").on("click", (e, param1) -> {
                     if (!getElement().hasClassName("expanded")) {
                         show();
