@@ -820,6 +820,10 @@ ul.side-nav.mini-with-expand {
 	-webkit-transition: 0.4s all;
 	-moz-transition: 0.4s all;
 }
+ul.side-nav.mini-with-expand.right-aligned {
+	right: 0px !important;
+	left: inherit !important;
+}
 ul.side-nav.mini-with-expand.expanded li a span {
 	opacity: 1;
 	visibility: visible;
