@@ -30,9 +30,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.HasSelectables;
+import gwt.material.design.client.base.HasSideNavHandlers;
+import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.DOMHelper;
-import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.SideNavClosedEvent.SideNavClosedHandler;
@@ -66,7 +69,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  */
 //@formatter:on
-public class MaterialSideNav extends MaterialWidget implements HasType<SideNavType>, HasSelectables, HasSideNavHandlers {
+public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasSideNavHandlers {
 
     private int width = 240;
     private Edge edge = Edge.LEFT;
@@ -75,17 +78,9 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
     private boolean allowBodyScroll = false;
     private boolean open;
     private Boolean showOnAttach;
-
     private Element activator;
 
-    private final CssTypeMixin<SideNavType, MaterialSideNav> typeMixin = new CssTypeMixin<>(this);
-    private HandlerRegistration overlayOpeningHandler;
-    private HandlerRegistration pushWithHeaderOpeningHandler;
-    private HandlerRegistration pushWithHeaderClosingHandler;
-    private HandlerRegistration cardOpenedHandler;
-    private HandlerRegistration cardClosedHandler;
-    private HandlerRegistration cardOpeningHandler;
-    private HandlerRegistration cardClosingHandler;
+    private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -93,8 +88,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      */
     public MaterialSideNav() {
         super(Document.get().createULElement(), CssName.SIDE_NAV);
-
-        typeMixin.setType(SideNavType.FIXED);
+        setType(SideNavType.FIXED);
     }
 
     /**
@@ -107,7 +101,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         }
     }
 
-    @UiConstructor
     public MaterialSideNav(SideNavType type) {
         this();
         setType(type);
@@ -133,9 +126,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
                 });
             }
         } else {
-            if (!getType().equals(SideNavType.CARD)) {
-                setLeft(0);
-            }
             $(activator).trigger("menu-out", null);
         }
     }
@@ -268,45 +258,12 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         this.edge = edge;
     }
 
-    /**
-     * Define the menu's type specification.
-     */
-    public void setType(SideNavType type) {
-        typeMixin.setType(type);
+    protected void build() {
+        applyFixedType();
     }
 
-    @Override
-    public SideNavType getType() {
-        return typeMixin.getType();
-    }
-
-    protected void processType(SideNavType type) {
-        if (activator != null && type != null) {
-            addStyleName(type.getCssName());
-            switch (type) {
-                case FIXED:
-                    applyFixedType();
-                    break;
-                case OVERLAY:
-                    applyOverlayType();
-                    break;
-                case OVERLAY_WITH_HEADER:
-                    applyOverlayWithHeaderType();
-                    break;
-                case PUSH:
-                    applyPushType();
-                    break;
-                case PUSH_WITH_HEADER:
-                    applyPushWithHeaderType();
-                    break;
-                case CARD:
-                    applyCardType();
-                    break;
-                case MINI:
-                    setWidth(64);
-                    break;
-            }
-        }
+    protected void setType(SideNavType type) {
+        typeMixin.setStyle(type.getCssName());
     }
 
     protected boolean isSmall() {
@@ -326,6 +283,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
      * but you can configure it by setting the property setAlwaysShowActivator() to true
      */
     protected void applyFixedType() {
+        setType(SideNavType.FIXED);
         applyBodyScroll();
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
@@ -334,116 +292,11 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             return true;
         });
 
-
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), this.width);
             pushElement(getMain(), this.width);
             pushElement(getFooter(), this.width);
         });
-    }
-
-    /**
-     * Provides an overlay sidenav just like when opening sidenav on mobile / tablet
-     */
-    protected void applyOverlayType() {
-        setShowOnAttach(false);
-        if (overlayOpeningHandler == null) {
-            overlayOpeningHandler = addOpeningHandler(event -> {
-                Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
-            });
-        }
-        Scheduler.get().scheduleDeferred(() -> {
-            pushElement(getHeader(), 0);
-            pushElement(getMain(), 0);
-        });
-    }
-
-    /**
-     * Provides an overlay sidenav that will float on top of the content not the navbar without
-     * any grey overlay behind it.
-     */
-    protected void applyOverlayWithHeaderType() {
-        setShowOnAttach(false);
-        applyTransition(getMain(), 200);
-        applyBodyScroll();
-        if (showOnAttach != null && showOnAttach) {
-            Scheduler.get().scheduleDeferred(() -> {
-                pushElement(getHeader(), 0);
-                pushElement(getMain(), 0);
-            });
-        }
-    }
-
-    /**
-     * Applies a card that contains a shadow and this type
-     * is good for few sidenav link items
-     */
-    protected void applyCardType() {
-        applyTransition(getMain(), 200);
-        if (cardOpeningHandler == null) {
-            cardOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), width + 20 ));
-        }
-        if (cardOpenedHandler == null) {
-            cardOpenedHandler = addOpenedHandler(event -> {
-                if (getEdge() == Edge.LEFT) {
-                    setLeft(0);
-                } else {
-                    setRight(0);
-                }
-            });
-        }
-        if (cardClosingHandler == null) {
-            cardClosingHandler = addClosingHandler(event -> pushElement(getMain(), 0));
-        }
-        if (cardClosedHandler == null) {
-            cardClosedHandler = addClosedHandler(event -> {
-                if (getEdge() == Edge.LEFT) {
-                    setLeft(-(width + 20));
-                } else {
-                    setRight(-(width + 20));
-                }
-            });
-        }
-    }
-
-    /**
-     * Push the header, footer, and main to the right part when Close type is applied.
-     */
-    protected void applyPushType() {
-        $(JQuery.window()).off("resize").resize((e, param1) -> {
-            if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
-                show();
-            }
-            pushElements(open, this.width);
-            return true;
-        });
-    }
-
-    protected void applyPushWithHeaderType() {
-        applyTransition(getMain(), 200);
-        applyTransition(getFooter(), 200);
-        applyBodyScroll();
-        if (showOnAttach != null && showOnAttach) {
-            Scheduler.get().scheduleDeferred(() -> {
-                pushElement(getHeader(), 0);
-                pushElement(getMain(), this.width);
-                pushElementMargin(getFooter(), this.width);
-            });
-        }
-
-        if (pushWithHeaderOpeningHandler == null) {
-            pushWithHeaderOpeningHandler = addOpeningHandler(event -> {
-                pushElement(getMain(), this.width);
-                pushElementMargin(getFooter(), this.width);
-            });
-        }
-
-        if (pushWithHeaderClosingHandler == null) {
-            pushWithHeaderClosingHandler = addClosingHandler(event -> {
-                pushElement(getMain(), 0);
-                pushElementMargin(getFooter(), 0);
-            });
-        }
     }
 
     protected void pushElement(Element element, int value) {
@@ -539,7 +392,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (alwaysShowActivator && getType() != SideNavType.FIXED) {
+            if (alwaysShowActivator && !typeMixin.getStyle().equals(SideNavType.FIXED.getCssName())) {
                 getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
             } else {
                 getNavMenu().setHideOn(HideOn.HIDE_ON_LARGE);
@@ -551,8 +404,7 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
             }
         }
 
-        SideNavType type = getType();
-        processType(type);
+        build();
 
         JsSideNavOptions options = new JsSideNavOptions();
         options.menuWidth = width;
@@ -589,10 +441,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     protected void onClosing() {
         open = false;
-        if (getType().equals(SideNavType.PUSH)) {
-            pushElements(false, this.width);
-        }
-
         SideNavClosingEvent.fire(this);
     }
 
@@ -602,10 +450,6 @@ public class MaterialSideNav extends MaterialWidget implements HasType<SideNavTy
 
     protected void onOpening() {
         open = true;
-        if (getType().equals(SideNavType.PUSH)) {
-            pushElements(true, this.width);
-        }
-
         SideNavOpeningEvent.fire(this);
     }
 

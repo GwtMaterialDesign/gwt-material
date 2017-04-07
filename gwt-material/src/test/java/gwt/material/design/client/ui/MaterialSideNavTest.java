@@ -64,8 +64,6 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         navBar.setActivates(ACTIVATES);
 
         MaterialSideNav sideNav = new MaterialSideNav();
-        sideNav.setType(SideNavType.PUSH);
-        assertEquals(sideNav.getType(), SideNavType.PUSH);
         sideNav.setId(ACTIVATES);
         assertEquals(sideNav.getId(), ACTIVATES);
 
@@ -94,35 +92,7 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
     }
     public <T extends MaterialSideNav, H extends MaterialNavBar> void checkTypes(T sideNav) {
         final Element element = sideNav.getElement();
-        // Fixed type
-        sideNav.setType(SideNavType.FIXED);
-        assertNotNull(sideNav.getId());
-        assertTrue(element.hasClassName(SideNavType.FIXED.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.FIXED);
-        // Card Type
-        sideNav.setType(SideNavType.CARD);
-        assertTrue(element.hasClassName(SideNavType.CARD.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.CARD);
-        // Push Type
-        sideNav.setType(SideNavType.PUSH);
-        assertTrue(element.hasClassName(SideNavType.PUSH.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.PUSH);
-        // Push With Header
-        sideNav.setType(SideNavType.PUSH_WITH_HEADER);
-        assertTrue(element.hasClassName(SideNavType.PUSH_WITH_HEADER.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.PUSH_WITH_HEADER);
-        // Mini
-        sideNav.setType(SideNavType.MINI);
-        assertTrue(element.hasClassName(SideNavType.MINI.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.MINI);
-        // Overlay
-        sideNav.setType(SideNavType.OVERLAY);
-        assertTrue(element.hasClassName(SideNavType.OVERLAY.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.OVERLAY);
-        // Float
-        sideNav.setType(SideNavType.OVERLAY_WITH_HEADER);
-        assertTrue(element.hasClassName(SideNavType.OVERLAY_WITH_HEADER.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.OVERLAY_WITH_HEADER);
+        //TODO Separate each SideNav type tests
     }
 
     public <T extends MaterialSideNav, H extends MaterialNavBar> void checkBoolean(T sideNav, H navBar) {

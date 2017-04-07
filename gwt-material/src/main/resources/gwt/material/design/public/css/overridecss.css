@@ -414,7 +414,7 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 	.side-nav.mini {
 		top: 55px;
 	}
-	ul.side-nav.overlay-with-header {
+	ul.side-nav.drawer-with-header {
 		margin-top: 0px;
 		background: white;
 		-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -772,7 +772,7 @@ ul.side-nav.right-aligned {
 }
 
 /** SideNav Card **/
-.side-nav.card, .side-nav.overlay-with-header{
+.side-nav.card, .side-nav.drawer-with-header{
 	position: absolute;
 }
 .side-nav.card {
@@ -784,7 +784,7 @@ ul.side-nav.right-aligned {
 }
 
 /** SideNav Float **/
-.side-nav.overlay-with-header {
+.side-nav.drawer-with-header {
 	margin-top: 64px;
 	height: calc(100vh - 64px);
 }
@@ -808,7 +808,29 @@ ul.side-nav.right-aligned {
 .side-nav.mini li a span {
 	display: none;
 }
-
+/** Sidenav Mini with Expand **/
+ul.side-nav.mini-with-expand {
+	left: 0px !important;
+	margin-top: 64px !important;
+	transition: 0.4s all;
+	-webkit-transition: 0.4s all;
+	-moz-transition: 0.4s all;
+}
+ul.side-nav.mini-with-expand.right-aligned {
+	right: 0px !important;
+	left: inherit !important;
+}
+ul.side-nav.mini-with-expand.expanded li a span {
+	opacity: 1;
+	visibility: visible;
+}
+ul.side-nav.mini-with-expand li a span {
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
+}
 /** Sidenav Close **/
 .side-nav.close{
 	top: 0 !important;
@@ -821,7 +843,7 @@ ul.side-nav.right-aligned {
 	visibility: hidden;
 }
 @media screen and (max-width: 992px) {
-	.side-nav.fixed, .side-nav.card, .side-nav.overlay-with-header, .side-nav.push-with-header {
+	.side-nav.fixed, .side-nav.card, .side-nav.drawer-with-header, .side-nav.push-with-header {
 		margin: 0;
 		top: 0 !important;
 		left: 0;
