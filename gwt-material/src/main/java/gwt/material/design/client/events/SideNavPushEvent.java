@@ -32,29 +32,24 @@ public class SideNavPushEvent extends GwtEvent<SideNavPushEvent.SideNavPushHandl
 
     public static final Type<SideNavPushHandler> TYPE = new Type<>();
 
-    private final int width, duration;
+    private final int width;
     private final Element element, activator;
     private final boolean toggle;
 
-    public SideNavPushEvent(Element element, Element activator, boolean toggle, int width, int duration) {
+    public SideNavPushEvent(Element element, Element activator, boolean toggle, int width) {
         this.element = element;
         this.activator = activator;
         this.toggle = toggle;
         this.width = width;
-        this.duration = duration;
     }
 
     public static void fire(HasHandlers source, Element element, Element activator,
-                            boolean toggle, int width, int duration) {
-        source.fireEvent(new SideNavPushEvent(element, activator, toggle, width, duration));
+                            boolean toggle, int width) {
+        source.fireEvent(new SideNavPushEvent(element, activator, toggle, width));
     }
 
     public int getWidth() {
         return width;
-    }
-
-    public int getDuration() {
-        return duration;
     }
 
     public boolean isToggle() {

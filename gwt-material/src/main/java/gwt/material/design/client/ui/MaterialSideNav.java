@@ -79,6 +79,8 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     private boolean open;
     private Boolean showOnAttach;
     private Element activator;
+    private int closeDuration = 100;
+    private int openDuration = 200;
 
     private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
 
@@ -339,34 +341,38 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
 
     protected void pushElements(boolean toggle, int width) {
         int w = 0;
-        int dur = 200;
         if (!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
             if (toggle) {
                 w = width;
-                dur = 300;
             }
 
-            applyTransition(getHeader(), dur);
+            applyTransition(getHeader());
             pushElementMargin(getHeader(), w);
 
-            applyTransition(getMain(), dur);
+            applyTransition(getMain());
             pushElementMargin(getMain(), w);
 
-            applyTransition(getFooter(), dur);
+            applyTransition(getFooter());
             pushElementMargin(getFooter(), w);
         }
-        onPush(toggle, w, dur);
+        onPush(toggle, w);
     }
 
-    protected void applyTransition(Element elem, int duration) {
+    protected void applyTransition(Element elem) {
+        int duration = 0;
+        if (isOpen()) {
+            duration = openDuration;
+        } else {
+            duration = closeDuration;
+        }
         $(elem).css("transition", duration + "ms");
         $(elem).css("WebkitTransition", duration + "ms");
         $(elem).css("MozTransition", duration + "ms");
 
     }
 
-    protected void onPush(boolean toggle, int width, int duration) {
-        SideNavPushEvent.fire(this, getElement(), activator, toggle, width, duration);
+    protected void onPush(boolean toggle, int width) {
+        SideNavPushEvent.fire(this, getElement(), activator, toggle, width);
     }
 
     @Override
@@ -404,6 +410,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             }
         }
 
+        applyTransition(getElement());
         build();
 
         JsSideNavOptions options = new JsSideNavOptions();
@@ -552,5 +559,21 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     protected void onAttach() {
         super.onAttach();
         getNavMenu().setVisibility(Style.Visibility.VISIBLE);
+    }
+
+    public int getCloseDuration() {
+        return closeDuration;
+    }
+
+    public void setCloseDuration(int closeDuration) {
+        this.closeDuration = closeDuration;
+    }
+
+    public int getOpenDuration() {
+        return openDuration;
+    }
+
+    public void setOpenDuration(int openDuration) {
+        this.openDuration = openDuration;
     }
 }

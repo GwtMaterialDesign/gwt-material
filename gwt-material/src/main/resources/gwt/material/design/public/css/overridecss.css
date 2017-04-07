@@ -812,9 +812,6 @@ ul.side-nav.right-aligned {
 ul.side-nav.mini-with-expand {
 	left: 0px !important;
 	margin-top: 64px !important;
-	transition: 0.4s all;
-	-webkit-transition: 0.4s all;
-	-moz-transition: 0.4s all;
 }
 ul.side-nav.mini-with-expand.right-aligned {
 	right: 0px !important;
