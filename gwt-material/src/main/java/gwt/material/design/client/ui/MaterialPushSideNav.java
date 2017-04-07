@@ -65,7 +65,6 @@ public class MaterialPushSideNav extends MaterialSideNav implements HasWithHeade
     }
 
     protected void applyPushWithHeader() {
-        MaterialToast.fireToast("WITH HEADER");
         setType(SideNavType.PUSH_WITH_HEADER);
         applyTransition(getMain());
         applyTransition(getFooter());
