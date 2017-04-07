@@ -361,10 +361,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         } else {
             duration = outDuration;
         }
-        $(elem).css("transition", duration + "ms");
-        $(elem).css("WebkitTransition", duration + "ms");
-        $(elem).css("MozTransition", duration + "ms");
-
+        setTransition("all", duration);
     }
 
     protected void onPush(boolean toggle, int width) {
