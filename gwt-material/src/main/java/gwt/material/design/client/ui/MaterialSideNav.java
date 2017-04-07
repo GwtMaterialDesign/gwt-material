@@ -75,8 +75,8 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     private boolean open;
     private Boolean showOnAttach;
     private Element activator;
-    private int inDuration = 200;
-    private int outDuration = 100;
+    private int inDuration = 400;
+    private int outDuration = 200;
 
     private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
 
@@ -354,14 +354,14 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         onPush(toggle, w);
     }
 
-    protected void applyTransition(Element elem) {
-        int duration = 0;
+    protected void applyTransition(Element element) {
+        int duration;
         if (isOpen()) {
             duration = inDuration;
         } else {
             duration = outDuration;
         }
-        setTransition("all", duration);
+        setTransition(new TransitionProperty(element, duration, "all"));
     }
 
     protected void onPush(boolean toggle, int width) {

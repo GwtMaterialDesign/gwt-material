@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.base;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
@@ -37,6 +38,7 @@ import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -1104,24 +1106,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     /**
      * Applies a CSS3 Transition property to this widget.
-     * @param element - The target Element to apply the transition property.
-     * @param property - Specifies the name of the CSS property the transition effect is for
-     * @param duration - Specifies how many seconds or milliseconds a transition effect takes to complete (In milliseconds)
-     * @param timingFunction - Specifies the speed curve of the transition effect (In milliseconds)
-     * @param delay - Specifies a delay (in seconds) for the transition effect
      */
-    public void setTransition(String property, int duration, String timingFunction, int delay) {
-        getElement().getStyle().setProperty("WebkitTransition", property + duration + "ms " + timingFunction + delay + "ms");
-        getElement().getStyle().setProperty("transition", property + duration + "ms " + timingFunction + delay + "ms");
+
+    public void setTransition(TransitionProperty property) {
+        Element target = getElement();
+        if (property.getTarget() != null) {
+            target = property.getTarget();
+        }
+        target.getStyle().setProperty("WebkitTransition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
+        target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
     }
 
-    /**
-     * Applied a CSS3 Transition with given property and duration params.
-     * The timing function will be empty and delay will be 0ms.
-     */
-    public void setTransition(String property, int duration) {
-        setTransition(property, duration, "", 0);
-    }
 
     /**
      * Add an {@code AttachHandler} for attachment events.
