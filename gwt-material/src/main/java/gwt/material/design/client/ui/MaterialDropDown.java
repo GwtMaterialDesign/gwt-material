@@ -34,6 +34,7 @@ import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
+import gwt.material.design.client.base.HasInOutDurationTransition;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
@@ -69,7 +70,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dropdown">Material DropDown</a>
  */
 //@formatter:on
-public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget> {
+public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget>, HasInOutDurationTransition {
 
     private String activator;
     private Element activatorElement;
@@ -117,24 +118,22 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         initialize();
     }
 
-    /**
-     * The duration of the transition enter in milliseconds. Default: 300
-     */
+    @Override
     public void setInDuration(int durationMillis) {
         this.inDuration = durationMillis;
     }
 
+    @Override
     public int getInDuration() {
         return inDuration;
     }
 
-    /**
-     * The duration of the transition out in milliseconds. Default: 225
-     */
+    @Override
     public void setOutDuration(int durationMillis) {
         this.outDuration = durationMillis;
     }
 
+    @Override
     public int getOutDuration() {
         return outDuration;
     }

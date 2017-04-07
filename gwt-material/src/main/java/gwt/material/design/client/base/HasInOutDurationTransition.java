@@ -19,15 +19,25 @@
  */
 package gwt.material.design.client.base;
 
-public interface HasTransition {
+public interface HasInOutDurationTransition {
 
     /**
-     * Sets the In Duration of transition.
+     * Set the in / enter animation duration in milliseconds.
      */
     void setInDuration(int inDuration);
 
     /**
-     * Sets the our duration of transition.
+     * Get the in / enter animation duration in milliseconds.
+     */
+    int getInDuration();
+
+    /**
+     * Set the out / exit animation duration in milliseconds.
      */
     void setOutDuration(int outDuration);
+
+    /**
+     * Get the out / exit animation duration in milliseconds.
+     */
+    int getOutDuration();
 }

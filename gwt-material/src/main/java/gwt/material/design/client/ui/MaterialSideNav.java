@@ -65,7 +65,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  */
 //@formatter:on
-public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasTransition, HasSideNavHandlers {
+public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
 
     private int width = 240;
     private Edge edge = Edge.LEFT;
@@ -75,8 +75,8 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     private boolean open;
     private Boolean showOnAttach;
     private Element activator;
-    private int outDuration = 100;
     private int inDuration = 200;
+    private int outDuration = 100;
 
     private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
 
@@ -564,7 +564,17 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     @Override
+    public int getInDuration() {
+        return inDuration;
+    }
+
+    @Override
     public void setOutDuration(int outDuration) {
         this.outDuration = outDuration;
+    }
+
+    @Override
+    public int getOutDuration() {
+        return outDuration;
     }
 }
