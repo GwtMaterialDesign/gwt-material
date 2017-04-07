@@ -63,9 +63,9 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         final int IN_DURATION = 500;
         final int OUT_DURATION = 800;
         // Check the default in duration (Expected 300ms)
-        assertEquals(sideNav.getInDuration(), 200);
+        assertEquals(sideNav.getInDuration(), 400);
         // Check the default out duration (Expected 200ms)
-        assertEquals(sideNav.getOutDuration(), 100);
+        assertEquals(sideNav.getOutDuration(), 200);
 
         sideNav.setInDuration(IN_DURATION);
         assertEquals(sideNav.getInDuration(), IN_DURATION);
