@@ -25,15 +25,11 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasSelectables;
-import gwt.material.design.client.base.HasSideNavHandlers;
-import gwt.material.design.client.base.HasWaves;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.constants.*;
@@ -69,7 +65,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  */
 //@formatter:on
-public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasSideNavHandlers {
+public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasTransition, HasSideNavHandlers {
 
     private int width = 240;
     private Edge edge = Edge.LEFT;
@@ -79,8 +75,8 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     private boolean open;
     private Boolean showOnAttach;
     private Element activator;
-    private int closeDuration = 100;
-    private int openDuration = 200;
+    private int outDuration = 100;
+    private int inDuration = 200;
 
     private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
 
@@ -361,9 +357,9 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     protected void applyTransition(Element elem) {
         int duration = 0;
         if (isOpen()) {
-            duration = openDuration;
+            duration = inDuration;
         } else {
-            duration = closeDuration;
+            duration = outDuration;
         }
         $(elem).css("transition", duration + "ms");
         $(elem).css("WebkitTransition", duration + "ms");
@@ -561,19 +557,14 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         getNavMenu().setVisibility(Style.Visibility.VISIBLE);
     }
 
-    public int getCloseDuration() {
-        return closeDuration;
+
+    @Override
+    public void setInDuration(int inDuration) {
+        this.inDuration = inDuration;
     }
 
-    public void setCloseDuration(int closeDuration) {
-        this.closeDuration = closeDuration;
-    }
-
-    public int getOpenDuration() {
-        return openDuration;
-    }
-
-    public void setOpenDuration(int openDuration) {
-        this.openDuration = openDuration;
+    @Override
+    public void setOutDuration(int outDuration) {
+        this.outDuration = outDuration;
     }
 }
