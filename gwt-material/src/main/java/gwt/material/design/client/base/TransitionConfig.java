@@ -22,11 +22,11 @@ package gwt.material.design.client.base;
 import com.google.gwt.dom.client.Element;
 
 /**
- * Css3 Transition property to be set {@link MaterialWidget#setTransition(TransitionProperty)}.
+ * Css3 Transition property to be set {@link MaterialWidget#setTransition(TransitionConfig)}.
  *
  * @author kebzlou7979
  */
-public class TransitionProperty {
+public class TransitionConfig {
 
     private Element target;
     private int duration;
@@ -34,9 +34,9 @@ public class TransitionProperty {
     private String property = "";
     private String timingFunction = "";
 
-    public TransitionProperty() {}
+    public TransitionConfig() {}
 
-    public TransitionProperty(Element target, int duration, int delay, String property, String timingFunction) {
+    public TransitionConfig(Element target, int duration, int delay, String property, String timingFunction) {
         this.target = target;
         this.duration = duration;
         this.delay = delay;
@@ -44,12 +44,12 @@ public class TransitionProperty {
         this.timingFunction = timingFunction;
     }
 
-    public TransitionProperty(int duration, String property) {
+    public TransitionConfig(int duration, String property) {
         this.duration = duration;
         this.property = property;
     }
 
-    public TransitionProperty(Element target, int duration, String property) {
+    public TransitionConfig(Element target, int duration, String property) {
         this.target = target;
         this.duration = duration;
         this.property = property;

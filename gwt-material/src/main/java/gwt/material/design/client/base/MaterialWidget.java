@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.base;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Float;
@@ -38,7 +37,6 @@ import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
-import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -1108,7 +1106,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      * Applies a CSS3 Transition property to this widget.
      */
 
-    public void setTransition(TransitionProperty property) {
+    public void setTransition(TransitionConfig property) {
         Element target = getElement();
         if (property.getTarget() != null) {
             target = property.getTarget();

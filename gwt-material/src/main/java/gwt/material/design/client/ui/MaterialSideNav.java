@@ -361,7 +361,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         } else {
             duration = outDuration;
         }
-        setTransition(new TransitionProperty(element, duration, "all"));
+        setTransition(new TransitionConfig(element, duration, "all"));
     }
 
     protected void onPush(boolean toggle, int width) {
