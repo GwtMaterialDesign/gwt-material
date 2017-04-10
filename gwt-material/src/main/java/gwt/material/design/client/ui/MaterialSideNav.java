@@ -361,7 +361,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         } else {
             duration = outDuration;
         }
-        setTransition(new TransitionConfig(element, duration, "all"));
+        setTransition(new TransitionConfig(element, duration, 0, "all", "cubic-bezier(0, 0, 0.2, 1)"));
     }
 
     protected void onPush(boolean toggle, int width) {

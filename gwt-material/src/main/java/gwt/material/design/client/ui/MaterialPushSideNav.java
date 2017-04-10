@@ -31,23 +31,25 @@ public class MaterialPushSideNav extends MaterialSideNav implements HasWithHeade
 
     private HandlerRegistration pushWithHeaderOpeningHandler;
     private HandlerRegistration pushWithHeaderClosingHandler;
+    private boolean withHeader;
 
     public MaterialPushSideNav() {
         super(SideNavType.PUSH);
+        setShowOnAttach(true);
     }
 
     @Override
     protected void build() {
-        setWithHeader(false);
-    }
-
-    @Override
-    public void setWithHeader(boolean withHeader) {
         if (withHeader) {
             applyPushWithHeader();
         } else {
             applyPushType();
         }
+    }
+
+    @Override
+    public void setWithHeader(boolean withHeader) {
+        this.withHeader = withHeader;
     }
 
     /**
@@ -95,12 +97,16 @@ public class MaterialPushSideNav extends MaterialSideNav implements HasWithHeade
     @Override
     protected void onClosing() {
         super.onClosing();
-        pushElements(false, getWidth());
+        if (!withHeader) {
+            pushElements(false, getWidth());
+        }
     }
 
     @Override
     protected void onOpening() {
         super.onOpening();
-        pushElements(true, getWidth());
+        if (!withHeader) {
+            pushElements(true, getWidth());
+        }
     }
 }

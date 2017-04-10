@@ -29,6 +29,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialDrawerSideNav extends MaterialSideNav implements HasWithHeader {
 
     private HandlerRegistration overlayOpeningHandler;
+    private boolean withHeader;
 
     public MaterialDrawerSideNav() {
         super(SideNavType.DRAWER);
@@ -36,16 +37,17 @@ public class MaterialDrawerSideNav extends MaterialSideNav implements HasWithHea
 
     @Override
     protected void build() {
-        setWithHeader(false);
-    }
-
-    @Override
-    public void setWithHeader(boolean withHeader) {
         if (withHeader) {
             applyOverlayWithHeader();
         } else {
             applyOverlayType();
         }
+    }
+
+    @Override
+    public void setWithHeader(boolean withHeader) {
+        this.withHeader = withHeader;
+
     }
 
     /**
@@ -55,9 +57,7 @@ public class MaterialDrawerSideNav extends MaterialSideNav implements HasWithHea
         setType(SideNavType.DRAWER);
         setShowOnAttach(false);
         if (overlayOpeningHandler == null) {
-            overlayOpeningHandler = addOpeningHandler(event -> {
-                Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible"));
-            });
+            overlayOpeningHandler = addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible")));
         }
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), 0);
