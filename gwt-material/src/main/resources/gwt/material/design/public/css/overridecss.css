@@ -305,9 +305,9 @@ ul.side-nav {
 	font-size: 2.1rem;
 	border-bottom: 1px solid #e9e9e9;
 }
-ul.side-nav a {
+ul.side-nav.fixed a, ul.side-nav a {
 	width: 100%;
-	display: flex !important;
+	display: flex;
 	line-height: normal;
 	align-items: center;
 }
