@@ -58,6 +58,16 @@ public class MaterialSpinner extends MaterialWidget {
 
     public MaterialSpinner() {
         super(Document.get().createDivElement(), CssName.SPINNER_LAYER);
+        build();
+    }
+
+    public MaterialSpinner(SpinnerColor spinnerColor) {
+        this();
+        setColor(spinnerColor);
+    }
+
+    @Override
+    protected void build() {
         add(circleClipperLeft);
         circleClipperLeft.add(circle1);
         add(gapPatch);
@@ -72,11 +82,6 @@ public class MaterialSpinner extends MaterialWidget {
         circle1.setStyleName(CssName.CIRCLE);
         circle2.setStyleName(CssName.CIRCLE);
         circle3.setStyleName(CssName.CIRCLE);
-    }
-
-    public MaterialSpinner(SpinnerColor spinnerColor) {
-        this();
-        setColor(spinnerColor);
     }
 
     public void setColor(SpinnerColor spinnerColor) {

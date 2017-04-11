@@ -112,6 +112,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
+        build();
+    }
+
+    @Override
+    protected void build() {
         dateInput = new DateInput();
         add(dateInput);
 

@@ -80,6 +80,11 @@ public class MaterialSlider extends MaterialWidget {
 
     public MaterialSlider() {
         super(Document.get().createDivElement(), CssName.SLIDER);
+        build();
+    }
+
+    @Override
+    protected void build() {
         unorderedList.setStyleName(CssName.SLIDES);
         super.add(unorderedList);
     }

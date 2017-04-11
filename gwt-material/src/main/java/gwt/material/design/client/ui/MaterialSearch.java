@@ -116,12 +116,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
 
     public MaterialSearch() {
         super(new TextBox());
-        setType(InputType.SEARCH);
-        label.add(iconSearch);
-        label.getElement().setAttribute("for", "search");
-        add(label);
-        add(iconClose);
-        iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText()));
+        build();
     }
 
     public MaterialSearch(String placeholder) {
@@ -135,6 +130,16 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         setIconColor(iconColor);
         setActive(active);
         setShadow(shadow);
+    }
+
+    @Override
+    protected void build() {
+        setType(InputType.SEARCH);
+        label.add(iconSearch);
+        label.getElement().setAttribute("for", "search");
+        add(label);
+        add(iconClose);
+        iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText()));
     }
 
     @Override

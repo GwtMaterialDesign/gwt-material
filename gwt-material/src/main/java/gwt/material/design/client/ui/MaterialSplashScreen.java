@@ -72,6 +72,11 @@ public class MaterialSplashScreen extends MaterialWidget {
 
     public MaterialSplashScreen() {
         super(Document.get().createDivElement(), CssName.SPLASH_SCREEN);
+        build();
+    }
+
+    @Override
+    protected void build() {
         setDisplay(Display.NONE);
 
         div.setWidth("100%");

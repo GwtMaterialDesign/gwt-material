@@ -92,6 +92,11 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     protected void onLoad() {
         super.onLoad();
 
+        build();
+    }
+
+    @Override
+    protected void build() {
         initialize();
 
         indicator = new MaterialWidget(getIndicatorElement());

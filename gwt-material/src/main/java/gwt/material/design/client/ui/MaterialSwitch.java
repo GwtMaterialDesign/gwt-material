@@ -97,7 +97,11 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     @Override
     protected void onLoad() {
         super.onLoad();
+        build();
+    }
 
+    @Override
+    protected void build() {
         if (!initialized) {
             label.add(offLabel);
             label.add(input);

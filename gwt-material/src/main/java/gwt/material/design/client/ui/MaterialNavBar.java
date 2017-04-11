@@ -73,6 +73,11 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
 
     public MaterialNavBar() {
+        build();
+    }
+
+    @Override
+    protected void build() {
         div.setStyleName(CssName.NAV_WRAPPER);
         div.add(navMenu);
         super.add(div);

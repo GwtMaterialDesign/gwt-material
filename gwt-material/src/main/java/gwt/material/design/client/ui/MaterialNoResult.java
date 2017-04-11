@@ -53,14 +53,7 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
 
     public MaterialNoResult() {
         super(Document.get().createDivElement(), CssName.VALIGN_WRAPPER);
-        setTextAlign(TextAlign.CENTER);
-        setHeight("100%");
-        add(div);
-        div.setWidth("100%");
-        div.setStyleName(CssName.VALIGN + " " + CssName.CENTER);
-        div.add(title);
-        icon.setIconSize(IconSize.LARGE);
-        title.insert(icon, 0);
+        build();
     }
 
     public MaterialNoResult(Color bgColor, Color textColor, IconType iconType, String title, String description) {
@@ -70,6 +63,18 @@ public class MaterialNoResult extends MaterialWidget implements HasIcon, HasTitl
         setIconType(iconType);
         setTitle(title);
         setDescription(description);
+    }
+
+    @Override
+    protected void build() {
+        setTextAlign(TextAlign.CENTER);
+        setHeight("100%");
+        add(div);
+        div.setWidth("100%");
+        div.setStyleName(CssName.VALIGN + " " + CssName.CENTER);
+        div.add(title);
+        icon.setIconSize(IconSize.LARGE);
+        title.insert(icon, 0);
     }
 
     @Override

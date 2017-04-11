@@ -70,6 +70,11 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      */
     public MaterialRange() {
         super(Document.get().createFormElement());
+        build();
+    }
+
+    @Override
+    protected void build() {
         getElement().setAttribute("action", "#");
         lblError.setVisible(false);
         paragraph.setStyleName(CssName.RANGE_FIELD);

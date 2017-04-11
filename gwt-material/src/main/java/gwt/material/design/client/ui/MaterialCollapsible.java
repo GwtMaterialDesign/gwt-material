@@ -132,6 +132,11 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     protected void onLoad() {
         super.onLoad();
 
+        build();
+    }
+
+    @Override
+    protected void build() {
         // Setup the expansion type
         getElement().setAttribute("data-collapsible", isAccordion() ? CssName.ACCORDION : CssName.EXPANDABLE);
 

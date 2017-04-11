@@ -207,6 +207,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     /**
+     * A protected method to build the structure of any complex widget that
+     * can be overridden to perform a different behavior of this widget.
+     */
+    protected void build() {}
+
+    /**
      * Inserts a widget at a specific index
      *
      * @param child       - widget to be inserted

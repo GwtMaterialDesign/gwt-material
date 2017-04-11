@@ -257,6 +257,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         this.edge = edge;
     }
 
+    @Override
     protected void build() {
         applyFixedType();
     }

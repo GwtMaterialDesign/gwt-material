@@ -98,6 +98,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     protected void onLoad() {
         super.onLoad();
+        build();
+    }
+
+    @Override
+    protected void build() {
         if (!initialized) {
             $(listBox.getElement()).change((e, param) -> {
                 try {

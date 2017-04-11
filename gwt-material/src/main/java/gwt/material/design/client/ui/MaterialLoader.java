@@ -80,6 +80,10 @@ public class MaterialLoader {
     }
 
     public MaterialLoader() {
+        build();
+    }
+
+    protected void build() {
         div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
         preLoader.getElement().getStyle().setProperty("margin", "auto");
         preLoader.add(new MaterialSpinner(SpinnerColor.BLUE));

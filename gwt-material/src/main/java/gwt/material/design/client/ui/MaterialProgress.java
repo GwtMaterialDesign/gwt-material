@@ -58,9 +58,7 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     public MaterialProgress() {
         super(CssName.PROGRESS);
-        getElement().getStyle().setMargin(0, Unit.PX);
-        add(div);
-        setType(ProgressType.INDETERMINATE);
+        build();
     }
 
     public MaterialProgress(ProgressType type) {
@@ -71,6 +69,13 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
     public MaterialProgress(ProgressType type, Double percent) {
         this(type);
         setPercent(percent);
+    }
+
+    @Override
+    protected void build() {
+        getElement().getStyle().setMargin(0, Unit.PX);
+        add(div);
+        setType(ProgressType.INDETERMINATE);
     }
 
     @Override
