@@ -68,6 +68,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material ListBox</a>
+ * @see <a href="https://material.io/guidelines/components/menus.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements HasPlaceholder,

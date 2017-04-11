@@ -46,6 +46,7 @@ import gwt.material.design.client.ui.html.Div;
  *
  * @author kevzlou7979
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Progress</a>
+ * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
  */
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 

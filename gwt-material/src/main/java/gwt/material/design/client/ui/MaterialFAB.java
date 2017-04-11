@@ -57,6 +57,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#buttons">Material FAB</a>
+ * @see <a href="https://material.io/guidelines/components/buttons-floating-action-button.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasCloseHandlers<MaterialFAB>,

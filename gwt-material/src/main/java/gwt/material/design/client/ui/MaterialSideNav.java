@@ -63,6 +63,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
+ * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {

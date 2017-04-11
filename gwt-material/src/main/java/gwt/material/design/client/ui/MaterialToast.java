@@ -48,6 +48,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author Ben Dol
  *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Toast</a>
+ * @see <a href="https://material.io/guidelines/components/snackbars-toasts.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialToast {

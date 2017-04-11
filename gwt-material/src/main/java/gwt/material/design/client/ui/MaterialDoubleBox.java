@@ -35,6 +35,7 @@ package gwt.material.design.client.ui;
  * @author paulux84
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material
  * DoubleBox</a>
+ * @see <a href="https://material.io/guidelines/components/text-fields.html#">Material Design Specification</a>
  */
 // @formatter:on
 public class MaterialDoubleBox extends MaterialNumberBox<Double> {

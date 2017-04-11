@@ -26,6 +26,29 @@ import gwt.material.design.client.constants.SideNavType;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
+//@formatter:off
+
+/**
+ * Mini SideNav is an extension to {@link MaterialSideNav} that provides
+ * mini variant / icon only sidenav. Also with this type, you can enable
+ * expansion feature by setExpandable(true).
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialMiniSideNav ui:field="sideNav" width="280" m:id="mysidebar" expandable="true" expandOnClick="true">
+ *     <m:MaterialLink href="#about" iconPosition="LEFT" iconType="OUTLINE" text="About" textColor="BLUE"  />
+ *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" iconType="DOWNLOAD" text="Getting Started" textColor="BLUE"  >
+ * </m:MaterialSideNav>
+ * }
+ * </pre>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
+ * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
+ */
+//@formatter:on
 public class MaterialMiniSideNav extends MaterialSideNav {
 
     private boolean expandable;

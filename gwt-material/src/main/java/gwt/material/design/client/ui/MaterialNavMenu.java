@@ -21,6 +21,26 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.CssName;
 
+//@formatter:off
+
+/**
+ * <p>Nav Menu is another navbar component which acts as an
+ * activator to open it's sidenav
+ * <h3>UiBinder Usage:</h3>
+ * <p>
+ * <pre>
+ * {@code
+ * <m:MaterialNavMenu iconType="IconType.MENU" activates="mySideNav"/>
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material NavMenu</a>
+ * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
+ */
+//@formatter:on
 public class MaterialNavMenu extends MaterialLink {
 
     public MaterialNavMenu() {

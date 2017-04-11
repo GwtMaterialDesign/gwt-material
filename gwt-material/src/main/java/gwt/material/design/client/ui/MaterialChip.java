@@ -53,6 +53,7 @@ import gwt.material.design.client.ui.html.Span;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#chips">Material Chips</a>
+ * @see <a href="https://material.io/guidelines/components/chips.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasLetter {
