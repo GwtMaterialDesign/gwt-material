@@ -67,7 +67,7 @@ import gwt.material.design.client.ui.html.Div;
 //@formatter:on
 public class MaterialSplashScreen extends MaterialWidget {
 
-    private Div div = new Div();
+    private Div container = new Div();
     private MaterialProgress progress = new MaterialProgress();
 
     public MaterialSplashScreen() {
@@ -79,16 +79,16 @@ public class MaterialSplashScreen extends MaterialWidget {
     protected void build() {
         setDisplay(Display.NONE);
 
-        div.setWidth("100%");
-        div.getElement().getStyle().setMarginTop(15, Style.Unit.PCT);
+        container.setWidth("100%");
+        container.getElement().getStyle().setMarginTop(15, Style.Unit.PCT);
 
-        super.add(div);
+        super.add(container);
         super.add(progress);
     }
 
     @Override
     public void add(Widget child) {
-        div.add(child);
+        container.add(child);
     }
 
     public void show() {
@@ -97,5 +97,13 @@ public class MaterialSplashScreen extends MaterialWidget {
 
     public void hide() {
         setDisplay(Display.NONE);
+    }
+
+    public Div getContainer() {
+        return container;
+    }
+
+    public MaterialProgress getProgress() {
+        return progress;
     }
 }

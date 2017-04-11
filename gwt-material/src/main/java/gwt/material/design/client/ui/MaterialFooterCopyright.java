@@ -53,4 +53,8 @@ public class MaterialFooterCopyright extends MaterialWidget {
     public void add(Widget child) {
         container.add(child);
     }
+
+    public Div getContainer() {
+        return container;
+    }
 }

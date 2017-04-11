@@ -96,7 +96,7 @@ import gwt.material.design.client.ui.html.ListItem;
 //@formatter:on
 public class MaterialCollection extends MaterialWidget implements HasActiveParent {
 
-    private Heading span = new Heading(HeadingSize.H4);
+    private Heading headerLabel = new Heading(HeadingSize.H4);
     private int index;
 
     /**
@@ -110,9 +110,9 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
      * Sets the header of the collection component.
      */
     public void setHeader(String header) {
-        span.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(header));
+        headerLabel.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(header));
         addStyleName(CssName.WITH_HEADER);
-        ListItem item = new ListItem(span);
+        ListItem item = new ListItem(headerLabel);
         UiHelper.addMousePressedHandlers(item);
         item.setStyleName(CssName.COLLECTION_HEADER);
         insert(item, 0);
@@ -157,5 +157,9 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
 
     public HandlerRegistration addClearActiveHandler(final ClearActiveEvent.ClearActiveHandler handler) {
         return addHandler(handler, ClearActiveEvent.TYPE);
+    }
+
+    public Heading getHeaderLabel() {
+        return headerLabel;
     }
 }

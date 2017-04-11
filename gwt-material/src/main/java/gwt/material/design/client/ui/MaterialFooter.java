@@ -97,4 +97,8 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
     public FooterType getType() {
         return typeMixin.getType();
     }
+
+    public Div getContainer() {
+        return container;
+    }
 }

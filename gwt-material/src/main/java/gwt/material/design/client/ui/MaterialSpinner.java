@@ -91,4 +91,28 @@ public class MaterialSpinner extends MaterialWidget {
     public SpinnerColor getColor() {
         return spinnerColorMixin.getCssName();
     }
+
+    public Div getCircleClipperLeft() {
+        return circleClipperLeft;
+    }
+
+    public Div getCircleClipperRight() {
+        return circleClipperRight;
+    }
+
+    public Div getCircle1() {
+        return circle1;
+    }
+
+    public Div getCircle2() {
+        return circle2;
+    }
+
+    public Div getCircle3() {
+        return circle3;
+    }
+
+    public Div getGapPatch() {
+        return gapPatch;
+    }
 }

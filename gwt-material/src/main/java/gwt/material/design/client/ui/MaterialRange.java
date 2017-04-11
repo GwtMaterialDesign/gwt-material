@@ -60,10 +60,10 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private static String VALUE = "value";
     private static String MAX = "max";
     private static String MIN = "min";
-    private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel errorLabel = new MaterialLabel();
     private HandlerRegistration changeHandler;
 
-    private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
+    private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, null);
 
     /**
      * Creates a range
@@ -76,7 +76,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     @Override
     protected void build() {
         getElement().setAttribute("action", "#");
-        lblError.setVisible(false);
+        errorLabel.setVisible(false);
         paragraph.setStyleName(CssName.RANGE_FIELD);
 
         rangeInputElement.setType(InputType.RANGE);
@@ -90,7 +90,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         paragraph.add(thumb);
         add(paragraph);
 
-        add(lblError);
+        add(errorLabel);
     }
 
     @Override
@@ -237,11 +237,19 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         errorMixin.clearErrorOrSuccess();
     }
 
-    public MaterialLabel getLblError() {
-        return lblError;
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
     }
 
     public MaterialInput getRangeInputElement() {
         return rangeInputElement;
+    }
+
+    public Paragraph getParagraph() {
+        return paragraph;
+    }
+
+    public Span getThumb() {
+        return thumb;
     }
 }

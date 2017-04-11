@@ -62,7 +62,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialParallax extends MaterialWidget {
 
-    private Div div = new Div();
+    private Div container = new Div();
 
     public MaterialParallax() {
         super(Document.get().createDivElement(), CssName.PARALLAX_CONTAINER);
@@ -71,19 +71,23 @@ public class MaterialParallax extends MaterialWidget {
 
     @Override
     protected void build() {
-        super.add(div);
-        div.setStyleName(CssName.PARALLAX);
+        super.add(container);
+        container.setStyleName(CssName.PARALLAX);
     }
 
     @Override
     public void add(Widget child) {
-        div.add(child);
+        container.add(child);
     }
 
     @Override
     protected void onLoad() {
         super.onLoad();
 
-        $(div.getElement()).parallax();
+        $(container.getElement()).parallax();
+    }
+
+    public Div getContainer() {
+        return container;
     }
 }

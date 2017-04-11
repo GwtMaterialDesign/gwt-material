@@ -72,7 +72,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialSlider extends MaterialWidget {
 
-    private UnorderedList unorderedList = new UnorderedList();
+    private UnorderedList listContainer = new UnorderedList();
 
     private boolean fullWidth = true;
 
@@ -85,8 +85,8 @@ public class MaterialSlider extends MaterialWidget {
 
     @Override
     protected void build() {
-        unorderedList.setStyleName(CssName.SLIDES);
-        super.add(unorderedList);
+        listContainer.setStyleName(CssName.SLIDES);
+        super.add(listContainer);
     }
 
     @Override
@@ -98,13 +98,13 @@ public class MaterialSlider extends MaterialWidget {
 
     @Override
     public void add(Widget child) {
-        unorderedList.add(child);
+        listContainer.add(child);
     }
 
     @Override
     public void setHeight(String height) {
         super.setHeight(height);
-        unorderedList.setHeight(height);
+        listContainer.setHeight(height);
     }
 
     /**
@@ -141,5 +141,9 @@ public class MaterialSlider extends MaterialWidget {
 
     public void start() {
         $(getElement()).slider("start");
+    }
+
+    public UnorderedList getListContainer() {
+        return listContainer;
     }
 }

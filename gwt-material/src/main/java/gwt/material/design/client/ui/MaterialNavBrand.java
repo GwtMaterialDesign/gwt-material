@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasHref;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.MaterialWidget;
@@ -51,7 +50,7 @@ import gwt.material.design.client.ui.html.Div;
 //@formatter:on
 public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosition {
 
-    private Div div = new Div();
+    private Div container = new Div();
 
     private final CssNameMixin<MaterialNavBrand, Position> posMixin = new CssNameMixin<>(this);
 
@@ -73,12 +72,12 @@ public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosi
     }
 
     public void setText(String text) {
-        add(div);
-        div.getElement().setInnerText(text);
+        add(container);
+        container.getElement().setInnerText(text);
     }
 
     public String getText() {
-        return div.getElement().getInnerText();
+        return container.getElement().getInnerText();
     }
 
     @Override
@@ -109,5 +108,9 @@ public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosi
     @Override
     public void setPosition(Position position) {
         posMixin.setCssName(position);
+    }
+
+    public Div getContainer() {
+        return container;
     }
 }

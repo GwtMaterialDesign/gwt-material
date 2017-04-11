@@ -82,4 +82,12 @@ public class MaterialTitle extends Div implements HasTitle {
     public void setTitle(String title) {
         header.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(title));
     }
+
+    public Heading getHeader() {
+        return header;
+    }
+
+    public Paragraph getParagraph() {
+        return paragraph;
+    }
 }

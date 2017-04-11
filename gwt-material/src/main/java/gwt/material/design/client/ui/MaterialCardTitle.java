@@ -41,7 +41,7 @@ import gwt.material.design.client.ui.html.Span;
 public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasText {
 
     private MaterialIcon icon = new MaterialIcon();
-    private Span span = new Span();
+    private Span titleLabel = new Span();
 
     public MaterialCardTitle() {
         super(Document.get().createSpanElement(), CssName.CARD_TITLE, CssName.ACTIVATOR);
@@ -49,15 +49,15 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
 
     @Override
     public String getText() {
-        return span.getText();
+        return titleLabel.getText();
     }
 
     @Override
     public void setText(String text) {
-        span.setText(text);
+        titleLabel.setText(text);
 
-        if(!span.isAttached()) {
-            add(span);
+        if(!titleLabel.isAttached()) {
+            add(titleLabel);
         }
     }
 
@@ -100,5 +100,9 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    public Span getTitleLabel() {
+        return titleLabel;
     }
 }

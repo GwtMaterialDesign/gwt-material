@@ -374,4 +374,13 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     public MaterialSearchResult getSearchResultPanel() {
         return searchResultPanel;
     }
+
+    @Override
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialIcon getIconSearch() {
+        return iconSearch;
+    }
 }

@@ -188,4 +188,8 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     public String getTargetHistoryToken() {
         return targetHistoryToken;
     }
+
+    public Span getSpan() {
+        return span;
+    }
 }

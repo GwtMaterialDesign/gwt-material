@@ -75,7 +75,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         HasConstrainedValue<T>, HasReadOnly {
 
     private final ListBox listBox = new ListBox();
-    private final Label lblName = new Label();
+    private final Label label = new Label();
 
     private boolean initialized;
 
@@ -88,7 +88,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private HandlerRegistration valueChangeHandler;
 
-    private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel errorLabel = new MaterialLabel();
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -118,8 +118,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                 }
             });
             add(listBox);
-            add(lblName);
-            add(lblError);
+            add(label);
+            add(errorLabel);
             initialize();
         }
     }
@@ -139,7 +139,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     @Override
     public void setPlaceholder(String placeholder) {
-        lblName.setText(placeholder);
+        label.setText(placeholder);
 
         if (placeholder != null) {
             reinitialize();
@@ -148,7 +148,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     @Override
     public String getPlaceholder() {
-        return lblName.getText();
+        return label.getText();
     }
 
     public OptionElement getOptionElement(int index) {
@@ -725,6 +725,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         MaterialWidget target = new MaterialWidget($(getElement()).find(".select-dropdown"));
-        return new ErrorMixin<>(this, lblError, target, lblName);
+        return new ErrorMixin<>(this, errorLabel, target, label);
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
     }
 }

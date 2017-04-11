@@ -64,7 +64,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 //@formatter:on
 public class MaterialNavBar extends Nav implements HasActivates, HasProgress, HasType<NavBarType> {
 
-    private Div div = new Div();
+    private Div navWrapper = new Div();
 
     private MaterialLink navMenu = new MaterialLink(IconType.MENU);
 
@@ -78,9 +78,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     @Override
     protected void build() {
-        div.setStyleName(CssName.NAV_WRAPPER);
-        div.add(navMenu);
-        super.add(div);
+        navWrapper.setStyleName(CssName.NAV_WRAPPER);
+        navWrapper.add(navMenu);
+        super.add(navWrapper);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName(CssName.BUTTON_COLLAPSE);
         navMenu.getElement().getStyle().clearDisplay();
@@ -111,12 +111,12 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     @Override
     public void add(Widget child) {
-        div.add(child);
+        navWrapper.add(child);
     }
 
     @Override
     public void clear() {
-        div.clear();
+        navWrapper.clear();
     }
 
     @Override
@@ -164,5 +164,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     public MaterialLink getNavMenu() {
         return navMenu;
+    }
+
+    public Div getNavWrapper() {
+        return navWrapper;
     }
 }
