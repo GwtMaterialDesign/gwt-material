@@ -24,7 +24,7 @@ import gwt.material.design.client.base.helper.EnumHelper;
 /**
  * Color constants.
  *
- * @see <a href="http://127.0.0.1:8888/index.html#colors">Colors</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#colors">Colors</a>
  * @see <a href="https://material.io/guidelines/style/color.html#">Material Design Specification</a>
  * @see <a href="https://material.io/color/">Color Tool</a>
  * @author kevzlou7979
