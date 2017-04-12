@@ -55,6 +55,7 @@ public class MaterialDrawerSideNav extends MaterialSideNav implements HasWithHea
 
     public MaterialDrawerSideNav() {
         super(SideNavType.DRAWER);
+        setShowOnAttach(false);
     }
 
     @Override
@@ -69,7 +70,6 @@ public class MaterialDrawerSideNav extends MaterialSideNav implements HasWithHea
     @Override
     public void setWithHeader(boolean withHeader) {
         this.withHeader = withHeader;
-
     }
 
     /**

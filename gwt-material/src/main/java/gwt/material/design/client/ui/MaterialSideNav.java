@@ -337,25 +337,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         return $("footer").asElement();
     }
 
-    protected void pushElements(boolean toggle, int width) {
-        int w = 0;
-        if (!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
-            if (toggle) {
-                w = width;
-            }
-
-            applyTransition(getHeader());
-            pushElementMargin(getHeader(), w);
-
-            applyTransition(getMain());
-            pushElementMargin(getMain(), w);
-
-            applyTransition(getFooter());
-            pushElementMargin(getFooter(), w);
-        }
-        onPush(toggle, w);
-    }
-
     protected void applyTransition(Element element) {
         int duration;
         if (isOpen()) {
@@ -364,10 +345,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             duration = outDuration;
         }
         setTransition(new TransitionConfig(element, duration, 0, "all", "cubic-bezier(0, 0, 0.2, 1)"));
-    }
-
-    protected void onPush(boolean toggle, int width) {
-        SideNavPushEvent.fire(this, getElement(), activator, toggle, width);
     }
 
     @Override
@@ -575,5 +552,9 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     @Override
     public int getOutDuration() {
         return outDuration;
+    }
+
+    public Element getActivator() {
+        return activator;
     }
 }

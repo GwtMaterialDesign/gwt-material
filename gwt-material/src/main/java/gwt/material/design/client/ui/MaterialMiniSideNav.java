@@ -58,6 +58,7 @@ public class MaterialMiniSideNav extends MaterialSideNav {
 
     public MaterialMiniSideNav() {
         super(SideNavType.MINI);
+        setShowOnAttach(false);
     }
 
     @Override

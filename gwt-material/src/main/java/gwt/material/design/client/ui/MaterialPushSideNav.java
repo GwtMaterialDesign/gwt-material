@@ -23,6 +23,7 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasWithHeader;
 import gwt.material.design.client.constants.SideNavType;
+import gwt.material.design.client.events.SideNavPushEvent;
 import gwt.material.design.jquery.client.api.JQuery;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -132,4 +133,28 @@ public class MaterialPushSideNav extends MaterialSideNav implements HasWithHeade
             pushElements(true, getWidth());
         }
     }
+
+    protected void pushElements(boolean toggle, int width) {
+        int w = 0;
+        if (!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
+            if (toggle) {
+                w = width;
+            }
+
+            applyTransition(getHeader());
+            pushElementMargin(getHeader(), w);
+
+            applyTransition(getMain());
+            pushElementMargin(getMain(), w);
+
+            applyTransition(getFooter());
+            pushElementMargin(getFooter(), w);
+        }
+        onPush(toggle, w);
+    }
+
+    protected void onPush(boolean toggle, int width) {
+        SideNavPushEvent.fire(this, getElement(), getActivator(), toggle, width);
+    }
+
 }
