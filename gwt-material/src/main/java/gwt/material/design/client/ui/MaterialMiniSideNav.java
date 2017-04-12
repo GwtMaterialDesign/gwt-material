@@ -72,7 +72,6 @@ public class MaterialMiniSideNav extends MaterialSideNav {
             int miniWidth = 64;
             pushElement(getMain(), miniWidth);
             pushElementMargin(getFooter(), miniWidth);
-            setShowOnAttach(false);
             setWidth(miniWidth);
 
             if (miniWithOpeningExpandHandler == null) {
