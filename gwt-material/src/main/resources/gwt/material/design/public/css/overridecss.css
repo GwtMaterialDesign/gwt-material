@@ -851,6 +851,10 @@ ul.side-nav.mini-with-expand li a span {
 		height: 100%;
 		background: #fff;
 	}
+	ul.side-nav.mini-with-expand {
+		top: 56px;
+		height: calc(100vh - 56px);
+	}
 	.navmenu-permanent, .drag-target,#sidenav-overlay{
 		visibility: visible !important;
 	}
