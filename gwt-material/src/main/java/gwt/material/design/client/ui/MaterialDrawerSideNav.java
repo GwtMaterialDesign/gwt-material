@@ -77,7 +77,6 @@ public class MaterialDrawerSideNav extends MaterialSideNav implements HasWithHea
      */
     protected void applyOverlayType() {
         setType(SideNavType.DRAWER);
-        setShowOnAttach(false);
         if (overlayOpeningHandler == null) {
             overlayOpeningHandler = addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible")));
         }
@@ -93,7 +92,6 @@ public class MaterialDrawerSideNav extends MaterialSideNav implements HasWithHea
      */
     protected void applyOverlayWithHeader() {
         setType(SideNavType.DRAWER_WITH_HEADER);
-        setShowOnAttach(false);
         applyTransition(getMain());
         applyBodyScroll();
         if (isShowOnAttach()) {
