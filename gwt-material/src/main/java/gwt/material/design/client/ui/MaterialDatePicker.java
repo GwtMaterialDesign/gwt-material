@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.ScriptInjector;
@@ -62,6 +61,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#pickers">Material Date Picker</a>
+ * @see <a href="https://material.io/guidelines/components/pickers.html#pickers-date-pickers">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasOrientation, HasPlaceholder,
@@ -85,9 +85,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private String format = "dd mmmm yyyy";
     private DateInput dateInput;
     private Label label = new Label();
-    private MaterialLabel lblPlaceholder = new MaterialLabel();
+    private MaterialLabel placeholderLabel = new MaterialLabel();
     protected Element pickatizedDateInput;
-    private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel errorLabel = new MaterialLabel();
     private DatePickerLanguage language;
     private JsDatePickerOptions options;
     private Orientation orientation;
@@ -102,7 +102,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     protected HandlerRegistration orientationHandler;
     private MaterialIcon icon = new MaterialIcon();
 
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, dateInput, lblPlaceholder);
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, dateInput, placeholderLabel);
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
 
     private int yearsToDisplay = 10;
@@ -111,12 +111,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
+        build();
+    }
+
+    @Override
+    protected void build() {
         dateInput = new DateInput();
         add(dateInput);
 
-        label.add(lblPlaceholder);
+        label.add(placeholderLabel);
         add(label);
-        add(lblError);
+        add(errorLabel);
     }
 
     public MaterialDatePicker(String placeholder) {
@@ -391,7 +396,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         this.placeholder = placeholder;
 
         if (placeholder != null) {
-            lblPlaceholder.setText(placeholder);
+            placeholderLabel.setText(placeholder);
         }
     }
 
@@ -579,7 +584,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setIconType(IconType iconType) {
         icon.setIconType(iconType);
         icon.setIconPrefix(true);
-        lblError.setPaddingLeft(44);
+        errorLabel.setPaddingLeft(44);
         insert(icon, 0);
     }
 
@@ -688,5 +693,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setContainer(DatePickerContainer container) {
         this.container = container;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialLabel getPlaceholderLabel() {
+        return placeholderLabel;
+    }
+
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
     }
 }

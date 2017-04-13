@@ -46,6 +46,7 @@ import gwt.material.design.client.constants.RadioButtonType;
  *
  * @author kevzlou7979
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material Radio Button</a>
+ * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-radio-button">Material Design Specification</a>
  */
 public class MaterialRadioButton extends RadioButton implements HasType<RadioButtonType> {
 

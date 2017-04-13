@@ -54,6 +54,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Media</a>
+ * @see <a href="https://material.io/guidelines/style/imagery.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage,

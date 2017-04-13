@@ -46,20 +46,19 @@ import gwt.material.design.client.ui.html.Div;
  *
  * @author kevzlou7979
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Progress</a>
+ * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
  */
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 
-    private Div div = new Div();
+    private Div fillContainer = new Div();
     private double percent = 0;
 
-    private final ColorsMixin<Div> colorsMixin = new ColorsMixin<>(div);
-    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this, div);
+    private final ColorsMixin<Div> colorsMixin = new ColorsMixin<>(fillContainer);
+    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this, fillContainer);
 
     public MaterialProgress() {
         super(CssName.PROGRESS);
-        getElement().getStyle().setMargin(0, Unit.PX);
-        add(div);
-        setType(ProgressType.INDETERMINATE);
+        build();
     }
 
     public MaterialProgress(ProgressType type) {
@@ -70,6 +69,13 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
     public MaterialProgress(ProgressType type, Double percent) {
         this(type);
         setPercent(percent);
+    }
+
+    @Override
+    protected void build() {
+        getElement().getStyle().setMargin(0, Unit.PX);
+        add(fillContainer);
+        setType(ProgressType.INDETERMINATE);
     }
 
     @Override
@@ -105,7 +111,7 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
         }
 
         this.percent = percent;
-        div.getElement().getStyle().setWidth(percent, Unit.PCT);
+        fillContainer.getElement().getStyle().setWidth(percent, Unit.PCT);
     }
 
     /**
@@ -122,5 +128,9 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
      */
     public void setColor(Color color) {
         colorsMixin.setBackgroundColor(color);
+    }
+
+    public Div getFillContainer() {
+        return fillContainer;
     }
 }

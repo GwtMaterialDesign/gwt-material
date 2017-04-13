@@ -42,6 +42,7 @@ import gwt.material.design.client.ui.html.Div;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Progress</a>
+ * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialSpinner extends MaterialWidget {
@@ -57,6 +58,16 @@ public class MaterialSpinner extends MaterialWidget {
 
     public MaterialSpinner() {
         super(Document.get().createDivElement(), CssName.SPINNER_LAYER);
+        build();
+    }
+
+    public MaterialSpinner(SpinnerColor spinnerColor) {
+        this();
+        setColor(spinnerColor);
+    }
+
+    @Override
+    protected void build() {
         add(circleClipperLeft);
         circleClipperLeft.add(circle1);
         add(gapPatch);
@@ -73,16 +84,35 @@ public class MaterialSpinner extends MaterialWidget {
         circle3.setStyleName(CssName.CIRCLE);
     }
 
-    public MaterialSpinner(SpinnerColor spinnerColor) {
-        this();
-        setColor(spinnerColor);
-    }
-
     public void setColor(SpinnerColor spinnerColor) {
         spinnerColorMixin.setCssName(spinnerColor);
     }
 
     public SpinnerColor getColor() {
         return spinnerColorMixin.getCssName();
+    }
+
+    public Div getCircleClipperLeft() {
+        return circleClipperLeft;
+    }
+
+    public Div getCircleClipperRight() {
+        return circleClipperRight;
+    }
+
+    public Div getCircle1() {
+        return circle1;
+    }
+
+    public Div getCircle2() {
+        return circle2;
+    }
+
+    public Div getCircle3() {
+        return circle3;
+    }
+
+    public Div getGapPatch() {
+        return gapPatch;
     }
 }

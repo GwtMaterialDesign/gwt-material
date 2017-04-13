@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,23 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
+package gwt.material.design.client.base;
 
-//@formatter:off
+public interface HasWithHeader {
 
-import gwt.material.design.client.constants.CssName;
-
-/**
- * Footer container for Material Modal
- *
- * @author kevzlou7979
- * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Modal</a>
- * @see <a href="https://material.io/guidelines/components/dialogs.html#">Material Design Specification</a>
- *///@formatter:on
-public class MaterialModalFooter extends MaterialPanel {
-
-    public MaterialModalFooter() {
-        super(CssName.MODAL_FOOTER);
-    }
+    void setWithHeader(boolean value);
 }

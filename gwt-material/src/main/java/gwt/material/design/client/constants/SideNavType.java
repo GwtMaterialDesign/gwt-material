@@ -30,8 +30,9 @@ public enum SideNavType implements CssType {
     PUSH("push"),
     PUSH_WITH_HEADER("push-with-header"),
     MINI("mini"),
-    OVERLAY("overlay"),
-    OVERLAY_WITH_HEADER("overlay-with-header"),
+    MINI_WITH_EXPAND("mini-with-expand"),
+    DRAWER("drawer"),
+    DRAWER_WITH_HEADER("drawer-with-header"),
     CARD("card");
 
     private final String cssClass;

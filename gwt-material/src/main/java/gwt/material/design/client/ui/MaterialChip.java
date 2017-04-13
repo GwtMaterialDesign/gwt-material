@@ -53,12 +53,13 @@ import gwt.material.design.client.ui.html.Span;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#chips">Material Chips</a>
+ * @see <a href="https://material.io/guidelines/components/chips.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasLetter {
 
     private MaterialIcon icon = new MaterialIcon();
-    private Span span = new Span();
+    private Span chipLabel = new Span();
 
     private ImageResource resource;
     private Image image = new Image();
@@ -99,12 +100,12 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
     }
 
     public void setText(String text) {
-        span.setText(text);
-        add(span);
+        chipLabel.setText(text);
+        add(chipLabel);
     }
 
     public String getText() {
-        return span.getElement().getInnerText();
+        return chipLabel.getElement().getInnerText();
     }
 
     @Override
@@ -207,5 +208,9 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
 
     public LetterMixin<MaterialChip> getLetterMixin() {
         return letterMixin;
+    }
+
+    public Span getChipLabel() {
+        return chipLabel;
     }
 }

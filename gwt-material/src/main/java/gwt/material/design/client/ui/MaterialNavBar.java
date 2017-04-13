@@ -59,11 +59,12 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Nav Bar</a>
+ * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialNavBar extends Nav implements HasActivates, HasProgress, HasType<NavBarType> {
 
-    private Div div = new Div();
+    private Div navWrapper = new Div();
 
     private MaterialLink navMenu = new MaterialLink(IconType.MENU);
 
@@ -72,9 +73,14 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
 
     public MaterialNavBar() {
-        div.setStyleName(CssName.NAV_WRAPPER);
-        div.add(navMenu);
-        super.add(div);
+        build();
+    }
+
+    @Override
+    protected void build() {
+        navWrapper.setStyleName(CssName.NAV_WRAPPER);
+        navWrapper.add(navMenu);
+        super.add(navWrapper);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName(CssName.BUTTON_COLLAPSE);
         navMenu.getElement().getStyle().clearDisplay();
@@ -105,12 +111,12 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     @Override
     public void add(Widget child) {
-        div.add(child);
+        navWrapper.add(child);
     }
 
     @Override
     public void clear() {
-        div.clear();
+        navWrapper.clear();
     }
 
     @Override
@@ -158,5 +164,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     public MaterialLink getNavMenu() {
         return navMenu;
+    }
+
+    public Div getNavWrapper() {
+        return navWrapper;
     }
 }

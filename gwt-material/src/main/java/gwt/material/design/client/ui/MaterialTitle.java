@@ -51,10 +51,7 @@ public class MaterialTitle extends Div implements HasTitle {
     private Paragraph paragraph = new Paragraph();
 
     public MaterialTitle() {
-        header.setFontWeight(300);
-        header.getElement().getStyle().setMarginTop(60, Unit.PX);
-        add(header);
-        add(paragraph);
+        build();
     }
 
     public MaterialTitle(String title, String description) {
@@ -69,6 +66,14 @@ public class MaterialTitle extends Div implements HasTitle {
     }
 
     @Override
+    protected void build() {
+        header.setFontWeight(300);
+        header.getElement().getStyle().setMarginTop(60, Unit.PX);
+        add(header);
+        add(paragraph);
+    }
+
+    @Override
     public void setDescription(String description) {
         paragraph.setText(description);
     }
@@ -76,5 +81,13 @@ public class MaterialTitle extends Div implements HasTitle {
     @Override
     public void setTitle(String title) {
         header.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(title));
+    }
+
+    public Heading getHeader() {
+        return header;
+    }
+
+    public Paragraph getParagraph() {
+        return paragraph;
     }
 }

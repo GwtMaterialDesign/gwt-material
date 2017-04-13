@@ -70,6 +70,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
+ * @see <a href="https://material.io/guidelines/components/tabs.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialTab extends UnorderedList implements HasType<TabType>, HasSelectionHandlers<Integer> {
@@ -91,6 +92,11 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     protected void onLoad() {
         super.onLoad();
 
+        build();
+    }
+
+    @Override
+    protected void build() {
         initialize();
 
         indicator = new MaterialWidget(getIndicatorElement());

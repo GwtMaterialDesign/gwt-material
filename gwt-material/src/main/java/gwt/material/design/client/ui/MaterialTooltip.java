@@ -47,6 +47,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author Ben Dol
  *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Tooltip</a>
+ * @see <a href="https://material.io/guidelines/components/tooltips.html">Material Design Specification</a>
  */
 public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition {
 
