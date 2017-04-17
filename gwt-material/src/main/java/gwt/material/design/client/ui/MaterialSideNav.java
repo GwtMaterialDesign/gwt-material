@@ -382,7 +382,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             }
         }
 
-        applyTransition(getElement());
         build();
 
         JsSideNavOptions options = new JsSideNavOptions();

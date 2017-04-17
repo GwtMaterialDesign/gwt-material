@@ -23,11 +23,10 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.HideOn;
-import gwt.material.design.client.constants.ShowOn;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
+import javafx.geometry.Side;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -40,6 +39,11 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
 
     public void init() {
         MaterialSideNav sideNav = new MaterialSideNav();
+        checkSideNav(sideNav);
+        checkOtherTypes();
+    }
+
+    protected void checkSideNav(MaterialSideNav sideNav) {
         final String ACTIVATOR = "sidenav";
         MaterialNavBar navBar = new MaterialNavBar();
         navBar.setActivates(ACTIVATOR);
@@ -52,7 +56,6 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         assertEquals(navBar.getActivates(), ACTIVATOR);
         assertEquals(sideNav.getWidth(), 300);
         checkWidget(sideNav);
-        checkTypes(sideNav);
         checkBoolean(sideNav, navBar);
         checkSideNavItems(sideNav);
         checkActivator();
@@ -94,21 +97,31 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
 
         // isAlwaysShowActivator() must be true by default
         assertTrue(sideNav.isAlwaysShowActivator());
-
-        //TODO Fixed the tests on this lines
-        /*// If PUSH and Activator:true (expected has classname : show_on_large)
-        sideNav.setAlwaysShowActivator(true);
-        assertTrue(navMenuElement.hasClassName(ShowOn.SHOW_ON_LARGE.getCssName()));
-
-        // If PUSH and Activator:false (expected has classname : hide_on_large)
-        sideNav.setAlwaysShowActivator(false);
-        sideNav.reinitialize();
-        assertTrue(navMenuElement.hasClassName(HideOn.HIDE_ON_LARGE.getCssName()));*/
-
     }
-    public <T extends MaterialSideNav, H extends MaterialNavBar> void checkTypes(T sideNav) {
-        final Element element = sideNav.getElement();
-        //TODO Separate each SideNav type tests
+    public <T extends MaterialSideNav, H extends MaterialNavBar> void checkOtherTypes() {
+        MaterialSideNavCard sideNavCard = new MaterialSideNavCard();
+        checkSideNav(sideNavCard);
+        assertTrue(sideNavCard.getStyleName().contains(SideNavType.CARD.getCssName()));
+
+        MaterialSideNavDrawer sideNavDrawer = new MaterialSideNavDrawer();
+        checkSideNav(sideNavDrawer);
+        assertTrue(sideNavDrawer.getStyleName().contains(SideNavType.DRAWER.getCssName()));
+        sideNavDrawer.setWithHeader(true);
+        assertTrue(sideNavDrawer.isWithHeader());
+
+        MaterialSideNavMini sideNavMini = new MaterialSideNavMini();
+        checkSideNav(sideNavMini);
+        assertTrue(sideNavMini.getStyleName().contains(SideNavType.MINI.getCssName()));
+        sideNavMini.setExpandable(true);
+        assertTrue(sideNavMini.isExpandable());
+        sideNavMini.setExpandOnClick(true);
+        assertTrue(sideNavMini.isExpandOnClick());
+
+        MaterialSideNavPush sideNavPush = new MaterialSideNavPush();
+        checkSideNav(sideNavPush);
+        assertTrue(sideNavPush.getStyleName().contains(SideNavType.PUSH.getCssName()));
+        sideNavPush.setWithHeader(true);
+        assertTrue(sideNavPush.isWithHeader());
     }
 
     public <T extends MaterialSideNav, H extends MaterialNavBar> void checkBoolean(T sideNav, H navBar) {

@@ -78,6 +78,11 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
         this.withHeader = withHeader;
     }
 
+    @Override
+    public boolean isWithHeader() {
+        return withHeader;
+    }
+
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */

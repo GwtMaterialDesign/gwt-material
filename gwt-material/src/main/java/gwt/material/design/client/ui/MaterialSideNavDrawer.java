@@ -72,6 +72,11 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
         this.withHeader = withHeader;
     }
 
+    @Override
+    public boolean isWithHeader() {
+        return withHeader;
+    }
+
     /**
      * Provides an overlay sidenav just like when opening sidenav on mobile / tablet
      */
