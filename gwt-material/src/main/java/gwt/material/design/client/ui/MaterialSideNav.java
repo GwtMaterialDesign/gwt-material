@@ -53,7 +53,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
- * <m:MaterialSideNav ui:field="sideNav" width="280" m:id="mysidebar"  type="OPEN" closeOnClick="false">
+ * <m:MaterialSideNav ui:field="sideNav" width="280" m:id="mysidebar"  closeOnClick="false">
  *     <m:MaterialLink href="#about" iconPosition="LEFT" iconType="OUTLINE" text="About" textColor="BLUE"  />
  *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" iconType="DOWNLOAD" text="Getting Started" textColor="BLUE"  >
  * </m:MaterialSideNav>

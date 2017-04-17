@@ -26,13 +26,13 @@ import gwt.material.design.client.constants.SideNavType;
 //@formatter:off
 
 /**
- * Card SideNav is an extension to {@link MaterialSideNav} that provides
+ * SideNav (Card) is an extension to {@link MaterialSideNav} that provides
  * a card container to it's sidenav links. Good for few sidenav link items.
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
- * <m:MaterialCardSideNav ui:field="sideNav" width="280" m:id="mysidebar" closeOnClick="false">
+ * <m:MaterialSideNavCard ui:field="sideNav" width="280" m:id="mysidebar" closeOnClick="false">
  *     <m:MaterialLink href="#about" iconPosition="LEFT" iconType="OUTLINE" text="About" textColor="BLUE"  />
  *     <m:MaterialLink href="#gettingStarted" iconPosition="LEFT" iconType="DOWNLOAD" text="Getting Started" textColor="BLUE"  >
  * </m:MaterialSideNav>
@@ -45,14 +45,14 @@ import gwt.material.design.client.constants.SideNavType;
  * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCardSideNav extends MaterialSideNav {
+public class MaterialSideNavCard extends MaterialSideNav {
 
     private HandlerRegistration cardOpenedHandler;
     private HandlerRegistration cardClosedHandler;
     private HandlerRegistration cardOpeningHandler;
     private HandlerRegistration cardClosingHandler;
 
-    public MaterialCardSideNav() {
+    public MaterialSideNavCard() {
         super(SideNavType.CARD);
     }
 
