@@ -783,12 +783,12 @@ ul.side-nav.right-aligned {
 	height: auto;
 	width: 232px;
 	padding-bottom: 0;
-	margin-top: 80px;
+	top: 80px;
 }
 
 /** SideNav Float **/
 .side-nav.drawer-with-header {
-	margin-top: 64px;
+	top: 64px;
 	height: calc(100vh - 64px);
 }
 .side-nav.push-with-header {
@@ -796,7 +796,7 @@ ul.side-nav.right-aligned {
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
-	margin-top: 64px;
+	top: 64px;
 	height: calc(100vh - 64px);
 }
 /** Sidenav Mini **/
@@ -812,6 +812,9 @@ ul.side-nav.right-aligned {
 }
 .side-nav.mini li a span {
 	display: none;
+}
+ul.side-nav .collapsible-body li.active a {
+	color: #444;
 }
 /** Sidenav Mini with Expand **/
 ul.side-nav.mini-with-expand {
