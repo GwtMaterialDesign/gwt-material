@@ -123,7 +123,6 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
 
     @Override
     protected void applyBodyScroll() {
-        MaterialToast.fireToast("tes");
         $("header").css("width", "100%");
         $("header").css("position", "fixed");
         $("header").css("zIndex", "999");
