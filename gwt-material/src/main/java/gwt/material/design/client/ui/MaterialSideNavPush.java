@@ -53,6 +53,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeader {
 
+    private HandlerRegistration pushOpeningHandler;
+    private HandlerRegistration pushClosingHandler;
     private HandlerRegistration pushWithHeaderOpeningHandler;
     private HandlerRegistration pushWithHeaderClosingHandler;
     private boolean withHeader;
@@ -80,6 +82,7 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
      * Push the header, footer, and main to the right part when Close type is applied.
      */
     protected void applyPushType() {
+        applyBodyScroll();
         setType(SideNavType.PUSH);
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
@@ -94,7 +97,7 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
         setType(SideNavType.PUSH_WITH_HEADER);
         applyTransition(getMain());
         applyTransition(getFooter());
-        applyBodyScroll();
+        super.applyBodyScroll();
         if (isShowOnAttach()) {
             Scheduler.get().scheduleDeferred(() -> {
                 pushElement(getHeader(), 0);
@@ -114,6 +117,26 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
             pushWithHeaderClosingHandler = addClosingHandler(event -> {
                 pushElement(getMain(), 0);
                 pushElementMargin(getFooter(), 0);
+            });
+        }
+    }
+
+    @Override
+    protected void applyBodyScroll() {
+        MaterialToast.fireToast("tes");
+        $("header").css("width", "100%");
+        $("header").css("position", "fixed");
+        $("header").css("zIndex", "999");
+        $("header").css("top", "0");
+        if (pushOpeningHandler == null) {
+            pushOpeningHandler = addOpeningHandler(event -> {
+                $("header").css("width", "calc(100% - " + getWidth() + "px)");
+            });
+        }
+
+        if (pushClosingHandler == null) {
+            pushClosingHandler = addClosingHandler(event -> {
+                $("header").css("width", "calc(100%)");
             });
         }
     }

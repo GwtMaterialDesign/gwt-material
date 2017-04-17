@@ -72,7 +72,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     private Edge edge = Edge.LEFT;
     private boolean closeOnClick = false;
     private boolean alwaysShowActivator = true;
-    private boolean allowBodyScroll = false;
+    private boolean allowBodyScroll = true;
     private boolean open;
     private Boolean showOnAttach;
     private Element activator;
