@@ -332,10 +332,8 @@ nav .nav-wrapper .side-nav i {
 nav.navbar-shrink{
 	height: 200px;
 	line-height: 64px;
-	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 999;
 	background-color: #0683c9;
 }
 nav .brand-logo img{
@@ -351,7 +349,6 @@ nav.navbar-shrink, nav.navbar-shrink .brand-logo{
 }
 nav.navbar-shrink .brand-logo{
 	line-height: 264px;
-	font-size: 4rem;
 	height: 200px;
 }
 nav.smaller {
@@ -369,10 +366,7 @@ nav.smaller .brand-logo{
 nav.pinned{
 	z-index: 996;
 }
-nav.navbar-fixed{
-	top: 0;
-	position: fixed !important;
-}
+
 .side-nav i {
 	font-size: 2em !important;
 	width: 2rem;
@@ -411,6 +405,7 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 	header,main,footer {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
+		width: 100% !important;
 	}
 	.side-nav.clip {
 		top: 50px;
@@ -429,25 +424,18 @@ ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:firs
 		margin: initial;
 		position: fixed;
 	}
-	nav.navbar-shrink{
-		height: 64px;
-	}
 	nav.navbar-shrink .brand-logo img{
 		width: auto;
 	}
-	nav.navbar-shrink .brand-logo{
-		line-height: 64px;
-		height: 64px;
-		font-size: 2.1rem;
+	nav.navbar-shrink .brand-logo {
+		left: 60px;
+		transform: translateX(0);
 	}
 }
 
 @media only screen and (max-width : 992px) {
 	main {
 		padding-bottom: 70px !important;
-	}
-	nav.navbar-fixed{
-		width: 100%;
 	}
 }
 

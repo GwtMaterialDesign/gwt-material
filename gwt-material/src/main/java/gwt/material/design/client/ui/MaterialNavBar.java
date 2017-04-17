@@ -23,14 +23,17 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasProgress;
+import gwt.material.design.client.base.HasShrinkableNavBarHandlers;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.client.events.NavBarExpandEvent;
+import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
@@ -62,18 +65,17 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialNavBar extends Nav implements HasActivates, HasProgress, HasType<NavBarType> {
+public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
 
     private Div navWrapper = new Div();
 
     private MaterialLink navMenu = new MaterialLink(IconType.MENU);
 
-    private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
     private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
     private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
 
     public MaterialNavBar() {
-        build();
+        super();
     }
 
     @Override
@@ -94,11 +96,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     @Override
     protected void onLoad() {
         super.onLoad();
-
-        if (typeMixin.getType() != null) {
-            applyType(typeMixin.getType(), getElement());
-        }
-
+        build();
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
         Element sideNavElement = $("#" + activatesMixin.getActivates()).asElement();
 
@@ -117,24 +115,6 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     @Override
     public void clear() {
         navWrapper.clear();
-    }
-
-    @Override
-    public void setType(NavBarType type) {
-        typeMixin.setType(type);
-    }
-
-    protected void applyType(NavBarType type, Element element) {
-        if (type.equals(NavBarType.SHRINK)) {
-            JsMaterialElement.initShrink(element, 300);
-        } else {
-            GWT.log("Default type of navbar was applied");
-        }
-    }
-
-    @Override
-    public NavBarType getType() {
-        return typeMixin.getType();
     }
 
     @Override

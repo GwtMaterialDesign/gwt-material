@@ -72,7 +72,7 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
     }
 
     public <T extends MaterialNavBar> void checkTypes(T navBar) {
-        // Fixed
+        /*// Fixed
         navBar.setType(NavBarType.FIXED);
         assertTrue(navBar.getElement().hasClassName(NavBarType.FIXED.getCssName()));
         assertEquals(navBar.getType(), NavBarType.FIXED);
@@ -83,7 +83,7 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
         // Tall
         navBar.setType(NavBarType.TALL);
         assertTrue(navBar.getElement().hasClassName(NavBarType.TALL.getCssName()));
-        assertEquals(navBar.getType(), NavBarType.TALL);
+        assertEquals(navBar.getType(), NavBarType.TALL);*/
     }
 
     public <T extends MaterialNavBar> void checkStructure(T navBar) {
