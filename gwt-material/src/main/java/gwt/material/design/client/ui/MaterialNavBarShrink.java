@@ -48,13 +48,13 @@ public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkabl
             if (distanceY > offset) {
                 $(getElement()).addClass("smaller");
                 if (!fired[0]) {
-                    NavBarExpandEvent.fire(this);
+                    NavBarShrinkEvent.fire(this);
                     fired[0] = true;
                 }
             } else {
                 if ($(getElement()).hasClass("smaller")) {
                     $(getElement()).removeClass("smaller");
-                    NavBarShrinkEvent.fire(this);
+                    NavBarExpandEvent.fire(this);
                     fired[0] = false;
                 }
             }
