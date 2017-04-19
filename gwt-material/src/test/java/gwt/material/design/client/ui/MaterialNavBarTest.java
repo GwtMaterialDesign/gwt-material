@@ -104,6 +104,7 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
     public <T extends MaterialNavBar> void checkStructure(T navBar) {
         assertTrue(navBar.getWidget(0) instanceof Div);
         Div navWrapper = (Div) navBar.getWidget(0);
+        assertEquals(navWrapper.getWidget(0), navBar.getNavMenu());
         if (!navBar.getActivates().isEmpty()) {
             assertTrue(navWrapper.getWidget(0) instanceof MaterialLink);
             MaterialLink navMenu = (MaterialLink) navWrapper.getWidget(0);
@@ -112,6 +113,17 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
             assertTrue(navBar.getNavMenu().getElement().hasClassName(CssName.BUTTON_COLLAPSE));
         }
         assertTrue(navWrapper.getElement().hasClassName(CssName.NAV_WRAPPER));
+
+        // NavBar Content extension
+        MaterialNavContent navContent = new MaterialNavContent();
+        navBar.add(navContent);
+        assertTrue(navContent.getElement().hasClassName(CssName.NAV_CONTENT));
+        MaterialLabel label = new MaterialLabel();
+        navContent.add(label);
+
+        assertEquals(navContent.getWidget(0), label);
+        assertEquals(navWrapper.getWidget(3), navContent);
+
         navBar.clear();
         assertEquals(navWrapper.getChildren().size(), 0);
     }
