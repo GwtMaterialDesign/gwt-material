@@ -27,6 +27,32 @@ import gwt.material.design.client.events.NavBarShrinkEvent;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
+//@formatter:off
+
+/**
+ * It's an extension to {@link MaterialNavBar} that provides
+ * a delightful shrink capabilities when scrolling the page content.
+ * <p>
+ * <h3>UiBinder Usage:</h3>
+ * <pre>
+ * {@code
+ * <m:MaterialNavBarShrink backgroundColor="BLUE" >
+ *     <m:MaterialNavBrand href="#Test" position="LEFT"  text="Title" />
+ *     <m:MaterialNavSection position="RIGHT">
+ *         <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="WHITE" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="WHITE" waves="LIGHT"/>
+ *         <m:MaterialLink  iconType="SEARCH" tooltip="Menu" textColor="WHITE" waves="LIGHT"/>
+ *          <m:MaterialLink  iconType="MORE_VERT" tooltip="Starter" textColor="WHITE" waves="LIGHT"/>
+ *     </m:MaterialNavSection>
+ * </m:MaterialNavBar>
+ * }
+ * <pre>
+ * @author kevzlou7979
+ * @author Ben Dol
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Nav Bar</a>
+ * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
+ */
+//@formatter:on
 public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkableNavBarHandlers {
 
     private int offset = 300;

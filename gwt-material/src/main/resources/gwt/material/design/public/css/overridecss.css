@@ -319,6 +319,12 @@ ul.side-nav.fixed a, ul.side-nav a {
 nav button i {
 	line-height: inherit !important;
 }
+nav .nav-content {
+	position: relative;
+	line-height: normal;
+	width: 100%;
+	display: flex;
+}
 /** NavBar tall **/
 nav .navbar-tall {
 	height: 128px;

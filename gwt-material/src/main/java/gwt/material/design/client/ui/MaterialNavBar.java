@@ -49,7 +49,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * <pre>
  * {@code
  * <m:MaterialNavBar backgroundColor="BLUE" >
- *     <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
+ *     <m:MaterialNavBrand href="#Test" position="LEFT"  text="Title" />
  *     <m:MaterialNavSection position="RIGHT">
  *         <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="WHITE" waves="LIGHT"/>
  *         <m:MaterialLink  iconType="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="WHITE" waves="LIGHT"/>
@@ -81,7 +81,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
     @Override
     protected void build() {
         navWrapper.setStyleName(CssName.NAV_WRAPPER);
-        navWrapper.add(navMenu);
+        navWrapper.insert(navMenu,0);
         super.add(navWrapper);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName(CssName.BUTTON_COLLAPSE);

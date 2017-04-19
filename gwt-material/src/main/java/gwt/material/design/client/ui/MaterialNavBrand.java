@@ -37,7 +37,7 @@ import gwt.material.design.client.ui.html.Div;
  * <p>
  * <pre>
  * {@code
- * <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
+ * <m:MaterialNavBrand href="#Test" position="LEFT" text="Title"/>
  * }
  * </pre>
  * </p>
