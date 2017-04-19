@@ -61,9 +61,9 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
     @Override
     protected void build() {
         if (withHeader) {
-            applyOverlayWithHeader();
+            applyDrawerWithHeader();
         } else {
-            applyOverlayType();
+            appyDrawerType();
         }
     }
 
@@ -78,9 +78,9 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
     }
 
     /**
-     * Provides an overlay sidenav just like when opening sidenav on mobile / tablet
+     * Provides an overlay / drawer sidenav just like when opening sidenav on mobile / tablet
      */
-    protected void applyOverlayType() {
+    protected void appyDrawerType() {
         setType(SideNavType.DRAWER);
         if (overlayOpeningHandler == null) {
             overlayOpeningHandler = addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible")));
@@ -92,13 +92,13 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
     }
 
     /**
-     * Provides an overlay sidenav that will float on top of the content not the navbar without
+     * Provides an overlay / drawer sidenav that will float on top of the content not the navbar without
      * any grey overlay behind it.
      */
-    protected void applyOverlayWithHeader() {
+    protected void applyDrawerWithHeader() {
         setType(SideNavType.DRAWER_WITH_HEADER);
-        applyTransition(getMain());
         applyBodyScroll();
+
         if (isShowOnAttach()) {
             Scheduler.get().scheduleDeferred(() -> {
                 pushElement(getHeader(), 0);

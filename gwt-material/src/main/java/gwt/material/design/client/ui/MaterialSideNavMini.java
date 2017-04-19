@@ -66,9 +66,7 @@ public class MaterialSideNavMini extends MaterialSideNav {
         applyBodyScroll();
         if (isExpandable()) {
             setType(SideNavType.MINI_WITH_EXPAND);
-            applyTransition(getMain());
-            applyTransition(getFooter());
-
+            applyTransition(getElement());
             int originalWidth = getWidth();
             int miniWidth = 64;
             pushElement(getMain(), miniWidth);

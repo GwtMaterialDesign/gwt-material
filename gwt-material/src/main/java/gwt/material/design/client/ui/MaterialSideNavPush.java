@@ -100,8 +100,6 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
 
     protected void applyPushWithHeader() {
         setType(SideNavType.PUSH_WITH_HEADER);
-        applyTransition(getMain());
-        applyTransition(getFooter());
         super.applyBodyScroll();
         if (isShowOnAttach()) {
             Scheduler.get().scheduleDeferred(() -> {

@@ -300,6 +300,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     protected void pushElement(Element element, int value) {
+        applyTransition($(element).asElement());
         if (getEdge() == Edge.RIGHT) {
             $(element).css("paddingRight", value + "px");
         } else {
@@ -309,6 +310,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     protected void pushElementMargin(Element element, int value) {
+        applyTransition($(element).asElement());
         if (getEdge() == Edge.LEFT) {
             $(element).css("margin-left", value + "px");
         } else {
@@ -338,13 +340,19 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     protected void applyTransition(Element element) {
+        applyTransition(element, "all");
+    }
+
+    protected void applyTransition(Element element, String property) {
         int duration;
         if (isOpen()) {
             duration = inDuration;
         } else {
             duration = outDuration;
         }
-        setTransition(new TransitionConfig(element, duration, 0, "all", "cubic-bezier(0, 0, 0.2, 1)"));
+        if (element != null) {
+            setTransition(new TransitionConfig(element, duration, 0, property, "cubic-bezier(0, 0, 0.2, 1)"));
+        }
     }
 
     @Override
@@ -435,7 +443,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         if (allowBodyScroll) {
             RootPanel.getBodyElement().getStyle().clearOverflow();
         }
-
         SideNavOpenedEvent.fire(this);
     }
 
