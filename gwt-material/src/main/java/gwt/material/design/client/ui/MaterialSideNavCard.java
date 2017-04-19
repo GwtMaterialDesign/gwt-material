@@ -66,7 +66,6 @@ public class MaterialSideNavCard extends MaterialSideNav {
      * is good for few sidenav link items
      */
     protected void applyCardType() {
-        applyTransition(getMain());
         if (cardOpeningHandler == null) {
             cardOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), getWidth() + 20 ));
         }
