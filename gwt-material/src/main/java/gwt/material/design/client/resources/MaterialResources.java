@@ -31,4 +31,7 @@ public interface MaterialResources extends ClientBundle {
 
     @Source("js/materialize-0.97.5.min.js")
     TextResource materializeJs();
+
+    @Source("js/push.min.js")
+    TextResource pushNotificationJs();
 }
