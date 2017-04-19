@@ -31,32 +31,32 @@ import gwt.material.design.jquery.client.api.Functions;
  */
 public class MaterialAnimator {
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, Functions.Func callback) {
-        animate(transition, w, delayMillis, 800, callback, false);
+    public static void animate(final Transition transition, final Widget w, int delay, Functions.Func callback) {
+        animate(transition, w, delay, 800, callback, false);
     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, int durationMillis) {
-        animate(transition, w, delayMillis, durationMillis, null, false);
+    public static void animate(final Transition transition, final Widget w, int delay, int duration) {
+        animate(transition, w, delay, duration, null, false);
     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis, boolean infinite) {
-        animate(transition, w, delayMillis, 800, null, infinite);
+    public static void animate(final Transition transition, final Widget w, int delay, boolean infinite) {
+        animate(transition, w, delay, 800, null, infinite);
     }
 
-    public static void animate(final Transition transition, final Widget w, int delayMillis) {
-        animate(transition, w, delayMillis, 800, null, false);
+    public static void animate(final Transition transition, final Widget w, int delay) {
+        animate(transition, w, delay, 800, null, false);
     }
 
     public static void animate(final Transition transition,
                                final Widget w,
-                               int delayMillis,
-                               final int durationMillis,
+                               int delay,
+                               final int duration,
                                final Functions.Func callback,
                                final boolean infinite) {
         new MaterialAnimation()
                 .transition(transition)
-                .delayMillis(delayMillis)
-                .durationMillis(durationMillis)
+                .delay(delay)
+                .duration(duration)
                 .infinite(infinite)
                 .animate(w, callback);
     }

@@ -22,11 +22,14 @@ package gwt.material.design.client.ui;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.HideOn;
 import gwt.material.design.client.constants.NavBarType;
 import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.events.NavBarExpandEvent;
+import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.ListItem;
@@ -42,13 +45,14 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
         MaterialHeader header = new MaterialHeader();
         MaterialNavBar navBar = new MaterialNavBar();
         header.add(navBar);
+        RootPanel.get().add(header);
         assertTrue(navBar.getParent() instanceof MaterialHeader);
         checkWidget(navBar);
         checkNavBrand(navBar);
         checkNavSection(navBar);
         checkStructure(navBar);
         checkActivates(navBar);
-        checkTypes(navBar);
+        checkTypes();
         MaterialNavSection section = new MaterialNavSection();
         checkSelectionEvent(section);
     }
@@ -71,24 +75,36 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
         assertEquals(isSelectionEventFired[0], true);
     }
 
-    public <T extends MaterialNavBar> void checkTypes(T navBar) {
-        // Fixed
-        navBar.setType(NavBarType.FIXED);
-        assertTrue(navBar.getElement().hasClassName(NavBarType.FIXED.getCssName()));
-        assertEquals(navBar.getType(), NavBarType.FIXED);
-        // Shrink
-        navBar.setType(NavBarType.SHRINK);
-        assertTrue(navBar.getElement().hasClassName(NavBarType.SHRINK.getCssName()));
-        assertEquals(navBar.getType(), NavBarType.SHRINK);
-        // Tall
-        navBar.setType(NavBarType.TALL);
-        assertTrue(navBar.getElement().hasClassName(NavBarType.TALL.getCssName()));
-        assertEquals(navBar.getType(), NavBarType.TALL);
+    public <T extends MaterialNavBar> void checkTypes() {
+        final int OFFSET = 100;
+        MaterialNavBarShrink shrinkNavBar = new MaterialNavBarShrink();
+
+        MaterialHeader header = new MaterialHeader();
+        header.add(shrinkNavBar);
+        RootPanel.get().add(header);
+
+        assertTrue(shrinkNavBar.getStyleName().contains(NavBarType.SHRINK.getCssName()));
+
+        shrinkNavBar.setOffset(OFFSET);
+        assertEquals(shrinkNavBar.getOffset(), OFFSET);
+
+        final boolean[] expandFired = {false};
+        shrinkNavBar.addExpandHandler(event -> expandFired[0] = true);
+
+        NavBarExpandEvent.fire(shrinkNavBar);
+        assertTrue(expandFired[0]);
+
+        final boolean[] shrinkFired = {false};
+        shrinkNavBar.addShrinkHandler(event -> shrinkFired[0] = true);
+
+        NavBarShrinkEvent.fire(shrinkNavBar);
+        assertTrue(shrinkFired[0]);
     }
 
     public <T extends MaterialNavBar> void checkStructure(T navBar) {
         assertTrue(navBar.getWidget(0) instanceof Div);
         Div navWrapper = (Div) navBar.getWidget(0);
+        assertEquals(navWrapper.getWidget(0), navBar.getNavMenu());
         if (!navBar.getActivates().isEmpty()) {
             assertTrue(navWrapper.getWidget(0) instanceof MaterialLink);
             MaterialLink navMenu = (MaterialLink) navWrapper.getWidget(0);
@@ -97,6 +113,17 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
             assertTrue(navBar.getNavMenu().getElement().hasClassName(CssName.BUTTON_COLLAPSE));
         }
         assertTrue(navWrapper.getElement().hasClassName(CssName.NAV_WRAPPER));
+
+        // NavBar Content extension
+        MaterialNavContent navContent = new MaterialNavContent();
+        navBar.add(navContent);
+        assertTrue(navContent.getElement().hasClassName(CssName.NAV_CONTENT));
+        MaterialLabel label = new MaterialLabel();
+        navContent.add(label);
+
+        assertEquals(navContent.getWidget(0), label);
+        assertEquals(navWrapper.getWidget(3), navContent);
+
         navBar.clear();
         assertEquals(navWrapper.getChildren().size(), 0);
     }

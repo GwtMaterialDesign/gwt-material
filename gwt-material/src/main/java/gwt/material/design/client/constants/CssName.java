@@ -70,6 +70,7 @@ public interface CssName {
     String MODAL_CONTENT = "modal-content";
     String MODAL_FOOTER = "modal-footer";
     String NAV_WRAPPER = "nav-wrapper";
+    String NAV_CONTENT = "nav-content";
     String BUTTON_COLLAPSE = "button-collapse";
     String BRAND_LOGO = "brand-logo";
     String PAGINATION = "pagination";

@@ -62,6 +62,7 @@ import gwt.material.design.client.ui.html.Label;
  * @author Ben Dol
  * @author paulux84
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material TextBox</a>
+ * @see <a href="https://material.io/guidelines/components/text-fields.html#">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
@@ -74,14 +75,14 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     private ValueBoxEditor<T> editor;
     private Label label = new Label();
-    private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel errorLabel = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
 
     @Editor.Ignore
     protected ValueBoxBase<T> valueBoxBase;
 
     private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
-    private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, valueBoxBase);
+    private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, valueBoxBase);
     private ReadOnlyMixin<MaterialValueBox, ValueBoxBase> readOnlyMixin;
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
@@ -129,6 +130,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     protected void onLoad() {
         super.onLoad();
 
+        build();
+    }
+
+    @Override
+    protected void build() {
         if (!initialized) {
             String id = DOM.createUniqueId();
             valueBoxBase.getElement().setId(id);
@@ -219,8 +225,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.getElement().setAttribute("type", type.getType());
         if (getType() != InputType.SEARCH) {
             add(label);
-            lblError.setVisible(false);
-            add(lblError);
+            errorLabel.setVisible(false);
+            add(errorLabel);
         }
     }
 
@@ -595,7 +601,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setIconType(IconType iconType) {
         icon.setIconType(iconType);
         icon.setIconPrefix(true);
-        lblError.setPaddingLeft(44);
+        errorLabel.setPaddingLeft(44);
         insert(icon, 0);
     }
 
@@ -767,5 +773,13 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Ignore
     public ValueBoxBase<T> getValueBoxBase() {
         return valueBoxBase;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
     }
 }

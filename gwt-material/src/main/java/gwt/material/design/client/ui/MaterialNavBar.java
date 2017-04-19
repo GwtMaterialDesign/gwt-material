@@ -23,14 +23,17 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasProgress;
+import gwt.material.design.client.base.HasShrinkableNavBarHandlers;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.js.JsMaterialElement;
+import gwt.material.design.client.events.NavBarExpandEvent;
+import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 
@@ -46,7 +49,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * <pre>
  * {@code
  * <m:MaterialNavBar backgroundColor="BLUE" >
- *     <m:MaterialNavBrand href="#Test" position="LEFT">Title</m:MaterialNavBrand>
+ *     <m:MaterialNavBrand href="#Test" position="LEFT"  text="Title" />
  *     <m:MaterialNavSection position="RIGHT">
  *         <m:MaterialLink  iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"  textColor="WHITE" waves="LIGHT"/>
  *         <m:MaterialLink  iconType="AUTORENEW" iconPosition="LEFT" text="Refresh" textColor="WHITE" waves="LIGHT"/>
@@ -59,22 +62,27 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Nav Bar</a>
+ * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialNavBar extends Nav implements HasActivates, HasProgress, HasType<NavBarType> {
+public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
 
-    private Div div = new Div();
+    private Div navWrapper = new Div();
 
     private MaterialLink navMenu = new MaterialLink(IconType.MENU);
 
-    private final CssTypeMixin<NavBarType, MaterialNavBar> typeMixin = new CssTypeMixin<>(this);
     private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
     private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
 
     public MaterialNavBar() {
-        div.setStyleName(CssName.NAV_WRAPPER);
-        div.add(navMenu);
-        super.add(div);
+        super();
+    }
+
+    @Override
+    protected void build() {
+        navWrapper.setStyleName(CssName.NAV_WRAPPER);
+        navWrapper.insert(navMenu,0);
+        super.add(navWrapper);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName(CssName.BUTTON_COLLAPSE);
         navMenu.getElement().getStyle().clearDisplay();
@@ -88,11 +96,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
     @Override
     protected void onLoad() {
         super.onLoad();
-
-        if (typeMixin.getType() != null) {
-            applyType(typeMixin.getType(), getElement());
-        }
-
+        build();
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
         Element sideNavElement = $("#" + activatesMixin.getActivates()).asElement();
 
@@ -105,30 +109,12 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     @Override
     public void add(Widget child) {
-        div.add(child);
+        navWrapper.add(child);
     }
 
     @Override
     public void clear() {
-        div.clear();
-    }
-
-    @Override
-    public void setType(NavBarType type) {
-        typeMixin.setType(type);
-    }
-
-    protected void applyType(NavBarType type, Element element) {
-        if (type.equals(NavBarType.SHRINK)) {
-            JsMaterialElement.initShrink(element, 300);
-        } else {
-            GWT.log("Default type of navbar was applied");
-        }
-    }
-
-    @Override
-    public NavBarType getType() {
-        return typeMixin.getType();
+        navWrapper.clear();
     }
 
     @Override
@@ -158,5 +144,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress, Ha
 
     public MaterialLink getNavMenu() {
         return navMenu;
+    }
+
+    public Div getNavWrapper() {
+        return navWrapper;
     }
 }

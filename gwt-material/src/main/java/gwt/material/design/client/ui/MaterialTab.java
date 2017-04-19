@@ -25,6 +25,7 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -35,8 +36,8 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -70,6 +71,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
+ * @see <a href="https://material.io/guidelines/components/tabs.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialTab extends UnorderedList implements HasType<TabType>, HasSelectionHandlers<Integer> {
@@ -91,10 +93,24 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     protected void onLoad() {
         super.onLoad();
 
-        initialize();
+        build();
+    }
 
+    @Override
+    protected void build() {
+        initialize();
+        applyIndicator();
+    }
+
+    protected void applyIndicator() {
         indicator = new MaterialWidget(getIndicatorElement());
         indicatorColorMixin = new ColorsMixin<>(indicator);
+
+        Scheduler.get().scheduleDeferred(() -> {
+            for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
+                $(getElement()).find(".indicator").eq(i).remove();
+            }
+        });
 
         setIndicatorColor(indicatorColor);
     }
@@ -153,15 +169,11 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
                     handlers.add(handler);
                 }
             }
-
-            for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
-                $(getElement()).find(".indicator").eq(i).remove();
-            }
         }
     }
 
     protected Element getIndicatorElement() {
-        return $(getElement()).find(".indicator").get(0);
+        return $(getElement()).find(".indicator").last().asElement();
     }
 
     @Override

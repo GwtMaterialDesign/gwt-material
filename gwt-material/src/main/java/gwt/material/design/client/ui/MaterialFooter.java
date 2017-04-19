@@ -70,6 +70,11 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
 
     public MaterialFooter() {
         super(Document.get().createElement("footer"), CssName.PAGE_FOOTER);
+        build();
+    }
+
+    @Override
+    protected void build() {
         container.setStyleName(CssName.CONTAINER);
         super.add(container);
     }
@@ -91,5 +96,9 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
     @Override
     public FooterType getType() {
         return typeMixin.getType();
+    }
+
+    public Div getContainer() {
+        return container;
     }
 }

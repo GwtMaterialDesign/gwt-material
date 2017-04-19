@@ -30,9 +30,9 @@ import gwt.material.design.client.ui.html.Div;
 //@formatter:off
 
 /**
- * <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.
+ * <p>If you have content that will take a long time to load, you should give the user feedback. For this reason we provide a number activity + progress indicators.</p>
  * <h3>Java Usage:</h3>
- * <p>
+ *
  * <pre>
  * {@code
  *
@@ -54,13 +54,14 @@ import gwt.material.design.client.ui.html.Div;
  * }
  * };
  * t.schedule(2000);
- *
+ * }
  * </pre>
- * </p>
  *
  * @author kevzlou7979
  * @author Ben Dol
+ *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Loaders</a>
+ * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialLoader {
@@ -79,6 +80,10 @@ public class MaterialLoader {
     }
 
     public MaterialLoader() {
+        build();
+    }
+
+    protected void build() {
         div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
         preLoader.getElement().getStyle().setProperty("margin", "auto");
         preLoader.add(new MaterialSpinner(SpinnerColor.BLUE));

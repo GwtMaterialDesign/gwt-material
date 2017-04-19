@@ -365,4 +365,8 @@ public class MaterialPager extends MaterialWidget {
             }
         }
     }
+
+    public MaterialChip getIndicator() {
+        return indicator;
+    }
 }

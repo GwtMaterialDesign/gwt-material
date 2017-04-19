@@ -24,7 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasDismissible;
-import gwt.material.design.client.base.HasTransition;
+import gwt.material.design.client.base.HasInOutDurationTransition;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
@@ -76,9 +76,10 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Modals</a>
+ * @see <a href="https://material.io/guidelines/components/dialogs.html#">Material Design Specification</a>
  */
 // @formatter:on
-public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
+public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
         HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
 
     static class ModalManager {
@@ -277,8 +278,18 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
+    public int getInDuration() {
+        return inDuration;
+    }
+
+    @Override
     public void setOutDuration(int outDuration) {
         this.outDuration = outDuration;
+    }
+
+    @Override
+    public int getOutDuration() {
+        return outDuration;
     }
 
     @Override

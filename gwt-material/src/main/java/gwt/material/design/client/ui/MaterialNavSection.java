@@ -53,6 +53,7 @@ import java.util.List;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material NavSection</a>
+ * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialNavSection extends UnorderedList implements HasPosition, HasSelectionHandlers<Integer> {
@@ -77,6 +78,11 @@ public class MaterialNavSection extends UnorderedList implements HasPosition, Ha
     @Override
     protected void onLoad() {
         super.onLoad();
+        build();
+    }
+
+    @Override
+    protected void build() {
         for (Widget widget : getChildren()) {
             if (widget instanceof ListItem) {
                 handlers.add(((ListItem) widget).addClickHandler(clickEvent -> SelectionEvent.fire(this, getWidgetIndex(widget))));

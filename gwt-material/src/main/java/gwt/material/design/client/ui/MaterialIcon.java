@@ -47,6 +47,7 @@ import gwt.material.design.client.constants.*;
  * @author Ben Dol
  * @see <a href="http://www.google.com/design/icons/">Search Google Icons</a>
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#icons">Material Icons Documentation</a>
+ * @see <a href="https://material.io/icons/">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialIcon extends AbstractButton implements HasSeparator, HasIcon {

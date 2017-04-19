@@ -36,6 +36,7 @@ import gwt.material.design.client.ui.html.ListItem;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
+ * @see <a href="https://material.io/guidelines/components/tabs.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialTabItem extends ListItem {

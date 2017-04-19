@@ -41,6 +41,7 @@ import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#collapsible">Material Collapsibles</a>
+ * @see <a href="https://material.io/guidelines/components/expansion-panels.html#expansion-panels-behavior">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent,

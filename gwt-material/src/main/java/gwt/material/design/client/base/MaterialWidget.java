@@ -207,6 +207,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     /**
+     * A protected method to build the structure of any complex widget that
+     * can be overridden to perform a different behavior of this widget.
+     */
+    protected void build() {}
+
+    /**
      * Inserts a widget at a specific index
      *
      * @param child       - widget to be inserted
@@ -1101,6 +1107,20 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             }
         }
     }
+
+    /**
+     * Applies a CSS3 Transition property to this widget.
+     */
+
+    public void setTransition(TransitionConfig property) {
+        Element target = getElement();
+        if (property.getTarget() != null) {
+            target = property.getTarget();
+        }
+        target.getStyle().setProperty("WebkitTransition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
+        target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
+    }
+
 
     /**
      * Add an {@code AttachHandler} for attachment events.

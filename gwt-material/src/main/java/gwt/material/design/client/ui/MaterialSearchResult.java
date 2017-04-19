@@ -31,6 +31,7 @@ import gwt.material.design.client.constants.CssName;
  *
  * @author kevzlou7979
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Search</a>
+ * @see <a href="https://material.io/guidelines/patterns/search.html#">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialSearchResult extends MaterialWidget {

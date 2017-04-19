@@ -74,6 +74,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Search</a>
+ * @see <a href="https://material.io/guidelines/patterns/search.html#">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialSearch extends MaterialValueBox<String> implements HasOpenHandlers<String>, HasCloseHandlers<String>,
@@ -115,12 +116,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
 
     public MaterialSearch() {
         super(new TextBox());
-        setType(InputType.SEARCH);
-        label.add(iconSearch);
-        label.getElement().setAttribute("for", "search");
-        add(label);
-        add(iconClose);
-        iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText()));
+        build();
     }
 
     public MaterialSearch(String placeholder) {
@@ -134,6 +130,16 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         setIconColor(iconColor);
         setActive(active);
         setShadow(shadow);
+    }
+
+    @Override
+    protected void build() {
+        setType(InputType.SEARCH);
+        label.add(iconSearch);
+        label.getElement().setAttribute("for", "search");
+        add(label);
+        add(iconClose);
+        iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText()));
     }
 
     @Override
@@ -367,5 +373,14 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
 
     public MaterialSearchResult getSearchResultPanel() {
         return searchResultPanel;
+    }
+
+    @Override
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialIcon getIconSearch() {
+        return iconSearch;
     }
 }
