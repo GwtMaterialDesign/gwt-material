@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
@@ -85,6 +86,12 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
             handlerReg = null;
         }
         handlerReg = addClickHandler(event -> {
+            // Stop propagation of event when checkbox / other elements has
+            // been clicked to avoid duplicate events.
+            if (Element.as(event.getNativeEvent().getEventTarget()) != getElement()) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
             for (Widget w : MaterialCollectionItem.this) {
                 if (w instanceof MaterialCollectionSecondary) {
                     for (Widget a : (MaterialCollectionSecondary) w) {
