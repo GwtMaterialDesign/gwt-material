@@ -47,6 +47,10 @@ public class ViewPortHelper {
         }
     }
 
+    public static native boolean isTouchScreenDevice() /*-{
+        return 'ontouchstart' in document.documentElement;
+    }-*/;
+
     public static boolean matchMedia(ViewPort viewPort) {
         return Window.matchMedia(viewPort.getMediaQuery());
     }

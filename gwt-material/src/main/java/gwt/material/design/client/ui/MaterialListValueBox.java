@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -30,6 +31,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.helper.ViewPortHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
@@ -186,7 +188,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         JsMaterialElement.$(listBox.getElement()).material_select(() -> JQuery.$("input.select-dropdown").trigger("close", null));
         // Fixed auto hide when scrolling on IE Browsers
         JQuery.$(listBox.getElement()).siblings("input.select-dropdown").off("mousedown").on("mousedown", (e, param1) -> {
-            e.preventDefault();
+            if (!ViewPortHelper.isTouchScreenDevice()) {
+                e.preventDefault();
+            }
             return true;
         });
         initialized = true;
