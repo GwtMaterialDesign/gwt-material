@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
@@ -84,6 +85,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
 
     private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
     private List<HandlerRegistration> handlers = new ArrayList<>();
+    private HandlerRegistration selectionHandler;
 
     public MaterialTab() {
         super(CssName.TABS);
@@ -153,6 +155,12 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     protected void initialize() {
         if (getWidgetCount() > 0) {
             $(getElement()).tabs();
+
+            if (selectionHandler == null) {
+                selectionHandler = addSelectionHandler(selectionEvent -> {
+                   this.tabIndex = selectionEvent.getSelectedItem();
+                });
+            }
 
             if (handlers.size() > 0) {
                 for (HandlerRegistration handler : handlers) {
