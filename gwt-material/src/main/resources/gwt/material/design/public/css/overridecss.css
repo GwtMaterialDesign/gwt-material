@@ -985,6 +985,10 @@ input:-webkit-autofill {
 	vertical-align: top;
 }
 
+.breadcrumb:nth-child(2):before {
+	display: none;
+}
+
 .picker__close, .picker__today, .picker__clear {
 	white-space: nowrap;
 	overflow: hidden;
