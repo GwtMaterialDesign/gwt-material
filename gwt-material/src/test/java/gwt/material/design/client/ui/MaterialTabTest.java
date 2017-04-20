@@ -28,6 +28,8 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
+import static gwt.material.design.jquery.client.api.JQuery.$;
+
 /**
  * Test case for Tabs
  *
@@ -42,7 +44,21 @@ public class MaterialTabTest extends MaterialWidgetTest {
         generateTabItems(tab, row);
         checkEvents(tab);
         checkTypes(tab);
+        checkTabIndex(tab);
         row.add(tab);
+    }
+
+    public void checkTabIndex(MaterialTab tab) {
+        // Expected default selected tab (0 index)
+        assertEquals(tab.getTabIndex(), 0);
+
+        tab.setTabIndex(1);
+        // Expected index : 1
+        assertEquals(tab.getTabIndex(), 1);
+
+        tab.setTabIndex(2);
+        // Expected index : 2
+        assertEquals(tab.getTabIndex(), 2);
     }
 
     public void checkEvents(MaterialTab widget) {
