@@ -25,10 +25,7 @@ import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.jquery.client.api.JQueryElement;
-import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import jsinterop.annotations.*;
 
 import java.util.Date;
 
@@ -132,6 +129,9 @@ public class JsMaterialElement extends JQueryElement {
      */
     @JsMethod
     public native JQueryElement material_select();
+
+    @JsMethod
+    public native JQueryElement material_select(Functions.Func callback);
 
     @JsMethod
     public native JQueryElement material_select(String action);

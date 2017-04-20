@@ -34,7 +34,9 @@ import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.jquery.client.api.JQuery;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -181,7 +183,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * changes, to keep the Materialize CSS design updated.
      */
     protected void initialize() {
-        $(listBox.getElement()).material_select();
+        JsMaterialElement.$(listBox.getElement()).material_select(() -> JQuery.$("input.select-dropdown").trigger("close", null));
+        // Fixed auto hide when scrolling on IE Browsers
+        JQuery.$(listBox.getElement()).siblings("input.select-dropdown").off("mousedown").on("mousedown", (e, param1) -> {
+            e.preventDefault();
+            return true;
+        });
         initialized = true;
     }
 
