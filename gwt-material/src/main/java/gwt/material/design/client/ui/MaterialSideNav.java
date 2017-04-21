@@ -25,6 +25,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -285,12 +286,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     protected void applyFixedType() {
         setType(SideNavType.FIXED);
         applyBodyScroll();
-        $(JQuery.window()).off("resize").resize((e, param1) -> {
-            if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
-                Scheduler.get().scheduleDeferred(() -> show());
-            }
-            return true;
-        });
 
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), this.width);
@@ -457,6 +452,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
      * Show the sidenav using the activator element
      */
     public void show() {
+        $("#sidenav-overlay").remove();
         $(activator).sideNav("show");
     }
 

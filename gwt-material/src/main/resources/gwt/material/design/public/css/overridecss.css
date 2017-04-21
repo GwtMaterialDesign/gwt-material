@@ -780,7 +780,7 @@ ul.side-nav.right-aligned {
 	top: 64px;
 }
 
-/** SideNav Float **/
+/** SideNav Drawer **/
 .side-nav.drawer-with-header {
 	top: 64px;
 	height: calc(100vh - 64px);
@@ -839,6 +839,11 @@ ul.side-nav.mini-with-expand li a span {
 }
 #sidenav-overlay {
 	visibility: hidden;
+}
+@media screen and (min-width: 992px) {
+	ul.side-nav.fixed {
+		left: 0 !important;
+	}
 }
 @media screen and (max-width: 992px) {
 	.side-nav.fixed, .side-nav.card, .side-nav.drawer-with-header, .side-nav.push-with-header, .side-nav.mini{
