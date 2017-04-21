@@ -198,4 +198,11 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> handler) {
         return addHandler(handler, SelectionEvent.getType());
     }
+
+    /**
+     * Recalculate the the tab indicator (underlined element) width.
+     */
+    public void resize() {
+        $(getElement()).tabs();
+    }
 }
