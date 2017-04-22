@@ -47,6 +47,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_mini">Pattern</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_mini_expandable">Pattern Expandable</a>
  */
 //@formatter:on
 public class MaterialSideNavMini extends MaterialSideNav {

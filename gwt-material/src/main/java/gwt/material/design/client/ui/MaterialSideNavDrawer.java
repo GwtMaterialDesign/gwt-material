@@ -46,6 +46,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_drawer">Pattern</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_drawer_header">Pattern with Header</a>
  */
 //@formatter:on
 public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHeader {
@@ -83,7 +85,7 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
     protected void appyDrawerType() {
         setType(SideNavType.DRAWER);
         if (overlayOpeningHandler == null) {
-            overlayOpeningHandler = addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("#sidenav-overlay").css("visibility", "visible")));
+            overlayOpeningHandler = addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("[id=sidenav-overlay]").css("visibility", "visible")));
         }
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), 0);

@@ -63,6 +63,11 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Nav Bar</a>
  * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#navbar_default">Pattern Default</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#navbar_fixed">Pattern Fixed</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#navbar_tall">Pattern Tall</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#navbar_extend">Pattern Extend</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#navbar_tab">Pattern Tabs</a>
  */
 //@formatter:on
 public class MaterialNavBar extends Nav implements HasActivates, HasProgress {

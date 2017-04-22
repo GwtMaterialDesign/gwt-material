@@ -25,6 +25,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasActiveParent;
+import gwt.material.design.client.base.HasNoSideNavSelection;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
@@ -93,7 +94,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/expansion-panels.html#expansion-panels-behavior">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends MaterialWidget implements HasType<CollapsibleType>, HasActiveParent {
+public class MaterialCollapsible extends MaterialWidget implements HasType<CollapsibleType>, HasActiveParent, HasNoSideNavSelection {
 
     protected interface HasCollapsibleParent {
         void setParent(MaterialCollapsible parent);

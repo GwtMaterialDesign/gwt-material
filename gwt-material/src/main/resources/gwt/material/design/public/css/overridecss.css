@@ -764,8 +764,9 @@ footer.fixed{
 	padding-top: 0 !important;
 }
 
-ul.side-nav.right-aligned {
-	position: fixed;
+/** Sidenav Content **/
+.sidenav-content {
+	padding: 0 15px;
 }
 
 /** SideNav Card **/
@@ -841,6 +842,14 @@ ul.side-nav.mini-with-expand li a span {
 	visibility: hidden;
 }
 @media screen and (min-width: 992px) {
+	ul.side-nav.fixed.right-aligned {
+		right: 0 !important;
+		left: initial !important;
+	}
+	ul.side-nav.right-aligned:not(.drawer) {
+		position: fixed;
+		z-index: 997;
+	}
 	ul.side-nav.fixed {
 		left: 0 !important;
 	}
