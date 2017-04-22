@@ -190,8 +190,6 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         assertNotNull(parentLink);
         assertNotNull(body);
         assertEquals(body.getChildren().size(), 5);
-        assertTrue(sideNav.getChildren().get(5) instanceof ListItem);
-        ListItem itemColaps = (ListItem) sideNav.getWidget(5);
-        assertTrue(itemColaps.getWidget(0) instanceof MaterialCollapsible);
+        assertTrue(sideNav.getChildren().get(5) instanceof MaterialCollapsible);
     }
 }
