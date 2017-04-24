@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.HasNoSideNavSelection;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 
@@ -69,6 +70,6 @@ import gwt.material.design.client.base.MaterialWidget;
 public class MaterialSideNavContent extends MaterialWidget implements HasNoSideNavSelection {
 
     public MaterialSideNavContent() {
-        super(Document.get().createDivElement(), "sidenav-content");
+        super(Document.get().createDivElement(), CssName.SIDE_NAV_CONTENT);
     }
 }

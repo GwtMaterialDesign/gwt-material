@@ -60,6 +60,16 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         checkSideNavItems(sideNav);
         checkActivator();
         checkDuration(sideNav);
+        checkSideNavContent(sideNav);
+    }
+
+    protected void checkSideNavContent(MaterialSideNav sideNav) {
+        sideNav.clear();
+        assertEquals(sideNav.getChildren().size(), 0);
+        MaterialSideNavContent content = new MaterialSideNavContent();
+        sideNav.add(content);
+        assertEquals(sideNav.getChildren().size(), 1);
+        assertEquals(sideNav.getWidget(0), content);
     }
 
     protected void checkDuration(MaterialSideNav sideNav) {
