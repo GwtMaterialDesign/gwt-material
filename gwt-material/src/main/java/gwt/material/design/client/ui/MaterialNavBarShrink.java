@@ -51,6 +51,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#navbar">Material Nav Bar</a>
  * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#navbar_shrink">Pattern Shrink</a>
  */
 //@formatter:on
 public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkableNavBarHandlers {

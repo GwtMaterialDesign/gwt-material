@@ -43,6 +43,7 @@ import gwt.material.design.client.constants.SideNavType;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_card">Pattern</a>
  */
 //@formatter:on
 public class MaterialSideNavCard extends MaterialSideNav {

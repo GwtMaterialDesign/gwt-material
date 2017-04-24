@@ -41,7 +41,6 @@ import gwt.material.design.client.events.SideNavOpeningEvent.SideNavOpeningHandl
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.html.ListItem;
-import gwt.material.design.jquery.client.api.JQuery;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -64,6 +63,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_fixed">Pattern</a>
  */
 //@formatter:on
 public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
@@ -125,7 +125,9 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
                 });
             }
         } else {
-            $(activator).trigger("menu-out", null);
+            if (Window.getClientWidth() > 960) {
+                $(activator).trigger("menu-out", null);
+            }
         }
     }
 
@@ -170,8 +172,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             MaterialWidget widget = (MaterialWidget) child;
             if (widget.getInitialClasses() != null) {
                 if (widget.getInitialClasses().length > 0) {
-                    String initialClass = widget.getInitialClasses()[0];
-                    if (initialClass.contains(CssName.SIDE_PROFILE) || initialClass.contains(CssName.COLLAPSIBLE)) {
+                    if (child instanceof HasNoSideNavSelection) {
                         isNotSelectable = true;
                     }
                 }
@@ -188,9 +189,12 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
                 listItem.setWaves(((HasWaves) child).getWaves());
                 ((HasWaves) child).setWaves(null);
             }
-            listItem.add(child);
-
-            child = listItem;
+            if (child instanceof HasNoSideNavSelection) {
+                super.add(child);
+            } else {
+                listItem.add(child);
+                child = listItem;
+            }
         }
 
         // Collapsible and Side Porfile should not be selectable
@@ -285,12 +289,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     protected void applyFixedType() {
         setType(SideNavType.FIXED);
         applyBodyScroll();
-        $(JQuery.window()).off("resize").resize((e, param1) -> {
-            if (gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
-                Scheduler.get().scheduleDeferred(() -> show());
-            }
-            return true;
-        });
 
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), this.width);
@@ -322,7 +320,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         if (isAllowBodyScroll()) {
             $("header").css("width", "100%");
             $("header").css("position", "fixed");
-            $("header").css("zIndex", "999");
+            $("header").css("zIndex", "997");
             $(getElement()).css("position", "fixed");
         }
     }
@@ -457,6 +455,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
      * Show the sidenav using the activator element
      */
     public void show() {
+        $("#sidenav-overlay").remove();
         $(activator).sideNav("show");
     }
 

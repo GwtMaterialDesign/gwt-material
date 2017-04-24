@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
@@ -43,7 +45,14 @@ import gwt.material.design.client.constants.CssName;
 //@formatter:on
 public class MaterialNavMenu extends MaterialLink {
 
+    private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
+
     public MaterialNavMenu() {
         setInitialClasses(CssName.BUTTON_COLLAPSE);
+    }
+
+    @Override
+    public void setActivates(String activates) {
+        activatesMixin.setActivates(activates);
     }
 }

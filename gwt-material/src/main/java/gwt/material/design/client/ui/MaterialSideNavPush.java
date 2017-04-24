@@ -49,6 +49,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#sidenavs">Material SideNav</a>
  * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design Specification</a>
+ * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_push">Pattern</a>
  */
 //@formatter:on
 public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeader {
@@ -128,7 +129,7 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
     protected void applyBodyScroll() {
         $("header").css("width", "100%");
         $("header").css("position", "fixed");
-        $("header").css("zIndex", "999");
+        $("header").css("zIndex", "997");
         $("header").css("top", "0");
         if (pushOpeningHandler == null) {
             pushOpeningHandler = addOpeningHandler(event -> {

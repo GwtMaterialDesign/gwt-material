@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import gwt.material.design.client.base.HasHref;
+import gwt.material.design.client.base.HasNoSideNavSelection;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
@@ -48,7 +49,7 @@ import gwt.material.design.client.ui.html.Div;
  * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosition {
+public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosition, HasNoSideNavSelection {
 
     private Div container = new Div();
 
