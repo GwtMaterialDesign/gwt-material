@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasDurationTransition;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
@@ -70,11 +71,14 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slide</a>
  */
 //@formatter:on
-public class MaterialSlider extends MaterialWidget {
+public class MaterialSlider extends MaterialWidget implements HasDurationTransition {
 
     private UnorderedList listContainer = new UnorderedList();
 
     private boolean fullWidth = true;
+    private boolean indicators = true;
+    private int duration = 500;
+    private int interval = 6000;
 
     private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
 
@@ -132,6 +136,9 @@ public class MaterialSlider extends MaterialWidget {
     protected void initialize() {
         JsSliderOptions options = new JsSliderOptions();
         options.full_width = fullWidth;
+        options.indicators = indicators;
+        options.transition = duration;
+        options.interval = interval;
         $(getElement()).slider(options);
     }
 
@@ -145,5 +152,26 @@ public class MaterialSlider extends MaterialWidget {
 
     public UnorderedList getListContainer() {
         return listContainer;
+    }
+
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    /**
+     * Set the duration between transitions in ms. (Default: 6000)
+     */
+    public void setInterval(int interval) {
+        this.interval = interval;
     }
 }
