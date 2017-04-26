@@ -137,7 +137,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     }
 
     @Override
-    protected void build() {
+    protected void initialize() {
         setType(InputType.SEARCH);
         label.add(iconSearch);
         label.getElement().setAttribute("for", "search");
@@ -145,11 +145,6 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         add(iconClose);
         iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText()));
 
-        super.build();
-    }
-
-    @Override
-    protected void initialize() {
         if (searchResultPanel == null || !searchResultPanel.isAttached()) {
             // populate the lists of search result on search panel
             searchResultPanel = new MaterialSearchResult();

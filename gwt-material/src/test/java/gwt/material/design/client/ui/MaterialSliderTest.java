@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -33,6 +34,7 @@ public class MaterialSliderTest extends MaterialWidgetTest {
 
     public void init() {
         MaterialSlider slider = new MaterialSlider();
+        RootPanel.get().add(slider);
         checkWidget(slider);
         generateSliderItems(slider);
         checkFullscreen(slider);
