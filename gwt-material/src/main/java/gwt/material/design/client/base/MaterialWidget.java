@@ -54,6 +54,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
+    private boolean initialize;
 
     public static JQueryElement window() {
         if (window == null) {
@@ -209,8 +210,39 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     /**
      * A protected method to build the structure of any complex widget that
      * can be overridden to perform a different behavior of this widget.
+     * Call the method initialize() directly.
      */
-    protected void build() {}
+    protected void build() {
+        if (!initialize) {
+            initialize();
+            initialize = true;
+        }
+    }
+
+    /**
+     * A initialization phase that can be overriden by any complex widget
+     * that needs to initialize their feature specially for JSInterop instances.
+     */
+    protected void initialize() {}
+
+    /**
+     * Can be called multiple times to reinitialize the state of any complex widget
+     */
+    public void reinitialize() {}
+
+    /**
+     * Returns whether the widget has been initialized or not
+     */
+    public boolean isInitialize() {
+        return initialize;
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        this.initialize = false;
+    }
 
     /**
      * Inserts a widget at a specific index

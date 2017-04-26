@@ -68,7 +68,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slide</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slider</a>
  */
 //@formatter:on
 public class MaterialSlider extends MaterialWidget implements HasDurationTransition {
@@ -80,10 +80,16 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
     private int duration = 500;
     private int interval = 6000;
 
-    private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
+    private final ToggleStyleMixin<MaterialSlider> fullScreenMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
 
     public MaterialSlider() {
         super(Document.get().createDivElement(), CssName.SLIDER);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
         build();
     }
 
@@ -91,13 +97,18 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
     protected void build() {
         listContainer.setStyleName(CssName.SLIDES);
         super.add(listContainer);
+
+        super.build();
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        initialize();
+    protected void initialize() {
+        JsSliderOptions options = new JsSliderOptions();
+        options.full_width = fullWidth;
+        options.indicators = indicators;
+        options.transition = duration;
+        options.interval = interval;
+        $(getElement()).slider(options);
     }
 
     @Override
@@ -115,11 +126,11 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
      * Set the image slider to fullscreen view.
      */
     public void setFullscreen(boolean fullscreen) {
-        fsMixin.setOn(fullscreen);
+        fullScreenMixin.setOn(fullscreen);
     }
 
     public boolean isFullscreen() {
-        return fsMixin.isOn();
+        return fullScreenMixin.isOn();
     }
 
     public boolean isFullWidth() {
@@ -128,18 +139,6 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
 
     public void setFullWidth(boolean fullWidth) {
         this.fullWidth = fullWidth;
-    }
-
-    /**
-     * Initialize the slider when the widget is attached.
-     */
-    protected void initialize() {
-        JsSliderOptions options = new JsSliderOptions();
-        options.full_width = fullWidth;
-        options.indicators = indicators;
-        options.transition = duration;
-        options.interval = interval;
-        $(getElement()).slider(options);
     }
 
     public void pause() {

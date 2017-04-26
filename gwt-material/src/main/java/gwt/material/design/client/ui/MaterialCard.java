@@ -132,9 +132,7 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
         }
 
         if(detectOrientation) {
-            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
-                detectAndApplyOrientation();
-            });
+            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation());
             detectAndApplyOrientation();
         }
     }

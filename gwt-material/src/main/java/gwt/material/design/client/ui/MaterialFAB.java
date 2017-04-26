@@ -94,12 +94,8 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
                 }
             });
         } else {
-            mouseOverHandler = addMouseOverHandler(mouseOverEvent -> {
-                OpenEvent.fire(this, this);
-            });
-            mouseOutHandler = addMouseOutHandler(mouseOutEvent -> {
-                CloseEvent.fire(this, this);
-            });
+            mouseOverHandler = addMouseOverHandler(mouseOverEvent -> OpenEvent.fire(this, this));
+            mouseOutHandler = addMouseOutHandler(mouseOutEvent -> CloseEvent.fire(this, this));
         }
     }
 

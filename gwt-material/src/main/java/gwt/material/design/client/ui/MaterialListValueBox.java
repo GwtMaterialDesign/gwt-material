@@ -199,7 +199,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     /**
      * Initialize if we have already initialized before.
      */
-    protected void reinitialize() {
+    public void reinitialize() {
         if (initialized) {
             initialize();
         }
