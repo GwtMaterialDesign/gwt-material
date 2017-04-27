@@ -176,7 +176,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             onLoadAdd.clear();
         }
 
-        onInitialize();
+        if (!initialize) {
+            initialize();
+            initialize = true;
+        }
     }
 
     @Override
@@ -214,13 +217,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      * can be overridden to perform a different behavior of this widget.
      */
     protected void build() {}
-
-    protected void onInitialize() {
-        if (!initialize) {
-            initialize();
-            initialize = true;
-        }
-    }
 
     /**
      * A initialization phase that can be overriden by any complex widget
