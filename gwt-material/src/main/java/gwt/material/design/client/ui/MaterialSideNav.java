@@ -106,32 +106,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        // Initialize the side nav
-        initialize();
-
-        if (showOnAttach != null) {
-            // Ensure the side nav starts closed
-            $(activator).trigger("menu-in", null);
-
-            if (showOnAttach) {
-                Scheduler.get().scheduleDeferred(() -> {
-                    // We are ignoring cases with mobile
-                    if (Window.getClientWidth() > 960) {
-                        show();
-                    }
-                });
-            }
-        } else {
-            if (Window.getClientWidth() > 960) {
-                $(activator).trigger("menu-out", null);
-            }
-        }
-    }
-
-    @Override
     protected void onUnload() {
         super.onUnload();
 
@@ -261,11 +235,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         this.edge = edge;
     }
 
-    @Override
-    protected void build() {
-        applyFixedType();
-    }
-
     protected void setType(SideNavType type) {
         typeMixin.setStyle(type.getCssName());
     }
@@ -359,17 +328,42 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         ClearActiveEvent.fire(this);
     }
 
+    @Override
+    protected void build() {
+        applyFixedType();
+    }
+
     /**
      * Reinitialize the side nav configurations when changing
      * properties.
      */
+    @Override
     public void reinitialize() {
         activator = null;
         initialize(false);
     }
 
+    @Override
     protected void initialize() {
         initialize(true);
+
+        if (showOnAttach != null) {
+            // Ensure the side nav starts closed
+            $(activator).trigger("menu-in", null);
+
+            if (showOnAttach) {
+                Scheduler.get().scheduleDeferred(() -> {
+                    // We are ignoring cases with mobile
+                    if (Window.getClientWidth() > 960) {
+                        show();
+                    }
+                });
+            }
+        } else {
+            if (Window.getClientWidth() > 960) {
+                $(activator).trigger("menu-out", null);
+            }
+        }
     }
 
     protected void initialize(boolean strict) {

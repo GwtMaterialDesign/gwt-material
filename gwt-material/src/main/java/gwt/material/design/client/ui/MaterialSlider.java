@@ -84,12 +84,6 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
 
     public MaterialSlider() {
         super(Document.get().createDivElement(), CssName.SLIDER);
-    }
-
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-
         build();
     }
 
@@ -97,8 +91,6 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
     protected void build() {
         listContainer.setStyleName(CssName.SLIDES);
         super.add(listContainer);
-
-        super.build();
     }
 
     @Override

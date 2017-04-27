@@ -104,13 +104,6 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        build();
-    }
-
-    @Override
     protected void initialize() {
         $(".materialboxed").materialbox();
     }

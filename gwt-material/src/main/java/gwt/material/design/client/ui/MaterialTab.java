@@ -92,13 +92,6 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        build();
-    }
-
-    @Override
     protected void initialize() {
         if (getWidgetCount() > 0) {
             $(getElement()).tabs();

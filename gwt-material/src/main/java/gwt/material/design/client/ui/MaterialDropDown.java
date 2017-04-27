@@ -114,13 +114,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        build();
-    }
-
-    @Override
     protected void initialize() {
         Widget parent = getParent();
         if (parent instanceof HasActivates) {
