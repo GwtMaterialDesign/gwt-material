@@ -116,7 +116,11 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
             int i = index;
             for (MaterialModal modal : modals) {
                 modal.setDepth(i++);
+                // Fixed Lean Overlay z index - must recalculate value based on number of modals plus 1
+                // to make it behind the modal z index.
+                $(".lean-overlay").css("zIndex", String.valueOf(modal.getDepth() - 1));
             }
+
         }
     }
 
