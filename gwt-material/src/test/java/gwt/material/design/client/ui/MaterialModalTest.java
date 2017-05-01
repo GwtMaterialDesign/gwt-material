@@ -41,21 +41,6 @@ public class MaterialModalTest extends MaterialWidgetTest {
         checkType(modal);
         checkDimissible(modal);
         checkDuration(modal);
-        checkMultipleModalZIndexes();
-    }
-
-    protected void checkMultipleModalZIndexes() {
-        int initialZIndex = 1010;
-        for (int i = 0; i <= 5; i++) {
-            MaterialModal modal = new MaterialModal();
-            RootPanel.get().add(modal);
-            modal.open();
-            // Check For Modal Z indexes
-            assertEquals(modal.getElement().getStyle().getZIndex(), String.valueOf(initialZIndex + i));
-            // Check For Modal Lean Overlay Z indexes
-            assertEquals($(".lean-overlay").css("zIndex"), String.valueOf(modal.getDepth() - 1));
-        }
-
     }
 
     protected void checkDuration(MaterialModal modal) {
