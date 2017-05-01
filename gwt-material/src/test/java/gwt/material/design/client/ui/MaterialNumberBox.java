@@ -39,7 +39,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public abstract class MaterialNumberBox<T> extends MaterialValueBox<T> {
 
     protected MaterialNumberBox() {
-        initValueBox(new NumberBox<>(new NumberHandler<>(this)));
+        build(new NumberBox<>(new NumberHandler<>(this)));
         setType(InputType.NUMBER);
     }
 

@@ -69,8 +69,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
         HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive {
 
-    private boolean initialized;
-
     private InputType type = InputType.TEXT;
 
     private ValueBoxEditor<T> editor;
@@ -112,10 +110,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
         this();
-        initValueBox(tValueBox);
+        build(tValueBox);
     }
 
-    public void initValueBox(ValueBoxBase<T> tValueBox) {
+    public void build(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
     }
@@ -123,27 +121,17 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Deprecated
     @UiChild(limit = 1)
     public void addValueBox(ValueBoxBase<T> widget) {
-        initValueBox(widget);
+        build(widget);
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
+    protected void initialize() {
+        String id = DOM.createUniqueId();
+        valueBoxBase.getElement().setId(id);
+        label.getElement().setAttribute("for", id);
 
-        build();
-    }
-
-    @Override
-    protected void build() {
-        if (!initialized) {
-            String id = DOM.createUniqueId();
-            valueBoxBase.getElement().setId(id);
-            label.getElement().setAttribute("for", id);
-
-            // Make valueBoxBase the primary focus target
-            getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
-            initialized = true;
-        }
+        // Make valueBoxBase the primary focus target
+        getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
     }
 
     /**

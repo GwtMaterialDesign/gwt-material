@@ -52,8 +52,6 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
 
-    private boolean initialized;
-
     private MaterialInput input = new MaterialInput();
     private MaterialLabel errorLabel = new MaterialLabel();
     private Label label = new Label();
@@ -95,33 +93,23 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-        build();
-    }
+    protected void initialize() {
+        label.add(offLabel);
+        label.add(input);
+        label.add(span);
+        add(label);
+        add(errorLabel);
+        errorLabel.getElement().getStyle().setMarginTop(16, Unit.PX);
+        label.add(onLabel);
 
-    @Override
-    protected void build() {
-        if (!initialized) {
-            label.add(offLabel);
-            label.add(input);
-            label.add(span);
-            add(label);
-            add(errorLabel);
-            errorLabel.getElement().getStyle().setMarginTop(16, Unit.PX);
-            label.add(onLabel);
-
-            // Register click handler here in order to have it at first position
-            // and therefore it will deal with clicks as first and setup the value
-            // right before others get notified.
-            if (clickHandler == null) {
-                clickHandler = addClickHandler(event -> {
-                    event.preventDefault();
-                    event.stopPropagation();
-                });
-            }
-
-            initialized = true;
+        // Register click handler here in order to have it at first position
+        // and therefore it will deal with clicks as first and setup the value
+        // right before others get notified.
+        if (clickHandler == null) {
+            clickHandler = addClickHandler(event -> {
+                event.preventDefault();
+                event.stopPropagation();
+            });
         }
     }
 

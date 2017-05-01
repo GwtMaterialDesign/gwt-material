@@ -86,7 +86,7 @@ public class JsMaterialElement extends JQueryElement {
     public native JQueryElement openModal(JsModalOptions options);
 
     @JsMethod
-    public native JQueryElement closeModal(Functions.Func complete);
+    public native JQueryElement closeModal(JsModalOptions options);
 
     /**
      * Parallax Component

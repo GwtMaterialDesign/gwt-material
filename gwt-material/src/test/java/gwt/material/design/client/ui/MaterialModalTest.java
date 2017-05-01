@@ -41,6 +41,21 @@ public class MaterialModalTest extends MaterialWidgetTest {
         checkType(modal);
         checkDimissible(modal);
         checkDuration(modal);
+        checkMultipleModalZIndexes();
+    }
+
+    protected void checkMultipleModalZIndexes() {
+        int initialZIndex = 1010;
+        for (int i = 0; i <= 5; i++) {
+            MaterialModal modal = new MaterialModal();
+            RootPanel.get().add(modal);
+            modal.open();
+            // Check For Modal Z indexes
+            assertEquals(modal.getElement().getStyle().getZIndex(), String.valueOf(initialZIndex + i));
+            // Check For Modal Lean Overlay Z indexes
+            assertEquals($(".lean-overlay").css("zIndex"), String.valueOf(modal.getDepth() - 1));
+        }
+
     }
 
     protected void checkDuration(MaterialModal modal) {
@@ -69,18 +84,16 @@ public class MaterialModalTest extends MaterialWidgetTest {
     }
 
     private <T extends MaterialModal> void checkOpenCloseEvent(T modal) {
-        checkOpenHandler(modal);
         // Check whether overlay is injected
         assertNotNull($(".lean-overlay"));
-        checkCloseHandler(modal);
         // Advance check on open() / close() methods to check whether open / close event fired
         final boolean[] isFiredOpen = {false};
         final boolean[] isFiredClose = {false};
         modal.addOpenHandler(openEvent -> isFiredOpen[0] = true);
         modal.addCloseHandler(closeEvent -> isFiredClose[0] = true);
-        modal.open();
-        modal.close();
+        fireOpenHandler(modal);
         assertTrue(isFiredOpen[0]);
+        fireCloseHandler(modal);
         assertTrue(isFiredClose[0]);
     }
 

@@ -92,29 +92,50 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
+    protected void initialize() {
+        if (getWidgetCount() > 0) {
+            $(getElement()).tabs();
 
-        build();
+            if (selectionHandler == null) {
+                selectionHandler = addSelectionHandler(selectionEvent -> this.tabIndex = selectionEvent.getSelectedItem());
+            }
+
+            if (handlers.size() > 0) {
+                for (HandlerRegistration handler : handlers) {
+                    handler.removeHandler();
+                }
+                handlers.clear();
+            }
+
+            for (Widget w : getChildren()) {
+                if (w instanceof MaterialTabItem) {
+                    HandlerRegistration handler = ((MaterialTabItem) w).addMouseDownHandler(e -> SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(w)));
+                    handlers.add(handler);
+                }
+            }
+            applyIndicator();
+        }
     }
 
     @Override
-    protected void build() {
-        initialize();
-        applyIndicator();
+    public void reinitialize() {
+        clearAllIndicators();
+        $(getElement()).tabs();
     }
 
     protected void applyIndicator() {
         indicator = new MaterialWidget(getIndicatorElement());
         indicatorColorMixin = new ColorsMixin<>(indicator);
+        setIndicatorColor(indicatorColor);
+        clearAllIndicators();
+    }
 
+    protected void clearAllIndicators() {
         Scheduler.get().scheduleDeferred(() -> {
             for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
                 $(getElement()).find(".indicator").eq(i).remove();
             }
         });
-
-        setIndicatorColor(indicatorColor);
     }
 
     public int getTabIndex() {
@@ -152,34 +173,6 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
         Scheduler.get().scheduleDeferred(() -> $(getElement()).tabs("select_tab", tabId));
     }
 
-    protected void initialize() {
-        if (getWidgetCount() > 0) {
-            $(getElement()).tabs();
-
-            if (selectionHandler == null) {
-                selectionHandler = addSelectionHandler(selectionEvent -> {
-                   this.tabIndex = selectionEvent.getSelectedItem();
-                });
-            }
-
-            if (handlers.size() > 0) {
-                for (HandlerRegistration handler : handlers) {
-                    handler.removeHandler();
-                }
-                handlers.clear();
-            }
-
-            for (Widget w : getChildren()) {
-                if (w instanceof MaterialTabItem) {
-                    HandlerRegistration handler = ((MaterialTabItem) w).addMouseDownHandler(e -> {
-                        SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(w));
-                    });
-                    handlers.add(handler);
-                }
-            }
-        }
-    }
-
     protected Element getIndicatorElement() {
         return $(getElement()).find(".indicator").last().asElement();
     }
@@ -197,12 +190,5 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     @Override
     public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> handler) {
         return addHandler(handler, SelectionEvent.getType());
-    }
-
-    /**
-     * Recalculate the the tab indicator (underlined element) width.
-     */
-    public void resize() {
-        $(getElement()).tabs();
     }
 }

@@ -51,6 +51,12 @@ public class MaterialVideo extends MaterialWidget {
 
     public MaterialVideo() {
         super(Document.get().createDivElement(), CssName.VIDEO_CONTAINER);
+
+        build();
+    }
+
+    @Override
+    protected void build() {
         add(frame);
     }
 

@@ -94,7 +94,9 @@ public class MaterialNavSection extends UnorderedList implements HasPosition, Ha
     protected void onUnload() {
         super.onUnload();
 
-        handlers.clear();
+        for (HandlerRegistration hr : handlers) {
+            hr.removeHandler();
+        }
     }
 
     @Override

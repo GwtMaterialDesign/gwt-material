@@ -43,7 +43,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * Material NavBar represents as a app tool bar, that contains NavBrand,
- * NavSection and initialize Material Sidenav.
+ * NavSection and initialize Material SideNav.
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
@@ -84,6 +84,13 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
     }
 
     @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        build();
+    }
+
+    @Override
     protected void build() {
         navWrapper.setStyleName(CssName.NAV_WRAPPER);
         navWrapper.insert(navMenu,0);
@@ -96,12 +103,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         navMenu.setWidth("64px");
         navMenu.setTextAlign(TextAlign.CENTER);
         navMenu.setIconPosition(IconPosition.NONE);
-    }
 
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-        build();
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
         Element sideNavElement = $("#" + activatesMixin.getActivates()).asElement();
 

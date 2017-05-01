@@ -76,13 +76,7 @@ public class MaterialScrollspy extends UnorderedList {
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        scrollSpy();
-    }
-
-    public void scrollSpy() {
+    protected void initialize() {
         $(".scrollspy").scrollSpy();
     }
 }

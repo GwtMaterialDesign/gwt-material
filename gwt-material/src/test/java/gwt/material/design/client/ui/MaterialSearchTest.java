@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.InputType;
 
@@ -34,6 +35,7 @@ public class MaterialSearchTest extends MaterialValueBoxTest {
 
     public void init() {
         MaterialSearch search = new MaterialSearch();
+        RootPanel.get().add(search);
         checkStructure(search);
         checkSearchEvents(search);
         checkCloseHandler(search);
@@ -43,7 +45,12 @@ public class MaterialSearchTest extends MaterialValueBoxTest {
 
     public <T extends MaterialSearch> void checkStructure(T search) {
         assertEquals(search.getType(), InputType.SEARCH);
-        assertEquals(search.getChildren().size(), 3);
+        assertEquals(search.getChildren().size(), 4);
+
+        assertEquals(search.getWidget(0), search.getValueBoxBase());
+        assertEquals(search.getWidget(1), search.getLabel());
+        assertEquals(search.getWidget(2), search.getIconClose());
+        assertEquals(search.getWidget(3), search.getSearchResultPanel());
 
         search.onLoad();
         MaterialSearchResult searchResultWidget = search.getSearchResultPanel();

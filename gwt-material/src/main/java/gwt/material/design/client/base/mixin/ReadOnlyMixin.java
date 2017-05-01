@@ -30,7 +30,6 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class ReadOnlyMixin<T extends UIObject, H extends UIObject> extends AbstractMixin<T> implements HasReadOnly {
 
     private H target;
-    private boolean toggle;
 
     public ReadOnlyMixin(T uiObject, H target) {
         super(uiObject);

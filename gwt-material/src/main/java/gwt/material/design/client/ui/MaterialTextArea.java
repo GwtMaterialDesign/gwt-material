@@ -103,9 +103,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     }
 
     protected void triggerAutoResize(Element element) {
-        Scheduler.get().scheduleDeferred(() -> {
-            $(element).trigger("autoresize", null);
-        });
+        Scheduler.get().scheduleDeferred(() -> $(element).trigger("autoresize", null));
     }
 
     public ResizeRule getResizeRule() {

@@ -100,9 +100,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
         void setParent(MaterialCollapsible parent);
     }
 
-    private boolean initialized;
     private boolean accordion = true;
-
     private int activeIndex = -1;
     private Widget activeWidget;
     private final CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin = new CssTypeMixin<>(this);
@@ -145,7 +143,10 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
         if (activeIndex != -1 && activeWidget == null) {
             setActive(activeIndex);
         }
+    }
 
+    @Override
+    protected void initialize() {
         // Initialize collapsible after all elements
         // are attached and marked as active, etc.
         collapsible(getElement(), accordion);
@@ -188,7 +189,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
 
     protected void collapsible(final Element e, boolean accordion) {
         $(e).collapsible(accordion);
-        initialized = true;
     }
 
     /**
@@ -198,7 +198,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     public void setAccordion(boolean accordion) {
         this.accordion = accordion;
 
-        if (initialized) {
+        if (isInitialize()) {
             // Since we have attached already reinitialize collapsible.
             collapsible();
         }
@@ -226,7 +226,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
                     activeWidget = getWidget(index - 1);
                     if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
                         ((MaterialCollapsibleItem) activeWidget).setActive(active);
-                        if (initialized) {
+                        if (isInitialize()) {
                             collapsible();
                         }
                     }
@@ -275,7 +275,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
      */
     public void closeAll() {
         clearActive();
-        if (initialized) {
+        if (isInitialize()) {
             collapsible();
         }
     }

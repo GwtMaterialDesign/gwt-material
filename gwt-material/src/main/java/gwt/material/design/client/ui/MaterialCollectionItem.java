@@ -60,12 +60,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-        initDismissableCollection();
-    }
-
-    protected void initDismissableCollection() {
+    protected void initialize() {
         JsMaterialElement.initDismissableCollection();
     }
 

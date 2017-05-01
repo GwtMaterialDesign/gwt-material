@@ -22,11 +22,13 @@ package gwt.material.design.client.ui;
 //@formatter:off
 
 /**
- * Material Integer Box is an input field that accepts any Long based string
+ * Material Long Box is an input field that accepts any Long based string
  * from user. <h3>UiBinder Usage:</h3>
  * <p>
- * <pre>
- * {@code <m:MaterialLongBox placeholder="Your Long" step="100"/>}
+ * <pre> {@code <m:MaterialLongBox ui:field="txtLongBox" label="Long value"/>
+ *
+ * // Setting value in java
+ * txtLongBox.setValue((long) 1000.00);}
  * </pre>
  * <p>
  * The parsing and formatting of the number are done natively by the browser,

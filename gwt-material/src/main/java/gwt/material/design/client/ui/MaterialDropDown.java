@@ -114,9 +114,40 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-        initialize();
+    protected void initialize() {
+        Widget parent = getParent();
+        if (parent instanceof HasActivates) {
+            String uid = DOM.createUniqueId();
+            ((HasActivates) parent).setActivates(uid);
+            setId(uid);
+            activatorElement = parent.getElement();
+        } else if (activatorElement == null) {
+            activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
+            if (activatorElement == null) {
+                GWT.log("There is no activator element with id: '" + activator + "' in the DOM, " +
+                        "cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
+            }
+        }
+
+        initialize(activatorElement);
+    }
+
+    @Override
+    public void reinitialize() {
+        remove(activatorElement);
+        initialize(activatorElement);
+    }
+
+    protected void initialize(Element activator) {
+        JsDropdownOptions options = new JsDropdownOptions();
+        options.constrain_width = constrainWidth;
+        options.inDuration = inDuration;
+        options.outDuration = outDuration;
+        options.hover = hover;
+        options.gutter = gutter;
+        options.belowOrigin = belowOrigin;
+        options.alignment = alignment.getCssName();
+        $(activator).dropdown(options);
     }
 
     @Override
@@ -241,44 +272,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             li.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             add(li, (Element) getElement());
         }
-    }
-
-    protected void initialize() {
-        Widget parent = getParent();
-        if (parent instanceof HasActivates) {
-            String uid = DOM.createUniqueId();
-            ((HasActivates) parent).setActivates(uid);
-            setId(uid);
-            activatorElement = parent.getElement();
-        } else if (activatorElement == null) {
-            activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
-            if (activatorElement == null) {
-                GWT.log("There is no activator element with id: '" + activator + "' in the DOM, " +
-                    "cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
-            }
-        }
-
-        initialize(activatorElement);
-    }
-
-    /**
-     * Must be called after changing any options.
-     */
-    public void reinitialize() {
-        remove(activatorElement);
-        initialize(activatorElement);
-    }
-
-    protected void initialize(Element activator) {
-        JsDropdownOptions options = new JsDropdownOptions();
-        options.constrain_width = constrainWidth;
-        options.inDuration = inDuration;
-        options.outDuration = outDuration;
-        options.hover = hover;
-        options.gutter = gutter;
-        options.belowOrigin = belowOrigin;
-        options.alignment = alignment.getCssName();
-        $(activator).dropdown(options);
     }
 
     protected void remove(Element activator) {
