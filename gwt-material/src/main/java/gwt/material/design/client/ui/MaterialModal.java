@@ -129,6 +129,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     private int outDuration = 200;
     private boolean dismissible = false;
     private double opacity = 0.5;
+    private JsModalOptions options;
 
     public MaterialModal() {
         super(Document.get().createDivElement(), CssName.MODAL);
@@ -198,14 +199,11 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @param fireEvent   - Flag whether this component fires Open Event
      */
     protected void open(Element e, double opacity, boolean dismissible, int inDuration, int outDuration, boolean fireEvent) {
-        JsModalOptions options = new JsModalOptions();
+        options = new JsModalOptions();
         options.opacity = opacity;
         options.dismissible = dismissible;
         options.in_duration = inDuration;
         options.out_duration = outDuration;
-        options.complete = () -> {
-            onNativeClose(true);
-        };
         $(e).openModal(options);
         ModalManager.register(this);
         if (fireEvent) {
@@ -213,8 +211,10 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         }
     }
 
-    protected void onNativeClose(boolean autoClosed) {
-        CloseEvent.fire(this, this, autoClosed);
+    protected void onNativeClose(boolean autoClosed, boolean fireEvent) {
+        if (fireEvent) {
+            CloseEvent.fire(this, this, autoClosed);
+        }
     }
 
     /**
@@ -255,15 +255,15 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @see CloseEvent
      */
     public void close(boolean autoClosed, boolean fireEvent) {
-        if (fireEvent) {
-            CloseEvent.fire(this, this);
-        }
-        close(getElement(), autoClosed);
+        close(getElement(), autoClosed, fireEvent);
         ModalManager.unregister(this);
     }
 
-    protected void close(Element e, boolean autoClosed) {
-        $(e).closeModal(() -> onNativeClose(autoClosed));
+    protected void close(Element e, boolean autoClosed, boolean fireEvent) {
+        if (options != null) {
+            options.complete = () -> onNativeClose(autoClosed, fireEvent);
+            $(e).closeModal(options);
+        }
     }
 
     @Override
