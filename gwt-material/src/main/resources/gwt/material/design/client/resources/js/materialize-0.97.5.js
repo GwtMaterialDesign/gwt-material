@@ -673,7 +673,7 @@ if ($) {
     $('.dropdown-button').dropdown();
   });
 }( jQuery ));;(function($) {
-    var _stack = 0,
+    var _stack = new Array(),
     _lastID = 0,
     _generateID = function() {
       _lastID++;
@@ -697,11 +697,14 @@ if ($) {
       overlayID = _generateID(),
       $modal = $(this),
       $overlay = $('<div class="lean-overlay"></div>'),
-      lStack = (++_stack);
-
+      lStack = (_stack.length == 0 ? 1 : _stack[_stack.length - 1] + 1);
+      
+      _stack.push(lStack);
+      
       // Store a reference of the overlay
       $overlay.attr('id', overlayID).css('z-index', 1000 + lStack * 2);
       $modal.data('overlay-id', overlayID).css('z-index', 1000 + lStack * 2 + 1);
+      $modal.data('stack-ordinal', lStack);
 
       $("body").append($overlay);
 
@@ -775,6 +778,7 @@ if ($) {
         complete: undefined
       },
       $modal = $(this),
+      lStack = $modal.data('stack-ordinal'),
       overlayID = $modal.data('overlay-id'),
       $overlay = $('#' + overlayID);
 
@@ -804,7 +808,7 @@ if ($) {
               options.complete();
             }
             $overlay.remove();
-            _stack--;
+           	_stack.splice(_stack.indexOf(lStack), 1);
           }
         });
       }
@@ -821,7 +825,7 @@ if ($) {
                 options.complete();
               }
               $overlay.remove();
-              _stack--;
+              _stack.splice(_stack.indexOf(lStack), 1);
             }
           }
         );
