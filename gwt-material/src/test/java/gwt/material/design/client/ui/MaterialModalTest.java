@@ -20,8 +20,12 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -34,6 +38,30 @@ public class MaterialModalTest extends MaterialWidgetTest {
 
     public void init() {
         MaterialModal modal = new MaterialModal();
+        checkModal(modal);
+        checkMultipleModalZIndexes();
+    }
+
+    protected void checkMultipleModalZIndexes() {
+        final int BASE_ZINDEX = 1000;
+        List<MaterialModal> modals = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            MaterialModal modal = new MaterialModal();
+            modals.add(modal);
+            checkModal(modal);
+            modal.open();
+            // Expected Display : BLOCK
+            assertEquals(modal.getElement().getStyle().getDisplay(), Display.BLOCK.getCssName());
+            checkZIndex(modal, i, BASE_ZINDEX);
+        }
+    }
+
+    protected <T extends MaterialModal> void checkZIndex(T modal, int modalIndex, int modalBaseZIndex) {
+        assertEquals($(modal.getElement()).css("zIndex"), String.valueOf(modalBaseZIndex + (modalIndex * 2) + 1));
+        assertEquals($(".lean-overlay").eq(modalIndex - 1).css("zIndex"), String.valueOf((modalBaseZIndex + (modalIndex * 2))));
+    }
+
+    protected <T extends MaterialModal> void checkModal(T modal) {
         generateModalContent(modal);
         checkWidget(modal);
         RootPanel.get().add(modal);
