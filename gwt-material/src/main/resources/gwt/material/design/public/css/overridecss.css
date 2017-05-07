@@ -160,6 +160,11 @@ ul li button.btn-floating {
 	margin: auto !important;
 }
 
+.picker__table .picker__day--outfocus {
+	display: block;
+	color: #dddddd;
+}
+
 /** Chips **/
 .chip {
 	display: inline-block;
