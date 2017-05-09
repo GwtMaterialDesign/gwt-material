@@ -47,6 +47,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author Ben Dol
  *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Tooltip</a>
+ * @see <a href="https://material.io/guidelines/components/tooltips.html">Material Design Specification</a>
  */
 public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition {
 
@@ -114,7 +115,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             // When we attach it, configure the tooltip
             attachHandler = widget.addAttachHandler(event -> {
                 if(event.isAttached()) {
-                    reconfigure();
+                    reinitialize();
                 } else {
                     remove();
                 }
@@ -126,7 +127,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
                     remove();
                 }
             });
-            reconfigure();
+            reinitialize();
         }
     }
 
@@ -209,13 +210,22 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      * Reconfigures the tooltip, must be called when altering
      * any tooltip after it has already been shown.
      */
-    public void reconfigure() {
+    public void reinitialize() {
         remove();
-        configure();
+        initialize();
     }
 
-    protected void configure() {
-        configure(text, position.getCssName(), delayMs);
+
+    protected void initialize() {
+        initialize(text, position.getCssName(), delayMs);
+    }
+
+    protected void initialize(String tooltip, String position, int delay) {
+        JsTooltipOptions options = new JsTooltipOptions();
+        options.tooltip = tooltip;
+        options.position = position;
+        options.delay = delay;
+        $(widget.getElement()).tooltip(options);
     }
 
     /**
@@ -282,14 +292,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     @Override
     public String toString() {
         return asWidget().toString();
-    }
-
-    protected void configure(String tooltip, String position, int delay) {
-        JsTooltipOptions options = new JsTooltipOptions();
-        options.tooltip = tooltip;
-        options.position = position;
-        options.delay = delay;
-        $(widget.getElement()).tooltip(options);
     }
 
     protected void command(String command) {

@@ -21,6 +21,8 @@ package gwt.material.design.client.ui.animate;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasDelayTransition;
+import gwt.material.design.client.base.HasDurationTransition;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.ListItem;
@@ -33,12 +35,12 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * Stateful object holding animation details.
  * Default behaviour is a bounce transition for 800ms.
  */
-public class MaterialAnimation {
+public class MaterialAnimation implements HasDurationTransition, HasDelayTransition {
 
     private Widget widget;
     private Transition transition = Transition.BOUNCE;
-    private int delayMillis = 0;
-    private int durationMillis = 800;
+    private int delay = 0;
+    private int duration = 800;
     private boolean infinite;
 
     private Timer startTimer, endTimer;
@@ -55,14 +57,14 @@ public class MaterialAnimation {
         return this;
     }
 
-    public MaterialAnimation delayMillis(int delayMillis) {
-        this.delayMillis = delayMillis;
+    public MaterialAnimation delay(int delay) {
+        this.delay = delay;
         return this;
     }
 
 
-    public MaterialAnimation durationMillis(int durationMillis) {
-        this.durationMillis = durationMillis;
+    public MaterialAnimation duration(int duration) {
+        this.duration = duration;
         return this;
     }
 
@@ -97,8 +99,8 @@ public class MaterialAnimation {
 
         final JsMaterialElement element = $(widget.getElement());
 
-        element.css("animation-duration", durationMillis + "ms");
-        element.css("-webkit-animation-duration", durationMillis + "ms");
+        element.css("animation-duration", duration + "ms");
+        element.css("-webkit-animation-duration", duration + "ms");
 
         switch (transition) {
             case SHOW_STAGGERED_LIST:
@@ -160,13 +162,13 @@ public class MaterialAnimation {
                                 startTimer = null;
                             }
                         };
-                        endTimer.schedule(durationMillis);
+                        endTimer.schedule(duration);
                     }
                     break;
                 }
             }
         };
-        startTimer.schedule(delayMillis);
+        startTimer.schedule(delay);
 
         widget.removeStyleName(CssName.MATERIALIZE_CSS);
     }
@@ -194,20 +196,24 @@ public class MaterialAnimation {
         this.transition = transition;
     }
 
-    public int getDelayMillis() {
-        return delayMillis;
+    @Override
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 
-    public void setDelayMillis(int delayMillis) {
-        this.delayMillis = delayMillis;
+    @Override
+    public int getDelay() {
+        return delay;
     }
 
-    public int getDurationMillis() {
-        return durationMillis;
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
-    public void setDurationMillis(int durationMillis) {
-        this.durationMillis = durationMillis;
+    @Override
+    public int getDuration() {
+        return duration;
     }
 
     public boolean isInfinite() {

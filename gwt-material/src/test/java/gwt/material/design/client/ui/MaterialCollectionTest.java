@@ -34,12 +34,13 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
     public void init() {
         MaterialCollection collection = new MaterialCollection();
         checkWidget(collection);
-        generateCollectionItem(collection);
+        checkCollectionItem(collection);
         checkDismissible(collection);
         checkActive(collection);
         checkType(collection);
         checkSecondary(collection);
         checkHeader(collection);
+        checkCheckBoxType(collection);
     }
 
     protected <T extends MaterialCollection> void checkActive(T collection) {
@@ -99,9 +100,35 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
         return (MaterialCollectionItem) w;
     }
 
-    protected void generateCollectionItem(MaterialCollection collection) {
+    protected void checkCollectionItem(MaterialCollection collection) {
         for (int i = 1; i <= 5; i++) {
             MaterialCollectionItem item = new MaterialCollectionItem();
+            boolean[] clickHandler = {false};
+            item.addClickHandler(clickEvent -> clickHandler[0] = true);
+            fireClickEvent(item);
+            assertTrue(clickHandler[0]);
+            collection.add(item);
+            assertNotNull(item);
+        }
+        assertEquals(collection.getChildren().size(), 5);
+    }
+
+    protected <T extends MaterialCollection> void checkCheckBoxType(T collection) {
+        collection.clear();
+        for (int i = 1; i <= 5; i++) {
+            MaterialCollectionItem item = new MaterialCollectionItem();
+
+            boolean[] clickHandler = {false};
+            item.addClickHandler(clickEvent -> clickHandler[0] = true);
+            item.setType(CollectionType.CHECKBOX);
+            assertTrue(item.getType() == CollectionType.CHECKBOX);
+            MaterialCheckBox cb = new MaterialCheckBox();
+            item.add(cb);
+            boolean[] cbClickHandler = {false};
+            cb.addClickHandler(clickEvent -> cbClickHandler[0] = true);
+            fireClickEvent(cb);
+            assertFalse(clickHandler[0]);
+
             collection.add(item);
             assertNotNull(item);
         }

@@ -70,6 +70,7 @@ public interface CssName {
     String MODAL_CONTENT = "modal-content";
     String MODAL_FOOTER = "modal-footer";
     String NAV_WRAPPER = "nav-wrapper";
+    String NAV_CONTENT = "nav-content";
     String BUTTON_COLLAPSE = "button-collapse";
     String BRAND_LOGO = "brand-logo";
     String PAGINATION = "pagination";
@@ -87,6 +88,8 @@ public interface CssName {
     String TABLE_OF_CONTENTS = "table-of-contents";
     String SEARCH_RESULT = "search-result";
     String SIDE_NAV = "side-nav";
+    String SIDE_NAV_CONTENT = "sidenav-content";
+    String OPEN = "open";
     String SIDE_PROFILE = "side-profile";
     String NAVMENU_PERMANENT = "navmenu-permanent";
     String CAPTION = "caption";

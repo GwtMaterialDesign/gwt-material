@@ -88,7 +88,7 @@ public class MaterialPager extends MaterialWidget {
         initialize();
     }
 
-    private void initialize() {
+    protected void initialize() {
         if (!calcInitialized) {
             calcTotalPages = total / pageSize + (((double) total % (double) pageSize) > 0 ? 1 : 0);
 
@@ -364,5 +364,9 @@ public class MaterialPager extends MaterialWidget {
                 removeStyleName(CssName.DISABLED);
             }
         }
+    }
+
+    public MaterialChip getIndicator() {
+        return indicator;
     }
 }

@@ -19,12 +19,14 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -35,8 +37,8 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -70,6 +72,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#tabs">Material Tabs</a>
+ * @see <a href="https://material.io/guidelines/components/tabs.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialTab extends UnorderedList implements HasType<TabType>, HasSelectionHandlers<Integer> {
@@ -82,21 +85,57 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
 
     private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
     private List<HandlerRegistration> handlers = new ArrayList<>();
+    private HandlerRegistration selectionHandler;
 
     public MaterialTab() {
         super(CssName.TABS);
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
+    protected void initialize() {
+        if (getWidgetCount() > 0) {
+            $(getElement()).tabs();
 
-        initialize();
+            if (selectionHandler == null) {
+                selectionHandler = addSelectionHandler(selectionEvent -> this.tabIndex = selectionEvent.getSelectedItem());
+            }
 
+            if (handlers.size() > 0) {
+                for (HandlerRegistration handler : handlers) {
+                    handler.removeHandler();
+                }
+                handlers.clear();
+            }
+
+            for (Widget w : getChildren()) {
+                if (w instanceof MaterialTabItem) {
+                    HandlerRegistration handler = ((MaterialTabItem) w).addMouseDownHandler(e -> SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(w)));
+                    handlers.add(handler);
+                }
+            }
+            applyIndicator();
+        }
+    }
+
+    @Override
+    public void reinitialize() {
+        clearAllIndicators();
+        $(getElement()).tabs();
+    }
+
+    protected void applyIndicator() {
         indicator = new MaterialWidget(getIndicatorElement());
         indicatorColorMixin = new ColorsMixin<>(indicator);
-
         setIndicatorColor(indicatorColor);
+        clearAllIndicators();
+    }
+
+    protected void clearAllIndicators() {
+        Scheduler.get().scheduleDeferred(() -> {
+            for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
+                $(getElement()).find(".indicator").eq(i).remove();
+            }
+        });
     }
 
     public int getTabIndex() {
@@ -134,34 +173,8 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
         Scheduler.get().scheduleDeferred(() -> $(getElement()).tabs("select_tab", tabId));
     }
 
-    protected void initialize() {
-        if (getWidgetCount() > 0) {
-            $(getElement()).tabs();
-
-            if (handlers.size() > 0) {
-                for (HandlerRegistration handler : handlers) {
-                    handler.removeHandler();
-                }
-                handlers.clear();
-            }
-
-            for (Widget w : getChildren()) {
-                if (w instanceof MaterialTabItem) {
-                    HandlerRegistration handler = ((MaterialTabItem) w).addMouseDownHandler(e -> {
-                        SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(w));
-                    });
-                    handlers.add(handler);
-                }
-            }
-
-            for (int i = 1; i < $(getElement()).find(".indicator").length(); i++) {
-                $(getElement()).find(".indicator").eq(i).remove();
-            }
-        }
-    }
-
     protected Element getIndicatorElement() {
-        return $(getElement()).find(".indicator").get(0);
+        return $(getElement()).find(".indicator").last().asElement();
     }
 
     @Override

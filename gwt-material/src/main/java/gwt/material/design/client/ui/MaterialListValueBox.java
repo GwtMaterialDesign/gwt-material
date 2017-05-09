@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -30,11 +31,14 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.helper.ViewPortHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.jquery.client.api.JQuery;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,15 +72,14 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material ListBox</a>
+ * @see <a href="https://material.io/guidelines/components/menus.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements HasPlaceholder,
         HasConstrainedValue<T>, HasReadOnly {
 
     private final ListBox listBox = new ListBox();
-    private final Label lblName = new Label();
-
-    private boolean initialized;
+    private final Label label = new Label();
 
     // By default the key is generated using toString
     private KeyFactory<T, String> keyFactory = Object::toString;
@@ -87,7 +90,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private HandlerRegistration valueChangeHandler;
 
-    private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel errorLabel = new MaterialLabel();
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -96,8 +99,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     @Override
     protected void onLoad() {
+        build();
+
         super.onLoad();
-        if (!initialized) {
+    }
+
+    @Override
+    protected void build() {
+        if (!isInitialize()) {
             $(listBox.getElement()).change((e, param) -> {
                 try {
                     ValueChangeEvent.fire(this, getValue());
@@ -112,9 +121,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                 }
             });
             add(listBox);
-            add(lblName);
-            add(lblError);
-            initialize();
+            add(label);
+            add(errorLabel);
         }
     }
 
@@ -128,12 +136,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         }
         $(listBox.getElement()).off("change");
         $(listBox.getElement()).material_select("destroy");
-        initialized = false;
     }
 
     @Override
     public void setPlaceholder(String placeholder) {
-        lblName.setText(placeholder);
+        label.setText(placeholder);
 
         if (placeholder != null) {
             reinitialize();
@@ -142,7 +149,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     @Override
     public String getPlaceholder() {
-        return lblName.getText();
+        return label.getText();
     }
 
     public OptionElement getOptionElement(int index) {
@@ -174,16 +181,24 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      * called every time the contents of the list box
      * changes, to keep the Materialize CSS design updated.
      */
+    @Override
     protected void initialize() {
-        $(listBox.getElement()).material_select();
-        initialized = true;
+        JsMaterialElement.$(listBox.getElement()).material_select(() -> JQuery.$("input.select-dropdown").trigger("close", null));
+        // Fixed auto hide when scrolling on IE Browsers
+        JQuery.$(listBox.getElement()).siblings("input.select-dropdown").off("mousedown").on("mousedown", (e, param1) -> {
+            if (!ViewPortHelper.isTouchScreenDevice()) {
+                e.preventDefault();
+            }
+            return true;
+        });
     }
 
     /**
      * Initialize if we have already initialized before.
      */
-    protected void reinitialize() {
-        if (initialized) {
+    @Override
+    public void reinitialize() {
+        if (isInitialize()) {
             initialize();
         }
     }
@@ -719,6 +734,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         MaterialWidget target = new MaterialWidget($(getElement()).find(".select-dropdown"));
-        return new ErrorMixin<>(this, lblError, target, lblName);
+        return new ErrorMixin<>(this, errorLabel, target, label);
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
     }
 }

@@ -45,7 +45,7 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
 
         if (e != null) {
             e.setAttribute("length", String.valueOf(length));
-            initCounter(e);
+            initialize(e);
         }
     }
 
@@ -59,7 +59,7 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
      *
      * @param e - element to initialize the feature
      */
-    protected void initCounter(Element e) {
+    protected void initialize(Element e) {
         $(e).characterCounter();
     }
 }

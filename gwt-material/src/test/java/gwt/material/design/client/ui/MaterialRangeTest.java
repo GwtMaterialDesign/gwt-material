@@ -37,7 +37,7 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
 
     public void init() {
         MaterialRange range = new MaterialRange();
-        checkAbstractValueWidgetWoPlaceholder(range, range.getLblError());
+        checkAbstractValueWidgetWoPlaceholder(range, range.getErrorLabel());
         checkValues(range);
         checkStructure(range);
     }
@@ -58,7 +58,7 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
         assertTrue(thumb.getWidget(0).getElement().hasClassName(CssName.VALUE));
 
         assertTrue(range.getWidget(1) instanceof MaterialLabel);
-        assertEquals(range.getWidget(1), range.getLblError());
+        assertEquals(range.getWidget(1), range.getErrorLabel());
     }
 
     public <T extends MaterialRange> void checkValues(T range) {

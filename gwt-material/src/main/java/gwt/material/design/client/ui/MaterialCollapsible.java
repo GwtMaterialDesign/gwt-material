@@ -25,6 +25,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasActiveParent;
+import gwt.material.design.client.base.HasNoSideNavSelection;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
@@ -90,17 +91,16 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#collapsible">Material Collapsibles</a>
+ * @see <a href="https://material.io/guidelines/components/expansion-panels.html#expansion-panels-behavior">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends MaterialWidget implements HasType<CollapsibleType>, HasActiveParent {
+public class MaterialCollapsible extends MaterialWidget implements HasType<CollapsibleType>, HasActiveParent, HasNoSideNavSelection {
 
     protected interface HasCollapsibleParent {
         void setParent(MaterialCollapsible parent);
     }
 
-    private boolean initialized;
     private boolean accordion = true;
-
     private int activeIndex = -1;
     private Widget activeWidget;
     private final CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin = new CssTypeMixin<>(this);
@@ -131,6 +131,11 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     protected void onLoad() {
         super.onLoad();
 
+        build();
+    }
+
+    @Override
+    protected void build() {
         // Setup the expansion type
         getElement().setAttribute("data-collapsible", isAccordion() ? CssName.ACCORDION : CssName.EXPANDABLE);
 
@@ -138,7 +143,10 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
         if (activeIndex != -1 && activeWidget == null) {
             setActive(activeIndex);
         }
+    }
 
+    @Override
+    protected void initialize() {
         // Initialize collapsible after all elements
         // are attached and marked as active, etc.
         collapsible(getElement(), accordion);
@@ -181,7 +189,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
 
     protected void collapsible(final Element e, boolean accordion) {
         $(e).collapsible(accordion);
-        initialized = true;
     }
 
     /**
@@ -191,7 +198,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     public void setAccordion(boolean accordion) {
         this.accordion = accordion;
 
-        if (initialized) {
+        if (isInitialize()) {
             // Since we have attached already reinitialize collapsible.
             collapsible();
         }
@@ -219,7 +226,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
                     activeWidget = getWidget(index - 1);
                     if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
                         ((MaterialCollapsibleItem) activeWidget).setActive(active);
-                        if (initialized) {
+                        if (isInitialize()) {
                             collapsible();
                         }
                     }
@@ -268,7 +275,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
      */
     public void closeAll() {
         clearActive();
-        if (initialized) {
+        if (isInitialize()) {
             collapsible();
         }
     }

@@ -32,6 +32,7 @@ import gwt.material.design.client.ui.html.ListItem;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#buttons">Material FAB</a>
+ * @see <a href="https://material.io/guidelines/components/buttons-floating-action-button.html">Material Design Specification</a>
  *///@formatter:on
 public class MaterialFABList extends MaterialWidget {
 

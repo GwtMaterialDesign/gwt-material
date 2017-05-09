@@ -25,8 +25,11 @@ package gwt.material.design.client.ui;
  * Material Integer Box is an input field that accepts any Integer based string
  * from user. <h3>UiBinder Usage:</h3>
  * <p>
- * <pre>
- * {@code <m:MaterialIntegerBox placeholder="Your integer" step="100"/>}
+ * <pre> {@code <m:MaterialIntegerBox ui:field="txtIntegerBox" label="Integer value"/>
+ *
+ * // Setting value in Java
+ * txtIntegerBox.setValue(10);
+ * }
  * </pre>
  * <p>
  * The parsing and formatting of the number are done natively by the browser,
@@ -35,6 +38,7 @@ package gwt.material.design.client.ui;
  * @author paulux84
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material
  * IntegerBox</a>
+ * @see <a href="https://material.io/guidelines/components/text-fields.html#">Material Design Specification</a>
  */
 // @formatter:on
 public class MaterialIntegerBox extends MaterialNumberBox<Integer> {

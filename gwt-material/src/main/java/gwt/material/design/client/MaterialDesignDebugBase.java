@@ -30,7 +30,6 @@ public class MaterialDesignDebugBase extends MaterialDesignBase {
         if(!isMaterializeLoaded()) {
             injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
-            injectDebugJs(MaterialDebugResources.INSTANCE.shrinkJsDebug());
         }
         onModuleLoaded();
     }

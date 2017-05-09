@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ColorsMixin;
@@ -47,20 +46,19 @@ import gwt.material.design.client.ui.html.Div;
  *
  * @author kevzlou7979
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Progress</a>
+ * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
  */
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 
-    private Div div = new Div();
+    private Div fillContainer = new Div();
     private double percent = 0;
 
-    private final ColorsMixin<Div> colorsMixin = new ColorsMixin<>(div);
-    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this, div);
+    private final ColorsMixin<Div> colorsMixin = new ColorsMixin<>(fillContainer);
+    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this, fillContainer);
 
     public MaterialProgress() {
         super(CssName.PROGRESS);
-        getElement().getStyle().setMargin(0, Unit.PX);
-        add(div);
-        setType(ProgressType.INDETERMINATE);
+        build();
     }
 
     public MaterialProgress(ProgressType type) {
@@ -71,6 +69,13 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
     public MaterialProgress(ProgressType type, Double percent) {
         this(type);
         setPercent(percent);
+    }
+
+    @Override
+    protected void build() {
+        getElement().getStyle().setMargin(0, Unit.PX);
+        add(fillContainer);
+        setType(ProgressType.INDETERMINATE);
     }
 
     @Override
@@ -92,14 +97,21 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
 
     /**
      * Set progress width as percent unit.
+     * If percent is greater than 100 then reset the progress in the maximum value (100%)
+     * If percent is less than 0 then reset the progress in the minimum value (0%)
      */
     public void setPercent(double percent) {
-        this.percent = percent;
-        if (percent <= 100) {
-            div.getElement().getStyle().setWidth(percent, Unit.PCT);
-        } else {
-            GWT.log("Progress percent must not exceed to 100 percent.", new RuntimeException());
+
+        if (percent > 100) {
+            percent = 100;
         }
+
+        if (percent < 0) {
+            percent = 0;
+        }
+
+        this.percent = percent;
+        fillContainer.getElement().getStyle().setWidth(percent, Unit.PCT);
     }
 
     /**
@@ -116,5 +128,9 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
      */
     public void setColor(Color color) {
         colorsMixin.setBackgroundColor(color);
+    }
+
+    public Div getFillContainer() {
+        return fillContainer;
     }
 }

@@ -91,6 +91,7 @@ import gwt.material.design.client.js.Window;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#cards">Material Cards</a>
+ * @see <a href="https://material.io/guidelines/components/cards.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialCard extends MaterialWidget implements HasAxis {
@@ -131,9 +132,7 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
         }
 
         if(detectOrientation) {
-            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
-                detectAndApplyOrientation();
-            });
+            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation());
             detectAndApplyOrientation();
         }
     }

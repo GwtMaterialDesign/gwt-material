@@ -20,11 +20,15 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
+import javafx.geometry.Side;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * Test case for Sidenav
@@ -35,6 +39,11 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
 
     public void init() {
         MaterialSideNav sideNav = new MaterialSideNav();
+        checkSideNav(sideNav);
+        checkOtherTypes();
+    }
+
+    protected void checkSideNav(MaterialSideNav sideNav) {
         final String ACTIVATOR = "sidenav";
         MaterialNavBar navBar = new MaterialNavBar();
         navBar.setActivates(ACTIVATOR);
@@ -47,30 +56,82 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         assertEquals(navBar.getActivates(), ACTIVATOR);
         assertEquals(sideNav.getWidth(), 300);
         checkWidget(sideNav);
-        checkTypes(sideNav);
         checkBoolean(sideNav, navBar);
         checkSideNavItems(sideNav);
+        checkActivator();
+        checkDuration(sideNav);
+        checkSideNavContent(sideNav);
     }
 
-    public <T extends MaterialSideNav, H extends MaterialNavBar> void checkTypes(T sideNav) {
-        final Element element = sideNav.getElement();
-        // Fixed type
-        sideNav.setType(SideNavType.FIXED);
-        assertNotNull(sideNav.getId());
-        assertTrue(element.hasClassName(SideNavType.FIXED.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.FIXED);
-        // Card Type
-        sideNav.setType(SideNavType.CARD);
-        assertTrue(element.hasClassName(SideNavType.CARD.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.CARD);
-        // Push Type
-        sideNav.setType(SideNavType.PUSH);
-        assertTrue(element.hasClassName(SideNavType.PUSH.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.PUSH);
-        // Mini
-        sideNav.setType(SideNavType.MINI);
-        assertTrue(element.hasClassName(SideNavType.MINI.getCssName()));
-        assertEquals(sideNav.getType(), SideNavType.MINI);
+    protected void checkSideNavContent(MaterialSideNav sideNav) {
+        sideNav.clear();
+        assertEquals(sideNav.getChildren().size(), 0);
+        MaterialSideNavContent content = new MaterialSideNavContent();
+        sideNav.add(content);
+        assertEquals(sideNav.getChildren().size(), 1);
+        assertEquals(sideNav.getWidget(0), content);
+    }
+
+    protected void checkDuration(MaterialSideNav sideNav) {
+        final int IN_DURATION = 500;
+        final int OUT_DURATION = 800;
+        // Check the default in duration (Expected 300ms)
+        assertEquals(sideNav.getInDuration(), 400);
+        // Check the default out duration (Expected 200ms)
+        assertEquals(sideNav.getOutDuration(), 200);
+
+        sideNav.setInDuration(IN_DURATION);
+        assertEquals(sideNav.getInDuration(), IN_DURATION);
+        sideNav.setOutDuration(OUT_DURATION);
+        assertEquals(sideNav.getOutDuration(), OUT_DURATION);
+    }
+
+    public void checkActivator() {
+        final String ACTIVATES = "sideNav";
+        MaterialNavBar navBar = new MaterialNavBar();
+        navBar.setActivates(ACTIVATES);
+
+        MaterialSideNav sideNav = new MaterialSideNav();
+        sideNav.setId(ACTIVATES);
+        assertEquals(sideNav.getId(), ACTIVATES);
+
+        // Attach the navbar and sidenav
+        RootPanel.get().add(navBar);
+        assertTrue(navBar.isAttached());
+        RootPanel.get().add(sideNav);
+        assertTrue(sideNav.isAttached());
+
+        // Check Nav Menu
+        assertNotNull(navBar.getNavMenu());
+        final Element navMenuElement = navBar.getNavMenu().getElement();
+
+        // isAlwaysShowActivator() must be true by default
+        assertTrue(sideNav.isAlwaysShowActivator());
+    }
+    public <T extends MaterialSideNav, H extends MaterialNavBar> void checkOtherTypes() {
+        MaterialSideNavCard sideNavCard = new MaterialSideNavCard();
+        checkSideNav(sideNavCard);
+        assertTrue(sideNavCard.getStyleName().contains(SideNavType.CARD.getCssName()));
+
+        MaterialSideNavDrawer sideNavDrawer = new MaterialSideNavDrawer();
+        checkSideNav(sideNavDrawer);
+        assertTrue(sideNavDrawer.getStyleName().contains(SideNavType.DRAWER.getCssName()));
+        sideNavDrawer.setWithHeader(true);
+        assertTrue(sideNavDrawer.isWithHeader());
+
+        MaterialSideNavMini sideNavMini = new MaterialSideNavMini();
+        checkSideNav(sideNavMini);
+        assertTrue(sideNavMini.getStyleName().contains(SideNavType.MINI.getCssName()));
+        sideNavMini.setExpandable(true);
+        assertTrue(sideNavMini.isExpandable());
+        sideNavMini.setExpandOnClick(true);
+        assertTrue(sideNavMini.isExpandOnClick());
+
+        MaterialSideNavPush sideNavPush = new MaterialSideNavPush();
+        checkSideNav(sideNavPush);
+        assertTrue(sideNavPush.getStyleName().contains(SideNavType.PUSH.getCssName()));
+        sideNavPush.setWithHeader(true);
+        assertTrue(sideNavPush.isWithHeader());
     }
 
     public <T extends MaterialSideNav, H extends MaterialNavBar> void checkBoolean(T sideNav, H navBar) {
@@ -139,8 +200,6 @@ public class MaterialSideNavTest extends MaterialWidgetTest {
         assertNotNull(parentLink);
         assertNotNull(body);
         assertEquals(body.getChildren().size(), 5);
-        assertTrue(sideNav.getChildren().get(5) instanceof ListItem);
-        ListItem itemColaps = (ListItem) sideNav.getWidget(5);
-        assertTrue(itemColaps.getWidget(0) instanceof MaterialCollapsible);
+        assertTrue(sideNav.getChildren().get(5) instanceof MaterialCollapsible);
     }
 }

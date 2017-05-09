@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -33,9 +34,26 @@ public class MaterialSliderTest extends MaterialWidgetTest {
 
     public void init() {
         MaterialSlider slider = new MaterialSlider();
+        RootPanel.get().add(slider);
         checkWidget(slider);
         generateSliderItems(slider);
         checkFullscreen(slider);
+        checkTransitionDuration(slider);
+    }
+
+    protected void checkTransitionDuration(MaterialSlider slider) {
+        // Check defaults
+        final int DEFAULT_DURATION = 500;
+        final int DEFAULT_INTERVAL = 6000;
+        assertEquals(slider.getDuration(), DEFAULT_DURATION);
+        assertEquals(slider.getInterval(), DEFAULT_INTERVAL);
+        // Check update
+        final int UPDATED_DURATION = 0;
+        final int UPDATED_INTERVAL = 0;
+        slider.setDuration(UPDATED_DURATION);
+        slider.setInterval(UPDATED_INTERVAL);
+        assertEquals(slider.getDuration(), UPDATED_DURATION);
+        assertEquals(slider.getInterval(), UPDATED_INTERVAL);
     }
 
     protected void generateSliderItems(MaterialSlider slider) {

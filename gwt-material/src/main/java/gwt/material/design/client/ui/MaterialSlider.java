@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasDurationTransition;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
@@ -67,50 +68,61 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slide</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slider</a>
  */
 //@formatter:on
-public class MaterialSlider extends MaterialWidget {
+public class MaterialSlider extends MaterialWidget implements HasDurationTransition {
 
-    private UnorderedList unorderedList = new UnorderedList();
+    private UnorderedList listContainer = new UnorderedList();
 
     private boolean fullWidth = true;
+    private boolean indicators = true;
+    private int duration = 500;
+    private int interval = 6000;
 
-    private final ToggleStyleMixin<MaterialSlider> fsMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
+    private final ToggleStyleMixin<MaterialSlider> fullScreenMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
 
     public MaterialSlider() {
         super(Document.get().createDivElement(), CssName.SLIDER);
-        unorderedList.setStyleName(CssName.SLIDES);
-        super.add(unorderedList);
+        build();
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
+    protected void build() {
+        listContainer.setStyleName(CssName.SLIDES);
+        super.add(listContainer);
+    }
 
-        initialize();
+    @Override
+    protected void initialize() {
+        JsSliderOptions options = new JsSliderOptions();
+        options.full_width = fullWidth;
+        options.indicators = indicators;
+        options.transition = duration;
+        options.interval = interval;
+        $(getElement()).slider(options);
     }
 
     @Override
     public void add(Widget child) {
-        unorderedList.add(child);
+        listContainer.add(child);
     }
 
     @Override
     public void setHeight(String height) {
         super.setHeight(height);
-        unorderedList.setHeight(height);
+        listContainer.setHeight(height);
     }
 
     /**
      * Set the image slider to fullscreen view.
      */
     public void setFullscreen(boolean fullscreen) {
-        fsMixin.setOn(fullscreen);
+        fullScreenMixin.setOn(fullscreen);
     }
 
     public boolean isFullscreen() {
-        return fsMixin.isOn();
+        return fullScreenMixin.isOn();
     }
 
     public boolean isFullWidth() {
@@ -121,20 +133,36 @@ public class MaterialSlider extends MaterialWidget {
         this.fullWidth = fullWidth;
     }
 
-    /**
-     * Initialize the slider when the widget is attached.
-     */
-    protected void initialize() {
-        JsSliderOptions options = new JsSliderOptions();
-        options.full_width = fullWidth;
-        $(getElement()).slider(options);
-    }
-
     public void pause() {
         $(getElement()).slider("pause");
     }
 
     public void start() {
         $(getElement()).slider("start");
+    }
+
+    public UnorderedList getListContainer() {
+        return listContainer;
+    }
+
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    /**
+     * Set the duration between transitions in ms. (Default: 6000)
+     */
+    public void setInterval(int interval) {
+        this.interval = interval;
     }
 }

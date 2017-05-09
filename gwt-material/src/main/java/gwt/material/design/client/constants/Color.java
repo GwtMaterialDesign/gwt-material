@@ -24,6 +24,9 @@ import gwt.material.design.client.base.helper.EnumHelper;
 /**
  * Color constants.
  *
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#colors">Colors</a>
+ * @see <a href="https://material.io/guidelines/style/color.html#">Material Design Specification</a>
+ * @see <a href="https://material.io/color/">Color Tool</a>
  * @author kevzlou7979
  */
 public enum Color implements CssType {

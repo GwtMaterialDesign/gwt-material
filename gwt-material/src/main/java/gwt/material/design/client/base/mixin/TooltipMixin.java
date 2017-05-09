@@ -47,11 +47,11 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
         if (tooltip != null) {
             tooltip.setWidget(uiObject);
         } else if (uiObject.isAttached()) {
-            initializeTooltip();
+            initialize();
         }
     }
 
-    protected void initializeTooltip() {
+    protected void initialize() {
         if (tooltip == null) {
             tooltip = new MaterialTooltip(uiObject);
         }
@@ -64,7 +64,7 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
 
     @Override
     public void setTooltip(String text) {
-        initializeTooltip();
+        initialize();
         tooltip.setText(text);
     }
 
@@ -75,7 +75,7 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
 
     @Override
     public void setTooltipPosition(Position position) {
-        initializeTooltip();
+        initialize();
         tooltip.setPosition(position);
     }
 
@@ -86,13 +86,13 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
 
     @Override
     public void setTooltipDelayMs(int delayMs) {
-        initializeTooltip();
+        initialize();
         tooltip.setDelayMs(delayMs);
     }
 
     @Override
     public void setTooltipHTML(String html) {
-        initializeTooltip();
+        initialize();
         tooltip.setHtml(html);
     }
 

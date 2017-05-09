@@ -24,16 +24,13 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasDismissible;
-import gwt.material.design.client.base.HasTransition;
+import gwt.material.design.client.base.HasInOutDurationTransition;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.js.JsModalOptions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -76,64 +73,21 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Modals</a>
+ * @see <a href="https://material.io/guidelines/components/dialogs.html#">Material Design Specification</a>
  */
 // @formatter:on
-public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasTransition,
+public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
         HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
-
-    static class ModalManager {
-        private static List<MaterialModal> modals;
-        private static final int index = 1010;
-
-        /**
-         * Registers the modal and added to static modal lists
-         */
-        public static void register(MaterialModal modal) {
-            if (modals == null) {
-                modals = new ArrayList<>();
-            }
-            modals.add(modal);
-            resetZIndex();
-        }
-
-        /**
-         * Unregisters the modal and removed it from static modal lists
-         */
-        public static void unregister(MaterialModal modal) {
-            if (modals == null) {
-                modals = new ArrayList<>();
-            }
-            if (modals.remove(modal)) {
-                resetZIndex();
-            }
-        }
-
-        /**
-         * Need to reset every time we have register / unregister process
-         */
-        protected static void resetZIndex() {
-            int i = index;
-            for (MaterialModal modal : modals) {
-                modal.setDepth(i++);
-            }
-        }
-    }
 
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
     private int inDuration = 300;
     private int outDuration = 200;
     private boolean dismissible = false;
     private double opacity = 0.5;
+    private JsModalOptions options;
 
     public MaterialModal() {
         super(Document.get().createDivElement(), CssName.MODAL);
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        close(false, false);
     }
 
     /**
@@ -193,23 +147,22 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @param fireEvent   - Flag whether this component fires Open Event
      */
     protected void open(Element e, double opacity, boolean dismissible, int inDuration, int outDuration, boolean fireEvent) {
-        JsModalOptions options = new JsModalOptions();
+        options = new JsModalOptions();
         options.opacity = opacity;
         options.dismissible = dismissible;
         options.in_duration = inDuration;
         options.out_duration = outDuration;
-        options.complete = () -> {
-            onNativeClose(true);
-        };
+        options.complete = () -> onNativeClose(true, true);
         $(e).openModal(options);
-        ModalManager.register(this);
         if (fireEvent) {
             OpenEvent.fire(this, this);
         }
     }
 
-    protected void onNativeClose(boolean autoClosed) {
-        CloseEvent.fire(this, this, autoClosed);
+    protected void onNativeClose(boolean autoClosed, boolean fireEvent) {
+        if (fireEvent) {
+            CloseEvent.fire(this, this, autoClosed);
+        }
     }
 
     /**
@@ -250,15 +203,14 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * @see CloseEvent
      */
     public void close(boolean autoClosed, boolean fireEvent) {
-        if (fireEvent) {
-            CloseEvent.fire(this, this);
-        }
-        close(getElement(), autoClosed);
-        ModalManager.unregister(this);
+        close(getElement(), autoClosed, fireEvent);
     }
 
-    protected void close(Element e, boolean autoClosed) {
-        $(e).closeModal(() -> onNativeClose(autoClosed));
+    protected void close(Element e, boolean autoClosed, boolean fireEvent) {
+        if (options != null) {
+            options.complete = () -> onNativeClose(autoClosed, fireEvent);
+            $(e).closeModal(options);
+        }
     }
 
     @Override
@@ -277,8 +229,18 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
+    public int getInDuration() {
+        return inDuration;
+    }
+
+    @Override
     public void setOutDuration(int outDuration) {
         this.outDuration = outDuration;
+    }
+
+    @Override
+    public int getOutDuration() {
+        return outDuration;
     }
 
     @Override

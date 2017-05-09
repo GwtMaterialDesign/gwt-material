@@ -28,7 +28,11 @@ import gwt.material.design.client.base.helper.EnumHelper;
 public enum SideNavType implements CssType {
     FIXED("fixed"),
     PUSH("push"),
+    PUSH_WITH_HEADER("push-with-header"),
     MINI("mini"),
+    MINI_WITH_EXPAND("mini-with-expand"),
+    DRAWER("drawer"),
+    DRAWER_WITH_HEADER("drawer-with-header"),
     CARD("card");
 
     private final String cssClass;

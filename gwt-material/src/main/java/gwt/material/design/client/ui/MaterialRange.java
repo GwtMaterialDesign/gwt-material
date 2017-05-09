@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -49,6 +48,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material Range</a>
+ * @see <a href="https://material.io/guidelines/components/sliders.html">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasError {
@@ -60,18 +60,23 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private static String VALUE = "value";
     private static String MAX = "max";
     private static String MIN = "min";
-    private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel errorLabel = new MaterialLabel();
     private HandlerRegistration changeHandler;
 
-    private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
+    private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, null);
 
     /**
      * Creates a range
      */
     public MaterialRange() {
         super(Document.get().createFormElement());
+        build();
+    }
+
+    @Override
+    protected void build() {
         getElement().setAttribute("action", "#");
-        lblError.setVisible(false);
+        errorLabel.setVisible(false);
         paragraph.setStyleName(CssName.RANGE_FIELD);
 
         rangeInputElement.setType(InputType.RANGE);
@@ -85,7 +90,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         paragraph.add(thumb);
         add(paragraph);
 
-        add(lblError);
+        add(errorLabel);
     }
 
     @Override
@@ -153,16 +158,13 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     @Override
     public void setValue(Integer value, boolean fireEvents) {
         if (value == null) {
-            GWT.log("Value must be null", new RuntimeException());
-            return;
+            throw new IllegalArgumentException("Value must not be null");
         }
         if (value < getMin()) {
-            GWT.log("Value must not be less than the minimum range value.", new RuntimeException());
-            return;
+            throw new IllegalArgumentException("Value must not be less than the minimum range value.");
         }
         if (value > getMax()) {
-            GWT.log("Value must not be greater than the maximum range value", new RuntimeException());
-            return;
+            throw new IllegalArgumentException("Value must not be greater than the maximum range value");
         }
         setIntToRangeElement(VALUE, value);
 
@@ -235,11 +237,19 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         errorMixin.clearErrorOrSuccess();
     }
 
-    public MaterialLabel getLblError() {
-        return lblError;
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
     }
 
     public MaterialInput getRangeInputElement() {
         return rangeInputElement;
+    }
+
+    public Paragraph getParagraph() {
+        return paragraph;
+    }
+
+    public Span getThumb() {
+        return thumb;
     }
 }

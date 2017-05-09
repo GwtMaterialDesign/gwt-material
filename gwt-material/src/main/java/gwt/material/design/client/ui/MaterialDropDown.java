@@ -34,6 +34,7 @@ import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
+import gwt.material.design.client.base.HasInOutDurationTransition;
 import gwt.material.design.client.base.HasWaves;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
@@ -67,9 +68,10 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dropdown">Material DropDown</a>
+ * @see <a href="https://material.io/guidelines/components/menus.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget> {
+public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget>, HasInOutDurationTransition {
 
     private String activator;
     private Element activatorElement;
@@ -112,29 +114,58 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-        initialize();
+    protected void initialize() {
+        Widget parent = getParent();
+        if (parent instanceof HasActivates) {
+            String uid = DOM.createUniqueId();
+            ((HasActivates) parent).setActivates(uid);
+            setId(uid);
+            activatorElement = parent.getElement();
+        } else if (activatorElement == null) {
+            activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
+            if (activatorElement == null) {
+                GWT.log("There is no activator element with id: '" + activator + "' in the DOM, " +
+                        "cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
+            }
+        }
+
+        initialize(activatorElement);
     }
 
-    /**
-     * The duration of the transition enter in milliseconds. Default: 300
-     */
+    @Override
+    public void reinitialize() {
+        remove(activatorElement);
+        initialize(activatorElement);
+    }
+
+    protected void initialize(Element activator) {
+        JsDropdownOptions options = new JsDropdownOptions();
+        options.constrain_width = constrainWidth;
+        options.inDuration = inDuration;
+        options.outDuration = outDuration;
+        options.hover = hover;
+        options.gutter = gutter;
+        options.belowOrigin = belowOrigin;
+        options.alignment = alignment.getCssName();
+        $(activator).dropdown(options);
+    }
+
+    @Override
     public void setInDuration(int durationMillis) {
         this.inDuration = durationMillis;
     }
 
+    @Override
     public int getInDuration() {
         return inDuration;
     }
 
-    /**
-     * The duration of the transition out in milliseconds. Default: 225
-     */
+    @Override
     public void setOutDuration(int durationMillis) {
         this.outDuration = durationMillis;
     }
 
+    @Override
     public int getOutDuration() {
         return outDuration;
     }
@@ -241,44 +272,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             li.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             add(li, (Element) getElement());
         }
-    }
-
-    protected void initialize() {
-        Widget parent = getParent();
-        if (parent instanceof HasActivates) {
-            String uid = DOM.createUniqueId();
-            ((HasActivates) parent).setActivates(uid);
-            setId(uid);
-            activatorElement = parent.getElement();
-        } else if (activatorElement == null) {
-            activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
-            if (activatorElement == null) {
-                GWT.log("There is no activator element with id: '" + activator + "' in the DOM, " +
-                    "cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
-            }
-        }
-
-        initialize(activatorElement);
-    }
-
-    /**
-     * Must be called after changing any options.
-     */
-    public void reinitialize() {
-        remove(activatorElement);
-        initialize(activatorElement);
-    }
-
-    protected void initialize(Element activator) {
-        JsDropdownOptions options = new JsDropdownOptions();
-        options.constrain_width = constrainWidth;
-        options.inDuration = inDuration;
-        options.outDuration = outDuration;
-        options.hover = hover;
-        options.gutter = gutter;
-        options.belowOrigin = belowOrigin;
-        options.alignment = alignment.getCssName();
-        $(activator).dropdown(options);
     }
 
     protected void remove(Element activator) {

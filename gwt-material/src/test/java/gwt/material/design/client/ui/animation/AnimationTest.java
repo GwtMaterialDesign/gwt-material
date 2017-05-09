@@ -40,20 +40,20 @@ public class AnimationTest extends MaterialWidgetTest {
         MaterialPanel panel = new MaterialPanel();
         RootPanel.get().add(panel);
         MaterialAnimation animation = new MaterialAnimation();
-        animation.delayMillis(0);
-        assertEquals(animation.getDelayMillis(), 0);
+        animation.delay(0);
+        assertEquals(animation.getDelay(), 0);
         animation.infinite(true);
         assertTrue(animation.isInfinite());
         animation.infinite(false);
         assertFalse(animation.isInfinite());
-        animation.durationMillis(20);
-        assertEquals(animation.getDurationMillis(), 20);
+        animation.duration(20);
+        assertEquals(animation.getDuration(), 20);
         animation.transition(Transition.FADEIN);
         assertEquals(animation.getTransition(), Transition.FADEIN);
         animation.animate(panel);
         assertEquals(animation.getWidget(), panel);
         // Check Advance Logic
         String WEBKIT_ANIMATION_DURATION = panel.getElement().getStyle().getProperty("WebkitAnimationDuration");
-        assertEquals(WEBKIT_ANIMATION_DURATION, animation.getDurationMillis() + "ms");
+        assertEquals(WEBKIT_ANIMATION_DURATION, animation.getDuration() + "ms");
     }
 }

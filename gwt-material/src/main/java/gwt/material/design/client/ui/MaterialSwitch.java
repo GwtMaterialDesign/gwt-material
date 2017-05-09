@@ -47,21 +47,20 @@ import gwt.material.design.client.ui.html.Span;
  *
  * @author kevzlou7979
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material Switch</a>
+ * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-switch">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
 
-    private boolean initialized;
-
     private MaterialInput input = new MaterialInput();
-    private MaterialLabel lblError = new MaterialLabel();
+    private MaterialLabel errorLabel = new MaterialLabel();
     private Label label = new Label();
     private Span span = new Span();
     private Span onLabel = new Span();
     private Span offLabel = new Span();
     private HandlerRegistration clickHandler;
 
-    private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, lblError, null);
+    private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, null);
 
     /**
      * Creates a switch element
@@ -94,29 +93,23 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
+    protected void initialize() {
+        label.add(offLabel);
+        label.add(input);
+        label.add(span);
+        add(label);
+        add(errorLabel);
+        errorLabel.getElement().getStyle().setMarginTop(16, Unit.PX);
+        label.add(onLabel);
 
-        if (!initialized) {
-            label.add(offLabel);
-            label.add(input);
-            label.add(span);
-            add(label);
-            add(lblError);
-            lblError.getElement().getStyle().setMarginTop(16, Unit.PX);
-            label.add(onLabel);
-
-            // Register click handler here in order to have it at first position
-            // and therefore it will deal with clicks as first and setup the value
-            // right before others get notified.
-            if (clickHandler == null) {
-                clickHandler = addClickHandler(event -> {
-                    event.preventDefault();
-                    event.stopPropagation();
-                });
-            }
-
-            initialized = true;
+        // Register click handler here in order to have it at first position
+        // and therefore it will deal with clicks as first and setup the value
+        // right before others get notified.
+        if (clickHandler == null) {
+            clickHandler = addClickHandler(event -> {
+                event.preventDefault();
+                event.stopPropagation();
+            });
         }
     }
 
@@ -238,5 +231,17 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
      */
     public void setOffLabel(String label) {
         offLabel.setText(label);
+    }
+
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
+    }
+
+    public Span getOnLabel() {
+        return onLabel;
+    }
+
+    public Span getOffLabel() {
+        return offLabel;
     }
 }

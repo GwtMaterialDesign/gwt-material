@@ -22,6 +22,7 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasSearchHandlers;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.events.SearchFinishEvent;
@@ -105,7 +106,7 @@ public class BaseEventTest extends TestCase {
         assertEquals(isDoubleClickFired[0], enabled);
     }
 
-    public <T extends MaterialWidget> void fireClickEvent(T widget) {
+    public <T extends Widget> void fireClickEvent(T widget) {
         widget.fireEvent(new GwtEvent<ClickHandler>() {
             @Override
             public Type<ClickHandler> getAssociatedType() {

@@ -20,8 +20,12 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -34,12 +38,51 @@ public class MaterialModalTest extends MaterialWidgetTest {
 
     public void init() {
         MaterialModal modal = new MaterialModal();
+        checkModal(modal);
+        checkMultipleModalZIndexes();
+    }
+
+    protected void checkMultipleModalZIndexes() {
+        final int BASE_ZINDEX = 1000;
+        List<MaterialModal> modals = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            MaterialModal modal = new MaterialModal();
+            modals.add(modal);
+            checkModal(modal);
+            modal.open();
+            // Expected Display : BLOCK
+            assertEquals(modal.getElement().getStyle().getDisplay(), Display.BLOCK.getCssName());
+            checkZIndex(modal, i, BASE_ZINDEX);
+        }
+    }
+
+    protected <T extends MaterialModal> void checkZIndex(T modal, int modalIndex, int modalBaseZIndex) {
+        assertEquals($(modal.getElement()).css("zIndex"), String.valueOf(modalBaseZIndex + (modalIndex * 2) + 1));
+        assertEquals($(".lean-overlay").eq(modalIndex - 1).css("zIndex"), String.valueOf((modalBaseZIndex + (modalIndex * 2))));
+    }
+
+    protected <T extends MaterialModal> void checkModal(T modal) {
         generateModalContent(modal);
         checkWidget(modal);
         RootPanel.get().add(modal);
         checkOpenCloseEvent(modal);
         checkType(modal);
         checkDimissible(modal);
+        checkDuration(modal);
+    }
+
+    protected void checkDuration(MaterialModal modal) {
+        final int IN_DURATION = 500;
+        final int OUT_DURATION = 800;
+        // Check the default in duration (Expected 300ms)
+        assertEquals(modal.getInDuration(), 300);
+        // Check the default out duration (Expected 200ms)
+        assertEquals(modal.getOutDuration(), 200);
+
+        modal.setInDuration(IN_DURATION);
+        assertEquals(modal.getInDuration(), IN_DURATION);
+        modal.setOutDuration(OUT_DURATION);
+        assertEquals(modal.getOutDuration(), OUT_DURATION);
     }
 
     private void generateModalContent(MaterialModal modal) {
@@ -54,18 +97,16 @@ public class MaterialModalTest extends MaterialWidgetTest {
     }
 
     private <T extends MaterialModal> void checkOpenCloseEvent(T modal) {
-        checkOpenHandler(modal);
         // Check whether overlay is injected
         assertNotNull($(".lean-overlay"));
-        checkCloseHandler(modal);
         // Advance check on open() / close() methods to check whether open / close event fired
         final boolean[] isFiredOpen = {false};
         final boolean[] isFiredClose = {false};
         modal.addOpenHandler(openEvent -> isFiredOpen[0] = true);
         modal.addCloseHandler(closeEvent -> isFiredClose[0] = true);
-        modal.open();
-        modal.close();
+        fireOpenHandler(modal);
         assertTrue(isFiredOpen[0]);
+        fireCloseHandler(modal);
         assertTrue(isFiredClose[0]);
     }
 

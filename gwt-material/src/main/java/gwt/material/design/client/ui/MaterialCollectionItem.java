@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
@@ -41,6 +42,7 @@ import gwt.material.design.client.js.JsMaterialElement;
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#collections">Material Collections</a>
+ * @see <a href="https://material.io/guidelines/components/lists-controls.html#lists-controls-types-of-menu-controls">Material Design Specification</a>
  */
 //@formatter:on
 public class MaterialCollectionItem extends MaterialWidget implements HasDismissible, HasAvatar, HasType<CollectionType>, HasActive {
@@ -58,12 +60,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
     }
 
     @Override
-    protected void onLoad() {
-        super.onLoad();
-        initDismissableCollection();
-    }
-
-    protected void initDismissableCollection() {
+    protected void initialize() {
         JsMaterialElement.initDismissableCollection();
     }
 
@@ -84,6 +81,12 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
             handlerReg = null;
         }
         handlerReg = addClickHandler(event -> {
+            // Stop propagation of event when checkbox / other elements has
+            // been clicked to avoid duplicate events.
+            if (Element.as(event.getNativeEvent().getEventTarget()) != getElement()) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
             for (Widget w : MaterialCollectionItem.this) {
                 if (w instanceof MaterialCollectionSecondary) {
                     for (Widget a : (MaterialCollectionSecondary) w) {
