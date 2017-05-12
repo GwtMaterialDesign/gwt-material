@@ -54,6 +54,27 @@ public class MaterialWidgetTest extends BaseEventTest {
         checkChildren(widget);
         checkInteractionEvents(widget, true);
         checkInteractionEvents(widget, false);
+        checkTransition(widget);
+    }
+
+    protected <T extends MaterialWidget> void checkTransition(T widget) {
+        final int DURATION = 1000;
+        final int DELAY = 0;
+        final String PROPERTY = "all";
+        final String TIMING_FUNCTION = "cubic-bezier(0, 0, 0.2, 1)";
+        final String EXPECTED_RESULT = "all 1000ms cubic-bezier(0, 0, 0.2, 1)0ms";
+        TransitionConfig config = new TransitionConfig();
+        config.setDuration(DURATION);
+        assertEquals(config.getDuration(), DURATION);
+        config.setDelay(DELAY);
+        assertEquals(config.getDelay(), DELAY);
+        config.setProperty(PROPERTY);
+        assertEquals(config.getProperty(), PROPERTY);
+        config.setTimingFunction(TIMING_FUNCTION);
+        assertEquals(config.getTimingFunction(), TIMING_FUNCTION);
+        widget.setTransition(config);
+        // Check the transition property to match with the expected result.
+        assertEquals(widget.getElement().getStyle().getProperty("transition"), EXPECTED_RESULT);
     }
 
     protected <T extends MaterialWidget> void checkInitialClasses(T widget) {

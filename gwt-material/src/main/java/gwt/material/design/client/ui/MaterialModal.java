@@ -32,9 +32,6 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.js.JsModalOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
@@ -82,48 +79,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
         HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
 
-    static class ModalManager {
-        private static List<MaterialModal> modals;
-        private static final int index = 1010;
-
-        /**
-         * Registers the modal and added to static modal lists
-         */
-        public static void register(MaterialModal modal) {
-            if (modals == null) {
-                modals = new ArrayList<>();
-            }
-            modals.add(modal);
-            resetZIndex();
-        }
-
-        /**
-         * Unregisters the modal and removed it from static modal lists
-         */
-        public static void unregister(MaterialModal modal) {
-            if (modals == null) {
-                modals = new ArrayList<>();
-            }
-            if (modals.remove(modal)) {
-                resetZIndex();
-            }
-        }
-
-        /**
-         * Need to reset every time we have register / unregister process
-         */
-        protected static void resetZIndex() {
-            int i = index;
-            for (MaterialModal modal : modals) {
-                modal.setDepth(i++);
-                // Fixed Lean Overlay z index - must recalculate value based on number of modals plus 1
-                // to make it behind the modal z index.
-                $(".lean-overlay").css("zIndex", String.valueOf(modal.getDepth() - 1));
-            }
-
-        }
-    }
-
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
     private int inDuration = 300;
     private int outDuration = 200;
@@ -133,13 +88,6 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     public MaterialModal() {
         super(Document.get().createDivElement(), CssName.MODAL);
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        close(false, false);
     }
 
     /**
@@ -204,8 +152,8 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         options.dismissible = dismissible;
         options.in_duration = inDuration;
         options.out_duration = outDuration;
+        options.complete = () -> onNativeClose(true, true);
         $(e).openModal(options);
-        ModalManager.register(this);
         if (fireEvent) {
             OpenEvent.fire(this, this);
         }
@@ -256,7 +204,6 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      */
     public void close(boolean autoClosed, boolean fireEvent) {
         close(getElement(), autoClosed, fireEvent);
-        ModalManager.unregister(this);
     }
 
     protected void close(Element e, boolean autoClosed, boolean fireEvent) {

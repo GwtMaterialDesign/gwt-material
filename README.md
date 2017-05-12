@@ -1,12 +1,13 @@
 <img src="http://i.imgur.com/VaBxpGj.png" />
 <h2>gwt-material</h2>
 <p>A Google Material Design wrapper for GWT</p>
+
 [![Build Status](https://travis-ci.org/GwtMaterialDesign/gwt-material.svg?branch=master)](https://travis-ci.org/GwtMaterialDesign/gwt-material) [![Join the chat at https://gitter.im/GwtMaterialDesign/gwt-material](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/GwtMaterialDesign/gwt-material?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 <br/>
 
 ## Demo
-* [2.0-rc4 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
+* [2.0-rc5 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
 * [2.0 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 * [2.1 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/2.1/)
 
@@ -16,12 +17,12 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
-### Current Version 2.0-rc4
+### Current Version 2.0-rc5
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.0-rc4</version>
+    <version>2.0-rc5</version>
 </dependency>
 ```
 ### Snapshot Version 2.0-SNAPSHOT
