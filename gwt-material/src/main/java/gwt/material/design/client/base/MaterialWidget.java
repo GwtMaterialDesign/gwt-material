@@ -50,7 +50,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -122,6 +122,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
+    private FilterStyleMixin<MaterialWidget> filterMixin;
 
     public MaterialWidget() {
     }
@@ -685,6 +686,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return truncateMixin;
     }
 
+    public FilterStyleMixin<MaterialWidget> getFilterStyleMixin() {
+        if (filterMixin == null) {
+            filterMixin = new FilterStyleMixin<>(this);
+        }
+        return filterMixin;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1111,6 +1119,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public int getDepth() {
         return Integer.parseInt(getElement().getStyle().getZIndex());
+    }
+
+    public void setFilterStyle(String property) {
+        getFilterStyleMixin().setFilterStyle(property);
+    }
+
+    @Override
+    public String getFilterStyle() {
+        return getFilterStyleMixin().getFilterStyle();
     }
 
     /**
