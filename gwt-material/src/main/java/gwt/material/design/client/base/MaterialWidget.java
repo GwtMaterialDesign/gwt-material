@@ -29,6 +29,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
+import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
@@ -1245,5 +1246,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         } else {
             return false;
         }
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+        for(Widget child : getChildren()) {
+            if(child instanceof HasValidators && !((HasValidators) child).validate()) {
+                valid = false;
+            }
+        }
+        return valid;
     }
 }
