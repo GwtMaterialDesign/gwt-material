@@ -1236,6 +1236,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         for(Widget child : getChildren()) {
             if(child instanceof HasValidators && !((HasValidators) child).validate()) {
                 valid = false;
+            } else if(child instanceof MaterialWidget && !((MaterialWidget) child).validate()) {
+                valid = false;
             }
         }
         return valid;
