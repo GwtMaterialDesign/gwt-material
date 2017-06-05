@@ -47,6 +47,18 @@ public class ViewPortHelper {
         }
     }
 
+    public static boolean isMobile() {
+        return matchMedia(ViewPort.MOBILE_SMALL) || matchMedia(ViewPort.MOBILE_MEDIUM ) || matchMedia(ViewPort.MOBILE_LARGE);
+    }
+
+    public static boolean isTablet() {
+        return matchMedia(ViewPort.TABLET);
+    }
+
+    public static boolean isLaptop() {
+        return matchMedia(ViewPort.LAPTOP) || matchMedia(ViewPort.LAPTOP_LARGE) || matchMedia(ViewPort.LAPTOP_4K);
+    }
+
     public static native boolean isTouchScreenDevice() /*-{
         return 'ontouchstart' in document.documentElement;
     }-*/;
