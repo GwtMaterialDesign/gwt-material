@@ -139,6 +139,8 @@ public class MaterialToast {
         String genId = DOM.createUniqueId();
         if (className == null) {
             className = genId;
+        } else {
+            className += ' ' + genId;
         }
         toast(msg, lifeMillis, genId, className, callback);
 
@@ -156,6 +158,6 @@ public class MaterialToast {
                 callback.call();
             }
         });
-        $(".toast." + className).attr("id", id);
+        $(".toast." + id).attr("id", id);
     }
 }
