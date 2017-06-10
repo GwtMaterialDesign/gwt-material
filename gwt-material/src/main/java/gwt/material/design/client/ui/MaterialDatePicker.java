@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.ScriptInjector;
@@ -289,6 +290,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         return $(pickatizedDateInput).pickadate("picker").get("id").toString();
     }
 
+    public Element getPickerRootElement() {
+        return $("#" + getPickerId() + "_root").asElement();
+    }
+
     /**
      * Sets the current date of the picker.
      *
@@ -538,6 +543,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         dateInput.setEnabled(enabled);
+
+        if (isInitialize()) {
+            if (!isEnabled()) {
+                getPickerRootElement().setTabIndex(-1);
+            } else {
+                getPickerRootElement().setTabIndex(0);
+            }
+        }
     }
 
     public DatePickerLanguage getLanguage() {
