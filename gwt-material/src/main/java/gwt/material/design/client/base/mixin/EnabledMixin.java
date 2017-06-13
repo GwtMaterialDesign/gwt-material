@@ -53,7 +53,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     @Override
     public boolean isEnabled() {
-        return !StyleHelper.containsStyle(uiObject.getStyleName(), CssName.DISABLED);
+        return !uiObject.getElement().hasAttribute("disabled");
     }
 
     @Override
