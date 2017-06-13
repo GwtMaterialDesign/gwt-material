@@ -107,6 +107,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     private int yearsToDisplay = 10;
     private DatePickerContainer container = DatePickerContainer.SELF;
+    private int initialTabIndex = 0;
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -148,6 +149,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     @Override
     protected void initialize() {
+
+        initialTabIndex = getTabIndex();
+
         if (options == null) {
             options = new JsDatePickerOptions();
         }
@@ -183,7 +187,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             };
         }
 
-        $(pickatizedDateInput).pickadate("picker")
+        getPicker()
                 .off("open").off("close").off(options)
                 .on(options).on("open", (e, param1) -> {
             onOpen();
@@ -193,6 +197,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             $(pickatizedDateInput).blur();
             return true;
         });
+
+        setPopupEnabled(isEnabled());
 
         setInitialize(true);
 
@@ -204,6 +210,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         setOrientation(orientation);
     }
 
+    private void setPopupEnabled(boolean enabled) {
+        if (getPicker() != null) {
+            if (!enabled) {
+                $(getPickerRootElement()).attr("tabindex", "-1");
+            } else {
+                $(getPickerRootElement()).attr("tabindex", initialTabIndex);
+            }
+        }
+    }
+
     /**
      * Reinitialize the datepicker.
      */
@@ -212,7 +228,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         Scheduler.get().scheduleDeferred(() -> {
             initialize();
             if (pickatizedDateInput != null && dateTemp != null) {
-                $(pickatizedDateInput).pickadate("picker").set("select", dateTemp, () -> {
+                getPicker().set("select", dateTemp, () -> {
                     DOM.createFieldSet().setPropertyObject("muted", true);
                 });
             }
@@ -257,7 +273,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void close() {
         Scheduler.get().scheduleDeferred(() -> {
-            $(pickatizedDateInput).pickadate("picker").close();
+            getPicker().close();
         });
     }
 
@@ -266,12 +282,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void open() {
         Scheduler.get().scheduleDeferred(() -> {
-            $(pickatizedDateInput).pickadate("picker").open();
+            getPicker().open();
         });
     }
 
     public boolean isOpen() {
-        return Boolean.parseBoolean($(pickatizedDateInput).pickadate("picker").get("open").toString());
+        return Boolean.parseBoolean(getPicker().get("open").toString());
     }
 
     protected void select() {
@@ -287,7 +303,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     public String getPickerId() {
-        return $(pickatizedDateInput).pickadate("picker").get("id").toString();
+        return getPicker().get("id").toString();
     }
 
     public Element getPickerRootElement() {
@@ -304,7 +320,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     /**
-     *
      * Get the minimum date limit.
      */
     public Date getDateMin() {
@@ -318,7 +333,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         this.dateMin = dateMin;
 
         if (isInitialize() && dateMin != null) {
-            $(pickatizedDateInput).pickadate("picker").set("min", JsDate.create((double) dateMin.getTime()));
+            getPicker().set("min", JsDate.create((double) dateMin.getTime()));
         }
     }
 
@@ -336,7 +351,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         this.dateMax = dateMax;
 
         if (isInitialize() && dateMax != null) {
-            $(pickatizedDateInput).pickadate("picker").set("max", JsDate.create((double) dateMax.getTime()));
+            getPicker().set("max", JsDate.create((double) dateMax.getTime()));
         }
     }
 
@@ -348,7 +363,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             $(picker).pickadate("picker").set("select", date, () -> {
                 DOM.createFieldSet().setPropertyObject("muted", true);
             });
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -358,12 +373,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     protected Date getPickerDate() {
         try {
-            JsDate pickerDate = $(pickatizedDateInput).pickadate("picker").get("select").obj;
+            JsDate pickerDate = getPicker().get("select").obj;
             return new Date((long) pickerDate.getTime());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    protected JsMaterialElement getPicker() {
+        return $(pickatizedDateInput).pickadate("picker");
     }
 
     public Date getDate() {
@@ -433,7 +452,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     @Override
     public void setOrientation(Orientation orientation) {
-        JsMaterialElement element = $(pickatizedDateInput).pickadate("picker");
+        JsMaterialElement element = getPicker();
         if (isInitialize() && this.orientation != null) {
             element.root.removeClass(this.orientation.getCssName());
         }
@@ -543,14 +562,24 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         dateInput.setEnabled(enabled);
-
         if (isInitialize()) {
-            if (!isEnabled()) {
-                getPickerRootElement().setTabIndex(-1);
-            } else {
-                getPickerRootElement().setTabIndex(0);
-            }
+            setPopupEnabled(enabled);
         }
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return dateInput.isEnabled();
+    }
+
+    @Override
+    public void setTabIndex(int index) {
+        dateInput.setTabIndex(index);
+    }
+
+    @Override
+    public int getTabIndex() {
+        return dateInput.getTabIndex();
     }
 
     public DatePickerLanguage getLanguage() {
@@ -572,12 +601,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void stop() {
         if (pickatizedDateInput != null) {
-            $(pickatizedDateInput).pickadate("picker").stop();
+            getPicker().stop();
         }
     }
 
     protected void start() {
-        $(pickatizedDateInput).pickadate("picker").start();
+        getPicker().start();
     }
 
     @Override
