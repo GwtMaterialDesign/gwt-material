@@ -107,7 +107,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     private int yearsToDisplay = 10;
     private DatePickerContainer container = DatePickerContainer.SELF;
-    private int initialTabIndex = 0;
+    private String tabIndex = "0";
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -149,9 +149,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     @Override
     protected void initialize() {
-
-        initialTabIndex = getTabIndex();
-
         if (options == null) {
             options = new JsDatePickerOptions();
         }
@@ -215,7 +212,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             if (!enabled) {
                 $(getPickerRootElement()).attr("tabindex", "-1");
             } else {
-                $(getPickerRootElement()).attr("tabindex", initialTabIndex);
+                $(getPickerRootElement()).attr("tabindex", tabIndex);
             }
         }
     }
@@ -574,6 +571,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     @Override
     public void setTabIndex(int index) {
+        tabIndex = String.valueOf(index);
         dateInput.setTabIndex(index);
     }
 
