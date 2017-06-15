@@ -30,6 +30,8 @@ public class JQueryProvider {
         return null;
     }
 
+    public static class NoJQuery extends JQueryProvider {}
+
     public static class JQueryDebug extends JQueryProvider {
         private WithJQueryDebugResources resources;
 

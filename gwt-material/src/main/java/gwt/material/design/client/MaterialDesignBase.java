@@ -126,8 +126,7 @@ public class MaterialDesignBase {
     }
 
     public static boolean isProvidingJQuery() {
-        return jQueryProvider instanceof JQueryProvider.JQueryDebug ||
-               jQueryProvider instanceof JQueryProvider.JQueryCompressed;
+        return !(jQueryProvider instanceof JQueryProvider.NoJQuery);
     }
 
     /**
