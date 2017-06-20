@@ -31,6 +31,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
+import gwt.material.design.client.base.mixin.ActiveMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
@@ -326,6 +327,11 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     public void clearActive() {
         clearActiveClass(this);
         ClearActiveEvent.fire(this);
+    }
+
+    public void setActive(int index) {
+        clearActive();
+        getWidget(index).addStyleName(CssName.ACTIVE);
     }
 
     @Override
