@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.base.HasNoSideNavSelection;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.constants.CssName;
 
@@ -43,7 +44,7 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="https://material.io/guidelines/components/toolbars.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialNavMenu extends MaterialLink {
+public class MaterialNavMenu extends MaterialLink implements HasNoSideNavSelection {
 
     private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
 
