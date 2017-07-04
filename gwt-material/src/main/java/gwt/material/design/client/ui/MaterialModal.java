@@ -274,7 +274,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public void setFullscreen(boolean value) {
-        if (getType() == ModalType.DEFAULT || getType() == ModalType.FIXED_FOOTER) {
+        if (getType() != ModalType.BOTTOM_SHEET) {
             fullscreenMixin.setFullscreen(value);
         }
     }
