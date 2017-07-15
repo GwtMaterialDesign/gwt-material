@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
@@ -152,8 +153,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         options.in_duration = inDuration;
         options.out_duration = outDuration;
         options.complete = () -> onNativeClose(true, true);
+        options.ready = () -> onNativeOpen(fireEvent);
         $(e).openModal(options);
-        if (fireEvent) {
+    }
+
+    protected void onNativeOpen(boolean fireEvent) {
+        if(fireEvent) {
             OpenEvent.fire(this, this);
         }
     }
