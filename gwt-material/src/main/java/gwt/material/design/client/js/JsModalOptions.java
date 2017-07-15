@@ -42,4 +42,7 @@ public class JsModalOptions {
     @JsProperty
     public Functions.Func complete;
 
+    @JsProperty
+    public Functions.Func ready;
+
 }
