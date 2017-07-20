@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -40,6 +41,25 @@ public class MaterialModalTest extends MaterialWidgetTest {
         MaterialModal modal = new MaterialModal();
         checkModal(modal);
         checkMultipleModalZIndexes();
+        checkFullScreenMode(modal);
+    }
+
+    protected void checkFullScreenMode(MaterialModal modal) {
+        // By default fullscreen mode is turned off
+        modal.setType(ModalType.DEFAULT);
+        assertFalse(modal.isFullscreen());
+        // Turn on Fullscreen mode
+        modal.setFullscreen(true);
+        assertTrue(modal.isFullscreen());
+        assertTrue(modal.getElement().hasClassName(CssName.FULLSCREEN));
+        // Turn off Fullscreen mode
+        modal.setFullscreen(false);
+        assertFalse(modal.isFullscreen());
+        assertFalse(modal.getElement().hasClassName(CssName.FULLSCREEN));
+        // Check for Bottom sheet : Expected not applicable full screen
+        modal.setType(ModalType.BOTTOM_SHEET);
+        modal.setFullscreen(true);
+        assertFalse(modal.isFullscreen());
     }
 
     protected void checkMultipleModalZIndexes() {

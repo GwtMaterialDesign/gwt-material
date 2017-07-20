@@ -53,6 +53,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialSideNavMini extends MaterialSideNav {
 
+    private boolean overlay;
     private boolean expandable;
     private boolean expandOnClick;
     private HandlerRegistration miniWithOpeningExpandHandler;
@@ -103,15 +104,19 @@ public class MaterialSideNavMini extends MaterialSideNav {
     protected void expand(int width) {
         addStyleName("expanded");
         setWidth(width);
-        pushElement(getMain(), width);
-        pushElementMargin(getFooter(), width);
+        if (!isOverlay()) {
+            pushElement(getMain(), width);
+            pushElementMargin(getFooter(), width);
+        }
     }
 
     protected void collapse(int width) {
         removeStyleName("expanded");
         setWidth(width);
-        pushElement(getMain(), width);
-        pushElementMargin(getFooter(), width);
+        if (!isOverlay()) {
+            pushElement(getMain(), width);
+            pushElementMargin(getFooter(), width);
+        }
     }
 
     public void setExpandable(boolean expandable) {
@@ -128,5 +133,13 @@ public class MaterialSideNavMini extends MaterialSideNav {
 
     public void setExpandOnClick(boolean expandOnClick) {
         this.expandOnClick = expandOnClick;
+    }
+
+    public boolean isOverlay() {
+        return overlay;
+    }
+
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
     }
 }

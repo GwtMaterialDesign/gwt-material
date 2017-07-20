@@ -24,10 +24,15 @@ import com.google.gwt.resources.client.TextResource;
 import gwt.material.design.client.resources.WithJQueryDebugResources;
 import gwt.material.design.client.resources.WithJQueryResources;
 
-public class JQueryProvider {
+public abstract class JQueryProvider {
 
-    public TextResource jQuery() {
-        return null;
+    public abstract TextResource jQuery();
+
+    public static class NoJQuery extends JQueryProvider {
+        @Override
+        public TextResource jQuery() {
+            return null;
+        }
     }
 
     public static class JQueryDebug extends JQueryProvider {

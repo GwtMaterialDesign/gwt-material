@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.resources;
+package gwt.material.design.client.base;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
+public interface HasFilterStyle {
 
-public interface MaterialResources extends ClientBundle {
-    MaterialResources INSTANCE = GWT.create(MaterialResources.class);
+    void setFilterStyle(String property);
 
-    @Source("js/animation.min.js")
-    TextResource animationJs();
-
-    @Source("js/materialize-0.97.5.min.js")
-    TextResource materializeJs();
-
-    @Source("js/push.min.js")
-    TextResource pushNotificationJs();
+    String getFilterStyle();
 }

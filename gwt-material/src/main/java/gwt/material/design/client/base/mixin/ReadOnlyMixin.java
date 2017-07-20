@@ -40,11 +40,11 @@ public class ReadOnlyMixin<T extends UIObject, H extends UIObject> extends Abstr
     public void setReadOnly(boolean readOnly) {
         uiObject.removeStyleName(CssName.READ_ONLY);
         if (readOnly) {
+            ((MaterialWidget) uiObject).setEnabled(false);
             uiObject.addStyleName(CssName.READ_ONLY);
-            target.getElement().setAttribute("disabled", "");
             target.getElement().setAttribute("readonly", "");
         } else {
-            target.getElement().removeAttribute("disabled");
+            ((MaterialWidget) uiObject).setEnabled(true);
             target.getElement().removeAttribute("readonly");
             uiObject.removeStyleName(CssName.READ_ONLY);
         }

@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,20 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.resources;
+package gwt.material.design.client.pwa.manifest;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
+public interface HasManifest {
 
-public interface MaterialResources extends ClientBundle {
-    MaterialResources INSTANCE = GWT.create(MaterialResources.class);
+    /**
+     * Set up the manifest.json file to enable the Installable feature of GMD PWA
+     * @param manifestUrl - the url of your manifest.json file
+     */
+    void setupManifest(String manifestUrl);
 
-    @Source("js/animation.min.js")
-    TextResource animationJs();
-
-    @Source("js/materialize-0.97.5.min.js")
-    TextResource materializeJs();
-
-    @Source("js/push.min.js")
-    TextResource pushNotificationJs();
+    /**
+     * Added a meta tag theme color to provide the browser's address
+     * bar a designated color by your app.
+     * @param themeColor - Hexadecimal value for your the background color of the address bar
+     */
+    void setupMetaThemeColor(String themeColor);
 }

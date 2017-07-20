@@ -22,8 +22,9 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasDurationTransition;
+import gwt.material.design.client.base.HasFullscreen;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.FullscreenMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsSliderOptions;
 import gwt.material.design.client.ui.html.UnorderedList;
@@ -71,7 +72,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slider</a>
  */
 //@formatter:on
-public class MaterialSlider extends MaterialWidget implements HasDurationTransition {
+public class MaterialSlider extends MaterialWidget implements HasDurationTransition, HasFullscreen {
 
     private UnorderedList listContainer = new UnorderedList();
 
@@ -80,7 +81,7 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
     private int duration = 500;
     private int interval = 6000;
 
-    private final ToggleStyleMixin<MaterialSlider> fullScreenMixin = new ToggleStyleMixin<>(this, CssName.FULLSCREEN);
+    private final FullscreenMixin fullscreenMixin = new FullscreenMixin(this);
 
     public MaterialSlider() {
         super(Document.get().createDivElement(), CssName.SLIDER);
@@ -117,12 +118,14 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
     /**
      * Set the image slider to fullscreen view.
      */
+    @Override
     public void setFullscreen(boolean fullscreen) {
-        fullScreenMixin.setOn(fullscreen);
+        fullscreenMixin.setFullscreen(fullscreen);
     }
 
+    @Override
     public boolean isFullscreen() {
-        return fullScreenMixin.isOn();
+        return fullscreenMixin.isFullscreen();
     }
 
     public boolean isFullWidth() {

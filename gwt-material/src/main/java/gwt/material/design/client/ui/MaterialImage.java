@@ -22,8 +22,11 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
@@ -58,7 +61,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage,
-        HasLoadHandlers, HasErrorHandlers, HasActivates {
+        HasLoadHandlers, HasErrorHandlers, HasActivates, HasValue<String> {
 
     private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
     private final ImageMixin<MaterialImage> imageMixin = new ImageMixin<>(this);
@@ -174,5 +177,30 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     public String getActivates() {
         return activatesMixin.getActivates();
+    }
+
+    @Override
+    public String getValue() {
+        return getUrl();
+    }
+
+    @Override
+    public void setValue(String value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        String oldValue = getUrl();
+        setUrl(value);
+
+        if(fireEvents) {
+            ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
+        }
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 }

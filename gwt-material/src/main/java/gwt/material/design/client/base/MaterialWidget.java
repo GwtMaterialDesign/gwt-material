@@ -29,6 +29,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
+import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
@@ -50,7 +51,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -122,6 +123,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
+    private FilterStyleMixin<MaterialWidget> filterMixin;
 
     public MaterialWidget() {
     }
@@ -685,6 +687,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return truncateMixin;
     }
 
+    public FilterStyleMixin<MaterialWidget> getFilterStyleMixin() {
+        if (filterMixin == null) {
+            filterMixin = new FilterStyleMixin<>(this);
+        }
+        return filterMixin;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1113,6 +1122,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return Integer.parseInt(getElement().getStyle().getZIndex());
     }
 
+    public void setFilterStyle(String property) {
+        getFilterStyleMixin().setFilterStyle(property);
+    }
+
+    @Override
+    public String getFilterStyle() {
+        return getFilterStyleMixin().getFilterStyle();
+    }
+
     /**
      * If true the label inside this component will be truncated by ellipsis
      **/
@@ -1228,5 +1246,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         } else {
             return false;
         }
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+        for(Widget child : getChildren()) {
+            if(child instanceof HasValidators && !((HasValidators) child).validate()) {
+                valid = false;
+            } else if(child instanceof MaterialWidget && !((MaterialWidget) child).validate()) {
+                valid = false;
+            }
+        }
+        return valid;
     }
 }
