@@ -26,9 +26,6 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
-import javafx.geometry.Side;
-
-import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * Test case for Sidenav
