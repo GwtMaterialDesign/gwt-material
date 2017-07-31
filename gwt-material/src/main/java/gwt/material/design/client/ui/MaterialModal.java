@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,9 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasDismissible;
-import gwt.material.design.client.base.HasInOutDurationTransition;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.FullscreenMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.js.JsModalOptions;
@@ -77,9 +75,10 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 // @formatter:on
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
-        HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal> {
+        HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal>, HasFullscreen {
 
     private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
+    private final FullscreenMixin fullscreenMixin = new FullscreenMixin(this);
     private int inDuration = 300;
     private int outDuration = 200;
     private boolean dismissible = false;
@@ -153,8 +152,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         options.in_duration = inDuration;
         options.out_duration = outDuration;
         options.complete = () -> onNativeClose(true, true);
+        options.ready = () -> onNativeOpen(fireEvent);
         $(e).openModal(options);
-        if (fireEvent) {
+    }
+
+    protected void onNativeOpen(boolean fireEvent) {
+        if(fireEvent) {
             OpenEvent.fire(this, this);
         }
     }
@@ -271,5 +274,17 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     @Override
     public void setEnabled(boolean enabled) {
         getEnabledMixin().setEnabled(this, enabled);
+    }
+
+    @Override
+    public void setFullscreen(boolean value) {
+        if (getType() != ModalType.BOTTOM_SHEET) {
+            fullscreenMixin.setFullscreen(value);
+        }
+    }
+
+    @Override
+    public boolean isFullscreen() {
+        return fullscreenMixin.isFullscreen();
     }
 }

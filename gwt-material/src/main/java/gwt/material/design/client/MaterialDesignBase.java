@@ -4,7 +4,7 @@ package gwt.material.design.client;
  * #%L
  * GwtMaterialDesign
  * %%
- * Copyright (C) 2015 GwtMaterial
+ * Copyright (C) 2015 - 2017 GwtMaterial
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ public class MaterialDesignBase {
 
     static final JQueryProvider jQueryProvider = GWT.create(JQueryProvider.class);
     static List<FutureResource> futureResources;
+    static boolean jqueryWarning;
 
     protected void load() {
         checkJQuery(false);
@@ -78,15 +79,27 @@ public class MaterialDesignBase {
             }
             futureResources.add(new FutureResource(resource, removeTag, sourceUrl));
         } else {
-            String text = resource.getText() + (sourceUrl ?
-                "//# sourceURL=" + resource.getName() + ".js" : "");
-
-            // Inject the script resource
-            ScriptInjector.fromString(text)
-                .setWindow(ScriptInjector.TOP_WINDOW)
-                .setRemoveTag(removeTag)
-                .inject();
+            directInjectJs(resource, removeTag, sourceUrl);
         }
+    }
+
+    protected static void directInjectJs(TextResource resource) {
+        directInjectJs(resource, true, false);
+    }
+
+    protected static void directInjectDebugJs(TextResource resource) {
+        directInjectJs(resource, false, true);
+    }
+
+    protected static void directInjectJs(TextResource resource, boolean removeTag, boolean sourceUrl) {
+        String text = resource.getText() + (sourceUrl ?
+            "//# sourceURL=" + resource.getName() + ".js" : "");
+
+        // Inject the script resource
+        ScriptInjector.fromString(text)
+            .setWindow(ScriptInjector.TOP_WINDOW)
+            .setRemoveTag(removeTag)
+            .inject();
     }
 
     public static void injectCss(TextResource resource) {
@@ -94,19 +107,26 @@ public class MaterialDesignBase {
     }
 
     protected static boolean checkJQuery(boolean debug) {
-        if (!isjQueryLoaded() && isProvidingJQuery()) {
-            if (debug) {
-                injectDebugJs(jQueryProvider.jQuery());
-            } else {
-                injectJs(jQueryProvider.jQuery());
+        if (!isjQueryLoaded()) {
+            if(isProvidingJQuery()) {
+                if (debug) {
+                    directInjectDebugJs(jQueryProvider.jQuery());
+                } else {
+                    directInjectJs(jQueryProvider.jQuery());
+                }
+            } else if(!jqueryWarning) {
+                GWT.log("Warning: GWT Material is not providing JQuery. You must ensure JQuery " +
+                        "is loaded manually or use one of the GwtMaterialWithJQuery modules, failing " +
+                        "to do so will result in an endless resource loop. This message can be ignored " +
+                        "if you are doing so already (message will not appear in production).");
+                jqueryWarning = true;
             }
         }
         return isjQueryLoaded();
     }
 
     public static boolean isProvidingJQuery() {
-        return jQueryProvider instanceof JQueryProvider.JQueryDebug ||
-               jQueryProvider instanceof JQueryProvider.JQueryCompressed;
+        return !(jQueryProvider instanceof JQueryProvider.NoJQuery);
     }
 
     /**

@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,11 +40,11 @@ public class ReadOnlyMixin<T extends UIObject, H extends UIObject> extends Abstr
     public void setReadOnly(boolean readOnly) {
         uiObject.removeStyleName(CssName.READ_ONLY);
         if (readOnly) {
+            ((MaterialWidget) uiObject).setEnabled(false);
             uiObject.addStyleName(CssName.READ_ONLY);
-            target.getElement().setAttribute("disabled", "");
             target.getElement().setAttribute("readonly", "");
         } else {
-            target.getElement().removeAttribute("disabled");
+            ((MaterialWidget) uiObject).setEnabled(true);
             target.getElement().removeAttribute("readonly");
             uiObject.removeStyleName(CssName.READ_ONLY);
         }

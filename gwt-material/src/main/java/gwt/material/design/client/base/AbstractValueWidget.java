@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -41,7 +42,7 @@ import gwt.material.design.client.base.validator.Validator;
 
 import java.util.List;
 
-public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, Editor<V>,
+public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
         HasEditorErrors<V>, HasErrorHandler, HasError, HasValidators<V> {
 
     private boolean allowBlank = true;

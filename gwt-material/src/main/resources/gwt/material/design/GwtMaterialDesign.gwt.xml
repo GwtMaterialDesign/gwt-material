@@ -3,7 +3,7 @@
   #%L
   GwtMaterialDesign
   %%
-  Copyright (C) 2015 GwtMaterial
+  Copyright (C) 2015 - 2017 GwtMaterial
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@
   When updating your version of GWT, you should also update this DTD reference,
   so that your app can take advantage of the latest GWT module capabilities.
 -->
-<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
-    "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.0//EN"
+    "http://gwtproject.org/doctype/2.8.0/gwt-module.dtd">
 <module>
   <inherits name="gwt.material.design.GwtMaterialDesignBase"/>
   <inherits name="gwt.material.design.Resources"/>

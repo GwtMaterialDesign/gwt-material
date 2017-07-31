@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.DatePickerContainer;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
@@ -95,6 +98,23 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         final String FORMAT = "mm/dd/yyyy";
         datePicker.setFormat(FORMAT);
         assertEquals(datePicker.getFormat(), FORMAT);
+    }
+
+    @Override
+    protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
+        super.checkEnabled(widget);
+
+        RootPanel.get().add(widget);
+
+        assertTrue(widget instanceof MaterialDatePicker);
+        MaterialDatePicker picker = (MaterialDatePicker) widget;
+
+        picker.setEnabled(true);
+        // Check Initial Tab index value for Root Picker Element - tabindex = 0
+        assertEquals("0", $(picker.getPickerRootElement()).attr("tabindex"));
+        // Expected when datepicker is disabled - tabindex = -1
+        picker.setEnabled(false);
+        assertEquals("-1", $(picker.getPickerRootElement()).attr("tabindex"));
     }
 
     public <T extends MaterialDatePicker> void checkDateMinAndMax(T datePicker) {

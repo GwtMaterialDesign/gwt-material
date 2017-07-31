@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasFontSize;
 import gwt.material.design.client.base.MaterialWidget;
@@ -29,7 +28,6 @@ import gwt.material.design.client.base.mixin.FontSizeMixin;
 import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
 

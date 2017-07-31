@@ -17,27 +17,28 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.constants;
+package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.base.helper.EnumHelper;
+import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.HasFullscreen;
+import gwt.material.design.client.constants.CssName;
 
-public enum Axis implements Style.HasCssName {
-    VERTICAL("vertical"),
-    HORIZONTAL("horizontal");
+public class FullscreenMixin<T extends UIObject & HasFullscreen> extends AbstractMixin<T> implements HasFullscreen {
 
-    private final String cssClass;
 
-    Axis(final String cssClass) {
-        this.cssClass = cssClass;
+    private ToggleStyleMixin toggleStyleMixin = new ToggleStyleMixin<>(uiObject, CssName.FULLSCREEN);
+
+    public FullscreenMixin(T uiObject) {
+        super(uiObject);
     }
 
     @Override
-    public String getCssName() {
-        return cssClass;
+    public void setFullscreen(boolean value) {
+        toggleStyleMixin.setOn(value);
     }
 
-    public static Axis fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, Axis.class, VERTICAL);
+    @Override
+    public boolean isFullscreen() {
+        return toggleStyleMixin.isOn();
     }
 }

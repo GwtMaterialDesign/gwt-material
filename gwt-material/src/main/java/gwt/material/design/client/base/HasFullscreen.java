@@ -17,23 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui.base.helper;
+package gwt.material.design.client.base;
 
-import gwt.material.design.client.base.helper.ColorHelper;
-import gwt.material.design.client.constants.Color;
-import junit.framework.TestCase;
+public interface HasFullscreen {
 
-/**
- * Test case for {@link gwt.material.design.client.base.helper.ColorHelper}.
- */
-public class ColorHelperTest extends TestCase {
+    void setFullscreen(boolean value);
 
-    public ColorHelperTest() {
-        checkFromStyleName();
-    }
-
-    private void checkFromStyleName() {
-        assertEquals(Color.PINK_LIGHTEN_1,
-            ColorHelper.fromStyleName("pink lighten-1", Color.class, Color.DEFAULT));
-    }
+    boolean isFullscreen();
 }

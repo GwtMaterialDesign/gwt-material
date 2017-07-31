@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 - 2016 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,15 @@ import com.google.gwt.resources.client.TextResource;
 import gwt.material.design.client.resources.WithJQueryDebugResources;
 import gwt.material.design.client.resources.WithJQueryResources;
 
-public class JQueryProvider {
+public abstract class JQueryProvider {
 
-    public TextResource jQuery() {
-        return null;
+    public abstract TextResource jQuery();
+
+    public static class NoJQuery extends JQueryProvider {
+        @Override
+        public TextResource jQuery() {
+            return null;
+        }
     }
 
     public static class JQueryDebug extends JQueryProvider {

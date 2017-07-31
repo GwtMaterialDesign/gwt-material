@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,6 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
-import javafx.geometry.Side;
-
-import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * Test case for Sidenav

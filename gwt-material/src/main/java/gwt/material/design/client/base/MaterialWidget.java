@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
+import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
@@ -1228,5 +1229,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         } else {
             return false;
         }
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+        for(Widget child : getChildren()) {
+            if(child instanceof HasValidators && !((HasValidators) child).validate()) {
+                valid = false;
+            } else if(child instanceof MaterialWidget && !((MaterialWidget) child).validate()) {
+                valid = false;
+            }
+        }
+        return valid;
     }
 }

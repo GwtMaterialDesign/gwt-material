@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2016 GwtMaterialDesign
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -139,6 +139,8 @@ public class MaterialToast {
         String genId = DOM.createUniqueId();
         if (className == null) {
             className = genId;
+        } else {
+            className += ' ' + genId;
         }
         toast(msg, lifeMillis, genId, className, callback);
 
@@ -156,6 +158,6 @@ public class MaterialToast {
                 callback.call();
             }
         });
-        $(".toast." + className).attr("id", id);
+        $(".toast." + id).attr("id", id);
     }
 }
