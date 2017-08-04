@@ -133,12 +133,12 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
 
     @Override
     public void setUrl(String url) {
-        imageMixin.setUrl(url);
+        setValue(url, true);
     }
 
     @Override
     public String getUrl() {
-        return imageMixin.getUrl();
+        return getValue();
     }
 
     @Override
@@ -181,7 +181,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
 
     @Override
     public String getValue() {
-        return getUrl();
+        return imageMixin.getUrl();
     }
 
     @Override
@@ -192,7 +192,7 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     @Override
     public void setValue(String value, boolean fireEvents) {
         String oldValue = getUrl();
-        setUrl(value);
+        imageMixin.setUrl(value);
 
         if(fireEvents) {
             ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
