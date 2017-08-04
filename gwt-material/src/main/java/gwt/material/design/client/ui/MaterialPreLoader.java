@@ -60,7 +60,7 @@ public class MaterialPreLoader extends MaterialWidget {
     }
 
     /**
-     * Same as {@link #getSize()}, but will ,not clash with {@link com.google.gwt.user.client.ui.UIObject#setSize(String, String)}
+     * Same as {@link #setSize(LoaderSize)}, but will not clash with {@link com.google.gwt.user.client.ui.UIObject#setSize(String, String)}
      */
     public void setLoaderSize(LoaderSize size) {
         setSize(size);
