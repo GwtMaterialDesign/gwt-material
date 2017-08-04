@@ -59,7 +59,18 @@ public class MaterialPreLoader extends MaterialWidget {
         sizeMixin.setCssName(size);
     }
 
+    /**
+     * Same as {@link #setSize(LoaderSize)}, but will not clash with {@link com.google.gwt.user.client.ui.UIObject#setSize(String, String)}
+     */
+    public void setLoaderSize(LoaderSize size) {
+        setSize(size);
+    }
+
     public LoaderSize getSize() {
         return sizeMixin.getCssName();
+    }
+
+    public LoaderSize getLoaderSize() {
+        return getSize();
     }
 }
