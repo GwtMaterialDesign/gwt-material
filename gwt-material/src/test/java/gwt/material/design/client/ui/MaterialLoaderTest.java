@@ -99,7 +99,7 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
     }
 
     protected void checkProgress(ComplexPanel panel) {
-        MaterialLoader.showProgress(true, panel);
+        MaterialLoader.progress(true, panel);
         assertNotNull(panel.getWidget(0));
         assertTrue(panel.getWidget(0) instanceof MaterialWidget);
         MaterialWidget loaderWrapper = (MaterialWidget) panel.getWidget(0);
@@ -111,7 +111,7 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
         checkProgress(progress);
         checkProgressValue(progress);
 
-        MaterialLoader.showLoading(false);
+        MaterialLoader.loading(false);
         assertEquals(panel.getWidgetCount(), 0);
     }
 
