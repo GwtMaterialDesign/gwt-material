@@ -64,6 +64,14 @@ public class ViewPortHelper {
     }-*/;
 
     public static boolean matchMedia(ViewPort viewPort) {
-        return Window.matchMedia(viewPort.getMediaQuery());
+        return matchMedia(viewPort.getMediaQuery());
+    }
+
+    public static boolean matchMedia(int minWidth, int maxWidth) {
+        return matchMedia("(min-width: " + minWidth + "px) and (max-width: " + maxWidth + "px)");
+    }
+
+    public static boolean matchMedia(String viewPortQuery) {
+        return Window.matchMedia(viewPortQuery);
     }
 }
