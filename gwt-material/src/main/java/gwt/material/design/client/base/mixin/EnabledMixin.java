@@ -79,6 +79,9 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
                 ((MaterialWidget) child).setEnabled(enabled);
                 setEnabled((MaterialWidget) child, enabled);
             }
+            else if(child instanceof HasEnabled) {
+                ((HasEnabled) child).setEnabled(enabled);
+            }
         }
     }
 
