@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
@@ -136,9 +137,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
 
     @Override
     protected void build() {
-        // Setup the expansion type
-        getElement().setAttribute("data-collapsible", isAccordion() ? CssName.ACCORDION : CssName.EXPANDABLE);
-
         // Activate preset activation index
         if (activeIndex != -1 && activeWidget == null) {
             setActive(activeIndex);
@@ -147,6 +145,9 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
 
     @Override
     protected void initialize() {
+        // Setup the expansion type
+        getElement().setAttribute("data-collapsible", isAccordion() ? CssName.ACCORDION : CssName.EXPANDABLE);
+
         // Initialize collapsible after all elements
         // are attached and marked as active, etc.
         collapsible(getElement(), accordion);
