@@ -88,7 +88,6 @@ public class MaterialDropdownTest extends MaterialWidgetTest {
         assertEquals(link.getElement().getAttribute("data-activates"), ACTIVATOR);
         RootPanel.get().add(link);
 
-
         dropdown.setActivator(ACTIVATOR);
         assertEquals(dropdown.getId(), ACTIVATOR);
         assertEquals(dropdown.getActivator(), ACTIVATOR);
