@@ -241,6 +241,19 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+
+        // Must enable / disable also the activator element for the dropdown
+        if (isInitialize()) {
+            Widget parent = getParent();
+            if (parent instanceof HasEnabled) {
+                ((HasEnabled) parent).setEnabled(enabled);
+            }
+        }
+    }
+
+    @Override
     public void add(final Widget child) {
         String tagName = child.getElement().getTagName();
         if (child instanceof ListItem || tagName.toLowerCase().startsWith("li")) {

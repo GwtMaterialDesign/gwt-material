@@ -22,7 +22,10 @@ package gwt.material.design.client.ui;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
@@ -85,10 +88,11 @@ public class MaterialDropdownTest extends MaterialWidgetTest {
         assertEquals(link.getElement().getAttribute("data-activates"), ACTIVATOR);
         RootPanel.get().add(link);
 
+
         dropdown.setActivator(ACTIVATOR);
         assertEquals(dropdown.getId(), ACTIVATOR);
         assertEquals(dropdown.getActivator(), ACTIVATOR);
-        RootPanel.get().add(dropdown);
+        link.add(dropdown);
         assertNotNull(dropdown.getActivatorElement());
         assertEquals(dropdown.getActivatorElement(), link.getElement());
 
@@ -99,6 +103,16 @@ public class MaterialDropdownTest extends MaterialWidgetTest {
             ListItem li = (ListItem) dropdown.getWidget(0);
             assertTrue(li.getWidget(0) instanceof MaterialLink);
         }
+
+        // Smart check for parent Enabled / Disabled property
+        assertTrue(link.isEnabled());
+        dropdown.setEnabled(false);
+        assertTrue(link instanceof HasEnabled);
+        assertTrue(link.isAttached());
+        assertEquals(dropdown.getParent(), link);
+        assertFalse(link.isEnabled());
+        dropdown.setEnabled(true);
+        assertTrue(link.isEnabled());
 
         assertEquals(dropdown.getChildren().size(), 5);
         dropdown.remove(0);
