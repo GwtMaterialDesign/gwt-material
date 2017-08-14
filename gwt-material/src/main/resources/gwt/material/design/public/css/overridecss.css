@@ -37,7 +37,7 @@ button.disabled, i.disabled, a.disabled {
 }
 
 i.disabled, a.disabled  {
-	background-color: #fff !important;
+	background-color: transparent !important;
 }
 
 button.disabled:hover, i.disabled:hover {
@@ -486,6 +486,11 @@ nav ul a span.badge {
 	font-size: 1.2rem;
 	display: block;
 	padding: 1rem 1rem;
+}
+
+.dropdown-content.disabled {
+	visibility: hidden;
+	display: none;
 }
 
 .dropdown-content li > a, .dropdown-content li > span {
