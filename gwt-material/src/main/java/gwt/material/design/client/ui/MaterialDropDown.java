@@ -85,6 +85,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     private int gutter = 0;
     private Alignment alignment = Alignment.LEFT;
     private List<Widget> children = new ArrayList<>();
+    private HandlerRegistration activatorAttachedHandler;
 
     public MaterialDropDown() {
         setInitialClasses(CssName.DROPDOWN_CONTENT);
@@ -148,6 +149,18 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         options.belowOrigin = belowOrigin;
         options.alignment = alignment.getCssName();
         $(activator).dropdown(options);
+
+        setupActivator();
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        if (activatorAttachedHandler != null) {
+            activatorAttachedHandler.removeHandler();
+            activatorAttachedHandler = null;
+        }
     }
 
     @Override
@@ -243,13 +256,13 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
+        reinitialize();
+    }
 
-        // Must enable / disable also the activator element for the dropdown
-        if (isInitialize()) {
-            Widget parent = getParent();
-            if (parent instanceof HasEnabled) {
-                ((HasEnabled) parent).setEnabled(enabled);
-            }
+    protected void setupActivator() {
+        Widget parent = getParent();
+        if (parent instanceof HasEnabled) {
+            ((HasEnabled) parent).setEnabled(isEnabled());
         }
     }
 
