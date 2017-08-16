@@ -19,9 +19,12 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -41,7 +44,37 @@ public class MaterialTabTest extends MaterialWidgetTest {
         checkEvents(tab);
         checkTypes(tab);
         checkTabIndex(tab);
+        checkDynamicTab(tab);
         row.add(tab);
+    }
+
+    public void checkDynamicTab(MaterialTab tab) {
+        MaterialRow row = new MaterialRow();
+
+        // This will dynamically add new Tab Item
+        MaterialTabItem item = newTabItem(tab, row, 1);
+
+        row.add(tab);
+        RootPanel.get().add(row);
+
+        boolean[] selectionEventFired = new boolean[]{false};
+        tab.addSelectionHandler(selectionEvent -> selectionEventFired[0] = true);
+
+        // This will trigger the selection event of the tab once tab item fired MouseDownEvent
+        item.fireEvent(new GwtEvent<MouseDownHandler>() {
+            @Override
+            public Type<MouseDownHandler> getAssociatedType() {
+                return MouseDownEvent.getType();
+            }
+
+            @Override
+            protected void dispatch(MouseDownHandler eventHandler) {
+                eventHandler.onMouseDown(null);
+            }
+        });
+
+        // Expected : true
+        assertTrue(selectionEventFired[0]);
     }
 
     public void checkTabIndex(MaterialTab tab) {
@@ -78,18 +111,7 @@ public class MaterialTabTest extends MaterialWidgetTest {
     public void generateTabItems(MaterialTab tab, MaterialRow row) {
 
         for (int i = 0; i < 5; i++) {
-            // Build Tab Items
-            MaterialTabItem item = new MaterialTabItem();
-            MaterialLink link = new MaterialLink("Item " + i);
-            link.setHref("#item" + i);
-            item.add(link);
-            tab.add(item);
-            assertTrue(item.getWidget(0) instanceof MaterialLink);
-            assertEquals(tab.getWidget(i), item);
-            // Build Panel
-            MaterialPanel panel = new MaterialPanel();
-            panel.setId("item" + i);
-            row.add(panel);
+            newTabItem(tab, row, i);
         }
 
         assertEquals(tab.getChildren().size(), 5);
@@ -99,6 +121,22 @@ public class MaterialTabTest extends MaterialWidgetTest {
         }
 
         assertEquals(tab.getChildren().size(), 5);
+    }
+
+    protected MaterialTabItem newTabItem(MaterialTab tab, MaterialRow row, int index) {
+        // Build Tab Items
+        MaterialTabItem item = new MaterialTabItem();
+        MaterialLink link = new MaterialLink("Item " + index);
+        link.setHref("#item" + index);
+        item.add(link);
+        tab.add(item);
+        assertTrue(item.getWidget(0) instanceof MaterialLink);
+        /*assertEquals(tab.getWidget(index), item);*/
+        // Build Panel
+        MaterialPanel panel = new MaterialPanel();
+        panel.setId("item" + index);
+        row.add(panel);
+        return item;
     }
 
     public <T extends MaterialTab> void checkTypes(T tab) {
