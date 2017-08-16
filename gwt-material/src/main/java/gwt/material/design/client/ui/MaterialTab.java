@@ -117,8 +117,10 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
 
     @Override
     public void reinitialize() {
-        clearAllIndicators();
-        $(getElement()).tabs();
+        if (isInitialize()) {
+            clearAllIndicators();
+            initialize();
+        }
     }
 
     protected void applyIndicator() {
@@ -188,5 +190,30 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     @Override
     public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> handler) {
         return addHandler(handler, SelectionEvent.getType());
+    }
+
+    @Override
+    public void add(Widget child) {
+        super.add(child);
+        reinitialize();
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        reinitialize();
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        boolean value = super.remove(w);
+        reinitialize();
+        return value;
+    }
+
+    @Override
+    public void insert(Widget child, int beforeIndex) {
+        super.insert(child, beforeIndex);
+        reinitialize();
     }
 }
