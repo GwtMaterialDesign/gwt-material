@@ -1,0 +1,89 @@
+/*
+ * #%L
+ * GwtMaterial
+ * %%
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+package gwt.material.design.client.events;
+
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DefaultHandlerRegistry implements HandlerRegistry {
+
+    private final HandlerRegistry widget;
+    private List<HandlerRegistration> registrations;
+    private HandlerRegistration attachHandler;
+
+    private boolean loaded = false;
+
+    public DefaultHandlerRegistry(HandlerRegistry widget) {
+        assert widget != null : "Widget cannot be null";
+        this.widget = widget;
+
+        load();
+    }
+
+    public void load() {
+        assert !loaded : "Cannot load an already loaded handler registry.";
+        attachHandler = widget.asWidget().addAttachHandler(event -> {
+            // Detach event
+            if(!event.isAttached()) {
+                clearHandlers();
+            }
+        });
+    }
+
+    public void unload() {
+        if(attachHandler != null) {
+            attachHandler.removeHandler();
+            attachHandler = null;
+        }
+
+        clearHandlers();
+        loaded = false;
+    }
+
+    @Override
+    public HandlerRegistration registerHandler(HandlerRegistration registration) {
+        if(registrations == null) {
+            registrations = new ArrayList<>();
+        }
+
+        registrations.add(registration);
+        return registration;
+    }
+
+    @Override
+    public void clearHandlers() {
+        if(registrations != null) {
+            for(HandlerRegistration registration : registrations) {
+                if(registration != null) {
+                    registration.removeHandler();
+                }
+            }
+            registrations.clear();
+        }
+    }
+
+    @Override
+    public Widget asWidget() {
+        return widget.asWidget();
+    }
+}
