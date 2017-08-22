@@ -41,6 +41,11 @@ public class TitleMixin<T extends MaterialWidget & HasTitle> extends AbstractMix
     }
 
     @Override
+    public String getTitle() {
+        return titleElem.getText();
+    }
+
+    @Override
     public void setDescription(String description) {
         titleElem.setStyleName(CssName.TITLE);
         descElem.setText(description);

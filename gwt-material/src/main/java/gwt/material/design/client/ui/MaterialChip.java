@@ -22,7 +22,9 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasImage;
 import gwt.material.design.client.base.HasLetter;
@@ -56,7 +58,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/chips.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasLetter {
+public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter, HasValue<String> {
 
     private MaterialIcon icon = new MaterialIcon();
     private Span chipLabel = new Span();
@@ -92,6 +94,7 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         this(text);
         setBackgroundColor(bgColor);
         setTextColor(textColor);
+        add(chipLabel);
     }
 
     @Deprecated
@@ -100,11 +103,21 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
     }
 
     public void setText(String text) {
-        chipLabel.setText(text);
-        add(chipLabel);
+        setValue(text, true);
     }
 
     public String getText() {
+        return getValue();
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        chipLabel.setText(value);
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
         return chipLabel.getElement().getInnerText();
     }
 

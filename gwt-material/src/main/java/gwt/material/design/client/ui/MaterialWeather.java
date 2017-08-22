@@ -21,7 +21,9 @@ package gwt.material.design.client.ui;
 
 //@formatter:off
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HTML;
+import gwt.material.design.client.base.AbstractValueWidget;
 
 /**
  * Material Weather - used OpenWeatherAPI to get results about location based  weather
@@ -42,12 +44,10 @@ import com.google.gwt.user.client.ui.HTML;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Weather</a>
  */
 //@formatter:on
-public class MaterialWeather extends MaterialPanel {
+public class MaterialWeather extends AbstractValueWidget<String> {
 
     public MaterialWeather() {
-        super();
-        HTML html = new HTML("<div id='weatherPanel' class='center-align card white-text'> <div class='row'> <ul id='weatherPanel' > <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5 >0</h5> <p style='margin-top: -5px; font-weight: 100;text-transform: capitalize;'>0</p> </li> <li style='opacity: 0;'> <div class='row'> <div class='col s12 m4 l4'> <img style='margin-top: 20px;'> </div> <div class='col s12 m8 l8'> <h2 style='font-weight: 100;'>0</h2> </div> </div> </li> </div> <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5>0</h5> <p style='margin-top: -5px; font-weight: 100;'>0</p> </li> <div class='left-align'> <li style='opacity: 0;'> <span><i > </i>0</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-device-wifi-tethering'> </i>3.9  mph</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-av-timer'></i>0  hPa</span> </li> </div> </div> </ul> </div> </div>");
-        getElement().appendChild(html.getElement());
+        super(DOM.createElement("<div id='weatherPanel' class='center-align card white-text'> <div class='row'> <ul id='weatherPanel' > <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5 >0</h5> <p style='margin-top: -5px; font-weight: 100;text-transform: capitalize;'>0</p> </li> <li style='opacity: 0;'> <div class='row'> <div class='col s12 m4 l4'> <img style='margin-top: 20px;'> </div> <div class='col s12 m8 l8'> <h2 style='font-weight: 100;'>0</h2> </div> </div> </li> </div> <div class='col s12 m12 l6'> <li style='opacity: 0;'> <h5>0</h5> <p style='margin-top: -5px; font-weight: 100;'>0</p> </li> <div class='left-align'> <li style='opacity: 0;'> <span><i > </i>0</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-device-wifi-tethering'> </i>3.9  mph</span><br> </li> <li style='opacity: 0;'> <span><i class='mdi-av-timer'></i>0  hPa</span> </li> </div> </div> </ul> </div> </div>"));
     }
 
     private String location;
@@ -65,12 +65,23 @@ public class MaterialWeather extends MaterialPanel {
     }
 
     public String getLocation() {
-        return location;
+        return getValue();
     }
 
     public void setLocation(String location) {
+        setValue(location, true);
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
         this.location = location;
         showWeather(location, name, color);
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
+        return location;
     }
 
     public String getColor() {

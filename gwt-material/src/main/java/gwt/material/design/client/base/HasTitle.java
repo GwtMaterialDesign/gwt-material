@@ -27,6 +27,11 @@ public interface HasTitle {
     void setTitle(String title);
 
     /**
+     * Get the title of the component.
+     */
+    String getTitle();
+
+    /**
      * Sets the description of the component.
      */
     void setDescription(String description);
