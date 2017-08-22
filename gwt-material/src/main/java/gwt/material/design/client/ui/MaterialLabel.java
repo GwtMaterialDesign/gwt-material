@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasFontSize;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.FontSizeMixin;
@@ -44,7 +45,7 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="https://material.io/guidelines/style/typography.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialLabel extends MaterialWidget implements HasFontSize, HasText {
+public class MaterialLabel extends AbstractValueWidget<String> implements HasFontSize, HasText {
 
     private final TextMixin<MaterialLabel> textMixin = new TextMixin<>(this);
     private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
@@ -80,11 +81,22 @@ public class MaterialLabel extends MaterialWidget implements HasFontSize, HasTex
 
     @Override
     public String getText() {
-        return textMixin.getText();
+        return getValue();
     }
 
     @Override
     public void setText(String text) {
-        textMixin.setText(text);
+        setValue(text, true);
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        textMixin.setText(value);
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
+        return textMixin.getText();
     }
 }

@@ -21,11 +21,14 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasInputType;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.InputType;
 
-public class MaterialInput extends MaterialWidget implements HasInputType {
+public class MaterialInput extends AbstractValueWidget<String> implements HasInputType, HasText {
 
     private static final String MIN = "min";
     private static final String MAX = "max";
@@ -70,5 +73,26 @@ public class MaterialInput extends MaterialWidget implements HasInputType {
 
     public boolean isRequired() {
         return getElement().hasAttribute("required");
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        getElement().setPropertyString("value", value != null ? value : "");
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
+        return getElement().getPropertyString("value");
+    }
+
+    @Override
+    public String getText() {
+        return getValue();
+    }
+
+    @Override
+    public void setText(String text) {
+        setValue(text, true);
     }
 }

@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Frame;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
@@ -45,7 +46,7 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Video</a>
  */
 //@formatter:on
-public class MaterialVideo extends MaterialWidget {
+public class MaterialVideo extends AbstractValueWidget<String> {
 
     private Frame frame = new Frame();
 
@@ -66,12 +67,11 @@ public class MaterialVideo extends MaterialWidget {
     }
 
     public String getUrl() {
-        return frame.getUrl();
+        return getValue();
     }
 
     public void setUrl(String url) {
-        frame.setUrl(url);
-        this.add(frame);
+        setValue(url, true);
     }
 
     /**
@@ -79,5 +79,16 @@ public class MaterialVideo extends MaterialWidget {
      */
     public void setFullscreen(boolean fullscreen) {
         frame.getElement().setAttribute("allowfullscreen", String.valueOf(fullscreen));
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        frame.setUrl(value);
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
+        return frame.getUrl();
     }
 }
