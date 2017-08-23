@@ -73,6 +73,7 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
      */
     public MaterialChip() {
         super(Document.get().createDivElement(), CssName.CHIP);
+        add(chipLabel);
     }
 
     public MaterialChip(String text) {
@@ -94,7 +95,6 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
         this(text);
         setBackgroundColor(bgColor);
         setTextColor(textColor);
-        add(chipLabel);
     }
 
     @Deprecated
