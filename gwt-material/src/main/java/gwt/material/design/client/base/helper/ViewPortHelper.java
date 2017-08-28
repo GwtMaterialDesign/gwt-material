@@ -21,9 +21,13 @@ package gwt.material.design.client.base.helper;
 
 import gwt.material.design.client.js.Window;
 
+@Deprecated
 public class ViewPortHelper {
 
+    @Deprecated
     public enum ViewPort {
+        ALL_MOBILE("(max-width: 425px)"),
+        ALL_LAPTOP("(min-width: 769px) and (max-width: 2560px)"),
         MOBILE_SMALL("(max-width: 320px)"),
         MOBILE_MEDIUM("(min-width: 321px) and (max-width: 375px)"),
         MOBILE_LARGE("(min-width: 376px) and (max-width: 425px)"),
