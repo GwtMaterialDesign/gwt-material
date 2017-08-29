@@ -62,7 +62,6 @@ public class MaterialAnimation implements HasDurationTransition, HasDelayTransit
         return this;
     }
 
-
     public MaterialAnimation duration(int duration) {
         this.duration = duration;
         return this;
