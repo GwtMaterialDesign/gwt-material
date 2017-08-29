@@ -22,10 +22,16 @@ package gwt.material.design.client.base.viewport;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * View port detection utility.
+ */
 public class ViewPort {
 
     private List<ViewPortHandler> handlers = new ArrayList<>();
 
+    /**
+     * When {@link ViewPort} resolution is detected.
+     */
     public static ViewPortHandler when(Resolution resolution, Resolution... other) {
         ViewPort viewPort = new ViewPort();
         ViewPortHandler handler = new ViewPortHandler(viewPort, resolution, other);
@@ -33,10 +39,16 @@ public class ViewPort {
         return handler;
     }
 
+    /**
+     * Or when this {@link ViewPort} resolution is detected.
+     */
     public ViewPortHandler or(Resolution resolution, Resolution... other) {
         return when(resolution, other);
     }
 
+    /**
+     * Unload the view port detection.
+     */
     public ViewPort unload() {
         for(ViewPortHandler handler : handlers) {
             handler.unload();
@@ -44,6 +56,9 @@ public class ViewPort {
         return this;
     }
 
+    /**
+     * Load the view port detection.
+     */
     public ViewPort load() {
         for(ViewPortHandler handler : handlers) {
             handler.load();
@@ -51,6 +66,10 @@ public class ViewPort {
         return this;
     }
 
+    /**
+     * Destroy the view port detection (use {@link #unload()} to temporarily
+     * disable then {@link #load()} to re-enable.
+     */
     public ViewPort destroy() {
         for(ViewPortHandler handler : handlers) {
             handler.destroy();
