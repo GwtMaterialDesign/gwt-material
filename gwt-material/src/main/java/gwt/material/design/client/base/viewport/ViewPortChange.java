@@ -17,21 +17,18 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.js;
+package gwt.material.design.client.base.viewport;
 
-import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import jsinterop.annotations.JsType;
+public class ViewPortChange extends ViewPortRect {
 
-@JsType(isNative = false)
-public class Window {
+    private Resolution resolution;
 
-    public static native boolean matchMedia(String query) /*-{
-        return $wnd.window.matchMedia(query).matches;
-    }-*/;
-
-    public static HandlerRegistration addResizeHandler(ResizeHandler handler) {
-        return com.google.gwt.user.client.Window.addResizeHandler(handler);
+    public ViewPortChange(int width, int height, Resolution resolution) {
+        super(width, height);
+        this.resolution = resolution;
     }
 
+    public Resolution getResolution() {
+        return resolution;
+    }
 }

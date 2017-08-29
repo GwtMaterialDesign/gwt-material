@@ -19,43 +19,42 @@
  */
 package gwt.material.design.client.base.viewport;
 
-public enum ViewPort {
+import java.util.ArrayList;
+import java.util.List;
 
-    ALL_MOBILE(0, 425),
-    ALL_LAPTOP(769, 2560),
-    MOBILE_SMALL(0, 320),
-    MOBILE_MEDIUM(321, 375),
-    MOBILE_LARGE(376, 425),
-    TABLET(426, 768),
-    LAPTOP(769, 1024),
-    LAPTOP_LARGE(1025, 1440),
-    LAPTOP_4K(1441, 2560);
+public class ViewPort {
 
-    private int minWidth;
-    private int maxWidth;
+    private List<ViewPortHandler> handlers = new ArrayList<>();
 
-    ViewPort(int minWidth, int maxWidth) {
-        this.minWidth = minWidth;
-        this.maxWidth = maxWidth;
+    public static ViewPortHandler when(Resolution resolution, Resolution... other) {
+        ViewPort viewPort = new ViewPort();
+        ViewPortHandler handler = new ViewPortHandler(viewPort, resolution, other);
+        viewPort.handlers.add(handler);
+        return handler;
     }
 
-    public int getMinWidth() {
-        return minWidth;
+    public ViewPortHandler or(Resolution resolution, Resolution... other) {
+        return when(resolution, other);
     }
 
-    public void setMinWidth(int minWidth) {
-        this.minWidth = minWidth;
+    public ViewPort unload() {
+        for(ViewPortHandler handler : handlers) {
+            handler.unload();
+        }
+        return this;
     }
 
-    public int getMaxWidth() {
-        return maxWidth;
+    public ViewPort load() {
+        for(ViewPortHandler handler : handlers) {
+            handler.load();
+        }
+        return this;
     }
 
-    public void setMaxWidth(int maxWidth) {
-        this.maxWidth = maxWidth;
-    }
-
-    public String asMediaQuery() {
-        return "(min-width: " + minWidth + "px) and (max-width: " + maxWidth + "px)";
+    public ViewPort destroy() {
+        for(ViewPortHandler handler : handlers) {
+            handler.destroy();
+        }
+        return this;
     }
 }
