@@ -24,6 +24,8 @@ import java.util.List;
 
 /**
  * View port detection utility.
+ *
+ * @author Ben
  */
 public class ViewPort {
 
