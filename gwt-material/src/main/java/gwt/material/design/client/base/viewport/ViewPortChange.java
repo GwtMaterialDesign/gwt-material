@@ -19,6 +19,9 @@
  */
 package gwt.material.design.client.base.viewport;
 
+/**
+ * @author Ben
+ */
 public class ViewPortChange extends ViewPortRect {
 
     private Resolution resolution;

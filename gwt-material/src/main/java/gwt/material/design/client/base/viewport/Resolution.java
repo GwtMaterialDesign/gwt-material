@@ -20,7 +20,6 @@
 package gwt.material.design.client.base.viewport;
 
 public enum Resolution {
-
     ALL_MOBILE(0, 425),
     ALL_LAPTOP(769, 2560),
     MOBILE_SMALL(0, 320),

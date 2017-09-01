@@ -29,6 +29,9 @@ import java.util.List;
 
 import static gwt.material.design.client.base.MaterialWidget.window;
 
+/**
+ * @author Ben
+ */
 public class ViewPortHandler {
 
     private ViewPort viewPort;
