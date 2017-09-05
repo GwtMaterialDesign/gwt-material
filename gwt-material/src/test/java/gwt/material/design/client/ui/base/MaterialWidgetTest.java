@@ -55,6 +55,38 @@ public class MaterialWidgetTest extends BaseEventTest {
         checkInteractionEvents(widget, true);
         checkInteractionEvents(widget, false);
         checkTransition(widget);
+        checkBorder(widget);
+    }
+
+    protected <T extends MaterialWidget> void checkBorder(T widget) {
+        final String BORDER = "1px solid red";
+        final String BORDER_LEFT = "10px dashed green";
+        final String BORDER_RIGHT = "20px dotted";
+        final String BORDER_BOTTOM = "10px solid";
+        final String BORDER_TOP = "5px ridge";
+
+        widget.setBorder(BORDER);
+        assertEquals(BORDER, widget.getBorder());
+        assertEquals(BORDER, widget.getElement().getStyle().getProperty("border"));
+
+        widget.setBorderLeft(BORDER_LEFT);
+        assertEquals(BORDER_LEFT, widget.getBorderLeft());
+        assertEquals(BORDER_LEFT, widget.getElement().getStyle().getProperty("borderLeft"));
+
+        widget.setBorderRight(BORDER_RIGHT);
+        assertEquals(BORDER_RIGHT, widget.getBorderRight());
+        assertEquals(BORDER_RIGHT, widget.getElement().getStyle().getProperty("borderRight"));
+
+        widget.setBorderBottom(BORDER_BOTTOM);
+        assertEquals(BORDER_BOTTOM, widget.getBorderBottom());
+        assertEquals(BORDER_BOTTOM, widget.getElement().getStyle().getProperty("borderBottom"));
+
+        widget.setBorderTop(BORDER_TOP);
+        assertEquals(BORDER_TOP, widget.getBorderTop());
+        assertEquals(BORDER_TOP, widget.getElement().getStyle().getProperty("borderTop"));
+
+        widget.setBorder("");
+        assertEquals(widget.getElement().getStyle().getProperty("border"), "");
     }
 
     protected <T extends MaterialWidget> void checkTransition(T widget) {

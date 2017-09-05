@@ -51,7 +51,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -123,6 +123,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
+    private BorderMixin<MaterialWidget> borderMixin;
 
     public MaterialWidget() {
     }
@@ -686,6 +687,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return truncateMixin;
     }
 
+    public BorderMixin<MaterialWidget> getBorderMixin() {
+        if (borderMixin == null) {
+            borderMixin = new BorderMixin<>(this);
+        }
+        return borderMixin;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1119,6 +1127,56 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      **/
     public void setTruncate(boolean truncate) {
         getTruncateMixin().setOn(truncate);
+    }
+
+    @Override
+    public void setBorder(String value) {
+        getBorderMixin().setBorder(value);
+    }
+
+    @Override
+    public String getBorder() {
+        return getBorderMixin().getBorder();
+    }
+
+    @Override
+    public void setBorderLeft(String value) {
+        getBorderMixin().setBorderLeft(value);
+    }
+
+    @Override
+    public String getBorderLeft() {
+        return getBorderMixin().getBorderLeft();
+    }
+
+    @Override
+    public void setBorderRight(String value) {
+        getBorderMixin().setBorderRight(value);
+    }
+
+    @Override
+    public String getBorderRight() {
+        return getBorderMixin().getBorderRight();
+    }
+
+    @Override
+    public void setBorderTop(String value) {
+        getBorderMixin().setBorderTop(value);
+    }
+
+    @Override
+    public String getBorderTop() {
+        return getBorderMixin().getBorderTop();
+    }
+
+    @Override
+    public void setBorderBottom(String value) {
+        getBorderMixin().setBorderBottom(value);
+    }
+
+    @Override
+    public String getBorderBottom() {
+        return getBorderMixin().getBorderBottom();
     }
 
     // Avoid touch events on mobile devices
