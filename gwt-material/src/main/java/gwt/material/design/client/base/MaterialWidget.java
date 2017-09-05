@@ -48,7 +48,7 @@ import java.util.Map;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
+public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
         HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder {
@@ -124,6 +124,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
     private BorderMixin<MaterialWidget> borderMixin;
+    private DimensionMixin<MaterialWidget> dimensionMixin;
 
     public MaterialWidget() {
     }
@@ -694,6 +695,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return borderMixin;
     }
 
+    public DimensionMixin<MaterialWidget> getDimensionMixin() {
+        if (dimensionMixin == null) {
+            dimensionMixin = new DimensionMixin<>(this);
+        }
+        return dimensionMixin;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1177,6 +1185,46 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public String getBorderBottom() {
         return getBorderMixin().getBorderBottom();
+    }
+
+    @Override
+    public void setMinHeight(String value) {
+        getDimensionMixin().setMinHeight(value);
+    }
+
+    @Override
+    public String getMinHeight() {
+        return getDimensionMixin().getMinHeight();
+    }
+
+    @Override
+    public void setMaxHeight(String value) {
+        getDimensionMixin().setMaxHeight(value);
+    }
+
+    @Override
+    public String getMaxHeight() {
+        return getDimensionMixin().getMaxHeight();
+    }
+
+    @Override
+    public void setMinWidth(String value) {
+        getDimensionMixin().setMinWidth(value);
+    }
+
+    @Override
+    public String getMinWidth() {
+        return getDimensionMixin().getMinWidth();
+    }
+
+    @Override
+    public void setMaxWidth(String value) {
+        getDimensionMixin().setMaxWidth(value);
+    }
+
+    @Override
+    public String getMaxWidth() {
+        return getDimensionMixin().getMaxWidth();
     }
 
     // Avoid touch events on mobile devices
