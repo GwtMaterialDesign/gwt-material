@@ -26,7 +26,7 @@ import gwt.material.design.client.base.HasDimension;
 /**
  * @author kevzlou7979
  */
-public class DimensionMixin<T extends Widget & HasBorder> extends AbstractMixin<T> implements HasDimension {
+public class DimensionMixin<T extends Widget & HasBorder> extends StylePropertyMixin<T> implements HasDimension {
 
     public DimensionMixin(T uiObject) {
         super(uiObject);
@@ -70,15 +70,5 @@ public class DimensionMixin<T extends Widget & HasBorder> extends AbstractMixin<
     @Override
     public String getMaxWidth() {
         return getProperty("maxWidth");
-    }
-
-    protected void setProperty(String property, String value) {
-        assert property != null : "Property must be provided.";
-        assert value != null : "Value must be provided";
-        uiObject.getElement().getStyle().setProperty(property, value);
-    }
-
-    protected String getProperty(String property) {
-        return uiObject.getElement().getStyle().getProperty(property);
     }
 }

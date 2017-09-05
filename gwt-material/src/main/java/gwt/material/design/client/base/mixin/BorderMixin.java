@@ -25,7 +25,7 @@ import gwt.material.design.client.base.HasBorder;
 /**
  *  @author kevzlou7979
  */
-public class BorderMixin<T extends Widget & HasBorder> extends AbstractMixin<T>  implements HasBorder {
+public class BorderMixin<T extends Widget & HasBorder> extends StylePropertyMixin<T>  implements HasBorder {
 
     public BorderMixin(T uiObject) {
         super(uiObject);
@@ -79,16 +79,5 @@ public class BorderMixin<T extends Widget & HasBorder> extends AbstractMixin<T> 
     @Override
     public String getBorderBottom() {
         return getProperty("borderBottom");
-    }
-
-    protected String getProperty(String property) {
-        return uiObject.getElement().getStyle().getProperty(property);
-    }
-
-    protected void setProperty(String property, String value) {
-        assert property != null : "Property must be provided.";
-        assert value != null : "Value must be provided";
-
-        uiObject.getElement().getStyle().setProperty(property, value);
     }
 }
