@@ -29,7 +29,7 @@ import gwt.material.design.client.ui.MaterialPanel;
 /**
  * Test case for MaterialWidget base
  *
- * @author kebzlou7979
+ * @author kevzlou7979
  */
 public class MaterialWidgetTest extends BaseEventTest {
 
@@ -56,6 +56,7 @@ public class MaterialWidgetTest extends BaseEventTest {
         checkInteractionEvents(widget, false);
         checkTransition(widget);
         checkBorder(widget);
+        checkDimensions(widget);
     }
 
     protected <T extends MaterialWidget> void checkBorder(T widget) {
@@ -289,5 +290,25 @@ public class MaterialWidgetTest extends BaseEventTest {
         assertNotNull(widget.getId());
         assertTrue(element.hasAttribute("id"));
         assertEquals(element.getId(), widget.getId());
+    }
+
+    public <T extends MaterialWidget> void checkDimensions(T widget) {
+        final String MIN_HEIGHT = "10px";
+        final String MIN_WIDTH = "20px";
+
+        final String MAX_HEIGHT = "30px";
+        final String MAX_WIDTH = "50px";
+
+        widget.setMinHeight(MIN_HEIGHT);
+        assertEquals(widget.getElement().getStyle().getProperty("minHeight"), MIN_HEIGHT);
+
+        widget.setMaxHeight(MAX_HEIGHT);
+        assertEquals(widget.getElement().getStyle().getProperty("maxHeight"), MAX_HEIGHT);
+
+        widget.setMinWidth(MIN_WIDTH);
+        assertEquals(widget.getElement().getStyle().getProperty("minWidth"), MIN_WIDTH);
+
+        widget.setMaxWidth(MAX_WIDTH);
+        assertEquals(widget.getElement().getStyle().getProperty("maxWidth"), MAX_WIDTH);
     }
 }
