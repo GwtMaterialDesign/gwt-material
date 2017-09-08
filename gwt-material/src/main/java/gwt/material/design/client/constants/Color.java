@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.constants;
 
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
@@ -321,5 +322,19 @@ public enum Color implements CssType {
 
     public static Color fromStyleName(final String styleName) {
         return EnumHelper.fromStyleName(styleName, Color.class, Color.DEFAULT);
+    }
+
+    public static void clearStyles(final UIObject uiObject) {
+        for(String style : uiObject.getStyleName().split(" ")) {
+            Color color = fromStyleName(style);
+            if(color != Color.DEFAULT) {
+                uiObject.removeStyleName(style);
+            } else {
+                // check if we are a shade
+                if (Shade.isShade(style)) {
+                    uiObject.removeStyleName(style);
+                }
+            }
+        }
     }
 }
