@@ -167,7 +167,11 @@ public class MaterialAnimation implements HasDurationTransition, HasDelayTransit
                 }
             }
         };
-        startTimer.schedule(delay);
+        if(delay < 1) {
+            startTimer.run();
+        } else {
+            startTimer.schedule(delay);
+        }
 
         widget.removeStyleName(CssName.MATERIALIZE_CSS);
     }
