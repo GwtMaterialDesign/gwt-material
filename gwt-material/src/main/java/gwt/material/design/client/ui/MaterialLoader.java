@@ -131,23 +131,6 @@ public class MaterialLoader {
     }
 
     /**
-     * Use {@link #loading(boolean)}.
-     */
-    @Deprecated
-    public static void showLoading(boolean visible) {
-        loading(visible);
-    }
-
-    /**
-     * Use {@link #loading(boolean, Panel)}.
-     */
-    @Deprecated
-    public static void showLoading(boolean visible, Panel container) {
-        loading(visible, container);
-    }
-
-
-    /**
      * Static helper class that shows / hides a circular loader
      */
     public static void loading(boolean visible) {
@@ -165,22 +148,6 @@ public class MaterialLoader {
         } else {
             loader.hide();
         }
-    }
-
-    /**
-     * Use {@link #progress(boolean)}.
-     */
-    @Deprecated
-    public static void showProgress(boolean visible) {
-        progress(visible);
-    }
-
-    /**
-     * Use {@link #progress(boolean, Panel)}.
-     */
-    @Deprecated
-    public static void showProgress(boolean visible, Panel container) {
-        progress(visible, container);
     }
 
     /**
