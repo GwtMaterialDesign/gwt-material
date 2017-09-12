@@ -186,7 +186,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     /**
      * @return the label
      */
-    @Deprecated
     public Label getLabel() {
         return label;
     }

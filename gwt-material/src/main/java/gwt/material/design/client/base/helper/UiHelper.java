@@ -86,4 +86,8 @@ public final class UiHelper {
     public static int calculateSpaceToBottom(Widget widget) {
         return Window.getClientHeight() - widget.getAbsoluteTop() - widget.getOffsetHeight();
     }
+
+    public static native boolean isTouchScreenDevice() /*-{
+        return 'ontouchstart' in document.documentElement;
+    }-*/;
 }
