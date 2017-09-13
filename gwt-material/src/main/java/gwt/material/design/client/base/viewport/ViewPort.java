@@ -34,9 +34,9 @@ public class ViewPort {
     /**
      * When {@link ViewPort} resolution is detected.
      */
-    public static ViewPortHandler when(Resolution resolution, Resolution... other) {
+    public static ViewPortHandler when(Boundary boundary, Boundary... other) {
         ViewPort viewPort = new ViewPort();
-        ViewPortHandler handler = new ViewPortHandler(viewPort, resolution, other);
+        ViewPortHandler handler = new ViewPortHandler(viewPort, boundary, other);
         viewPort.handlers.add(handler);
         return handler;
     }
@@ -44,7 +44,7 @@ public class ViewPort {
     /**
      * Or when this {@link ViewPort} resolution is detected.
      */
-    public ViewPortHandler or(Resolution resolution, Resolution... other) {
+    public ViewPortHandler or(Boundary resolution, Boundary... other) {
         return when(resolution, other);
     }
 

@@ -24,14 +24,14 @@ package gwt.material.design.client.base.viewport;
  */
 public class ViewPortChange extends ViewPortRect {
 
-    private Resolution resolution;
+    private Boundary boundary;
 
-    public ViewPortChange(int width, int height, Resolution resolution) {
+    public ViewPortChange(int width, int height, Boundary boundary) {
         super(width, height);
-        this.resolution = resolution;
+        this.boundary = boundary;
     }
 
-    public Resolution getResolution() {
-        return resolution;
+    public Boundary getBoundary() {
+        return boundary;
     }
 }

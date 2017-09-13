@@ -19,42 +19,39 @@
  */
 package gwt.material.design.client.base.viewport;
 
-public enum Resolution {
-    ALL_MOBILE(0, 425),
-    ALL_LAPTOP(769, 2560),
-    MOBILE_SMALL(0, 320),
-    MOBILE_MEDIUM(321, 375),
-    MOBILE_LARGE(376, 425),
-    TABLET(426, 768),
-    LAPTOP(769, 1024),
-    LAPTOP_LARGE(1025, 1440),
-    LAPTOP_4K(1441, 2560);
+public enum Resolution implements Boundary {
+    ALL_MOBILE(new WidthBoundary(0, 425)),
+    ALL_LAPTOP(new WidthBoundary(769, 2560)),
+    MOBILE_SMALL(new WidthBoundary(0, 320)),
+    MOBILE_MEDIUM(new WidthBoundary(321, 375)),
+    MOBILE_LARGE(new WidthBoundary(376, 425)),
+    TABLET(new WidthBoundary(426, 768)),
+    LAPTOP(new WidthBoundary(769, 1024)),
+    LAPTOP_LARGE(new WidthBoundary(1025, 1440)),
+    LAPTOP_4K(new WidthBoundary(1441, 2560));
 
-    private int minWidth;
-    private int maxWidth;
+    private final WidthBoundary boundary;
 
-    Resolution(int minWidth, int maxWidth) {
-        this.minWidth = minWidth;
-        this.maxWidth = maxWidth;
+    Resolution(WidthBoundary boundary) {
+        this.boundary = boundary;
     }
 
-    public int getMinWidth() {
-        return minWidth;
+    public WidthBoundary getBoundary() {
+        return boundary;
     }
 
-    public void setMinWidth(int minWidth) {
-        this.minWidth = minWidth;
+    @Override
+    public int getMin() {
+        return boundary.getMin();
     }
 
-    public int getMaxWidth() {
-        return maxWidth;
+    @Override
+    public int getMax() {
+        return boundary.getMax();
     }
 
-    public void setMaxWidth(int maxWidth) {
-        this.maxWidth = maxWidth;
-    }
-
+    @Override
     public String asMediaQuery() {
-        return "(min-width: " + minWidth + "px) and (max-width: " + maxWidth + "px)";
+        return boundary.asMediaQuery();
     }
 }
