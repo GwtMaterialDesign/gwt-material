@@ -37,29 +37,29 @@ public class ViewPortHandler {
     private ViewPort viewPort;
 
     private HandlerRegistration resize;
-    private List<Resolution> resolutions;
+    private List<Boundary> boundaries;
 
     private Functions.Func1<ViewPortChange> then;
     private ViewPortFallback fallback;
 
     private boolean propagateFallback;
 
-    public ViewPortHandler(ViewPort viewPort, Resolution resolution, Resolution... other) {
+    public ViewPortHandler(ViewPort viewPort, Boundary boundary, Boundary... other) {
         this.viewPort = viewPort;
 
-        resolutions = new ArrayList<>();
-        resolutions.add(resolution);
+        boundaries = new ArrayList<>();
+        boundaries.add(boundary);
         if(other != null) {
-            Collections.addAll(resolutions, other);
+            Collections.addAll(boundaries, other);
         }
     }
 
     /**
-     * Apply more {@link Resolution}s to the detection conditions.
+     * Apply more {@link Boundary}s to the detection conditions.
      */
-    public ViewPortHandler or(Resolution resolution) {
-        if(!resolutions.contains(resolution)) {
-            resolutions.add(resolution);
+    public ViewPortHandler or(Boundary boundary) {
+        if(!boundaries.contains(boundary)) {
+            boundaries.add(boundary);
         }
         return this;
     }
@@ -78,7 +78,7 @@ public class ViewPortHandler {
      *
      * @param then callback when the view port is detected.
      * @param fallback fallback when no view port detected or failure to detect the given
-     *                 {@link Resolution} (using {@link #propagateFallback(boolean)})
+     *                 {@link Boundary} (using {@link #propagateFallback(boolean)})
      */
     public ViewPort then(Functions.Func1<ViewPortChange> then, ViewPortFallback fallback) {
         assert then != null : "'then' callback cannot be null";
@@ -92,7 +92,7 @@ public class ViewPortHandler {
      */
     protected ViewPortHandler destroy() {
         unload();
-        resolutions.clear();
+        boundaries.clear();
         then = null;
         fallback = null;
         return this;
@@ -120,9 +120,9 @@ public class ViewPortHandler {
 
     protected void execute(int width, int height) {
         boolean match = false;
-        for(Resolution resolution : resolutions) {
-            if (Window.matchMedia(resolution.asMediaQuery())) {
-                then.call(new ViewPortChange(width, height, resolution));
+        for(Boundary boundary : boundaries) {
+            if (Window.matchMedia(boundary.asMediaQuery())) {
+                then.call(new ViewPortChange(width, height, boundary));
                 match = true;
             } else if(propagateFallback && fallback != null && !fallback.call(new ViewPortRect(width, height))) {
                 // We will not propagate.
