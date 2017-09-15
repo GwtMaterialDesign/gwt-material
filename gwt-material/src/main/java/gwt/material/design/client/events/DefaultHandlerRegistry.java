@@ -28,7 +28,7 @@ import java.util.List;
 
 public class DefaultHandlerRegistry implements HandlerRegistry {
 
-    private final IsWidget widget;
+    private final Widget widget;
     private List<HandlerRegistration> registrations;
     private HandlerRegistration attachHandler;
 
@@ -40,6 +40,10 @@ public class DefaultHandlerRegistry implements HandlerRegistry {
     }
 
     public DefaultHandlerRegistry(IsWidget widget, boolean clearOnUnload) {
+        this(widget.asWidget(), clearOnUnload);
+    }
+
+    public DefaultHandlerRegistry(Widget widget, boolean clearOnUnload) {
         assert widget != null : "Widget cannot be null";
         this.widget = widget;
         this.clearOnUnload = clearOnUnload;
@@ -99,6 +103,6 @@ public class DefaultHandlerRegistry implements HandlerRegistry {
 
     @Override
     public Widget asWidget() {
-        return widget.asWidget();
+        return widget;
     }
 }
