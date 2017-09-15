@@ -20,6 +20,7 @@
 package gwt.material.design.client.events;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
@@ -27,13 +28,13 @@ import java.util.List;
 
 public class DefaultHandlerRegistry implements HandlerRegistry {
 
-    private final HandlerRegistry widget;
+    private final IsWidget widget;
     private List<HandlerRegistration> registrations;
     private HandlerRegistration attachHandler;
 
     private boolean loaded = false;
 
-    public DefaultHandlerRegistry(HandlerRegistry widget) {
+    public DefaultHandlerRegistry(IsWidget widget) {
         assert widget != null : "Widget cannot be null";
         this.widget = widget;
 
