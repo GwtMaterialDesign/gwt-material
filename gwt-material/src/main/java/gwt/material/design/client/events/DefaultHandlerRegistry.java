@@ -32,11 +32,17 @@ public class DefaultHandlerRegistry implements HandlerRegistry {
     private List<HandlerRegistration> registrations;
     private HandlerRegistration attachHandler;
 
+    private boolean clearOnUnload = true;
     private boolean loaded = false;
 
     public DefaultHandlerRegistry(IsWidget widget) {
+        this(widget, true);
+    }
+
+    public DefaultHandlerRegistry(IsWidget widget, boolean clearOnUnload) {
         assert widget != null : "Widget cannot be null";
         this.widget = widget;
+        this.clearOnUnload = clearOnUnload;
 
         load();
     }
@@ -45,7 +51,7 @@ public class DefaultHandlerRegistry implements HandlerRegistry {
         assert !loaded : "Cannot load an already loaded handler registry.";
         attachHandler = widget.asWidget().addAttachHandler(event -> {
             // Detach event
-            if(!event.isAttached()) {
+            if(clearOnUnload && !event.isAttached()) {
                 clearHandlers();
             }
         });
@@ -81,6 +87,14 @@ public class DefaultHandlerRegistry implements HandlerRegistry {
             }
             registrations.clear();
         }
+    }
+
+    public void setClearOnUnload(boolean clearOnUnload) {
+        this.clearOnUnload = clearOnUnload;
+    }
+
+    public boolean isClearOnUnload() {
+        return clearOnUnload;
     }
 
     @Override
