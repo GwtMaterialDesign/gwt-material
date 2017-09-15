@@ -30,7 +30,7 @@ import java.util.List;
 import static gwt.material.design.client.base.MaterialWidget.window;
 
 /**
- * @author Ben
+ * @author Ben Dol
  */
 public class ViewPortHandler {
 
