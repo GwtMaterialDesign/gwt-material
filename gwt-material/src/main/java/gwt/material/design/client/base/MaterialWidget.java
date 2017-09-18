@@ -51,7 +51,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -125,6 +125,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
     private BorderMixin<MaterialWidget> borderMixin;
     private DimensionMixin<MaterialWidget> dimensionMixin;
+    private VerticalAlignMixin<MaterialWidget> verticalAlignMixin;
 
     public MaterialWidget() {
     }
@@ -702,6 +703,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return dimensionMixin;
     }
 
+    public VerticalAlignMixin<MaterialWidget> getVerticalAlignMixin() {
+        if (verticalAlignMixin == null) {
+            verticalAlignMixin = new VerticalAlignMixin<>(this);
+        }
+        return verticalAlignMixin;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1070,6 +1078,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public void setFlexJustifyContent(FlexJustifyContent flexJustifyContent) {
         getFlexboxMixin().setFlexJustifyContent(flexJustifyContent);
+    }
+
+    @Override
+    public void setVerticalAlign(Style.VerticalAlign value) {
+        getVerticalAlignMixin().setVerticalAlign(value);
+    }
+
+    @Override
+    public String getVerticalAlign() {
+        return getVerticalAlignMixin().getVerticalAlign();
     }
 
     public void setOverflow(Style.Overflow overflow) {

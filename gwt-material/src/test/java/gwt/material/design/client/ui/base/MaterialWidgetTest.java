@@ -57,6 +57,24 @@ public class MaterialWidgetTest extends BaseEventTest {
         checkTransition(widget);
         checkBorder(widget);
         checkDimensions(widget);
+        checkVerticalAlign(widget);
+    }
+
+    protected <T extends MaterialWidget> void checkVerticalAlign(T widget) {
+        checkVerticalAlign(widget, Style.VerticalAlign.MIDDLE);
+        checkVerticalAlign(widget, Style.VerticalAlign.TOP);
+        checkVerticalAlign(widget, Style.VerticalAlign.BOTTOM);
+        checkVerticalAlign(widget, Style.VerticalAlign.SUPER);
+        checkVerticalAlign(widget, Style.VerticalAlign.SUB);
+        checkVerticalAlign(widget, Style.VerticalAlign.TEXT_BOTTOM);
+        checkVerticalAlign(widget, Style.VerticalAlign.TEXT_TOP);
+        checkVerticalAlign(widget, Style.VerticalAlign.BASELINE);
+    }
+
+    protected void checkVerticalAlign(MaterialWidget widget, Style.VerticalAlign value) {
+        widget.setVerticalAlign(value);
+        assertEquals(widget.getVerticalAlign(), value.getCssName());
+        assertEquals(widget.getElement().getStyle().getVerticalAlign(), widget.getVerticalAlign());
     }
 
     protected <T extends MaterialWidget> void checkBorder(T widget) {
