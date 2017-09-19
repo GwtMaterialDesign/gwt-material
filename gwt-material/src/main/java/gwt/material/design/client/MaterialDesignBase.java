@@ -106,7 +106,7 @@ public class MaterialDesignBase {
         StyleInjector.inject(resource.getText());
     }
 
-    protected static boolean checkJQuery(boolean debug) {
+    public static boolean checkJQuery(boolean debug) {
         if (!isjQueryLoaded()) {
             if(isProvidingJQuery()) {
                 if (debug) {
