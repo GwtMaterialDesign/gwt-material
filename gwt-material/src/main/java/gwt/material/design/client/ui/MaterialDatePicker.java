@@ -225,9 +225,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         Scheduler.get().scheduleDeferred(() -> {
             initialize();
             if (pickatizedDateInput != null && dateTemp != null) {
-                getPicker().set("select", dateTemp, () -> {
-                    DOM.createFieldSet().setPropertyObject("muted", true);
-                });
+                getPicker().set("select", dateTemp, () -> DOM.createFieldSet().setPropertyObject("muted", true));
             }
         });
     }

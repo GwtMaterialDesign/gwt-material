@@ -27,57 +27,74 @@ import gwt.material.design.client.base.HasBorder;
  */
 public class BorderMixin<T extends Widget & HasBorder> extends StylePropertyMixin<T>  implements HasBorder {
 
+    final String BORDER = "border";
+    final String BORDER_LEFT = "borderLeft";
+    final String BORDER_RIGHT = "borderRight";
+    final String BORDER_TOP = "borderTop";
+    final String BORDER_BOTTOM = "borderBottom";
+    final String BORDER_RADIUS = "borderRadius";
+
     public BorderMixin(T uiObject) {
         super(uiObject);
     }
 
     @Override
     public void setBorder(String value) {
-        setProperty("border", value);
+        setProperty(BORDER, value);
     }
 
     @Override
     public String getBorder() {
-        return getProperty("border");
+        return getProperty(BORDER);
     }
 
     @Override
     public void setBorderLeft(String value) {
-        setProperty("borderLeft", value);
+        setProperty(BORDER_LEFT, value);
     }
 
     @Override
     public String getBorderLeft() {
-        return getProperty("borderLeft");
+        return getProperty(BORDER_LEFT);
     }
 
     @Override
     public void setBorderRight(String value) {
-        setProperty("borderRight", value);
+        setProperty(BORDER_RIGHT, value);
     }
 
     @Override
     public String getBorderRight() {
-        return getProperty("borderRight");
+        return getProperty(BORDER_RIGHT);
     }
 
     @Override
     public void setBorderTop(String value) {
-        setProperty("borderTop", value);
+        setProperty(BORDER_TOP, value);
     }
 
     @Override
     public String getBorderTop() {
-        return getProperty("borderTop");
+        return getProperty(BORDER_TOP);
     }
 
     @Override
     public void setBorderBottom(String value) {
-        setProperty("borderBottom", value);
+        setProperty(BORDER_BOTTOM, value);
     }
 
     @Override
     public String getBorderBottom() {
-        return getProperty("borderBottom");
+        return getProperty(BORDER_BOTTOM);
+    }
+
+    @Override
+    public void setBorderRadius(String value) {
+        setProperty(BORDER_RADIUS, value);
+    }
+
+    @Override
+    public String getBorderRadius() {
+        return getProperty(BORDER_RADIUS);
     }
 }
