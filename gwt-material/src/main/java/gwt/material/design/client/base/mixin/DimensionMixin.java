@@ -28,47 +28,52 @@ import gwt.material.design.client.base.HasDimension;
  */
 public class DimensionMixin<T extends Widget & HasBorder> extends StylePropertyMixin<T> implements HasDimension {
 
+    final String MIN_HEIGHT = "minHeight";
+    final String MAX_HEIGHT = "maxHeight";
+    final String MIN_WIDTH = "minWidth";
+    final String MAX_WIDTH = "maxWidth";
+
     public DimensionMixin(T uiObject) {
         super(uiObject);
     }
 
     @Override
     public void setMinHeight(String value) {
-        setProperty("minHeight", value);
+        setProperty(MIN_HEIGHT, value);
     }
 
     @Override
     public String getMinHeight() {
-        return getProperty("minHeight");
+        return getProperty(MIN_HEIGHT);
     }
 
     @Override
     public void setMaxHeight(String value) {
-        setProperty("maxHeight", value);
+        setProperty(MAX_HEIGHT, value);
     }
 
     @Override
     public String getMaxHeight() {
-        return getProperty("maxHeight");
+        return getProperty(MAX_HEIGHT);
     }
 
     @Override
     public void setMinWidth(String value) {
-        setProperty("minWidth", value);
+        setProperty(MIN_WIDTH, value);
     }
 
     @Override
     public String getMinWidth() {
-        return getProperty("minWidth");
+        return getProperty(MIN_WIDTH);
     }
 
     @Override
     public void setMaxWidth(String value) {
-        setProperty("maxWidth", value);
+        setProperty(MAX_WIDTH, value);
     }
 
     @Override
     public String getMaxWidth() {
-        return getProperty("maxWidth");
+        return getProperty(MAX_WIDTH);
     }
 }

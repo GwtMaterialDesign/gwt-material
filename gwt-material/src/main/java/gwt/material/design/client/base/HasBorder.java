@@ -63,4 +63,8 @@ public interface HasBorder {
     void setBorderBottom(String value);
 
     String getBorderBottom();
+
+    void setBorderRadius(String value);
+
+    String getBorderRadius();
 }

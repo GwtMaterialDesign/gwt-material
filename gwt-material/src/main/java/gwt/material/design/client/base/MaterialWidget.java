@@ -51,7 +51,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -127,6 +127,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private BorderMixin<MaterialWidget> borderMixin;
     private DimensionMixin<MaterialWidget> dimensionMixin;
     private VerticalAlignMixin<MaterialWidget> verticalAlignMixin;
+    private TransformMixin<MaterialWidget> transformMixin;
 
     public MaterialWidget() {
     }
@@ -718,6 +719,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return verticalAlignMixin;
     }
 
+    public TransformMixin<MaterialWidget> getTransformMixin() {
+        if (transformMixin == null) {
+            transformMixin = new TransformMixin<>(this);
+        }
+        return transformMixin;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1223,6 +1231,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
+    public void setBorderRadius(String value) {
+        getBorderMixin().setBorderRadius(value);
+    }
+
+    @Override
+    public String getBorderRadius() {
+        return getBorderMixin().getBorderRadius();
+    }
+
+    @Override
     public void setMinHeight(String value) {
         getDimensionMixin().setMinHeight(value);
     }
@@ -1260,6 +1278,66 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public String getMaxWidth() {
         return getDimensionMixin().getMaxWidth();
+    }
+
+    @Override
+    public void setTransform(String value) {
+        getTransformMixin().setTransform(value);
+    }
+
+    @Override
+    public String getTransform() {
+        return getTransformMixin().getTransform();
+    }
+
+    @Override
+    public void setTransformOrigin(String value) {
+        getTransformMixin().setTransformOrigin(value);
+    }
+
+    @Override
+    public String getTransformOrigin() {
+        return getTransformMixin().getTransformOrigin();
+    }
+
+    @Override
+    public void setTransformStyle(String value) {
+        getTransformMixin().setTransformStyle(value);
+    }
+
+    @Override
+    public String getTransformStyle() {
+        return getTransformMixin().getTransformStyle();
+    }
+
+    @Override
+    public void setPerspective(String value) {
+        getTransformMixin().setPerspective(value);
+    }
+
+    @Override
+    public String getPerspective() {
+        return getTransformMixin().getPerspective();
+    }
+
+    @Override
+    public void setPerspectiveOrigin(String value) {
+        getTransformMixin().setPerspectiveOrigin(value);
+    }
+
+    @Override
+    public String getPerspectiveOrigin() {
+        return getTransformMixin().getPerspectiveOrigin();
+    }
+
+    @Override
+    public void setBackfaceVisibility(String value) {
+        getTransformMixin().setBackfaceVisibility(value);
+    }
+
+    @Override
+    public String getBackfaceVisibility() {
+        return getTransformMixin().getBackfaceVisibility();
     }
 
     // Avoid touch events on mobile devices
