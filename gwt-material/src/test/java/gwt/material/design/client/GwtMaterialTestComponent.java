@@ -177,6 +177,11 @@ public class GwtMaterialTestComponent extends GWTTestCase {
     }
 
     @Test
+    public void testPanel() {
+        new MaterialPanelTest().init();
+    }
+
+    @Test
     public void testParallax() {
         new MaterialParallaxTest().init();
     }
