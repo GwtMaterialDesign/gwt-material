@@ -21,6 +21,10 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
@@ -28,7 +32,6 @@ import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasImage;
 import gwt.material.design.client.base.HasLetter;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
@@ -58,9 +61,10 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/chips.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter, HasValue<String> {
+public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter, HasValue<String>, HasCloseHandlers {
 
-    private MaterialIcon icon = new MaterialIcon();
+    private HandlerRegistration handlerRegistration;
+    private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
 
     private ImageResource resource;
@@ -100,6 +104,23 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     @Deprecated
     public MaterialChip(String text, String bgColor, String textColor) {
         this(text, Color.fromStyleName(bgColor), Color.fromStyleName(textColor));
+    }
+
+    @Override
+    protected void initialize() {
+        if (handlerRegistration == null) {
+            handlerRegistration = icon.addClickHandler(clickEvent -> close());
+        }
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+        // Tear down the handler
+        if (handlerRegistration != null) {
+            handlerRegistration.removeHandler();
+            handlerRegistration = null;
+        }
     }
 
     public void setText(String text) {
@@ -225,5 +246,17 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     public Span getChipLabel() {
         return chipLabel;
+    }
+
+    public void close() {
+        if (isAttached()) {
+            removeFromParent();
+            CloseEvent.fire(this, this);
+        }
+    }
+
+    @Override
+    public HandlerRegistration addCloseHandler(CloseHandler closeHandler) {
+        return addHandler(closeHandler, CloseEvent.getType());
     }
 }
