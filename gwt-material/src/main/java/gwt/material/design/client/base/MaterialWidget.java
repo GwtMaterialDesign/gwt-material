@@ -102,6 +102,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private String[] initialClasses;
     protected JQueryElement $this;
 
+    private HandlerRegistry handlerRegistry;
+
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
     private CssNameMixin<MaterialWidget, TextAlign> textAlignMixin;
@@ -718,6 +720,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return transformMixin;
     }
 
+    public HandlerRegistry getHandlerRegistry() {
+        if(handlerRegistry == null) {
+            handlerRegistry = new DefaultHandlerRegistry(this);
+        }
+        return handlerRegistry;
+    }
+
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1321,6 +1330,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public String getBackfaceVisibility() {
         return getTransformMixin().getBackfaceVisibility();
+    }
+
+    public HandlerRegistration registerHandler(HandlerRegistration handler) {
+        return getHandlerRegistry().registerHandler(handler);
     }
 
     // Avoid touch events on mobile devices
