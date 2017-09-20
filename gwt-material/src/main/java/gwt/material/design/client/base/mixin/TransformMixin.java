@@ -27,12 +27,12 @@ import gwt.material.design.client.base.HasTransform;
  */
 public class TransformMixin <T extends Widget & HasTransform> extends StylePropertyMixin<T>  implements HasTransform {
 
-    final String TRANSFORM = "transform";
-    final String TRANSFORM_ORIGIN = "transformOrigin";
-    final String TRANSFORM_STYLE = "transformStyle";
-    final String PERSPECTIVE = "perspective";
-    final String PERSPECTIVE_ORIGIN = "perspectiveOrigin";
-    final String BACKSPACE_VISIBILITY = "backspaceVisibility";
+    static final String TRANSFORM = "transform";
+    static final String TRANSFORM_ORIGIN = "transformOrigin";
+    static final String TRANSFORM_STYLE = "transformStyle";
+    static final String PERSPECTIVE = "perspective";
+    static final String PERSPECTIVE_ORIGIN = "perspectiveOrigin";
+    static final String BACKSPACE_VISIBILITY = "backspaceVisibility";
 
     public TransformMixin(T uiObject) {
         super(uiObject);

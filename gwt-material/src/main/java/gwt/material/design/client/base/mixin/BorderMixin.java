@@ -27,12 +27,12 @@ import gwt.material.design.client.base.HasBorder;
  */
 public class BorderMixin<T extends Widget & HasBorder> extends StylePropertyMixin<T>  implements HasBorder {
 
-    final String BORDER = "border";
-    final String BORDER_LEFT = "borderLeft";
-    final String BORDER_RIGHT = "borderRight";
-    final String BORDER_TOP = "borderTop";
-    final String BORDER_BOTTOM = "borderBottom";
-    final String BORDER_RADIUS = "borderRadius";
+    static final String BORDER = "border";
+    static final String BORDER_LEFT = "borderLeft";
+    static final String BORDER_RIGHT = "borderRight";
+    static final String BORDER_TOP = "borderTop";
+    static final String BORDER_BOTTOM = "borderBottom";
+    static final String BORDER_RADIUS = "borderRadius";
 
     public BorderMixin(T uiObject) {
         super(uiObject);

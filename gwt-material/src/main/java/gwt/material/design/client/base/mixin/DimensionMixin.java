@@ -28,10 +28,10 @@ import gwt.material.design.client.base.HasDimension;
  */
 public class DimensionMixin<T extends Widget & HasBorder> extends StylePropertyMixin<T> implements HasDimension {
 
-    final String MIN_HEIGHT = "minHeight";
-    final String MAX_HEIGHT = "maxHeight";
-    final String MIN_WIDTH = "minWidth";
-    final String MAX_WIDTH = "maxWidth";
+    static final String MIN_HEIGHT = "minHeight";
+    static final String MAX_HEIGHT = "maxHeight";
+    static final String MIN_WIDTH = "minWidth";
+    static final String MAX_WIDTH = "maxWidth";
 
     public DimensionMixin(T uiObject) {
         super(uiObject);
