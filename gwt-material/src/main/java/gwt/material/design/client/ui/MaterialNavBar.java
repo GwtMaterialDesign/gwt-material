@@ -19,21 +19,14 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasProgress;
-import gwt.material.design.client.base.HasShrinkableNavBarHandlers;
-import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
-import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ProgressMixin;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.events.NavBarExpandEvent;
-import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.html.Div;
 import gwt.material.design.client.ui.html.Nav;
 

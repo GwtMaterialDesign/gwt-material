@@ -24,7 +24,6 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
@@ -87,7 +86,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
-    private HandlerRegistration valueChangeHandler;
 
     private MaterialLabel errorLabel = new MaterialLabel();
 
@@ -114,11 +112,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
                 }
                 return true;
             });
-            valueChangeHandler = addValueChangeHandler(valueChangeEvent -> {
+            registerHandler(addValueChangeHandler(valueChangeEvent -> {
                 if (isToggleReadOnly()) {
                     setReadOnly(true);
                 }
-            });
+            }));
             add(listBox);
             add(label);
             add(errorLabel);
@@ -129,10 +127,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     protected void onUnload() {
         super.onUnload();
 
-        if (valueChangeHandler != null) {
-            valueChangeHandler.removeHandler();
-            valueChangeHandler = null;
-        }
         $(listBox.getElement()).off("change");
         $(listBox.getElement()).material_select("destroy");
     }

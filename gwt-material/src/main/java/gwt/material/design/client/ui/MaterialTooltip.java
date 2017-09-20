@@ -20,11 +20,11 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.events.DefaultHandlerRegistry;
 import gwt.material.design.client.js.JsTooltipOptions;
 
 import java.util.Iterator;
@@ -58,9 +58,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     private Widget widget;
     private String id;
     private String html;
-
-    private HandlerRegistration attachHandler;
-    private HandlerRegistration htmlAttachHandler;
+    private DefaultHandlerRegistry handlerRegistry;
 
     /**
      * Creates the empty Tooltip
@@ -89,44 +87,40 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     @Override
-    public void setWidget(final Widget w) {
+    public void setWidget(final Widget widget) {
+        handlerRegistry = new DefaultHandlerRegistry(widget);
         // Validate
-        if (w == widget) {
+        if (widget == this.widget) {
             return;
-        }
-
-        if (attachHandler != null) {
-            attachHandler.removeHandler();
-            attachHandler = null;
         }
 
         // Remove old child
-        if (widget != null) {
-            remove(widget);
+        if (this.widget != null) {
+            remove(this.widget);
         }
 
         // Logical attach, but don't physical attach; done by jquery.
-        widget = w;
-        if (widget == null) {
+        this.widget = widget;
+        if (this.widget == null) {
             return;
         }
 
-        if (!widget.isAttached()) {
+        if (!this.widget.isAttached()) {
             // When we attach it, configure the tooltip
-            attachHandler = widget.addAttachHandler(event -> {
+            handlerRegistry.registerHandler(widget.addAttachHandler(event -> {
                 if(event.isAttached()) {
                     reinitialize();
                 } else {
                     remove();
                 }
-            });
+            }));
         } else {
             // ensure the tooltip is removed on detachment
-            attachHandler = widget.addAttachHandler(event -> {
+            handlerRegistry.registerHandler(widget.addAttachHandler(event -> {
                 if(!event.isAttached()) {
                     remove();
                 }
-            });
+            }));
             reinitialize();
         }
     }
@@ -326,10 +320,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     public void setHtml(String html) {
         this.html = html;
-        if (htmlAttachHandler != null) {
-            htmlAttachHandler.removeHandler();
-            htmlAttachHandler = null;
-        }
 
         Element element = widget.getElement();
         if (widget.isAttached()) {
@@ -337,11 +327,9 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
                 .find("span")
                 .html(html != null ? html : "");
         } else {
-            htmlAttachHandler = widget.addAttachHandler(attachEvent -> {
-                $("#" + element.getAttribute("data-tooltip-id"))
+            handlerRegistry.registerHandler(widget.addAttachHandler(attachEvent -> $("#" + element.getAttribute("data-tooltip-id"))
                     .find("span")
-                    .html(html != null ? html : "");
-            });
+                    .html(html != null ? html : "")));
         }
     }
 }

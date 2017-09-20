@@ -125,16 +125,7 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
 
     public void setDetectOrientation(boolean detectOrientation) {
         this.detectOrientation = detectOrientation;
-
-        if(orientationHandler != null) {
-            orientationHandler.removeHandler();
-            orientationHandler = null;
-        }
-
-        if(detectOrientation) {
-            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation());
-            detectAndApplyOrientation();
-        }
+        registerHandler(Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation()));
     }
 
     protected void detectAndApplyOrientation() {

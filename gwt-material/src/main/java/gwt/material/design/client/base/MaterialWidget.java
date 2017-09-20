@@ -26,6 +26,7 @@ import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
@@ -51,7 +52,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform, HandlerRegistry, HasHandlerRegistry {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -101,6 +102,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     private String[] initialClasses;
     protected JQueryElement $this;
+    protected DefaultHandlerRegistry handlerRegistry;
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -157,8 +159,25 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
+    public HandlerRegistration registerHandler(HandlerRegistration registration) {
+        return handlerRegistry.registerHandler(registration);
+    }
+
+    @Override
+    public void clearHandlers() {
+        handlerRegistry.clearHandlers();
+    }
+
+    @Override
+    public HandlerRegistry getHandlerRegistry() {
+        return handlerRegistry;
+    }
+
+    @Override
     protected void onLoad() {
         super.onLoad();
+
+        handlerRegistry = new DefaultHandlerRegistry(this);
 
         if (initialClasses != null) {
             for (String initial : initialClasses) {
@@ -186,6 +205,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             initialize = true;
         }
     }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        this.initialize = false;
+
+        handlerRegistry.clearHandlers();
+    }
+
+
 
     @Override
     public void add(Widget child) {
@@ -221,17 +251,20 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      * A protected method to build the structure of any complex widget that
      * can be overridden to perform a different behavior of this widget.
      */
+    @Deprecated
     protected void build() {}
 
     /**
      * A initialization phase that can be overriden by any complex widget
      * that needs to initialize their feature specially for JSInterop instances.
      */
+    @Deprecated
     protected void initialize() {}
 
     /**
      * Can be called multiple times to reinitialize the state of any complex widget
      */
+    @Deprecated
     public void reinitialize() {
         initialize();
     }
@@ -239,19 +272,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     /**
      * Returns whether the widget has been initialized or not
      */
+    @Deprecated
     public boolean isInitialize() {
         return initialize;
     }
 
+    @Deprecated
     protected void setInitialize(boolean initialize) {
         this.initialize = initialize;
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        this.initialize = false;
     }
 
     /**

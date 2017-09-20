@@ -34,6 +34,7 @@ import gwt.material.design.client.base.HasImage;
 import gwt.material.design.client.base.HasLetter;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.*;
+import gwt.material.design.client.events.DefaultHandlerRegistry;
 import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
@@ -63,7 +64,6 @@ import gwt.material.design.client.ui.html.Span;
 //@formatter:on
 public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter, HasValue<String>, HasCloseHandlers {
 
-    private HandlerRegistration handlerRegistration;
     private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
 
@@ -107,20 +107,10 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     }
 
     @Override
-    protected void initialize() {
-        if (handlerRegistration == null) {
-            handlerRegistration = icon.addClickHandler(clickEvent -> close());
-        }
-    }
+    protected void onLoad() {
+        super.onLoad();
 
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-        // Tear down the handler
-        if (handlerRegistration != null) {
-            handlerRegistration.removeHandler();
-            handlerRegistration = null;
-        }
+        registerHandler(icon.addClickHandler(clickEvent -> close()));
     }
 
     public void setText(String text) {

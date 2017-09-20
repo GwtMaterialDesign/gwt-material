@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasWithHeader;
 import gwt.material.design.client.constants.SideNavType;
 
@@ -52,7 +51,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHeader {
 
-    private HandlerRegistration overlayOpeningHandler;
     private boolean withHeader;
 
     public MaterialSideNavDrawer() {
@@ -84,9 +82,7 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
      */
     protected void appyDrawerType() {
         setType(SideNavType.DRAWER);
-        if (overlayOpeningHandler == null) {
-            overlayOpeningHandler = addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("[id=sidenav-overlay]").css("visibility", "visible")));
-        }
+        registerHandler(addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("[id=sidenav-overlay]").css("visibility", "visible"))));
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), 0);
             pushElement(getMain(), 0);

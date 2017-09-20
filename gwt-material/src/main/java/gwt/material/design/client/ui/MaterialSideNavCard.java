@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
 
@@ -48,11 +47,6 @@ import gwt.material.design.client.constants.SideNavType;
 //@formatter:on
 public class MaterialSideNavCard extends MaterialSideNav {
 
-    private HandlerRegistration cardOpenedHandler;
-    private HandlerRegistration cardClosedHandler;
-    private HandlerRegistration cardOpeningHandler;
-    private HandlerRegistration cardClosingHandler;
-
     public MaterialSideNavCard() {
         super(SideNavType.CARD);
     }
@@ -67,29 +61,21 @@ public class MaterialSideNavCard extends MaterialSideNav {
      * is good for few sidenav link items
      */
     protected void applyCardType() {
-        if (cardOpeningHandler == null) {
-            cardOpeningHandler = addOpeningHandler(event -> pushElement(getMain(), getWidth() + 20 ));
-        }
-        if (cardOpenedHandler == null) {
-            cardOpenedHandler = addOpenedHandler(event -> {
-                if (getEdge() == Edge.LEFT) {
-                    setLeft(0);
-                } else {
-                    setRight(0);
-                }
-            });
-        }
-        if (cardClosingHandler == null) {
-            cardClosingHandler = addClosingHandler(event -> pushElement(getMain(), 0));
-        }
-        if (cardClosedHandler == null) {
-            cardClosedHandler = addClosedHandler(event -> {
-                if (getEdge() == Edge.LEFT) {
-                    setLeft(-(getWidth() + 20));
-                } else {
-                    setRight(-(getWidth() + 20));
-                }
-            });
-        }
+        registerHandler(addOpeningHandler(event -> pushElement(getMain(), getWidth() + 20)));
+        registerHandler(addOpenedHandler(event -> {
+            if (getEdge() == Edge.LEFT) {
+                setLeft(0);
+            } else {
+                setRight(0);
+            }
+        }));
+        registerHandler(addClosingHandler(event -> pushElement(getMain(), 0)));
+        registerHandler(addClosedHandler(event -> {
+            if (getEdge() == Edge.LEFT) {
+                setLeft(-(getWidth() + 20));
+            } else {
+                setRight(-(getWidth() + 20));
+            }
+        }));
     }
 }

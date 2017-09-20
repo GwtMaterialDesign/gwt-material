@@ -85,7 +85,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     private int gutter = 0;
     private Alignment alignment = Alignment.LEFT;
     private List<Widget> children = new ArrayList<>();
-    private HandlerRegistration activatorAttachedHandler;
 
     public MaterialDropDown() {
         setInitialClasses(CssName.DROPDOWN_CONTENT);
@@ -151,16 +150,6 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         $(activator).dropdown(options);
 
         setupActivator();
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        if (activatorAttachedHandler != null) {
-            activatorAttachedHandler.removeHandler();
-            activatorAttachedHandler = null;
-        }
     }
 
     @Override
@@ -275,9 +264,7 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
         } else {
             ListItem li = new ListItem(child);
             children.add(child);
-            child.addDomHandler(event -> {
-                SelectionEvent.fire(MaterialDropDown.this, child);
-            }, ClickEvent.getType());
+            registerHandler(child.addDomHandler(event -> SelectionEvent.fire(MaterialDropDown.this, child), ClickEvent.getType()));
 
             // Checks if there are sub dropdown components
 

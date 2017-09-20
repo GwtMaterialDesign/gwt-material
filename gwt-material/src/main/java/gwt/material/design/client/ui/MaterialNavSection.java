@@ -59,7 +59,6 @@ import java.util.List;
 public class MaterialNavSection extends UnorderedList implements HasPosition, HasSelectionHandlers<Integer> {
 
     private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
-    private List<HandlerRegistration> handlers = new ArrayList<>();
 
     /**
      * Container for App Toolbar and App Sidebar, contains Material
@@ -85,17 +84,8 @@ public class MaterialNavSection extends UnorderedList implements HasPosition, Ha
     protected void build() {
         for (Widget widget : getChildren()) {
             if (widget instanceof ListItem) {
-                handlers.add(((ListItem) widget).addClickHandler(clickEvent -> SelectionEvent.fire(this, getWidgetIndex(widget))));
+                registerHandler(((ListItem) widget).addClickHandler(clickEvent -> SelectionEvent.fire(this, getWidgetIndex(widget))));
             }
-        }
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        for (HandlerRegistration hr : handlers) {
-            hr.removeHandler();
         }
     }
 

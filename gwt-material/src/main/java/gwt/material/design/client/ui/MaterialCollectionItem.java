@@ -52,8 +52,6 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
     private final CssTypeMixin<CollectionType, MaterialCollectionItem> typeMixin = new CssTypeMixin<>(this);
     private final ActiveMixin<MaterialCollectionItem> activeMixin = new ActiveMixin<>(this);
 
-    private HandlerRegistration handlerReg;
-
     public MaterialCollectionItem() {
         super(Document.get().createLIElement(), CssName.COLLECTION_ITEM);
         UiHelper.addMousePressedHandlers(this);
@@ -76,11 +74,8 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
         if (getWidgetCount() > 0) {
             getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
         }
-        if (handlerReg != null) {
-            handlerReg.removeHandler();
-            handlerReg = null;
-        }
-        handlerReg = addClickHandler(event -> {
+
+        HandlerRegistration handlerRegistration = addClickHandler(event -> {
             // Stop propagation of event when checkbox / other elements has
             // been clicked to avoid duplicate events.
             if (Element.as(event.getNativeEvent().getEventTarget()) != getElement()) {
@@ -107,6 +102,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
                 }
             }
         });
+        registerHandler(handlerRegistration);
     }
 
     @Override

@@ -21,13 +21,9 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextArea;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -54,8 +50,6 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     }
 
     private ResizeRule resizeRule = ResizeRule.NONE;
-    private Set<HandlerRegistration> resizeHandlers;
-    private HandlerRegistration attachHandler;
     private Integer originalHeight;
 
     public MaterialTextArea() {
@@ -90,13 +84,11 @@ public class MaterialTextArea extends MaterialValueBox<String> {
 
     public void triggerAutoResize() {
         if (!valueBoxBase.isAttached()) {
-            if (attachHandler == null) {
-                attachHandler = valueBoxBase.addAttachHandler(event -> {
-                    if (event.isAttached()) {
-                        triggerAutoResize(valueBoxBase.getElement());
-                    }
-                });
-            }
+            registerHandler(valueBoxBase.addAttachHandler(event -> {
+                if (event.isAttached()) {
+                    triggerAutoResize(valueBoxBase.getElement());
+                }
+            }));
         } else {
             triggerAutoResize(valueBoxBase.getElement());
         }
@@ -112,35 +104,26 @@ public class MaterialTextArea extends MaterialValueBox<String> {
 
     public void setResizeRule(ResizeRule resizeRule) {
         this.resizeRule = resizeRule;
-        if (resizeHandlers == null) {
-            resizeHandlers = new HashSet<>();
-        }
-        removeResizeHandlers();
+
 
         switch (resizeRule) {
             case AUTO:
-                resizeHandlers.add(valueBoxBase.addValueChangeHandler(event -> triggerAutoResize()));
+                registerHandler(valueBoxBase.addValueChangeHandler(event -> triggerAutoResize()));
                 break;
             case FOCUS:
-                resizeHandlers.add(addFocusHandler(event -> {
+                registerHandler(addFocusHandler(event -> {
                     if (originalHeight == null) {
                         originalHeight = valueBoxBase.getElement().getClientHeight();
                     }
                     triggerAutoResize();
                 }));
 
-                resizeHandlers.add(addBlurHandler(event -> {
+                registerHandler(addBlurHandler(event -> {
                     if (originalHeight != null) {
                         valueBoxBase.setHeight(originalHeight + "px");
                     }
                 }));
                 break;
-        }
-    }
-
-    protected void removeResizeHandlers() {
-        if (resizeHandlers != null) {
-            resizeHandlers.forEach(HandlerRegistration::removeHandler);
         }
     }
 }

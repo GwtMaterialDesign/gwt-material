@@ -80,10 +80,8 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         datePicker.setAutoClose(autoClose);
         if (autoClose) {
             assertTrue(datePicker.isAutoClose());
-            assertNotNull(datePicker.autoCloseHandler);
         } else {
             assertFalse(datePicker.isAutoClose());
-            assertNull(datePicker.autoCloseHandler);
         }
     }
 

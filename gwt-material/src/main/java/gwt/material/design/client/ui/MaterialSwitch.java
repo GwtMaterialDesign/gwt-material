@@ -58,7 +58,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     private Span span = new Span();
     private Span onLabel = new Span();
     private Span offLabel = new Span();
-    private HandlerRegistration clickHandler;
 
     private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, null);
 
@@ -70,7 +69,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         span.setStyleName(CssName.LEVER);
         input.setType(InputType.CHECKBOX);
 
-        addClickHandler(event -> setValue(!getValue(), true));
+        registerHandler(addClickHandler(event -> setValue(!getValue(), true)));
     }
 
     public MaterialSwitch(String onLabel, String offLabel) {
@@ -105,12 +104,10 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         // Register click handler here in order to have it at first position
         // and therefore it will deal with clicks as first and setup the value
         // right before others get notified.
-        if (clickHandler == null) {
-            clickHandler = addClickHandler(event -> {
-                event.preventDefault();
-                event.stopPropagation();
-            });
-        }
+        registerHandler(addClickHandler(event -> {
+            event.preventDefault();
+            event.stopPropagation();
+        }));
     }
 
     @Override

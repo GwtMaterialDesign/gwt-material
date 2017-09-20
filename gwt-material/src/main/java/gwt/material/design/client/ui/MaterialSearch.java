@@ -143,7 +143,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         label.getElement().setAttribute("for", "search");
         add(label);
         add(iconClose);
-        iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText()));
+        registerHandler(iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText())));
 
         if (searchResultPanel == null || !searchResultPanel.isAttached()) {
             // populate the lists of search result on search panel
@@ -155,7 +155,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     @Override
     protected void initialize() {
         // Add Key Up event to filter the searches
-        addKeyUpHandler(new KeyUpHandler() {
+        registerHandler(addKeyUpHandler(new KeyUpHandler() {
             @Override
             public void onKeyUp(KeyUpEvent event) {
                 String keyword = getText().toLowerCase();
@@ -253,7 +253,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                 $(valueBoxBase.getElement()).focus();
                 searchResultPanel.clear();
             }
-        });
+        }));
     }
 
     @Override
@@ -272,16 +272,6 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     protected native void locateSearch(String location)/*-{
         $wnd.window.location.hash = location;
     }-*/;
-
-    @Override
-    public HandlerRegistration addCloseHandler(final CloseHandler<String> handler) {
-        return addHandler((CloseHandler<String>) handler::onClose, CloseEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addOpenHandler(OpenHandler<String> handler) {
-        return addHandler((OpenHandler<String>) handler::onOpen, OpenEvent.getType());
-    }
 
     @Override
     public void setActive(boolean active) {
@@ -347,6 +337,16 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
      */
     public List<SearchObject> getTempSearches() {
         return tempSearches;
+    }
+
+    @Override
+    public HandlerRegistration addCloseHandler(final CloseHandler<String> handler) {
+        return addHandler((CloseHandler<String>) handler::onClose, CloseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOpenHandler(OpenHandler<String> handler) {
+        return addHandler((OpenHandler<String>) handler::onOpen, OpenEvent.getType());
     }
 
     /**

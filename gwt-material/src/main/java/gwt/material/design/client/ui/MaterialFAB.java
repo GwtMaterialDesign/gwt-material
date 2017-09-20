@@ -66,10 +66,6 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
     private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
 
-    private HandlerRegistration clickHandler;
-    private HandlerRegistration mouseOverHandler;
-    private HandlerRegistration mouseOutHandler;
-
     public MaterialFAB() {
         super(Document.get().createDivElement(), CssName.FIXED_ACTION_BTN);
     }
@@ -84,36 +80,18 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     @Override
     protected void build() {
         if (getType() == FABType.CLICK_ONLY) {
-            clickHandler = addClickHandler(clickEvent -> {
-                if(isEnabled()) {
+            registerHandler(addClickHandler(clickEvent -> {
+                if (isEnabled()) {
                     if (!isOpen()) {
                         open();
                     } else {
                         close();
                     }
                 }
-            });
+            }));
         } else {
-            mouseOverHandler = addMouseOverHandler(mouseOverEvent -> OpenEvent.fire(this, this));
-            mouseOutHandler = addMouseOutHandler(mouseOutEvent -> CloseEvent.fire(this, this));
-        }
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        if (clickHandler != null) {
-            clickHandler.removeHandler();
-            clickHandler = null;
-        }
-        if (mouseOverHandler != null) {
-            mouseOverHandler.removeHandler();
-            mouseOverHandler = null;
-        }
-        if (mouseOutHandler != null) {
-            mouseOutHandler.removeHandler();
-            mouseOutHandler = null;
+            registerHandler(addMouseOverHandler(mouseOverEvent -> OpenEvent.fire(this, this)));
+            registerHandler(addMouseOutHandler(mouseOutEvent -> CloseEvent.fire(this, this)));
         }
     }
 

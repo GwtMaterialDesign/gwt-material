@@ -61,7 +61,6 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private static String MAX = "max";
     private static String MIN = "min";
     private MaterialLabel errorLabel = new MaterialLabel();
-    private HandlerRegistration changeHandler;
 
     private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, null);
 
@@ -97,9 +96,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     protected void onLoad() {
         super.onLoad();
 
-        if (changeHandler == null) {
-            changeHandler = addChangeHandler(changeEvent -> setValue(getValue(),true));
-        }
+        registerHandler(addChangeHandler(changeEvent -> setValue(getValue(),true)));
     }
 
     /**

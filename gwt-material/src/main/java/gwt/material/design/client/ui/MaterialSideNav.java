@@ -25,13 +25,12 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
-import gwt.material.design.client.base.mixin.ActiveMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
@@ -176,10 +175,10 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         final Widget finalChild = child;
         if (!isNotSelectable) {
             // Active click handler
-            finalChild.addDomHandler(event -> {
+            registerHandler(finalChild.addDomHandler(event -> {
                 clearActive();
                 finalChild.addStyleName(CssName.ACTIVE);
-            }, ClickEvent.getType());
+            }, ClickEvent.getType()));
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
         return child;

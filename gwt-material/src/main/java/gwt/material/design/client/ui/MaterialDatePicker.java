@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.ScriptInjector;
@@ -92,14 +91,13 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private DatePickerLanguage language;
     private JsDatePickerOptions options;
     private Orientation orientation;
+    private boolean autoClose;
 
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
 
     private boolean detectOrientation;
     private boolean suppressChangeEvent;
 
-    protected HandlerRegistration autoCloseHandler;
-    protected HandlerRegistration orientationHandler;
     private MaterialIcon icon = new MaterialIcon();
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, dateInput, placeholderLabel);
@@ -460,15 +458,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setDetectOrientation(boolean detectOrientation) {
         this.detectOrientation = detectOrientation;
 
-        if (orientationHandler != null) {
-            orientationHandler.removeHandler();
-            orientationHandler = null;
-        }
+
 
         if (detectOrientation) {
-            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
-                detectAndApplyOrientation();
-            });
+            registerHandler(Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation()));
             detectAndApplyOrientation();
         }
     }
@@ -685,20 +678,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     public boolean isAutoClose() {
-        return autoCloseHandler != null;
+        return autoClose;
     }
 
     /**
      * Enables or disables auto closing when selecting a date.
      */
     public void setAutoClose(boolean autoClose) {
-        if (autoCloseHandler != null) {
-            autoCloseHandler.removeHandler();
-            autoCloseHandler = null;
-        }
-
+        this.autoClose = autoClose;
         if (autoClose) {
-            autoCloseHandler = addValueChangeHandler(event -> close());
+            registerHandler(addValueChangeHandler(event -> close()));
         }
     }
 

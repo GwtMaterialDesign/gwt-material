@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasWithHeader;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.SideNavPushEvent;
@@ -54,10 +53,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeader {
 
-    private HandlerRegistration pushOpeningHandler;
-    private HandlerRegistration pushClosingHandler;
-    private HandlerRegistration pushWithHeaderOpeningHandler;
-    private HandlerRegistration pushWithHeaderClosingHandler;
     private boolean withHeader;
 
     public MaterialSideNavPush() {
@@ -110,19 +105,15 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
             });
         }
 
-        if (pushWithHeaderOpeningHandler == null) {
-            pushWithHeaderOpeningHandler = addOpeningHandler(event -> {
-                pushElement(getMain(), getWidth());
-                pushElementMargin(getFooter(), getWidth());
-            });
-        }
+        registerHandler(addOpeningHandler(event -> {
+            pushElement(getMain(), getWidth());
+            pushElementMargin(getFooter(), getWidth());
+        }));
 
-        if (pushWithHeaderClosingHandler == null) {
-            pushWithHeaderClosingHandler = addClosingHandler(event -> {
-                pushElement(getMain(), 0);
-                pushElementMargin(getFooter(), 0);
-            });
-        }
+        registerHandler(addClosingHandler(event -> {
+            pushElement(getMain(), 0);
+            pushElementMargin(getFooter(), 0);
+        }));
     }
 
     @Override
@@ -131,17 +122,8 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
         $("header").css("position", "fixed");
         $("header").css("zIndex", "997");
         $("header").css("top", "0");
-        if (pushOpeningHandler == null) {
-            pushOpeningHandler = addOpeningHandler(event -> {
-                $("header").css("width", "calc(100% - " + getWidth() + "px)");
-            });
-        }
-
-        if (pushClosingHandler == null) {
-            pushClosingHandler = addClosingHandler(event -> {
-                $("header").css("width", "calc(100%)");
-            });
-        }
+        registerHandler(addOpeningHandler(event -> $("header").css("width", "calc(100% - " + getWidth() + "px)")));
+        registerHandler(addClosingHandler(event -> $("header").css("width", "calc(100%)")));
     }
 
     @Override
