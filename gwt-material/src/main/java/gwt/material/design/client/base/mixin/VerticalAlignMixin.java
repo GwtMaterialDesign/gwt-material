@@ -28,7 +28,7 @@ import gwt.material.design.client.base.HasVerticalAlign;
  */
 public class VerticalAlignMixin<T extends Widget & HasVerticalAlign> extends StylePropertyMixin<T>  implements HasVerticalAlign {
 
-    final String VERTICAL_ALIGN = "verticalAlign";
+    static final String VERTICAL_ALIGN = "verticalAlign";
 
     public VerticalAlignMixin(T uiObject) {
         super(uiObject);
