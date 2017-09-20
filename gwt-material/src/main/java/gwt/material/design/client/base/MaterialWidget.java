@@ -26,16 +26,15 @@ import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.constants.*;
+import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
 import gwt.material.design.client.events.DragLeaveEvent;
-import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
@@ -52,7 +51,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
         HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform, HandlerRegistry, HasHandlerRegistry {
+        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -102,7 +101,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     private String[] initialClasses;
     protected JQueryElement $this;
-    protected DefaultHandlerRegistry handlerRegistry;
 
     private HandlerRegistry handlerRegistry;
 
@@ -161,25 +159,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public HandlerRegistration registerHandler(HandlerRegistration registration) {
-        return handlerRegistry.registerHandler(registration);
-    }
-
-    @Override
-    public void clearHandlers() {
-        handlerRegistry.clearHandlers();
-    }
-
-    @Override
-    public HandlerRegistry getHandlerRegistry() {
-        return handlerRegistry;
-    }
-
-    @Override
     protected void onLoad() {
         super.onLoad();
-
-        handlerRegistry = new DefaultHandlerRegistry(this);
 
         if (initialClasses != null) {
             for (String initial : initialClasses) {
@@ -214,10 +195,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
         this.initialize = false;
 
-        handlerRegistry.clearHandlers();
+        getHandlerRegistry().clearHandlers();
     }
 
-
+    public HandlerRegistry getHandlerRegistry() {
+        if(handlerRegistry == null) {
+            handlerRegistry = new DefaultHandlerRegistry(this);
+        }
+        return handlerRegistry;
+    }
 
     @Override
     public void add(Widget child) {
@@ -746,13 +732,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             transformMixin = new TransformMixin<>(this);
         }
         return transformMixin;
-    }
-
-    public HandlerRegistry getHandlerRegistry() {
-        if(handlerRegistry == null) {
-            handlerRegistry = new DefaultHandlerRegistry(this);
-        }
-        return handlerRegistry;
     }
 
     @Override
