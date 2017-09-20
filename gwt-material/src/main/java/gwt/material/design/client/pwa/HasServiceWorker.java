@@ -19,28 +19,26 @@
  */
 package gwt.material.design.client.pwa;
 
-public interface HasPwaFeature extends HasServiceWorker, HasWebManifest {
+import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
+
+public interface HasServiceWorker {
 
     /**
-     * Configures the whole application structure of progressive web app to be
-     * integrated to Gwt Material Design
+     * Set up the service worker configuration file (service-worker.js) to enable
+     * the Offline Feature of your GMD PWA App.
+     * @param serviceWorkerUrl
      */
-    void load();
+    PwaManager setServiceWorkerUrl(String serviceWorkerUrl);
 
     /**
-     * Reloads the PWA Feature and reconfigure it.
+     * Unregister the Service Worker
      */
-    void reload();
+    void unRegisterServiceWorker();
 
     /**
-     * Unregisters / Uninstall the PWA Feature into
-     * your GMD App.
+     * Checks the server for an updated version of the service worker without consulting caches.
      */
-    void unLoad();
+    void updateServiceWorker();
 
-    /**
-     * Returns a network status of your GMD PWA App.
-     * @return true if your network status is Online.
-     */
-    boolean isOnline();
+    ServiceWorker getServiceWorker();
 }

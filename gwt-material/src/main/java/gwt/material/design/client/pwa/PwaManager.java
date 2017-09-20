@@ -46,31 +46,23 @@ import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistra
 public class PwaManager implements HasPwaFeature {
 
     private static PwaManager instance = GWT.create(PwaManager.class);
-    public static boolean initialized = false;
 
     private Element headElement, manifestElement, themeColorElement;
 
+    private String serviceWorkerUrl, manifestUrl, themeColor;
+
+
     @Override
     public void load() {
-        if (!initialized) {
+        if (headElement == null) {
             headElement = Document.get().getElementsByTagName("head").getItem(0);
-            String pwaManifest = System.getProperty("manifest");
-            if (pwaManifest != null && !pwaManifest.isEmpty()) {
-                setupManifest(pwaManifest);
-            }
-
-            String serviceWorker = System.getProperty("serviceWorker");
-            if (serviceWorker != null && !serviceWorker.isEmpty()) {
-                setupServiceWorker(serviceWorker);
-            }
-
-            String metaThemeColor = System.getProperty("metaThemeColor");
-            if (metaThemeColor != null && !metaThemeColor.isEmpty()) {
-                setupMetaThemeColor(metaThemeColor);
-            }
-            initialized = true;
         }
+
+        injectManifest(manifestUrl);
+        injectMetaThemeColor(themeColor);
+        loadServiceWorker(serviceWorkerUrl);
     }
+
 
     @Override
     public void reload() {
@@ -83,36 +75,74 @@ public class PwaManager implements HasPwaFeature {
         // Unregister the manifest
         if (manifestElement != null) {
             manifestElement.removeFromParent();
+            manifestElement = null;
+            GWT.log("Web manifest has been unloaded.");
         }
         // Unregister the theme color
         if (themeColorElement != null) {
             themeColorElement.removeFromParent();
+            themeColorElement = null;
+            GWT.log("Meta theme color has been unloaded.");
         }
 
         // Unregister the service worker
         unRegisterServiceWorker();
-        initialized = false;
     }
 
     @Override
-    public void setupManifest(String manifestUrl) {
-        manifestElement = Document.get().createLinkElement();
-        manifestElement.setAttribute("rel", "manifest");
-        manifestElement.setAttribute("href", manifestUrl);
-        headElement.appendChild(manifestElement);
+    public PwaManager setWebManifestUrl(String manifestUrl) {
+        this.manifestUrl = manifestUrl;
+        return this;
+    }
+
+    /**
+     * Will inject the manifest url into the head element.
+     */
+    protected void injectManifest(String manifestUrl) {
+        if (manifestUrl != null && !manifestUrl.isEmpty()) {
+            // Check whether manifestElement was already attached to the head element.
+            if (manifestElement == null) {
+                manifestElement = Document.get().createLinkElement();
+                headElement.appendChild(manifestElement);
+            }
+
+            manifestElement.setAttribute("rel", "manifest");
+            manifestElement.setAttribute("href", manifestUrl);
+        }
     }
 
     @Override
-    public void setupMetaThemeColor(String themeColor) {
-        themeColorElement = Document.get().createMetaElement();
-        themeColorElement.setAttribute("name", "theme-color");
-        themeColorElement.setAttribute("content", themeColor);
-        headElement.appendChild(themeColorElement);
+    public PwaManager setThemeColor(String themeColor) {
+        this.themeColor = themeColor;
+        return this;
+    }
+
+    /**
+     * Will inject the meta link to specify the theme color of your app design.
+     */
+    protected void injectMetaThemeColor(String themeColor) {
+        if (themeColor != null && !themeColor.isEmpty()) {
+            // Check whether themeColor was already attached to the head element.
+            if (themeColorElement == null) {
+                themeColorElement = Document.get().createMetaElement();
+                headElement.appendChild(themeColorElement);
+            }
+            themeColorElement.setAttribute("name", "theme-color");
+            themeColorElement.setAttribute("content", themeColor);
+        }
     }
 
     @Override
-    public void setupServiceWorker(String serviceWorkerUrl) {
-        if (Navigator.serviceWorker != null) {
+    public PwaManager setServiceWorkerUrl(String serviceWorkerUrl) {
+        this.serviceWorkerUrl = serviceWorkerUrl;
+        return this;
+    }
+
+    /**
+     * Will load the service worker with provided url.
+     */
+    protected void loadServiceWorker(String serviceWorkerUrl) {
+        if (serviceWorkerUrl != null && Navigator.serviceWorker != null) {
             Navigator.serviceWorker.register(serviceWorkerUrl)
                     .then(arg -> {
                         GWT.log("Registered service worker successfully");
