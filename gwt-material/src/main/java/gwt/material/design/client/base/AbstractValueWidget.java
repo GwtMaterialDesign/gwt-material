@@ -20,11 +20,9 @@
 package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.HasEditorErrors;
 import com.google.gwt.editor.client.LeafValueEditor;
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -47,12 +45,9 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     private boolean allowBlank = true;
     private BlankValidator<V> blankValidator;
-    private HandlerRegistration blurHandler, attachHandler;
-
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
-
     private ErrorMixin<AbstractValueWidget, ?> errorMixin;
-    private final ErrorHandlerMixin<V> errorHandlerMixin = new ErrorHandlerMixin<>(this);
+    private ErrorHandlerMixin<V> errorHandlerMixin;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -101,27 +96,27 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     @Override
     public void showErrors(List<EditorError> errors) {
-        errorHandlerMixin.showErrors(errors);
+        getErrorHandlerMixin().showErrors(errors);
     }
 
     @Override
     public ErrorHandler getErrorHandler() {
-        return errorHandlerMixin.getErrorHandler();
+        return getErrorHandlerMixin().getErrorHandler();
     }
 
     @Override
     public void setErrorHandler(ErrorHandler errorHandler) {
-        errorHandlerMixin.setErrorHandler(errorHandler);
+        getErrorHandlerMixin().setErrorHandler(errorHandler);
     }
 
     @Override
     public ErrorHandlerType getErrorHandlerType() {
-        return errorHandlerMixin.getErrorHandlerType();
+        return getErrorHandlerMixin().getErrorHandlerType();
     }
 
     @Override
     public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
-        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
+        getErrorHandlerMixin().setErrorHandlerType(errorHandlerType);
     }
 
     @Override
@@ -207,19 +202,9 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     protected void setupBlurValidation() {
         final AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
         if (!inputWidget.isAttached()) {
-            if(attachHandler == null) {
-                attachHandler = inputWidget.addAttachHandler(event -> {
-                    if (blurHandler == null) {
-                        blurHandler = inputWidget.addBlurHandler(blurEvent -> {
-                            validate(isValidateOnBlur());
-                        });
-                    }
-                });
-            }
+            registerHandler(inputWidget.addAttachHandler(attachEvent -> registerHandler(inputWidget.addBlurHandler(blurEvent -> validate(isValidateOnBlur())))));
         } else {
-            if(blurHandler == null) {
-                blurHandler = inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
-            }
+            registerHandler(inputWidget.addBlurHandler(blurEvent -> validate(isValidateOnBlur())));
         }
     }
 
@@ -235,5 +220,12 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
             errorMixin = new ErrorMixin<>(this);
         }
         return errorMixin;
+    }
+
+    public ErrorHandlerMixin<V> getErrorHandlerMixin() {
+        if (errorHandlerMixin == null) {
+            errorHandlerMixin = new ErrorHandlerMixin<>(this);
+        }
+        return errorHandlerMixin;
     }
 }

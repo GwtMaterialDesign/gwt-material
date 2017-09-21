@@ -30,13 +30,15 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasPlaceholder;
+import gwt.material.design.client.base.HasReadOnly;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
 import gwt.material.design.client.js.JsMaterialElement;
-import gwt.material.design.client.js.Window;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
 
@@ -64,7 +66,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/pickers.html#pickers-date-pickers">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasOrientation, HasPlaceholder,
+public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasPlaceholder,
         HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly {
 
     /**
@@ -90,17 +92,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     private MaterialLabel errorLabel = new MaterialLabel();
     private DatePickerLanguage language;
     private JsDatePickerOptions options;
-    private Orientation orientation;
     private boolean autoClose;
+    private Orientation orientation;
+    private HandlerRegistration autoCloseHandlerRegistration;
 
     private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
-
-    private boolean detectOrientation;
     private boolean suppressChangeEvent;
 
     private MaterialIcon icon = new MaterialIcon();
 
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, dateInput, placeholderLabel);
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
 
     private int yearsToDisplay = 10;
@@ -194,6 +195,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         });
 
         setPopupEnabled(isEnabled());
+        setAutoClose(autoClose);
 
         setInitialize(true);
 
@@ -202,7 +204,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         setDate(date);
         setDateMin(dateMin);
         setDateMax(dateMax);
-        setOrientation(orientation);
     }
 
     private void setPopupEnabled(boolean enabled) {
@@ -265,18 +266,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      * Programmatically close the date picker component
      */
     public void close() {
-        Scheduler.get().scheduleDeferred(() -> {
-            getPicker().close();
-        });
+        Scheduler.get().scheduleDeferred(() -> getPicker().close());
     }
 
     /**
      * Programmatically open the date picker component
      */
     public void open() {
-        Scheduler.get().scheduleDeferred(() -> {
-            getPicker().open();
-        });
+        Scheduler.get().scheduleDeferred(() -> getPicker().open());
     }
 
     public boolean isOpen() {
@@ -432,50 +429,21 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         this.yearsToDisplay = yearsToDisplay;
     }
 
-    /**
-     * @return the orientation
-     */
-    @Override
-    public Orientation getOrientation() {
-        return orientation;
-    }
-
-    /**
-     * @param orientation the orientation to set : can be Vertical or Horizontal
-     */
     @Override
     public void setOrientation(Orientation orientation) {
-        JsMaterialElement element = getPicker();
-        if (isInitialize() && this.orientation != null) {
-            element.root.removeClass(this.orientation.getCssName());
-        }
         this.orientation = orientation;
-        if (isInitialize() && orientation != null) {
+        JsMaterialElement element = getPicker();
+        if (element != null && orientation != null) {
+            element.root.removeClass(orientation.getCssName());
+        }
+        if (element != null && orientation != null) {
             element.root.addClass(orientation.getCssName());
         }
     }
 
-    public void setDetectOrientation(boolean detectOrientation) {
-        this.detectOrientation = detectOrientation;
-
-
-
-        if (detectOrientation) {
-            registerHandler(Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation()));
-            detectAndApplyOrientation();
-        }
-    }
-
-    public boolean isDetectOrientation() {
-        return detectOrientation;
-    }
-
-    protected void detectAndApplyOrientation() {
-        if (Window.matchMedia("(orientation: portrait)")) {
-            setOrientation(Orientation.PORTRAIT);
-        } else {
-            setOrientation(Orientation.LANDSCAPE);
-        }
+    @Override
+    public Orientation getOrientation() {
+        return orientation;
     }
 
     @Override
@@ -643,6 +611,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     @Override
     protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        if (errorMixin == null) {
+            errorMixin = new ErrorMixin<>(this, errorLabel, dateInput, placeholderLabel);
+        }
         return errorMixin;
     }
 
@@ -686,8 +657,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setAutoClose(boolean autoClose) {
         this.autoClose = autoClose;
+
+        if (autoCloseHandlerRegistration != null) {
+            autoCloseHandlerRegistration.removeHandler();
+            autoCloseHandlerRegistration = null;
+        }
+
         if (autoClose) {
-            registerHandler(addValueChangeHandler(event -> close()));
+            autoCloseHandlerRegistration = registerHandler(addValueChangeHandler(event -> close()));
         }
     }
 

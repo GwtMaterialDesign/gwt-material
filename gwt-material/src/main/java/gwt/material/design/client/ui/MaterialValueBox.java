@@ -79,8 +79,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Editor.Ignore
     protected ValueBoxBase<T> valueBoxBase;
 
-    private final CounterMixin<MaterialValueBox<T>> counterMixin = new CounterMixin<>(this);
-    private final ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, valueBoxBase);
+    private CounterMixin<MaterialValueBox<T>> counterMixin;
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
     private ReadOnlyMixin<MaterialValueBox, ValueBoxBase> readOnlyMixin;
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
@@ -148,14 +148,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.getElement().removeClassName(CssName.INVALID);
         label.removeStyleName("green-text");
         label.removeStyleName("red-text");
-    }
-
-    @Override
-    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
-        if (focusableMixin == null) {
-            focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
-        }
-        return focusableMixin;
     }
 
     @Override
@@ -625,12 +617,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     @Override
     public void setLength(int length) {
-        counterMixin.setLength(length);
+        getCounterMixin().setLength(length);
     }
 
     @Override
     public int getLength() {
-        return counterMixin.getLength();
+        return getCounterMixin().getLength();
     }
 
     @Editor.Ignore
@@ -683,20 +675,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     public void setSelectionRange(int pos, int length) {
         valueBoxBase.setSelectionRange(pos, length);
-    }
-
-    public ReadOnlyMixin<MaterialValueBox, ValueBoxBase> getReadOnlyMixin() {
-        if (readOnlyMixin == null) {
-            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
-        }
-        return readOnlyMixin;
-    }
-
-    public ActiveMixin<MaterialValueBox> getActiveMixin() {
-        if (activeMixin == null) {
-            activeMixin = new ActiveMixin<>(this, label);
-        }
-        return activeMixin;
     }
 
     @Override
@@ -753,11 +731,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         return valueBoxBase.isEnabled();
     }
 
-    @Override
-    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        return errorMixin;
-    }
-
     @Ignore
     public ValueBoxBase<T> getValueBoxBase() {
         return valueBoxBase;
@@ -769,5 +742,42 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     public MaterialLabel getErrorLabel() {
         return errorLabel;
+    }
+
+    @Override
+    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
+        if (focusableMixin == null) {
+            focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
+        }
+        return focusableMixin;
+    }
+
+    @Override
+    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        if (errorMixin == null) {
+            errorMixin = new ErrorMixin<>(this, errorLabel, valueBoxBase);
+        }
+        return errorMixin;
+    }
+
+    protected ReadOnlyMixin<MaterialValueBox, ValueBoxBase> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
+        }
+        return readOnlyMixin;
+    }
+
+    protected ActiveMixin<MaterialValueBox> getActiveMixin() {
+        if (activeMixin == null) {
+            activeMixin = new ActiveMixin<>(this, label);
+        }
+        return activeMixin;
+    }
+
+    protected CounterMixin<MaterialValueBox<T>> getCounterMixin() {
+        if (counterMixin == null) {
+            counterMixin = new CounterMixin<>(this);
+        }
+        return counterMixin;
     }
 }

@@ -63,8 +63,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasCloseHandlers<MaterialFAB>,
         HasOpenHandlers<MaterialFAB> {
 
-    private final CssTypeMixin<FABType, MaterialFAB> typeMixin = new CssTypeMixin<>(this);
-    private final CssNameMixin<MaterialFAB, Axis> axisMixin = new CssNameMixin<>(this);
+    private CssTypeMixin<FABType, MaterialFAB> typeMixin;
+    private CssNameMixin<MaterialFAB, Axis> axisMixin;
 
     public MaterialFAB() {
         super(Document.get().createDivElement(), CssName.FIXED_ACTION_BTN);
@@ -97,22 +97,22 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
 
     @Override
     public void setType(FABType type) {
-        typeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public FABType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     @Override
     public void setAxis(Axis axis) {
-        axisMixin.setCssName(axis);
+        getAxisMixin().setCssName(axis);
     }
 
     @Override
     public Axis getAxis() {
-        return axisMixin.getCssName();
+        return getAxisMixin().getCssName();
     }
 
     /**
@@ -165,5 +165,19 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     @Override
     public HandlerRegistration addOpenHandler(OpenHandler handler) {
         return addHandler(handler, OpenEvent.getType());
+    }
+
+    protected CssTypeMixin<FABType, MaterialFAB> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
+    }
+
+    protected CssNameMixin<MaterialFAB, Axis> getAxisMixin() {
+        if (axisMixin == null) {
+            axisMixin = new CssNameMixin<>(this);
+        }
+        return axisMixin;
     }
 }

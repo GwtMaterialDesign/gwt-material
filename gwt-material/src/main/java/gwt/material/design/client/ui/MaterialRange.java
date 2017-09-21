@@ -56,13 +56,11 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private Paragraph paragraph = new Paragraph();
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
-
     private static String VALUE = "value";
     private static String MAX = "max";
     private static String MIN = "min";
     private MaterialLabel errorLabel = new MaterialLabel();
-
-    private final ErrorMixin<MaterialRange, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, null);
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
 
     /**
      * Creates a range
@@ -96,7 +94,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     protected void onLoad() {
         super.onLoad();
 
-        registerHandler(addChangeHandler(changeEvent -> setValue(getValue(),true)));
+        registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
     }
 
     /**
@@ -216,22 +214,22 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
     @Override
     public void setError(String error) {
-        errorMixin.setError(error);
+        getErrorMixin().setError(error);
     }
 
     @Override
     public void setSuccess(String success) {
-        errorMixin.setSuccess(success);
+        getErrorMixin().setSuccess(success);
     }
 
     @Override
     public void setHelperText(String helperText) {
-        errorMixin.setHelperText(helperText);
+        getErrorMixin().setHelperText(helperText);
     }
 
     @Override
     public void clearErrorOrSuccess() {
-        errorMixin.clearErrorOrSuccess();
+        getErrorMixin().clearErrorOrSuccess();
     }
 
     public MaterialLabel getErrorLabel() {
@@ -248,5 +246,13 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
     public Span getThumb() {
         return thumb;
+    }
+
+    @Override
+    public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        if (errorMixin == null) {
+            errorMixin = new ErrorMixin<>(this, errorLabel, null);
+        }
+        return errorMixin;
     }
 }

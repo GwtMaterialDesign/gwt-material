@@ -53,7 +53,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 //@formatter:on
 public class MaterialToast {
 
-    public static final int DEFAULT_LIFE = 4000;
+    public static final int DURATION = 4000;
 
     private Functions.Func callback;
     private Widget[] widgets;
@@ -73,7 +73,7 @@ public class MaterialToast {
      * @param msg Message text for your toast.
      */
     public static void fireToast(String msg) {
-        fireToast(msg, DEFAULT_LIFE, null);
+        fireToast(msg, DURATION, null);
     }
 
     /**
@@ -104,14 +104,14 @@ public class MaterialToast {
      * @param className class name to custom style your toast.
      */
     public static void fireToast(String msg, String className) {
-        new MaterialToast().toast(msg, DEFAULT_LIFE, className);
+        new MaterialToast().toast(msg, DURATION, className);
     }
 
     /**
      * @param msg Message text for your toast.
      */
     public void toast(String msg) {
-        toast(msg, DEFAULT_LIFE, null);
+        toast(msg, DURATION, null);
     }
 
     /**
@@ -127,7 +127,7 @@ public class MaterialToast {
      * @param className class name to custom style your toast.
      */
     public void toast(String msg, String className) {
-        toast(msg, DEFAULT_LIFE, className);
+        toast(msg, DURATION, className);
     }
 
     /**

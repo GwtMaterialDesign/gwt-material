@@ -69,8 +69,8 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
 
     private MaterialLink navMenu = new MaterialLink(IconType.MENU);
 
-    private final ActivatesMixin<MaterialLink> activatesMixin = new ActivatesMixin<>(navMenu);
-    private final ProgressMixin<MaterialNavBar> progressMixin = new ProgressMixin<>(this);
+    private ActivatesMixin<MaterialLink> activatesMixin;
+    private ProgressMixin<MaterialNavBar> progressMixin;
 
     public MaterialNavBar() {
         super();
@@ -98,7 +98,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         navMenu.setIconPosition(IconPosition.NONE);
 
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
-        Element sideNavElement = $("#" + activatesMixin.getActivates()).asElement();
+        Element sideNavElement = $("#" + getActivatesMixin().getActivates()).asElement();
 
         if (sideNavElement == null) {
             navMenu.setVisibility(Style.Visibility.HIDDEN);
@@ -119,27 +119,27 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
 
     @Override
     public void showProgress(ProgressType type) {
-        progressMixin.showProgress(type);
+        getProgressMixin().showProgress(type);
     }
 
     @Override
     public void setPercent(double percent) {
-        progressMixin.setPercent(percent);
+        getProgressMixin().setPercent(percent);
     }
 
     @Override
     public void hideProgress() {
-        progressMixin.hideProgress();
+        getProgressMixin().hideProgress();
     }
 
     @Override
     public void setActivates(String activates) {
-        activatesMixin.setActivates(activates);
+        getActivatesMixin().setActivates(activates);
     }
 
     @Override
     public String getActivates() {
-        return activatesMixin.getActivates();
+        return getActivatesMixin().getActivates();
     }
 
     public MaterialLink getNavMenu() {
@@ -148,5 +148,19 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
 
     public Div getNavWrapper() {
         return navWrapper;
+    }
+
+    protected ActivatesMixin<MaterialLink> getActivatesMixin() {
+        if (activatesMixin == null) {
+            activatesMixin = new ActivatesMixin<>(navMenu);
+        }
+        return activatesMixin;
+    }
+
+    protected ProgressMixin<MaterialNavBar> getProgressMixin() {
+        if (progressMixin == null) {
+            progressMixin = new ProgressMixin<>(this);
+        }
+        return progressMixin;
     }
 }

@@ -34,7 +34,6 @@ import gwt.material.design.client.base.HasImage;
 import gwt.material.design.client.base.HasLetter;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.events.DefaultHandlerRegistry;
 import gwt.material.design.client.ui.html.Span;
 
 //@formatter:off
@@ -70,7 +69,7 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     private ImageResource resource;
     private Image image = new Image();
 
-    private final LetterMixin<MaterialChip> letterMixin = new LetterMixin<>(this);
+    private LetterMixin<MaterialChip> letterMixin;
 
     /**
      * Creates an empty chip.
@@ -212,25 +211,28 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     @Override
     public void setLetter(String letter) {
-        letterMixin.setLetter(letter);
+        getLetterMixin().setLetter(letter);
     }
 
     @Override
     public String getLetter() {
-        return letterMixin.getLetter();
+        return getLetterMixin().getLetter();
     }
 
     @Override
     public void setLetterColor(Color letterColor) {
-        letterMixin.setLetterColor(letterColor);
+        getLetterMixin().setLetterColor(letterColor);
     }
 
     @Override
     public void setLetterBackgroundColor(Color letterBackgroundColor) {
-        letterMixin.setLetterBackgroundColor(letterBackgroundColor);
+        getLetterMixin().setLetterBackgroundColor(letterBackgroundColor);
     }
 
     public LetterMixin<MaterialChip> getLetterMixin() {
+        if (letterMixin == null) {
+            letterMixin = new LetterMixin<>(this);
+        }
         return letterMixin;
     }
 

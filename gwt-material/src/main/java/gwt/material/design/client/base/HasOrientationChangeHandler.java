@@ -19,15 +19,10 @@
  */
 package gwt.material.design.client.base;
 
-import gwt.material.design.client.constants.Orientation;
+import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.events.OrientationChangeEvent;
 
-public interface HasOrientation extends HasOrientationChangeHandler {
+public interface HasOrientationChangeHandler {
 
-    void setOrientation(Orientation orientation);
-
-    Orientation getOrientation();
-
-    void setDetectOrientation(boolean detectOrientation);
-
-    boolean isDetectOrientation();
+    HandlerRegistration addOrientationChangeHandler(OrientationChangeEvent.OrientationChangeHandler handler);
 }

@@ -966,27 +966,27 @@ nav .input-field {
 	height: 100%;
 }
 /** Added support for horizontal cards **/
-.horizontal .card-action a{
+.landscape .card-action a{
 	margin-left: 20px;
 	margin-right: 0 !important;
 }
-.horizontal .card-action{
+.landscape .card-action{
 	padding: 0;
 	margin-top: 8px;
 }
-.horizontal .card-content{
+.landscape .card-content{
 	width: 70% !important;
 	float: left;
 }
-.horizontal .card-image{
+.landscape .card-image{
 	width: 30% !important;
 	float: left;
 }
-.horizontal .card-image img, .horizontal.card{
+.landscape .card-image img, .horizontal.card{
 	height: 120px;
 }
 
-.horizontal .card-image {
+.landscape .card-image {
 	padding: 0;
 }
 

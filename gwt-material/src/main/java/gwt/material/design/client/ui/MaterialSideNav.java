@@ -78,8 +78,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     private Element activator;
     private int inDuration = 400;
     private int outDuration = 200;
-
-    private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
+    private StyleMixin<MaterialSideNav> typeMixin;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -236,7 +235,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     protected void setType(SideNavType type) {
-        typeMixin.setStyle(type.getCssName());
+        getTypeMixin().setStyle(type.getCssName());
     }
 
     protected boolean isSmall() {
@@ -375,7 +374,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (alwaysShowActivator && !typeMixin.getStyle().equals(SideNavType.FIXED.getCssName())) {
+            if (alwaysShowActivator && !getTypeMixin().getStyle().equals(SideNavType.FIXED.getCssName())) {
                 getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
             } else {
                 getNavMenu().setHideOn(HideOn.HIDE_ON_LARGE);
@@ -560,5 +559,12 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
 
     public Element getActivator() {
         return activator;
+    }
+
+    protected StyleMixin<MaterialSideNav> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new StyleMixin<>(this);
+        }
+        return typeMixin;
     }
 }

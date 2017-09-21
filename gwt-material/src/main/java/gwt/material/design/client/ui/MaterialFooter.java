@@ -66,7 +66,7 @@ import gwt.material.design.client.ui.html.Div;
 public class MaterialFooter extends MaterialWidget implements HasType<FooterType> {
 
     private Div container = new Div();
-    private final CssTypeMixin<FooterType, MaterialFooter> typeMixin = new CssTypeMixin<>(this);
+    private CssTypeMixin<FooterType, MaterialFooter> typeMixin;
 
     public MaterialFooter() {
         super(Document.get().createElement("footer"), CssName.PAGE_FOOTER);
@@ -90,15 +90,22 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
 
     @Override
     public void setType(FooterType type) {
-        typeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public FooterType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     public Div getContainer() {
         return container;
+    }
+
+    protected CssTypeMixin<FooterType, MaterialFooter> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
     }
 }

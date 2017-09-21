@@ -78,20 +78,16 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
-
-    // By default the key is generated using toString
     private KeyFactory<T, String> keyFactory = Object::toString;
-
     protected final List<T> values = new ArrayList<>();
+    private MaterialLabel errorLabel = new MaterialLabel();
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
 
-    private MaterialLabel errorLabel = new MaterialLabel();
-
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
-        toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
+
     }
 
     @Override
@@ -258,11 +254,18 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     }
 
     public boolean isOld() {
-        return toggleOldMixin.isOn();
+        return getToggleOldMixin().isOn();
     }
 
     public void setOld(boolean old) {
-        toggleOldMixin.setOn(old);
+        getToggleOldMixin().setOn(old);
+    }
+
+    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
+        if (toggleOldMixin == null) {
+            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
+        }
+        return toggleOldMixin;
     }
 
     // delegate methods

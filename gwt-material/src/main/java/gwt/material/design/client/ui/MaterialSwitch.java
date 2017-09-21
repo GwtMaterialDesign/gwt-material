@@ -59,7 +59,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     private Span onLabel = new Span();
     private Span offLabel = new Span();
 
-    private final ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, null);
+    private ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin;
 
     /**
      * Creates a switch element
@@ -197,22 +197,22 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
 
     @Override
     public void setError(String error) {
-        errorMixin.setError(error);
+        getErrorMixin().setError(error);
     }
 
     @Override
     public void setSuccess(String success) {
-        errorMixin.setSuccess(success);
+        getErrorMixin().setSuccess(success);
     }
 
     @Override
     public void setHelperText(String helperText) {
-        errorMixin.setHelperText(helperText);
+        getErrorMixin().setHelperText(helperText);
     }
 
     @Override
     public void clearErrorOrSuccess() {
-        errorMixin.clearErrorOrSuccess();
+        getErrorMixin().clearErrorOrSuccess();
     }
 
     /**
@@ -239,5 +239,12 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
 
     public Span getOffLabel() {
         return offLabel;
+    }
+
+    protected ErrorMixin<MaterialSwitch, MaterialLabel> getErrorMixin() {
+        if (errorMixin == null) {
+            errorMixin = new ErrorMixin<>(this, errorLabel, null);
+        }
+        return errorMixin;
     }
 }

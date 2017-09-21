@@ -20,13 +20,12 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasAxis;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.js.Window;
+import gwt.material.design.client.constants.Orientation;
 
 //@formatter:off
 
@@ -96,9 +95,7 @@ import gwt.material.design.client.js.Window;
 //@formatter:on
 public class MaterialCard extends MaterialWidget implements HasAxis {
 
-    private final CssNameMixin<MaterialCard, Axis> axisMixin = new CssNameMixin<>(this);
-    private boolean detectOrientation = false;
-    protected HandlerRegistration orientationHandler;
+    private CssNameMixin<MaterialCard, Axis> axisMixin;
 
     /**
      * Creates an empty card.
@@ -113,30 +110,30 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
         addStyleName(CssName.NO_PADDING);
     }
 
+    /**
+     * Replace by {@link MaterialWidget#setOrientation(Orientation)}
+     * @param axis
+     */
+    @Deprecated
     @Override
     public void setAxis(Axis axis) {
-        axisMixin.setCssName(axis);
+        getAxisMixin().setCssName(axis);
     }
 
+    /**
+     * Replace by {@link MaterialWidget#getOrientation()}
+     * @return
+     */
+    @Deprecated
     @Override
     public Axis getAxis() {
-        return axisMixin.getCssName();
+        return getAxisMixin().getCssName();
     }
 
-    public void setDetectOrientation(boolean detectOrientation) {
-        this.detectOrientation = detectOrientation;
-        registerHandler(Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation()));
-    }
-
-    protected void detectAndApplyOrientation() {
-        if (Window.matchMedia("(orientation: portrait)")) {
-            setAxis(Axis.VERTICAL);
-        } else {
-            setAxis(Axis.HORIZONTAL);
+    protected CssNameMixin<MaterialCard, Axis> getAxisMixin() {
+        if (axisMixin == null) {
+            axisMixin = new CssNameMixin<>(this);
         }
-    }
-
-    public boolean isDetectOrientation() {
-        return detectOrientation;
+        return axisMixin;
     }
 }

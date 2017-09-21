@@ -77,8 +77,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
         HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal>, HasFullscreen {
 
-    private final CssTypeMixin<ModalType, MaterialModal> typeMixin = new CssTypeMixin<>(this);
-    private final FullscreenMixin fullscreenMixin = new FullscreenMixin(this);
+    private CssTypeMixin<ModalType, MaterialModal> typeMixin;
+    private FullscreenMixin fullscreenMixin;
     private int inDuration = 300;
     private int outDuration = 200;
     private boolean dismissible = false;
@@ -218,12 +218,12 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public void setType(ModalType type) {
-        typeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public ModalType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     @Override
@@ -279,12 +279,26 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     @Override
     public void setFullscreen(boolean value) {
         if (getType() != ModalType.BOTTOM_SHEET) {
-            fullscreenMixin.setFullscreen(value);
+            getFullscreenMixin().setFullscreen(value);
         }
     }
 
     @Override
     public boolean isFullscreen() {
-        return fullscreenMixin.isFullscreen();
+        return getFullscreenMixin().isFullscreen();
+    }
+
+    protected CssTypeMixin<ModalType, MaterialModal> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
+    }
+
+    protected FullscreenMixin getFullscreenMixin() {
+        if (fullscreenMixin == null) {
+            fullscreenMixin = new FullscreenMixin(this);
+        }
+        return fullscreenMixin;
     }
 }

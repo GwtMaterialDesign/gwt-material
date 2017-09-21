@@ -103,7 +103,7 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     private boolean accordion = true;
     private int activeIndex = -1;
     private Widget activeWidget;
-    private final CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin = new CssTypeMixin<>(this);
+    private CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin;
 
     /**
      * Creates an empty collapsible
@@ -172,12 +172,12 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
 
     @Override
     public void setType(CollapsibleType type) {
-        typeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public CollapsibleType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     /**
@@ -287,5 +287,12 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     @Override
     public void setEnabled(boolean enabled) {
         getEnabledMixin().setEnabled(this, enabled);
+    }
+
+    public CssTypeMixin<CollapsibleType, MaterialCollapsible> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
     }
 }

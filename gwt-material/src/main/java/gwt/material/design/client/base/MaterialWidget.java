@@ -49,9 +49,9 @@ import java.util.Map;
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
-        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform {
+        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
+        HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
+        HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform, HasOrientation {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -129,6 +129,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private DimensionMixin<MaterialWidget> dimensionMixin;
     private VerticalAlignMixin<MaterialWidget> verticalAlignMixin;
     private TransformMixin<MaterialWidget> transformMixin;
+    private OrientationMixin<MaterialWidget> orientationMixin;
 
     public MaterialWidget() {
     }
@@ -199,7 +200,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     public HandlerRegistry getHandlerRegistry() {
-        if(handlerRegistry == null) {
+        if (handlerRegistry == null) {
             handlerRegistry = new DefaultHandlerRegistry(this);
         }
         return handlerRegistry;
@@ -240,14 +241,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      * can be overridden to perform a different behavior of this widget.
      */
     @Deprecated
-    protected void build() {}
+    protected void build() {
+    }
 
     /**
      * A initialization phase that can be overriden by any complex widget
      * that needs to initialize their feature specially for JSInterop instances.
      */
     @Deprecated
-    protected void initialize() {}
+    protected void initialize() {
+    }
 
     /**
      * Can be called multiple times to reinitialize the state of any complex widget
@@ -297,7 +300,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     // Events
-
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
         return addDomHandler(event -> {
@@ -559,6 +561,18 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         }, FocusEvent.getType());
     }
 
+    @Override
+    public HandlerRegistration addOrientationChangeHandler(OrientationChangeEvent.OrientationChangeHandler handler) {
+        return addHandler(new OrientationChangeEvent.OrientationChangeHandler() {
+            @Override
+            public void onOrientationChange(OrientationChangeEvent event) {
+                if (isEnabled()) {
+                    handler.onOrientationChange(event);
+                }
+            }
+        }, OrientationChangeEvent.TYPE);
+    }
+
     protected IdMixin<MaterialWidget> getIdMixin() {
         if (idMixin == null) {
             idMixin = new IdMixin<>(this);
@@ -732,6 +746,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             transformMixin = new TransformMixin<>(this);
         }
         return transformMixin;
+    }
+
+    public OrientationMixin<MaterialWidget> getOrientationMixin() {
+        if (orientationMixin == null) {
+            orientationMixin = new OrientationMixin<>(this);
+        }
+        return orientationMixin;
     }
 
     @Override
@@ -1339,6 +1360,26 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getTransformMixin().getBackfaceVisibility();
     }
 
+    @Override
+    public void setOrientation(Orientation orientation) {
+        getOrientationMixin().setOrientation(orientation);
+    }
+
+    @Override
+    public Orientation getOrientation() {
+        return getOrientationMixin().getOrientation();
+    }
+
+    @Override
+    public void setDetectOrientation(boolean detectOrientation) {
+        getOrientationMixin().setDetectOrientation(detectOrientation);
+    }
+
+    @Override
+    public boolean isDetectOrientation() {
+        return getOrientationMixin().isDetectOrientation();
+    }
+
     public HandlerRegistration registerHandler(HandlerRegistration handler) {
         return getHandlerRegistry().registerHandler(handler);
     }
@@ -1455,10 +1496,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     public boolean validate() {
         boolean valid = true;
-        for(Widget child : getChildren()) {
-            if(child instanceof HasValidators && !((HasValidators) child).validate()) {
+        for (Widget child : getChildren()) {
+            if (child instanceof HasValidators && !((HasValidators) child).validate()) {
                 valid = false;
-            } else if(child instanceof MaterialWidget && !((MaterialWidget) child).validate()) {
+            } else if (child instanceof MaterialWidget && !((MaterialWidget) child).validate()) {
                 valid = false;
             }
         }

@@ -77,7 +77,7 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
 
     private MaterialWidget indicator;
     private ColorsMixin<MaterialWidget> indicatorColorMixin;
-    private final CssTypeMixin<TabType, MaterialTab> typeMixin = new CssTypeMixin<>(this);
+    private CssTypeMixin<TabType, MaterialTab> typeMixin;
 
     public MaterialTab() {
         super(CssName.TABS);
@@ -163,12 +163,12 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
 
     @Override
     public void setType(TabType type) {
-        typeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public TabType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     @Override
@@ -199,5 +199,12 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     public void insert(Widget child, int beforeIndex) {
         super.insert(child, beforeIndex);
         reinitialize();
+    }
+
+    protected CssTypeMixin<TabType, MaterialTab> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
     }
 }

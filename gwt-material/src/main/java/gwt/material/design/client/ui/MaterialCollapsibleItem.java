@@ -51,7 +51,7 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     private MaterialCollapsibleBody body;
     private MaterialCollapsibleHeader header;
 
-    private final ProgressMixin<MaterialCollapsibleItem> progressMixin = new ProgressMixin<>(this);
+    private ProgressMixin<MaterialCollapsibleItem> progressMixin;
     private boolean active;
 
     /**
@@ -168,17 +168,17 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
 
     @Override
     public void showProgress(ProgressType type) {
-        progressMixin.showProgress(type);
+        getProgressMixin().showProgress(type);
     }
 
     @Override
     public void setPercent(double percent) {
-        progressMixin.setPercent(percent);
+        getProgressMixin().setPercent(percent);
     }
 
     @Override
     public void hideProgress() {
-        progressMixin.hideProgress();
+        getProgressMixin().hideProgress();
     }
 
     public MaterialCollapsibleBody getBody() {
@@ -187,5 +187,12 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
 
     public MaterialCollapsibleHeader getHeader() {
         return header;
+    }
+
+    public ProgressMixin<MaterialCollapsibleItem> getProgressMixin() {
+        if (progressMixin == null) {
+            progressMixin = new ProgressMixin<>(this);
+        }
+        return progressMixin;
     }
 }

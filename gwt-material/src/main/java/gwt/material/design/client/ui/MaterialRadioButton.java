@@ -90,16 +90,18 @@ public class MaterialRadioButton extends RadioButton implements HasType<RadioBut
 
     @Override
     public RadioButtonType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     @Override
     public void setType(RadioButtonType type) {
+        getTypeMixin().setType(type);
+    }
+
+    protected CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> getTypeMixin() {
         if (typeMixin == null) {
-            // Since the input element handles the type styles,
-            // we need to override the mixin.
             typeMixin = new CssTypeMixin<>(new TypeWidget<>(DOM.getChild(getElement(), 0)));
         }
-        typeMixin.setType(type);
+        return typeMixin;
     }
 }

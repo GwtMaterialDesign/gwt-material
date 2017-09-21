@@ -81,7 +81,7 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
     private int duration = 500;
     private int interval = 6000;
 
-    private final FullscreenMixin fullscreenMixin = new FullscreenMixin(this);
+    private FullscreenMixin fullscreenMixin;
 
     public MaterialSlider() {
         super(Document.get().createDivElement(), CssName.SLIDER);
@@ -120,12 +120,12 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
      */
     @Override
     public void setFullscreen(boolean fullscreen) {
-        fullscreenMixin.setFullscreen(fullscreen);
+        getFullscreenMixin().setFullscreen(fullscreen);
     }
 
     @Override
     public boolean isFullscreen() {
-        return fullscreenMixin.isFullscreen();
+        return getFullscreenMixin().isFullscreen();
     }
 
     public boolean isFullWidth() {
@@ -167,5 +167,12 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
      */
     public void setInterval(int interval) {
         this.interval = interval;
+    }
+
+    protected FullscreenMixin getFullscreenMixin() {
+        if (fullscreenMixin == null) {
+            fullscreenMixin = new FullscreenMixin(this);
+        }
+        return fullscreenMixin;
     }
 }
