@@ -47,23 +47,18 @@ import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent,
         HasProgress, HasActive {
 
+    private boolean active;
     private MaterialCollapsible parent;
     private MaterialCollapsibleBody body;
     private MaterialCollapsibleHeader header;
 
     private ProgressMixin<MaterialCollapsibleItem> progressMixin;
-    private boolean active;
 
     /**
      * Creates an empty collapsible item.
      */
     public MaterialCollapsibleItem() {
         super();
-    }
-
-    @Override
-    protected Element createElement() {
-        return Document.get().createLIElement();
     }
 
     /**
@@ -74,6 +69,11 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         for (Widget w : widgets) {
             add(w);
         }
+    }
+
+    @Override
+    protected Element createElement() {
+        return Document.get().createLIElement();
     }
 
     @Override
@@ -100,25 +100,6 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         return super.remove(w);
     }
 
-    public void setParent(MaterialCollapsible parent) {
-        this.parent = parent;
-
-        for (Widget child : this) {
-            if (child instanceof HasCollapsibleParent) {
-                ((HasCollapsibleParent) child).setParent(parent);
-            }
-        }
-    }
-
-    @Override
-    public void setWaves(WavesType waves) {
-        super.setWaves(waves);
-
-        // Waves change to inline block.
-        // We need to retain 'block' display
-        setDisplay(Display.BLOCK);
-    }
-
     /**
      * Expand the body panel.
      */
@@ -137,6 +118,21 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             setActive(false);
             body.setDisplay(Display.NONE);
         }
+    }
+
+    @Override
+    public void showProgress(ProgressType type) {
+        getProgressMixin().showProgress(type);
+    }
+
+    @Override
+    public void setPercent(double percent) {
+        getProgressMixin().setPercent(percent);
+    }
+
+    @Override
+    public void hideProgress() {
+        getProgressMixin().hideProgress();
     }
 
     /**
@@ -166,19 +162,23 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         return active;
     }
 
-    @Override
-    public void showProgress(ProgressType type) {
-        getProgressMixin().showProgress(type);
+    public void setParent(MaterialCollapsible parent) {
+        this.parent = parent;
+
+        for (Widget child : this) {
+            if (child instanceof HasCollapsibleParent) {
+                ((HasCollapsibleParent) child).setParent(parent);
+            }
+        }
     }
 
     @Override
-    public void setPercent(double percent) {
-        getProgressMixin().setPercent(percent);
-    }
+    public void setWaves(WavesType waves) {
+        super.setWaves(waves);
 
-    @Override
-    public void hideProgress() {
-        getProgressMixin().hideProgress();
+        // Waves change to inline block.
+        // We need to retain 'block' display
+        setDisplay(Display.BLOCK);
     }
 
     public MaterialCollapsibleBody getBody() {
@@ -189,7 +189,7 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         return header;
     }
 
-    public ProgressMixin<MaterialCollapsibleItem> getProgressMixin() {
+    protected ProgressMixin<MaterialCollapsibleItem> getProgressMixin() {
         if (progressMixin == null) {
             progressMixin = new ProgressMixin<>(this);
         }

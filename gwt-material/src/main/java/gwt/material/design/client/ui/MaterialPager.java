@@ -52,17 +52,14 @@ public class MaterialPager extends MaterialWidget {
     private int pageSize = 10;
     private int currentPage = 1;
     private int maxPageLinksShown = 10;
-    private boolean enableIndicator;
-    private String indicatorTemplate = "Page {page} of {total}";
-
     private int calcTotalPages;
     private int calcShowingPageFrom;
     private int calcShowingPageTo;
+    private boolean enableIndicator;
     private boolean calcInitialized;
-
+    private String indicatorTemplate = "Page {page} of {total}";
     private PagerListItem linkLeft;
     private PagerListItem linkRight;
-
     private MaterialChip indicator;
 
     public MaterialPager() {

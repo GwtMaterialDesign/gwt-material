@@ -78,8 +78,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
-    private KeyFactory<T, String> keyFactory = Object::toString;
     protected final List<T> values = new ArrayList<>();
+    private KeyFactory<T, String> keyFactory = Object::toString;
     private MaterialLabel errorLabel = new MaterialLabel();
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
@@ -87,7 +87,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
-
     }
 
     @Override
@@ -119,52 +118,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         }
     }
 
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        $(listBox.getElement()).off("change");
-        $(listBox.getElement()).material_select("destroy");
-    }
-
-    @Override
-    public void setPlaceholder(String placeholder) {
-        label.setText(placeholder);
-
-        if (placeholder != null) {
-            reinitialize();
-        }
-    }
-
-    @Override
-    public String getPlaceholder() {
-        return label.getText();
-    }
-
-    public OptionElement getOptionElement(int index) {
-        return getSelectElement().getOptions().getItem(index);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        clear();
-    }
-
-    /**
-     * Removes all items from the list box.
-     */
-    @Override
-    public void clear() {
-        values.clear();
-        listBox.clear();
-        reinitialize();
-    }
-
-    protected SelectElement getSelectElement() {
-        return listBox.getElement().cast();
-    }
-
     /**
      * Initializes the Materialize CSS list box. Should be
      * called every time the contents of the list box
@@ -192,126 +145,16 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         }
     }
 
-    /**
-     * Sets whether this list allows multiple selections.
-     *
-     * @param multipleSelect <code>true</code> to allow multiple selections
-     */
-    public void setMultipleSelect(boolean multipleSelect) {
-        listBox.setMultipleSelect(multipleSelect);
-        reinitialize();
-    }
-
-    /**
-     * Gets whether this list allows multiple selection.
-     *
-     * @return <code>true</code> if multiple selection is allowed
-     */
-    public boolean isMultipleSelect() {
-        return listBox.isMultipleSelect();
-    }
-
-    public void setEmptyPlaceHolder(String value) {
-        listBox.insertItem(value, 0);
-
-        getOptionElement(0).setDisabled(true);
-
-        reinitialize();
-    }
-
     @Override
-    public void setAcceptableValues(Collection<T> values) {
-        this.values.clear();
-        clear();
-        values.forEach(this::addItem);
+    protected void onUnload() {
+        super.onUnload();
+
+        $(listBox.getElement()).off("change");
+        $(listBox.getElement()).material_select("destroy");
     }
-
-
-    @Override
-    public T getValue() {
-        if (getSelectedIndex() != -1) {
-            return values.get(getSelectedIndex());
-        }
-        return null;
-    }
-
-    @Override
-    public void setValue(T value) {
-        setValue(value, false);
-    }
-
-    @Override
-    public void setValue(T value, boolean fireEvents) {
-        int index = values.indexOf(value);
-        if (index >= 0) {
-            T before = getValue();
-            setSelectedIndex(index);
-
-            if (fireEvents) {
-                ValueChangeEvent.fireIfNotEqual(this, before, value);
-            }
-        }
-    }
-
-    public boolean isOld() {
-        return getToggleOldMixin().isOn();
-    }
-
-    public void setOld(boolean old) {
-        getToggleOldMixin().setOn(old);
-    }
-
-    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
-        if (toggleOldMixin == null) {
-            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
-        }
-        return toggleOldMixin;
-    }
-
-    // delegate methods
 
     public void add(T value) {
         addItem(value);
-    }
-
-    /**
-     * Inserts an item into the list box, specifying its direction and an
-     * initial value for the item. If the index is less than zero, or greater
-     * than or equal to the length of the list, then the item will be appended
-     * to the end of the list.
-     *
-     * @param item  the text of the item to be inserted
-     * @param dir   the item's direction. If {@code null}, the item is displayed
-     *              in the widget's overall direction, or, if a direction
-     *              estimator has been set, in the item's estimated direction.
-     * @param value the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}.
-     * @param index the index at which to insert it
-     */
-    public void insertItem(T item, Direction dir, String value, int index) {
-        values.add(index, item);
-        listBox.insertItem(keyFactory.generateKey(item), dir, value, index);
-        reinitialize();
-    }
-
-    /**
-     * Sets the value associated with the item at a given index. This value can
-     * be used for any purpose, but is also what is passed to the server when
-     * the list box is submitted as part of a {@link FormPanel}.
-     *
-     * @param index the index of the item to be set
-     * @param value the item's new value; cannot be <code>null</code>
-     * @throws IndexOutOfBoundsException if the index is out of range
-     */
-    public void setValue(int index, String value) {
-        listBox.setValue(index, value);
-        reinitialize();
-    }
-
-    @Override
-    public void setTitle(String title) {
-        listBox.setTitle(title);
-        reinitialize();
     }
 
     /**
@@ -424,6 +267,178 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, String value, int index) {
         values.add(index, item);
         listBox.insertItem(value, keyFactory.generateKey(item), index);
+        reinitialize();
+    }
+
+    /**
+     * Inserts an item into the list box, specifying its direction and an
+     * initial value for the item. If the index is less than zero, or greater
+     * than or equal to the length of the list, then the item will be appended
+     * to the end of the list.
+     *
+     * @param item  the text of the item to be inserted
+     * @param dir   the item's direction. If {@code null}, the item is displayed
+     *              in the widget's overall direction, or, if a direction
+     *              estimator has been set, in the item's estimated direction.
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param index the index at which to insert it
+     */
+    public void insertItem(T item, Direction dir, String value, int index) {
+        values.add(index, item);
+        listBox.insertItem(keyFactory.generateKey(item), dir, value, index);
+        reinitialize();
+    }
+
+    /**
+     * Removes the item at the specified index.
+     *
+     * @param index the index of the item to be removed
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
+    public void removeItem(int index) {
+        values.remove(index);
+        listBox.removeItem(index);
+        reinitialize();
+    }
+
+    /**
+     * Removes a value from the list box. Nothing is done if the value isn't on
+     * the list box.
+     *
+     * @param value the value to be removed from the list
+     */
+    public void removeValue(String value) {
+        int idx = getIndex(value);
+        if (idx >= 0) {
+            removeItem(idx);
+        }
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        clear();
+    }
+
+    /**
+     * Removes all items from the list box.
+     */
+    @Override
+    public void clear() {
+        values.clear();
+        listBox.clear();
+        reinitialize();
+    }
+
+    @Override
+    public void setPlaceholder(String placeholder) {
+        label.setText(placeholder);
+
+        if (placeholder != null) {
+            reinitialize();
+        }
+    }
+
+    @Override
+    public String getPlaceholder() {
+        return label.getText();
+    }
+
+    public OptionElement getOptionElement(int index) {
+        return getSelectElement().getOptions().getItem(index);
+    }
+
+    protected SelectElement getSelectElement() {
+        return listBox.getElement().cast();
+    }
+
+    /**
+     * Sets whether this list allows multiple selections.
+     *
+     * @param multipleSelect <code>true</code> to allow multiple selections
+     */
+    public void setMultipleSelect(boolean multipleSelect) {
+        listBox.setMultipleSelect(multipleSelect);
+        reinitialize();
+    }
+
+    /**
+     * Gets whether this list allows multiple selection.
+     *
+     * @return <code>true</code> if multiple selection is allowed
+     */
+    public boolean isMultipleSelect() {
+        return listBox.isMultipleSelect();
+    }
+
+    public void setEmptyPlaceHolder(String value) {
+        listBox.insertItem(value, 0);
+
+        getOptionElement(0).setDisabled(true);
+
+        reinitialize();
+    }
+
+    @Override
+    public void setAcceptableValues(Collection<T> values) {
+        this.values.clear();
+        clear();
+        values.forEach(this::addItem);
+    }
+
+
+    @Override
+    public T getValue() {
+        if (getSelectedIndex() != -1) {
+            return values.get(getSelectedIndex());
+        }
+        return null;
+    }
+
+    @Override
+    public void setValue(T value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(T value, boolean fireEvents) {
+        int index = values.indexOf(value);
+        if (index >= 0) {
+            T before = getValue();
+            setSelectedIndex(index);
+
+            if (fireEvents) {
+                ValueChangeEvent.fireIfNotEqual(this, before, value);
+            }
+        }
+    }
+
+    public boolean isOld() {
+        return getToggleOldMixin().isOn();
+    }
+
+    public void setOld(boolean old) {
+        getToggleOldMixin().setOn(old);
+    }
+
+    /**
+     * Sets the value associated with the item at a given index. This value can
+     * be used for any purpose, but is also what is passed to the server when
+     * the list box is submitted as part of a {@link FormPanel}.
+     *
+     * @param index the index of the item to be set
+     * @param value the item's new value; cannot be <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
+    public void setValue(int index, String value) {
+        listBox.setValue(index, value);
+        reinitialize();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        listBox.setTitle(title);
         reinitialize();
     }
 
@@ -586,93 +601,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         return listBox.isItemSelected(index);
     }
 
-    /**
-     * Removes the item at the specified index.
-     *
-     * @param index the index of the item to be removed
-     * @throws IndexOutOfBoundsException if the index is out of range
-     */
-    public void removeItem(int index) {
-        values.remove(index);
-        listBox.removeItem(index);
-        reinitialize();
-    }
-
-    // utility methods
-
-    /**
-     * Returns all selected values of the list box, or empty array if none.
-     *
-     * @return the selected values of the list box
-     */
-    public String[] getItemsSelected() {
-        List<String> selected = new LinkedList<>();
-        for (int i = 0; i < listBox.getItemCount(); i++) {
-            if (listBox.isItemSelected(i)) {
-                selected.add(listBox.getValue(i));
-            }
-        }
-        return selected.toArray(new String[selected.size()]);
-    }
-
-    /**
-     * Sets the currently selected value.
-     * <p>
-     * After calling this method, only the specified item in the list will
-     * remain selected. For a ListBox with multiple selection enabled, see
-     * {@link #setValueSelected(String, boolean)} to select multiple items at a
-     * time.
-     *
-     * @param value the value of the item to be selected
-     */
-    public void setSelectedValue(String value) {
-        int idx = getIndex(value);
-        if (idx >= 0) {
-            setSelectedIndex(idx);
-        }
-    }
-
-    /**
-     * Gets the index of the specified value.
-     *
-     * @param value the value of the item to be found
-     * @return the index of the value
-     */
-    public int getIndex(String value) {
-        int count = getItemCount();
-        for (int i = 0; i < count; i++) {
-            if (getValue(i).equals(value)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Sets whether an individual list value is selected.
-     *
-     * @param value    the value of the item to be selected or unselected
-     * @param selected <code>true</code> to select the item
-     */
-    public void setValueSelected(String value, boolean selected) {
-        int idx = getIndex(value);
-        if (idx >= 0) {
-            setItemSelected(idx, selected);
-        }
-    }
-
-    /**
-     * Removes a value from the list box. Nothing is done if the value isn't on
-     * the list box.
-     *
-     * @param value the value to be removed from the list
-     */
-    public void removeValue(String value) {
-        int idx = getIndex(value);
-        if (idx >= 0) {
-            removeItem(idx);
-        }
-    }
 
     @Override
     public void setEnabled(boolean enabled) {
@@ -739,5 +667,73 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     public MaterialLabel getErrorLabel() {
         return errorLabel;
+    }
+
+    /**
+     * Returns all selected values of the list box, or empty array if none.
+     *
+     * @return the selected values of the list box
+     */
+    public String[] getItemsSelected() {
+        List<String> selected = new LinkedList<>();
+        for (int i = 0; i < listBox.getItemCount(); i++) {
+            if (listBox.isItemSelected(i)) {
+                selected.add(listBox.getValue(i));
+            }
+        }
+        return selected.toArray(new String[selected.size()]);
+    }
+
+    /**
+     * Sets the currently selected value.
+     * <p>
+     * After calling this method, only the specified item in the list will
+     * remain selected. For a ListBox with multiple selection enabled, see
+     * {@link #setValueSelected(String, boolean)} to select multiple items at a
+     * time.
+     *
+     * @param value the value of the item to be selected
+     */
+    public void setSelectedValue(String value) {
+        int idx = getIndex(value);
+        if (idx >= 0) {
+            setSelectedIndex(idx);
+        }
+    }
+
+    /**
+     * Sets whether an individual list value is selected.
+     *
+     * @param value    the value of the item to be selected or unselected
+     * @param selected <code>true</code> to select the item
+     */
+    public void setValueSelected(String value, boolean selected) {
+        int idx = getIndex(value);
+        if (idx >= 0) {
+            setItemSelected(idx, selected);
+        }
+    }
+
+    /**
+     * Gets the index of the specified value.
+     *
+     * @param value the value of the item to be found
+     * @return the index of the value
+     */
+    public int getIndex(String value) {
+        int count = getItemCount();
+        for (int i = 0; i < count; i++) {
+            if (getValue(i).equals(value)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
+        if (toggleOldMixin == null) {
+            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
+        }
+        return toggleOldMixin;
     }
 }

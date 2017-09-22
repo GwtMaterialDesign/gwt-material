@@ -77,16 +77,80 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
         HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal>, HasFullscreen {
 
-    private CssTypeMixin<ModalType, MaterialModal> typeMixin;
-    private FullscreenMixin fullscreenMixin;
     private int inDuration = 300;
     private int outDuration = 200;
     private boolean dismissible = false;
     private double opacity = 0.5;
     private JsModalOptions options;
 
+    private CssTypeMixin<ModalType, MaterialModal> typeMixin;
+    private FullscreenMixin fullscreenMixin;
+
     public MaterialModal() {
         super(Document.get().createDivElement(), CssName.MODAL);
+    }
+
+
+    @Override
+    public void setType(ModalType type) {
+        getTypeMixin().setType(type);
+    }
+
+    @Override
+    public ModalType getType() {
+        return getTypeMixin().getType();
+    }
+
+    @Override
+    public void setInDuration(int inDuration) {
+        this.inDuration = inDuration;
+    }
+
+    @Override
+    public int getInDuration() {
+        return inDuration;
+    }
+
+    @Override
+    public void setOutDuration(int outDuration) {
+        this.outDuration = outDuration;
+    }
+
+    @Override
+    public int getOutDuration() {
+        return outDuration;
+    }
+
+    @Override
+    public void setDismissible(boolean dismissible) {
+        this.dismissible = dismissible;
+    }
+
+    @Override
+    public boolean isDismissible() {
+        return dismissible;
+    }
+
+    @Override
+    public void setOpacity(double opacity) {
+        this.opacity = opacity;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
+
+    @Override
+    public void setFullscreen(boolean value) {
+        if (getType() != ModalType.BOTTOM_SHEET) {
+            getFullscreenMixin().setFullscreen(value);
+        }
+    }
+
+    @Override
+    public boolean isFullscreen() {
+        return getFullscreenMixin().isFullscreen();
     }
 
     /**
@@ -217,51 +281,6 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public void setType(ModalType type) {
-        getTypeMixin().setType(type);
-    }
-
-    @Override
-    public ModalType getType() {
-        return getTypeMixin().getType();
-    }
-
-    @Override
-    public void setInDuration(int inDuration) {
-        this.inDuration = inDuration;
-    }
-
-    @Override
-    public int getInDuration() {
-        return inDuration;
-    }
-
-    @Override
-    public void setOutDuration(int outDuration) {
-        this.outDuration = outDuration;
-    }
-
-    @Override
-    public int getOutDuration() {
-        return outDuration;
-    }
-
-    @Override
-    public void setDismissible(boolean dismissible) {
-        this.dismissible = dismissible;
-    }
-
-    @Override
-    public boolean isDismissible() {
-        return dismissible;
-    }
-
-    @Override
-    public void setOpacity(double opacity) {
-        this.opacity = opacity;
-    }
-
-    @Override
     public HandlerRegistration addCloseHandler(CloseHandler<MaterialModal> handler) {
         return addHandler(handler, CloseEvent.getType());
     }
@@ -269,23 +288,6 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     @Override
     public HandlerRegistration addOpenHandler(OpenHandler<MaterialModal> handler) {
         return addHandler(handler, OpenEvent.getType());
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        getEnabledMixin().setEnabled(this, enabled);
-    }
-
-    @Override
-    public void setFullscreen(boolean value) {
-        if (getType() != ModalType.BOTTOM_SHEET) {
-            getFullscreenMixin().setFullscreen(value);
-        }
-    }
-
-    @Override
-    public boolean isFullscreen() {
-        return getFullscreenMixin().isFullscreen();
     }
 
     protected CssTypeMixin<ModalType, MaterialModal> getTypeMixin() {

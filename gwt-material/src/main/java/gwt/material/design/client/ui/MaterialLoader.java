@@ -68,11 +68,11 @@ public class MaterialLoader {
 
     private static MaterialLoader loader = new MaterialLoader(LoaderType.CIRCULAR);
 
+    private boolean scrollDisabled;
     private Div div = new Div();
     private MaterialPreLoader preLoader = new MaterialPreLoader();
     private MaterialProgress progress = new MaterialProgress();
     private Panel container = RootPanel.get();
-    private boolean scrollDisabled;
     private LoaderType type = LoaderType.CIRCULAR;
 
     public MaterialLoader(LoaderType type) {

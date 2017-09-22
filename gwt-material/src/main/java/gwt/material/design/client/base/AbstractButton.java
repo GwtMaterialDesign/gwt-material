@@ -33,13 +33,12 @@ import gwt.material.design.client.ui.html.Span;
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
         HasTargetHistoryToken, HasType<ButtonType> {
 
-    private ActivatesMixin<AbstractButton> activatesMixin;
-    private CssTypeMixin<ButtonType, AbstractButton> typeMixin;
-
+    private String targetHistoryToken;
     private Span span = new Span();
     private ButtonSize size;
 
-    private String targetHistoryToken;
+    private ActivatesMixin<AbstractButton> activatesMixin;
+    private CssTypeMixin<ButtonType, AbstractButton> typeMixin;
 
     /**
      * Creates button with RAISED type.

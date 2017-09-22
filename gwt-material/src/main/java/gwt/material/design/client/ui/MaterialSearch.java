@@ -264,6 +264,15 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         setCurSel(-1);
     }
 
+    /**
+     * Programmatically open the search input field component
+     */
+    public void open() {
+        setActive(true);
+        Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).focus());
+        OpenEvent.fire(MaterialSearch.this, getText());
+    }
+
     protected void applyHighlightedItem(MaterialLink link) {
         link.addStyleName(CssName.HIGLIGHTED);
         setSelectedLink(link);
@@ -289,15 +298,6 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     @Override
     public boolean isActive() {
         return active;
-    }
-
-    /**
-     * Programmatically open the search input field component
-     */
-    public void open() {
-        setActive(true);
-        Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).focus());
-        OpenEvent.fire(MaterialSearch.this, getText());
     }
 
     public MaterialLink getSelectedLink() {
@@ -339,6 +339,23 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         return tempSearches;
     }
 
+    public MaterialIcon getIconClose() {
+        return iconClose;
+    }
+
+    public MaterialSearchResult getSearchResultPanel() {
+        return searchResultPanel;
+    }
+
+    @Override
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialIcon getIconSearch() {
+        return iconSearch;
+    }
+
     @Override
     public HandlerRegistration addCloseHandler(final CloseHandler<String> handler) {
         return addHandler((CloseHandler<String>) handler::onClose, CloseEvent.getType());
@@ -363,22 +380,5 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     @Override
     public HandlerRegistration addSearchNoResultHandler(final SearchNoResultEvent.SearchNoResultHandler handler) {
         return addHandler(handler, SearchNoResultEvent.TYPE);
-    }
-
-    public MaterialIcon getIconClose() {
-        return iconClose;
-    }
-
-    public MaterialSearchResult getSearchResultPanel() {
-        return searchResultPanel;
-    }
-
-    @Override
-    public Label getLabel() {
-        return label;
-    }
-
-    public MaterialIcon getIconSearch() {
-        return iconSearch;
     }
 }

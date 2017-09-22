@@ -51,13 +51,12 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition {
 
-    private String text;
-    private Position position = Position.TOP;
     private int delayMs = 0;
-
-    private Widget widget;
+    private String text;
     private String id;
     private String html;
+    private Position position = Position.TOP;
+    private Widget widget;
     private DefaultHandlerRegistry handlerRegistry;
 
     /**
@@ -84,6 +83,97 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     public MaterialTooltip(final Widget w, final String text) {
         setWidget(w);
         setText(text);
+    }
+
+    protected void initialize() {
+        initialize(text, position.getCssName(), delayMs);
+    }
+
+    protected void initialize(String tooltip, String position, int delay) {
+        JsTooltipOptions options = new JsTooltipOptions();
+        options.tooltip = tooltip;
+        options.position = position;
+        options.delay = delay;
+        $(widget.getElement()).tooltip(options);
+    }
+
+    /**
+     * Reconfigures the tooltip, must be called when altering
+     * any tooltip after it has already been shown.
+     */
+    public void reinitialize() {
+        remove();
+        initialize();
+    }
+
+    /**
+     * Force the Tooltip to be destroyed
+     */
+    public void remove() {
+        if (widget != null) {
+            command("remove");
+        }
+    }
+
+    @Override
+    public void clear() {
+        widget = null;
+    }
+
+    @Override
+    public Iterator<Widget> iterator() {
+        // Simple iterator for the widget
+        return new Iterator<Widget>() {
+            boolean hasElement = widget != null;
+            Widget returned = null;
+
+            @Override
+            public boolean hasNext() {
+                return hasElement;
+            }
+
+            @Override
+            public Widget next() {
+                if (!hasElement || (widget == null)) {
+                    throw new NoSuchElementException();
+                }
+                hasElement = false;
+                return (returned = widget);
+            }
+
+            @Override
+            public void remove() {
+                if (returned != null) {
+                    MaterialTooltip.this.remove(returned);
+                }
+            }
+        };
+    }
+
+    @Override
+    public boolean remove(final Widget w) {
+        // Validate.
+        if (widget != w) {
+            return false;
+        }
+
+        // Logical detach.
+        clear();
+        return true;
+    }
+
+    @Override
+    public Widget asWidget() {
+        return widget;
+    }
+
+    @Override
+    public String toString() {
+        return asWidget().toString();
+    }
+
+    protected void command(String command) {
+        $(widget.getElement()).tooltip(command);
     }
 
     @Override
@@ -198,98 +288,6 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         this.text = text;
 
         widget.getElement().setAttribute("data-tooltip", text);
-    }
-
-    /**
-     * Reconfigures the tooltip, must be called when altering
-     * any tooltip after it has already been shown.
-     */
-    public void reinitialize() {
-        remove();
-        initialize();
-    }
-
-
-    protected void initialize() {
-        initialize(text, position.getCssName(), delayMs);
-    }
-
-    protected void initialize(String tooltip, String position, int delay) {
-        JsTooltipOptions options = new JsTooltipOptions();
-        options.tooltip = tooltip;
-        options.position = position;
-        options.delay = delay;
-        $(widget.getElement()).tooltip(options);
-    }
-
-    /**
-     * Force the Tooltip to be destroyed
-     */
-    public void remove() {
-        if (widget != null) {
-            command("remove");
-        }
-    }
-
-    @Override
-    public void clear() {
-        widget = null;
-    }
-
-    @Override
-    public Iterator<Widget> iterator() {
-        // Simple iterator for the widget
-        return new Iterator<Widget>() {
-            boolean hasElement = widget != null;
-            Widget returned = null;
-
-            @Override
-            public boolean hasNext() {
-                return hasElement;
-            }
-
-            @Override
-            public Widget next() {
-                if (!hasElement || (widget == null)) {
-                    throw new NoSuchElementException();
-                }
-                hasElement = false;
-                return (returned = widget);
-            }
-
-            @Override
-            public void remove() {
-                if (returned != null) {
-                    MaterialTooltip.this.remove(returned);
-                }
-            }
-        };
-    }
-
-    @Override
-    public boolean remove(final Widget w) {
-        // Validate.
-        if (widget != w) {
-            return false;
-        }
-
-        // Logical detach.
-        clear();
-        return true;
-    }
-
-    @Override
-    public Widget asWidget() {
-        return widget;
-    }
-
-    @Override
-    public String toString() {
-        return asWidget().toString();
-    }
-
-    protected void command(String command) {
-        $(widget.getElement()).tooltip(command);
     }
 
     /**

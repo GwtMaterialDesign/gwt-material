@@ -69,16 +69,6 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
         }
     }
 
-    @Override
-    public void setWithHeader(boolean withHeader) {
-        this.withHeader = withHeader;
-    }
-
-    @Override
-    public boolean isWithHeader() {
-        return withHeader;
-    }
-
     /**
      * Push the header, footer, and main to the right part when Close type is applied.
      */
@@ -165,4 +155,13 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
         SideNavPushEvent.fire(this, getElement(), getActivator(), toggle, width);
     }
 
+    @Override
+    public void setWithHeader(boolean withHeader) {
+        this.withHeader = withHeader;
+    }
+
+    @Override
+    public boolean isWithHeader() {
+        return withHeader;
+    }
 }

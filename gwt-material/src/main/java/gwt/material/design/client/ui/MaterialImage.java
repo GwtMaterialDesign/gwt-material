@@ -160,16 +160,6 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     @Override
-    public HandlerRegistration addLoadHandler(final LoadHandler handler) {
-        return addDomHandler(handler, LoadEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addErrorHandler(final ErrorHandler handler) {
-        return addDomHandler(handler, ErrorEvent.getType());
-    }
-
-    @Override
     public void setActivates(String activates) {
         getActivatesMixin().setActivates(activates);
     }
@@ -197,6 +187,16 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
         if(fireEvents) {
             ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
         }
+    }
+
+    @Override
+    public HandlerRegistration addLoadHandler(final LoadHandler handler) {
+        return addDomHandler(handler, LoadEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addErrorHandler(final ErrorHandler handler) {
+        return addDomHandler(handler, ErrorEvent.getType());
     }
 
     @Override

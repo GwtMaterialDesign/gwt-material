@@ -89,6 +89,14 @@ public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkabl
         });
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
     @Override
     public HandlerRegistration addExpandHandler(NavBarExpandEvent.NavBarExpandHandler handler) {
         return addHandler(handler, NavBarExpandEvent.TYPE);
@@ -97,13 +105,5 @@ public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkabl
     @Override
     public HandlerRegistration addShrinkHandler(NavBarShrinkEvent.NavBarShrinkHandler handler) {
         return addHandler(handler, NavBarShrinkEvent.TYPE);
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
     }
 }

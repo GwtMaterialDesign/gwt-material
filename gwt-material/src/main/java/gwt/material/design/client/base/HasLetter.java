@@ -20,6 +20,7 @@
 package gwt.material.design.client.base;
 
 import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.ui.html.Span;
 
 /**
  * @author kevzlou7979
@@ -29,20 +30,25 @@ public interface HasLetter {
     /**
      * Set the letter as character.
      */
-    public void setLetter(String letter);
+    void setLetter(String letter);
 
     /**
      * Get the letter as character.
      */
-    public String getLetter();
+    String getLetter();
+
+    /**
+     * Get the span / label widget of the letter
+     */
+    Span getLetterLabel();
 
     /**
      * Set the letter color.
      */
-    public void setLetterColor(Color letterColor);
+    void setLetterColor(Color letterColor);
 
     /**
      * Set the letter background color.
      */
-    public void setLetterBackgroundColor(Color letterBackgroundColor);
+    void setLetterBackgroundColor(Color letterBackgroundColor);
 }

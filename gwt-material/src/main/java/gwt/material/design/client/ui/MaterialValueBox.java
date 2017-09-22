@@ -70,7 +70,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive {
 
     private InputType type = InputType.TEXT;
-
     private ValueBoxEditor<T> editor;
     private Label label = new Label();
     private MaterialLabel errorLabel = new MaterialLabel();
@@ -211,15 +210,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
-        return valueBoxBase.addValueChangeHandler(event -> {
-            if (isEnabled()) {
-                handler.onValueChange(event);
-            }
-        });
-    }
-
-    @Override
     public T getValue() {
         return valueBoxBase.getValue();
     }
@@ -274,6 +264,213 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public String getName() {
         return valueBoxBase.getName();
+    }
+
+    @Override
+    public void setError(String error) {
+        super.setError(error);
+
+        removeErrorModifiers();
+        label.setStyleName("red-text");
+        label.addStyleName(CssName.ACTIVE);
+        valueBoxBase.getElement().addClassName(CssName.INVALID);
+    }
+
+    @Override
+    public void setSuccess(String success) {
+        super.setSuccess(success);
+
+        removeErrorModifiers();
+        label.setStyleName("green-text");
+        label.addStyleName(CssName.ACTIVE);
+        valueBoxBase.getElement().addClassName(CssName.VALID);
+    }
+
+    @Override
+    public void clearErrorOrSuccess() {
+        super.clearErrorOrSuccess();
+        removeErrorModifiers();
+    }
+
+    @Override
+    public MaterialIcon getIcon() {
+        return icon;
+    }
+
+    @Override
+    public void setIconType(IconType iconType) {
+        icon.setIconType(iconType);
+        icon.setIconPrefix(true);
+        errorLabel.setPaddingLeft(44);
+        insert(icon, 0);
+    }
+
+    @Override
+    public void setIconPosition(IconPosition position) {
+        icon.setIconPosition(position);
+    }
+
+    @Override
+    public void setIconSize(IconSize size) {
+        icon.setIconSize(size);
+    }
+
+    @Override
+    public void setIconFontSize(double size, Style.Unit unit) {
+        icon.setIconFontSize(size, unit);
+    }
+
+    @Override
+    public void setIconColor(Color iconColor) {
+        icon.setIconColor(iconColor);
+    }
+
+    @Override
+    public void setIconPrefix(boolean prefix) {
+        icon.setIconPrefix(prefix);
+    }
+
+    @Override
+    public boolean isIconPrefix() {
+        return icon.isIconPrefix();
+    }
+
+    @Override
+    public void setLength(int length) {
+        getCounterMixin().setLength(length);
+    }
+
+    @Override
+    public int getLength() {
+        return getCounterMixin().getLength();
+    }
+
+    @Editor.Ignore
+    public ValueBoxBase<T> asValueBoxBase() {
+        return valueBoxBase;
+    }
+
+    @Override
+    public int getTabIndex() {
+        return valueBoxBase.getTabIndex();
+    }
+
+    @Override
+    public void setAccessKey(char key) {
+        valueBoxBase.setAccessKey(key);
+    }
+
+    @Override
+    public void setFocus(final boolean focused) {
+        Scheduler.get().scheduleDeferred(() -> {
+            valueBoxBase.setFocus(focused);
+            if (focused) {
+                label.addStyleName(CssName.ACTIVE);
+            } else {
+                updateLabelActiveStyle();
+            }
+        });
+    }
+
+    /**
+     * Updates the style of the field label according to the field value if the
+     * field value is empty - null or "" - removes the label 'active' style else
+     * will add the 'active' style to the field label.
+     */
+    protected void updateLabelActiveStyle() {
+        if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
+            label.addStyleName(CssName.ACTIVE);
+        } else {
+            label.removeStyleName(CssName.ACTIVE);
+        }
+    }
+
+    public String getSelectedText() {
+        return valueBoxBase.getSelectedText();
+    }
+
+    public int getSelectionLength() {
+        return valueBoxBase.getSelectionLength();
+    }
+
+    public void setSelectionRange(int pos, int length) {
+        valueBoxBase.setSelectionRange(pos, length);
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        getActiveMixin().setActive(active);
+    }
+
+    @Override
+    public boolean isActive() {
+        return getActiveMixin().isActive();
+    }
+
+    @Override
+    public void setReadOnly(boolean readOnly) {
+        getReadOnlyMixin().setReadOnly(readOnly);
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return getReadOnlyMixin().isReadOnly();
+    }
+
+    @Override
+    public void setToggleReadOnly(boolean toggle) {
+        getReadOnlyMixin().setToggleReadOnly(toggle);
+    }
+
+    @Override
+    public boolean isToggleReadOnly() {
+        return getReadOnlyMixin().isToggleReadOnly();
+    }
+
+    public void setCursorPos(int pos) {
+        valueBoxBase.setCursorPos(pos);
+    }
+
+    public void setAlignment(TextAlignment align) {
+        valueBoxBase.setAlignment(align);
+    }
+
+    @Override
+    public void setTabIndex(int tabIndex) {
+        valueBoxBase.setTabIndex(tabIndex);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        valueBoxBase.setEnabled(enabled);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return valueBoxBase.isEnabled();
+    }
+
+    @Ignore
+    public ValueBoxBase<T> getValueBoxBase() {
+        return valueBoxBase;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
+        return valueBoxBase.addValueChangeHandler(event -> {
+            if (isEnabled()) {
+                handler.onValueChange(event);
+            }
+        });
     }
 
     @Override
@@ -544,204 +741,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
                 handler.onClick(event);
             }
         });
-    }
-
-    @Override
-    public void setError(String error) {
-        super.setError(error);
-
-        removeErrorModifiers();
-        label.setStyleName("red-text");
-        label.addStyleName(CssName.ACTIVE);
-        valueBoxBase.getElement().addClassName(CssName.INVALID);
-    }
-
-    @Override
-    public void setSuccess(String success) {
-        super.setSuccess(success);
-
-        removeErrorModifiers();
-        label.setStyleName("green-text");
-        label.addStyleName(CssName.ACTIVE);
-        valueBoxBase.getElement().addClassName(CssName.VALID);
-    }
-
-    @Override
-    public void clearErrorOrSuccess() {
-        super.clearErrorOrSuccess();
-        removeErrorModifiers();
-    }
-
-    @Override
-    public MaterialIcon getIcon() {
-        return icon;
-    }
-
-    @Override
-    public void setIconType(IconType iconType) {
-        icon.setIconType(iconType);
-        icon.setIconPrefix(true);
-        errorLabel.setPaddingLeft(44);
-        insert(icon, 0);
-    }
-
-    @Override
-    public void setIconPosition(IconPosition position) {
-        icon.setIconPosition(position);
-    }
-
-    @Override
-    public void setIconSize(IconSize size) {
-        icon.setIconSize(size);
-    }
-
-    @Override
-    public void setIconFontSize(double size, Style.Unit unit) {
-        icon.setIconFontSize(size, unit);
-    }
-
-    @Override
-    public void setIconColor(Color iconColor) {
-        icon.setIconColor(iconColor);
-    }
-
-    @Override
-    public void setIconPrefix(boolean prefix) {
-        icon.setIconPrefix(prefix);
-    }
-
-    @Override
-    public boolean isIconPrefix() {
-        return icon.isIconPrefix();
-    }
-
-    @Override
-    public void setLength(int length) {
-        getCounterMixin().setLength(length);
-    }
-
-    @Override
-    public int getLength() {
-        return getCounterMixin().getLength();
-    }
-
-    @Editor.Ignore
-    public ValueBoxBase<T> asValueBoxBase() {
-        return valueBoxBase;
-    }
-
-    @Override
-    public int getTabIndex() {
-        return valueBoxBase.getTabIndex();
-    }
-
-    @Override
-    public void setAccessKey(char key) {
-        valueBoxBase.setAccessKey(key);
-    }
-
-    @Override
-    public void setFocus(final boolean focused) {
-        Scheduler.get().scheduleDeferred(() -> {
-            valueBoxBase.setFocus(focused);
-            if (focused) {
-                label.addStyleName(CssName.ACTIVE);
-            } else {
-                updateLabelActiveStyle();
-            }
-        });
-    }
-
-    /**
-     * Updates the style of the field label according to the field value if the
-     * field value is empty - null or "" - removes the label 'active' style else
-     * will add the 'active' style to the field label.
-     */
-    protected void updateLabelActiveStyle() {
-        if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
-            label.addStyleName(CssName.ACTIVE);
-        } else {
-            label.removeStyleName(CssName.ACTIVE);
-        }
-    }
-
-    public String getSelectedText() {
-        return valueBoxBase.getSelectedText();
-    }
-
-    public int getSelectionLength() {
-        return valueBoxBase.getSelectionLength();
-    }
-
-    public void setSelectionRange(int pos, int length) {
-        valueBoxBase.setSelectionRange(pos, length);
-    }
-
-    @Override
-    public void setActive(boolean active) {
-        getActiveMixin().setActive(active);
-    }
-
-    @Override
-    public boolean isActive() {
-        return getActiveMixin().isActive();
-    }
-
-    @Override
-    public void setReadOnly(boolean readOnly) {
-        getReadOnlyMixin().setReadOnly(readOnly);
-    }
-
-    @Override
-    public boolean isReadOnly() {
-        return getReadOnlyMixin().isReadOnly();
-    }
-
-    @Override
-    public void setToggleReadOnly(boolean toggle) {
-        getReadOnlyMixin().setToggleReadOnly(toggle);
-    }
-
-    @Override
-    public boolean isToggleReadOnly() {
-        return getReadOnlyMixin().isToggleReadOnly();
-    }
-
-    public void setCursorPos(int pos) {
-        valueBoxBase.setCursorPos(pos);
-    }
-
-    public void setAlignment(TextAlignment align) {
-        valueBoxBase.setAlignment(align);
-    }
-
-    @Override
-    public void setTabIndex(int tabIndex) {
-        valueBoxBase.setTabIndex(tabIndex);
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        valueBoxBase.setEnabled(enabled);
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return valueBoxBase.isEnabled();
-    }
-
-    @Ignore
-    public ValueBoxBase<T> getValueBoxBase() {
-        return valueBoxBase;
-    }
-
-    public Label getLabel() {
-        return label;
-    }
-
-    public MaterialLabel getErrorLabel() {
-        return errorLabel;
     }
 
     @Override

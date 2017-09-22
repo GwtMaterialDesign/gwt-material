@@ -74,8 +74,8 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
 
     private int tabIndex;
     private Color indicatorColor;
-
     private MaterialWidget indicator;
+
     private ColorsMixin<MaterialWidget> indicatorColorMixin;
     private CssTypeMixin<TabType, MaterialTab> typeMixin;
 
@@ -105,6 +105,40 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
             clearAllIndicators();
             initialize();
         }
+    }
+
+    /**
+     * Select a given tab by id.
+     *
+     * @param tabId Tab to selects id.
+     */
+    public void selectTab(String tabId) {
+        Scheduler.get().scheduleDeferred(() -> $(getElement()).tabs("select_tab", tabId));
+    }
+
+    @Override
+    public void add(Widget child) {
+        super.add(child);
+        reinitialize();
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        reinitialize();
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        boolean value = super.remove(w);
+        reinitialize();
+        return value;
+    }
+
+    @Override
+    public void insert(Widget child, int beforeIndex) {
+        super.insert(child, beforeIndex);
+        reinitialize();
     }
 
     protected void applyIndicator() {
@@ -148,15 +182,6 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
         }
     }
 
-    /**
-     * Select a given tab by id.
-     *
-     * @param tabId Tab to selects id.
-     */
-    public void selectTab(String tabId) {
-        Scheduler.get().scheduleDeferred(() -> $(getElement()).tabs("select_tab", tabId));
-    }
-
     protected Element getIndicatorElement() {
         return $(getElement()).find(".indicator").last().asElement();
     }
@@ -174,31 +199,6 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     @Override
     public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> handler) {
         return addHandler(handler, SelectionEvent.getType());
-    }
-
-    @Override
-    public void add(Widget child) {
-        super.add(child);
-        reinitialize();
-    }
-
-    @Override
-    public void clear() {
-        super.clear();
-        reinitialize();
-    }
-
-    @Override
-    public boolean remove(Widget w) {
-        boolean value = super.remove(w);
-        reinitialize();
-        return value;
-    }
-
-    @Override
-    public void insert(Widget child, int beforeIndex) {
-        super.insert(child, beforeIndex);
-        reinitialize();
     }
 
     protected CssTypeMixin<TabType, MaterialTab> getTypeMixin() {

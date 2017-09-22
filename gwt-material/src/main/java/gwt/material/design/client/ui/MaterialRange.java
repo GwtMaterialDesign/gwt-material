@@ -202,16 +202,6 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         setIntToRangeElement(MAX, max);
     }
 
-    /**
-     * Register the ChangeHandler to become notified if the user changes the slider.
-     * The Handler is called when the user releases the mouse only at the end of the slide
-     * operation.
-     */
-    @Override
-    public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
-        return getRangeInputElement().addDomHandler(handler, ChangeEvent.getType());
-    }
-
     @Override
     public void setError(String error) {
         getErrorMixin().setError(error);
@@ -246,6 +236,16 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
     public Span getThumb() {
         return thumb;
+    }
+
+    /**
+     * Register the ChangeHandler to become notified if the user changes the slider.
+     * The Handler is called when the user releases the mouse only at the end of the slide
+     * operation.
+     */
+    @Override
+    public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
+        return getRangeInputElement().addDomHandler(handler, ChangeEvent.getType());
     }
 
     @Override

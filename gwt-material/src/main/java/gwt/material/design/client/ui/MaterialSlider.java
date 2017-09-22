@@ -74,12 +74,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialSlider extends MaterialWidget implements HasDurationTransition, HasFullscreen {
 
-    private UnorderedList listContainer = new UnorderedList();
-
-    private boolean fullWidth = true;
-    private boolean indicators = true;
     private int duration = 500;
     private int interval = 6000;
+    private boolean fullWidth = true;
+    private boolean indicators = true;
+    private UnorderedList listContainer = new UnorderedList();
 
     private FullscreenMixin fullscreenMixin;
 
@@ -109,6 +108,14 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
         listContainer.add(child);
     }
 
+    public void pause() {
+        $(getElement()).slider("pause");
+    }
+
+    public void start() {
+        $(getElement()).slider("start");
+    }
+
     @Override
     public void setHeight(String height) {
         super.setHeight(height);
@@ -134,14 +141,6 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
 
     public void setFullWidth(boolean fullWidth) {
         this.fullWidth = fullWidth;
-    }
-
-    public void pause() {
-        $(getElement()).slider("pause");
-    }
-
-    public void start() {
-        $(getElement()).slider("start");
     }
 
     public UnorderedList getListContainer() {

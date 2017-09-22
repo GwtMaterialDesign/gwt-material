@@ -53,6 +53,7 @@ public class MaterialSpinner extends MaterialWidget {
     private Div circle2 = new Div();
     private Div circle3 = new Div();
     private Div gapPatch = new Div();
+
     private CssNameMixin<MaterialSpinner, SpinnerColor> spinnerColorMixin;
 
     public MaterialSpinner() {

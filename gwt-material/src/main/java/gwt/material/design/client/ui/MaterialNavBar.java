@@ -66,7 +66,6 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
 
     private Div navWrapper = new Div();
-
     private MaterialLink navMenu = new MaterialLink(IconType.MENU);
 
     private ActivatesMixin<MaterialLink> activatesMixin;

@@ -104,6 +104,23 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         setType(type);
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
+    }
+
+    @Override
+    public void setGrid(String grid) {
+        getGridMixin().setGrid(grid);
+    }
+
+    @Override
+    public void setOffset(String offset) {
+        getGridMixin().setOffset(offset);
+    }
+
     public Object getObject() {
         return object;
     }
@@ -112,22 +129,15 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         this.object = object;
     }
 
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
-    }
-
-    public boolean isOld() {
-        return getToggleOldMixin().isOn();
-    }
-
     /**
      * Used the old checkbox.
      */
     public void setOld(boolean old) {
         getToggleOldMixin().setOn(old);
+    }
+
+    public boolean isOld() {
+        return getToggleOldMixin().isOn();
     }
 
     /**
@@ -146,16 +156,6 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
                 addStyleName(type.getCssName());
                 break;
         }
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        getGridMixin().setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        getGridMixin().setOffset(offset);
     }
 
     public GridMixin<MaterialCheckBox> getGridMixin() {

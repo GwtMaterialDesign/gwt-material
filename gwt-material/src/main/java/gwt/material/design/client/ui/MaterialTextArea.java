@@ -73,15 +73,6 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         valueBoxBase.setStyleName(CssName.MATERIALIZE_TEXTAREA);
     }
 
-    @Override
-    public void setText(String text) {
-        super.setText(text);
-
-        if (resizeRule.equals(ResizeRule.AUTO)) {
-            triggerAutoResize();
-        }
-    }
-
     public void triggerAutoResize() {
         if (!valueBoxBase.isAttached()) {
             registerHandler(valueBoxBase.addAttachHandler(event -> {
@@ -98,8 +89,13 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         Scheduler.get().scheduleDeferred(() -> $(element).trigger("autoresize", null));
     }
 
-    public ResizeRule getResizeRule() {
-        return resizeRule;
+    @Override
+    public void setText(String text) {
+        super.setText(text);
+
+        if (resizeRule.equals(ResizeRule.AUTO)) {
+            triggerAutoResize();
+        }
     }
 
     public void setResizeRule(ResizeRule resizeRule) {
@@ -125,5 +121,9 @@ public class MaterialTextArea extends MaterialValueBox<String> {
                 }));
                 break;
         }
+    }
+
+    public ResizeRule getResizeRule() {
+        return resizeRule;
     }
 }

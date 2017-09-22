@@ -32,6 +32,7 @@ import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasImage;
 import gwt.material.design.client.base.HasLetter;
+import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
@@ -65,15 +66,11 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
+    private MaterialImage image = new MaterialImage();
 
-    private ImageResource resource;
-    private Image image = new Image();
-
+    private ImageMixin<MaterialImage> imageMixin;
     private LetterMixin<MaterialChip> letterMixin;
 
-    /**
-     * Creates an empty chip.
-     */
     public MaterialChip() {
         super(Document.get().createDivElement(), CssName.CHIP);
         add(chipLabel);
@@ -112,6 +109,13 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
         registerHandler(icon.addClickHandler(clickEvent -> close()));
     }
 
+    public void close() {
+        if (isAttached()) {
+            removeFromParent();
+            CloseEvent.fire(this, this);
+        }
+    }
+
     public void setText(String text) {
         setValue(text, true);
     }
@@ -133,39 +137,24 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     @Override
     public void setUrl(String url) {
-        image.setUrl(url);
+        getImageMixin().setUrl(url);
         add(image);
     }
 
     @Override
     public String getUrl() {
-        return image.getUrl();
+        return getImageMixin().getUrl();
     }
 
     @Override
     public void setResource(ImageResource resource) {
-        this.resource = resource;
-        image.setResource(resource);
+        getImageMixin().setResource(resource);
         add(image);
     }
 
     @Override
     public ImageResource getResource() {
-        return resource;
-    }
-
-    /**
-     * @return the image
-     */
-    public Image getImage() {
-        return image;
-    }
-
-    /**
-     * @param image the image to set
-     */
-    public void setImage(Image image) {
-        this.image = image;
+        return getImageMixin().getResource();
     }
 
     @Override
@@ -220,6 +209,11 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     }
 
     @Override
+    public Span getLetterLabel() {
+        return getLetterMixin().getLetterLabel();
+    }
+
+    @Override
     public void setLetterColor(Color letterColor) {
         getLetterMixin().setLetterColor(letterColor);
     }
@@ -229,26 +223,34 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
         getLetterMixin().setLetterBackgroundColor(letterBackgroundColor);
     }
 
-    public LetterMixin<MaterialChip> getLetterMixin() {
-        if (letterMixin == null) {
-            letterMixin = new LetterMixin<>(this);
-        }
-        return letterMixin;
+    public MaterialImage getImage() {
+        return image;
+    }
+
+    public void setImage(MaterialImage image) {
+        this.image = image;
     }
 
     public Span getChipLabel() {
         return chipLabel;
     }
 
-    public void close() {
-        if (isAttached()) {
-            removeFromParent();
-            CloseEvent.fire(this, this);
-        }
-    }
-
     @Override
     public HandlerRegistration addCloseHandler(CloseHandler closeHandler) {
         return addHandler(closeHandler, CloseEvent.getType());
+    }
+
+    protected LetterMixin<MaterialChip> getLetterMixin() {
+        if (letterMixin == null) {
+            letterMixin = new LetterMixin<>(this);
+        }
+        return letterMixin;
+    }
+
+    protected ImageMixin<MaterialImage> getImageMixin() {
+        if (imageMixin == null) {
+            imageMixin = new ImageMixin<>(image);
+        }
+        return imageMixin;
     }
 }

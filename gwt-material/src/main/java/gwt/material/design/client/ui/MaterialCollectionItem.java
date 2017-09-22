@@ -70,7 +70,7 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
         }
     }
 
-    private void applyCheckBoxType() {
+    protected void applyCheckBoxType() {
         if (getWidgetCount() > 0) {
             getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
         }

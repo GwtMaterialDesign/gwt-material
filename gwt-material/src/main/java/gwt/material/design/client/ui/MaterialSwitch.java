@@ -147,11 +147,6 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         return input.getElement().hasAttribute("checked");
     }
 
-    @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Boolean> handler) {
-        return addHandler(handler, ValueChangeEvent.getType());
-    }
-
     /**
      * @return the input
      */
@@ -239,6 +234,11 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
 
     public Span getOffLabel() {
         return offLabel;
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Boolean> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 
     protected ErrorMixin<MaterialSwitch, MaterialLabel> getErrorMixin() {

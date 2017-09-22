@@ -34,6 +34,10 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
     private MaterialIcon icon = new MaterialIcon();
     private TextMixin<MaterialHelpBlock> textMixin;
 
+    public void clear() {
+        setText("");
+    }
+
     @Override
     public String getText() {
         return getTextMixin().getText();
@@ -86,10 +90,6 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
-    }
-
-    public void clear() {
-        setText("");
     }
 
     protected TextMixin<MaterialHelpBlock> getTextMixin() {

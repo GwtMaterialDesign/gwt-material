@@ -299,462 +299,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getElement().setAttribute("class", cssClasses);
     }
 
-    // Events
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onClick(event);
-            }
-        }, ClickEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onMouseDown(event);
-            }
-        }, MouseDownEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onMouseMove(event);
-            }
-        }, MouseMoveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onMouseOut(event);
-            }
-        }, MouseOutEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onMouseOver(event);
-            }
-        }, MouseOverEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onMouseUp(event);
-            }
-        }, MouseUpEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onMouseWheel(event);
-            }
-        }, MouseWheelEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onDoubleClick(event);
-            }
-        }, DoubleClickEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragStartHandler(DragStartEvent.DragStartHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDragStart(event);
-            }
-        }, DragStartEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragMoveHandler(DragMoveEvent.DragMoveHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDragMove(event);
-            }
-        }, DragMoveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragEndHandler(DragEndEvent.DragEndHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDragEnd(event);
-            }
-        }, DragEndEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDropActivateHandler(DropActivateEvent.DropActivateHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDropActivate(event);
-            }
-        }, DropActivateEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragEnterHandler(DragEnterEvent.DragEnterHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDragEnter(event);
-            }
-        }, DragEnterEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragLeaveHandler(DragLeaveEvent.DragLeaveHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDragLeave(event);
-            }
-        }, DragLeaveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDragOverHandler(final DragOverEvent.DragOverHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDragOver(event);
-            }
-        }, DragOverEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDropDeactivateHandler(DropDeactivateEvent.DropDeactivateHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDropDeactivate(event);
-            }
-        }, DropDeactivateEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addDropHandler(DropEvent.DropHandler handler) {
-        return addHandler(event -> {
-            if (isEnabled()) {
-                handler.onDrop(event);
-            }
-        }, DropEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onTouchCancel(event);
-            }
-        }, TouchCancelEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onTouchEnd(event);
-            }
-        }, TouchEndEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onTouchMove(event);
-            }
-        }, TouchMoveEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onTouchStart(event);
-            }
-        }, TouchStartEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onGestureChange(event);
-            }
-        }, GestureChangeEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onGestureEnd(event);
-            }
-        }, GestureEndEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onGestureStart(event);
-            }
-        }, GestureStartEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onKeyDown(event);
-            }
-        }, KeyDownEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onKeyPress(event);
-            }
-        }, KeyPressEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onKeyUp(event);
-            }
-        }, KeyUpEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addBlurHandler(BlurHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onBlur(event);
-            }
-        }, BlurEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addFocusHandler(FocusHandler handler) {
-        return addDomHandler(event -> {
-            if (isEnabled()) {
-                handler.onFocus(event);
-            }
-        }, FocusEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addOrientationChangeHandler(OrientationChangeEvent.OrientationChangeHandler handler) {
-        return addHandler(new OrientationChangeEvent.OrientationChangeHandler() {
-            @Override
-            public void onOrientationChange(OrientationChangeEvent event) {
-                if (isEnabled()) {
-                    handler.onOrientationChange(event);
-                }
-            }
-        }, OrientationChangeEvent.TYPE);
-    }
-
-    protected IdMixin<MaterialWidget> getIdMixin() {
-        if (idMixin == null) {
-            idMixin = new IdMixin<>(this);
-        }
-        return idMixin;
-    }
-
-    protected EnabledMixin<MaterialWidget> getEnabledMixin() {
-        if (enabledMixin == null) {
-            enabledMixin = new EnabledMixin<>(this);
-        }
-        return enabledMixin;
-    }
-
-    protected CssNameMixin<MaterialWidget, TextAlign> getTextAlignMixin() {
-        if (textAlignMixin == null) {
-            textAlignMixin = new CssNameMixin<>(this);
-        }
-        return textAlignMixin;
-    }
-
-    protected ColorsMixin<MaterialWidget> getColorsMixin() {
-        if (colorsMixin == null) {
-            colorsMixin = new ColorsMixin<>(this);
-        }
-        return colorsMixin;
-    }
-
-    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
-        if (focusableMixin == null) {
-            focusableMixin = new FocusableMixin<>(this);
-        }
-        return focusableMixin;
-    }
-
-    protected GridMixin<MaterialWidget> getGridMixin() {
-        if (gridMixin == null) {
-            gridMixin = new GridMixin<>(this);
-        }
-        return gridMixin;
-    }
-
-    protected ShadowMixin<MaterialWidget> getShadowMixin() {
-        if (shadowMixin == null) {
-            shadowMixin = new ShadowMixin<>(this);
-        }
-        return shadowMixin;
-    }
-
-    protected SeparatorMixin<MaterialWidget> getSeparatorMixin() {
-        if (separatorMixin == null) {
-            separatorMixin = new SeparatorMixin<>(this);
-        }
-        return separatorMixin;
-    }
-
-    protected ScrollspyMixin<MaterialWidget> getScrollspyMixin() {
-        if (scrollspyMixin == null) {
-            scrollspyMixin = new ScrollspyMixin<>(this);
-        }
-        return scrollspyMixin;
-    }
-
-    protected CssNameMixin<MaterialWidget, HideOn> getHideOnMixin() {
-        if (hideOnMixin == null) {
-            hideOnMixin = new CssNameMixin<>(this);
-        }
-        return hideOnMixin;
-    }
-
-    protected CssNameMixin<MaterialWidget, ShowOn> getShowOnMixin() {
-        if (showOnMixin == null) {
-            showOnMixin = new CssNameMixin<>(this);
-        }
-        return showOnMixin;
-    }
-
-    protected CssNameMixin<MaterialWidget, CenterOn> getCenterOnMixin() {
-        if (centerOnMixin == null) {
-            centerOnMixin = new CssNameMixin<>(this);
-        }
-        return centerOnMixin;
-    }
-
-    protected FontSizeMixin<MaterialWidget> getFontSizeMixin() {
-        if (fontSizeMixin == null) {
-            fontSizeMixin = new FontSizeMixin<>(this);
-        }
-        return fontSizeMixin;
-    }
-
-    protected ToggleStyleMixin<MaterialWidget> getCircleMixin() {
-        if (circleMixin == null) {
-            circleMixin = new ToggleStyleMixin<>(this, CssName.CIRCLE);
-        }
-        return circleMixin;
-    }
-
-    protected ToggleStyleMixin<MaterialWidget> getHoverableMixin() {
-        if (hoverableMixin == null) {
-            hoverableMixin = new ToggleStyleMixin<>(this, CssName.HOVERABLE);
-        }
-        return hoverableMixin;
-    }
-
-    protected WavesMixin<MaterialWidget> getWavesMixin() {
-        if (wavesMixin == null) {
-            wavesMixin = new WavesMixin<>(this);
-        }
-        return wavesMixin;
-    }
-
-    protected CssNameMixin<MaterialWidget, Float> getFloatMixin() {
-        if (floatMixin == null) {
-            floatMixin = new CssNameMixin<>(this);
-        }
-        return floatMixin;
-    }
-
-    protected TooltipMixin<MaterialWidget> getTooltipMixin() {
-        if (tooltipMixin == null) {
-            tooltipMixin = new TooltipMixin<>(this);
-        }
-        return tooltipMixin;
-    }
-
-    protected FlexboxMixin<MaterialWidget> getFlexboxMixin() {
-        if (flexboxMixin == null) {
-            flexboxMixin = new FlexboxMixin<>(this);
-        }
-        return flexboxMixin;
-    }
-
-    protected CssNameMixin<MaterialWidget, FontWeight> getFontWeightMixin() {
-        if (fontWeightMixin == null) {
-            fontWeightMixin = new CssNameMixin<>(this);
-        }
-        return fontWeightMixin;
-    }
-
-    public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
-        if (truncateMixin == null) {
-            truncateMixin = new ToggleStyleMixin<>(this, CssName.TRUNCATE);
-        }
-        return truncateMixin;
-    }
-
-    public BorderMixin<MaterialWidget> getBorderMixin() {
-        if (borderMixin == null) {
-            borderMixin = new BorderMixin<>(this);
-        }
-        return borderMixin;
-    }
-
-    public DimensionMixin<MaterialWidget> getDimensionMixin() {
-        if (dimensionMixin == null) {
-            dimensionMixin = new DimensionMixin<>(this);
-        }
-        return dimensionMixin;
-    }
-
-    public VerticalAlignMixin<MaterialWidget> getVerticalAlignMixin() {
-        if (verticalAlignMixin == null) {
-            verticalAlignMixin = new VerticalAlignMixin<>(this);
-        }
-        return verticalAlignMixin;
-    }
-
-    public TransformMixin<MaterialWidget> getTransformMixin() {
-        if (transformMixin == null) {
-            transformMixin = new TransformMixin<>(this);
-        }
-        return transformMixin;
-    }
-
-    public OrientationMixin<MaterialWidget> getOrientationMixin() {
-        if (orientationMixin == null) {
-            orientationMixin = new OrientationMixin<>(this);
-        }
-        return orientationMixin;
-    }
-
     @Override
     public void setId(String id) {
         getIdMixin().setId(id);
@@ -1504,5 +1048,461 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             }
         }
         return valid;
+    }
+
+    // Events
+    @Override
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onClick(event);
+            }
+        }, ClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseDown(event);
+            }
+        }, MouseDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseMove(event);
+            }
+        }, MouseMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseOut(event);
+            }
+        }, MouseOutEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseOver(event);
+            }
+        }, MouseOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseUpHandler(final MouseUpHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseUp(event);
+            }
+        }, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onMouseWheel(event);
+            }
+        }, MouseWheelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDoubleClickHandler(final DoubleClickHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onDoubleClick(event);
+            }
+        }, DoubleClickEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragStartHandler(DragStartEvent.DragStartHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragStart(event);
+            }
+        }, DragStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragMoveHandler(DragMoveEvent.DragMoveHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragMove(event);
+            }
+        }, DragMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEndHandler(DragEndEvent.DragEndHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragEnd(event);
+            }
+        }, DragEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropActivateHandler(DropActivateEvent.DropActivateHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDropActivate(event);
+            }
+        }, DropActivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragEnterHandler(DragEnterEvent.DragEnterHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragEnter(event);
+            }
+        }, DragEnterEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragLeaveHandler(DragLeaveEvent.DragLeaveHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragLeave(event);
+            }
+        }, DragLeaveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDragOverHandler(final DragOverEvent.DragOverHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDragOver(event);
+            }
+        }, DragOverEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropDeactivateHandler(DropDeactivateEvent.DropDeactivateHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDropDeactivate(event);
+            }
+        }, DropDeactivateEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addDropHandler(DropEvent.DropHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onDrop(event);
+            }
+        }, DropEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchCancel(event);
+            }
+        }, TouchCancelEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchEnd(event);
+            }
+        }, TouchEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchMove(event);
+            }
+        }, TouchMoveEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onTouchStart(event);
+            }
+        }, TouchStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onGestureChange(event);
+            }
+        }, GestureChangeEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onGestureEnd(event);
+            }
+        }, GestureEndEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onGestureStart(event);
+            }
+        }, GestureStartEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onKeyDown(event);
+            }
+        }, KeyDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onKeyPress(event);
+            }
+        }, KeyPressEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onKeyUp(event);
+            }
+        }, KeyUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addBlurHandler(BlurHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onBlur(event);
+            }
+        }, BlurEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addFocusHandler(FocusHandler handler) {
+        return addDomHandler(event -> {
+            if (isEnabled()) {
+                handler.onFocus(event);
+            }
+        }, FocusEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOrientationChangeHandler(OrientationChangeEvent.OrientationChangeHandler handler) {
+        return addHandler(new OrientationChangeEvent.OrientationChangeHandler() {
+            @Override
+            public void onOrientationChange(OrientationChangeEvent event) {
+                if (isEnabled()) {
+                    handler.onOrientationChange(event);
+                }
+            }
+        }, OrientationChangeEvent.TYPE);
+    }
+
+    protected IdMixin<MaterialWidget> getIdMixin() {
+        if (idMixin == null) {
+            idMixin = new IdMixin<>(this);
+        }
+        return idMixin;
+    }
+
+    protected EnabledMixin<MaterialWidget> getEnabledMixin() {
+        if (enabledMixin == null) {
+            enabledMixin = new EnabledMixin<>(this);
+        }
+        return enabledMixin;
+    }
+
+    protected CssNameMixin<MaterialWidget, TextAlign> getTextAlignMixin() {
+        if (textAlignMixin == null) {
+            textAlignMixin = new CssNameMixin<>(this);
+        }
+        return textAlignMixin;
+    }
+
+    protected ColorsMixin<MaterialWidget> getColorsMixin() {
+        if (colorsMixin == null) {
+            colorsMixin = new ColorsMixin<>(this);
+        }
+        return colorsMixin;
+    }
+
+    protected FocusableMixin<MaterialWidget> getFocusableMixin() {
+        if (focusableMixin == null) {
+            focusableMixin = new FocusableMixin<>(this);
+        }
+        return focusableMixin;
+    }
+
+    protected GridMixin<MaterialWidget> getGridMixin() {
+        if (gridMixin == null) {
+            gridMixin = new GridMixin<>(this);
+        }
+        return gridMixin;
+    }
+
+    protected ShadowMixin<MaterialWidget> getShadowMixin() {
+        if (shadowMixin == null) {
+            shadowMixin = new ShadowMixin<>(this);
+        }
+        return shadowMixin;
+    }
+
+    protected SeparatorMixin<MaterialWidget> getSeparatorMixin() {
+        if (separatorMixin == null) {
+            separatorMixin = new SeparatorMixin<>(this);
+        }
+        return separatorMixin;
+    }
+
+    protected ScrollspyMixin<MaterialWidget> getScrollspyMixin() {
+        if (scrollspyMixin == null) {
+            scrollspyMixin = new ScrollspyMixin<>(this);
+        }
+        return scrollspyMixin;
+    }
+
+    protected CssNameMixin<MaterialWidget, HideOn> getHideOnMixin() {
+        if (hideOnMixin == null) {
+            hideOnMixin = new CssNameMixin<>(this);
+        }
+        return hideOnMixin;
+    }
+
+    protected CssNameMixin<MaterialWidget, ShowOn> getShowOnMixin() {
+        if (showOnMixin == null) {
+            showOnMixin = new CssNameMixin<>(this);
+        }
+        return showOnMixin;
+    }
+
+    protected CssNameMixin<MaterialWidget, CenterOn> getCenterOnMixin() {
+        if (centerOnMixin == null) {
+            centerOnMixin = new CssNameMixin<>(this);
+        }
+        return centerOnMixin;
+    }
+
+    protected FontSizeMixin<MaterialWidget> getFontSizeMixin() {
+        if (fontSizeMixin == null) {
+            fontSizeMixin = new FontSizeMixin<>(this);
+        }
+        return fontSizeMixin;
+    }
+
+    protected ToggleStyleMixin<MaterialWidget> getCircleMixin() {
+        if (circleMixin == null) {
+            circleMixin = new ToggleStyleMixin<>(this, CssName.CIRCLE);
+        }
+        return circleMixin;
+    }
+
+    protected ToggleStyleMixin<MaterialWidget> getHoverableMixin() {
+        if (hoverableMixin == null) {
+            hoverableMixin = new ToggleStyleMixin<>(this, CssName.HOVERABLE);
+        }
+        return hoverableMixin;
+    }
+
+    protected WavesMixin<MaterialWidget> getWavesMixin() {
+        if (wavesMixin == null) {
+            wavesMixin = new WavesMixin<>(this);
+        }
+        return wavesMixin;
+    }
+
+    protected CssNameMixin<MaterialWidget, Float> getFloatMixin() {
+        if (floatMixin == null) {
+            floatMixin = new CssNameMixin<>(this);
+        }
+        return floatMixin;
+    }
+
+    protected TooltipMixin<MaterialWidget> getTooltipMixin() {
+        if (tooltipMixin == null) {
+            tooltipMixin = new TooltipMixin<>(this);
+        }
+        return tooltipMixin;
+    }
+
+    protected FlexboxMixin<MaterialWidget> getFlexboxMixin() {
+        if (flexboxMixin == null) {
+            flexboxMixin = new FlexboxMixin<>(this);
+        }
+        return flexboxMixin;
+    }
+
+    protected CssNameMixin<MaterialWidget, FontWeight> getFontWeightMixin() {
+        if (fontWeightMixin == null) {
+            fontWeightMixin = new CssNameMixin<>(this);
+        }
+        return fontWeightMixin;
+    }
+
+    public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
+        if (truncateMixin == null) {
+            truncateMixin = new ToggleStyleMixin<>(this, CssName.TRUNCATE);
+        }
+        return truncateMixin;
+    }
+
+    public BorderMixin<MaterialWidget> getBorderMixin() {
+        if (borderMixin == null) {
+            borderMixin = new BorderMixin<>(this);
+        }
+        return borderMixin;
+    }
+
+    public DimensionMixin<MaterialWidget> getDimensionMixin() {
+        if (dimensionMixin == null) {
+            dimensionMixin = new DimensionMixin<>(this);
+        }
+        return dimensionMixin;
+    }
+
+    public VerticalAlignMixin<MaterialWidget> getVerticalAlignMixin() {
+        if (verticalAlignMixin == null) {
+            verticalAlignMixin = new VerticalAlignMixin<>(this);
+        }
+        return verticalAlignMixin;
+    }
+
+    public TransformMixin<MaterialWidget> getTransformMixin() {
+        if (transformMixin == null) {
+            transformMixin = new TransformMixin<>(this);
+        }
+        return transformMixin;
+    }
+
+    public OrientationMixin<MaterialWidget> getOrientationMixin() {
+        if (orientationMixin == null) {
+            orientationMixin = new OrientationMixin<>(this);
+        }
+        return orientationMixin;
     }
 }

@@ -70,11 +70,6 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<V> handler) {
-        return addHandler(handler, ValueChangeEvent.getType());
-    }
-
-    @Override
     public void setError(String error) {
         getErrorMixin().setError(error);
     }
@@ -160,11 +155,6 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return getValidatorMixin().validate(show);
     }
 
-    @Override
-    public HandlerRegistration addValidationChangedHandler(ValidationChangedEvent.ValidationChangedHandler handler) {
-        return getValidatorMixin().addValidationChangedHandler(handler);
-    }
-
     /**
      * Enable or disable the default blank validator.
      */
@@ -208,6 +198,16 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         }
     }
 
+    @Override
+    public HandlerRegistration addValidationChangedHandler(ValidationChangedEvent.ValidationChangedHandler handler) {
+        return getValidatorMixin().addValidationChangedHandler(handler);
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<V> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
+
     protected ValidatorMixin<AbstractValueWidget<V>, V> getValidatorMixin() {
         if (validatorMixin == null) {
             validatorMixin = new ValidatorMixin<>(this, getErrorHandler());
@@ -222,7 +222,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return errorMixin;
     }
 
-    public ErrorHandlerMixin<V> getErrorHandlerMixin() {
+    protected ErrorHandlerMixin<V> getErrorHandlerMixin() {
         if (errorHandlerMixin == null) {
             errorHandlerMixin = new ErrorHandlerMixin<>(this);
         }

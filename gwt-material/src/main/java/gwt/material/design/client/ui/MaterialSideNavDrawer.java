@@ -67,16 +67,6 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
         }
     }
 
-    @Override
-    public void setWithHeader(boolean withHeader) {
-        this.withHeader = withHeader;
-    }
-
-    @Override
-    public boolean isWithHeader() {
-        return withHeader;
-    }
-
     /**
      * Provides an overlay / drawer sidenav just like when opening sidenav on mobile / tablet
      */
@@ -103,5 +93,15 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
                 pushElement(getMain(), 0);
             });
         }
+    }
+
+    @Override
+    public void setWithHeader(boolean withHeader) {
+        this.withHeader = withHeader;
+    }
+
+    @Override
+    public boolean isWithHeader() {
+        return withHeader;
     }
 }

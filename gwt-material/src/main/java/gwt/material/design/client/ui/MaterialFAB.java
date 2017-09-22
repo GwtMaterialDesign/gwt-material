@@ -95,25 +95,6 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
         }
     }
 
-    @Override
-    public void setType(FABType type) {
-        getTypeMixin().setType(type);
-    }
-
-    @Override
-    public FABType getType() {
-        return getTypeMixin().getType();
-    }
-
-    @Override
-    public void setAxis(Axis axis) {
-        getAxisMixin().setCssName(axis);
-    }
-
-    @Override
-    public Axis getAxis() {
-        return getAxisMixin().getCssName();
-    }
 
     /**
      * Open the FAB programmatically
@@ -151,6 +132,26 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
             CloseEvent.fire(this, this);
         }
         $(getElement()).closeFAB();
+    }
+
+    @Override
+    public void setType(FABType type) {
+        getTypeMixin().setType(type);
+    }
+
+    @Override
+    public FABType getType() {
+        return getTypeMixin().getType();
+    }
+
+    @Override
+    public void setAxis(Axis axis) {
+        getAxisMixin().setCssName(axis);
+    }
+
+    @Override
+    public Axis getAxis() {
+        return getAxisMixin().getCssName();
     }
 
     public boolean isOpen() {

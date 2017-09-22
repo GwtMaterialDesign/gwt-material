@@ -69,15 +69,16 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
 
     private int width = 240;
-    private Edge edge = Edge.LEFT;
-    private boolean closeOnClick = false;
-    private boolean alwaysShowActivator = true;
-    private boolean allowBodyScroll = true;
-    private boolean open;
-    private Boolean showOnAttach;
-    private Element activator;
     private int inDuration = 400;
     private int outDuration = 200;
+    private boolean open;
+    private boolean closeOnClick;
+    private boolean alwaysShowActivator = true;
+    private boolean allowBodyScroll = true;
+    private Edge edge = Edge.LEFT;
+    private Boolean showOnAttach;
+    private Element activator;
+
     private StyleMixin<MaterialSideNav> typeMixin;
 
     /**
@@ -110,27 +111,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
 
         $("#sidenav-overlay").remove();
         activator = null;
-    }
-
-
-    @Override
-    public HandlerRegistration addOpeningHandler(SideNavOpeningHandler handler) {
-        return addHandler(handler, SideNavOpeningEvent.TYPE);
-    }
-
-    @Override
-    public HandlerRegistration addOpenedHandler(SideNavOpenedHandler handler) {
-        return addHandler(handler, SideNavOpenedEvent.TYPE);
-    }
-
-    @Override
-    public HandlerRegistration addClosingHandler(SideNavClosingHandler handler) {
-        return addHandler(handler, SideNavClosingEvent.TYPE);
-    }
-
-    @Override
-    public HandlerRegistration addClosedHandler(SideNavClosedHandler handler) {
-        return addHandler(handler, SideNavClosedEvent.TYPE);
     }
 
     public Widget wrap(Widget child) {
@@ -193,63 +173,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         super.insert(wrap(child), container, beforeIndex, domInsert);
     }
 
-    @Override
-    public void setWidth(String width) {
-        setWidth(Integer.parseInt(width));
-    }
-
-    /**
-     * Set the menu's width in pixels.
-     */
-    public void setWidth(int width) {
-        this.width = width;
-        getElement().getStyle().setWidth(width, Unit.PX);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public boolean isCloseOnClick() {
-        return closeOnClick;
-    }
-
-    /**
-     * Close the side nav menu when an \<a\> tag is clicked
-     * from inside it. Note that if you want this to work you
-     * must wrap your item within a {@link MaterialLink}.
-     */
-    public void setCloseOnClick(boolean closeOnClick) {
-        this.closeOnClick = closeOnClick;
-    }
-
-    public Edge getEdge() {
-        return edge;
-    }
-
-    /**
-     * Set which edge of the window the menu should attach to.
-     */
-    public void setEdge(Edge edge) {
-        this.edge = edge;
-    }
-
-    protected void setType(SideNavType type) {
-        getTypeMixin().setStyle(type.getCssName());
-    }
-
-    protected boolean isSmall() {
-        return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
-    }
-
-    protected MaterialWidget getNavMenu() {
-        Element navMenuElement = DOMHelper.getElementByAttribute("data-activates", getId());
-        if (navMenuElement != null) {
-            return new MaterialWidget(navMenuElement);
-        }
-        return null;
-    }
-
     /**
      * Provides a Fixed type sidenav which by default on desktop - activator will notbe visible
      * but you can configure it by setting the property setAlwaysShowActivator() to true
@@ -293,18 +216,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         }
     }
 
-    protected Element getMain() {
-        return $("main").asElement();
-    }
-
-    protected Element getHeader() {
-        return $("header").asElement();
-    }
-
-    protected Element getFooter() {
-        return $("footer").asElement();
-    }
-
     protected void applyTransition(Element element) {
         applyTransition(element, "all");
     }
@@ -335,16 +246,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     @Override
     protected void build() {
         applyFixedType();
-    }
-
-    /**
-     * Reinitialize the side nav configurations when changing
-     * properties.
-     */
-    @Override
-    public void reinitialize() {
-        activator = null;
-        initialize(false);
     }
 
     @Override
@@ -419,6 +320,102 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             onOpened();
             return true;
         });
+    }
+
+    /**
+     * Reinitialize the side nav configurations when changing
+     * properties.
+     */
+    @Override
+    public void reinitialize() {
+        activator = null;
+        initialize(false);
+    }
+
+    @Override
+    protected void onDetach() {
+        super.onDetach();
+        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
+        pushElement(getHeader(), 0);
+        pushElement(getMain(), 0);
+        pushElementMargin(getFooter(), 0);
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
+    }
+
+    protected Element getMain() {
+        return $("main").asElement();
+    }
+
+    protected Element getHeader() {
+        return $("header").asElement();
+    }
+
+    protected Element getFooter() {
+        return $("footer").asElement();
+    }
+
+    @Override
+    public void setWidth(String width) {
+        setWidth(Integer.parseInt(width));
+    }
+
+    /**
+     * Set the menu's width in pixels.
+     */
+    public void setWidth(int width) {
+        this.width = width;
+        getElement().getStyle().setWidth(width, Unit.PX);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public boolean isCloseOnClick() {
+        return closeOnClick;
+    }
+
+    /**
+     * Close the side nav menu when an \<a\> tag is clicked
+     * from inside it. Note that if you want this to work you
+     * must wrap your item within a {@link MaterialLink}.
+     */
+    public void setCloseOnClick(boolean closeOnClick) {
+        this.closeOnClick = closeOnClick;
+    }
+
+    public Edge getEdge() {
+        return edge;
+    }
+
+    /**
+     * Set which edge of the window the menu should attach to.
+     */
+    public void setEdge(Edge edge) {
+        this.edge = edge;
+    }
+
+    protected void setType(SideNavType type) {
+        getTypeMixin().setStyle(type.getCssName());
+    }
+
+    protected boolean isSmall() {
+        return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
+    }
+
+    protected MaterialWidget getNavMenu() {
+        Element navMenuElement = DOMHelper.getElementByAttribute("data-activates", getId());
+        if (navMenuElement != null) {
+            return new MaterialWidget(navMenuElement);
+        }
+        return null;
     }
 
     protected void onClosing() {
@@ -520,24 +517,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     @Override
-    protected void onDetach() {
-        super.onDetach();
-        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
-        getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
-        getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
-        pushElement(getHeader(), 0);
-        pushElement(getMain(), 0);
-        pushElementMargin(getFooter(), 0);
-    }
-
-    @Override
-    protected void onAttach() {
-        super.onAttach();
-        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
-    }
-
-
-    @Override
     public void setInDuration(int inDuration) {
         this.inDuration = inDuration;
     }
@@ -559,6 +538,26 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
 
     public Element getActivator() {
         return activator;
+    }
+
+    @Override
+    public HandlerRegistration addOpeningHandler(SideNavOpeningHandler handler) {
+        return addHandler(handler, SideNavOpeningEvent.TYPE);
+    }
+
+    @Override
+    public HandlerRegistration addOpenedHandler(SideNavOpenedHandler handler) {
+        return addHandler(handler, SideNavOpenedEvent.TYPE);
+    }
+
+    @Override
+    public HandlerRegistration addClosingHandler(SideNavClosingHandler handler) {
+        return addHandler(handler, SideNavClosingEvent.TYPE);
+    }
+
+    @Override
+    public HandlerRegistration addClosedHandler(SideNavClosedHandler handler) {
+        return addHandler(handler, SideNavClosedEvent.TYPE);
     }
 
     protected StyleMixin<MaterialSideNav> getTypeMixin() {
