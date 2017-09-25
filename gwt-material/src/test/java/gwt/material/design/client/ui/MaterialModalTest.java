@@ -94,11 +94,6 @@ public class MaterialModalTest extends MaterialWidgetTest {
     protected void checkDuration(MaterialModal modal) {
         final int IN_DURATION = 500;
         final int OUT_DURATION = 800;
-        // Check the default in duration (Expected 300ms)
-        assertEquals(modal.getInDuration(), 300);
-        // Check the default out duration (Expected 200ms)
-        assertEquals(modal.getOutDuration(), 200);
-
         modal.setInDuration(IN_DURATION);
         assertEquals(modal.getInDuration(), IN_DURATION);
         modal.setOutDuration(OUT_DURATION);

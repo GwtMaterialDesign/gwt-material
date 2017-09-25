@@ -40,11 +40,12 @@ public class MaterialFooterCopyright extends MaterialWidget {
 
     public MaterialFooterCopyright() {
         super(Document.get().createDivElement(), CssName.FOOTER_COPYRIGHT);
-        build();
     }
 
     @Override
-    protected void build() {
+    protected void onLoad() {
+        super.onLoad();
+
         container.setStyleName(CssName.CONTAINER);
         super.add(container);
     }

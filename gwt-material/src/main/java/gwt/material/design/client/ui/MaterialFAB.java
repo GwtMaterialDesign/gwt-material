@@ -74,11 +74,6 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     protected void onLoad() {
         super.onLoad();
 
-        build();
-    }
-
-    @Override
-    protected void build() {
         if (getType() == FABType.CLICK_ONLY) {
             registerHandler(addClickHandler(clickEvent -> {
                 if (isEnabled()) {
@@ -94,7 +89,6 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
             registerHandler(addMouseOutHandler(mouseOutEvent -> CloseEvent.fire(this, this)));
         }
     }
-
 
     /**
      * Open the FAB programmatically

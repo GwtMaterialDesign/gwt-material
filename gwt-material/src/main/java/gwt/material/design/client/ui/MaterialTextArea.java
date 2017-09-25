@@ -54,7 +54,8 @@ public class MaterialTextArea extends MaterialValueBox<String> {
 
     public MaterialTextArea() {
         super(new TextArea());
-        build();
+        setType(InputType.TEXT);
+        valueBoxBase.setStyleName(CssName.MATERIALIZE_TEXTAREA);
     }
 
     public MaterialTextArea(String placeholder) {
@@ -65,12 +66,6 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     public MaterialTextArea(String placeholder, int length) {
         this(placeholder);
         setLength(length);
-    }
-
-    @Override
-    protected void build() {
-        setType(InputType.TEXT);
-        valueBoxBase.setStyleName(CssName.MATERIALIZE_TEXTAREA);
     }
 
     public void triggerAutoResize() {

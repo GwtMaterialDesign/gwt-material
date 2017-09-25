@@ -77,11 +77,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
         HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal>, HasFullscreen {
 
-    private int inDuration = 300;
-    private int outDuration = 200;
-    private boolean dismissible = false;
-    private double opacity = 0.5;
-    private JsModalOptions options;
+    private JsModalOptions options = new JsModalOptions();
 
     private CssTypeMixin<ModalType, MaterialModal> typeMixin;
     private FullscreenMixin fullscreenMixin;
@@ -103,37 +99,37 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public void setInDuration(int inDuration) {
-        this.inDuration = inDuration;
+        options.in_duration = inDuration;
     }
 
     @Override
     public int getInDuration() {
-        return inDuration;
+        return options.in_duration;
     }
 
     @Override
     public void setOutDuration(int outDuration) {
-        this.outDuration = outDuration;
+        options.out_duration = outDuration;
     }
 
     @Override
     public int getOutDuration() {
-        return outDuration;
+        return options.out_duration;
     }
 
     @Override
     public void setDismissible(boolean dismissible) {
-        this.dismissible = dismissible;
+        options.dismissible = dismissible;
     }
 
     @Override
     public boolean isDismissible() {
-        return dismissible;
+        return options.dismissible;
     }
 
     @Override
     public void setOpacity(double opacity) {
-        this.opacity = opacity;
+        options.opacity = opacity;
     }
 
     @Override
@@ -196,25 +192,16 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
             throw new IllegalStateException(
                     "The MaterialModal must be added to the document before calling open().");
         }
-        open(getElement(), opacity, dismissible, inDuration, outDuration, fireEvent);
+        open(getElement(), fireEvent);
     }
 
     /**
      * Open modal with additional properties
      *
      * @param e           - Modal Component
-     * @param opacity     - Opacity of modal background
-     * @param dismissible - Modal can be dismissed by clicking outside of the modal
-     * @param inDuration  - Transition in Duration
-     * @param outDuration - Transition out Duration
      * @param fireEvent   - Flag whether this component fires Open Event
      */
-    protected void open(Element e, double opacity, boolean dismissible, int inDuration, int outDuration, boolean fireEvent) {
-        options = new JsModalOptions();
-        options.opacity = opacity;
-        options.dismissible = dismissible;
-        options.in_duration = inDuration;
-        options.out_duration = outDuration;
+    protected void open(Element e, boolean fireEvent) {
         options.complete = () -> onNativeClose(true, true);
         options.ready = () -> onNativeOpen(fireEvent);
         $(e).openModal(options);

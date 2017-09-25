@@ -73,7 +73,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/menus.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements HasPlaceholder,
+public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
         HasConstrainedValue<T>, HasReadOnly {
 
     private final ListBox listBox = new ListBox();
@@ -91,43 +91,36 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
     @Override
     protected void onLoad() {
-        build();
-
         super.onLoad();
+
+        add(listBox);
+        add(label);
+        add(errorLabel);
+
+        registerHandler(addValueChangeHandler(valueChangeEvent -> {
+            if (isToggleReadOnly()) {
+                setReadOnly(true);
+            }
+        }));
+
+        load();
     }
 
     @Override
-    protected void build() {
-        if (!isInitialize()) {
-            $(listBox.getElement()).change((e, param) -> {
-                try {
-                    ValueChangeEvent.fire(this, getValue());
-                } catch (IndexOutOfBoundsException ex) {
-                    GWT.log("ListBox value change handler threw an exception.", ex);
-                }
-                return true;
-            });
-            registerHandler(addValueChangeHandler(valueChangeEvent -> {
-                if (isToggleReadOnly()) {
-                    setReadOnly(true);
-                }
-            }));
-            add(listBox);
-            add(label);
-            add(errorLabel);
-        }
-    }
-
-    /**
-     * Initializes the Materialize CSS list box. Should be
-     * called every time the contents of the list box
-     * changes, to keep the Materialize CSS design updated.
-     */
-    @Override
-    protected void initialize() {
+    public void load() {
         JsMaterialElement.$(listBox.getElement()).material_select(() -> JQuery.$("input.select-dropdown").trigger("close", null));
+
+        $(listBox.getElement()).change((e, param) -> {
+            try {
+                ValueChangeEvent.fire(this, getValue());
+            } catch (IndexOutOfBoundsException ex) {
+                GWT.log("ListBox value change handler threw an exception.", ex);
+            }
+            return true;
+        });
+
         // Fixed auto hide when scrolling on IE Browsers
-        JQuery.$(listBox.getElement()).siblings("input.select-dropdown").off("mousedown").on("mousedown", (e, param1) -> {
+        $(listBox.getElement()).siblings("input.select-dropdown").off("mousedown").on("mousedown", (e, param1) -> {
             if (!UiHelper.isTouchScreenDevice()) {
                 e.preventDefault();
             }
@@ -135,22 +128,25 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         });
     }
 
-    /**
-     * Initialize if we have already initialized before.
-     */
-    @Override
-    public void reinitialize() {
-        if (isInitialize()) {
-            initialize();
-        }
-    }
-
     @Override
     protected void onUnload() {
         super.onUnload();
 
+        if (listBox != null) {
+            unload();
+        }
+    }
+
+    @Override
+    public void unload() {
         $(listBox.getElement()).off("change");
         $(listBox.getElement()).material_select("destroy");
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
     public void add(T value) {
@@ -171,7 +167,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item, Direction dir) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item), dir);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -186,7 +182,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item));
-        reinitialize();
+        reload();
     }
 
     /**
@@ -199,7 +195,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item, String value) {
         values.add(item);
         listBox.addItem(value, keyFactory.generateKey(item));
-        reinitialize();
+        reload();
     }
 
     /**
@@ -214,7 +210,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void addItem(T item, Direction dir, String value) {
         values.add(item);
         listBox.addItem(value, dir, keyFactory.generateKey(item));
-        reinitialize();
+        reload();
     }
 
     /**
@@ -230,7 +226,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, int index) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), index);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -248,7 +244,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, Direction dir, int index) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), dir, index);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -267,7 +263,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, String value, int index) {
         values.add(index, item);
         listBox.insertItem(value, keyFactory.generateKey(item), index);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -287,7 +283,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void insertItem(T item, Direction dir, String value, int index) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), dir, value, index);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -299,7 +295,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void removeItem(int index) {
         values.remove(index);
         listBox.removeItem(index);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -328,7 +324,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void clear() {
         values.clear();
         listBox.clear();
-        reinitialize();
+        reload();
     }
 
     @Override
@@ -336,7 +332,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         label.setText(placeholder);
 
         if (placeholder != null) {
-            reinitialize();
+            reload();
         }
     }
 
@@ -360,7 +356,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setMultipleSelect(boolean multipleSelect) {
         listBox.setMultipleSelect(multipleSelect);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -377,7 +373,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
 
         getOptionElement(0).setDisabled(true);
 
-        reinitialize();
+        reload();
     }
 
     @Override
@@ -433,13 +429,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setValue(int index, String value) {
         listBox.setValue(index, value);
-        reinitialize();
+        reload();
     }
 
     @Override
     public void setTitle(String title) {
         listBox.setTitle(title);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -451,7 +447,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemSelected(int index, boolean selected) {
         listBox.setItemSelected(index, selected);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -463,7 +459,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemText(int index, String text) {
         listBox.setItemText(index, text);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -476,12 +472,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemText(int index, String text, Direction dir) {
         listBox.setItemText(index, text, dir);
-        reinitialize();
+        reload();
     }
 
     public void setName(String name) {
         listBox.setName(name);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -496,7 +492,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setSelectedIndex(int index) {
         listBox.setSelectedIndex(index);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -507,7 +503,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setVisibleItemCount(int visibleItems) {
         listBox.setVisibleItemCount(visibleItems);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -605,7 +601,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     @Override
     public void setEnabled(boolean enabled) {
         listBox.setEnabled(enabled);
-        reinitialize();
+        reload();
     }
 
     @Override

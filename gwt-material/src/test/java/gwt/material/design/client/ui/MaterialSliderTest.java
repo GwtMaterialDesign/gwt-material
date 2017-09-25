@@ -42,11 +42,6 @@ public class MaterialSliderTest extends MaterialWidgetTest {
     }
 
     protected void checkTransitionDuration(MaterialSlider slider) {
-        // Check defaults
-        final int DEFAULT_DURATION = 500;
-        final int DEFAULT_INTERVAL = 6000;
-        assertEquals(slider.getDuration(), DEFAULT_DURATION);
-        assertEquals(slider.getInterval(), DEFAULT_INTERVAL);
         // Check update
         final int UPDATED_DURATION = 0;
         final int UPDATED_INTERVAL = 0;

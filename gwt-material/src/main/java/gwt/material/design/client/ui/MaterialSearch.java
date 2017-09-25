@@ -133,11 +133,6 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     protected void onLoad() {
         super.onLoad();
 
-        build();
-    }
-
-    @Override
-    protected void build() {
         setType(InputType.SEARCH);
         label.add(iconSearch);
         label.getElement().setAttribute("for", "search");
@@ -150,10 +145,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
             searchResultPanel = new MaterialSearchResult();
             add(searchResultPanel);
         }
-    }
 
-    @Override
-    protected void initialize() {
         // Add Key Up event to filter the searches
         registerHandler(addKeyUpHandler(new KeyUpHandler() {
             @Override

@@ -65,11 +65,12 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
 
     public MaterialTitle() {
         super(DOM.createDiv());
-        build();
     }
 
     @Override
-    protected void build() {
+    protected void onLoad() {
+        super.onLoad();
+
         header.setFontWeight(300);
         header.getElement().getStyle().setMarginTop(60, Unit.PX);
         add(header);

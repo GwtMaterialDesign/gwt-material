@@ -33,9 +33,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasActivates;
-import gwt.material.design.client.base.HasInOutDurationTransition;
-import gwt.material.design.client.base.HasWaves;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.constants.CssName;
@@ -43,7 +41,6 @@ import gwt.material.design.client.js.JsDropdownOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -71,18 +68,11 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/menus.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialDropDown extends UnorderedList implements HasSelectionHandlers<Widget>, HasInOutDurationTransition {
+public class MaterialDropDown extends UnorderedList implements JsLoader, HasSelectionHandlers<Widget>, HasInOutDurationTransition {
 
-    private int inDuration = 300;
-    private int outDuration = 225;
-    private int gutter = 0;
-    private boolean constrainWidth = true;
-    private boolean hover = false;
-    private boolean belowOrigin = false;
-    private Alignment alignment = Alignment.LEFT;
-    private List<Widget> children = new ArrayList<>();
     private String activator;
     private Element activatorElement;
+    private JsDropdownOptions options = new JsDropdownOptions();
 
     public MaterialDropDown() {
         setInitialClasses(CssName.DROPDOWN_CONTENT);
@@ -112,7 +102,9 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     }
 
     @Override
-    protected void initialize() {
+    protected void onLoad() {
+        super.onLoad();
+
         Widget parent = getParent();
         if (parent instanceof HasActivates) {
             String uid = DOM.createUniqueId();
@@ -127,27 +119,30 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             }
         }
 
-        initialize(activatorElement);
+        load();
     }
 
     @Override
-    public void reinitialize() {
-        remove(activatorElement);
-        initialize(activatorElement);
+    protected void onUnload() {
+        super.onUnload();
+
+        unload();
     }
 
-    protected void initialize(Element activator) {
-        JsDropdownOptions options = new JsDropdownOptions();
-        options.constrain_width = constrainWidth;
-        options.inDuration = inDuration;
-        options.outDuration = outDuration;
-        options.hover = hover;
-        options.gutter = gutter;
-        options.belowOrigin = belowOrigin;
-        options.alignment = alignment.getCssName();
-        $(activator).dropdown(options);
+    @Override
+    public void load() {
+        $(activatorElement).dropdown(options);
+    }
 
-        setupActivator();
+    @Override
+    public void unload() {
+        remove(activatorElement);
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
     @Override
@@ -158,16 +153,13 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
             add(child, (Element) getElement());
         } else {
             ListItem li = new ListItem(child);
-            children.add(child);
             registerHandler(child.addDomHandler(event -> SelectionEvent.fire(MaterialDropDown.this, child), ClickEvent.getType()));
-
             // Checks if there are sub dropdown components
-
             if (child instanceof MaterialLink) {
                 MaterialLink link = (MaterialLink) child;
                 for (int i = 0; i < link.getWidgetCount(); i++) {
                     if (link.getWidget(i) instanceof MaterialDropDown) {
-                        link.addClickHandler(DomEvent::stopPropagation);
+                        registerHandler(link.addClickHandler(DomEvent::stopPropagation));
                         link.stopTouchStartEvent();
                     }
                 }
@@ -188,77 +180,77 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
 
     @Override
     public void setInDuration(int durationMillis) {
-        this.inDuration = durationMillis;
+        options.inDuration = durationMillis;
     }
 
     @Override
     public int getInDuration() {
-        return inDuration;
+        return options.inDuration;
     }
 
     @Override
     public void setOutDuration(int durationMillis) {
-        this.outDuration = durationMillis;
+        options.outDuration = durationMillis;
     }
 
     @Override
     public int getOutDuration() {
-        return outDuration;
+        return options.outDuration;
     }
 
     /**
      * If true, constrainWidth to the size of the dropdown activator. Default: true
      */
     public void setConstrainWidth(boolean constrainWidth) {
-        this.constrainWidth = constrainWidth;
+        options.constrain_width = constrainWidth;
     }
 
     public boolean isConstrainWidth() {
-        return constrainWidth;
+        return options.constrain_width;
     }
 
     /**
      * If true, the dropdown will open on hover. Default: false
      */
     public void setHover(boolean hover) {
-        this.hover = hover;
+        options.hover = hover;
     }
 
     public boolean isHover() {
-        return hover;
+        return options.hover;
     }
 
     /**
      * This defines the spacing from the aligned edge. Default: 0
      */
     public void setGutter(int gutter) {
-        this.gutter = gutter;
+        options.gutter = gutter;
     }
 
     public int getGutter() {
-        return gutter;
+        return options.gutter;
     }
 
     /**
      * If true, the dropdown will show below the activator. Default: false
      */
     public void setBelowOrigin(boolean belowOrigin) {
-        this.belowOrigin = belowOrigin;
+        options.belowOrigin = belowOrigin;
     }
 
     public boolean isBelowOrigin() {
-        return belowOrigin;
+        return options.belowOrigin;
     }
 
     /**
      * Defines the edge the menu is aligned to. Default: 'left'
      */
     public void setAlignment(Alignment alignment) {
-        this.alignment = alignment;
+        options.alignment = alignment.getCssName();
     }
 
     public Alignment getAlignment() {
-        return alignment;
+        return Alignment.fromStyleName(options.alignment);
     }
 
     /**
@@ -279,18 +271,15 @@ public class MaterialDropDown extends UnorderedList implements HasSelectionHandl
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        reinitialize();
-    }
-
-    protected void setupActivator() {
         Widget parent = getParent();
         if (parent instanceof HasEnabled) {
-            ((HasEnabled) parent).setEnabled(isEnabled());
+            ((HasEnabled)parent).setEnabled(isEnabled());
         }
+        reload();
     }
 
     public List<Widget> getItems() {
-        return children;
+        return getChildrenList();
     }
 
     public Element getActivatorElement() {

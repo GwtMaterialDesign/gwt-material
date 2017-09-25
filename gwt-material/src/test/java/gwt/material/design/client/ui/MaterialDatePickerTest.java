@@ -42,7 +42,6 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
     public void init() {
         MaterialDatePicker datePicker = new MaterialDatePicker();
         checkAbstractValueWidget(datePicker, datePicker.getDateInput());
-        datePicker.initialize();
         assertNotNull(datePicker.getPickerId());
         checkFormat(datePicker);
         checkDateMinAndMax(datePicker);

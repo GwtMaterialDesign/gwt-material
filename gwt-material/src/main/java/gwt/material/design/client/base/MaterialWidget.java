@@ -253,7 +253,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     /**
-     * Can be called multiple times to reinitialize the state of any complex widget
+     * Can be called multiple times to reload the state of any complex widget
      */
     @Deprecated
     public void reinitialize() {

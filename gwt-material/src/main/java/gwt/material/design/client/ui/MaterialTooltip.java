@@ -23,6 +23,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.base.HasReload;
+import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.events.DefaultHandlerRegistry;
 import gwt.material.design.client.js.JsTooltipOptions;
@@ -49,15 +51,13 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Tooltip</a>
  * @see <a href="https://material.io/guidelines/components/tooltips.html">Material Design Specification</a>
  */
-public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition {
+public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition, HasReload {
 
-    private int delayMs = 0;
-    private String text;
     private String id;
     private String html;
-    private Position position = Position.TOP;
     private Widget widget;
     private DefaultHandlerRegistry handlerRegistry;
+    private JsTooltipOptions options = new JsTooltipOptions();
 
     /**
      * Creates the empty Tooltip
@@ -85,25 +85,20 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
         setText(text);
     }
 
-    protected void initialize() {
-        initialize(text, position.getCssName(), delayMs);
-    }
-
-    protected void initialize(String tooltip, String position, int delay) {
-        JsTooltipOptions options = new JsTooltipOptions();
-        options.tooltip = tooltip;
-        options.position = position;
-        options.delay = delay;
+    @Override
+    public void load() {
         $(widget.getElement()).tooltip(options);
     }
 
-    /**
-     * Reconfigures the tooltip, must be called when altering
-     * any tooltip after it has already been shown.
-     */
-    public void reinitialize() {
+    @Override
+    public void unload() {
         remove();
-        initialize();
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
     /**
@@ -199,7 +194,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
             // When we attach it, configure the tooltip
             handlerRegistry.registerHandler(widget.addAttachHandler(event -> {
                 if(event.isAttached()) {
-                    reinitialize();
+                    reload();
                 } else {
                     remove();
                 }
@@ -211,7 +206,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
                     remove();
                 }
             }));
-            reinitialize();
+            reload();
         }
     }
 
@@ -248,24 +243,22 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
 
     @Override
     public void setPosition(final Position position) {
-        this.position = position;
-
+        options.position = position.getCssName();
         widget.getElement().setAttribute("data-position", position.getCssName());
     }
 
     @Override
     public Position getPosition() {
-        return position;
+        return Position.fromStyleName(options.position);
     }
 
     public void setDelayMs(final int delayMs) {
-        this.delayMs = delayMs;
-
+        options.delay = delayMs;
         widget.getElement().setAttribute("data-delay", String.valueOf(delayMs));
     }
 
     public int getDelayMs() {
-        return delayMs;
+        return options.delay;
     }
 
     /**
@@ -275,7 +268,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     @Override
     public String getText() {
-        return text;
+        return options.tooltip;
     }
 
     /**
@@ -285,8 +278,7 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     @Override
     public void setText(final String text) {
-        this.text = text;
-
+        options.tooltip = text;
         widget.getElement().setAttribute("data-tooltip", text);
     }
 

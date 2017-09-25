@@ -67,32 +67,26 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      */
     public MaterialRange() {
         super(Document.get().createFormElement());
-        build();
     }
 
     @Override
-    protected void build() {
+    protected void onLoad() {
+        super.onLoad();
+
         getElement().setAttribute("action", "#");
         errorLabel.setVisible(false);
         paragraph.setStyleName(CssName.RANGE_FIELD);
-
         rangeInputElement.setType(InputType.RANGE);
         paragraph.add(rangeInputElement);
-
         thumb.getElement().setClassName(CssName.THUMB);
+
         Span value = new Span();
         value.getElement().setClassName(CssName.VALUE);
         thumb.add(value);
 
         paragraph.add(thumb);
         add(paragraph);
-
         add(errorLabel);
-    }
-
-    @Override
-    protected void onLoad() {
-        super.onLoad();
 
         registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
     }

@@ -124,7 +124,9 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    protected void initialize() {
+    protected void onLoad() {
+        super.onLoad();
+
         String id = DOM.createUniqueId();
         valueBoxBase.getElement().setId(id);
         label.getElement().setAttribute("for", id);

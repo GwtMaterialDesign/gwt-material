@@ -52,18 +52,18 @@ public class MaterialVideo extends AbstractValueWidget<String> {
 
     public MaterialVideo() {
         super(Document.get().createDivElement(), CssName.VIDEO_CONTAINER);
-
-        build();
-    }
-
-    @Override
-    protected void build() {
-        add(frame);
     }
 
     public MaterialVideo(String url) {
         this();
         setUrl(url);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        add(frame);
     }
 
     public String getUrl() {

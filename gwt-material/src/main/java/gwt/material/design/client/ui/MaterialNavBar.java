@@ -79,11 +79,6 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
     protected void onLoad() {
         super.onLoad();
 
-        build();
-    }
-
-    @Override
-    protected void build() {
         navWrapper.setStyleName(CssName.NAV_WRAPPER);
         navWrapper.insert(navMenu,0);
         super.add(navWrapper);

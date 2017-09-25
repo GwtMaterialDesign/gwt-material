@@ -27,6 +27,7 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasType;
+import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
@@ -42,7 +43,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 /**
  * The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids.
  * Then when you click on each tab, only the container with the corresponding tab id will become visible.
- *
+ * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
  * {@code
@@ -70,7 +71,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/tabs.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialTab extends UnorderedList implements HasType<TabType>, HasSelectionHandlers<Integer> {
+public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabType>, HasSelectionHandlers<Integer> {
 
     private int tabIndex;
     private Color indicatorColor;
@@ -84,26 +85,40 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     }
 
     @Override
-    protected void initialize() {
+    protected void onLoad() {
+        super.onLoad();
+
+        load();
+
+        registerHandler(addSelectionHandler(selectionEvent -> this.tabIndex = selectionEvent.getSelectedItem()));
+    }
+
+    @Override
+    public void load() {
         if (getWidgetCount() > 0) {
             $(getElement()).tabs();
 
-            registerHandler(addSelectionHandler(selectionEvent -> this.tabIndex = selectionEvent.getSelectedItem()));
-
-            for (Widget w : getChildren()) {
-                if (w instanceof MaterialTabItem) {
-                    registerHandler(((MaterialTabItem) w).addMouseDownHandler(e -> SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(w))));
-                }
-            }
             applyIndicator();
         }
     }
 
     @Override
-    public void reinitialize() {
-        if (isInitialize()) {
-            clearAllIndicators();
-            initialize();
+    protected void onUnload() {
+        super.onUnload();
+
+        unload();
+    }
+
+    @Override
+    public void unload() {
+        clearAllIndicators();
+    }
+
+    @Override
+    public void reload() {
+        if (isAttached()) {
+            unload();
+            load();
         }
     }
 
@@ -119,26 +134,29 @@ public class MaterialTab extends UnorderedList implements HasType<TabType>, HasS
     @Override
     public void add(Widget child) {
         super.add(child);
-        reinitialize();
+        if (child instanceof MaterialTabItem) {
+            registerHandler(((MaterialTabItem) child).addMouseDownHandler(e -> SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(child))));
+        }
+        reload();
     }
 
     @Override
     public void clear() {
         super.clear();
-        reinitialize();
+        reload();
     }
 
     @Override
     public boolean remove(Widget w) {
         boolean value = super.remove(w);
-        reinitialize();
+        reload();
         return value;
     }
 
     @Override
     public void insert(Widget child, int beforeIndex) {
         super.insert(child, beforeIndex);
-        reinitialize();
+        reload();
     }
 
     protected void applyIndicator() {

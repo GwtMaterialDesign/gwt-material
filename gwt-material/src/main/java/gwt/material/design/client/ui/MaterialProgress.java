@@ -50,15 +50,17 @@ import gwt.material.design.client.ui.html.Div;
  */
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 
-    private Div fillContainer = new Div();
     private double percent = 0;
+    private Div fillContainer = new Div();
 
     private ColorsMixin<Div> fillColorMixin;
     private CssTypeMixin<ProgressType, MaterialProgress> typeMixin;
 
     public MaterialProgress() {
         super(CssName.PROGRESS);
-        build();
+        getElement().getStyle().setMargin(0, Unit.PX);
+        add(fillContainer);
+        setType(ProgressType.INDETERMINATE);
     }
 
     public MaterialProgress(ProgressType type) {
@@ -69,13 +71,6 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
     public MaterialProgress(ProgressType type, Double percent) {
         this(type);
         setPercent(percent);
-    }
-
-    @Override
-    protected void build() {
-        getElement().getStyle().setMargin(0, Unit.PX);
-        add(fillContainer);
-        setType(ProgressType.INDETERMINATE);
     }
 
     @Override

@@ -74,11 +74,7 @@ public class MaterialNavSection extends UnorderedList implements HasPosition, Ha
     @Override
     protected void onLoad() {
         super.onLoad();
-        build();
-    }
 
-    @Override
-    protected void build() {
         for (Widget widget : getChildren()) {
             if (widget instanceof ListItem) {
                 registerHandler(((ListItem) widget).addClickHandler(clickEvent -> SelectionEvent.fire(this, getWidgetIndex(widget))));
