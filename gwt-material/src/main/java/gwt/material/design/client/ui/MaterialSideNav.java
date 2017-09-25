@@ -299,7 +299,9 @@ public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSele
             getNavMenu().removeStyleName(CssName.NAVMENU_PERMANENT);
         } catch (Exception ex) {
             if (strict) {
-                throw new IllegalArgumentException("Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.");
+                throw new IllegalArgumentException(
+                    "Could not setup MaterialSideNav please ensure you have " +
+                    "MaterialNavBar with an activator setup to match this widgets id.");
             }
         }
 

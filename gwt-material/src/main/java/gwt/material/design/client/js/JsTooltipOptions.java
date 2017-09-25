@@ -30,9 +30,9 @@ public class JsTooltipOptions {
     public String tooltip;
 
     @JsProperty
-    public String position = "bottom";
+    public String position;
 
     @JsProperty
-    public int delay = 500;
+    public int delay;
 
 }

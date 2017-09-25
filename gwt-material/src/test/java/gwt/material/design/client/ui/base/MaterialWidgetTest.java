@@ -22,6 +22,7 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialPanel;
@@ -34,6 +35,9 @@ import gwt.material.design.client.ui.MaterialPanel;
 public class MaterialWidgetTest extends BaseEventTest {
 
     protected <T extends MaterialWidget> void checkWidget(T widget) {
+        if(!widget.isAttached()) {
+            RootPanel.get().add(widget);
+        }
         checkId(widget);
         checkInitialClasses(widget);
         checkEnabled(widget);

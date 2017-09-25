@@ -53,7 +53,7 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
         assertTrue(paragraph.getWidget(1) instanceof Span);
         Span thumb = (Span) paragraph.getWidget(1);
         assertTrue(thumb.getElement().hasClassName(CssName.THUMB));
-        assertEquals(thumb.getWidgetCount(), 1);
+        assertEquals(1, thumb.getWidgetCount());
         assertTrue(thumb.getWidget(0) instanceof Span);
         assertTrue(thumb.getWidget(0).getElement().hasClassName(CssName.VALUE));
 

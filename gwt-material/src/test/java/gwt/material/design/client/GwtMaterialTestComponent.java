@@ -21,6 +21,7 @@ package gwt.material.design.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
+import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.resources.WithJQueryResources;
 import gwt.material.design.client.ui.*;
@@ -47,6 +48,13 @@ public class GwtMaterialTestComponent extends GWTTestCase {
     protected void gwtSetUp() throws Exception {
         super.gwtSetUp();
         setup();
+    }
+
+    @Override
+    protected void gwtTearDown() throws Exception {
+        super.gwtTearDown();
+
+        RootPanel.get().clear();
     }
 
     public void setup() {

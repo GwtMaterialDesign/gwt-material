@@ -197,8 +197,11 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
             return;
         }
 
-        setAttribute("data-position", options.position);
         setAttribute("data-delay", String.valueOf(options.delay));
+
+        if(options.position != null) {
+            setAttribute("data-position", options.position);
+        }
 
         if(options.tooltip != null) {
             setAttribute("data-tooltip", options.tooltip);
