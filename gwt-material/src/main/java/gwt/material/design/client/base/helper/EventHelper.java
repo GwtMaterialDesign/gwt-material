@@ -26,7 +26,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 /**
  * Replaced with {@link gwt.material.design.client.events.HandlerRegistry}
  */
-@Deprecated
 public final class EventHelper {
 
     public static void onAttachOnce(HasAttachHandlers has, AttachEvent.Handler handler) {

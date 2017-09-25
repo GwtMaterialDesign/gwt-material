@@ -66,7 +66,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_fixed">Pattern</a>
  */
 //@formatter:on
-public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
+public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
 
     private int width = 240;
     private int inDuration = 400;
@@ -106,11 +106,35 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        load();
+
+        if (showOnAttach != null) {
+            // Ensure the side nav starts closed
+            $(activator).trigger("menu-in", null);
+
+            if (showOnAttach) {
+                Scheduler.get().scheduleDeferred(() -> {
+                    // We are ignoring cases with mobile
+                    if (Window.getClientWidth() > 960) {
+                        show();
+                    }
+                });
+            }
+        } else {
+            if (Window.getClientWidth() > 960) {
+                $(activator).trigger("menu-out", null);
+            }
+        }
+    }
+
+    @Override
     protected void onUnload() {
         super.onUnload();
 
-        $("#sidenav-overlay").remove();
-        activator = null;
+        unload();
     }
 
     public Widget wrap(Widget child) {
@@ -244,34 +268,26 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     @Override
-    protected void build() {
-        applyFixedType();
+    public void load() {
+        load(true);
     }
 
     @Override
-    protected void initialize() {
-        initialize(true);
-
-        if (showOnAttach != null) {
-            // Ensure the side nav starts closed
-            $(activator).trigger("menu-in", null);
-
-            if (showOnAttach) {
-                Scheduler.get().scheduleDeferred(() -> {
-                    // We are ignoring cases with mobile
-                    if (Window.getClientWidth() > 960) {
-                        show();
-                    }
-                });
-            }
-        } else {
-            if (Window.getClientWidth() > 960) {
-                $(activator).trigger("menu-out", null);
-            }
-        }
+    public void unload() {
+        $("#sidenav-overlay").remove();
+        activator = null;
     }
 
-    protected void initialize(boolean strict) {
+    /**
+     * Reinitialize the side nav configurations when changing properties.
+     */
+    @Override
+    public void reload() {
+        unload();
+        load(false);
+    }
+
+    protected void load(boolean strict) {
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
             getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
@@ -287,7 +303,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             }
         }
 
-        build();
+        applyFixedType();
 
         JsSideNavOptions options = new JsSideNavOptions();
         options.menuWidth = width;
@@ -320,16 +336,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             onOpened();
             return true;
         });
-    }
-
-    /**
-     * Reinitialize the side nav configurations when changing
-     * properties.
-     */
-    @Override
-    public void reinitialize() {
-        activator = null;
-        initialize(false);
     }
 
     @Override

@@ -103,6 +103,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
+
+        add(dateInput);
+        label.add(placeholderLabel);
+        add(label);
+        add(errorLabel);
     }
 
     public MaterialDatePicker(String placeholder) {
@@ -124,17 +129,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     protected void onLoad() {
         super.onLoad();
 
-        add(dateInput);
-        label.add(placeholderLabel);
-        add(label);
-        add(errorLabel);
-
         load();
     }
 
     @Override
     public void load() {
-
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
 
         if (options.set == null) {
@@ -168,16 +167,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     public void onUnload() {
         super.onUnload();
 
-        if (getPicker() != null) {
-            unload();
-        }
+        unload();
     }
 
     @Override
     public void unload() {
-        getPicker().off(options);
-        getPicker().off("open");
-        getPicker().off("close");
+        JsMaterialElement picker = getPicker();
+        if(picker != null) {
+            picker.off(options);
+            picker.off("open");
+            picker.off("close");
+        }
     }
 
     @Override
@@ -186,7 +186,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         load();
     }
 
-    /**
+    /*
      * Sets the type of selection options (date, month, year,...).
      *
      * @param type if <code>null</code>, {@link MaterialDatePickerType#DAY} will be used as fallback.
@@ -311,16 +311,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     public void setSelectionType(MaterialDatePickerType selectionType) {
         this.selectionType = selectionType;
         switch (selectionType) {
-            case MONTH_DAY:
-                options.selectMonths = true;
-                break;
-            case YEAR_MONTH_DAY:
-                options.selectYears = yearsToDisplay;
-                options.selectMonths = true;
-                break;
-            case YEAR:
-                options.selectYears = yearsToDisplay;
-                break;
+        case MONTH_DAY:
+            options.selectMonths = true;
+            break;
+        case YEAR_MONTH_DAY:
+            options.selectYears = yearsToDisplay;
+            options.selectMonths = true;
+            break;
+        case YEAR:
+            options.selectYears = yearsToDisplay;
+            options.selectMonths = false;
+            break;
         }
     }
 
@@ -329,19 +330,20 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
      * in the dropdown list.
      */
     public void setSelectionType(MaterialDatePickerType selectionType, int yearsToDisplay) {
-        this.selectionType = selectionType;
-        this.yearsToDisplay = yearsToDisplay;
+        setSelectionType(selectionType);
+        options.selectYears = yearsToDisplay;
     }
 
     @Override
     public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
-        JsMaterialElement element = getPicker();
-        if (element != null && orientation != null) {
-            getPicker().root.removeClass(orientation.getCssName());
+
+        JsMaterialElement picker = getPicker();
+        if (picker != null && orientation != null) {
+            picker.root.removeClass(orientation.getCssName());
         }
-        if (element != null && orientation != null) {
-            element.root.addClass(orientation.getCssName());
+        if (picker != null && orientation != null) {
+            picker.root.addClass(orientation.getCssName());
         }
     }
 
@@ -443,9 +445,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         if (language.getJs() != null) {
             ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 
+            JsMaterialElement picker = getPicker();
             Scheduler.get().scheduleDeferred(() -> {
-                getPicker().render(true);
-                getPicker().start();
+                picker.render(true);
+                picker.start();
             });
         }
     }
@@ -613,8 +616,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         label.addStyleName(CssName.ACTIVE);
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
-        fireEvent(new FocusEvent() {
-        });
+        fireEvent(new FocusEvent() {});
     }
 
     /**

@@ -20,11 +20,13 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.HasReload;
 import gwt.material.design.client.base.JsLoader;
+import gwt.material.design.client.base.helper.EventHelper;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.events.DefaultHandlerRegistry;
 import gwt.material.design.client.js.JsTooltipOptions;
@@ -56,7 +58,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     private String id;
     private String html;
     private Widget widget;
-    private DefaultHandlerRegistry handlerRegistry;
+    private DefaultHandlerRegistry handlers;
     private JsTooltipOptions options = new JsTooltipOptions();
 
     /**
@@ -92,7 +94,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
 
     @Override
     public void unload() {
-        remove();
+        command("remove");
     }
 
     @Override
@@ -103,15 +105,19 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
 
     /**
      * Force the Tooltip to be destroyed
+     * @deprecated use {@link #unload()}
      */
+    @Deprecated
     public void remove() {
-        if (widget != null) {
-            command("remove");
-        }
+        unload();
     }
 
     @Override
     public void clear() {
+        if(handlers != null) {
+            handlers.unload();
+            handlers = null;
+        }
         widget = null;
     }
 
@@ -168,12 +174,13 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     }
 
     protected void command(String command) {
-        $(widget.getElement()).tooltip(command);
+        if (widget != null) {
+            $(widget.getElement()).tooltip(command);
+        }
     }
 
     @Override
     public void setWidget(final Widget widget) {
-        handlerRegistry = new DefaultHandlerRegistry(widget);
         // Validate
         if (widget == this.widget) {
             return;
@@ -190,20 +197,29 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
             return;
         }
 
+        setAttribute("data-position", options.position);
+        setAttribute("data-delay", String.valueOf(options.delay));
+
+        if(options.tooltip != null) {
+            setAttribute("data-tooltip", options.tooltip);
+        }
+
+        handlers = new DefaultHandlerRegistry(widget);
+
         if (!this.widget.isAttached()) {
             // When we attach it, configure the tooltip
-            handlerRegistry.registerHandler(widget.addAttachHandler(event -> {
+            handlers.registerHandler(widget.addAttachHandler(event -> {
                 if(event.isAttached()) {
                     reload();
                 } else {
-                    remove();
+                    unload();
                 }
             }));
         } else {
             // ensure the tooltip is removed on detachment
-            handlerRegistry.registerHandler(widget.addAttachHandler(event -> {
+            handlers.registerHandler(widget.addAttachHandler(event -> {
                 if(!event.isAttached()) {
-                    remove();
+                    unload();
                 }
             }));
             reload();
@@ -244,17 +260,19 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     @Override
     public void setPosition(final Position position) {
         options.position = position.getCssName();
-        widget.getElement().setAttribute("data-position", position.getCssName());
+
+        setAttribute("data-position", position.getCssName());
     }
 
     @Override
     public Position getPosition() {
-        return Position.fromStyleName(options.position);
+        return options.position != null ? Position.fromStyleName(options.position) : null;
     }
 
     public void setDelayMs(final int delayMs) {
         options.delay = delayMs;
-        widget.getElement().setAttribute("data-delay", String.valueOf(delayMs));
+
+        setAttribute("data-delay", String.valueOf(delayMs));
     }
 
     public int getDelayMs() {
@@ -279,7 +297,8 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     @Override
     public void setText(final String text) {
         options.tooltip = text;
-        widget.getElement().setAttribute("data-tooltip", text);
+
+        setAttribute("data-tooltip", text);
     }
 
     /**
@@ -317,9 +336,23 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
                 .find("span")
                 .html(html != null ? html : "");
         } else {
-            handlerRegistry.registerHandler(widget.addAttachHandler(attachEvent -> $("#" + element.getAttribute("data-tooltip-id"))
+            handlers.registerHandler(widget.addAttachHandler(event ->
+                $("#" + element.getAttribute("data-tooltip-id"))
                     .find("span")
                     .html(html != null ? html : "")));
+        }
+    }
+
+    public void setAttribute(String attr, String value) {
+        if(widget != null) {
+            AttachEvent.Handler handler = event -> {
+                widget.getElement().setAttribute(attr, value);
+            };
+            if(widget.isAttached()) {
+                handler.onAttachOrDetach(null);
+            } else {
+                EventHelper.onAttachOnce(widget, handler);
+            }
         }
     }
 }

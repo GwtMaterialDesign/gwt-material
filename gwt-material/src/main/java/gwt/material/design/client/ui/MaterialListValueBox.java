@@ -108,7 +108,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     @Override
     public void load() {
-        JsMaterialElement.$(listBox.getElement()).material_select(() -> JQuery.$("input.select-dropdown").trigger("close", null));
+        JsMaterialElement.$(listBox.getElement()).material_select(
+            () -> JQuery.$("input.select-dropdown").trigger("close", null));
 
         $(listBox.getElement()).change((e, param) -> {
             try {
@@ -132,15 +133,15 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     protected void onUnload() {
         super.onUnload();
 
-        if (listBox != null) {
-            unload();
-        }
+        unload();
     }
 
     @Override
     public void unload() {
-        $(listBox.getElement()).off("change");
-        $(listBox.getElement()).material_select("destroy");
+        if (listBox != null && listBox.isAttached()) {
+            $(listBox.getElement()).off("change");
+            $(listBox.getElement()).material_select("destroy");
+        }
     }
 
     @Override
@@ -156,33 +157,57 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Adds an item to the list box, specifying its direction. This method has
      * the same effect as
-     * <p>
-     * <pre>
-     * addItem(item, dir, item)
-     * </pre>
+     * <pre>addItem(item, dir, item)</pre>
      *
      * @param item the text of the item to be added
      * @param dir  the item's direction
      */
     public void addItem(T item, Direction dir) {
+        addItem(item, dir, true);
+    }
+
+    /**
+     * Adds an item to the list box, specifying its direction. This method has
+     * the same effect as
+     * <pre>addItem(item, dir, item)</pre>
+     *
+     * @param item the text of the item to be added
+     * @param dir  the item's direction
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T item, Direction dir, boolean reload) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item), dir);
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
      * Adds an item to the list box. This method has the same effect as
-     * <p>
-     * <pre>
-     * addItem(item, item)
-     * </pre>
+     * <pre>addItem(item, item)</pre>
      *
      * @param item the text of the item to be added
      */
     public void addItem(T item) {
+        addItem(item, true);
+    }
+
+    /**
+     * Adds an item to the list box. This method has the same effect as
+     * <pre>addItem(item, item)</pre>
+     *
+     * @param item the text of the item to be added
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T item, boolean reload) {
         values.add(item);
         listBox.addItem(keyFactory.generateKey(item));
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
@@ -193,9 +218,24 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      *              {@link FormPanel}; cannot be <code>null</code>
      */
     public void addItem(T item, String value) {
+        addItem(item, value, true);
+    }
+
+    /**
+     * Adds an item to the list box, specifying an initial value for the item.
+     *
+     * @param item  the text of the item to be added
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T item, String value, boolean reload) {
         values.add(item);
         listBox.addItem(value, keyFactory.generateKey(item));
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
@@ -208,52 +248,92 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      *              {@link FormPanel}; cannot be <code>null</code>
      */
     public void addItem(T item, Direction dir, String value) {
+        addItem(item, dir, value, true);
+    }
+
+    /**
+     * Adds an item to the list box, specifying its direction and an initial
+     * value for the item.
+     *
+     * @param item  the text of the item to be added
+     * @param dir   the item's direction
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T item, Direction dir, String value, boolean reload) {
         values.add(item);
         listBox.addItem(value, dir, keyFactory.generateKey(item));
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
      * Inserts an item into the list box. Has the same effect as
-     * <p>
-     * <pre>
-     * insertItem(item, item, index)
-     * </pre>
+     * <pre>insertItem(item, item, index)</pre>
      *
      * @param item  the text of the item to be inserted
      * @param index the index at which to insert it
      */
     public void insertItem(T item, int index) {
+        insertItem(item, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box. Has the same effect as
+     * <pre>insertItem(item, item, index)</pre>
+     *
+     * @param item  the text of the item to be inserted
+     * @param index the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T item, int index, boolean reload) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), index);
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
      * Inserts an item into the list box, specifying its direction. Has the same
      * effect as
-     * <p>
-     * <pre>
-     * insertItem(item, dir, item, index)
-     * </pre>
+     * <pre>insertItem(item, dir, item, index)</pre>
      *
      * @param item  the text of the item to be inserted
      * @param dir   the item's direction
      * @param index the index at which to insert it
      */
     public void insertItem(T item, Direction dir, int index) {
+        insertItem(item, dir, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box, specifying its direction. Has the same
+     * effect as
+     * <pre>insertItem(item, dir, item, index)</pre>
+     *
+     * @param item  the text of the item to be inserted
+     * @param dir   the item's direction
+     * @param index the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T item, Direction dir, int index, boolean reload) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), dir, index);
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
      * Inserts an item into the list box, specifying an initial value for the
      * item. Has the same effect as
-     * <p>
-     * <pre>
-     * insertItem(item, null, value, index)
-     * </pre>
+     * <pre>insertItem(item, null, value, index)</pre>
      *
      * @param item  the text of the item to be inserted
      * @param value the item's value, to be submitted if it is part of a
@@ -261,9 +341,27 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index at which to insert it
      */
     public void insertItem(T item, String value, int index) {
+        insertItem(item, value, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box, specifying an initial value for the
+     * item. Has the same effect as
+     * <pre>insertItem(item, null, value, index)</pre>
+     *
+     * @param item  the text of the item to be inserted
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param index the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T item, String value, int index, boolean reload) {
         values.add(index, item);
         listBox.insertItem(value, keyFactory.generateKey(item), index);
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
@@ -281,9 +379,31 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index at which to insert it
      */
     public void insertItem(T item, Direction dir, String value, int index) {
+        insertItem(item, dir, value, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box, specifying its direction and an
+     * initial value for the item. If the index is less than zero, or greater
+     * than or equal to the length of the list, then the item will be appended
+     * to the end of the list.
+     *
+     * @param item  the text of the item to be inserted
+     * @param dir   the item's direction. If {@code null}, the item is displayed
+     *              in the widget's overall direction, or, if a direction
+     *              estimator has been set, in the item's estimated direction.
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param index the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T item, Direction dir, String value, int index, boolean reload) {
         values.add(index, item);
         listBox.insertItem(keyFactory.generateKey(item), dir, value, index);
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
@@ -293,9 +413,23 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void removeItem(int index) {
+        removeItem(index, true);
+    }
+
+    /**
+     * Removes the item at the specified index.
+     *
+     * @param index the index of the item to be removed
+     * @param reload perform a 'material select' reload to update the DOM.
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
+    public void removeItem(int index, boolean reload) {
         values.remove(index);
         listBox.removeItem(index);
-        reload();
+
+        if(reload) {
+            reload();
+        }
     }
 
     /**
@@ -305,9 +439,20 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param value the value to be removed from the list
      */
     public void removeValue(String value) {
+        removeValue(value, true);
+    }
+
+    /**
+     * Removes a value from the list box. Nothing is done if the value isn't on
+     * the list box.
+     *
+     * @param value the value to be removed from the list
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void removeValue(String value, boolean reload) {
         int idx = getIndex(value);
         if (idx >= 0) {
-            removeItem(idx);
+            removeItem(idx, reload);
         }
     }
 

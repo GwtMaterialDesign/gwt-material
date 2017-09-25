@@ -105,6 +105,18 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
     protected void onLoad() {
         super.onLoad();
 
+        load();
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        unload();
+    }
+
+    @Override
+    public void load() {
         Widget parent = getParent();
         if (parent instanceof HasActivates) {
             String uid = DOM.createUniqueId();
@@ -119,24 +131,12 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             }
         }
 
-        load();
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        unload();
-    }
-
-    @Override
-    public void load() {
         $(activatorElement).dropdown(options);
     }
 
     @Override
     public void unload() {
-        remove(activatorElement);
+        $(activatorElement).dropdown("remove");
     }
 
     @Override
@@ -172,10 +172,6 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             li.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             add(li, (Element) getElement());
         }
-    }
-
-    protected void remove(Element activator) {
-        $(activator).dropdown("remove");
     }
 
     @Override
@@ -288,15 +284,10 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
 
     @Override
     public HandlerRegistration addSelectionHandler(final SelectionHandler<Widget> handler) {
-        return addHandler(new SelectionHandler<Widget>() {
-            @Override
-            public void onSelection(SelectionEvent<Widget> event) {
-                Widget widget = event.getSelectedItem();
-                if (widget instanceof HasEnabled) {
-                    if (((HasEnabled) widget).isEnabled() && isEnabled()) {
-                        handler.onSelection(event);
-                    }
-                }
+        return addHandler((SelectionHandler<Widget>)event -> {
+            Widget widget = event.getSelectedItem();
+            if (widget instanceof HasEnabled && ((HasEnabled) widget).isEnabled() && isEnabled()) {
+                handler.onSelection(event);
             }
         }, SelectionEvent.getType());
     }
