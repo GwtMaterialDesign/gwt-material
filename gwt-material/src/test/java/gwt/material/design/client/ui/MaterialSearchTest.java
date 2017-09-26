@@ -19,40 +19,50 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.SearchObject;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.ui.html.Label;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Test case for Search
+ * Test case for Search.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialSearchTest extends MaterialValueBoxTest {
+public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
 
-    public void init() {
-        MaterialSearch search = new MaterialSearch();
-        RootPanel.get().add(search);
-        checkStructure(search);
-        checkSearchEvents(search);
-        checkCloseHandler(search);
-        checkValueBox(search);
-        checkValueChangeEvent(search, "Value 1", "Value 2");
+    @Override
+    protected MaterialSearch createWidget() {
+        return new MaterialSearch();
     }
 
-    public <T extends MaterialSearch> void checkStructure(T search) {
-        assertEquals(search.getType(), InputType.SEARCH);
-        assertEquals(search.getChildren().size(), 4);
+    @Override
+    public void testValue() {
+        // given
+        MaterialSearch search = getWidget();
 
-        assertEquals(search.getWidget(0), search.getValueBoxBase());
-        assertEquals(search.getWidget(1), search.getLabel());
-        assertEquals(search.getWidget(2), search.getIconClose());
-        assertEquals(search.getWidget(3), search.getSearchResultPanel());
+        // when / then
+        search.setValue("test");
+        assertEquals("test", search.getValue());
+    }
 
-        search.onLoad();
+    public void testStructure() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        assertEquals(InputType.SEARCH, search.getType());
+        assertEquals(4, search.getChildren().size());
+
+        assertEquals(search.getValueBoxBase(), search.getWidget(0));
+        assertEquals(search.getLabel(), search.getWidget(1));
+        assertEquals(search.getIconClose(), search.getWidget(2));
+        assertEquals(search.getSearchResultPanel(), search.getWidget(3));
+
         MaterialSearchResult searchResultWidget = search.getSearchResultPanel();
         assertNotNull(searchResultWidget);
 
@@ -67,6 +77,33 @@ public class MaterialSearchTest extends MaterialValueBoxTest {
         // Expected result by default 0
         search.setListSearches(objects);
         assertEquals(objects.size(), search.getListSearches().size());
-        assertEquals(searchResultWidget.getChildren().size(), 0);
+        assertEquals(0, searchResultWidget.getChildren().size());
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        checkValueChangeEvent(search, "Value 1", "Value 2");
+    }
+
+    public void testActiveState() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        search.setLabel("Label");
+        search.setPlaceholder("Placeholder");
+
+        search.setActive(true);
+        assertTrue(search.isActive());
+        assertTrue(search.getWidget(2) instanceof Label);
+        assertEquals("Label", search.getWidget(2).getElement().getInnerHTML());
+        assertTrue(search.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
+
+        search.setActive(false);
+        assertFalse(search.isActive());
+        assertFalse(search.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
     }
 }

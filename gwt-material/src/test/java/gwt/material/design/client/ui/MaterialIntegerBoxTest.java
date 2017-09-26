@@ -20,15 +20,33 @@
 package gwt.material.design.client.ui;
 
 /**
- * Test case for Integer Box
+ * Test case for Integer Box.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialIntegerBoxTest extends MaterialValueBoxTest {
+public class MaterialIntegerBoxTest extends MaterialValueBoxTest<MaterialIntegerBox> {
 
-    public void init() {
-        MaterialIntegerBox integerBox = new MaterialIntegerBox();
-        checkValueBox(integerBox);
+    @Override
+    protected MaterialIntegerBox createWidget() {
+        return new MaterialIntegerBox();
+    }
+
+    @Override
+    public void testValue() {
+        // given
+        MaterialIntegerBox integerBox = getWidget();
+
+        // when / then
+        integerBox.setValue(123);
+        assertEquals(123, (int)integerBox.getValue());
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialIntegerBox integerBox = getWidget();
+
+        // when / then
         checkValueChangeEvent(integerBox, 1, 2);
     }
 }

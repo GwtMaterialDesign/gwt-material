@@ -19,39 +19,42 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 /**
- * Test case for Slider
+ * Test case for Slider.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialSliderTest extends MaterialWidgetTest {
+public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
 
-    public void init() {
-        MaterialSlider slider = new MaterialSlider();
-        RootPanel.get().add(slider);
-        checkWidget(slider);
-        generateSliderItems(slider);
-        checkFullscreen(slider);
-        checkTransitionDuration(slider);
+    @Override
+    protected MaterialSlider createWidget() {
+        return new MaterialSlider();
     }
 
-    protected void checkTransitionDuration(MaterialSlider slider) {
-        // Check update
+    public void testTransitionDuration() {
+        // given
+        MaterialSlider slider = getWidget();
+
+        // when / then
         final int UPDATED_DURATION = 0;
         final int UPDATED_INTERVAL = 0;
         slider.setDuration(UPDATED_DURATION);
         slider.setInterval(UPDATED_INTERVAL);
-        assertEquals(slider.getDuration(), UPDATED_DURATION);
-        assertEquals(slider.getInterval(), UPDATED_INTERVAL);
+        assertEquals(UPDATED_DURATION, slider.getDuration());
+        assertEquals(UPDATED_INTERVAL, slider.getInterval());
     }
 
-    protected void generateSliderItems(MaterialSlider slider) {
+    public void testSliderItems() {
+        // given
+        MaterialSlider slider = getWidget();
+
+        // when / then
         assertNotNull(slider.getWidget(0));
         assertTrue(slider.getWidget(0) instanceof UnorderedList);
         UnorderedList ul = (UnorderedList) slider.getWidget(0);
@@ -59,17 +62,15 @@ public class MaterialSliderTest extends MaterialWidgetTest {
 
         for (int i = 1; i <= 5; i++) {
             MaterialSlideItem item = new MaterialSlideItem();
-            checkWidget(item);
             MaterialImage image = new MaterialImage();
             MaterialSlideCaption caption = new MaterialSlideCaption();
-            checkWidget(caption);
             item.add(image);
             item.add(caption);
             slider.add(item);
         }
 
         // Check the children of Slides Container (Unordered List)
-        assertEquals(ul.getChildren().size(), 5);
+        assertEquals(5, ul.getChildren().size());
         for (Widget w : ul.getChildren()) {
             assertTrue(w instanceof MaterialSlideItem);
             MaterialSlideItem item = (MaterialSlideItem) w;

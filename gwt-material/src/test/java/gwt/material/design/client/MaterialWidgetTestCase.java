@@ -1,53 +1,74 @@
-/*
- * #%L
- * GwtMaterial
- * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-package gwt.material.design.client.ui.base;
+package gwt.material.design.client;
 
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.logical.shared.*;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.GestureChangeEvent;
+import com.google.gwt.event.dom.client.GestureChangeHandler;
+import com.google.gwt.event.dom.client.GestureEndEvent;
+import com.google.gwt.event.dom.client.GestureEndHandler;
+import com.google.gwt.event.dom.client.GestureStartEvent;
+import com.google.gwt.event.dom.client.GestureStartHandler;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.TouchCancelEvent;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.logical.shared.HasOpenHandlers;
+import com.google.gwt.event.logical.shared.OpenEvent;
+import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasSearchHandlers;
+import com.google.gwt.event.shared.HasHandlers;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.HasColors;
+import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.events.SearchFinishEvent;
-import gwt.material.design.client.events.SearchNoResultEvent;
-import gwt.material.design.client.ui.MaterialSearch;
-import junit.framework.TestCase;
+import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.constants.CssName;
 
-/**
- * Test case for GMD Events
- *
- * @author kevzlou7979
- */
-public class BaseEventTest extends TestCase {
+public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends WidgetTestCase<T> {
 
-    protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
-        checkClickAndDoubleClickEvent(widget, enabled);
-        checkAllMouseEvent(widget, enabled);
-        checkAllTouchEvent(widget, enabled);
-        checkAllGestureEvent(widget, enabled);
-        checkAllKeyEvent(widget, enabled);
-        checkFocusEvent(widget, enabled);
+    public void testFocusAndBlurEvents() {
+        // given
+        T widget = getWidget();
+
+        // when / then
+        checkFocusAndBlurEvents(widget);
+
+        widget.setEnabled(false);
+        checkFocusAndBlurEvents(widget);
     }
 
-    protected <T extends MaterialWidget> void checkFocusEvent(T widget, boolean enabled) {
-        widget.setEnabled(enabled);
+    protected <H extends MaterialWidget> void checkFocusAndBlurEvents(H widget) {
         // Check Focus
         final boolean[] isFocusFired = {false};
         widget.addFocusHandler(focusEvent -> isFocusFired[0] = true);
@@ -58,17 +79,16 @@ public class BaseEventTest extends TestCase {
         widget.addBlurHandler(blurEvent -> isBlurFired[0] = true);
         fireBlurEvent(widget);
 
-        assertEquals(isFocusFired[0], enabled);
-        assertEquals(isBlurFired[0], enabled);
+        assertEquals(widget.isEnabled(), isFocusFired[0]);
+        assertEquals(widget.isEnabled(), isBlurFired[0]);
     }
 
-    public <T extends MaterialWidget> void fireFocusEvent(T widget) {
+    public void fireFocusEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<FocusHandler>() {
             @Override
             public Type<FocusHandler> getAssociatedType() {
                 return FocusEvent.getType();
             }
-
             @Override
             protected void dispatch(FocusHandler eventHandler) {
                 eventHandler.onFocus(null);
@@ -76,13 +96,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireBlurEvent(T widget) {
+    public void fireBlurEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<BlurHandler>() {
             @Override
             public Type<BlurHandler> getAssociatedType() {
                 return BlurEvent.getType();
             }
-
             @Override
             protected void dispatch(BlurHandler eventHandler) {
                 eventHandler.onBlur(null);
@@ -90,8 +109,18 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    protected <T extends MaterialWidget> void checkClickAndDoubleClickEvent(T widget, boolean enabled) {
-        widget.setEnabled(enabled);
+    public void testClickAndDoubleClickEvents() {
+        // given
+        T widget = getWidget();
+
+        // when / then
+        checkClickAndDoubleClickEvents(widget);
+
+        widget.setEnabled(false);
+        checkClickAndDoubleClickEvents(widget);
+    }
+
+    protected <H extends MaterialWidget> void checkClickAndDoubleClickEvents(H widget) {
         // Check Click Event
         final boolean[] isClickFired = {false};
         widget.addClickHandler(clickEvent -> isClickFired[0] = true);
@@ -102,17 +131,16 @@ public class BaseEventTest extends TestCase {
         widget.addDoubleClickHandler(doubleClickEvent -> isDoubleClickFired[0] = true);
         fireDoubleClickEvent(widget);
 
-        assertEquals(isClickFired[0], enabled);
-        assertEquals(isDoubleClickFired[0], enabled);
+        assertEquals(widget.isEnabled(), isClickFired[0]);
+        assertEquals(widget.isEnabled(), isDoubleClickFired[0]);
     }
 
-    public <T extends Widget> void fireClickEvent(T widget) {
+    public void fireClickEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<ClickHandler>() {
             @Override
             public Type<ClickHandler> getAssociatedType() {
                 return ClickEvent.getType();
             }
-
             @Override
             protected void dispatch(ClickHandler eventHandler) {
                 eventHandler.onClick(null);
@@ -120,14 +148,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-
-    public <T extends MaterialWidget> void fireDoubleClickEvent(T widget) {
+    public void fireDoubleClickEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<DoubleClickHandler>() {
             @Override
             public Type<DoubleClickHandler> getAssociatedType() {
                 return DoubleClickEvent.getType();
             }
-
             @Override
             protected void dispatch(DoubleClickHandler eventHandler) {
                 eventHandler.onDoubleClick(null);
@@ -135,8 +161,18 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    protected <T extends MaterialWidget> void checkAllKeyEvent(T widget, boolean enabled) {
-        widget.setEnabled(enabled);
+    public void testKeyEvents() {
+        // given
+        T widget = getWidget();
+
+        // when / then
+        checkKeyEvents(widget);
+
+        widget.setEnabled(false);
+        checkKeyEvents(widget);
+    }
+
+    protected <H extends MaterialWidget> void checkKeyEvents(H widget) {
         // Key Down
         final boolean[] isKeyDownFired = {false};
         widget.addKeyDownHandler(keyDownEvent -> isKeyDownFired[0] = true);
@@ -152,18 +188,17 @@ public class BaseEventTest extends TestCase {
         widget.addKeyPressHandler(keyPressEvent -> isKeyPressFired[0] = true);
         fireKeyPressEvent(widget);
 
-        assertEquals(isKeyDownFired[0], enabled);
-        assertEquals(isKeyUpFired[0], enabled);
-        assertEquals(isKeyPressFired[0], enabled);
+        assertEquals(widget.isEnabled(), isKeyDownFired[0]);
+        assertEquals(widget.isEnabled(), isKeyUpFired[0]);
+        assertEquals(widget.isEnabled(), isKeyPressFired[0]);
     }
 
-    public <T extends MaterialWidget> void fireKeyDownEvent(T widget) {
+    public void fireKeyDownEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<KeyDownHandler>() {
             @Override
             public Type<KeyDownHandler> getAssociatedType() {
                 return KeyDownEvent.getType();
             }
-
             @Override
             protected void dispatch(KeyDownHandler eventHandler) {
                 eventHandler.onKeyDown(null);
@@ -171,13 +206,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireKeyUpEvent(T widget) {
+    public void fireKeyUpEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<KeyUpHandler>() {
             @Override
             public Type<KeyUpHandler> getAssociatedType() {
                 return KeyUpEvent.getType();
             }
-
             @Override
             protected void dispatch(KeyUpHandler eventHandler) {
                 eventHandler.onKeyUp(null);
@@ -185,13 +219,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireKeyPressEvent(T widget) {
+    public void fireKeyPressEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<KeyPressHandler>() {
             @Override
             public Type<KeyPressHandler> getAssociatedType() {
                 return KeyPressEvent.getType();
             }
-
             @Override
             protected void dispatch(KeyPressHandler eventHandler) {
                 eventHandler.onKeyPress(null);
@@ -199,8 +232,18 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    protected <T extends MaterialWidget> void checkAllGestureEvent(T widget, boolean enabled) {
-        widget.setEnabled(enabled);
+    public void testGestureEvents() {
+        // given
+        T widget = getWidget();
+
+        // when / then
+        checkGestureEvents(widget);
+
+        widget.setEnabled(false);
+        checkGestureEvents(widget);
+    }
+
+    protected <H extends MaterialWidget> void checkGestureEvents(H widget) {
         // Gesture Start
         final boolean[] isGestureStartFired = {false};
         widget.addGestureStartHandler(gestureStartEvent -> isGestureStartFired[0] = true);
@@ -216,18 +259,17 @@ public class BaseEventTest extends TestCase {
         widget.addGestureChangeHandler(gestureChangeEvent -> isGestureChangeFired[0] = true);
         fireGestureChangeEvent(widget);
 
-        assertEquals(isGestureStartFired[0], enabled);
-        assertEquals(isGestureChangeFired[0], enabled);
-        assertEquals(isGestureEndFired[0], enabled);
+        assertEquals(widget.isEnabled(), isGestureStartFired[0]);
+        assertEquals(widget.isEnabled(), isGestureChangeFired[0]);
+        assertEquals(widget.isEnabled(), isGestureEndFired[0]);
     }
 
-    public <T extends MaterialWidget> void fireGestureStartEvent(T widget) {
+    public void fireGestureStartEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<GestureStartHandler>() {
             @Override
             public Type<GestureStartHandler> getAssociatedType() {
                 return GestureStartEvent.getType();
             }
-
             @Override
             protected void dispatch(GestureStartHandler eventHandler) {
                 eventHandler.onGestureStart(null);
@@ -235,13 +277,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireGestureChangeEvent(T widget) {
+    public void fireGestureChangeEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<GestureChangeHandler>() {
             @Override
             public Type<GestureChangeHandler> getAssociatedType() {
                 return GestureChangeEvent.getType();
             }
-
             @Override
             protected void dispatch(GestureChangeHandler eventHandler) {
                 eventHandler.onGestureChange(null);
@@ -249,13 +290,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireGestureEndEvent(T widget) {
+    public void fireGestureEndEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<GestureEndHandler>() {
             @Override
             public Type<GestureEndHandler> getAssociatedType() {
                 return GestureEndEvent.getType();
             }
-
             @Override
             protected void dispatch(GestureEndHandler eventHandler) {
                 eventHandler.onGestureEnd(null);
@@ -263,8 +303,18 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    protected <T extends MaterialWidget> void checkAllTouchEvent(T widget, boolean enabled) {
-        widget.setEnabled(enabled);
+    public void testTouchEvents() {
+        // given
+        T widget = getWidget();
+
+        // when / then
+        checkTouchEvents(widget);
+
+        widget.setEnabled(false);
+        checkTouchEvents(widget);
+    }
+
+    protected <H extends MaterialWidget> void checkTouchEvents(H widget) {
         // Touch Start
         final boolean[] isTouchStartFired = {false};
         widget.addTouchStartHandler(touchStartEvent -> isTouchStartFired[0] = true);
@@ -285,13 +335,13 @@ public class BaseEventTest extends TestCase {
         widget.addTouchCancelHandler(touchCancelEvent -> isTouchCancelFired[0] = true);
         fireTouchCancelEvent(widget);
 
-        assertEquals(isTouchStartFired[0], enabled);
-        assertEquals(isTouchMoveFired[0], enabled);
-        assertEquals(isTouchEndFired[0], enabled);
-        assertEquals(isTouchCancelFired[0], enabled);
+        assertEquals(widget.isEnabled(), isTouchStartFired[0]);
+        assertEquals(widget.isEnabled(), isTouchMoveFired[0]);
+        assertEquals(widget.isEnabled(), isTouchEndFired[0]);
+        assertEquals(widget.isEnabled(), isTouchCancelFired[0]);
     }
 
-    public <T extends MaterialWidget> void fireTouchStartEvent(T widget) {
+    public void fireTouchStartEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<TouchStartHandler>() {
             @Override
             public Type<TouchStartHandler> getAssociatedType() {
@@ -305,7 +355,7 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireTouchMoveEvent(T widget) {
+    public void fireTouchMoveEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<TouchMoveHandler>() {
             @Override
             public Type<TouchMoveHandler> getAssociatedType() {
@@ -319,7 +369,7 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireTouchEndEvent(T widget) {
+    public void fireTouchEndEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<TouchEndHandler>() {
             @Override
             public Type<TouchEndHandler> getAssociatedType() {
@@ -333,7 +383,7 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireTouchCancelEvent(T widget) {
+    public void fireTouchCancelEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<TouchCancelHandler>() {
             @Override
             public Type<TouchCancelHandler> getAssociatedType() {
@@ -347,8 +397,18 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    protected <T extends MaterialWidget> void checkAllMouseEvent(T widget, boolean enabled) {
-        widget.setEnabled(enabled);
+    public void testMouseEvents() {
+        // given
+        T widget = getWidget();
+
+        // when / then
+        checkMouseEvents(widget);
+
+        widget.setEnabled(false);
+        checkMouseEvents(widget);
+    }
+
+    protected <H extends MaterialWidget> void checkMouseEvents(H widget) {
         // Check Mouse Down Event
         final boolean[] isMouseDownFired = {false};
         widget.addMouseDownHandler(mouseDownEvent -> isMouseDownFired[0] = true);
@@ -380,7 +440,7 @@ public class BaseEventTest extends TestCase {
         assertEquals(isMouseOverFired[0], widget.isEnabled());
     }
 
-    public <T extends MaterialWidget> void fireMouseUpEvent(T widget) {
+    public void fireMouseUpEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<MouseUpHandler>() {
             @Override
             public Type<MouseUpHandler> getAssociatedType() {
@@ -394,7 +454,7 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireMouseDownEvent(T widget) {
+    public void fireMouseDownEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<MouseDownHandler>() {
             @Override
             public Type<MouseDownHandler> getAssociatedType() {
@@ -408,13 +468,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireMouseMoveEvent(T widget) {
+    public void fireMouseMoveEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<MouseMoveHandler>() {
             @Override
             public Type<MouseMoveHandler> getAssociatedType() {
                 return MouseMoveEvent.getType();
             }
-
             @Override
             protected void dispatch(MouseMoveHandler eventHandler) {
                 eventHandler.onMouseMove(null);
@@ -422,13 +481,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireMouseWheelEvent(T widget) {
+    public void fireMouseWheelEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<MouseWheelHandler>() {
             @Override
             public Type<MouseWheelHandler> getAssociatedType() {
                 return MouseWheelEvent.getType();
             }
-
             @Override
             protected void dispatch(MouseWheelHandler eventHandler) {
                 eventHandler.onMouseWheel(null);
@@ -436,13 +494,12 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget> void fireMouseOverEvent(T widget) {
+    public void fireMouseOverEvent(HasHandlers widget) {
         widget.fireEvent(new GwtEvent<MouseOverHandler>() {
             @Override
             public Type<MouseOverHandler> getAssociatedType() {
                 return MouseOverEvent.getType();
             }
-
             @Override
             protected void dispatch(MouseOverHandler eventHandler) {
                 eventHandler.onMouseOver(null);
@@ -450,71 +507,63 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialSearch & HasSearchHandlers> void checkSearchEvents(T widget) {
-        // Check Search Finish Event
-        final boolean[] isSearchFinishEvent = {false};
-        widget.addSearchFinishHandler(event -> {
-            isSearchFinishEvent[0] = true;
-        });
-        fireSearchFinishHandler(widget);
-
-        // Check Search No Result
-        final boolean[] isSearchNoResultEvent = {false};
-        widget.addSearchNoResultHandler(event -> {
-            isSearchNoResultEvent[0] = true;
-        });
-        fireSearchNoResultHandler(widget);
-
-        assertTrue(isSearchNoResultEvent[0]);
-        assertTrue(isSearchFinishEvent[0]);
+    protected <H extends UIObject & HasEnabled> void checkEnabled(HasEnabled widget, H target) {
+        final Element element = target.getElement();
+        assertFalse(element.hasClassName(CssName.DISABLED));
+        assertFalse(element.hasAttribute(CssName.DISABLED));
+        widget.setEnabled(true);
+        assertFalse(element.hasClassName(CssName.DISABLED));
+        assertFalse(element.hasAttribute(CssName.DISABLED));
+        assertEquals(widget.isEnabled(), true);
+        widget.setEnabled(false);
+        assertTrue(element.hasClassName(CssName.DISABLED));
+        assertTrue(element.hasAttribute(CssName.DISABLED));
+        assertEquals(target.isEnabled(), false);
     }
 
-    protected <T extends MaterialSearch & HasSearchHandlers> void fireSearchNoResultHandler(T widget) {
-        widget.fireEvent(new GwtEvent<SearchNoResultEvent.SearchNoResultHandler>() {
-            @Override
-            public Type<SearchNoResultEvent.SearchNoResultHandler> getAssociatedType() {
-                return SearchNoResultEvent.TYPE;
-            }
+    // Generic Event Handling
 
-            @Override
-            protected void dispatch(SearchNoResultEvent.SearchNoResultHandler eventHandler) {
-                eventHandler.onSearchNoResult(null);
-            }
+    public <H extends MaterialWidget & HasOpenHandlers> void checkOpenHandler(H widget) {
+        // Check Open Event
+        final boolean[] fired = {false};
+        widget.addOpenHandler(event -> {
+            fired[0] = true;
         });
+        fireOpenHandler(widget);
+
+        assertTrue(fired[0]);
     }
 
-    protected <T extends MaterialSearch & HasSearchHandlers> void fireSearchFinishHandler(T widget) {
-        widget.fireEvent(new GwtEvent<SearchFinishEvent.SearchFinishHandler>() {
+    protected <H extends MaterialWidget & HasOpenHandlers> void fireOpenHandler(H widget) {
+        widget.fireEvent(new GwtEvent<OpenHandler<?>>() {
             @Override
-            public Type<SearchFinishEvent.SearchFinishHandler> getAssociatedType() {
-                return SearchFinishEvent.TYPE;
+            public Type<OpenHandler<?>> getAssociatedType() {
+                return OpenEvent.getType();
             }
-
             @Override
-            protected void dispatch(SearchFinishEvent.SearchFinishHandler eventHandler) {
-                eventHandler.onSearchFinish(null);
+            protected void dispatch(OpenHandler<?> eventHandler) {
+                eventHandler.onOpen(null);
             }
         });
     }
 
-    public <T extends MaterialWidget & HasCloseHandlers> void checkCloseHandler(T widget) {
-        // Check Close Event
-        final boolean[] isCloseEvent = {false};
+    public <H extends MaterialWidget & HasCloseHandlers> void checkCloseHandler(H widget) {
+        // Check Open Event
+        final boolean[] fired = {false};
         widget.addCloseHandler(event -> {
-            isCloseEvent[0] = true;
+            fired[0] = true;
         });
         fireCloseHandler(widget);
 
-        assertTrue(isCloseEvent[0]);
+        assertTrue(fired[0]);
     }
 
-    protected <T extends MaterialWidget & HasCloseHandlers> void fireCloseHandler(T widget) {
+    protected <H extends MaterialWidget & HasCloseHandlers> void fireCloseHandler(H widget) {
         widget.fireEvent(new GwtEvent<CloseHandler<?>>() {
             @Override
             public Type<CloseHandler<?>> getAssociatedType() {
                 return CloseEvent.getType();
             }
-
             @Override
             protected void dispatch(CloseHandler<?> eventHandler) {
                 eventHandler.onClose(null);
@@ -522,28 +571,50 @@ public class BaseEventTest extends TestCase {
         });
     }
 
-    public <T extends MaterialWidget & HasOpenHandlers> void checkOpenHandler(T widget) {
-        // Check Open Event
-        final boolean[] isOpenEvent = {false};
-        widget.addOpenHandler(event -> {
-            isOpenEvent[0] = true;
-        });
-        fireOpenHandler(widget);
-
-        assertTrue(isOpenEvent[0]);
+    public static <H extends UIObject & HasColors> void checkColor(H hasColors) {
+        final Element element = hasColors.getElement();
+        hasColors.setTextColor(Color.WHITE);
+        assertTrue(element.hasClassName(Color.WHITE.getCssName() + "-text"));
+        hasColors.setBackgroundColor(Color.BLACK);
+        assertTrue(element.hasClassName(Color.BLACK.getCssName()));
     }
 
-    protected <T extends MaterialWidget & HasOpenHandlers> void fireOpenHandler(T widget) {
-        widget.fireEvent(new GwtEvent<OpenHandler<?>>() {
-            @Override
-            public Type<OpenHandler<?>> getAssociatedType() {
-                return OpenEvent.getType();
-            }
+    public <H extends HasError> void checkErrorSuccess(H widget, UIObject target) {
+        assertNotNull(target);
+        widget.setError("Error");
+        assertTrue(target.getElement().hasClassName(CssName.INVALID));
+        widget.setSuccess("Success");
+        assertTrue(target.getElement().hasClassName(CssName.VALID));
+        widget.clearErrorOrSuccess();
+        assertFalse(target.getElement().hasClassName(CssName.VALID));
+        assertFalse(target.getElement().hasClassName(CssName.INVALID));
+    }
 
-            @Override
-            protected void dispatch(OpenHandler<?> eventHandler) {
-                eventHandler.onOpen(null);
-            }
-        });
+    public <H extends HasError> void checkLabelErrorSuccess(H widget, UIObject target, UIObject label) {
+        if (target != null) {
+            checkErrorSuccess(widget, target);
+        }
+
+        final String ERROR = "error";
+        Element element = label.getElement();
+        widget.setError(ERROR);
+        assertTrue(element.hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_SUCCESS_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_HELPER_LABEL));
+        assertEquals(ERROR, label.getElement().getInnerText());
+
+        final String SUCCESS = "success";
+        widget.setSuccess(SUCCESS);
+        assertTrue(element.hasClassName(CssName.FIELD_SUCCESS_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_HELPER_LABEL));
+        assertEquals(SUCCESS, label.getElement().getInnerText());
+
+        final String INFO = "info";
+        widget.setHelperText(INFO);
+        assertTrue(element.hasClassName(CssName.FIELD_HELPER_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_SUCCESS_LABEL));
+        assertFalse(element.hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertEquals(INFO, label.getElement().getInnerText());
     }
 }

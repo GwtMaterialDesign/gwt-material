@@ -19,24 +19,19 @@
  */
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Tooltips
+ * Test case for Tooltips.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialTooltipTest extends MaterialWidgetTest {
+public class MaterialTooltipTest extends MaterialTestCase {
 
-    public void init() {
-        MaterialButton button = new MaterialButton();
-        checkWidget(button);
-        checkStructure(button);
-    }
-
-    public <T extends MaterialWidget> void checkStructure(T widget) {
+    public void testStructure() {
+        MaterialButton widget = new MaterialButton();
         widget.setTooltip("Tooltip");
         assertNotNull(widget.getTooltip());
         assertEquals(widget.getTooltip(), "Tooltip");
@@ -69,5 +64,4 @@ public class MaterialTooltipTest extends MaterialWidgetTest {
         widget.setTooltipHTML(HTML);
         assertEquals(widget.getTooltipHTML(), HTML);
     }
-
 }
