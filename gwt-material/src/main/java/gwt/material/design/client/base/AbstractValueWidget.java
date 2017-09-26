@@ -69,6 +69,16 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         }
     }
 
+    public void setValue(V value, boolean fireEvents, boolean reload) {
+        setValue(value, fireEvents);
+
+        if (this instanceof HasReload) {
+            if (reload) {
+                ((HasReload)this).reload();
+            }
+        }
+    }
+
     @Override
     public void setError(String error) {
         getErrorMixin().setError(error);
