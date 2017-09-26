@@ -59,7 +59,7 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
     }
 
     @Override
-    protected void build() {
+    protected void applyType() {
         if (withHeader) {
             applyDrawerWithHeader();
         } else {

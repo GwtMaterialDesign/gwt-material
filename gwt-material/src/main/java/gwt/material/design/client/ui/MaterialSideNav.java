@@ -197,21 +197,6 @@ public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSele
         super.insert(wrap(child), container, beforeIndex, domInsert);
     }
 
-    /**
-     * Provides a Fixed type sidenav which by default on desktop - activator will notbe visible
-     * but you can configure it by setting the property setAlwaysShowActivator() to true
-     */
-    protected void applyFixedType() {
-        setType(SideNavType.FIXED);
-        applyBodyScroll();
-
-        Scheduler.get().scheduleDeferred(() -> {
-            pushElement(getHeader(), this.width);
-            pushElement(getMain(), this.width);
-            pushElement(getFooter(), this.width);
-        });
-    }
-
     protected void pushElement(Element element, int value) {
         applyTransition($(element).asElement());
         if (getEdge() == Edge.RIGHT) {
@@ -305,7 +290,7 @@ public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSele
             }
         }
 
-        applyFixedType();
+        applyType();
 
         JsSideNavOptions options = new JsSideNavOptions();
         options.menuWidth = width;
@@ -337,6 +322,21 @@ public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSele
         element.on("side-nav-opened", e1 -> {
             onOpened();
             return true;
+        });
+    }
+
+    /**
+     * Override the type of your sidenav.
+     * Used by {@link MaterialSideNavDrawer}, {@link MaterialSideNavCard}, {@link MaterialSideNavMini}, {@link MaterialSideNavPush}
+     */
+    protected void applyType() {
+        setType(SideNavType.FIXED);
+        applyBodyScroll();
+
+        Scheduler.get().scheduleDeferred(() -> {
+            pushElement(getHeader(), this.width);
+            pushElement(getMain(), this.width);
+            pushElement(getFooter(), this.width);
         });
     }
 

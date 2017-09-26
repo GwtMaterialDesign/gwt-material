@@ -52,15 +52,7 @@ public class MaterialSideNavCard extends MaterialSideNav {
     }
 
     @Override
-    protected void build() {
-        applyCardType();
-    }
-
-    /**
-     * Applies a card that contains a shadow and this type
-     * is good for few sidenav link items
-     */
-    protected void applyCardType() {
+    protected void applyType() {
         registerHandler(addOpeningHandler(event -> pushElement(getMain(), getWidth() + 20)));
         registerHandler(addOpenedHandler(event -> {
             if (getEdge() == Edge.LEFT) {
