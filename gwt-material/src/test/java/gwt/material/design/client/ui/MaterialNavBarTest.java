@@ -27,6 +27,8 @@ import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Div;
 
+import java.util.logging.Logger;
+
 /**
  * Test case for Nav Bar.
  *
@@ -47,6 +49,18 @@ public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
         RootPanel.get().add(header);
         assertTrue(navBar.getParent() instanceof MaterialHeader);
         return navBar;
+    }
+
+    @Override
+    protected void gwtTearDown() throws Exception {
+        super.gwtTearDown();
+
+        destroyWidget();
+    }
+
+    @Override
+    public boolean neverAttach() {
+        return true;
     }
 
     public void testTypes() {
@@ -78,6 +92,8 @@ public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
     public void testStructure() {
         // given
         MaterialNavBar navBar = getWidget();
+
+        Logger.getLogger(MaterialNavBarTest.class.getName()).severe("testStructure");
 
         // when / then
         assertTrue(navBar.getWidget(0) instanceof Div);

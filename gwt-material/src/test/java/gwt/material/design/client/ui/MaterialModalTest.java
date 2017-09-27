@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ModalType;
@@ -74,6 +75,7 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
         final int BASE_ZINDEX = 1000;
         for (int i = 1; i <= 5; i++) {
             MaterialModal modal = new MaterialModal();
+            RootPanel.get().add(modal);
             modal.open();
             // Expected Display : BLOCK
             assertEquals(Display.BLOCK.getCssName(), modal.getElement().getStyle().getDisplay());

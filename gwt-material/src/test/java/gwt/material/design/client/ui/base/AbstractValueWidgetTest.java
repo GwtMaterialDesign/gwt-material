@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui.base;
 
 import gwt.material.design.client.base.AbstractValueWidget;
+import org.junit.Ignore;
 
 /**
  * Test case for Abstract value widget.
@@ -27,6 +28,7 @@ import gwt.material.design.client.base.AbstractValueWidget;
  * @author kevzlou7979
  * @author Ben Dol
  */
+@Ignore
 public abstract class AbstractValueWidgetTest<T extends AbstractValueWidget> extends MaterialWidgetTest<T> {
 
 

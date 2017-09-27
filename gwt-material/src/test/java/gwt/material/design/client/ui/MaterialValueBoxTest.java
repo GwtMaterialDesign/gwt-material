@@ -87,10 +87,10 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
         assertFalse(widget.isReadOnly());
 
         widget.setToggleReadOnly(true);
-        assertTrue(element.addClassName(CssName.READ_ONLY_TOGGLE));
+        assertTrue(element.hasClassName(CssName.READ_ONLY_TOGGLE));
         assertTrue(widget.isToggleReadOnly());
         widget.setToggleReadOnly(false);
-        assertFalse(element.addClassName(CssName.READ_ONLY_TOGGLE));
+        assertFalse(element.hasClassName(CssName.READ_ONLY_TOGGLE));
         assertFalse(widget.isToggleReadOnly());
     }
 }

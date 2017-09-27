@@ -1,10 +1,32 @@
+/*
+ * #%L
+ * GwtMaterial
+ * %%
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package gwt.material.design.client;
 
+import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -48,13 +70,16 @@ import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasColors;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
+import org.junit.Ignore;
 
+@Ignore
 public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends WidgetTestCase<T> {
 
     public void testFocusAndBlurEvents() {
@@ -84,29 +109,11 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     public void fireFocusEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<FocusHandler>() {
-            @Override
-            public Type<FocusHandler> getAssociatedType() {
-                return FocusEvent.getType();
-            }
-            @Override
-            protected void dispatch(FocusHandler eventHandler) {
-                eventHandler.onFocus(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createFocusEvent(), widget);
     }
 
     public void fireBlurEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<BlurHandler>() {
-            @Override
-            public Type<BlurHandler> getAssociatedType() {
-                return BlurEvent.getType();
-            }
-            @Override
-            protected void dispatch(BlurHandler eventHandler) {
-                eventHandler.onBlur(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createBlurEvent(), widget);
     }
 
     public void testClickAndDoubleClickEvents() {
@@ -136,29 +143,17 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     public void fireClickEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<ClickHandler>() {
-            @Override
-            public Type<ClickHandler> getAssociatedType() {
-                return ClickEvent.getType();
-            }
-            @Override
-            protected void dispatch(ClickHandler eventHandler) {
-                eventHandler.onClick(null);
-            }
-        });
+        DomEvent.fireNativeEvent(
+            Document.get().createClickEvent(1, 1, 1, 1, 1, false, false, false, false),
+            widget
+        );
     }
 
     public void fireDoubleClickEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<DoubleClickHandler>() {
-            @Override
-            public Type<DoubleClickHandler> getAssociatedType() {
-                return DoubleClickEvent.getType();
-            }
-            @Override
-            protected void dispatch(DoubleClickHandler eventHandler) {
-                eventHandler.onDoubleClick(null);
-            }
-        });
+        DomEvent.fireNativeEvent(
+            Document.get().createDblClickEvent(1, 1, 1, 1, 1, false, false, false, false),
+            widget
+        );
     }
 
     public void testKeyEvents() {
@@ -194,42 +189,15 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     public void fireKeyDownEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<KeyDownHandler>() {
-            @Override
-            public Type<KeyDownHandler> getAssociatedType() {
-                return KeyDownEvent.getType();
-            }
-            @Override
-            protected void dispatch(KeyDownHandler eventHandler) {
-                eventHandler.onKeyDown(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createKeyDownEvent(false, false, false, false, 1), widget);
     }
 
     public void fireKeyUpEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<KeyUpHandler>() {
-            @Override
-            public Type<KeyUpHandler> getAssociatedType() {
-                return KeyUpEvent.getType();
-            }
-            @Override
-            protected void dispatch(KeyUpHandler eventHandler) {
-                eventHandler.onKeyUp(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createKeyUpEvent(false, false, false, false, 1), widget);
     }
 
     public void fireKeyPressEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<KeyPressHandler>() {
-            @Override
-            public Type<KeyPressHandler> getAssociatedType() {
-                return KeyPressEvent.getType();
-            }
-            @Override
-            protected void dispatch(KeyPressHandler eventHandler) {
-                eventHandler.onKeyPress(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createKeyPressEvent(false, false, false, false, 1), widget);
     }
 
     public void testGestureEvents() {
@@ -265,42 +233,15 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     public void fireGestureStartEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<GestureStartHandler>() {
-            @Override
-            public Type<GestureStartHandler> getAssociatedType() {
-                return GestureStartEvent.getType();
-            }
-            @Override
-            protected void dispatch(GestureStartHandler eventHandler) {
-                eventHandler.onGestureStart(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.GESTURESTART, false, false), widget);
     }
 
     public void fireGestureChangeEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<GestureChangeHandler>() {
-            @Override
-            public Type<GestureChangeHandler> getAssociatedType() {
-                return GestureChangeEvent.getType();
-            }
-            @Override
-            protected void dispatch(GestureChangeHandler eventHandler) {
-                eventHandler.onGestureChange(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.GESTURECHANGE, false, false), widget);
     }
 
     public void fireGestureEndEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<GestureEndHandler>() {
-            @Override
-            public Type<GestureEndHandler> getAssociatedType() {
-                return GestureEndEvent.getType();
-            }
-            @Override
-            protected void dispatch(GestureEndHandler eventHandler) {
-                eventHandler.onGestureEnd(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.GESTUREEND, false, false), widget);
     }
 
     public void testTouchEvents() {
@@ -342,59 +283,19 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     public void fireTouchStartEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<TouchStartHandler>() {
-            @Override
-            public Type<TouchStartHandler> getAssociatedType() {
-                return TouchStartEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(TouchStartHandler eventHandler) {
-                eventHandler.onTouchStart(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.TOUCHSTART, false, false), widget);
     }
 
     public void fireTouchMoveEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<TouchMoveHandler>() {
-            @Override
-            public Type<TouchMoveHandler> getAssociatedType() {
-                return TouchMoveEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(TouchMoveHandler eventHandler) {
-                eventHandler.onTouchMove(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.TOUCHMOVE, false, false), widget);
     }
 
     public void fireTouchEndEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<TouchEndHandler>() {
-            @Override
-            public Type<TouchEndHandler> getAssociatedType() {
-                return TouchEndEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(TouchEndHandler eventHandler) {
-                eventHandler.onTouchEnd(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.TOUCHEND, false, false), widget);
     }
 
     public void fireTouchCancelEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<TouchCancelHandler>() {
-            @Override
-            public Type<TouchCancelHandler> getAssociatedType() {
-                return TouchCancelEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(TouchCancelHandler eventHandler) {
-                eventHandler.onTouchCancel(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.TOUCHCANCEL, false, false), widget);
     }
 
     public void testMouseEvents() {
@@ -441,70 +342,35 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     public void fireMouseUpEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<MouseUpHandler>() {
-            @Override
-            public Type<MouseUpHandler> getAssociatedType() {
-                return MouseUpEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(MouseUpHandler eventHandler) {
-                eventHandler.onMouseUp(null);
-            }
-        });
+        DomEvent.fireNativeEvent(
+            Document.get().createMouseUpEvent(1, 1, 1, 1, 1, false, false, false, false, 1),
+            widget
+        );
     }
 
     public void fireMouseDownEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<MouseDownHandler>() {
-            @Override
-            public Type<MouseDownHandler> getAssociatedType() {
-                return MouseDownEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(MouseDownHandler eventHandler) {
-                eventHandler.onMouseDown(null);
-            }
-        });
+        DomEvent.fireNativeEvent(
+            Document.get().createMouseDownEvent(1, 1, 1, 1, 1, false, false, false, false, 1),
+            widget
+        );
     }
 
     public void fireMouseMoveEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<MouseMoveHandler>() {
-            @Override
-            public Type<MouseMoveHandler> getAssociatedType() {
-                return MouseMoveEvent.getType();
-            }
-            @Override
-            protected void dispatch(MouseMoveHandler eventHandler) {
-                eventHandler.onMouseMove(null);
-            }
-        });
+        DomEvent.fireNativeEvent(
+            Document.get().createMouseMoveEvent(1, 1, 1, 1, 1, false, false, false, false, 1),
+            widget
+        );
     }
 
     public void fireMouseWheelEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<MouseWheelHandler>() {
-            @Override
-            public Type<MouseWheelHandler> getAssociatedType() {
-                return MouseWheelEvent.getType();
-            }
-            @Override
-            protected void dispatch(MouseWheelHandler eventHandler) {
-                eventHandler.onMouseWheel(null);
-            }
-        });
+        DomEvent.fireNativeEvent(Document.get().createHtmlEvent(BrowserEvents.MOUSEWHEEL, false, false), widget);
     }
 
-    public void fireMouseOverEvent(HasHandlers widget) {
-        widget.fireEvent(new GwtEvent<MouseOverHandler>() {
-            @Override
-            public Type<MouseOverHandler> getAssociatedType() {
-                return MouseOverEvent.getType();
-            }
-            @Override
-            protected void dispatch(MouseOverHandler eventHandler) {
-                eventHandler.onMouseOver(null);
-            }
-        });
+    public <H extends HasHandlers & IsWidget> void fireMouseOverEvent(H widget) {
+        DomEvent.fireNativeEvent(
+            Document.get().createMouseOverEvent(1, 1, 1, 1, 1, false, false, false, false, 1, widget.asWidget().getElement()),
+            widget
+        );
     }
 
     protected <H extends UIObject & HasEnabled> void checkEnabled(HasEnabled widget, H target) {
@@ -535,40 +401,20 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     protected <H extends MaterialWidget & HasOpenHandlers> void fireOpenHandler(H widget) {
-        widget.fireEvent(new GwtEvent<OpenHandler<?>>() {
-            @Override
-            public Type<OpenHandler<?>> getAssociatedType() {
-                return OpenEvent.getType();
-            }
-            @Override
-            protected void dispatch(OpenHandler<?> eventHandler) {
-                eventHandler.onOpen(null);
-            }
-        });
+        OpenEvent.fire(widget, widget);
     }
 
     public <H extends MaterialWidget & HasCloseHandlers> void checkCloseHandler(H widget) {
         // Check Open Event
         final boolean[] fired = {false};
-        widget.addCloseHandler(event -> {
-            fired[0] = true;
-        });
+        widget.addCloseHandler(event -> fired[0] = true);
         fireCloseHandler(widget);
 
         assertTrue(fired[0]);
     }
 
     protected <H extends MaterialWidget & HasCloseHandlers> void fireCloseHandler(H widget) {
-        widget.fireEvent(new GwtEvent<CloseHandler<?>>() {
-            @Override
-            public Type<CloseHandler<?>> getAssociatedType() {
-                return CloseEvent.getType();
-            }
-            @Override
-            protected void dispatch(CloseHandler<?> eventHandler) {
-                eventHandler.onClose(null);
-            }
-        });
+        CloseEvent.fire(widget, widget);
     }
 
     public static <H extends UIObject & HasColors> void checkColor(H hasColors) {

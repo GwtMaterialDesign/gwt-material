@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.constants.Position;
 
@@ -32,6 +33,8 @@ public class MaterialTooltipTest extends MaterialTestCase {
 
     public void testStructure() {
         MaterialButton widget = new MaterialButton();
+        RootPanel.get().add(widget);
+
         widget.setTooltip("Tooltip");
         assertNotNull(widget.getTooltip());
         assertEquals(widget.getTooltip(), "Tooltip");

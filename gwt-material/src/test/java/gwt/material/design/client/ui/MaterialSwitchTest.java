@@ -76,7 +76,12 @@ public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
         // Input Element checking
         assertTrue(label.getWidget(1) instanceof MaterialInput);
         MaterialInput input = (MaterialInput) label.getWidget(1);
-        checkInputAttribute(mSwitch, input);
+
+        assertFalse(input.getElement().hasAttribute("checked"));
+        mSwitch.setValue(false);
+        assertFalse(input.getElement().hasAttribute("checked"));
+        mSwitch.setValue(true);
+        assertTrue(input.getElement().hasAttribute("checked"));
 
         // Lever Element checking
         assertTrue(label.getWidget(2) instanceof Span);
@@ -97,11 +102,7 @@ public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
     }
 
     protected void checkInputAttribute(MaterialSwitch widget, MaterialInput input) {
-        assertTrue(input.getElement().hasAttribute("checked"));
-        widget.setValue(false);
-        assertFalse(input.getElement().hasAttribute("checked"));
-        widget.setValue(true);
-        assertTrue(input.getElement().hasAttribute("checked"));
+
     }
 
     public void testValueChangeEvent() {

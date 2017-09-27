@@ -44,7 +44,7 @@ public class MaterialFloatBoxTest extends MaterialValueBoxTest<MaterialFloatBox>
 
     public void testValueChangeEvent() {
         // given
-        MaterialFloatBox floatBox = new MaterialFloatBox();
+        MaterialFloatBox floatBox = getWidget();
 
         // when / then
         checkValueChangeEvent(floatBox, 1.0f, 2.0f);

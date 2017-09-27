@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CollapsibleType;
@@ -41,7 +42,7 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
 
     public void testStructure() {
         // given
-        MaterialCollapsible collapsible = getWidget();
+        MaterialCollapsible collapsible = getWidget(false);
 
         // when / then
         MaterialCollapsibleItem item = new MaterialCollapsibleItem();
@@ -61,6 +62,8 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
         assertTrue(collapsible.isFeatureEnabled(MaterialWidget.Feature.ONLOAD_ADD_QUEUE));
         // Expected result -> 0 (Because feature is enabled)
         assertEquals(0, collapsible.getChildren().size());
+        RootPanel.get().add(collapsible);
+        assertEquals(1, collapsible.getChildren().size());
         // isFeatureEnabled -> false
         collapsible.enableFeature(MaterialWidget.Feature.ONLOAD_ADD_QUEUE, false);
         assertFalse(collapsible.isFeatureEnabled(MaterialWidget.Feature.ONLOAD_ADD_QUEUE));

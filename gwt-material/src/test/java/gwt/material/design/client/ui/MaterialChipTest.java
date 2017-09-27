@@ -64,6 +64,6 @@ public class MaterialChipTest extends AbstractValueWidgetTest<MaterialChip> {
         chip.addCloseHandler(closeEvent -> closeHandler[0] = true);
         chip.close();
         assertFalse(chip.isAttached());
-        assertFalse(closeHandler[0]);
+        assertTrue(closeHandler[0]);
     }
 }

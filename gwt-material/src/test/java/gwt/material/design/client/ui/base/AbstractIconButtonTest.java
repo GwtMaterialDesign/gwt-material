@@ -35,6 +35,7 @@ import org.junit.Ignore;
  * @author kevzlou7979
  * @author Ben Dol
  */
+@Ignore
 public abstract class AbstractIconButtonTest<T extends AbstractIconButton> extends AbstractButtonTest<T> {
 
     public void testIcon() {

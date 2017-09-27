@@ -35,6 +35,7 @@ import org.junit.Ignore;
  * @author kevzlou7979
  * @author Ben Dol
  */
+@Ignore
 public abstract class AbstractButtonTest<T extends AbstractButton> extends MaterialWidgetTest<T> {
 
     public void testSize() {

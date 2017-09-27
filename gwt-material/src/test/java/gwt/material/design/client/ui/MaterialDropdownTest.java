@@ -99,13 +99,7 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
         assertNotNull(dropdown.getActivatorElement());
         assertEquals(link.getElement(), dropdown.getActivatorElement());
 
-        for (int i = 1; i <= 5; i++) {
-            MaterialLink item = new MaterialLink("Item" + i);
-            dropdown.add(item);
-            assertTrue(dropdown.getWidget(i - 1) instanceof ListItem);
-            ListItem li = (ListItem) dropdown.getWidget(0);
-            assertTrue(li.getWidget(0) instanceof MaterialLink);
-        }
+        populateDropDown(dropdown);
 
         // Smart check for parent Enabled / Disabled property
         dropdown.setEnabled(true);
@@ -124,7 +118,7 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
 
     public void testSelection() {
         // given
-        MaterialDropDown dropdown = getWidget();
+        MaterialDropDown dropdown = populateDropDown(getWidget());
 
         // when / then
         assertTrue(dropdown.getWidget(0) instanceof ListItem);
@@ -149,5 +143,16 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
             }
         });
         assertTrue(isSelectionFired[0]);
+    }
+
+    protected MaterialDropDown populateDropDown(MaterialDropDown dropdown) {
+        for (int i = 1; i <= 5; i++) {
+            MaterialLink item = new MaterialLink("Item" + i);
+            dropdown.add(item);
+            assertTrue(dropdown.getWidget(i - 1) instanceof ListItem);
+            ListItem li = (ListItem) dropdown.getWidget(0);
+            assertTrue(li.getWidget(0) instanceof MaterialLink);
+        }
+        return dropdown;
     }
 }

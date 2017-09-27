@@ -25,6 +25,7 @@ import gwt.material.design.client.MaterialWidgetTestCase;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialPanel;
+import org.junit.Ignore;
 
 /**
  * Test case for MaterialWidget base.
@@ -32,6 +33,7 @@ import gwt.material.design.client.ui.MaterialPanel;
  * @author kevzlou7979
  * @author Ben Dol
  */
+@Ignore
 public abstract class MaterialWidgetTest<T extends MaterialWidget> extends MaterialWidgetTestCase<T> {
 
     public void testVerticalAlign() {

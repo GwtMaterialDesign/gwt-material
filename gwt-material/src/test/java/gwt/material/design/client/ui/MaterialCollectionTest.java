@@ -39,7 +39,7 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
 
     public void testActive() {
         // given
-        MaterialCollection collection = getWidget();
+        MaterialCollection collection = populateCollection(getWidget());
 
         // when / then
         // Set active index on one-base index
@@ -69,11 +69,7 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
     }
 
     public void testType() {
-        // given
-        MaterialCollection collection = getWidget();
-
-        // when / then
-        MaterialCollectionItem item = generateFirstItem(collection);
+        MaterialCollectionItem item = new MaterialCollectionItem();
         item.setType(CollectionType.CHECKBOX);
         assertTrue(item.getElement().hasClassName(CollectionType.CHECKBOX.getCssName()));
         item.setType(CollectionType.AVATAR);
@@ -82,11 +78,7 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
     }
 
     public void testSecondary() {
-        // given
-        MaterialCollection collection = getWidget();
-
-        // when / then
-        MaterialCollectionItem item = generateFirstItem(collection);
+        MaterialCollectionItem item = new MaterialCollectionItem();
         MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
         item.add(secondary);
         assertNotNull(secondary);
@@ -94,11 +86,7 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
     }
 
     public void testDismissible() {
-        // given
-        MaterialCollection collection = getWidget();
-
-        // when / then
-        MaterialCollectionItem item = generateFirstItem(collection);
+        MaterialCollectionItem item = new MaterialCollectionItem();
         item.setDismissible(true);
         assertTrue(item.isDismissible());
         assertTrue(item.getElement().hasClassName(CssName.DISMISSABLE));
@@ -107,14 +95,11 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
         assertFalse(item.getElement().hasClassName(CssName.DISMISSABLE));
     }
 
-    protected MaterialCollectionItem generateFirstItem(MaterialCollection collection) {
-        assertTrue(collection.getChildren().size() != 0);
-        Widget w = collection.getWidget(0);
-        assertTrue(w instanceof MaterialCollectionItem);
-        return (MaterialCollectionItem) w;
-    }
+    public void testCollectionItem() {
+        // given
+        MaterialCollection collection = getWidget();
 
-    protected void checkCollectionItem(MaterialCollection collection) {
+        // when / then
         for (int i = 1; i <= 5; i++) {
             MaterialCollectionItem item = new MaterialCollectionItem();
             boolean[] clickHandler = {false};
@@ -128,11 +113,14 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
     }
 
     public void testCheckBoxType() {
-        // given
-        MaterialCollection collection = getWidget();
+        // given / when
+        MaterialCollection collection = populateCollection(getWidget());
 
-        // when / then
-        collection.clear();
+        // then
+        assertEquals(5, collection.getChildren().size());
+    }
+
+    protected MaterialCollection populateCollection(MaterialCollection collection) {
         for (int i = 1; i <= 5; i++) {
             MaterialCollectionItem item = new MaterialCollectionItem();
 
@@ -151,5 +139,6 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
             assertNotNull(item);
         }
         assertEquals(5, collection.getChildren().size());
+        return collection;
     }
 }
