@@ -52,7 +52,7 @@ public class MaterialSideNavCard extends MaterialSideNav {
     }
 
     @Override
-    protected void applyType() {
+    protected void setup() {
         registerHandler(addOpeningHandler(event -> pushElement(getMain(), getWidth() + 20)));
         registerHandler(addOpenedHandler(event -> {
             if (getEdge() == Edge.LEFT) {

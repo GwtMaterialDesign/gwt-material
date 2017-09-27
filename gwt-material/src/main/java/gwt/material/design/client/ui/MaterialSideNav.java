@@ -290,7 +290,7 @@ public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSele
             }
         }
 
-        applyType();
+        setup();
 
         JsSideNavOptions options = new JsSideNavOptions();
         options.menuWidth = width;
@@ -329,7 +329,7 @@ public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSele
      * Override the type of your sidenav.
      * Used by {@link MaterialSideNavDrawer}, {@link MaterialSideNavCard}, {@link MaterialSideNavMini}, {@link MaterialSideNavPush}
      */
-    protected void applyType() {
+    protected void setup() {
         setType(SideNavType.FIXED);
         applyBodyScroll();
 

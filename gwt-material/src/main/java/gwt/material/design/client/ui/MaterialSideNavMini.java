@@ -62,7 +62,7 @@ public class MaterialSideNavMini extends MaterialSideNav {
     }
 
     @Override
-    protected void applyType() {
+    protected void setup() {
         applyBodyScroll();
         if (isExpandable()) {
             setType(SideNavType.MINI_WITH_EXPAND);

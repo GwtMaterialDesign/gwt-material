@@ -61,7 +61,7 @@ public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeade
     }
 
     @Override
-    protected void applyType() {
+    protected void setup() {
         if (withHeader) {
             applyPushWithHeader();
         } else {
