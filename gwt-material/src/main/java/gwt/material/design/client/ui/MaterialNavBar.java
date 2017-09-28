@@ -71,10 +71,6 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
     private ActivatesMixin<MaterialLink> activatesMixin;
     private ProgressMixin<MaterialNavBar> progressMixin;
 
-    public MaterialNavBar() {
-        super();
-    }
-
     @Override
     protected void onLoad() {
         super.onLoad();

@@ -70,6 +70,7 @@
                     </additionalClasspathElements>
                     <useManifestOnlyJar>false</useManifestOnlyJar>
                     <forkMode>always</forkMode>
+                    <argLine>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.NoOpLog</argLine>
                 </configuration>
             </plugin>
             <plugin>

@@ -22,38 +22,32 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Loaders
+ * Test case for Loaders.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialLoaderTest extends MaterialWidgetTest {
+public class MaterialLoaderTest extends MaterialTestCase {
 
-    public void init() {
-        RootPanel.get().clear();
-        checkLoaderBasic();
-        checkLoaderWithinPanel();
-        checkProgressBasic();
-        checkProgressWithinPanel();
-    }
-
-    protected void checkLoaderBasic() {
+    public void testLoaderBasic() {
         checkLoader(RootPanel.get());
     }
 
-    protected void checkLoaderWithinPanel() {
+    public void testLoaderWithinPanel() {
         checkLoader(new MaterialPanel());
     }
 
-    protected void checkProgressBasic() {
+    public void testProgressBasic() {
         checkProgress(RootPanel.get());
     }
 
-    protected void checkProgressWithinPanel() {
+    public void testProgressWithinPanel() {
         checkProgress(new MaterialPanel());
     }
 
@@ -68,7 +62,7 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
         assertTrue(loaderWrapper.getWidget(0) instanceof MaterialPreLoader);
         MaterialPreLoader preLoader = (MaterialPreLoader) loaderWrapper.getWidget(0);
         checkPreLoader(preLoader);
-        assertEquals(preLoader.getChildren().size(), 4);
+        assertEquals(4, preLoader.getChildren().size());
         for (Widget w : preLoader.getChildren()) {
             assertTrue(w instanceof MaterialSpinner);
             MaterialSpinner spinner = (MaterialSpinner) w;
@@ -82,19 +76,19 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
     protected void checkPreLoader(MaterialPreLoader loader) {
         assertNotNull(loader);
         loader.setSize(LoaderSize.SMALL);
-        assertEquals(loader.getSize(), LoaderSize.SMALL);
+        assertEquals(LoaderSize.SMALL, loader.getSize());
         loader.setSize(LoaderSize.MEDIUM);
-        assertEquals(loader.getSize(), LoaderSize.MEDIUM);
+        assertEquals(LoaderSize.MEDIUM, loader.getSize());
         loader.setSize(LoaderSize.BIG);
-        assertEquals(loader.getSize(), LoaderSize.BIG);
+        assertEquals(LoaderSize.BIG, loader.getSize());
     }
 
     protected void checkSpinner(MaterialSpinner spinner) {
         spinner.setColor(SpinnerColor.YELLOW_ONLY);
-        assertEquals(spinner.getColor(), SpinnerColor.YELLOW_ONLY);
+        assertEquals(SpinnerColor.YELLOW_ONLY, spinner.getColor());
         assertTrue(spinner.getElement().hasClassName(SpinnerColor.YELLOW_ONLY.getCssName()));
         spinner.setColor(SpinnerColor.YELLOW);
-        assertEquals(spinner.getColor(), SpinnerColor.YELLOW);
+        assertEquals(SpinnerColor.YELLOW, spinner.getColor());
         assertTrue(spinner.getElement().hasClassName(SpinnerColor.YELLOW.getCssName()));
     }
 
@@ -112,38 +106,38 @@ public class MaterialLoaderTest extends MaterialWidgetTest {
         checkProgressValue(progress);
 
         MaterialLoader.loading(false);
-        assertEquals(panel.getWidgetCount(), 0);
+        assertEquals(0, panel.getWidgetCount());
     }
 
     protected void checkProgress(MaterialProgress progress) {
         assertNotNull(progress);
         // Check default type
         progress.setType(ProgressType.INDETERMINATE);
-        assertEquals(progress.getType(), ProgressType.INDETERMINATE);
+        assertEquals(ProgressType.INDETERMINATE, progress.getType());
         progress.setType(ProgressType.DETERMINATE);
-        assertEquals(progress.getType(), ProgressType.DETERMINATE);
+        assertEquals(ProgressType.DETERMINATE, progress.getType());
 
         progress.setPercent(90);
-        assertEquals(progress.getPercent(), (double) 90);
+        assertEquals((double) 90, progress.getPercent());
         // Get the target widget for percentage update
         assertNotNull(progress.getWidget(0));
         assertTrue(progress.getWidget(0) instanceof MaterialWidget);
         MaterialWidget progressDiv = (MaterialWidget) progress.getWidget(0);
-        assertEquals(progressDiv.getElement().getStyle().getWidth(), "90%");
+        assertEquals("90%", progressDiv.getElement().getStyle().getWidth());
         // Check color
-        checkColor(progress);
+        MaterialWidgetTest.checkColor(progress);
     }
 
     protected void checkProgressValue(MaterialProgress progress) {
         progress.setPercent(50);
-        assertEquals(progress.getPercent(), (double) 50);
+        assertEquals((double) 50, progress.getPercent());
 
         // Check if progress value is less than 0
         progress.setPercent(-10);
-        assertEquals(progress.getPercent(), (double) 0);
+        assertEquals((double) 0, progress.getPercent());
 
         // Check if progress value is greater than 100
         progress.setPercent(100);
-        assertEquals(progress.getPercent(), (double) 100);
+        assertEquals((double) 100, progress.getPercent());
     }
 }

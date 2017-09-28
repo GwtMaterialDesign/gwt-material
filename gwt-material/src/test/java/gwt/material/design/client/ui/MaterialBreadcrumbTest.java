@@ -22,14 +22,15 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.ui.base.AbstractButtonTest;
 
 /**
- * Test case for Breadcrumbs
+ * Test case for Breadcrumbs.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialBreadcrumbTest extends AbstractButtonTest {
+public class MaterialBreadcrumbTest extends AbstractButtonTest<MaterialBreadcrumb> {
 
-    public void init() {
-        MaterialBreadcrumb breadcrumb = new MaterialBreadcrumb();
-        checkBaseButton(breadcrumb);
+    @Override
+    protected MaterialBreadcrumb createWidget() {
+        return new MaterialBreadcrumb();
     }
 }

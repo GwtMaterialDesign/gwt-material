@@ -21,32 +21,43 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.WidgetTestCase;
 import gwt.material.design.client.constants.RadioButtonType;
-import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
  * Test case for Radio Button
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialRadioButtonTest extends AbstractValueWidgetTest {
+public class MaterialRadioButtonTest extends WidgetTestCase<MaterialRadioButton> {
 
-    public void init() {
-        MaterialRadioButton radioButton = new MaterialRadioButton();
-        checkType(radioButton);
+    @Override
+    protected MaterialRadioButton createWidget() {
+        return new MaterialRadioButton();
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialRadioButton radioButton = getWidget();
+
+        // when / then
         checkValueChangeEvent(radioButton, true, false);
     }
 
-    public <T extends MaterialRadioButton> void checkType(T radioButton) {
+    public void testType() {
+        // given
+        MaterialRadioButton radioButton = getWidget();
+
+        // when / then
         assertNotNull(DOM.getChild(radioButton.getElement(), 0));
         Element element = DOM.getChild(radioButton.getElement(), 0);
         radioButton.setType(RadioButtonType.GAP);
-        assertEquals(radioButton.getType(), RadioButtonType.GAP);
+        assertEquals(RadioButtonType.GAP, radioButton.getType());
         assertTrue(element.hasClassName(RadioButtonType.GAP.getCssName()));
         radioButton.setType(RadioButtonType.NO_GAP);
-        assertEquals(radioButton.getType(), RadioButtonType.NO_GAP);
+        assertEquals(RadioButtonType.NO_GAP, radioButton.getType());
         assertFalse(element.hasClassName(RadioButtonType.GAP.getCssName()));
-        assertEquals(radioButton.getType().getCssName(), "");
+        assertEquals("", radioButton.getType().getCssName());
     }
 }
