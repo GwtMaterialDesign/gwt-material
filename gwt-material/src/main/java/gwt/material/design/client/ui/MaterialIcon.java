@@ -134,6 +134,11 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     }
 
     @Override
+    public Color getIconColor() {
+        return getIconColorMixin().getTextColor();
+    }
+
+    @Override
     public void setIconFontSize(double size, Style.Unit unit) {
         getElement().getStyle().setFontSize(size, unit);
     }

@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.SearchObject;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Label;
@@ -93,17 +94,23 @@ public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
         MaterialSearch search = getWidget();
 
         // when / then
-        search.setLabel("Label");
-        search.setPlaceholder("Placeholder");
-
         search.setActive(true);
-        assertTrue(search.isActive());
-        assertTrue(search.getWidget(2) instanceof Label);
-        assertEquals("Label", search.getWidget(2).getElement().getInnerHTML());
-        assertTrue(search.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
+        assertNotNull(search.getIconClose());
+        assertNotNull(search.getIconSearch());
 
+        assertEquals(Color.BLACK, search.getIconClose().getIconColorMixin().getTextColor());
+        assertEquals(Color.BLACK, search.getIconSearch().getIconColorMixin().getTextColor());
         search.setActive(false);
+        assertEquals(Color.WHITE, search.getIconClose().getIconColorMixin().getTextColor());
+        assertEquals(Color.WHITE, search.getIconSearch().getIconColorMixin().getTextColor());
+
+        // when / then
+        search.open();
+        assertTrue(search.isActive());
+        checkOpenHandler(search);
+
+        search.close();
         assertFalse(search.isActive());
-        assertFalse(search.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
+        checkCloseHandler(search);
     }
 }

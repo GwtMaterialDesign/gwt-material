@@ -37,7 +37,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  */
 public class MaterialTabTest extends MaterialWidgetTest<MaterialTab> {
 
-    private MaterialRow row = new MaterialRow();
+    private MaterialRow row;
 
     @Override
     protected MaterialTab createWidget() {
@@ -107,29 +107,16 @@ public class MaterialTabTest extends MaterialWidgetTest<MaterialTab> {
         assertEquals(2, tab.getTabIndex());
     }
 
-    public void testEvents() {
+    public void testSelection() {
         // given
         MaterialTab tab = getWidget();
 
         // when / then
-        final boolean[] isSelectionEventFired = {false};
-        tab.addSelectionHandler(selectionEvent -> isSelectionEventFired[0] = true);
-        tab.fireEvent(new GwtEvent<SelectionHandler<?>>() {
-            @Override
-            public Type<SelectionHandler<?>> getAssociatedType() {
-                return SelectionEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(SelectionHandler eventHandler) {
-                eventHandler.onSelection(null);
-            }
-        });
-        
-        assertTrue(isSelectionEventFired[0]);
+        assertNotNull(tab.getWidget(0));
+        checkSelectionHandler(tab, 0);
     }
 
-    public void checkTypes() {
+    public void testTypes() {
         // given
         MaterialTab tab = getWidget();
 

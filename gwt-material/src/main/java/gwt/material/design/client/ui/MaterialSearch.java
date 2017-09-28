@@ -265,6 +265,12 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         OpenEvent.fire(MaterialSearch.this, getText());
     }
 
+    public void close() {
+        setActive(false);
+        Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).blur());
+        CloseEvent.fire(MaterialSearch.this, getText());
+    }
+
     protected void applyHighlightedItem(MaterialLink link) {
         link.addStyleName(CssName.HIGLIGHTED);
         setSelectedLink(link);

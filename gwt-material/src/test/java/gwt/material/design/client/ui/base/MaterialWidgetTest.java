@@ -22,7 +22,8 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.MaterialWidgetTestCase;
-import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.TransitionConfig;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialPanel;
 import org.junit.Ignore;
@@ -160,6 +161,52 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         assertTrue(element.hasClassName(CssName.TRUNCATE));
         widget.setTruncate(false);
         assertFalse(element.hasClassName(CssName.TRUNCATE));
+    }
+
+    public void testFloat() {
+        // given
+        MaterialWidget widget = getWidget();
+        final Element element = widget.getElement();
+
+        // when
+        widget.setFloat(Style.Float.LEFT);
+
+        // then
+        assertEquals(Style.Float.LEFT, widget.getFloat());
+        assertTrue(element.hasClassName(Style.Float.LEFT.getCssName()));
+
+        // when
+        widget.setFloat(Style.Float.RIGHT);
+
+        // then
+        assertEquals(Style.Float.RIGHT, widget.getFloat());
+        assertTrue(element.hasClassName(Style.Float.RIGHT.getCssName()));
+
+        // when
+        widget.setFloat(Style.Float.NONE);
+
+        // then
+        assertEquals(Style.Float.NONE, widget.getFloat());
+        assertTrue(element.hasClassName(Style.Float.NONE.getCssName()));
+    }
+
+    public void testFontSize() {
+        // given
+        MaterialWidget widget = getWidget();
+
+        // when
+        widget.setFontSize("12px");
+
+        // then
+        assertEquals("12px", widget.getFontSize());
+        assertEquals("12px", widget.getElement().getStyle().getFontSize());
+
+        // when
+        widget.setFontSize(14, Style.Unit.EM);
+
+        // then
+        assertEquals("14em", widget.getFontSize());
+        assertEquals("14em", widget.getElement().getStyle().getFontSize());
     }
 
     public void testFontWeight() {
@@ -353,6 +400,16 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         assertEquals(widget.getId(), element.getId());
     }
 
+    public void testDepth() {
+        // given
+        MaterialWidget widget = getWidget();
+
+        final int DEPTH = 999;
+        widget.setDepth(DEPTH);
+        assertEquals(DEPTH, widget.getDepth());
+        assertEquals(String.valueOf(DEPTH), widget.getElement().getStyle().getZIndex());
+    }
+
     public void testDimensions() {
         // given
         MaterialWidget widget = getWidget();
@@ -375,5 +432,35 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
 
         widget.setMaxWidth(MAX_WIDTH);
         assertEquals(MAX_WIDTH, widget.getElement().getStyle().getProperty("maxWidth"));
+    }
+
+    public void testOrientation() {
+        // given
+        MaterialWidget widget = getWidget();
+
+        // when
+        widget.setOrientation(Orientation.PORTRAIT);
+
+        // then
+        assertEquals(Orientation.PORTRAIT, widget.getOrientation());
+        assertTrue(widget.getElement().hasClassName(Orientation.PORTRAIT.getCssName()));
+
+        // when
+        widget.setOrientation(Orientation.LANDSCAPE);
+
+        // then
+        assertEquals(Orientation.LANDSCAPE, widget.getOrientation());
+        assertTrue(widget.getElement().hasClassName(Orientation.LANDSCAPE.getCssName()));
+    }
+
+    public void testPerspective() {
+        final String PERSPECTIVE = "500px";
+        // given
+        MaterialWidget widget = getWidget();
+
+        // when
+        widget.setPerspective(PERSPECTIVE);
+        assertEquals(PERSPECTIVE, widget.getPerspective());
+        assertEquals(PERSPECTIVE, widget.getElement().getStyle().getProperty("perspective"));
     }
 }

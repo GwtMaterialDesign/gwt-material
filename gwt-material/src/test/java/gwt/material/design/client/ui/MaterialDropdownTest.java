@@ -125,24 +125,7 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
         ListItem item = (ListItem) dropdown.getWidget(0);
         assertTrue(item.getWidget(0) instanceof MaterialLink);
         MaterialLink link = (MaterialLink) item.getWidget(0);
-        final boolean[] isSelectionFired = {false};
-        dropdown.addSelectionHandler(selectionEvent -> {
-            assertEquals(selectionEvent.getSelectedItem(), link);
-            isSelectionFired[0] = true;
-
-        });
-
-        link.fireEvent(new GwtEvent<ClickHandler>() {
-            @Override
-            public Type<ClickHandler> getAssociatedType() {
-                return ClickEvent.getType();
-            }
-            @Override
-            protected void dispatch(ClickHandler eventHandler) {
-                eventHandler.onClick(null);
-            }
-        });
-        assertTrue(isSelectionFired[0]);
+        checkSelectionHandler(dropdown, link);
     }
 
     protected MaterialDropDown populateDropDown(MaterialDropDown dropdown) {

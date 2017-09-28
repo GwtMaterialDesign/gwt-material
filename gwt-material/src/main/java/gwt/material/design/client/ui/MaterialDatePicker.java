@@ -487,6 +487,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     @Override
+    public Color getIconColor() {
+        return icon.getIconColor();
+    }
+
+    @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
     }

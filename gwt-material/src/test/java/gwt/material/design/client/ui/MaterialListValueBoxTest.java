@@ -36,6 +36,8 @@ import java.util.List;
  */
 public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<MaterialListValueBox<T>> {
 
+    private MaterialListValueBox<User> listValueBox;
+
     @Override
     protected MaterialListValueBox<T> createWidget() {
         return new MaterialListValueBox<>();
@@ -79,7 +81,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
     public void testValues() {
         // given
-        MaterialListValueBox<User> listValueBox = new MaterialListValueBox<>();
+        listValueBox = new MaterialListValueBox<>();
         RootPanel.get().add(listValueBox);
 
         List<User> users = new ArrayList<>();

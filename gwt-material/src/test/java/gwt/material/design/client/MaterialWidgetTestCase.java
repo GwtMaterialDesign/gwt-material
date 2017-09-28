@@ -22,52 +22,8 @@ package gwt.material.design.client;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.GestureChangeEvent;
-import com.google.gwt.event.dom.client.GestureChangeHandler;
-import com.google.gwt.event.dom.client.GestureEndEvent;
-import com.google.gwt.event.dom.client.GestureEndHandler;
-import com.google.gwt.event.dom.client.GestureStartEvent;
-import com.google.gwt.event.dom.client.GestureStartHandler;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
-import com.google.gwt.event.dom.client.TouchCancelEvent;
-import com.google.gwt.event.dom.client.TouchCancelHandler;
-import com.google.gwt.event.dom.client.TouchEndEvent;
-import com.google.gwt.event.dom.client.TouchEndHandler;
-import com.google.gwt.event.dom.client.TouchMoveEvent;
-import com.google.gwt.event.dom.client.TouchMoveHandler;
-import com.google.gwt.event.dom.client.TouchStartEvent;
-import com.google.gwt.event.dom.client.TouchStartHandler;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.logical.shared.HasCloseHandlers;
-import com.google.gwt.event.logical.shared.HasOpenHandlers;
-import com.google.gwt.event.logical.shared.OpenEvent;
-import com.google.gwt.event.logical.shared.OpenHandler;
-import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -415,6 +371,24 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
 
     protected <H extends MaterialWidget & HasCloseHandlers> void fireCloseHandler(H widget) {
         CloseEvent.fire(widget, widget);
+    }
+
+    protected <H extends MaterialWidget & HasSelectionHandlers, T extends Object> void checkSelectionHandler(H widget, T selectedItem) {
+        // Check Open Event
+        final boolean[] fired = {false};
+        widget.addSelectionHandler(event -> {
+            assertEquals(event.getSelectedItem(), selectedItem);
+            fired[0] = true;
+        });
+
+        fireSelectionHandler(widget, selectedItem);
+        assertTrue(fired[0]);
+    }
+
+    public <H extends MaterialWidget & HasSelectionHandlers, T extends Object> void fireSelectionHandler(H widget, T index) {
+        assertNotNull(widget);
+        assertNotNull(index);
+        SelectionEvent.fire(widget, index);
     }
 
     public static <H extends UIObject & HasColors> void checkColor(H hasColors) {

@@ -328,6 +328,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public Color getIconColor() {
+        return icon.getIconColor();
+    }
+
+    @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
     }

@@ -36,24 +36,22 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
 public class MaterialLoaderTest extends MaterialTestCase {
 
     public void testLoaderBasic() {
-        checkLoader(RootPanel.get());
+        MaterialLoader.loading(true);
+        ComplexPanel panel = RootPanel.get();
+
+        // when / then
+        checkLoader(panel);
     }
 
     public void testLoaderWithinPanel() {
-        checkLoader(new MaterialPanel());
-    }
+        MaterialPanel panel = new MaterialPanel();
+        RootPanel.get().add(panel);
+        MaterialLoader.loading(true, panel);
 
-    public void testProgressBasic() {
-        checkProgress(RootPanel.get());
-    }
-
-    public void testProgressWithinPanel() {
-        checkProgress(new MaterialPanel());
+        checkLoader(panel);
     }
 
     protected void checkLoader(ComplexPanel panel) {
-        MaterialLoader.loading(true, panel);
-        assertNotNull(panel.getWidget(0));
         assertTrue(panel.getWidget(0) instanceof MaterialWidget);
         MaterialWidget loaderWrapper = (MaterialWidget) panel.getWidget(0);
         assertTrue(loaderWrapper.getElement().hasClassName(CssName.LOADER_WRAPPER));
@@ -90,54 +88,5 @@ public class MaterialLoaderTest extends MaterialTestCase {
         spinner.setColor(SpinnerColor.YELLOW);
         assertEquals(SpinnerColor.YELLOW, spinner.getColor());
         assertTrue(spinner.getElement().hasClassName(SpinnerColor.YELLOW.getCssName()));
-    }
-
-    protected void checkProgress(ComplexPanel panel) {
-        MaterialLoader.progress(true, panel);
-        assertNotNull(panel.getWidget(0));
-        assertTrue(panel.getWidget(0) instanceof MaterialWidget);
-        MaterialWidget loaderWrapper = (MaterialWidget) panel.getWidget(0);
-        assertTrue(loaderWrapper.getElement().hasClassName(CssName.PROGRESS_WRAPPER));
-        assertTrue(loaderWrapper.getElement().hasClassName(CssName.VALIGN_WRAPPER));
-
-        assertTrue(loaderWrapper.getWidget(0) instanceof MaterialProgress);
-        MaterialProgress progress = (MaterialProgress) loaderWrapper.getWidget(0);
-        checkProgress(progress);
-        checkProgressValue(progress);
-
-        MaterialLoader.loading(false);
-        assertEquals(0, panel.getWidgetCount());
-    }
-
-    protected void checkProgress(MaterialProgress progress) {
-        assertNotNull(progress);
-        // Check default type
-        progress.setType(ProgressType.INDETERMINATE);
-        assertEquals(ProgressType.INDETERMINATE, progress.getType());
-        progress.setType(ProgressType.DETERMINATE);
-        assertEquals(ProgressType.DETERMINATE, progress.getType());
-
-        progress.setPercent(90);
-        assertEquals((double) 90, progress.getPercent());
-        // Get the target widget for percentage update
-        assertNotNull(progress.getWidget(0));
-        assertTrue(progress.getWidget(0) instanceof MaterialWidget);
-        MaterialWidget progressDiv = (MaterialWidget) progress.getWidget(0);
-        assertEquals("90%", progressDiv.getElement().getStyle().getWidth());
-        // Check color
-        MaterialWidgetTest.checkColor(progress);
-    }
-
-    protected void checkProgressValue(MaterialProgress progress) {
-        progress.setPercent(50);
-        assertEquals((double) 50, progress.getPercent());
-
-        // Check if progress value is less than 0
-        progress.setPercent(-10);
-        assertEquals((double) 0, progress.getPercent());
-
-        // Check if progress value is greater than 100
-        progress.setPercent(100);
-        assertEquals((double) 100, progress.getPercent());
     }
 }

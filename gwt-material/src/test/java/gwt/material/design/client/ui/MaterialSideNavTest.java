@@ -41,7 +41,7 @@ public class MaterialSideNavTest extends MaterialWidgetTest<MaterialSideNav> {
     @Override
     protected MaterialSideNav createWidget() {
         MaterialSideNav sideNav = new MaterialSideNav();
-        MaterialNavBar navBar = new MaterialNavBar();
+        navBar = new MaterialNavBar();
         navBar.setActivates(ACTIVATES);
         sideNav.setId(ACTIVATES);
         sideNav.setWidth("300");

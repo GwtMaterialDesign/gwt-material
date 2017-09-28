@@ -189,6 +189,11 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     }
 
     @Override
+    public Color getIconColor() {
+        return icon.getIconColor();
+    }
+
+    @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
     }

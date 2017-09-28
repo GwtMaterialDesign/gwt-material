@@ -22,12 +22,12 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.NavBarType;
+import gwt.material.design.client.constants.TextAlign;
+import gwt.material.design.client.constants.WavesType;
 import gwt.material.design.client.events.NavBarExpandEvent;
 import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Div;
-
-import java.util.logging.Logger;
 
 /**
  * Test case for Nav Bar.
@@ -45,6 +45,8 @@ public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
     public static MaterialNavBar constructAndAttach() {
         MaterialHeader header = new MaterialHeader();
         MaterialNavBar navBar = new MaterialNavBar();
+        MaterialNavContent navContent = new MaterialNavContent();
+        navBar.add(navContent);
         header.add(navBar);
         RootPanel.get().add(header);
         assertTrue(navBar.getParent() instanceof MaterialHeader);
@@ -92,32 +94,28 @@ public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
     public void testStructure() {
         // given
         MaterialNavBar navBar = getWidget();
-
-        Logger.getLogger(MaterialNavBarTest.class.getName()).severe("testStructure");
+        Div navWrapper = navBar.getNavWrapper();
+        MaterialLink navMenu = navBar.getNavMenu();
+        MaterialNavContent navContent = (MaterialNavContent) navWrapper.getWidget(1);
 
         // when / then
+        assertNotNull(navBar.getWidget(0));
         assertTrue(navBar.getWidget(0) instanceof Div);
-        Div navWrapper = (Div) navBar.getWidget(0);
-        assertEquals(navBar.getNavMenu(), navWrapper.getWidget(0));
-        if (!navBar.getActivates().isEmpty()) {
-            assertTrue(navWrapper.getWidget(0) instanceof MaterialLink);
-            MaterialLink navMenu = (MaterialLink) navWrapper.getWidget(0);
-            assertTrue(navWrapper.getWidget(1) instanceof MaterialNavSection);
-            assertEquals(navBar.getNavMenu(), navMenu);
-            assertTrue(navBar.getNavMenu().getElement().hasClassName(CssName.BUTTON_COLLAPSE));
-        }
+        assertEquals(navBar.getNavWrapper(), navBar.getWidget(0));
         assertTrue(navWrapper.getElement().hasClassName(CssName.NAV_WRAPPER));
-
-        // NavBar Content extension
-        MaterialNavContent navContent = new MaterialNavContent();
-        navBar.add(navContent);
+        assertEquals(navWrapper.getWidget(0), navBar.getNavMenu());
+        assertTrue(navMenu.getElement().hasClassName(CssName.BUTTON_COLLAPSE));
+        assertTrue(navMenu.isCircle());
+        assertEquals("2.7em", navMenu.getFontSize());
+        assertEquals(64, navMenu.getWidth());
+        assertEquals(WavesType.LIGHT, navMenu.getWaves());
+        assertEquals(TextAlign.CENTER, navMenu.getTextAlign());
+        assertNotNull(navWrapper.getWidget(0));
+        assertTrue(navWrapper.getWidget(1) instanceof MaterialNavContent);
         assertTrue(navContent.getElement().hasClassName(CssName.NAV_CONTENT));
         MaterialLabel label = new MaterialLabel();
         navContent.add(label);
-
         assertEquals(label, navContent.getWidget(0));
-        assertEquals(navContent, navWrapper.getWidget(3));
-
         navBar.clear();
         assertEquals(0, navWrapper.getChildren().size());
     }

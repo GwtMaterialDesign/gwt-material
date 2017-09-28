@@ -48,7 +48,10 @@ public class MaterialNavSectionTest extends MaterialWidgetTest<MaterialNavSectio
         // when / then
         navSection.setPosition(Position.LEFT);
         assertTrue(navSection.getElement().hasClassName(Position.LEFT.getCssName()));
-        assertTrue(navSection.getElement().hasClassName(HideOn.HIDE_ON_MED.getCssName()));
+
+        navSection.setPosition(Position.RIGHT);
+        assertTrue(navSection.getElement().hasClassName(Position.RIGHT.getCssName()));
+        assertFalse(navSection.getElement().hasClassName(Position.LEFT.getCssName()));
     }
 
     public void testAddLinks() {
