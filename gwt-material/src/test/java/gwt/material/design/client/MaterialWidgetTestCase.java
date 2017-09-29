@@ -373,7 +373,7 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
         CloseEvent.fire(widget, widget);
     }
 
-    protected <H extends MaterialWidget & HasSelectionHandlers, T extends Object> void checkSelectionHandler(H widget, T selectedItem) {
+    protected <H extends MaterialWidget & HasSelectionHandlers> void checkSelectionHandler(H widget, Object selectedItem) {
         // Check Open Event
         final boolean[] fired = {false};
         widget.addSelectionHandler(event -> {
@@ -385,7 +385,7 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
         assertTrue(fired[0]);
     }
 
-    public <H extends MaterialWidget & HasSelectionHandlers, T extends Object> void fireSelectionHandler(H widget, T index) {
+    public <H extends MaterialWidget & HasSelectionHandlers> void fireSelectionHandler(H widget, Object index) {
         assertNotNull(widget);
         assertNotNull(index);
         SelectionEvent.fire(widget, index);
