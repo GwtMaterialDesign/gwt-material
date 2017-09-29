@@ -24,10 +24,15 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.logical.shared.*;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.logical.shared.HasOpenHandlers;
+import com.google.gwt.event.logical.shared.OpenEvent;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasColors;
 import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.MaterialWidget;
@@ -356,11 +361,11 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
         assertTrue(fired[0]);
     }
 
-    protected <H extends MaterialWidget & HasOpenHandlers> void fireOpenHandler(H widget) {
+    protected <H extends Widget & HasOpenHandlers> void fireOpenHandler(H widget) {
         OpenEvent.fire(widget, widget);
     }
 
-    public <H extends MaterialWidget & HasCloseHandlers> void checkCloseHandler(H widget) {
+    public <H extends Widget & HasCloseHandlers> void checkCloseHandler(H widget) {
         // Check Open Event
         final boolean[] fired = {false};
         widget.addCloseHandler(event -> fired[0] = true);
@@ -369,7 +374,7 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
         assertTrue(fired[0]);
     }
 
-    protected <H extends MaterialWidget & HasCloseHandlers> void fireCloseHandler(H widget) {
+    protected <H extends Widget & HasCloseHandlers> void fireCloseHandler(H widget) {
         CloseEvent.fire(widget, widget);
     }
 
