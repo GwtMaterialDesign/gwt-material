@@ -133,6 +133,11 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
+    public double getOpacity() {
+        return options.opacity;
+    }
+
+    @Override
     public void setEnabled(boolean enabled) {
         getEnabledMixin().setEnabled(this, enabled);
     }

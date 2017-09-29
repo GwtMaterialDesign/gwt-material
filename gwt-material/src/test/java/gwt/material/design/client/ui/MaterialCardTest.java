@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.Axis;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 

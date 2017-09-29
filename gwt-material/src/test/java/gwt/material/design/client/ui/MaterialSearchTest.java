@@ -21,9 +21,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.Color;
-import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.ui.html.Label;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -217,4 +217,10 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR);
         assertEquals(MaterialDatePicker.MaterialDatePickerType.YEAR, datePicker.getSelectionType());
     }
+
+    @Override
+    public void testTabIndex() {
+        MaterialDatePicker datePicker = getWidget();
+        super.checkTabIndex(datePicker.getDateInput());
+    }
 }

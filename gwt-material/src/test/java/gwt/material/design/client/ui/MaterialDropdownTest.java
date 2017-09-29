@@ -19,9 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;

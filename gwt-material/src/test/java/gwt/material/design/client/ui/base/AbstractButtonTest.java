@@ -21,12 +21,8 @@ package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.AbstractButton;
-import gwt.material.design.client.base.HasActivates;
-import gwt.material.design.client.base.HasHref;
-import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.ui.MaterialButton;
 import org.junit.Ignore;
 
 /**

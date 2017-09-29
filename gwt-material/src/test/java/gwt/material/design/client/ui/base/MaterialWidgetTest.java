@@ -202,11 +202,11 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         assertEquals("12px", widget.getElement().getStyle().getFontSize());
 
         // when
-        widget.setFontSize(14, Style.Unit.EM);
+        widget.setFontSize(14, Style.Unit.PX);
 
         // then
-        assertEquals("14em", widget.getFontSize());
-        assertEquals("14em", widget.getElement().getStyle().getFontSize());
+        assertEquals("14px", widget.getFontSize());
+        assertEquals("14px", widget.getElement().getStyle().getFontSize());
     }
 
     public void testFontWeight() {
@@ -434,6 +434,21 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         assertEquals(MAX_WIDTH, widget.getElement().getStyle().getProperty("maxWidth"));
     }
 
+    public void testOpacity() {
+        final double INITIAL_OPACITY = 0.0;
+        final double FINAL_OPACITY = 1.0;
+        // given
+        MaterialWidget widget = getWidget();
+
+        // when / then
+        widget.setOpacity(INITIAL_OPACITY);
+        assertEquals(INITIAL_OPACITY, widget.getOpacity());
+
+        // when / then
+        widget.setOpacity(FINAL_OPACITY);
+        assertEquals(FINAL_OPACITY, widget.getOpacity());
+    }
+
     public void testOrientation() {
         // given
         MaterialWidget widget = getWidget();
@@ -462,5 +477,38 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         widget.setPerspective(PERSPECTIVE);
         assertEquals(PERSPECTIVE, widget.getPerspective());
         assertEquals(PERSPECTIVE, widget.getElement().getStyle().getProperty("perspective"));
+    }
+
+    public void testTabIndex() {
+        checkTabIndex(getWidget());
+    }
+
+    protected <T extends MaterialWidget> void checkTabIndex(T widget) {
+        final int INITIAL_TAB_INDEX = 0;
+        final int FINAL_TAB_INDEX = 1;
+
+        // when / then
+        widget.setTabIndex(INITIAL_TAB_INDEX);
+        assertEquals(INITIAL_TAB_INDEX, widget.getTabIndex());
+        assertEquals(String.valueOf(INITIAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
+
+        // when / then
+        widget.setTabIndex(FINAL_TAB_INDEX);
+        assertEquals(FINAL_TAB_INDEX, widget.getTabIndex());
+        assertEquals(String.valueOf(FINAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
+    }
+
+    public void testTransform() {
+        final String TRANSFORM_VALUE = "rotate(7deg)";
+        final String FINAL_TRANSFORM_VALUE = "scale(0)";
+        MaterialWidget widget = getWidget();
+
+        widget.setTransform(TRANSFORM_VALUE);
+        assertEquals(TRANSFORM_VALUE, widget.getTransform());
+        assertEquals(TRANSFORM_VALUE, widget.getElement().getStyle().getProperty("transform"));
+
+        widget.setTransform(FINAL_TRANSFORM_VALUE);
+        assertEquals(FINAL_TRANSFORM_VALUE, widget.getTransform());
+        assertEquals(FINAL_TRANSFORM_VALUE, widget.getElement().getStyle().getProperty("transform"));
     }
 }

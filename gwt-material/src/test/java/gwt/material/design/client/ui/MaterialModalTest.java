@@ -145,4 +145,28 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
         modal.setDismissible(true);
         assertTrue(modal.isDismissible());
     }
+
+    @Override
+    public void testOpacity() {
+        // given
+        final double INITIAL_OPACITY = 0.5;
+        final double FINAL_OPACITY = 0.9;
+        MaterialModal modal = getWidget();
+
+        // when
+        modal.setOpacity(INITIAL_OPACITY);
+        modal.open();
+
+        // then
+        assertEquals(INITIAL_OPACITY, modal.getOpacity());
+        modal.close();
+
+        // when
+        modal.setOpacity(FINAL_OPACITY);
+        modal.open();
+
+        // then
+        assertEquals(FINAL_OPACITY, modal.getOpacity());
+        modal.close();
+    }
 }

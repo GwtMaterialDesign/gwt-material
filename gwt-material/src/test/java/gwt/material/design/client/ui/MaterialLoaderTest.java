@@ -24,8 +24,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.*;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.LoaderSize;
+import gwt.material.design.client.constants.SpinnerColor;
 
 /**
  * Test case for Loaders.

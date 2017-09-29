@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.ValueBoxBase;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
@@ -94,6 +95,23 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
         widget.setToggleReadOnly(false);
         assertFalse(element.hasClassName(CssName.READ_ONLY_TOGGLE));
         assertFalse(widget.isToggleReadOnly());
+    }
+
+    @Override
+    public void testTabIndex() {
+        ValueBoxBase widget = getWidget().getValueBoxBase();
+        final int INITIAL_TAB_INDEX = 0;
+        final int FINAL_TAB_INDEX = 1;
+
+        // when / then
+        widget.setTabIndex(INITIAL_TAB_INDEX);
+        assertEquals(INITIAL_TAB_INDEX, widget.getTabIndex());
+        assertEquals(String.valueOf(INITIAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
+
+        // when / then
+        widget.setTabIndex(FINAL_TAB_INDEX);
+        assertEquals(FINAL_TAB_INDEX, widget.getTabIndex());
+        assertEquals(String.valueOf(FINAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
     }
 
     @Override
