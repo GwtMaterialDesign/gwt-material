@@ -23,6 +23,8 @@ import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.HasAllFocusHandlers;
+import com.google.gwt.event.dom.client.HasAllKeyHandlers;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
@@ -54,7 +56,7 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
         checkFocusAndBlurEvents(widget);
     }
 
-    protected <H extends MaterialWidget> void checkFocusAndBlurEvents(H widget) {
+    protected <H extends HasAllFocusHandlers & HasEnabled> void checkFocusAndBlurEvents(H widget) {
         // Check Focus
         final boolean[] isFocusFired = {false};
         widget.addFocusHandler(focusEvent -> isFocusFired[0] = true);
@@ -128,7 +130,7 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
         checkKeyEvents(widget);
     }
 
-    protected <H extends MaterialWidget> void checkKeyEvents(H widget) {
+    protected <H extends HasAllKeyHandlers & HasEnabled> void checkKeyEvents(H widget) {
         // Key Down
         final boolean[] isKeyDownFired = {false};
         widget.addKeyDownHandler(keyDownEvent -> isKeyDownFired[0] = true);
