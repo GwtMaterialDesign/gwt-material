@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.Axis;
+import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.FABType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -34,9 +35,23 @@ import gwt.material.design.client.ui.html.ListItem;
  */
 public class MaterialFABTest extends MaterialWidgetTest<MaterialFAB> {
 
+    static final int FAB_ITEM_SIZE = 5;
+
     @Override
     protected MaterialFAB createWidget() {
-        return new MaterialFAB();
+        MaterialFAB fab = new MaterialFAB();
+        MaterialButton btnLarge = new MaterialButton();
+        btnLarge.setType(ButtonType.FLOATING);
+        btnLarge.setSize(ButtonSize.LARGE);
+        MaterialFABList fabList = new MaterialFABList();
+        for (int i = 1; i <= FAB_ITEM_SIZE; i++) {
+            MaterialButton button = new MaterialButton();
+            button.setType(ButtonType.FLOATING);
+            fabList.add(button);
+        }
+        fab.add(btnLarge);
+        fab.add(fabList);
+        return fab;
     }
 
     public void testOpenAndCloseFAB() {
@@ -46,6 +61,21 @@ public class MaterialFABTest extends MaterialWidgetTest<MaterialFAB> {
         // when / then
         checkOpenHandler(fab);
         checkCloseHandler(fab);
+    }
+
+    public void testHoverableFAB() {
+        // given
+        final boolean[] opened = {false};
+        MaterialFAB fab = getWidget();
+
+        // when / then
+        fab.setHoverable(true);
+        fab.addOpenHandler(openEvent -> opened[0] = true);
+        fab.addCloseHandler(closeEvent -> opened[0] = false);
+        fireMouseOverEvent(fab);
+        assertTrue(opened[0]);
+        fireCloseHandler(fab);
+        assertFalse(opened[0]);
     }
 
     public void testTypes() {
@@ -78,35 +108,28 @@ public class MaterialFABTest extends MaterialWidgetTest<MaterialFAB> {
     public void testStructure() {
         // given
         MaterialFAB fab = getWidget();
-
-        MaterialButton btnLarge = new MaterialButton();
-        btnLarge.setType(ButtonType.FLOATING);
-        MaterialFABList fabList = new MaterialFABList();
-        for (int i = 1; i <= 5; i++) {
-            MaterialButton button = new MaterialButton();
-            button.setType(ButtonType.FLOATING);
-            fabList.add(button);
-        }
+        MaterialButton btnLarge = (MaterialButton) fab.getWidget(0);
+        MaterialFABList fabList = (MaterialFABList) fab.getWidget(1);
 
         // when / then
-        fab.add(btnLarge);
-        fab.add(fabList);
+        assertEquals(ButtonSize.LARGE, btnLarge.getSize());
+        assertEquals(ButtonType.FLOATING, btnLarge.getType());
+        assertEquals(FAB_ITEM_SIZE, fabList.getWidgetCount());
+    }
 
-        assertEquals(2, fab.getChildren().size());
-        assertTrue(fab.getWidget(0) instanceof MaterialButton);
-        assertEquals(btnLarge, fab.getWidget(0));
-        assertTrue(fab.getWidget(1) instanceof MaterialFABList);
-        assertEquals(fabList, fab.getWidget(1));
+    public void testFABItems() {
+        // given
+        MaterialFAB fab = getWidget();
 
-        assertEquals(5, fabList.getChildren().size());
+        MaterialFABList fabList = (MaterialFABList) fab.getWidget(1);
         for (Widget w : fabList.getChildren()) {
+            // given
             assertTrue(w instanceof ListItem);
             ListItem item = (ListItem) w;
+
+            // when / then
             assertNotNull(item.getWidget(0));
             assertTrue(item.getWidget(0) instanceof MaterialButton);
         }
     }
-
-    //TODO Test FAB Items
-    public void testFABItems() {}
 }
