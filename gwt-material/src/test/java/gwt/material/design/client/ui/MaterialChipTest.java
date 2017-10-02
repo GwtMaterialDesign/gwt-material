@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.html.Span;
 
@@ -34,6 +35,29 @@ public class MaterialChipTest extends AbstractValueWidgetTest<MaterialChip> {
     @Override
     protected MaterialChip createWidget() {
         return new MaterialChip();
+    }
+
+    public void testStructure() {
+        // given
+        final String TEXT = "text";
+        MaterialChip chip = getWidget();
+
+        // when / then
+        chip.setText(TEXT);
+        assertEquals(TEXT, chip.getText());
+        assertEquals(TEXT, chip.getChipLabel().getText());
+
+        // given
+        final IconType icon = IconType.POLYMER;
+
+        // when / then
+        chip.setIconType(icon);
+        chip.setIconColor(Color.RED);
+        assertEquals(icon, chip.getIcon().getIconType());
+        assertEquals(Color.RED, chip.getIconColor());
+
+        assertEquals(chip.getChipLabel(), chip.getWidget(0));
+        assertEquals(chip.getIcon(), chip.getWidget(1));
     }
 
     public void testLetter() {
@@ -53,6 +77,16 @@ public class MaterialChipTest extends AbstractValueWidgetTest<MaterialChip> {
         chip.setLetterColor(Color.AMBER);
         assertTrue(letter.getElement().hasClassName(Color.AMBER.getCssName()));
         assertEquals(Color.AMBER, letter.getTextColor());
+    }
+
+    public void testImage() {
+        // given
+        final String URL = "some.jpg";
+        MaterialChip chip = getWidget();
+
+        // when / then
+        chip.setUrl(URL);
+        assertEquals(URL, chip.getUrl());
     }
 
     public void testCloseHandler() {

@@ -101,10 +101,6 @@ public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
         checkLabelErrorSuccess(mSwitch, null, lblError);
     }
 
-    protected void checkInputAttribute(MaterialSwitch widget, MaterialInput input) {
-
-    }
-
     public void testValueChangeEvent() {
         // given
         MaterialSwitch mSwitch = getWidget();
@@ -112,4 +108,7 @@ public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
         // when / then
         checkValueChangeEvent(mSwitch, true, false);
     }
+
+    // TODO Test Error Success
+    public void testErrorSuccess() {}
 }

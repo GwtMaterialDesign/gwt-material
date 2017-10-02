@@ -84,6 +84,12 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
         assertEquals(0, collapsible.getChildren().size());
     }
 
+    // TODO Test Expansion
+
+    // TODO Test Collapse
+
+    // TODO Test Progress
+
     public void testTypes() {
         // given
         MaterialCollapsible collapsible = getWidget();

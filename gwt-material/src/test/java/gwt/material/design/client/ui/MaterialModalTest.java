@@ -49,6 +49,9 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
         return modal;
     }
 
+    // TODO Test Properties
+    public void testProperties() {}
+
     public void testFullScreenMode() {
         // given
         MaterialModal modal = getWidget();

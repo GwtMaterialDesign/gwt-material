@@ -79,7 +79,9 @@ public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
         }
     }
 
-    public <T extends MaterialSlider> void checkFullscreen(T slider) {
+    public void testFullscreen() {
+        MaterialSlider slider = getWidget();
+
         slider.setFullscreen(true);
         assertTrue(slider.isFullscreen());
         assertTrue(slider.getElement().hasClassName(CssName.FULLSCREEN));
@@ -88,4 +90,7 @@ public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
         assertFalse(slider.isFullscreen());
         assertFalse(slider.getElement().hasClassName(CssName.FULLSCREEN));
     }
+
+    // TODO test actions (start/pause)
+    public void testStartAndPause() {}
 }

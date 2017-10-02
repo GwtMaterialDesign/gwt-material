@@ -131,4 +131,10 @@ public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
         assertTrue(navBar.getNavMenu().getElement().hasAttribute("data-activates"));
         assertEquals(ACTIVATOR, navBar.getNavMenu().getElement().getAttribute("data-activates"));
     }
+
+    // TODO Test ProgressBar
+    public void testProgressBar() {}
+
+    // TODO Test NavBar content
+    public void testNavBarContent() {}
 }

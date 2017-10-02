@@ -67,4 +67,7 @@ public class MaterialTooltipTest extends MaterialTestCase {
         widget.setTooltipHTML(HTML);
         assertEquals(widget.getTooltipHTML(), HTML);
     }
+
+    // TODO Test attach / detach
+    public void testReattachTooltip() {}
 }

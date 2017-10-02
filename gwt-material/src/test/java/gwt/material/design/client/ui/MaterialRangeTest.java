@@ -98,6 +98,9 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
         checkValueChangeEvent(range, VALUE, SECOND_VALUE);
     }
 
+    // TODO Test Range reset
+    public void testReset() {}
+
     public void testErrorSuccess() {
         // given
         MaterialRange range = getWidget();
@@ -105,6 +108,9 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
         // when / then
         checkErrorSuccess(range, range.getErrorLabel());
     }
+
+    // TODO Test Chang
+    public void testChangeHandler() {}
 
     @Override
     public <H extends HasError> void checkErrorSuccess(H widget, UIObject target) {

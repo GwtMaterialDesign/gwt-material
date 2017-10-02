@@ -106,4 +106,7 @@ public class MaterialFABTest extends MaterialWidgetTest<MaterialFAB> {
             assertTrue(item.getWidget(0) instanceof MaterialButton);
         }
     }
+
+    //TODO Test FAB Items
+    public void testFABItems() {}
 }

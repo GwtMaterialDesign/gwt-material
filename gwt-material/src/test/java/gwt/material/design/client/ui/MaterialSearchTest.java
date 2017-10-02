@@ -79,6 +79,12 @@ public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
         assertEquals(0, searchResultWidget.getChildren().size());
     }
 
+    // TODO Test Empty Search result
+    public void testEmptySearchResult() {}
+
+    // TODO Test Key Navigation
+    public void testKeyNavigation() {}
+
     public void testValueChangeEvent() {
         // given
         MaterialSearch search = getWidget();

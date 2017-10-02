@@ -50,6 +50,16 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         checkErrorSuccess(datePicker, datePicker.getDateInput());
     }
 
+    // TODO
+    public void testProperties() {
+
+    }
+
+    // TODO
+    public void testStructure() {
+
+    }
+
     public void testPlaceholder() {
         // given
         MaterialDatePicker datePicker = getWidget();
@@ -89,6 +99,9 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         checkAutoClose(datePicker, false);
         checkAutoClose(datePicker, false);
     }
+
+    // TODO Test Clear
+    public void testClear() {}
 
     protected void checkAutoClose(MaterialDatePicker datePicker, boolean autoClose) {
         datePicker.setAutoClose(autoClose);
@@ -179,6 +192,7 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         assertTrue(isValueChanged[0]);
     }
 
+    // TODO Need advance checking to make sure the language is injected
     public void testLanguage() {
         // given
         MaterialDatePicker datePicker = getWidget();
