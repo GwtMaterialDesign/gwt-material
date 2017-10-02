@@ -566,7 +566,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
      */
     public void setContainer(DatePickerContainer container) {
         this.container = container;
-        options.container = container.getCssName();
+        options.container = container == DatePickerContainer.SELF ? getElement().getId() : container.getCssName();
     }
 
     public Label getLabel() {
