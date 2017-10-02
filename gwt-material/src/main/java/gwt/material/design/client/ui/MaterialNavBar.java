@@ -123,6 +123,11 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
     }
 
     @Override
+    public MaterialProgress getProgress() {
+        return getProgressMixin().getProgress();
+    }
+
+    @Override
     public void setActivates(String activates) {
         getActivatesMixin().setActivates(activates);
     }

@@ -63,6 +63,11 @@ public class ProgressMixin<T extends UIObject & HasProgress> extends AbstractMix
         }
     }
 
+    @Override
+    public MaterialProgress getProgress() {
+        return progress;
+    }
+
     protected void applyCollapsibleProgress(boolean isShow) {
         MaterialCollapsibleItem item = (MaterialCollapsibleItem) uiObject;
         MaterialCollapsibleBody body = (MaterialCollapsibleBody) item.getWidget(1);

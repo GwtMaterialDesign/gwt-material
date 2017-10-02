@@ -135,6 +135,11 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         getProgressMixin().hideProgress();
     }
 
+    @Override
+    public MaterialProgress getProgress() {
+        return getProgressMixin().getProgress();
+    }
+
     /**
      * Make this item active.
      */

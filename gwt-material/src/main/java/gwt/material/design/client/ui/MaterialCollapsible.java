@@ -133,7 +133,7 @@ public class MaterialCollapsible extends MaterialWidget implements JsLoader, Has
 
     @Override
     public void load() {
-        collapsible(getElement(), accordion);
+        collapsible(getElement());
     }
 
     @Override
@@ -211,15 +211,8 @@ public class MaterialCollapsible extends MaterialWidget implements JsLoader, Has
         return getTypeMixin().getType();
     }
 
-    /**
-     * Initialize the collapsible material component.
-     */
-    protected void collapsible() {
-        collapsible(getElement(), isAccordion());
-    }
-
-    protected void collapsible(final Element e, boolean accordion) {
-        $(e).collapsible(accordion);
+    protected void collapsible(final Element e) {
+        $(e).collapsible(isAccordion());
     }
 
     /**
