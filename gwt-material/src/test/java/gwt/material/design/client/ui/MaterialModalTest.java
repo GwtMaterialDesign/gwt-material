@@ -49,9 +49,6 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
         return modal;
     }
 
-    // TODO Test Properties
-    public void testProperties() {}
-
     public void testFullScreenMode() {
         // given
         MaterialModal modal = getWidget();
@@ -147,6 +144,9 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
         // when / then
         modal.setDismissible(true);
         assertTrue(modal.isDismissible());
+
+        modal.setDismissible(false);
+        assertFalse(modal.isDismissible());
     }
 
     @Override

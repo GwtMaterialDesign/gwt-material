@@ -19,7 +19,10 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.html.Paragraph;
@@ -32,6 +35,11 @@ import gwt.material.design.client.ui.html.Span;
  * @author Ben Dol
  */
 public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
+
+    static final Integer MIN = 20;
+    static final Integer MAX = 100;
+    static final Integer VALUE = 50;
+    static final Integer SECOND_VALUE = 100;
 
     @Override
     protected MaterialRange createWidget() {
@@ -64,12 +72,6 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
     public void testValues() {
         // given
         MaterialRange range = getWidget();
-
-        final Integer MIN = 20;
-        final Integer MAX = 100;
-        final Integer VALUE = 50;
-        final Integer SECOND_VALUE = 100;
-
         final Element inputElement = range.getRangeInputElement().getElement();
 
         // when / then
@@ -96,8 +98,20 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
         checkValueChangeEvent(range, VALUE, SECOND_VALUE);
     }
 
-    // TODO Test Range reset
-    public void testReset() {}
+    public void testReset() {
+        // given
+        MaterialRange range = getWidget();
+
+        // when / then
+        range.setMin(MIN);
+        range.setMax(MAX);
+        range.setValue(VALUE);
+        assertEquals(VALUE, range.getValue());
+        range.setError("some-error");
+        range.reset();
+        assertEquals(MIN, range.getValue());
+        assertFalse(range.getElement().hasClassName(CssName.FIELD_ERROR));
+    }
 
     public void testErrorSuccess() {
         // given
@@ -107,6 +121,12 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
         checkFieldErrorSuccess(range, range.getErrorLabel());
     }
 
-    // TODO Test Change event
-    public void testChangeHandler() {}
+    public void testChangeHandler() {
+        MaterialRange range = getWidget();
+
+        final boolean[] firedEvent = {false};
+        range.addChangeHandler(changeEvent -> firedEvent[0] = true);
+        ChangeEvent.fireNativeEvent(Document.get().createChangeEvent(), range.getRangeInputElement());
+        assertTrue(firedEvent[0]);
+    }
 }

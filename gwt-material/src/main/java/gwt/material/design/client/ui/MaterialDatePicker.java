@@ -161,6 +161,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         setDate(date);
         setDateMin(dateMin);
         setDateMax(dateMax);
+
+
     }
 
     @Override
@@ -174,9 +176,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     public void unload() {
         JsMaterialElement picker = getPicker();
         if(picker != null) {
-            picker.off(options);
-            picker.off("open");
-            picker.off("close");
+            picker.stop();
         }
     }
 
@@ -444,12 +444,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
         if (language.getJs() != null) {
             ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
-
-            JsMaterialElement picker = getPicker();
-            Scheduler.get().scheduleDeferred(() -> {
-                picker.render(true);
-                picker.start();
-            });
+            getPicker().stop();
+            Scheduler.get().scheduleDeferred(() -> load());
         }
     }
 
@@ -613,8 +609,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     protected void onClose() {
         CloseEvent.fire(this, this);
-        fireEvent(new BlurEvent() {
-        });
+        fireEvent(new BlurEvent() {});
     }
 
     protected void onOpen() {
