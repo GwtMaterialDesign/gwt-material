@@ -34,9 +34,21 @@ import java.util.List;
  */
 public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
 
+    static final List<SearchObject> SEARCH_OBJECTS = new ArrayList<>();
+
     @Override
     protected MaterialSearch createWidget() {
-        return new MaterialSearch();
+        MaterialSearch search = new MaterialSearch();
+
+        for (int i = 1; i <= 5; i++) {
+            SearchObject obj = new SearchObject();
+            obj.setKeyword("keyword" + i);
+            obj.setLink("link" + i);
+            SEARCH_OBJECTS.add(obj);
+        }
+
+        search.setListSearches(SEARCH_OBJECTS);
+        return search;
     }
 
     @Override
@@ -65,25 +77,22 @@ public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
         MaterialSearchResult searchResultWidget = search.getSearchResultPanel();
         assertNotNull(searchResultWidget);
 
-        List<SearchObject> objects = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            SearchObject obj = new SearchObject();
-            obj.setKeyword("keyword" + i);
-            obj.setLink("link" + i);
-            objects.add(obj);
-        }
-
-        // Expected result by default 0
-        search.setListSearches(objects);
-        assertEquals(objects.size(), search.getListSearches().size());
+        assertEquals(SEARCH_OBJECTS.size(), search.getListSearches().size());
         assertEquals(0, searchResultWidget.getChildren().size());
     }
 
-    // TODO Test Empty Search result
-    public void testEmptySearchResult() {}
+    public void testEmptySearchResult() {
+        // given
+        MaterialSearch search = getWidget();
 
-    // TODO Test Key Navigation
-    public void testKeyNavigation() {}
+        // when / then
+        assertNotSame(0, search.getListSearches().size());
+        search.open();
+        search.setValue("noresult");
+        assertEquals("noresult", search.getValue());
+        MaterialSearchResult searchResult = search.getSearchResultPanel();
+        assertEquals(0, searchResult.getChildren().size());
+    }
 
     public void testValueChangeEvent() {
         // given

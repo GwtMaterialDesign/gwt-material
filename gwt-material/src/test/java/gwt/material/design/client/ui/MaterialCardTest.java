@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
@@ -35,6 +36,11 @@ public class MaterialCardTest extends MaterialWidgetTest<MaterialCard> {
     @Override
     protected MaterialCard createWidget() {
         return new MaterialCard();
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.CARD);
     }
 
     public void testOrientation() {

@@ -24,6 +24,7 @@ import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
@@ -58,6 +59,11 @@ public class MaterialTabTest extends MaterialWidgetTest<MaterialTab> {
         super.gwtTearDown();
 
         row = null;
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.TABS);
     }
 
     public void testDynamicTab() {

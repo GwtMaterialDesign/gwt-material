@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
@@ -32,5 +33,10 @@ public class MaterialBadgeTest extends MaterialWidgetTest<MaterialBadge> {
     @Override
     protected MaterialBadge createWidget() {
         return new MaterialBadge();
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.BADGE, CssName.SIDEBAR_BADGE);
     }
 }

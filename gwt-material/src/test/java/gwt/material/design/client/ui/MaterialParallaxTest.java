@@ -36,6 +36,11 @@ public class MaterialParallaxTest extends MaterialWidgetTest<MaterialParallax> {
         return new MaterialParallax();
     }
 
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.PARALLAX_CONTAINER);
+    }
+
     public void testStructure() {
         // given / when
         MaterialParallax parallax = getWidget();

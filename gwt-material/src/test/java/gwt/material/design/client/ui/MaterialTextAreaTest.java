@@ -19,6 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.InputType;
+
 /**
  * Test case for Text Area.
  *
@@ -30,6 +33,15 @@ public class MaterialTextAreaTest extends MaterialValueBoxTest<MaterialTextArea>
     @Override
     protected MaterialTextArea createWidget() {
         return new MaterialTextArea();
+    }
+
+    public void testStructure() {
+        // given
+        MaterialTextArea textArea = getWidget();
+
+        // when / then
+        assertTrue(textArea.getValueBoxBase().getElement().hasClassName(CssName.MATERIALIZE_TEXTAREA));
+        assertEquals(InputType.TEXT, textArea.getType());
     }
 
     @Override

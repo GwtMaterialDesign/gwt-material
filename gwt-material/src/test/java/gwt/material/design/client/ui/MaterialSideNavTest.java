@@ -64,6 +64,11 @@ public class MaterialSideNavTest extends MaterialWidgetTest<MaterialSideNav> {
         navBar = null;
     }
 
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.SIDE_NAV);
+    }
+
     public void testContent() {
         // given
         MaterialSideNav sideNav = getWidget();

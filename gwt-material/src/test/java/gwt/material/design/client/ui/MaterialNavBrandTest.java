@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
@@ -33,6 +34,11 @@ public class MaterialNavBrandTest extends MaterialWidgetTest<MaterialNavBrand> {
     @Override
     protected MaterialNavBrand createWidget() {
         return new MaterialNavBrand();
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.BRAND_LOGO);
     }
 
     public void testText() {

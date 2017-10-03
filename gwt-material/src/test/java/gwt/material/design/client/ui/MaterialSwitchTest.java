@@ -37,6 +37,11 @@ public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
     }
 
     @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.SWITCH);
+    }
+
+    @Override
     public void testEnabled() {
         super.testEnabled();
 

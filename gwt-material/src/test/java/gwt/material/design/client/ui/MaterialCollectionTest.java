@@ -37,6 +37,11 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
         return new MaterialCollection();
     }
 
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.COLLECTION);
+    }
+
     public void testActive() {
         // given
         MaterialCollection collection = populateCollection(getWidget());

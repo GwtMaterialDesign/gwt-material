@@ -42,6 +42,11 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
         return collapsible;
     }
 
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.COLLAPSIBLE);
+    }
+
     protected void generateCollapsibleItems(MaterialWidget parent) {
         for (int i = 1; i <= 5; i++) {
             MaterialCollapsibleItem item = new MaterialCollapsibleItem();

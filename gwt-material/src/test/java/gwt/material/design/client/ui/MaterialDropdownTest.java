@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.Alignment;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
 
@@ -35,6 +36,11 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
     @Override
     protected MaterialDropDown createWidget() {
         return new MaterialDropDown();
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.DROPDOWN_CONTENT);
     }
 
     public void testOptions() {

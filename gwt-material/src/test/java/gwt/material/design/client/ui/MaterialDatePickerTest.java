@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.DatePickerContainer;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
@@ -37,19 +38,30 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDatePicker> {
 
+    final static Date DATE = new Date(116, 2, 5);
+    final static Date SECOND_DATE = new Date(116, 1, 0);
+
     @Override
     protected MaterialDatePicker createWidget() {
         return new MaterialDatePicker();
     }
 
-    // TODO Test Properties
-    public void testProperties() {
-
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.INPUT_FIELD);
     }
 
-    // TODO Test Structure
     public void testStructure() {
+        // given
+        MaterialDatePicker picker = getWidget();
 
+        // when / then
+        assertEquals(CssName.INPUT_FIELD, picker.getInitialClasses()[0]);
+        assertEquals(3, picker.getWidgetCount());
+        assertEquals(picker.getDateInput(), picker.getWidget(0));
+        assertEquals(picker.getLabel(), picker.getWidget(1));
+        assertEquals(picker.getPlaceholderLabel(), picker.getLabel().getWidget(0));
+        assertEquals(picker.getErrorLabel(), picker.getWidget(2));
     }
 
     public void testPlaceholder() {
@@ -116,8 +128,24 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         checkAutoClose(datePicker, false);
     }
 
-    // TODO Test Clear
-    public void testClear() {}
+    public void testClear() {
+        // given
+        MaterialDatePicker picker = getWidget();
+
+        // when
+        picker.setValue(DATE);
+        picker.setError("error");
+        picker.clear();
+
+        // then
+        assertEquals("", picker.getDateInput().getElement().getInnerText());
+        assertFalse(picker.getLabel().getElement().hasClassName(CssName.ACTIVE));
+        assertFalse(picker.getDateInput().getElement().hasClassName(CssName.VALID));
+        assertFalse(picker.getDateInput().getElement().hasClassName(CssName.INVALID));
+
+        assertFalse(picker.getErrorLabel().getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertFalse(picker.getDateInput().getElement().hasClassName(CssName.FIELD_ERROR));
+    }
 
     protected void checkAutoClose(MaterialDatePicker datePicker, boolean autoClose) {
         datePicker.setAutoClose(autoClose);
@@ -182,10 +210,6 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         // given
         MaterialDatePicker datePicker = getWidget();
 
-        // when / then
-        final Date DATE = new Date(116, 2, 5);
-        final Date SECOND_DATE = new Date(116, 1, 0);
-
         boolean[] isValueChanged = {false};
         datePicker.addValueChangeHandler(event -> isValueChanged[0] = true);
 
@@ -208,15 +232,16 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         assertTrue(isValueChanged[0]);
     }
 
-    // TODO Need advance checking to make sure the language is injected
     public void testLanguage() {
         // given
         MaterialDatePicker datePicker = getWidget();
 
         // when / then
-        final DatePickerLanguage LANGUAGE = DatePickerLanguage.DA;
-        datePicker.setLanguage(LANGUAGE);
-        assertEquals(LANGUAGE, datePicker.getLanguage());
+        final DatePickerLanguage DANISH = DatePickerLanguage.DA;
+        final DatePickerLanguage FRENCH = DatePickerLanguage.FR;
+
+        datePicker.setLanguage(DANISH);
+        assertEquals(DANISH, datePicker.getLanguage());
     }
 
     public void testOrientation() {
@@ -246,6 +271,15 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         assertEquals(MaterialDatePicker.MaterialDatePickerType.MONTH_DAY, datePicker.getSelectionType());
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR);
         assertEquals(MaterialDatePicker.MaterialDatePickerType.YEAR, datePicker.getSelectionType());
+    }
+
+    public void testYearsToDisplay() {
+        MaterialDatePicker picker = getWidget();
+
+        picker.setYearsToDisplay(10);
+        assertEquals(10, picker.getYearsToDisplay());
+        picker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.DAY, 20);
+        assertEquals(20, picker.getYearsToDisplay());
     }
 
     @Override

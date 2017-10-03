@@ -120,15 +120,22 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
     }
 
     public void testInitialClasses() {
+        checkInitialClasses();
+    }
+
+    protected void checkInitialClasses(String... initialClasses) {
         // given
         MaterialWidget widget = getWidget();
 
         // when / then
-        widget.addAttachHandler(attachEvent -> {
-            if (widget.getInitialClasses() != null) {
-                assertNotNull(widget.getInitialClasses());
+        if (widget.getInitialClasses() != null) {
+
+            for (int i = 0; i < initialClasses.length; i++) {
+                assertTrue(widget.getElement().hasClassName(initialClasses[i]));
             }
-        });
+
+            assertNotNull(widget.getInitialClasses());
+        }
     }
 
     public void testChildren() {

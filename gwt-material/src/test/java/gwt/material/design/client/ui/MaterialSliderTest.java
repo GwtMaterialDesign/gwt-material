@@ -34,7 +34,21 @@ public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
 
     @Override
     protected MaterialSlider createWidget() {
-        return new MaterialSlider();
+        MaterialSlider slider = new MaterialSlider();
+        for (int i = 1; i <= 5; i++) {
+            MaterialSlideItem item = new MaterialSlideItem();
+            MaterialImage image = new MaterialImage();
+            MaterialSlideCaption caption = new MaterialSlideCaption();
+            item.add(image);
+            item.add(caption);
+            slider.add(item);
+        }
+        return slider;
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.SLIDER);
     }
 
     public void testTransitionDuration() {
@@ -60,15 +74,6 @@ public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
         UnorderedList ul = (UnorderedList) slider.getWidget(0);
         assertTrue(ul.getElement().hasClassName(CssName.SLIDES));
 
-        for (int i = 1; i <= 5; i++) {
-            MaterialSlideItem item = new MaterialSlideItem();
-            MaterialImage image = new MaterialImage();
-            MaterialSlideCaption caption = new MaterialSlideCaption();
-            item.add(image);
-            item.add(caption);
-            slider.add(item);
-        }
-
         // Check the children of Slides Container (Unordered List)
         assertEquals(5, ul.getChildren().size());
         for (Widget w : ul.getChildren()) {
@@ -92,5 +97,13 @@ public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
     }
 
     // TODO test actions (start/pause)
-    public void testStartAndPause() {}
+    public void testStartAndPause() {
+        MaterialSlider slider = getWidget();
+
+        slider.setDuration(0);
+        slider.pause();
+
+
+        slider.start();
+    }
 }

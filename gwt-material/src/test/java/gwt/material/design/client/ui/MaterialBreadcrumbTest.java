@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractButtonTest;
 
 /**
@@ -32,5 +33,10 @@ public class MaterialBreadcrumbTest extends AbstractButtonTest<MaterialBreadcrum
     @Override
     protected MaterialBreadcrumb createWidget() {
         return new MaterialBreadcrumb();
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.BREADCRUMB);
     }
 }

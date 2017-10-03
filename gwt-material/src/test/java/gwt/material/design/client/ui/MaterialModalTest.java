@@ -49,6 +49,11 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
         return modal;
     }
 
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.MODAL);
+    }
+
     public void testFullScreenMode() {
         // given
         MaterialModal modal = getWidget();

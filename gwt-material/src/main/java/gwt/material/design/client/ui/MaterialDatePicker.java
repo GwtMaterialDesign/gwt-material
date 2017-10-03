@@ -186,11 +186,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         load();
     }
 
-    /*
-     * Sets the type of selection options (date, month, year,...).
-     *
-     * @param type if <code>null</code>, {@link MaterialDatePickerType#DAY} will be used as fallback.
+    /**
+     * As of now use {@link MaterialDatePicker#setSelectionType(MaterialDatePickerType)}
+     * @param type
      */
+    @Deprecated
     public void setDateSelectionType(MaterialDatePickerType type) {
         if (type != null) {
             this.selectionType = type;
@@ -331,7 +331,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
      */
     public void setSelectionType(MaterialDatePickerType selectionType, int yearsToDisplay) {
         setSelectionType(selectionType);
-        options.selectYears = yearsToDisplay;
+        setYearsToDisplay(yearsToDisplay);
     }
 
     @Override
@@ -542,7 +542,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     public int getYearsToDisplay() {
-        return yearsToDisplay;
+        return options.selectYears;
     }
 
     /**
@@ -550,7 +550,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
      * in the dropdown list.
      */
     public void setYearsToDisplay(int yearsToDisplay) {
-        this.yearsToDisplay = yearsToDisplay;
+        options.selectYears = yearsToDisplay;
     }
 
     public DatePickerContainer getContainer() {

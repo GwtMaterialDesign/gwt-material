@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ImageType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
@@ -34,7 +35,12 @@ public class MaterialImageTest extends MaterialWidgetTest<MaterialImage> {
     protected MaterialImage createWidget() {
         return new MaterialImage();
     }
-    
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.RESPONSIVE_IMG);
+    }
+
     public void testTypes() {
         // given
         MaterialImage image = getWidget();

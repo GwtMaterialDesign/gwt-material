@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.html.Span;
@@ -35,6 +36,11 @@ public class MaterialChipTest extends AbstractValueWidgetTest<MaterialChip> {
     @Override
     protected MaterialChip createWidget() {
         return new MaterialChip();
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.CHIP);
     }
 
     public void testStructure() {

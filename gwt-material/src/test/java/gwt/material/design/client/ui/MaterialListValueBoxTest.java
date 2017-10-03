@@ -46,6 +46,11 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         return new MaterialListValueBox<>();
     }
 
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.INPUT_FIELD);
+    }
+
     public <M> void checkValues(MaterialListValueBox<M> listValueBox, List<M> models) {
         for(M model : models) {
             listValueBox.addItem(model);

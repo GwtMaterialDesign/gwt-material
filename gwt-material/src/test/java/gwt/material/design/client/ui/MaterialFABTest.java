@@ -20,10 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.Axis;
-import gwt.material.design.client.constants.ButtonSize;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.FABType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
 
@@ -52,6 +49,11 @@ public class MaterialFABTest extends MaterialWidgetTest<MaterialFAB> {
         fab.add(btnLarge);
         fab.add(fabList);
         return fab;
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.FIXED_ACTION_BTN);
     }
 
     public void testOpenAndCloseFAB() {
