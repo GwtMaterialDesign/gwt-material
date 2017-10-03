@@ -20,8 +20,6 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.html.Paragraph;
@@ -106,22 +104,9 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
         MaterialRange range = getWidget();
 
         // when / then
-        checkErrorSuccess(range, range.getErrorLabel());
+        checkFieldErrorSuccess(range, range.getErrorLabel());
     }
 
-    // TODO Test Chang
+    // TODO Test Change event
     public void testChangeHandler() {}
-
-    @Override
-    public <H extends HasError> void checkErrorSuccess(H widget, UIObject target) {
-        widget.setError("Error");
-        assertTrue(target.getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
-        widget.setSuccess("Success");
-        assertTrue(target.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
-        widget.setHelperText("Helper");
-        assertTrue(target.getElement().hasClassName(CssName.FIELD_HELPER_LABEL));
-        widget.clearErrorOrSuccess();
-        assertFalse(target.getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
-        assertFalse(target.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
-    }
 }

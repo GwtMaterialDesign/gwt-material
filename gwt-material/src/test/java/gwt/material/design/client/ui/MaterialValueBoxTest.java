@@ -19,11 +19,11 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ValueBoxBase;
-import gwt.material.design.client.constants.*;
+import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
 /**
@@ -35,66 +35,32 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
 
     public abstract void testValue();
 
-    public void testErrorSuccess() {
+    public void testFieldErrorSuccess() {
         // given
-        T widget = getWidget();
+        MaterialValueBox widget = getWidget();
 
         // when / then
-        checkErrorSuccess(widget, widget.getValueBoxBase());
+        checkFieldErrorSuccess(widget, widget.getErrorLabel(), widget.getValueBoxBase(), widget.getLabel());
     }
 
     public void testPlaceholder() {
         // given
         T widget = getWidget();
-
-        // when / then
-        widget.setPlaceholder("Placeholder");
-        assertEquals("Placeholder", widget.getPlaceholder());
-        widget.setPlaceholder("");
-        assertEquals("", widget.getPlaceholder());
+        checkPlaceholder(widget);
     }
 
     public void testIcon() {
         // given
         T widget = getWidget();
 
-        // when / then
-        Element iconElement = widget.getIcon().getElement();
-        widget.setIconType(IconType.POLYMER);
-        assertEquals(IconType.POLYMER.getCssName(), iconElement.getInnerHTML());
-        widget.setIconColor(Color.RED);
-        assertTrue(iconElement.hasClassName(Color.RED.getCssName() + "-text"));
-        widget.setIconPosition(IconPosition.LEFT);
-        assertTrue(iconElement.hasClassName(IconPosition.LEFT.getCssName()));
-        widget.setIconPrefix(true);
-        assertTrue(iconElement.hasClassName("prefix"));
-        widget.setIconPrefix(false);
-        assertFalse(iconElement.hasClassName("prefix"));
-        widget.setIconSize(IconSize.LARGE);
-        assertTrue(iconElement.hasClassName(IconSize.LARGE.getCssName()));
+        checkFieldIcon(widget);
     }
 
     public void testReadOnly() {
         // given
         T widget = getWidget();
 
-        // when / then
-        Element element = widget.getElement();
-        widget.setReadOnly(true);
-        assertTrue(element.hasAttribute("disabled"));
-        assertTrue(element.hasClassName(CssName.READ_ONLY));
-        assertTrue(widget.isReadOnly());
-        widget.setReadOnly(false);
-        assertFalse(element.hasAttribute("disabled"));
-        assertFalse(element.hasClassName(CssName.READ_ONLY));
-        assertFalse(widget.isReadOnly());
-
-        widget.setToggleReadOnly(true);
-        assertTrue(element.hasClassName(CssName.READ_ONLY_TOGGLE));
-        assertTrue(widget.isToggleReadOnly());
-        widget.setToggleReadOnly(false);
-        assertFalse(element.hasClassName(CssName.READ_ONLY_TOGGLE));
-        assertFalse(widget.isToggleReadOnly());
+        checkReadOnly(widget);
     }
 
     @Override

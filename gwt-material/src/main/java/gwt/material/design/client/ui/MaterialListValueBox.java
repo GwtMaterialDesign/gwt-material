@@ -84,6 +84,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -103,14 +104,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             }
         }));
 
-        load();
-    }
-
-    @Override
-    public void load() {
-        JsMaterialElement.$(listBox.getElement()).material_select(
-                () -> JQuery.$("input.select-dropdown").trigger("close", null));
-
         $(listBox.getElement()).change((e, param) -> {
             try {
                 ValueChangeEvent.fire(this, getValue());
@@ -121,12 +114,20 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         });
 
         // Fixed auto hide when scrolling on IE Browsers
-        $(listBox.getElement()).siblings("input.select-dropdown").off("mousedown").on("mousedown", (e, param1) -> {
+        $(listBox.getElement()).siblings("input.select-dropdown").on("mousedown", (e, param1) -> {
             if (!UiHelper.isTouchScreenDevice()) {
                 e.preventDefault();
             }
             return true;
         });
+
+        load();
+    }
+
+    @Override
+    public void load() {
+        JsMaterialElement.$(listBox.getElement()).material_select(
+                () -> JQuery.$("input.select-dropdown").trigger("close", null));
     }
 
     @Override
@@ -139,6 +140,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void unload() {
         if (listBox != null && listBox.isAttached()) {
+            $(listBox.getElement()).siblings("input.select-dropdown").off("mousedown");
             $(listBox.getElement()).off("change");
             $(listBox.getElement()).material_select("destroy");
         }
@@ -806,8 +808,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     @Override
     public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        MaterialWidget target = new MaterialWidget($(getElement()).find(".select-dropdown"));
-        return new ErrorMixin<>(this, errorLabel, target, label);
+        if (errorMixin == null) {
+            errorMixin = new ErrorMixin<>(this, errorLabel, listBox, label);
+        }
+        return errorMixin;
     }
 
     public Label getLabel() {

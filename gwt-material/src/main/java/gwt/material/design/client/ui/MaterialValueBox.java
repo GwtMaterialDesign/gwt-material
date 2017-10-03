@@ -147,8 +147,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void removeErrorModifiers() {
         valueBoxBase.getElement().removeClassName(CssName.VALID);
         valueBoxBase.getElement().removeClassName(CssName.INVALID);
-        label.removeStyleName("green-text");
-        label.removeStyleName("red-text");
     }
 
     @Override
@@ -271,20 +269,14 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public void setError(String error) {
         super.setError(error);
-
         removeErrorModifiers();
-        label.setStyleName("red-text");
-        label.addStyleName(CssName.ACTIVE);
         valueBoxBase.getElement().addClassName(CssName.INVALID);
     }
 
     @Override
     public void setSuccess(String success) {
         super.setSuccess(success);
-
         removeErrorModifiers();
-        label.setStyleName("green-text");
-        label.addStyleName(CssName.ACTIVE);
         valueBoxBase.getElement().addClassName(CssName.VALID);
     }
 
@@ -761,7 +753,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, valueBoxBase);
+            errorMixin = new ErrorMixin<>(this, errorLabel, valueBoxBase, label);
         }
         return errorMixin;
     }

@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Label;
@@ -94,11 +93,6 @@ public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
         Span onLabel = (Span) label.getWidget(3);
         mSwitch.setOnLabel(ON_LABEL);
         assertEquals(ON_LABEL, onLabel.getText());
-
-        // Error / Success / Helper checking
-        Widget lblError = mSwitch.getWidget(1);
-        assertTrue(lblError instanceof MaterialLabel);
-        checkLabelErrorSuccess(mSwitch, null, lblError);
     }
 
     public void testValueChangeEvent() {
@@ -109,6 +103,12 @@ public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
         checkValueChangeEvent(mSwitch, true, false);
     }
 
-    // TODO Test Error Success
-    public void testErrorSuccess() {}
+
+    public void testErrorSuccess() {
+        // given
+        MaterialSwitch mSwitch = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(mSwitch, mSwitch.getErrorLabel());
+    }
 }

@@ -21,12 +21,15 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.dto.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
  * Test case for List Value Box.
@@ -122,11 +125,29 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         assertFalse(listValueBox.getListBox().isEnabled());
     }
 
-    // TODO Test Read Only
-    public void testReadOnly() {}
+    public void testReadOnly() {
+        // given
+        MaterialListValueBox valueBox = getWidget();
 
-    // TODO Test Error / Success
-    public void testErrorSuccess() {}
+        // when / then
+        checkReadOnly(valueBox, valueBox.getListBox());
+    }
+
+    public void testErrorSuccess() {
+        // given
+        MaterialListValueBox valueBox = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(valueBox, valueBox.getErrorLabel(), valueBox.getListBox(), valueBox.getLabel());
+    }
+
+    public void testPlaceholder() {
+        // given
+        MaterialListValueBox valueBox = getWidget();
+
+        // when / then
+        checkPlaceholder(valueBox);
+    }
 
     // TODO Test BrowserDefault
     public void testBrowserDefault() {}
@@ -142,9 +163,6 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
     // TODO Test Clearing of options
     public void testClearOptions() {}
-
-    // TODO Test Placeholder
-    public void testPlaceholder() {}
 
     // TODO Test Multiple Select
     public void testMultipleSelect() {}

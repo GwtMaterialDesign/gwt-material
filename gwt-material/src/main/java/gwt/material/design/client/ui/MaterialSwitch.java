@@ -25,8 +25,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
@@ -50,7 +49,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-switch">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>, HasError {
+public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasValue<Boolean> {
 
     private MaterialInput input = new MaterialInput();
     private MaterialLabel errorLabel = new MaterialLabel();
@@ -59,7 +58,7 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
     private Span onLabel = new Span();
     private Span offLabel = new Span();
 
-    private ErrorMixin<MaterialSwitch, MaterialLabel> errorMixin;
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
 
     /**
      * Creates a switch element
@@ -243,7 +242,8 @@ public class MaterialSwitch extends MaterialWidget implements HasValue<Boolean>,
         return addHandler(handler, ValueChangeEvent.getType());
     }
 
-    protected ErrorMixin<MaterialSwitch, MaterialLabel> getErrorMixin() {
+    @Override
+    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         if (errorMixin == null) {
             errorMixin = new ErrorMixin<>(this, errorLabel, null);
         }

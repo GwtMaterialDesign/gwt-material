@@ -42,20 +42,12 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         return new MaterialDatePicker();
     }
 
-    public void testErrorSuccess() {
-        // given
-        MaterialDatePicker datePicker = getWidget();
-
-        // when / then
-        checkErrorSuccess(datePicker, datePicker.getDateInput());
-    }
-
-    // TODO
+    // TODO Test Properties
     public void testProperties() {
 
     }
 
-    // TODO
+    // TODO Test Structure
     public void testStructure() {
 
     }
@@ -69,6 +61,30 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         assertEquals("Placeholder", datePicker.getPlaceholder());
         datePicker.setPlaceholder("");
         assertEquals("", datePicker.getPlaceholder());
+    }
+
+    public void testErrorSuccess() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(datePicker, datePicker.getErrorLabel(), datePicker.getDateInput(), datePicker.getPlaceholderLabel());
+    }
+
+    public void testReadOnly() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
+        checkReadOnly(datePicker);
+    }
+
+    public void testFieldIcon() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
+        checkFieldIcon(datePicker);
     }
 
     public void testContainer() {

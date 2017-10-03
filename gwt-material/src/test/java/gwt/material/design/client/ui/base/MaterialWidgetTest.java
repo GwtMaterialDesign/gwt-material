@@ -21,9 +21,9 @@ package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.MaterialWidgetTestCase;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.TransitionConfig;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialPanel;
 import org.junit.Ignore;
@@ -510,5 +510,57 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         widget.setTransform(FINAL_TRANSFORM_VALUE);
         assertEquals(FINAL_TRANSFORM_VALUE, widget.getTransform());
         assertEquals(FINAL_TRANSFORM_VALUE, widget.getElement().getStyle().getProperty("transform"));
+    }
+
+    protected <T extends HasPlaceholder> void checkPlaceholder(T widget) {
+        // when / then
+        widget.setPlaceholder("Placeholder");
+        assertEquals("Placeholder", widget.getPlaceholder());
+        widget.setPlaceholder("");
+        assertEquals("", widget.getPlaceholder());
+    }
+
+    protected <T extends HasIcon> void checkFieldIcon(T widget) {
+        // when / then
+        Element iconElement = widget.getIcon().getElement();
+        widget.setIconType(IconType.POLYMER);
+        assertEquals(IconType.POLYMER.getCssName(), iconElement.getInnerHTML());
+        widget.setIconColor(Color.RED);
+        assertTrue(iconElement.hasClassName(Color.RED.getCssName() + "-text"));
+        widget.setIconPosition(IconPosition.LEFT);
+        assertTrue(iconElement.hasClassName(IconPosition.LEFT.getCssName()));
+        widget.setIconPrefix(true);
+        assertTrue(iconElement.hasClassName("prefix"));
+        widget.setIconPrefix(false);
+        assertFalse(iconElement.hasClassName("prefix"));
+        widget.setIconSize(IconSize.LARGE);
+        assertTrue(iconElement.hasClassName(IconSize.LARGE.getCssName()));
+    }
+
+    protected <T extends UIObject & HasReadOnly> void checkReadOnly(T widget, UIObject target) {
+        // given
+        Element widgetElement = widget.getElement();
+        Element targetElement = target.getElement();
+
+        // when / then
+        widget.setReadOnly(true);
+        assertTrue(targetElement.hasAttribute("disabled"));
+        assertTrue(widgetElement.hasClassName(CssName.READ_ONLY));
+        assertTrue(widget.isReadOnly());
+        widget.setReadOnly(false);
+        assertFalse(targetElement.hasAttribute("disabled"));
+        assertFalse(widgetElement.hasClassName(CssName.READ_ONLY));
+        assertFalse(widget.isReadOnly());
+
+        widget.setToggleReadOnly(true);
+        assertTrue(widgetElement.hasClassName(CssName.READ_ONLY_TOGGLE));
+        assertTrue(widget.isToggleReadOnly());
+        widget.setToggleReadOnly(false);
+        assertFalse(widgetElement.hasClassName(CssName.READ_ONLY_TOGGLE));
+        assertFalse(widget.isToggleReadOnly());
+    }
+
+    protected <T extends UIObject & HasReadOnly> void checkReadOnly(T widget) {
+        checkReadOnly(widget, widget);
     }
 }

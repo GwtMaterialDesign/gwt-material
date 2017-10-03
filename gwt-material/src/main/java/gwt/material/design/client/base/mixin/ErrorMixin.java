@@ -71,6 +71,9 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
         if (lblPlaceholder != null) {
             lblPlaceholder.removeStyleName("green-text");
             lblPlaceholder.addStyleName("red-text");
+            if (error != null && !error.isEmpty()) {
+                lblPlaceholder.addStyleName(CssName.ACTIVE);
+            }
         }
     }
 
@@ -90,6 +93,9 @@ public class ErrorMixin<T extends UIObject & HasError, H extends UIObject & HasT
         if (lblPlaceholder != null) {
             lblPlaceholder.removeStyleName("red-text");
             lblPlaceholder.addStyleName("green-text");
+            if (success != null && !success.isEmpty()) {
+                lblPlaceholder.addStyleName(CssName.ACTIVE);
+            }
         }
     }
 

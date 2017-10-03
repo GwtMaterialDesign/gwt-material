@@ -117,4 +117,13 @@ public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
         assertFalse(search.isActive());
         checkCloseHandler(search);
     }
+
+    @Override
+    public void testFieldErrorSuccess() {
+        // given
+        MaterialSearch widget = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(widget, widget.getErrorLabel());
+    }
 }
