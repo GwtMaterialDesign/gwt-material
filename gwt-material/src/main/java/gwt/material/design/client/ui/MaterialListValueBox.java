@@ -485,10 +485,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setPlaceholder(String placeholder) {
         label.setText(placeholder);
-
-        if (placeholder != null) {
-            reload();
-        }
     }
 
     @Override
@@ -511,7 +507,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     public void setMultipleSelect(boolean multipleSelect) {
         listBox.setMultipleSelect(multipleSelect);
-        reload();
     }
 
     /**
@@ -527,8 +522,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         listBox.insertItem(value, 0);
 
         getOptionElement(0).setDisabled(true);
-
-        reload();
     }
 
     @Override
@@ -590,7 +583,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setTitle(String title) {
         listBox.setTitle(title);
-        reload();
     }
 
     /**
@@ -632,7 +624,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     public void setName(String name) {
         listBox.setName(name);
-        reload();
     }
 
     /**
@@ -658,7 +649,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     public void setVisibleItemCount(int visibleItems) {
         listBox.setVisibleItemCount(visibleItems);
-        reload();
     }
 
     /**

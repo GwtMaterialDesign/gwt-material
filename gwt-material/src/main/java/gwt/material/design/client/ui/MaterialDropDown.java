@@ -106,6 +106,21 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
         super.onLoad();
 
         load();
+
+        // register dropdown item handler
+        registerDropdownItemHandlers();
+    }
+
+    protected void registerDropdownItemHandlers() {
+        getChildren().forEach(widget -> {
+            if (widget instanceof ListItem) {
+                ListItem item = (ListItem) widget;
+                if (item.getWidget(0) instanceof MaterialWidget) {
+                    MaterialWidget child = (MaterialWidget) item.getWidget(0);
+                    registerHandler(child.addDomHandler(event -> SelectionEvent.fire(MaterialDropDown.this, child), ClickEvent.getType()));
+                }
+            }
+        });
     }
 
     @Override
@@ -153,7 +168,6 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             add(child, (Element) getElement());
         } else {
             ListItem li = new ListItem(child);
-            registerHandler(child.addDomHandler(event -> SelectionEvent.fire(MaterialDropDown.this, child), ClickEvent.getType()));
             // Checks if there are sub dropdown components
             if (child instanceof MaterialLink) {
                 MaterialLink link = (MaterialLink) child;
@@ -269,7 +283,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
         super.setEnabled(enabled);
         Widget parent = getParent();
         if (parent instanceof HasEnabled) {
-            ((HasEnabled)parent).setEnabled(isEnabled());
+            ((HasEnabled) parent).setEnabled(isEnabled());
         }
         reload();
     }
@@ -284,7 +298,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
 
     @Override
     public HandlerRegistration addSelectionHandler(final SelectionHandler<Widget> handler) {
-        return addHandler((SelectionHandler<Widget>)event -> {
+        return addHandler((SelectionHandler<Widget>) event -> {
             Widget widget = event.getSelectedItem();
             if (widget instanceof HasEnabled && ((HasEnabled) widget).isEnabled() && isEnabled()) {
                 handler.onSelection(event);

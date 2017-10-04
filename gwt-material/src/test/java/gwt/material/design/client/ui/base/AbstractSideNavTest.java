@@ -4,6 +4,11 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.Edge;
+import gwt.material.design.client.events.SideNavClosedEvent;
+import gwt.material.design.client.events.SideNavClosingEvent;
+import gwt.material.design.client.events.SideNavOpenedEvent;
+import gwt.material.design.client.events.SideNavOpeningEvent;
 import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.ListItem;
 
@@ -38,6 +43,19 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
         sideNav.add(content);
         assertEquals(1, sideNav.getChildren().size());
         assertEquals(content, sideNav.getWidget(0));
+    }
+
+    public void testEdge() {
+        // given
+        MaterialSideNav sideNav = getWidget();
+
+        // when / then
+        sideNav.setEdge(Edge.RIGHT);
+        assertEquals(Edge.RIGHT, sideNav.getEdge());
+
+        // when / then
+        sideNav.setEdge(Edge.LEFT);
+        assertEquals(Edge.LEFT, sideNav.getEdge());
     }
 
     public void testDuration() {
@@ -151,6 +169,39 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
         assertTrue(sideNav.getChildren().get(5) instanceof MaterialCollapsible);
     }
 
-    // TODO Test open close handlers
-    public void testOpenCloseHandlers() {}
+    public void testOpenCloseHandlers() {
+        T sideNav = getWidget();
+        checkOpeningHandler(sideNav);
+        checkClosingHandler(sideNav);
+        checkOpenedHandler(sideNav);
+        checkClosedHandler(sideNav);
+    }
+
+    protected void checkOpeningHandler(MaterialSideNav sideNav) {
+        boolean[] openingEventFired = {false};
+        sideNav.addOpeningHandler(event -> openingEventFired[0] = true);
+        SideNavOpeningEvent.fire(sideNav);
+        assertTrue(openingEventFired[0]);
+    }
+
+    protected void checkClosingHandler(MaterialSideNav sideNav) {
+        boolean[] closingEventFired = {false};
+        sideNav.addClosingHandler(event -> closingEventFired[0] = true);
+        SideNavClosingEvent.fire(sideNav);
+        assertTrue(closingEventFired[0]);
+    }
+
+    protected void checkOpenedHandler(MaterialSideNav sideNav) {
+        boolean[] openedEventFired = {false};
+        sideNav.addOpenedHandler(event -> openedEventFired[0] = true);
+        SideNavOpenedEvent.fire(sideNav);
+        assertTrue(openedEventFired[0]);
+    }
+
+    protected void checkClosedHandler(MaterialSideNav sideNav) {
+        boolean[] closedEventFired = {false};
+        sideNav.addClosedHandler(event -> closedEventFired[0] = true);
+        SideNavClosedEvent.fire(sideNav);
+        assertTrue(closedEventFired[0]);
+    }
 }
