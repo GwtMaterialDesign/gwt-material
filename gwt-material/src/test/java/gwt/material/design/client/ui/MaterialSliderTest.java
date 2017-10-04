@@ -96,7 +96,6 @@ public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
         assertFalse(slider.getElement().hasClassName(CssName.FULLSCREEN));
     }
 
-    // TODO test actions (start/pause)
     public void testStartAndPause() {
         MaterialSlider slider = getWidget();
 

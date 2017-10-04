@@ -19,11 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.NavBarType;
-import gwt.material.design.client.constants.TextAlign;
-import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.NavBarExpandEvent;
 import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
@@ -132,9 +130,40 @@ public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
         assertEquals(ACTIVATOR, navBar.getNavMenu().getElement().getAttribute("data-activates"));
     }
 
-    // TODO Test ProgressBar
-    public void testProgressBar() {}
+    public void testProgressBar() {
+        // given
+        MaterialNavBar navBar = getWidget();
 
-    // TODO Test NavBar content
-    public void testNavBarContent() {}
+        // when / then
+        navBar.showProgress(ProgressType.INDETERMINATE);
+        assertTrue(navBar.getNavWrapper().getWidget(2) instanceof MaterialProgress);
+        assertEquals(navBar.getNavWrapper().getWidget(2).getElement().getClassName(), CssName.PROGRESS);
+        MaterialProgress progress = (MaterialProgress) navBar.getNavWrapper().getWidget(2);
+        assertEquals(ProgressType.INDETERMINATE, progress.getType());
+        navBar.hideProgress();
+        assertFalse(progress.isAttached());
+    }
+
+    public void testNavBarContent() {
+        // given
+        final String HEIGHT_AUTO = "auto";
+        MaterialNavBar navBar = getWidget();
+
+        // when / then
+        navBar.setHeight(HEIGHT_AUTO);
+        assertEquals(HEIGHT_AUTO, navBar.getElement().getStyle().getHeight());
+        navBar.setLayoutPosition(Style.Position.FIXED);
+        assertEquals(Style.Position.FIXED.getCssName(), navBar.getLayoutPosition());
+        assertTrue(navBar.getNavWrapper().getWidget(1) instanceof MaterialNavContent);
+        MaterialNavContent navContent = (MaterialNavContent) navBar.getNavWrapper().getWidget(1);
+        assertTrue(navContent.getElement().hasClassName(CssName.NAV_CONTENT));
+
+        // given
+        MaterialLabel label = new MaterialLabel();
+
+        // when / then
+        navContent.add(label);
+        assertEquals(label, navContent.getWidget(0));
+
+    }
 }

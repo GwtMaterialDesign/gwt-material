@@ -238,8 +238,6 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
 
         // when / then
         final DatePickerLanguage DANISH = DatePickerLanguage.DA;
-        final DatePickerLanguage FRENCH = DatePickerLanguage.FR;
-
         datePicker.setLanguage(DANISH);
         assertEquals(DANISH, datePicker.getLanguage());
     }

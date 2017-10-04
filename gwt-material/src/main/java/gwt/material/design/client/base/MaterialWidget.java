@@ -687,6 +687,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getElement().getStyle().setPosition(position);
     }
 
+    public String getLayoutPosition() {
+        return getElement().getStyle().getPosition();
+    }
+
     public void setLeft(double value) {
         getElement().getStyle().setLeft(value, Style.Unit.PX);
     }

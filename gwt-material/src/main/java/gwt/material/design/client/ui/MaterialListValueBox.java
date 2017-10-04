@@ -159,7 +159,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Adds an item to the list box, specifying its direction. This method has
      * the same effect as
-     * <pre>addItem(item, dir, item)</pre>
+     * <pre>addItem(value, dir, item)</pre>
      *
      * @param value the item's value, to be submitted if it is part of a
      *              {@link FormPanel}; cannot be <code>null</code>
@@ -172,7 +172,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Adds an item to the list box, specifying its direction. This method has
      * the same effect as
-     * <pre>addItem(item, dir, item)</pre>
+     * <pre>addItem(value, dir, item)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
      *              {@link FormPanel}; cannot be <code>null</code>
@@ -190,7 +190,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     /**
      * Adds an item to the list box. This method has the same effect as
-     * <pre>addItem(item, item)</pre>
+     * <pre>addItem(value, item)</pre>
      *
      * @param value the item's value, to be submitted if it is part of a
      *              {@link FormPanel}; cannot be <code>null</code>
@@ -201,7 +201,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     /**
      * Adds an item to the list box. This method has the same effect as
-     * <pre>addItem(item, item)</pre>
+     * <pre>addItem(value, item)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
      *              {@link FormPanel}; cannot be <code>null</code>
@@ -278,7 +278,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     /**
      * Inserts an item into the list box. Has the same effect as
-     * <pre>insertItem(item, item, index)</pre>
+     * <pre>insertItem(value, item, index)</pre>
      *
      * @param value the item's value, to be submitted if it is part of a
      *              {@link FormPanel}.
@@ -290,7 +290,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     /**
      * Inserts an item into the list box. Has the same effect as
-     * <pre>insertItem(item, item, index)</pre>
+     * <pre>insertItem(value, item, index)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
      *              {@link FormPanel}.
@@ -309,7 +309,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Inserts an item into the list box, specifying its direction. Has the same
      * effect as
-     * <pre>insertItem(item, dir, item, index)</pre>
+     * <pre>insertItem(value, dir, item, index)</pre>
      *
      * @param value the item's value, to be submitted if it is part of a
      *              {@link FormPanel}.
@@ -323,7 +323,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Inserts an item into the list box, specifying its direction. Has the same
      * effect as
-     * <pre>insertItem(item, dir, item, index)</pre>
+     * <pre>insertItem(value, dir, item, index)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
      *              {@link FormPanel}.
@@ -343,7 +343,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Inserts an item into the list box, specifying an initial value for the
      * item. Has the same effect as
-     * <pre>insertItem(item, null, value, index)</pre>
+     * <pre>insertItem(value, null, item, index)</pre>
      *
      * @param value the item's value, to be submitted if it is part of a
      *              {@link FormPanel}.
@@ -357,7 +357,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Inserts an item into the list box, specifying an initial value for the
      * item. Has the same effect as
-     * <pre>insertItem(item, null, value, index)</pre>
+     * <pre>insertItem(value, null, item, index)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
      *               {@link FormPanel}.

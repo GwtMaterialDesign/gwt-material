@@ -21,15 +21,12 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.dto.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
  * Test case for List Value Box.
@@ -52,7 +49,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
     }
 
     public <M> void checkValues(MaterialListValueBox<M> listValueBox, List<M> models) {
-        for(M model : models) {
+        for (M model : models) {
             listValueBox.addItem(model);
         }
 
@@ -107,12 +104,22 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         MaterialListValueBox<T> listValueBox = getWidget();
 
         // when / then
-        listValueBox.setOld(true);
-        assertTrue(listValueBox.isOld());
-        listValueBox.setOld(false);
-        assertFalse(listValueBox.isOld());
         listValueBox.setMultipleSelect(true);
         assertTrue(listValueBox.isMultipleSelect());
+    }
+
+    public void testBrowserDefault() {
+        // given
+        MaterialListValueBox<T> listValueBox = getWidget();
+
+        // when / then
+        listValueBox.setOld(true);
+        assertTrue(listValueBox.isOld());
+        assertTrue(listValueBox.getListBox().getElement().hasClassName("browser-default"));
+
+        listValueBox.setOld(false);
+        assertFalse(listValueBox.isOld());
+        assertFalse(listValueBox.getListBox().getElement().hasClassName("browser-default"));
     }
 
     public void testEnabled() {
@@ -132,7 +139,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
     public void testReadOnly() {
         // given
-        MaterialListValueBox valueBox = getWidget();
+        MaterialListValueBox<T> valueBox = getWidget();
 
         // when / then
         checkReadOnly(valueBox, valueBox.getListBox());
@@ -140,7 +147,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
     public void testErrorSuccess() {
         // given
-        MaterialListValueBox valueBox = getWidget();
+        MaterialListValueBox<T> valueBox = getWidget();
 
         // when / then
         checkFieldErrorSuccess(valueBox, valueBox.getErrorLabel(), valueBox.getListBox(), valueBox.getLabel());
@@ -148,30 +155,9 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
     public void testPlaceholder() {
         // given
-        MaterialListValueBox valueBox = getWidget();
+        MaterialListValueBox<T> valueBox = getWidget();
 
         // when / then
         checkPlaceholder(valueBox);
     }
-
-    // TODO Test BrowserDefault
-    public void testBrowserDefault() {}
-
-    // TODO Test Adding Items
-    public void testAddingItems() {}
-
-    // TODO Test Inserting Items
-    public void testInsertingItems() {}
-
-    // TODO Test Removing Items
-    public void testRemovingItems() {}
-
-    // TODO Test Clearing of options
-    public void testClearOptions() {}
-
-    // TODO Test Multiple Select
-    public void testMultipleSelect() {}
-
-    // TODO Test Acceptable Values
-    public void testAcceptableValues() {}
 }

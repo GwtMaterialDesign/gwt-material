@@ -49,7 +49,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Tooltip</a>
  * @see <a href="https://material.io/guidelines/components/tooltips.html">Material Design Specification</a>
  */
@@ -58,8 +57,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     private String id;
     private String html;
     private Widget widget;
-    private DefaultHandlerRegistry handlers;
-    private JsTooltipOptions options = new JsTooltipOptions();
+    private JsTooltipOptions options = JsTooltipOptions.create();
 
     /**
      * Creates the empty Tooltip
@@ -105,6 +103,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
 
     /**
      * Force the Tooltip to be destroyed
+     *
      * @deprecated use {@link #unload()}
      */
     @Deprecated
@@ -114,10 +113,6 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
 
     @Override
     public void clear() {
-        if(handlers != null) {
-            handlers.unload();
-            handlers = null;
-        }
         widget = null;
     }
 
@@ -199,32 +194,30 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
 
         setAttribute("data-delay", String.valueOf(options.delay));
 
-        if(options.position != null) {
+        if (options.position != null) {
             setAttribute("data-position", options.position);
         }
 
-        if(options.tooltip != null) {
+        if (options.tooltip != null) {
             setAttribute("data-tooltip", options.tooltip);
         }
 
-        handlers = new DefaultHandlerRegistry(widget);
-
         if (!this.widget.isAttached()) {
             // When we attach it, configure the tooltip
-            handlers.registerHandler(widget.addAttachHandler(event -> {
-                if(event.isAttached()) {
+            widget.addAttachHandler(event -> {
+                if (event.isAttached()) {
                     reload();
                 } else {
                     unload();
                 }
-            }));
+            });
         } else {
             // ensure the tooltip is removed on detachment
-            handlers.registerHandler(widget.addAttachHandler(event -> {
-                if(!event.isAttached()) {
+            widget.addAttachHandler(event -> {
+                if (!event.isAttached()) {
                     unload();
                 }
-            }));
+            });
             reload();
         }
     }
@@ -336,22 +329,22 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
         Element element = widget.getElement();
         if (widget.isAttached()) {
             $("#" + element.getAttribute("data-tooltip-id"))
-                .find("span")
-                .html(html != null ? html : "");
-        } else {
-            handlers.registerHandler(widget.addAttachHandler(event ->
-                $("#" + element.getAttribute("data-tooltip-id"))
                     .find("span")
-                    .html(html != null ? html : "")));
+                    .html(html != null ? html : "");
+        } else {
+            widget.addAttachHandler(event ->
+                    $("#" + element.getAttribute("data-tooltip-id"))
+                            .find("span")
+                            .html(html != null ? html : ""));
         }
     }
 
     public void setAttribute(String attr, String value) {
-        if(widget != null) {
+        if (widget != null) {
             AttachEvent.Handler handler = event -> {
                 widget.getElement().setAttribute(attr, value);
             };
-            if(widget.isAttached()) {
+            if (widget.isAttached()) {
                 handler.onAttachOrDetach(null);
             } else {
                 EventHelper.onAttachOnce(widget, handler);
