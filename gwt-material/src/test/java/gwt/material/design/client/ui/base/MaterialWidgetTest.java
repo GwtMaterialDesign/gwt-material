@@ -441,6 +441,26 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         assertEquals(MAX_WIDTH, widget.getElement().getStyle().getProperty("maxWidth"));
     }
 
+    public void testLayoutPosition() {
+        T widget = getWidget();
+
+        widget.setLayoutPosition(Style.Position.FIXED);
+        assertEquals(Style.Position.FIXED.getCssName(), widget.getLayoutPosition());
+        assertEquals(Style.Position.FIXED.getCssName(), widget.getElement().getStyle().getPosition());
+
+        widget.setLayoutPosition(Style.Position.ABSOLUTE);
+        assertEquals(Style.Position.ABSOLUTE.getCssName(), widget.getLayoutPosition());
+        assertEquals(Style.Position.ABSOLUTE.getCssName(), widget.getElement().getStyle().getPosition());
+
+        widget.setLayoutPosition(Style.Position.RELATIVE);
+        assertEquals(Style.Position.RELATIVE.getCssName(), widget.getLayoutPosition());
+        assertEquals(Style.Position.RELATIVE.getCssName(), widget.getElement().getStyle().getPosition());
+
+        widget.setLayoutPosition(Style.Position.STATIC);
+        assertEquals(Style.Position.STATIC.getCssName(), widget.getLayoutPosition());
+        assertEquals(Style.Position.STATIC.getCssName(), widget.getElement().getStyle().getPosition());
+    }
+
     public void testOpacity() {
         final double INITIAL_OPACITY = 0.0;
         final double FINAL_OPACITY = 1.0;

@@ -175,7 +175,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     @Override
     public void unload() {
         JsMaterialElement picker = getPicker();
-        if(picker != null) {
+        if (picker != null) {
             picker.stop();
         }
     }
@@ -188,6 +188,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     /**
      * As of now use {@link MaterialDatePicker#setSelectionType(MaterialDatePickerType)}
+     *
      * @param type
      */
     @Deprecated
@@ -311,17 +312,17 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     public void setSelectionType(MaterialDatePickerType selectionType) {
         this.selectionType = selectionType;
         switch (selectionType) {
-        case MONTH_DAY:
-            options.selectMonths = true;
-            break;
-        case YEAR_MONTH_DAY:
-            options.selectYears = yearsToDisplay;
-            options.selectMonths = true;
-            break;
-        case YEAR:
-            options.selectYears = yearsToDisplay;
-            options.selectMonths = false;
-            break;
+            case MONTH_DAY:
+                options.selectMonths = true;
+                break;
+            case YEAR_MONTH_DAY:
+                options.selectYears = yearsToDisplay;
+                options.selectMonths = true;
+                break;
+            case YEAR:
+                options.selectYears = yearsToDisplay;
+                options.selectMonths = false;
+                break;
         }
     }
 
@@ -392,7 +393,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     @Override
     public void setValue(Date value, boolean fireEvents) {
         if (value == null) {
-            clearValues();
+            clear();
             return;
         }
         this.date = value;
@@ -620,16 +621,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     /**
-     * Clears the values of the picker field.
+     * Replaced by {@link MaterialDatePicker#clear()}
      */
+    @Deprecated
     public void clearValues() {
-        if (pickatizedDateInput != null) {
-            clearValues(pickatizedDateInput);
-        }
-    }
-
-    public void clearValues(Element picker) {
-        $(picker).pickadate("picker").clear();
+        clear();
     }
 
     /**
@@ -642,10 +638,13 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     @Override
     public void clear() {
+        dateInput.clear();
+        getPicker().set("select", null);
+
+        // Clear all active / error styles on datepicker
         clearErrorOrSuccess();
         label.removeStyleName(CssName.ACTIVE);
         dateInput.removeStyleName(CssName.VALID);
-        dateInput.clear();
     }
 
     protected void setPopupEnabled(boolean enabled) {

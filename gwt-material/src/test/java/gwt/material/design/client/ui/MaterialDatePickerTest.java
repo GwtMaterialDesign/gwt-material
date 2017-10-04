@@ -145,6 +145,7 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
 
         assertFalse(picker.getErrorLabel().getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
         assertFalse(picker.getDateInput().getElement().hasClassName(CssName.FIELD_ERROR));
+        assertNull(picker.getValue());
     }
 
     protected void checkAutoClose(MaterialDatePicker datePicker, boolean autoClose) {
