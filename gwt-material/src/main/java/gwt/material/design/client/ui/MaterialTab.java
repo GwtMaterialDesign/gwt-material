@@ -88,8 +88,6 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
     protected void onLoad() {
         super.onLoad();
 
-        getChildren().forEach(child -> registerChildHandler(child));
-
         load();
     }
 
@@ -143,6 +141,7 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
     @Override
     public void add(Widget child) {
         super.add(child);
+        registerChildHandler(child);
         reload();
     }
 
