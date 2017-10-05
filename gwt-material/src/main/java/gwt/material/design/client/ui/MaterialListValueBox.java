@@ -761,13 +761,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         this.keyFactory = keyFactory;
     }
 
-    public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
-        if (readOnlyMixin == null) {
-            readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
-        }
-        return readOnlyMixin;
-    }
-
     @Override
     public void setReadOnly(boolean value) {
         getReadOnlyMixin().setReadOnly(value);
@@ -871,6 +864,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             }
         }
         return -1;
+    }
+
+    public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
+        }
+        return readOnlyMixin;
     }
 
     protected ToggleStyleMixin<ListBox> getToggleOldMixin() {

@@ -161,8 +161,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         setDate(date);
         setDateMin(dateMin);
         setDateMax(dateMax);
-
-
     }
 
     @Override

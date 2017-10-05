@@ -88,9 +88,18 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
     protected void onLoad() {
         super.onLoad();
 
-        load();
+        getChildren().forEach(child -> registerChildHandler(child));
 
-        registerHandler(addSelectionHandler(selectionEvent -> this.tabIndex = selectionEvent.getSelectedItem()));
+        load();
+    }
+
+    protected void registerChildHandler(Widget child) {
+        if (child instanceof MaterialTabItem) {
+            registerHandler(((MaterialTabItem) child).addMouseDownHandler(e -> {
+                tabIndex = getChildren().indexOf(child);
+                SelectionEvent.fire(MaterialTab.this, tabIndex);
+            }));
+        }
     }
 
     @Override
@@ -134,9 +143,6 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
     @Override
     public void add(Widget child) {
         super.add(child);
-        if (child instanceof MaterialTabItem) {
-            registerHandler(((MaterialTabItem) child).addMouseDownHandler(e -> SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(child))));
-        }
         reload();
     }
 

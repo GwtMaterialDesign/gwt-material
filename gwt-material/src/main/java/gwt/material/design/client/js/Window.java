@@ -23,7 +23,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import jsinterop.annotations.JsType;
 
-@JsType(isNative = false)
+@JsType
 public class Window {
 
     public static native boolean matchMedia(String query) /*-{

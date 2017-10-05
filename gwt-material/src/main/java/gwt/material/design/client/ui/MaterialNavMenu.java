@@ -33,7 +33,7 @@ import gwt.material.design.client.constants.CssName;
  * <p>
  * <pre>
  * {@code
- * <m:MaterialNavMenu iconType="IconType.MENU" activates="mySideNav"/>
+ * <m:MaterialNavMenu iconType="MENU" activates="mySideNav"/>
  * }
  * </pre>
  * </p>

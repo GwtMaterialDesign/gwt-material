@@ -30,7 +30,7 @@ public enum Alignment implements Style.HasCssName {
 
     private final String cssClass;
 
-    private Alignment(final String cssClass) {
+    Alignment(final String cssClass) {
         this.cssClass = cssClass;
     }
 

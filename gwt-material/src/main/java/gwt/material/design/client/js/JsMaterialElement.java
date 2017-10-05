@@ -20,14 +20,14 @@
 
 package gwt.material.design.client.js;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.jquery.client.api.JQueryElement;
-import jsinterop.annotations.*;
-
-import java.util.Date;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * JSInterop utils for Materialize component

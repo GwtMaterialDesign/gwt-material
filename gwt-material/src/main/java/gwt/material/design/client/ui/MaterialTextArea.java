@@ -96,7 +96,6 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     public void setResizeRule(ResizeRule resizeRule) {
         this.resizeRule = resizeRule;
 
-
         switch (resizeRule) {
             case AUTO:
                 registerHandler(valueBoxBase.addValueChangeHandler(event -> triggerAutoResize()));

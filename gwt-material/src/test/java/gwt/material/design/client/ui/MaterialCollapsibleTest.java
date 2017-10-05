@@ -98,6 +98,13 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
         assertTrue(item.getHeader().getElement().hasClassName(CssName.ACTIVE));
 
         // when
+        collapsible.close(FIRST_ITEM);
+
+        // then
+        assertFalse(item.getElement().hasClassName(CssName.ACTIVE));
+        assertFalse(item.getHeader().getElement().hasClassName(CssName.ACTIVE));
+
+        // when
         collapsible.open(SECOND_ITEM);
 
         // then
@@ -105,8 +112,14 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
         MaterialCollapsibleItem item2 = (MaterialCollapsibleItem) collapsible.getActive();
         assertTrue(item2.getElement().hasClassName(CssName.ACTIVE));
         assertTrue(item2.getHeader().getElement().hasClassName(CssName.ACTIVE));
-
         assertFalse(item.getHeader().getElement().hasClassName(CssName.ACTIVE));
+
+        // when
+        collapsible.close(SECOND_ITEM);
+
+        // then
+        assertFalse(item2.getElement().hasClassName(CssName.ACTIVE));
+        assertFalse(item2.getHeader().getElement().hasClassName(CssName.ACTIVE));
     }
 
     public void testMultipleExpansion() {

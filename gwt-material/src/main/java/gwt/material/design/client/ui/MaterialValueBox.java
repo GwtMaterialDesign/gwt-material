@@ -109,10 +109,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     public MaterialValueBox(ValueBoxBase<T> tValueBox) {
         this();
-        build(tValueBox);
+        setup(tValueBox);
     }
 
-    public void build(ValueBoxBase<T> tValueBox) {
+    public void setup(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
     }
@@ -120,7 +120,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Deprecated
     @UiChild(limit = 1)
     public void addValueBox(ValueBoxBase<T> widget) {
-        build(widget);
+        setup(widget);
     }
 
     @Override

@@ -34,7 +34,7 @@ import gwt.material.design.client.constants.LoaderSize;
  * <pre>
  * {@code
  *
- * MaterialLoader.showLoading(true);
+ * MaterialLoader.loading(true);
  *
  * }
  * <pre>

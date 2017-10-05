@@ -30,7 +30,7 @@ public enum TextAlign implements Style.HasCssName {
 
     private final String cssClass;
 
-    private TextAlign(final String cssClass) {
+    TextAlign(final String cssClass) {
         this.cssClass = cssClass;
     }
 
