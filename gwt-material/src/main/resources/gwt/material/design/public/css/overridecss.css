@@ -24,10 +24,6 @@ html, body {
     height: 100%;
 }
 
-main {
-    position: relative;
-}
-
 a:hover, a:visited {
     color: none !important;
     text-decoration: none !important;
@@ -998,7 +994,11 @@ i[class*="waves-"].material-icons {
     }
 
     /** SideNav **/
-    ul.side-nav.fixed, .side-nav.card, .side-nav.drawer-with-header, .side-nav.push-with-header, .side-nav.mini {
+    ul.side-nav.fixed,
+    ul.side-nav.card,
+    ul.side-nav.drawer-with-header,
+    ul.side-nav.push-with-header,
+    ul.side-nav.mini {
         margin: 0;
         top: 0 !important;
         left: 0;
