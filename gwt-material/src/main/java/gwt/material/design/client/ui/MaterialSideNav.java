@@ -79,6 +79,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     private Element activator;
     private int inDuration = 400;
     private int outDuration = 200;
+    private boolean initializeEvents = false;
 
     private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
 
@@ -395,6 +396,13 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         options.edge = edge != null ? edge.getCssName() : null;
         options.closeOnClick = closeOnClick;
 
+        if (!initializeEvents) {
+            initializeEvents(options);
+            initializeEvents = true;
+        }
+    }
+
+    private void initializeEvents(JsSideNavOptions options) {
         JsMaterialElement element = $(activator);
         element.sideNav(options);
 
