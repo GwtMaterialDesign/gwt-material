@@ -67,8 +67,6 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         super(Document.get().createDivElement(), CssName.SWITCH);
         span.setStyleName(CssName.LEVER);
         input.setType(InputType.CHECKBOX);
-
-        registerHandler(addClickHandler(event -> setValue(!getValue(), true)));
     }
 
     public MaterialSwitch(String onLabel, String offLabel) {
@@ -109,6 +107,8 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
             event.preventDefault();
             event.stopPropagation();
         }));
+
+        registerHandler(addClickHandler(event -> setValue(!getValue(), true)));
     }
 
     @Override

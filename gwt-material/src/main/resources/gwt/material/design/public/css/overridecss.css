@@ -492,6 +492,15 @@ input:-webkit-autofill {
     -webkit-animation-fill-mode: both !important;;
 }
 
+/** ListBox **/
+.input-field .select-wrapper.gwt-ListBox + label.active {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+}
+
 /** Loader */
 .loader-wrapper {
     width: 100%;
