@@ -738,6 +738,10 @@ ul.side-nav .collapsible-body li.active {
     background-color: #eeeeee !important;
 }
 
+ul.side-nav.right-aligned {
+    left: auto !important;
+}
+
 /** Sidenav Content **/
 .sidenav-content {
     padding: 0 15px;
