@@ -33,11 +33,9 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasColors;
-import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import org.junit.Ignore;
 
 @Ignore

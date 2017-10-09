@@ -68,6 +68,13 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         setLength(length);
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        setResizeRule(resizeRule);
+    }
+
     public void triggerAutoResize() {
         if (!valueBoxBase.isAttached()) {
             registerHandler(valueBoxBase.addAttachHandler(event -> {
@@ -107,6 +114,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
                     }
                     triggerAutoResize();
                 }));
+
 
                 registerHandler(addBlurHandler(event -> {
                     if (originalHeight != null) {

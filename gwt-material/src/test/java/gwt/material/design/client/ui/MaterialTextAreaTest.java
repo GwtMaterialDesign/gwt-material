@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 
@@ -73,5 +75,24 @@ public class MaterialTextAreaTest extends MaterialValueBoxTest<MaterialTextArea>
 
         // when / then
         checkValueChangeEvent(textArea, "Value 1", "Value 2");
+    }
+
+    public void testFocus() {
+        // given
+        MaterialTextArea textArea = getWidget();
+
+        // when / then
+        checkResizeRule(textArea);
+        textArea.removeFromParent();
+        RootPanel.get().add(textArea);
+        checkResizeRule(textArea);
+    }
+
+    protected void checkResizeRule(MaterialTextArea textArea) {
+        textArea.setResizeRule(MaterialTextArea.ResizeRule.FOCUS);
+        boolean[] fired = {false};
+        textArea.addFocusHandler(focusEvent -> fired[0] = true);
+        fireFocusEvent(textArea);
+        assertTrue(fired[0]);
     }
 }

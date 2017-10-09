@@ -56,6 +56,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private Paragraph paragraph = new Paragraph();
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
+    private Span value = new Span();
     private static String VALUE = "value";
     private static String MAX = "max";
     private static String MIN = "min";
@@ -67,28 +68,6 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      */
     public MaterialRange() {
         super(Document.get().createFormElement());
-    }
-
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        getElement().setAttribute("action", "#");
-        errorLabel.setVisible(false);
-        paragraph.setStyleName(CssName.RANGE_FIELD);
-        rangeInputElement.setType(InputType.RANGE);
-        paragraph.add(rangeInputElement);
-        thumb.getElement().setClassName(CssName.THUMB);
-
-        Span value = new Span();
-        value.getElement().setClassName(CssName.VALUE);
-        thumb.add(value);
-
-        paragraph.add(thumb);
-        add(paragraph);
-        add(errorLabel);
-
-        registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
     }
 
     /**
@@ -108,6 +87,25 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     public void reset() {
         setValue(getMin());
         clearErrorOrSuccess();
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        getElement().setAttribute("action", "#");
+        errorLabel.setVisible(false);
+        paragraph.setStyleName(CssName.RANGE_FIELD);
+        rangeInputElement.setType(InputType.RANGE);
+        paragraph.add(rangeInputElement);
+        thumb.getElement().setClassName(CssName.THUMB);
+        value.getElement().setClassName(CssName.VALUE);
+        thumb.add(value);
+        paragraph.add(thumb);
+        add(paragraph);
+        add(errorLabel);
+
+        registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
     }
 
     /**

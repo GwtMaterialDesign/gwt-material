@@ -61,22 +61,6 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
     protected void onLoad() {
         super.onLoad();
 
-        JsMaterialElement.initDismissableCollection();
-    }
-
-    @Override
-    public void setType(CollectionType type) {
-        getTypeMixin().setType(type);
-        if (type == CollectionType.CHECKBOX) {
-            applyCheckBoxType();
-        }
-    }
-
-    protected void applyCheckBoxType() {
-        if (getWidgetCount() > 0) {
-            getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
-        }
-
         HandlerRegistration handlerRegistration = addClickHandler(event -> {
             // Stop propagation of event when checkbox / other elements has
             // been clicked to avoid duplicate events.
@@ -105,6 +89,22 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
             }
         });
         registerHandler(handlerRegistration);
+
+        JsMaterialElement.initDismissableCollection();
+    }
+
+    @Override
+    public void setType(CollectionType type) {
+        getTypeMixin().setType(type);
+        if (type == CollectionType.CHECKBOX) {
+            applyCheckBoxType();
+        }
+    }
+
+    protected void applyCheckBoxType() {
+        if (getWidgetCount() > 0) {
+            getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
+        }
     }
 
     @Override

@@ -44,12 +44,21 @@ public abstract class WidgetTestCase<T extends Widget> extends MaterialTestCase 
         }
         if(!neverAttach() && tryAttach && !widget.isAttached()) {
             RootPanel.get().add(widget);
+
+            if (unloadThenLoad()) {
+                widget.removeFromParent();
+                RootPanel.get().add(widget);
+            }
         }
         return widget;
     }
 
     public boolean neverAttach() {
         return false;
+    }
+
+    public boolean unloadThenLoad() {
+        return true;
     }
 
     public void destroyWidget() {

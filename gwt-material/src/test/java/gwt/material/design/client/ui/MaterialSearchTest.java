@@ -66,6 +66,7 @@ public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
         MaterialSearch search = getWidget();
 
         // when / then
+        search.open();
         assertEquals(InputType.SEARCH, search.getType());
         assertEquals(4, search.getChildren().size());
 

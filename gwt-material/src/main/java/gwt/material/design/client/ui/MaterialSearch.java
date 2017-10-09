@@ -96,7 +96,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     /**
      * Panel to display the result items
      */
-    private MaterialSearchResult searchResultPanel;
+    private MaterialSearchResult searchResultPanel = new MaterialSearchResult();
     /**
      * Link selected to determine easily during the selection event (up / down key events)
      */
@@ -138,13 +138,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         label.getElement().setAttribute("for", "search");
         add(label);
         add(iconClose);
+
         registerHandler(iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText())));
 
-        if (searchResultPanel == null || !searchResultPanel.isAttached()) {
-            // populate the lists of search result on search panel
-            searchResultPanel = new MaterialSearchResult();
-            add(searchResultPanel);
-        }
+        add(searchResultPanel);
 
         // Add Key Up event to filter the searches
         registerHandler(addKeyUpHandler(new KeyUpHandler() {

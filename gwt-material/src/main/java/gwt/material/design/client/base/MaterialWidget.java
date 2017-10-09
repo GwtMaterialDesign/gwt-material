@@ -887,6 +887,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getHandlerRegistry().registerHandler(handler);
     }
 
+    public void removeHandler(HandlerRegistration handler) {
+        getHandlerRegistry().removeHandler(handler);
+    }
+
     // Avoid touch events on mobile devices
     public void stopTouchStartEvent() {
         $(getElement()).bind("touchstart", e -> {
