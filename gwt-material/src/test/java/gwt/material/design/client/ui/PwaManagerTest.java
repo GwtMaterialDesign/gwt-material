@@ -21,26 +21,25 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.pwa.PwaManager;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class PwaManagerTest extends MaterialWidgetTest<MaterialPanel> {
+public class PwaManagerTest extends MaterialTestCase {
 
     final String WEB_MANIFEST_URL = "manifest.json";
     final String SERVICE_WORKER_URL = "service-worker.js";
     final String THEME_COLOR = "#ffffff";
 
     @Override
-    protected MaterialPanel createWidget() {
+    protected void gwtSetUp() throws Exception {
+        super.gwtSetUp();
         PwaManager.getInstance()
                 .setServiceWorkerUrl(SERVICE_WORKER_URL)
                 .setWebManifestUrl(WEB_MANIFEST_URL)
                 .setThemeColor(THEME_COLOR)
                 .load();
-
-        return new MaterialPanel();
     }
 
     public void testManifest() {
