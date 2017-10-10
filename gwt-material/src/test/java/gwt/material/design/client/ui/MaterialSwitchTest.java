@@ -19,12 +19,8 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Span;
 
@@ -33,21 +29,26 @@ import gwt.material.design.client.ui.html.Span;
  *
  * @author kevzlou7979
  */
-public class MaterialSwitchTest extends AbstractValueWidgetTest {
+public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
 
-    public void init() {
-        MaterialSwitch mSwitch = new MaterialSwitch();
-        checkWidget(mSwitch);
-        checkStructure(mSwitch);
-        checkValueChangeEvent(mSwitch, true, false);
+    @Override
+    protected MaterialSwitch createWidget() {
+        return new MaterialSwitch();
     }
 
     @Override
-    protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
-        super.checkEnabled(widget);
-        MaterialSwitch mSwitch = new MaterialSwitch();
-        RootPanel.get().add(mSwitch);
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.SWITCH);
+    }
 
+    @Override
+    public void testEnabled() {
+        super.testEnabled();
+
+        // given
+        MaterialSwitch mSwitch = getWidget();
+
+        // when / then
         Label label = (Label) mSwitch.getWidget(0);
         MaterialInput input = (MaterialInput) label.getWidget(1);
 
@@ -60,8 +61,11 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         assertFalse(input.isEnabled());
     }
 
-    protected <T extends MaterialSwitch> void checkStructure(T mSwitch) {
-        RootPanel.get().add(mSwitch);
+    public void testStructure() {
+        // given
+        MaterialSwitch mSwitch = getWidget();
+
+        // when / then
         assertTrue(mSwitch.getWidget(0) instanceof Label);
         Label label = (Label) mSwitch.getWidget(0);
         assertTrue(label.getWidget(0) instanceof Span);
@@ -71,12 +75,17 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         assertTrue(label.getWidget(0) instanceof Span);
         Span offLabel = (Span) label.getWidget(0);
         mSwitch.setOffLabel(OFF_LABEL);
-        assertEquals(offLabel.getText(), OFF_LABEL);
+        assertEquals(OFF_LABEL, offLabel.getText());
 
         // Input Element checking
         assertTrue(label.getWidget(1) instanceof MaterialInput);
         MaterialInput input = (MaterialInput) label.getWidget(1);
-        checkInputAttribute(mSwitch, input);
+
+        assertFalse(input.getElement().hasAttribute("checked"));
+        mSwitch.setValue(false);
+        assertFalse(input.getElement().hasAttribute("checked"));
+        mSwitch.setValue(true);
+        assertTrue(input.getElement().hasAttribute("checked"));
 
         // Lever Element checking
         assertTrue(label.getWidget(2) instanceof Span);
@@ -88,19 +97,23 @@ public class MaterialSwitchTest extends AbstractValueWidgetTest {
         assertTrue(label.getWidget(3) instanceof Span);
         Span onLabel = (Span) label.getWidget(3);
         mSwitch.setOnLabel(ON_LABEL);
-        assertEquals(onLabel.getText(), ON_LABEL);
-
-        // Error / Success / Helper checking
-        Widget lblError = mSwitch.getWidget(1);
-        assertTrue(lblError instanceof MaterialLabel);
-        checkLabelErrorSuccess(mSwitch, null, lblError);
+        assertEquals(ON_LABEL, onLabel.getText());
     }
 
-    protected void checkInputAttribute(MaterialSwitch widget, MaterialInput input) {
-        assertTrue(input.getElement().hasAttribute("checked"));
-        widget.setValue(false);
-        assertFalse(input.getElement().hasAttribute("checked"));
-        widget.setValue(true);
-        assertTrue(input.getElement().hasAttribute("checked"));
+    public void testValueChangeEvent() {
+        // given
+        MaterialSwitch mSwitch = getWidget();
+
+        // when / then
+        checkValueChangeEvent(mSwitch, true, false);
+    }
+
+
+    public void testErrorSuccess() {
+        // given
+        MaterialSwitch mSwitch = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(mSwitch, mSwitch.getErrorLabel());
     }
 }

@@ -21,34 +21,47 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.Axis;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Cards
+ * Test case for Cards.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialCardTest extends MaterialWidgetTest {
+public class MaterialCardTest extends MaterialWidgetTest<MaterialCard> {
 
-    public void init() {
-        MaterialCard card = new MaterialCard();
-        checkAxis(card);
-        checkStructure(card);
-        checkWidget(card);
+    @Override
+    protected MaterialCard createWidget() {
+        return new MaterialCard();
     }
 
-    protected <T extends MaterialCard> void checkAxis(T card) {
-        card.setAxis(Axis.HORIZONTAL);
-        assertTrue(card.getElement().hasClassName(Axis.HORIZONTAL.getCssName()));
-        assertEquals(card.getAxis(), Axis.HORIZONTAL);
-
-        card.setAxis(Axis.VERTICAL);
-        assertTrue(card.getElement().hasClassName(Axis.VERTICAL.getCssName()));
-        assertEquals(card.getAxis(), Axis.VERTICAL);
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.CARD);
     }
 
-    protected <T extends MaterialCard> void checkStructure(T card) {
+    public void testOrientation() {
+        // given
+        MaterialCard card = getWidget();
+
+        // when / then
+        card.setOrientation(Orientation.LANDSCAPE);
+        assertTrue(card.getElement().hasClassName(Orientation.LANDSCAPE.getCssName()));
+        assertEquals(Orientation.LANDSCAPE, card.getOrientation());
+
+        card.setOrientation(Orientation.PORTRAIT);
+        assertTrue(card.getElement().hasClassName(Orientation.PORTRAIT.getCssName()));
+        assertEquals(Orientation.PORTRAIT, card.getOrientation());
+    }
+
+    public void testStructure() {
+        // given
+        MaterialCard card = getWidget();
+
+        // when / then
         MaterialCardContent content = new MaterialCardContent();
         card.add(content);
 
@@ -64,7 +77,7 @@ public class MaterialCardTest extends MaterialWidgetTest {
         MaterialCardImage cardImage = new MaterialCardImage();
         card.add(cardImage);
 
-        assertEquals(card.getChildren().size(), 5);
+        assertEquals(5, card.getChildren().size());
         assertTrue(card.getWidget(0) instanceof MaterialCardContent);
         assertTrue(card.getWidget(1) instanceof MaterialCardTitle);
         assertTrue(card.getWidget(2) instanceof MaterialCardAction);
@@ -73,10 +86,8 @@ public class MaterialCardTest extends MaterialWidgetTest {
         for (Widget w : card.getChildren()) {
             assertNotNull(w);
             assertTrue(w instanceof MaterialWidget);
-            MaterialWidget md = (MaterialWidget) w;
-            checkWidget(md);
         }
         card.clear();
-        assertEquals(card.getChildren().size(), 0);
+        assertEquals(0, card.getChildren().size());
     }
 }

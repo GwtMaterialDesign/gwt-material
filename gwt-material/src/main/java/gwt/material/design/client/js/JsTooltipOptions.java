@@ -19,12 +19,25 @@
  */
 package gwt.material.design.client.js;
 
+import gwt.material.design.client.constants.Position;
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class JsTooltipOptions {
+
+    private JsTooltipOptions() {}
+
+    @JsOverlay
+    public static final JsTooltipOptions create() {
+        JsTooltipOptions options = new JsTooltipOptions();
+        options.delay = 0;
+        options.position = Position.BOTTOM.getCssName();
+        return options;
+    }
+
 
     @JsProperty
     public String tooltip;

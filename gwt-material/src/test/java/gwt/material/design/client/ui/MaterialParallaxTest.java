@@ -27,23 +27,35 @@ import gwt.material.design.client.ui.html.Div;
  * Test case for Parallax
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialParallaxTest extends MaterialWidgetTest {
+public class MaterialParallaxTest extends MaterialWidgetTest<MaterialParallax> {
 
-    public void init() {
-        MaterialParallax parallax = new MaterialParallax();
-        checkWidget(parallax);
-        checkStructure(parallax);
-        generateParallaxItems(parallax);
+    @Override
+    protected MaterialParallax createWidget() {
+        return new MaterialParallax();
     }
 
-    public <T extends MaterialParallax> void checkStructure(T parallax) {
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.PARALLAX_CONTAINER);
+    }
+
+    public void testStructure() {
+        // given / when
+        MaterialParallax parallax = getWidget();
+
+        // then
         assertNotNull(parallax.getWidget(0));
         assertTrue(parallax.getWidget(0) instanceof Div);
         assertTrue(parallax.getWidget(0).getElement().hasClassName(CssName.PARALLAX));
     }
 
-    protected void generateParallaxItems(MaterialParallax parallax) {
+    public void testMultipleParallax() {
+        // given
+        MaterialParallax parallax = getWidget();
+
+        // when / then
         for (int i = 1; i <= 5; i++) {
             MaterialImage image = new MaterialImage();
             parallax.add(image);

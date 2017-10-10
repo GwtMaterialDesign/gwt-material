@@ -23,6 +23,9 @@ import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.HasAttachHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 
+/**
+ * Replaced with {@link gwt.material.design.client.events.HandlerRegistry}
+ */
 public final class EventHelper {
 
     public static void onAttachOnce(HasAttachHandlers has, AttachEvent.Handler handler) {

@@ -20,15 +20,35 @@
 package gwt.material.design.client.ui;
 
 /**
- * Test case for Double Box
+ * Test case for Double Box.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialDoubleBoxTest extends MaterialValueBoxTest {
+public class MaterialDoubleBoxTest extends MaterialValueBoxTest<MaterialDoubleBox> {
 
-    public void init() {
-        MaterialDoubleBox doubleBox = new MaterialDoubleBox();
-        checkValueBox(doubleBox);
+    @Override
+    protected MaterialDoubleBox createWidget() {
+        return new MaterialDoubleBox();
+    }
+
+    @Override
+    public void testValue() {
+        // given
+        MaterialDoubleBox doubleBox = getWidget();
+
+        // when
+        doubleBox.setValue(123.00);
+
+        // then
+        assertEquals(123.00, doubleBox.getValue());
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialDoubleBox doubleBox = getWidget();
+
+        // when / then
         checkValueChangeEvent(doubleBox, 1.0, 2.0);
     }
 }

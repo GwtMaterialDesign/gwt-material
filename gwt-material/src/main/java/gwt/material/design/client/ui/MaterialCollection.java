@@ -20,10 +20,11 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasActiveParent;
+import gwt.material.design.client.base.HasClearActiveHandler;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.constants.CssName;
@@ -94,16 +95,21 @@ import gwt.material.design.client.ui.html.ListItem;
  * @see <a href="https://material.io/guidelines/components/lists-controls.html#lists-controls-types-of-menu-controls">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCollection extends MaterialWidget implements HasActiveParent {
+public class MaterialCollection extends MaterialWidget implements HasActiveParent, HasClearActiveHandler {
 
-    private Heading headerLabel = new Heading(HeadingSize.H4);
     private int index;
+    private Heading headerLabel = new Heading(HeadingSize.H4);
 
     /**
      * Creates an empty collection component.
      */
     public MaterialCollection() {
         super(Document.get().createULElement(), CssName.COLLECTION);
+    }
+
+    @Override
+    public void clearActive() {
+        clearActiveClass(this);
     }
 
     /**
@@ -150,16 +156,12 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
         }
     }
 
-    @Override
-    public void clearActive() {
-        clearActiveClass(this);
-    }
-
-    public HandlerRegistration addClearActiveHandler(final ClearActiveEvent.ClearActiveHandler handler) {
-        return addHandler(handler, ClearActiveEvent.TYPE);
-    }
-
     public Heading getHeaderLabel() {
         return headerLabel;
+    }
+
+    @Override
+    public HandlerRegistration addClearActiveHandler(final ClearActiveEvent.ClearActiveHandler handler) {
+        return addHandler(handler, ClearActiveEvent.TYPE);
     }
 }

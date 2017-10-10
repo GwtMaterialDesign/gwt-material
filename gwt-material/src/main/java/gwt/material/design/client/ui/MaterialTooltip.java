@@ -20,11 +20,15 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasId;
 import gwt.material.design.client.base.HasPosition;
+import gwt.material.design.client.base.HasReload;
+import gwt.material.design.client.base.JsLoader;
+import gwt.material.design.client.base.helper.EventHelper;
 import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.events.DefaultHandlerRegistry;
 import gwt.material.design.client.js.JsTooltipOptions;
 
 import java.util.Iterator;
@@ -45,22 +49,15 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979
  * @author Ben Dol
- *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Tooltip</a>
  * @see <a href="https://material.io/guidelines/components/tooltips.html">Material Design Specification</a>
  */
-public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition {
+public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWidget, HasId, HasText, HasPosition, HasReload {
 
-    private String text;
-    private Position position = Position.TOP;
-    private int delayMs = 0;
-
-    private Widget widget;
     private String id;
     private String html;
-
-    private HandlerRegistration attachHandler;
-    private HandlerRegistration htmlAttachHandler;
+    private Widget widget;
+    private JsTooltipOptions options = JsTooltipOptions.create();
 
     /**
      * Creates the empty Tooltip
@@ -89,152 +86,29 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     @Override
-    public void setWidget(final Widget w) {
-        // Validate
-        if (w == widget) {
-            return;
-        }
-
-        if (attachHandler != null) {
-            attachHandler.removeHandler();
-            attachHandler = null;
-        }
-
-        // Remove old child
-        if (widget != null) {
-            remove(widget);
-        }
-
-        // Logical attach, but don't physical attach; done by jquery.
-        widget = w;
-        if (widget == null) {
-            return;
-        }
-
-        if (!widget.isAttached()) {
-            // When we attach it, load the tooltip
-            attachHandler = widget.addAttachHandler(event -> {
-                if(event.isAttached()) {
-                    reinitialize();
-                } else {
-                    remove();
-                }
-            });
-        } else {
-            // ensure the tooltip is removed on detachment
-            attachHandler = widget.addAttachHandler(event -> {
-                if(!event.isAttached()) {
-                    remove();
-                }
-            });
-            reinitialize();
-        }
-    }
-
-    @Override
-    public void add(final Widget child) {
-        if (getWidget() != null) {
-            throw new IllegalStateException("Can only contain one child widget");
-        }
-        setWidget(child);
-    }
-
-    @Override
-    public void setWidget(final IsWidget w) {
-        setWidget(w.asWidget());
-    }
-
-    @Override
-    public Widget getWidget() {
-        return widget;
-    }
-
-    @Override
-    public void setId(final String id) {
-        this.id = id;
-        if (widget != null) {
-            widget.getElement().setId(id);
-        }
-    }
-
-    @Override
-    public String getId() {
-        return (widget == null) ? id : widget.getElement().getId();
-    }
-
-    @Override
-    public void setPosition(final Position position) {
-        this.position = position;
-
-        widget.getElement().setAttribute("data-position", position.getCssName());
-    }
-
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setDelayMs(final int delayMs) {
-        this.delayMs = delayMs;
-
-        widget.getElement().setAttribute("data-delay", String.valueOf(delayMs));
-    }
-
-    public int getDelayMs() {
-        return delayMs;
-    }
-
-    /**
-     * Gets the tooltip's display string
-     *
-     * @return String tooltip display string
-     */
-    @Override
-    public String getText() {
-        return text;
-    }
-
-    /**
-     * Sets the tooltip's display string
-     *
-     * @param text String display string
-     */
-    @Override
-    public void setText(final String text) {
-        this.text = text;
-
-        widget.getElement().setAttribute("data-tooltip", text);
-    }
-
-    /**
-     * Reconfigures the tooltip, must be called when altering
-     * any tooltip after it has already been shown.
-     */
-    public void reinitialize() {
-        remove();
-        initialize();
-    }
-
-
-    protected void initialize() {
-        initialize(text, position.getCssName(), delayMs);
-    }
-
-    protected void initialize(String tooltip, String position, int delay) {
-        JsTooltipOptions options = new JsTooltipOptions();
-        options.tooltip = tooltip;
-        options.position = position;
-        options.delay = delay;
+    public void load() {
         $(widget.getElement()).tooltip(options);
+    }
+
+    @Override
+    public void unload() {
+        command("remove");
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
     /**
      * Force the Tooltip to be destroyed
+     *
+     * @deprecated use {@link #unload()}
      */
+    @Deprecated
     public void remove() {
-        if (widget != null) {
-            command("remove");
-        }
+        unload();
     }
 
     @Override
@@ -295,7 +169,132 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
     }
 
     protected void command(String command) {
-        $(widget.getElement()).tooltip(command);
+        if (widget != null) {
+            $(widget.getElement()).tooltip(command);
+        }
+    }
+
+    @Override
+    public void setWidget(final Widget widget) {
+        // Validate
+        if (widget == this.widget) {
+            return;
+        }
+
+        // Remove old child
+        if (this.widget != null) {
+            remove(this.widget);
+        }
+
+        // Logical attach, but don't physical attach; done by jquery.
+        this.widget = widget;
+        if (this.widget == null) {
+            return;
+        }
+
+        setAttribute("data-delay", String.valueOf(options.delay));
+
+        if (options.position != null) {
+            setAttribute("data-position", options.position);
+        }
+
+        if (options.tooltip != null) {
+            setAttribute("data-tooltip", options.tooltip);
+        }
+
+        if (!this.widget.isAttached()) {
+            // When we attach it, configure the tooltip
+            widget.addAttachHandler(event -> {
+                if (event.isAttached()) {
+                    reload();
+                } else {
+                    unload();
+                }
+            });
+        } else {
+            // ensure the tooltip is removed on detachment
+            widget.addAttachHandler(event -> {
+                if (!event.isAttached()) {
+                    unload();
+                }
+            });
+            reload();
+        }
+    }
+
+    @Override
+    public void add(final Widget child) {
+        if (getWidget() != null) {
+            throw new IllegalStateException("Can only contain one child widget");
+        }
+        setWidget(child);
+    }
+
+    @Override
+    public void setWidget(final IsWidget w) {
+        setWidget(w.asWidget());
+    }
+
+    @Override
+    public Widget getWidget() {
+        return widget;
+    }
+
+    @Override
+    public void setId(final String id) {
+        this.id = id;
+        if (widget != null) {
+            widget.getElement().setId(id);
+        }
+    }
+
+    @Override
+    public String getId() {
+        return (widget == null) ? id : widget.getElement().getId();
+    }
+
+    @Override
+    public void setPosition(final Position position) {
+        options.position = position.getCssName();
+
+        setAttribute("data-position", position.getCssName());
+    }
+
+    @Override
+    public Position getPosition() {
+        return options.position != null ? Position.fromStyleName(options.position) : null;
+    }
+
+    public void setDelayMs(final int delayMs) {
+        options.delay = delayMs;
+
+        setAttribute("data-delay", String.valueOf(delayMs));
+    }
+
+    public int getDelayMs() {
+        return options.delay;
+    }
+
+    /**
+     * Gets the tooltip's display string
+     *
+     * @return String tooltip display string
+     */
+    @Override
+    public String getText() {
+        return options.tooltip;
+    }
+
+    /**
+     * Sets the tooltip's display string
+     *
+     * @param text String display string
+     */
+    @Override
+    public void setText(final String text) {
+        options.tooltip = text;
+
+        setAttribute("data-tooltip", text);
     }
 
     /**
@@ -326,22 +325,30 @@ public class MaterialTooltip implements IsWidget, HasWidgets, HasOneWidget, HasI
      */
     public void setHtml(String html) {
         this.html = html;
-        if (htmlAttachHandler != null) {
-            htmlAttachHandler.removeHandler();
-            htmlAttachHandler = null;
-        }
 
         Element element = widget.getElement();
         if (widget.isAttached()) {
             $("#" + element.getAttribute("data-tooltip-id"))
-                .find("span")
-                .html(html != null ? html : "");
-        } else {
-            htmlAttachHandler = widget.addAttachHandler(attachEvent -> {
-                $("#" + element.getAttribute("data-tooltip-id"))
                     .find("span")
                     .html(html != null ? html : "");
-            });
+        } else {
+            widget.addAttachHandler(event ->
+                    $("#" + element.getAttribute("data-tooltip-id"))
+                            .find("span")
+                            .html(html != null ? html : ""));
+        }
+    }
+
+    public void setAttribute(String attr, String value) {
+        if (widget != null) {
+            AttachEvent.Handler handler = event -> {
+                widget.getElement().setAttribute(attr, value);
+            };
+            if (widget.isAttached()) {
+                handler.onAttachOrDetach(null);
+            } else {
+                EventHelper.onAttachOnce(widget, handler);
+            }
         }
     }
 }

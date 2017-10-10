@@ -19,63 +19,51 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.HideOn;
-import gwt.material.design.client.constants.NavBarType;
-import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.NavBarExpandEvent;
 import gwt.material.design.client.events.NavBarShrinkEvent;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.Div;
-import gwt.material.design.client.ui.html.ListItem;
 
 /**
- * Test case for Nav Bar
+ * Test case for Nav Bar.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialNavBarTest extends MaterialWidgetTest {
+public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
 
-    public void init() {
+    @Override
+    protected MaterialNavBar createWidget() {
+        return constructAndAttach();
+    }
+
+    public static MaterialNavBar constructAndAttach() {
         MaterialHeader header = new MaterialHeader();
         MaterialNavBar navBar = new MaterialNavBar();
+        MaterialNavContent navContent = new MaterialNavContent();
+        navBar.add(navContent);
         header.add(navBar);
         RootPanel.get().add(header);
         assertTrue(navBar.getParent() instanceof MaterialHeader);
-        checkWidget(navBar);
-        checkNavBrand(navBar);
-        checkNavSection(navBar);
-        checkStructure(navBar);
-        checkActivates(navBar);
-        checkTypes();
-        MaterialNavSection section = new MaterialNavSection();
-        checkSelectionEvent(section);
+        return navBar;
     }
 
-    public <T extends MaterialNavSection> void checkSelectionEvent(T widget) {
-        final boolean[] isSelectionEventFired = {false};
-        widget.addSelectionHandler(selectionEvent -> isSelectionEventFired[0] = true);
-        widget.fireEvent(new GwtEvent<SelectionHandler<?>>() {
-            @Override
-            public Type<SelectionHandler<?>> getAssociatedType() {
-                return SelectionEvent.getType();
-            }
+    @Override
+    protected void gwtTearDown() throws Exception {
+        super.gwtTearDown();
 
-            @Override
-            protected void dispatch(SelectionHandler eventHandler) {
-                eventHandler.onSelection(null);
-            }
-        });
-
-        assertEquals(isSelectionEventFired[0], true);
+        destroyWidget();
     }
 
-    public <T extends MaterialNavBar> void checkTypes() {
+    @Override
+    public boolean neverAttach() {
+        return true;
+    }
+
+    public void testTypes() {
         final int OFFSET = 100;
         MaterialNavBarShrink shrinkNavBar = new MaterialNavBarShrink();
 
@@ -86,7 +74,7 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
         assertTrue(shrinkNavBar.getStyleName().contains(NavBarType.SHRINK.getCssName()));
 
         shrinkNavBar.setOffset(OFFSET);
-        assertEquals(shrinkNavBar.getOffset(), OFFSET);
+        assertEquals(OFFSET, shrinkNavBar.getOffset());
 
         final boolean[] expandFired = {false};
         shrinkNavBar.addExpandHandler(event -> expandFired[0] = true);
@@ -101,69 +89,81 @@ public class MaterialNavBarTest extends MaterialWidgetTest {
         assertTrue(shrinkFired[0]);
     }
 
-    public <T extends MaterialNavBar> void checkStructure(T navBar) {
-        assertTrue(navBar.getWidget(0) instanceof Div);
-        Div navWrapper = (Div) navBar.getWidget(0);
-        assertEquals(navWrapper.getWidget(0), navBar.getNavMenu());
-        if (!navBar.getActivates().isEmpty()) {
-            assertTrue(navWrapper.getWidget(0) instanceof MaterialLink);
-            MaterialLink navMenu = (MaterialLink) navWrapper.getWidget(0);
-            assertTrue(navWrapper.getWidget(1) instanceof MaterialNavSection);
-            assertEquals(navMenu, navBar.getNavMenu());
-            assertTrue(navBar.getNavMenu().getElement().hasClassName(CssName.BUTTON_COLLAPSE));
-        }
-        assertTrue(navWrapper.getElement().hasClassName(CssName.NAV_WRAPPER));
+    public void testStructure() {
+        // given
+        MaterialNavBar navBar = getWidget();
+        Div navWrapper = navBar.getNavWrapper();
+        MaterialLink navMenu = navBar.getNavMenu();
+        MaterialNavContent navContent = (MaterialNavContent) navWrapper.getWidget(1);
 
-        // NavBar Content extension
-        MaterialNavContent navContent = new MaterialNavContent();
-        navBar.add(navContent);
+        // when / then
+        assertNotNull(navBar.getWidget(0));
+        assertTrue(navBar.getWidget(0) instanceof Div);
+        assertEquals(navBar.getNavWrapper(), navBar.getWidget(0));
+        assertTrue(navWrapper.getElement().hasClassName(CssName.NAV_WRAPPER));
+        assertEquals(navWrapper.getWidget(0), navBar.getNavMenu());
+        assertTrue(navMenu.getElement().hasClassName(CssName.BUTTON_COLLAPSE));
+        assertTrue(navMenu.isCircle());
+        assertEquals("2.7em", navMenu.getFontSize());
+        assertEquals(64, navMenu.getWidth());
+        assertEquals(WavesType.LIGHT, navMenu.getWaves());
+        assertEquals(TextAlign.CENTER, navMenu.getTextAlign());
+        assertNotNull(navWrapper.getWidget(0));
+        assertTrue(navWrapper.getWidget(1) instanceof MaterialNavContent);
         assertTrue(navContent.getElement().hasClassName(CssName.NAV_CONTENT));
         MaterialLabel label = new MaterialLabel();
         navContent.add(label);
-
-        assertEquals(navContent.getWidget(0), label);
-        assertEquals(navWrapper.getWidget(3), navContent);
-
+        assertEquals(label, navContent.getWidget(0));
         navBar.clear();
-        assertEquals(navWrapper.getChildren().size(), 0);
+        assertEquals(0, navWrapper.getChildren().size());
     }
 
-    public <T extends MaterialNavBar> void checkNavBrand(T navBar) {
-        MaterialNavBrand navBrand = new MaterialNavBrand();
-        checkWidget(navBrand);
-        navBar.add(navBrand);
-        navBrand.setText("test");
-        assertEquals(navBrand.getText(), "test");
+    public void testActivates() {
+        // given
+        MaterialNavBar navBar = getWidget();
 
-        navBrand.setPosition(Position.RIGHT);
-        assertTrue(navBrand.getElement().hasClassName(Position.RIGHT.getCssName()));
-        navBrand.setPosition(Position.LEFT);
-        assertTrue(navBrand.getElement().hasClassName(Position.LEFT.getCssName()));
-    }
-
-    public <T extends MaterialNavBar> void checkNavSection(T navBar) {
-        MaterialNavSection navSection = new MaterialNavSection();
-        checkWidget(navSection);
-        for (int i = 1; i <= 5; i++) {
-            navSection.add(new MaterialLink("Nav Link " + i));
-        }
-        for (Widget w : navSection.getChildren()) {
-            assertTrue(w instanceof ListItem);
-            ListItem item = (ListItem) w;
-            assertTrue(item.getWidget(0) instanceof MaterialLink);
-        }
-        navBar.add(navSection);
-        assertEquals(navSection.getChildren().size(), 5);
-        navSection.setPosition(Position.LEFT);
-        assertTrue(navSection.getElement().hasClassName(Position.LEFT.getCssName()));
-        assertTrue(navSection.getElement().hasClassName(HideOn.HIDE_ON_MED.getCssName()));
-    }
-
-    public <T extends MaterialNavBar> void checkActivates(T navBar) {
+        // when / then
         final String ACTIVATOR = "activator";
         navBar.setActivates(ACTIVATOR);
         assertNotNull(navBar.getActivates());
         assertTrue(navBar.getNavMenu().getElement().hasAttribute("data-activates"));
-        assertEquals(navBar.getNavMenu().getElement().getAttribute("data-activates"), ACTIVATOR);
+        assertEquals(ACTIVATOR, navBar.getNavMenu().getElement().getAttribute("data-activates"));
+    }
+
+    public void testProgressBar() {
+        // given
+        MaterialNavBar navBar = getWidget();
+
+        // when / then
+        navBar.showProgress(ProgressType.INDETERMINATE);
+        assertTrue(navBar.getNavWrapper().getWidget(2) instanceof MaterialProgress);
+        assertEquals(navBar.getNavWrapper().getWidget(2).getElement().getClassName(), CssName.PROGRESS);
+        MaterialProgress progress = (MaterialProgress) navBar.getNavWrapper().getWidget(2);
+        assertEquals(ProgressType.INDETERMINATE, progress.getType());
+        navBar.hideProgress();
+        assertFalse(progress.isAttached());
+    }
+
+    public void testNavBarContent() {
+        // given
+        final String HEIGHT_AUTO = "auto";
+        MaterialNavBar navBar = getWidget();
+
+        // when / then
+        navBar.setHeight(HEIGHT_AUTO);
+        assertEquals(HEIGHT_AUTO, navBar.getElement().getStyle().getHeight());
+        navBar.setLayoutPosition(Style.Position.FIXED);
+        assertEquals(Style.Position.FIXED.getCssName(), navBar.getLayoutPosition());
+        assertTrue(navBar.getNavWrapper().getWidget(1) instanceof MaterialNavContent);
+        MaterialNavContent navContent = (MaterialNavContent) navBar.getNavWrapper().getWidget(1);
+        assertTrue(navContent.getElement().hasClassName(CssName.NAV_CONTENT));
+
+        // given
+        MaterialLabel label = new MaterialLabel();
+
+        // when / then
+        navContent.add(label);
+        assertEquals(label, navContent.getWidget(0));
+
     }
 }

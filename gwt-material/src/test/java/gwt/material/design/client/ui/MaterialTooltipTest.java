@@ -19,55 +19,60 @@
  */
 package gwt.material.design.client.ui;
 
-import gwt.material.design.client.base.MaterialWidget;
+import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Tooltips
+ * Test case for Tooltips.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialTooltipTest extends MaterialWidgetTest {
+public class MaterialTooltipTest extends MaterialTestCase {
 
-    public void init() {
-        MaterialButton button = new MaterialButton();
-        checkWidget(button);
-        checkStructure(button);
-    }
+    final static String TOOLTIP = "tooltip";
+    final static int DELAY = 100;
 
-    public <T extends MaterialWidget> void checkStructure(T widget) {
-        widget.setTooltip("Tooltip");
+    public void testStructure() {
+        // given
+        MaterialButton widget = new MaterialButton();
+        RootPanel.get().add(widget);
+
+        // when / then
+        widget.setTooltip(TOOLTIP);
         assertNotNull(widget.getTooltip());
-        assertEquals(widget.getTooltip(), "Tooltip");
+        assertEquals(TOOLTIP, widget.getTooltip());
         assertTrue(widget.getElement().hasAttribute("data-tooltip"));
-        assertEquals(widget.getElement().getAttribute("data-tooltip"), "Tooltip");
+        assertEquals(TOOLTIP, widget.getElement().getAttribute("data-tooltip"));
 
         widget.setTooltipPosition(Position.RIGHT);
-        assertEquals(widget.getTooltipPosition(), Position.RIGHT);
+        assertEquals(Position.RIGHT, widget.getTooltipPosition());
         assertTrue(widget.getElement().hasAttribute("data-position"));
-        assertEquals(widget.getElement().getAttribute("data-position"), Position.RIGHT.getCssName());
+        assertEquals(Position.RIGHT.getCssName(), widget.getElement().getAttribute("data-position"));
         widget.setTooltipPosition(Position.LEFT);
-        assertEquals(widget.getTooltipPosition(), Position.LEFT);
+        assertEquals(Position.LEFT, widget.getTooltipPosition());
         assertTrue(widget.getElement().hasAttribute("data-position"));
-        assertEquals(widget.getElement().getAttribute("data-position"), Position.LEFT.getCssName());
+        assertEquals(Position.LEFT.getCssName(), widget.getElement().getAttribute("data-position"));
         widget.setTooltipPosition(Position.TOP);
-        assertEquals(widget.getTooltipPosition(), Position.TOP);
+        assertEquals(Position.TOP, widget.getTooltipPosition());
         assertTrue(widget.getElement().hasAttribute("data-position"));
-        assertEquals(widget.getElement().getAttribute("data-position"), Position.TOP.getCssName());
+        assertEquals(Position.TOP.getCssName(), widget.getElement().getAttribute("data-position"));
         widget.setTooltipPosition(Position.BOTTOM);
-        assertEquals(widget.getTooltipPosition(), Position.BOTTOM);
+        assertEquals(Position.BOTTOM, widget.getTooltipPosition());
         assertTrue(widget.getElement().hasAttribute("data-position"));
-        assertEquals(widget.getElement().getAttribute("data-position"), Position.BOTTOM.getCssName());
+        assertEquals(Position.BOTTOM.getCssName(), widget.getElement().getAttribute("data-position"));
 
-        widget.setTooltipDelayMs(100);
-        assertEquals(widget.getTooltipDelayMs(), 100);
+        widget.setTooltipDelayMs(DELAY);
+        assertEquals(widget.getTooltipDelayMs(), DELAY);
         assertTrue(widget.getElement().hasAttribute("data-delay"));
-        assertEquals(widget.getElement().getAttribute("data-delay"), String.valueOf(100));
+        assertEquals(String.valueOf(DELAY), widget.getElement().getAttribute("data-delay"));
 
+        // given
         final String HTML = "<b>Tooltip</b>";
+
+        // when / then
         widget.setTooltipHTML(HTML);
         assertEquals(widget.getTooltipHTML(), HTML);
     }
-
 }

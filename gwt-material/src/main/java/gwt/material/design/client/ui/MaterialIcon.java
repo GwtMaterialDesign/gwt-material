@@ -52,10 +52,10 @@ import gwt.material.design.client.constants.*;
 //@formatter:on
 public class MaterialIcon extends AbstractButton implements HasSeparator, HasIcon {
 
-    private final CssNameMixin<MaterialIcon, IconPosition> posMixin = new CssNameMixin<>(this);
-    private final CssNameMixin<MaterialIcon, IconSize> sizeMixin = new CssNameMixin<>(this);
-    private final ToggleStyleMixin<MaterialIcon> prefixMixin = new ToggleStyleMixin<>(this, "prefix");
-    private final ColorsMixin<MaterialIcon> colorsMixin = new ColorsMixin<>(this);
+    private CssNameMixin<MaterialIcon, IconPosition> positionMixin;
+    private CssNameMixin<MaterialIcon, IconSize> sizeMixin;
+    private ToggleStyleMixin<MaterialIcon> prefixMixin;
+    private ColorsMixin<MaterialIcon> iconColorMixin;
 
     /**
      * Creates an empty icon.
@@ -116,21 +116,26 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 
     @Override
     public void setIconPosition(IconPosition position) {
-        posMixin.setCssName(position);
+        getPositionMixin().setCssName(position);
     }
 
     @Override
     public void setIconSize(IconSize size) {
-        sizeMixin.setCssName(size);
+        getSizeMixin().setCssName(size);
     }
 
     public IconSize getIconSize() {
-        return sizeMixin.getCssName();
+        return getSizeMixin().getCssName();
     }
 
     @Override
     public void setIconColor(Color iconColor) {
-        colorsMixin.setTextColor(iconColor);
+        getIconColorMixin().setTextColor(iconColor);
+    }
+
+    @Override
+    public Color getIconColor() {
+        return getIconColorMixin().getTextColor();
     }
 
     @Override
@@ -140,11 +145,39 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 
     @Override
     public void setIconPrefix(boolean prefix) {
-        prefixMixin.setOn(prefix);
+        getPrefixMixin().setOn(prefix);
     }
 
     @Override
     public boolean isIconPrefix() {
-        return prefixMixin.isOn();
+        return getPrefixMixin().isOn();
+    }
+
+    protected CssNameMixin<MaterialIcon, IconPosition> getPositionMixin() {
+        if (positionMixin == null) {
+            positionMixin = new CssNameMixin<>(this);
+        }
+        return positionMixin;
+    }
+
+    protected CssNameMixin<MaterialIcon, IconSize> getSizeMixin() {
+        if (sizeMixin == null) {
+            sizeMixin = new CssNameMixin<>(this);
+        }
+        return sizeMixin;
+    }
+
+    protected ToggleStyleMixin<MaterialIcon> getPrefixMixin() {
+        if (prefixMixin == null) {
+            prefixMixin = new ToggleStyleMixin<>(this, CssName.PREFIX);
+        }
+        return prefixMixin;
+    }
+
+    protected ColorsMixin<MaterialIcon> getIconColorMixin() {
+        if (iconColorMixin == null) {
+            iconColorMixin = new ColorsMixin<>(this);
+        }
+        return iconColorMixin;
     }
 }

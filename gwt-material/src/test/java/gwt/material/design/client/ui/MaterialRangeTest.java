@@ -19,55 +19,61 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.MaterialWidget;
+import com.google.gwt.event.dom.client.ChangeEvent;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
 
 /**
- * Test case for Range
+ * Test case for Range.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialRangeTest extends AbstractValueWidgetTest {
+public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
 
-    public void init() {
-        MaterialRange range = new MaterialRange();
-        checkAbstractValueWidgetWoPlaceholder(range, range.getErrorLabel());
-        checkValues(range);
-        checkStructure(range);
+    static final Integer MIN = 20;
+    static final Integer MAX = 100;
+    static final Integer VALUE = 50;
+    static final Integer SECOND_VALUE = 100;
+
+    @Override
+    protected MaterialRange createWidget() {
+        return new MaterialRange();
     }
 
-    public <T extends MaterialRange> void checkStructure(T range) {
-        assertEquals(range.getChildren().size(), 2);
+    public void testStructure() {
+        // given
+        MaterialRange range = getWidget();
+
+        // when / then
+        assertEquals(2, range.getChildren().size());
         assertTrue(range.getWidget(0) instanceof Paragraph);
         Paragraph paragraph = (Paragraph) range.getWidget(0);
         assertTrue(paragraph.getElement().hasClassName(CssName.RANGE_FIELD));
-        assertEquals(paragraph.getWidgetCount(), 2);
+        assertEquals(2, paragraph.getWidgetCount());
         assertTrue(paragraph.getWidget(0) instanceof MaterialInput);
 
         assertTrue(paragraph.getWidget(1) instanceof Span);
         Span thumb = (Span) paragraph.getWidget(1);
         assertTrue(thumb.getElement().hasClassName(CssName.THUMB));
-        assertEquals(thumb.getWidgetCount(), 1);
+        assertEquals(1, thumb.getWidgetCount());
         assertTrue(thumb.getWidget(0) instanceof Span);
         assertTrue(thumb.getWidget(0).getElement().hasClassName(CssName.VALUE));
 
         assertTrue(range.getWidget(1) instanceof MaterialLabel);
-        assertEquals(range.getWidget(1), range.getErrorLabel());
+        assertEquals(range.getErrorLabel(), range.getWidget(1));
     }
 
-    public <T extends MaterialRange> void checkValues(T range) {
-        final Integer MIN = 20;
-        final Integer MAX = 100;
-        final Integer VALUE = 50;
-        final Integer SECOND_VALUE = 100;
+    public void testValues() {
+        // given
+        MaterialRange range = getWidget();
         final Element inputElement = range.getRangeInputElement().getElement();
 
+        // when / then
         // Make Sure to have not min / max / value set by default
         assertFalse(inputElement.hasAttribute("min"));
         assertFalse(inputElement.hasAttribute("max"));
@@ -75,32 +81,51 @@ public class MaterialRangeTest extends AbstractValueWidgetTest {
 
         range.setMin(MIN);
         assertTrue(inputElement.hasAttribute("min"));
-        assertEquals(range.getMin(), MIN);
-        assertEquals(inputElement.getAttribute("min"), String.valueOf(MIN));
+        assertEquals(MIN, range.getMin());
+        assertEquals(String.valueOf(MIN), inputElement.getAttribute("min"));
 
         range.setMax(MAX);
         assertTrue(inputElement.hasAttribute("max"));
-        assertEquals(range.getMax(), MAX);
-        assertEquals(inputElement.getAttribute("max"), String.valueOf(MAX));
+        assertEquals(MAX, range.getMax());
+        assertEquals(String.valueOf(MAX), inputElement.getAttribute("max"));
 
         range.setValue(VALUE);
         assertTrue(inputElement.hasAttribute("value"));
-        assertEquals(range.getValue(), VALUE);
-        assertEquals(inputElement.getAttribute("value"), String.valueOf(VALUE));
+        assertEquals(VALUE, range.getValue());
+        assertEquals(String.valueOf(VALUE), inputElement.getAttribute("value"));
 
         checkValueChangeEvent(range, VALUE, SECOND_VALUE);
     }
 
-    @Override
-    protected <T extends MaterialWidget & HasError, H extends UIObject> void checkErrorSuccess(T widget, H target) {
-        widget.setError("Error");
-        assertTrue(target.getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
-        widget.setSuccess("Success");
-        assertTrue(target.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
-        widget.setHelperText("Helper");
-        assertTrue(target.getElement().hasClassName(CssName.FIELD_HELPER_LABEL));
-        widget.clearErrorOrSuccess();
-        assertFalse(target.getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
-        assertFalse(target.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
+    public void testReset() {
+        // given
+        MaterialRange range = getWidget();
+
+        // when / then
+        range.setMin(MIN);
+        range.setMax(MAX);
+        range.setValue(VALUE);
+        assertEquals(VALUE, range.getValue());
+        range.setError("some-error");
+        range.reset();
+        assertEquals(MIN, range.getValue());
+        assertFalse(range.getElement().hasClassName(CssName.FIELD_ERROR));
+    }
+
+    public void testErrorSuccess() {
+        // given
+        MaterialRange range = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(range, range.getErrorLabel());
+    }
+
+    public void testChangeHandler() {
+        MaterialRange range = getWidget();
+
+        final boolean[] firedEvent = {false};
+        range.addChangeHandler(changeEvent -> firedEvent[0] = true);
+        ChangeEvent.fireNativeEvent(Document.get().createChangeEvent(), range.getRangeInputElement());
+        assertTrue(firedEvent[0]);
     }
 }

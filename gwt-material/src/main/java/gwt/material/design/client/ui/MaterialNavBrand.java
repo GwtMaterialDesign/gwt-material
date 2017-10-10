@@ -52,8 +52,7 @@ import gwt.material.design.client.ui.html.Div;
 public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosition, HasNoSideNavSelection {
 
     private Div container = new Div();
-
-    private final CssNameMixin<MaterialNavBrand, Position> posMixin = new CssNameMixin<>(this);
+    private CssNameMixin<MaterialNavBrand, Position> positionMixin;
 
     /**
      * Material NavBrand is a component wherein you can pass a text / logo branding of your app
@@ -103,15 +102,22 @@ public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosi
 
     @Override
     public Position getPosition() {
-        return posMixin.getCssName();
+        return getPositionMixin().getCssName();
     }
 
     @Override
     public void setPosition(Position position) {
-        posMixin.setCssName(position);
+        getPositionMixin().setCssName(position);
     }
 
     public Div getContainer() {
         return container;
+    }
+
+    protected CssNameMixin<MaterialNavBrand, Position> getPositionMixin() {
+        if (positionMixin == null) {
+            positionMixin = new CssNameMixin<>(this);
+        }
+        return positionMixin;
     }
 }

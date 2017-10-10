@@ -24,12 +24,13 @@ import gwt.material.design.client.ui.base.AbstractIconButtonTest;
 /**
  * Test case for Buttons
  *
- * @kevzlou7979
+ * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialButtonTest extends AbstractIconButtonTest {
+public class MaterialButtonTest extends AbstractIconButtonTest<MaterialButton> {
 
-    public void init() {
-        MaterialButton button = new MaterialButton();
-        checkIconButton(button);
+    @Override
+    protected MaterialButton createWidget() {
+        return new MaterialButton();
     }
 }

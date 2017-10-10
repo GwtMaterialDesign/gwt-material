@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasDurationTransition;
 import gwt.material.design.client.base.HasFullscreen;
+import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.FullscreenMixin;
 import gwt.material.design.client.constants.CssName;
@@ -72,41 +73,61 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#media">Material Slider</a>
  */
 //@formatter:on
-public class MaterialSlider extends MaterialWidget implements HasDurationTransition, HasFullscreen {
+public class MaterialSlider extends MaterialWidget implements JsLoader, HasDurationTransition, HasFullscreen {
 
     private UnorderedList listContainer = new UnorderedList();
+    private JsSliderOptions options = new JsSliderOptions();
 
-    private boolean fullWidth = true;
-    private boolean indicators = true;
-    private int duration = 500;
-    private int interval = 6000;
-
-    private final FullscreenMixin fullscreenMixin = new FullscreenMixin(this);
+    private FullscreenMixin fullscreenMixin;
 
     public MaterialSlider() {
         super(Document.get().createDivElement(), CssName.SLIDER);
-        build();
     }
 
     @Override
-    protected void build() {
+    protected void onLoad() {
         listContainer.setStyleName(CssName.SLIDES);
         super.add(listContainer);
+
+        super.onLoad();
+
+        load();
     }
 
     @Override
-    protected void initialize() {
-        JsSliderOptions options = new JsSliderOptions();
-        options.full_width = fullWidth;
-        options.indicators = indicators;
-        options.transition = duration;
-        options.interval = interval;
+    public void load() {
         $(getElement()).slider(options);
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        unload();
+    }
+
+    @Override
+    public void unload() {
+
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
     @Override
     public void add(Widget child) {
         listContainer.add(child);
+    }
+
+    public void pause() {
+        $(getElement()).slider("pause");
+    }
+
+    public void start() {
+        $(getElement()).slider("start");
     }
 
     @Override
@@ -120,28 +141,20 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
      */
     @Override
     public void setFullscreen(boolean fullscreen) {
-        fullscreenMixin.setFullscreen(fullscreen);
+        getFullscreenMixin().setFullscreen(fullscreen);
     }
 
     @Override
     public boolean isFullscreen() {
-        return fullscreenMixin.isFullscreen();
+        return getFullscreenMixin().isFullscreen();
     }
 
     public boolean isFullWidth() {
-        return fullWidth;
+        return options.full_width;
     }
 
     public void setFullWidth(boolean fullWidth) {
-        this.fullWidth = fullWidth;
-    }
-
-    public void pause() {
-        $(getElement()).slider("pause");
-    }
-
-    public void start() {
-        $(getElement()).slider("start");
+        this.options.full_width = fullWidth;
     }
 
     public UnorderedList getListContainer() {
@@ -150,22 +163,29 @@ public class MaterialSlider extends MaterialWidget implements HasDurationTransit
 
     @Override
     public void setDuration(int duration) {
-        this.duration = duration;
+        this.options.transition = duration;
     }
 
     @Override
     public int getDuration() {
-        return duration;
+        return options.transition;
     }
 
     public int getInterval() {
-        return interval;
+        return options.interval;
     }
 
     /**
      * Set the duration between transitions in ms. (Default: 6000)
      */
     public void setInterval(int interval) {
-        this.interval = interval;
+        this.options.interval = interval;
+    }
+
+    protected FullscreenMixin getFullscreenMixin() {
+        if (fullscreenMixin == null) {
+            fullscreenMixin = new FullscreenMixin(this);
+        }
+        return fullscreenMixin;
     }
 }

@@ -33,7 +33,7 @@ import gwt.material.design.client.constants.CssName;
  * <p>
  * <pre>
  * {@code
- * <m:MaterialNavMenu iconType="IconType.MENU" activates="mySideNav"/>
+ * <m:MaterialNavMenu iconType="MENU" activates="mySideNav"/>
  * }
  * </pre>
  * </p>
@@ -46,7 +46,7 @@ import gwt.material.design.client.constants.CssName;
 //@formatter:on
 public class MaterialNavMenu extends MaterialLink implements HasNoSideNavSelection {
 
-    private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
+    private ActivatesMixin<AbstractButton> activatesMixin;
 
     public MaterialNavMenu() {
         setInitialClasses(CssName.BUTTON_COLLAPSE);
@@ -54,6 +54,13 @@ public class MaterialNavMenu extends MaterialLink implements HasNoSideNavSelecti
 
     @Override
     public void setActivates(String activates) {
-        activatesMixin.setActivates(activates);
+        getActivatesMixin().setActivates(activates);
+    }
+
+    protected ActivatesMixin<AbstractButton> getActivatesMixin() {
+        if (activatesMixin == null) {
+            activatesMixin = new ActivatesMixin<>(this);
+        }
+        return activatesMixin;
     }
 }

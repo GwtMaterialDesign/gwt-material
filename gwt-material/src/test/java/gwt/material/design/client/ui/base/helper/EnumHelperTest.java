@@ -19,22 +19,16 @@
  */
 package gwt.material.design.client.ui.base.helper;
 
-import gwt.material.design.client.base.helper.ColorHelper;
+import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.base.helper.EnumHelper;
-import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.Color;
-import junit.framework.TestCase;
 
 /**
  * Test case for {@link EnumHelper}.
  */
-public class EnumHelperTest extends TestCase {
+public class EnumHelperTest extends MaterialTestCase {
 
-    public EnumHelperTest() {
-        checkFromStyleName();
-    }
-
-    private void checkFromStyleName() {
+    public void testFromStyleName() {
         assertEquals(Color.PINK,
             EnumHelper.fromStyleName("pink", Color.class, Color.DEFAULT));
 

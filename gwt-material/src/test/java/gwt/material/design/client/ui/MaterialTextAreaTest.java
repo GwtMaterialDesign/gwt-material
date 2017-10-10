@@ -19,26 +19,80 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.InputType;
+
 /**
- * Test case for Text Area
+ * Test case for Text Area.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialTextAreaTest extends MaterialValueBoxTest {
+public class MaterialTextAreaTest extends MaterialValueBoxTest<MaterialTextArea> {
 
-    public void init() {
-        MaterialTextArea txtArea = new MaterialTextArea();
-        checkValueBox(txtArea);
-        checkResizeRule(txtArea);
-        checkValueChangeEvent(txtArea, "Value 1", "Value 2");
+    @Override
+    protected MaterialTextArea createWidget() {
+        return new MaterialTextArea();
     }
 
-    public <T extends MaterialTextArea> void checkResizeRule(T textArea) {
+    public void testStructure() {
+        // given
+        MaterialTextArea textArea = getWidget();
+
+        // when / then
+        assertTrue(textArea.getValueBoxBase().getElement().hasClassName(CssName.MATERIALIZE_TEXTAREA));
+        assertEquals(InputType.TEXT, textArea.getType());
+    }
+
+    @Override
+    public void testValue() {
+        // given
+        MaterialTextArea textArea = getWidget();
+
+        // when / then
+        textArea.setValue("test");
+        assertEquals("test", textArea.getValue());
+    }
+
+    public void testResizeRule() {
+        // given
+        MaterialTextArea textArea = getWidget();
+
+        // when / then
         textArea.setResizeRule(MaterialTextArea.ResizeRule.AUTO);
-        assertEquals(textArea.getResizeRule(), MaterialTextArea.ResizeRule.AUTO);
+        assertEquals(MaterialTextArea.ResizeRule.AUTO, textArea.getResizeRule());
         textArea.setResizeRule(MaterialTextArea.ResizeRule.FOCUS);
-        assertEquals(textArea.getResizeRule(), MaterialTextArea.ResizeRule.FOCUS);
+        assertEquals(MaterialTextArea.ResizeRule.FOCUS, textArea.getResizeRule());
         textArea.setResizeRule(MaterialTextArea.ResizeRule.NONE);
-        assertEquals(textArea.getResizeRule(), MaterialTextArea.ResizeRule.NONE);
+        assertEquals(MaterialTextArea.ResizeRule.NONE, textArea.getResizeRule());
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialTextArea textArea = getWidget();
+
+        // when / then
+        checkValueChangeEvent(textArea, "Value 1", "Value 2");
+    }
+
+    public void testFocus() {
+        // given
+        MaterialTextArea textArea = getWidget();
+
+        // when / then
+        checkResizeRule(textArea);
+        textArea.removeFromParent();
+        RootPanel.get().add(textArea);
+        checkResizeRule(textArea);
+    }
+
+    protected void checkResizeRule(MaterialTextArea textArea) {
+        textArea.setResizeRule(MaterialTextArea.ResizeRule.FOCUS);
+        boolean[] fired = {false};
+        textArea.addFocusHandler(focusEvent -> fired[0] = true);
+        fireFocusEvent(textArea);
+        assertTrue(fired[0]);
     }
 }

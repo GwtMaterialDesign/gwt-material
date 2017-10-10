@@ -20,7 +20,6 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasWithHeader;
 import gwt.material.design.client.constants.SideNavType;
 
@@ -52,7 +51,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHeader {
 
-    private HandlerRegistration overlayOpeningHandler;
     private boolean withHeader;
 
     public MaterialSideNavDrawer() {
@@ -61,7 +59,7 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
     }
 
     @Override
-    protected void build() {
+    protected void setup() {
         if (withHeader) {
             applyDrawerWithHeader();
         } else {
@@ -69,24 +67,12 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
         }
     }
 
-    @Override
-    public void setWithHeader(boolean withHeader) {
-        this.withHeader = withHeader;
-    }
-
-    @Override
-    public boolean isWithHeader() {
-        return withHeader;
-    }
-
     /**
      * Provides an overlay / drawer sidenav just like when opening sidenav on mobile / tablet
      */
     protected void appyDrawerType() {
         setType(SideNavType.DRAWER);
-        if (overlayOpeningHandler == null) {
-            overlayOpeningHandler = addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("[id=sidenav-overlay]").css("visibility", "visible")));
-        }
+        registerHandler(addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("[id=sidenav-overlay]").css("visibility", "visible"))));
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), 0);
             pushElement(getMain(), 0);
@@ -107,5 +93,15 @@ public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHea
                 pushElement(getMain(), 0);
             });
         }
+    }
+
+    @Override
+    public void setWithHeader(boolean withHeader) {
+        this.withHeader = withHeader;
+    }
+
+    @Override
+    public boolean isWithHeader() {
+        return withHeader;
     }
 }

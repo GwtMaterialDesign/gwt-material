@@ -20,15 +20,33 @@
 package gwt.material.design.client.ui;
 
 /**
- * Test case for Long Box
+ * Test case for Long Box.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialLongBoxTest extends MaterialValueBoxTest {
+public class MaterialLongBoxTest extends MaterialValueBoxTest<MaterialLongBox> {
 
-    public void init() {
-        MaterialLongBox longBox = new MaterialLongBox();
-        checkValueBox(longBox);
+    @Override
+    protected MaterialLongBox createWidget() {
+        return new MaterialLongBox();
+    }
+
+    @Override
+    public void testValue() {
+        // given
+        MaterialLongBox longBox = getWidget();
+
+        // when / then
+        longBox.setValue(100000l);
+        assertEquals(100000l, (long)longBox.getValue());
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialLongBox longBox = getWidget();
+
+        // when / then
         checkValueChangeEvent(longBox, 100000l,200000l);
     }
 }

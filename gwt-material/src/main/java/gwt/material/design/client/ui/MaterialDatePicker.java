@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.ScriptInjector;
@@ -37,7 +36,6 @@ import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
 import gwt.material.design.client.js.JsMaterialElement;
-import gwt.material.design.client.js.Window;
 import gwt.material.design.client.ui.html.DateInput;
 import gwt.material.design.client.ui.html.Label;
 
@@ -65,7 +63,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/pickers.html#pickers-date-pickers">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialDatePicker extends AbstractValueWidget<Date> implements HasOrientation, HasPlaceholder,
+public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsLoader, HasPlaceholder,
         HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly {
 
     /**
@@ -79,40 +77,37 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     private String placeholder;
+    private String tabIndex = "0";
     private Date date;
     private Date dateMin;
     private Date dateMax;
-    private Date dateTemp;
-    private String format = "dd mmmm yyyy";
-    private DateInput dateInput;
+    private DatePickerLanguage language;
+    private Orientation orientation;
+    private DatePickerContainer container = DatePickerContainer.SELF;
+    private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
+    private int yearsToDisplay = 10;
+    private boolean autoClose;
+    private boolean suppressChangeEvent;
+    protected Element pickatizedDateInput;
+    private DateInput dateInput = new DateInput();
     private Label label = new Label();
     private MaterialLabel placeholderLabel = new MaterialLabel();
-    protected Element pickatizedDateInput;
     private MaterialLabel errorLabel = new MaterialLabel();
-    private DatePickerLanguage language;
-    private JsDatePickerOptions options;
-    private Orientation orientation;
-
-    private MaterialDatePickerType selectionType = MaterialDatePickerType.DAY;
-
-    private boolean detectOrientation;
-    private boolean suppressChangeEvent;
-
-    protected HandlerRegistration autoCloseHandler;
-    protected HandlerRegistration orientationHandler;
     private MaterialIcon icon = new MaterialIcon();
 
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin = new ErrorMixin<>(this, errorLabel, dateInput, placeholderLabel);
-    private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
+    private JsDatePickerOptions options = new JsDatePickerOptions();
+    private HandlerRegistration autoCloseHandlerRegistration;
 
-    private int yearsToDisplay = 10;
-    private DatePickerContainer container = DatePickerContainer.SELF;
-    private String tabIndex = "0";
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
-        build();
+        add(dateInput);
+        label.add(placeholderLabel);
+        add(label);
+        add(errorLabel);
     }
 
     public MaterialDatePicker(String placeholder) {
@@ -131,48 +126,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     @Override
-    protected void build() {
-        dateInput = new DateInput();
-        add(dateInput);
+    protected void onLoad() {
+        super.onLoad();
 
-        label.add(placeholderLabel);
-        add(label);
-        add(errorLabel);
+        load();
     }
 
     @Override
-    public void onUnload() {
-        super.onUnload();
-
-        dateTemp = getValue();
-    }
-
-    @Override
-    protected void initialize() {
-        if (options == null) {
-            options = new JsDatePickerOptions();
-        }
-
-        options.format = getFormat();
-        switch (getSelectionType()) {
-            case MONTH_DAY:
-                options.selectMonths = true;
-                break;
-            case YEAR_MONTH_DAY:
-                options.selectYears = yearsToDisplay;
-                options.selectMonths = true;
-                break;
-            case YEAR:
-                options.selectYears = yearsToDisplay;
-                break;
-        }
-
-        if (container == DatePickerContainer.BODY) {
-            options.container = "body";
-        }
-
+    public void load() {
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
-        label.getElement().setAttribute("for", getPickerId());
 
         if (options.set == null) {
             options.set = thing -> {
@@ -184,9 +146,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             };
         }
 
-        getPicker()
-                .off("open").off("close").off(options)
-                .on(options).on("open", (e, param1) -> {
+        getPicker().on(options).on("open", (e, param1) -> {
             onOpen();
             return true;
         }).on("close", (e, param1) -> {
@@ -195,105 +155,44 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
             return true;
         });
 
+        label.getElement().setAttribute("for", getPickerId());
         setPopupEnabled(isEnabled());
-
-        setInitialize(true);
-
-        // Set up date specific settings.
-        // These values require initialization.
+        setAutoClose(autoClose);
         setDate(date);
         setDateMin(dateMin);
         setDateMax(dateMax);
-        setOrientation(orientation);
     }
 
-    private void setPopupEnabled(boolean enabled) {
-        if (getPicker() != null) {
-            if (!enabled) {
-                $(getPickerRootElement()).attr("tabindex", "-1");
-            } else {
-                $(getPickerRootElement()).attr("tabindex", tabIndex);
-            }
+    @Override
+    public void onUnload() {
+        super.onUnload();
+
+        unload();
+    }
+
+    @Override
+    public void unload() {
+        JsMaterialElement picker = getPicker();
+        if (picker != null) {
+            picker.stop();
         }
     }
 
-    /**
-     * Reinitialize the datepicker.
-     */
     @Override
-    public void reinitialize() {
-        Scheduler.get().scheduleDeferred(() -> {
-            initialize();
-            if (pickatizedDateInput != null && dateTemp != null) {
-                getPicker().set("select", dateTemp, () -> DOM.createFieldSet().setPropertyObject("muted", true));
-            }
-        });
-    }
-
-    @Override
-    public void clear() {
-        clearErrorOrSuccess();
-        label.removeStyleName(CssName.ACTIVE);
-        dateInput.removeStyleName(CssName.VALID);
-        dateInput.clear();
+    public void reload() {
+        unload();
+        load();
     }
 
     /**
-     * Sets the type of selection options (date, month, year,...).
+     * As of now use {@link MaterialDatePicker#setSelectionType(MaterialDatePickerType)}
      *
-     * @param type if <code>null</code>, {@link MaterialDatePickerType#DAY} will be used as fallback.
+     * @param type
      */
+    @Deprecated
     public void setDateSelectionType(MaterialDatePickerType type) {
         if (type != null) {
             this.selectionType = type;
-        }
-    }
-
-    protected void onClose() {
-        CloseEvent.fire(this, this);
-        fireEvent(new BlurEvent() {
-        });
-    }
-
-    protected void onOpen() {
-        label.addStyleName(CssName.ACTIVE);
-        dateInput.setFocus(true);
-        OpenEvent.fire(this, this);
-        fireEvent(new FocusEvent() {
-        });
-    }
-
-    /**
-     * Programmatically close the date picker component
-     */
-    public void close() {
-        Scheduler.get().scheduleDeferred(() -> {
-            getPicker().close();
-        });
-    }
-
-    /**
-     * Programmatically open the date picker component
-     */
-    public void open() {
-        Scheduler.get().scheduleDeferred(() -> {
-            getPicker().open();
-        });
-    }
-
-    public boolean isOpen() {
-        return Boolean.parseBoolean(getPicker().get("open").toString());
-    }
-
-    protected void select() {
-        label.addStyleName(CssName.ACTIVE);
-        dateInput.addStyleName(CssName.VALID);
-
-        // Ensure the value change event is
-        // triggered on selecting a date if the picker is open
-        // to avoid conflicts on setValue(value, fireEvents).
-        if (isOpen() && !suppressChangeEvent) {
-            ValueChangeEvent.fire(this, getValue());
         }
     }
 
@@ -327,7 +226,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setDateMin(Date dateMin) {
         this.dateMin = dateMin;
 
-        if (isInitialize() && dateMin != null) {
+        if (isAttached() && dateMin != null) {
             getPicker().set("min", JsDate.create((double) dateMin.getTime()));
         }
     }
@@ -345,7 +244,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     public void setDateMax(Date dateMax) {
         this.dateMax = dateMax;
 
-        if (isInitialize() && dateMax != null) {
+        if (isAttached() && dateMax != null) {
             getPicker().set("max", JsDate.create((double) dateMax.getTime()));
         }
     }
@@ -384,19 +283,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
         return getPickerDate();
     }
 
-    /**
-     * Clears the values of the picker field.
-     */
-    public void clearValues() {
-        if (pickatizedDateInput != null) {
-            clearValues(pickatizedDateInput);
-        }
-    }
-
-    public void clearValues(Element picker) {
-        $(picker).pickadate("picker").clear();
-    }
-
     @Override
     public String getPlaceholder() {
         return placeholder;
@@ -423,6 +309,19 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setSelectionType(MaterialDatePickerType selectionType) {
         this.selectionType = selectionType;
+        switch (selectionType) {
+            case MONTH_DAY:
+                options.selectMonths = true;
+                break;
+            case YEAR_MONTH_DAY:
+                options.selectYears = yearsToDisplay;
+                options.selectMonths = true;
+                break;
+            case YEAR:
+                options.selectYears = yearsToDisplay;
+                options.selectMonths = false;
+                break;
+        }
     }
 
     /**
@@ -430,59 +329,26 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      * in the dropdown list.
      */
     public void setSelectionType(MaterialDatePickerType selectionType, int yearsToDisplay) {
-        this.selectionType = selectionType;
-        this.yearsToDisplay = yearsToDisplay;
+        setSelectionType(selectionType);
+        setYearsToDisplay(yearsToDisplay);
     }
 
-    /**
-     * @return the orientation
-     */
+    @Override
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+
+        JsMaterialElement picker = getPicker();
+        if (picker != null && orientation != null) {
+            picker.root.removeClass(orientation.getCssName());
+        }
+        if (picker != null && orientation != null) {
+            picker.root.addClass(orientation.getCssName());
+        }
+    }
+
     @Override
     public Orientation getOrientation() {
         return orientation;
-    }
-
-    /**
-     * @param orientation the orientation to set : can be Vertical or Horizontal
-     */
-    @Override
-    public void setOrientation(Orientation orientation) {
-        JsMaterialElement element = getPicker();
-        if (isInitialize() && this.orientation != null) {
-            element.root.removeClass(this.orientation.getCssName());
-        }
-        this.orientation = orientation;
-        if (isInitialize() && orientation != null) {
-            element.root.addClass(orientation.getCssName());
-        }
-    }
-
-    public void setDetectOrientation(boolean detectOrientation) {
-        this.detectOrientation = detectOrientation;
-
-        if (orientationHandler != null) {
-            orientationHandler.removeHandler();
-            orientationHandler = null;
-        }
-
-        if (detectOrientation) {
-            orientationHandler = com.google.gwt.user.client.Window.addResizeHandler(resizeEvent -> {
-                detectAndApplyOrientation();
-            });
-            detectAndApplyOrientation();
-        }
-    }
-
-    public boolean isDetectOrientation() {
-        return detectOrientation;
-    }
-
-    protected void detectAndApplyOrientation() {
-        if (Window.matchMedia("(orientation: portrait)")) {
-            setOrientation(Orientation.PORTRAIT);
-        } else {
-            setOrientation(Orientation.LANDSCAPE);
-        }
     }
 
     @Override
@@ -507,14 +373,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     public String getFormat() {
-        return format;
+        return options.format;
     }
 
     /**
      * To call before initialization.
      */
     public void setFormat(String format) {
-        this.format = format;
+        options.format = format;
     }
 
     @Override
@@ -525,11 +391,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public void setValue(Date value, boolean fireEvents) {
         if (value == null) {
-            clearValues();
+            clear();
             return;
         }
         this.date = value;
-        if (isInitialize()) {
+        if (isAttached()) {
             suppressChangeEvent = !fireEvents;
             setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
             suppressChangeEvent = false;
@@ -544,20 +410,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     @Override
-    public HandlerRegistration addCloseHandler(final CloseHandler<MaterialDatePicker> handler) {
-        return addHandler(handler, CloseEvent.getType());
-    }
-
-    @Override
-    public HandlerRegistration addOpenHandler(final OpenHandler<MaterialDatePicker> handler) {
-        return addHandler(handler, OpenEvent.getType());
-    }
-
-    @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         dateInput.setEnabled(enabled);
-        if (isInitialize()) {
+        if (isAttached()) {
             setPopupEnabled(enabled);
         }
     }
@@ -587,22 +443,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
         if (language.getJs() != null) {
             ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
-        }
-        stop();
-        reinitialize();
-    }
-
-    /**
-     * Stop the datepicker instance.
-     */
-    public void stop() {
-        if (pickatizedDateInput != null) {
             getPicker().stop();
+            Scheduler.get().scheduleDeferred(() -> load());
         }
-    }
-
-    protected void start() {
-        getPicker().start();
     }
 
     @Override
@@ -639,6 +482,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     @Override
+    public Color getIconColor() {
+        return icon.getIconColor();
+    }
+
+    @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
     }
@@ -646,18 +494,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
-    }
-
-    @Override
-    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        return errorMixin;
-    }
-
-    public ReadOnlyMixin<MaterialDatePicker, DateInput> getReadOnlyMixin() {
-        if (readOnlyMixin == null) {
-            readOnlyMixin = new ReadOnlyMixin<>(this, dateInput);
-        }
-        return readOnlyMixin;
     }
 
     @Override
@@ -685,25 +521,27 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
     }
 
     public boolean isAutoClose() {
-        return autoCloseHandler != null;
+        return autoClose;
     }
 
     /**
      * Enables or disables auto closing when selecting a date.
      */
     public void setAutoClose(boolean autoClose) {
-        if (autoCloseHandler != null) {
-            autoCloseHandler.removeHandler();
-            autoCloseHandler = null;
+        this.autoClose = autoClose;
+
+        if (autoCloseHandlerRegistration != null) {
+            autoCloseHandlerRegistration.removeHandler();
+            autoCloseHandlerRegistration = null;
         }
 
         if (autoClose) {
-            autoCloseHandler = addValueChangeHandler(event -> close());
+            autoCloseHandlerRegistration = registerHandler(addValueChangeHandler(event -> close()));
         }
     }
 
     public int getYearsToDisplay() {
-        return yearsToDisplay;
+        return options.selectYears;
     }
 
     /**
@@ -711,7 +549,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      * in the dropdown list.
      */
     public void setYearsToDisplay(int yearsToDisplay) {
-        this.yearsToDisplay = yearsToDisplay;
+        options.selectYears = yearsToDisplay;
     }
 
     public DatePickerContainer getContainer() {
@@ -723,6 +561,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
      */
     public void setContainer(DatePickerContainer container) {
         this.container = container;
+        options.container = container == DatePickerContainer.SELF ? getElement().getId() : container.getCssName();
     }
 
     public Label getLabel() {
@@ -735,5 +574,109 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements Has
 
     public MaterialLabel getErrorLabel() {
         return errorLabel;
+    }
+
+    /**
+     * Programmatically close the date picker component
+     */
+    public void close() {
+        Scheduler.get().scheduleDeferred(() -> getPicker().close());
+    }
+
+    /**
+     * Programmatically open the date picker component
+     */
+    public void open() {
+        Scheduler.get().scheduleDeferred(() -> getPicker().open());
+    }
+
+    public boolean isOpen() {
+        return Boolean.parseBoolean(getPicker().get("open").toString());
+    }
+
+    protected void select() {
+        label.addStyleName(CssName.ACTIVE);
+        dateInput.addStyleName(CssName.VALID);
+
+        // Ensure the value change event is
+        // triggered on selecting a date if the picker is open
+        // to avoid conflicts on setValue(value, fireEvents).
+        if (isOpen() && !suppressChangeEvent) {
+            ValueChangeEvent.fire(this, getValue());
+        }
+    }
+
+    protected void onClose() {
+        CloseEvent.fire(this, this);
+        fireEvent(new BlurEvent() {});
+    }
+
+    protected void onOpen() {
+        label.addStyleName(CssName.ACTIVE);
+        dateInput.setFocus(true);
+        OpenEvent.fire(this, this);
+        fireEvent(new FocusEvent() {});
+    }
+
+    /**
+     * Replaced by {@link MaterialDatePicker#clear()}
+     */
+    @Deprecated
+    public void clearValues() {
+        clear();
+    }
+
+    /**
+     * Replace by {@link MaterialDatePicker#unload()}
+     */
+    @Deprecated
+    public void stop() {
+        unload();
+    }
+
+    @Override
+    public void clear() {
+        dateInput.clear();
+        getPicker().set("select", null);
+
+        // Clear all active / error styles on datepicker
+        clearErrorOrSuccess();
+        label.removeStyleName(CssName.ACTIVE);
+        dateInput.removeStyleName(CssName.VALID);
+    }
+
+    protected void setPopupEnabled(boolean enabled) {
+        if (getPicker() != null) {
+            if (!enabled) {
+                $(getPickerRootElement()).attr("tabindex", "-1");
+            } else {
+                $(getPickerRootElement()).attr("tabindex", tabIndex);
+            }
+        }
+    }
+
+    @Override
+    public HandlerRegistration addCloseHandler(final CloseHandler<MaterialDatePicker> handler) {
+        return addHandler(handler, CloseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addOpenHandler(final OpenHandler<MaterialDatePicker> handler) {
+        return addHandler(handler, OpenEvent.getType());
+    }
+
+    @Override
+    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        if (errorMixin == null) {
+            errorMixin = new ErrorMixin<>(this, errorLabel, dateInput, placeholderLabel);
+        }
+        return errorMixin;
+    }
+
+    protected ReadOnlyMixin<MaterialDatePicker, DateInput> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, dateInput);
+        }
+        return readOnlyMixin;
     }
 }

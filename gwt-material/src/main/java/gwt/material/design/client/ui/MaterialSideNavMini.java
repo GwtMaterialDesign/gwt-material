@@ -56,8 +56,6 @@ public class MaterialSideNavMini extends MaterialSideNav {
     private boolean overlay;
     private boolean expandable;
     private boolean expandOnClick;
-    private HandlerRegistration miniWithOpeningExpandHandler;
-    private HandlerRegistration miniWithClosingExpandHandler;
 
     public MaterialSideNavMini() {
         super(SideNavType.MINI);
@@ -65,7 +63,7 @@ public class MaterialSideNavMini extends MaterialSideNav {
     }
 
     @Override
-    protected void build() {
+    protected void setup() {
         applyBodyScroll();
         if (isExpandable()) {
             setType(SideNavType.MINI_WITH_EXPAND);
@@ -76,13 +74,8 @@ public class MaterialSideNavMini extends MaterialSideNav {
             pushElementMargin(getFooter(), miniWidth);
             setWidth(miniWidth);
 
-            if (miniWithOpeningExpandHandler == null) {
-                miniWithOpeningExpandHandler = addOpeningHandler(event -> expand(originalWidth));
-            }
-
-            if (miniWithClosingExpandHandler == null) {
-                miniWithClosingExpandHandler = addClosingHandler(event -> collapse(miniWidth));
-            }
+            registerHandler(addOpeningHandler(event -> expand(originalWidth)));
+            registerHandler(addClosingHandler(event -> collapse(miniWidth)));
 
             // Add Opening when sidenav link is clicked by default
             for (Widget w : getChildren()) {

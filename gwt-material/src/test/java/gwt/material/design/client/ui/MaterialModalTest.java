@@ -25,26 +25,40 @@ import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
- * Test case for Modals
+ * Test case for Modals.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialModalTest extends MaterialWidgetTest {
+public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
 
-    public void init() {
+    @Override
+    protected MaterialModal createWidget() {
         MaterialModal modal = new MaterialModal();
-        checkModal(modal);
-        checkMultipleModalZIndexes();
-        checkFullScreenMode(modal);
+        MaterialModalContent content = new MaterialModalContent();
+        MaterialModalFooter footer = new MaterialModalFooter();
+
+        modal.add(content);
+        modal.add(footer);
+
+        assertTrue(modal.getWidget(0) instanceof MaterialModalContent);
+        assertTrue(modal.getWidget(1) instanceof MaterialModalFooter);
+        return modal;
     }
 
-    protected void checkFullScreenMode(MaterialModal modal) {
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.MODAL);
+    }
+
+    public void testFullScreenMode() {
+        // given
+        MaterialModal modal = getWidget();
+
+        // when / then
         // By default fullscreen mode is turned off
         modal.setType(ModalType.DEFAULT);
         assertFalse(modal.isFullscreen());
@@ -62,61 +76,41 @@ public class MaterialModalTest extends MaterialWidgetTest {
         assertFalse(modal.isFullscreen());
     }
 
-    protected void checkMultipleModalZIndexes() {
+    public void testMultipleModalZIndexes() {
         final int BASE_ZINDEX = 1000;
-        List<MaterialModal> modals = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             MaterialModal modal = new MaterialModal();
-            modals.add(modal);
-            checkModal(modal);
+            RootPanel.get().add(modal);
             modal.open();
             // Expected Display : BLOCK
-            assertEquals(modal.getElement().getStyle().getDisplay(), Display.BLOCK.getCssName());
+            assertEquals(Display.BLOCK.getCssName(), modal.getElement().getStyle().getDisplay());
             checkZIndex(modal, i, BASE_ZINDEX);
         }
     }
 
-    protected <T extends MaterialModal> void checkZIndex(T modal, int modalIndex, int modalBaseZIndex) {
-        assertEquals($(modal.getElement()).css("zIndex"), String.valueOf(modalBaseZIndex + (modalIndex * 2) + 1));
-        assertEquals($(".lean-overlay").eq(modalIndex - 1).css("zIndex"), String.valueOf((modalBaseZIndex + (modalIndex * 2))));
+    private void checkZIndex(MaterialModal modal, int modalIndex, int modalBaseZIndex) {
+        assertEquals(String.valueOf(modalBaseZIndex + (modalIndex * 2) + 1), $(modal.getElement()).css("zIndex"));
+        assertEquals(String.valueOf((modalBaseZIndex + (modalIndex * 2))), $(".lean-overlay").eq(modalIndex - 1).css("zIndex"));
     }
 
-    protected <T extends MaterialModal> void checkModal(T modal) {
-        generateModalContent(modal);
-        checkWidget(modal);
-        RootPanel.get().add(modal);
-        checkOpenCloseEvent(modal);
-        checkType(modal);
-        checkDimissible(modal);
-        checkDuration(modal);
-    }
+    public void testDuration() {
+        // given
+        MaterialModal modal = getWidget();
 
-    protected void checkDuration(MaterialModal modal) {
+        // when / then
         final int IN_DURATION = 500;
         final int OUT_DURATION = 800;
-        // Check the default in duration (Expected 300ms)
-        assertEquals(modal.getInDuration(), 300);
-        // Check the default out duration (Expected 200ms)
-        assertEquals(modal.getOutDuration(), 200);
-
         modal.setInDuration(IN_DURATION);
-        assertEquals(modal.getInDuration(), IN_DURATION);
+        assertEquals(IN_DURATION, modal.getInDuration());
         modal.setOutDuration(OUT_DURATION);
-        assertEquals(modal.getOutDuration(), OUT_DURATION);
+        assertEquals(OUT_DURATION, modal.getOutDuration());
     }
 
-    private void generateModalContent(MaterialModal modal) {
-        MaterialModalContent content = new MaterialModalContent();
-        MaterialModalFooter footer = new MaterialModalFooter();
+    public void testOpenCloseEvent() {
+        // given
+        MaterialModal modal = getWidget();
 
-        modal.add(content);
-        modal.add(footer);
-
-        assertTrue(modal.getWidget(0) instanceof MaterialModalContent);
-        assertTrue(modal.getWidget(1) instanceof MaterialModalFooter);
-    }
-
-    private <T extends MaterialModal> void checkOpenCloseEvent(T modal) {
+        // when / then
         // Check whether overlay is injected
         assertNotNull($(".lean-overlay"));
         // Advance check on open() / close() methods to check whether open / close event fired
@@ -130,22 +124,57 @@ public class MaterialModalTest extends MaterialWidgetTest {
         assertTrue(isFiredClose[0]);
     }
 
-    public <T extends MaterialModal> void checkType(T modal) {
+    public void testType() {
+        // given
+        MaterialModal modal = getWidget();
+
+        // when / then
         modal.setType(ModalType.DEFAULT);
-        assertEquals(modal.getType(), ModalType.DEFAULT);
+        assertEquals(ModalType.DEFAULT, modal.getType());
         modal.setType(ModalType.BOTTOM_SHEET);
-        assertEquals(modal.getType(), ModalType.BOTTOM_SHEET);
+        assertEquals(ModalType.BOTTOM_SHEET, modal.getType());
         assertTrue(modal.getElement().hasClassName(ModalType.BOTTOM_SHEET.getCssName()));
         modal.setType(ModalType.FIXED_FOOTER);
-        assertEquals(modal.getType(), ModalType.FIXED_FOOTER);
+        assertEquals(ModalType.FIXED_FOOTER, modal.getType());
         assertTrue(modal.getElement().hasClassName(ModalType.FIXED_FOOTER.getCssName()));
         modal.setType(ModalType.WINDOW);
-        assertEquals(modal.getType(), ModalType.WINDOW);
+        assertEquals(ModalType.WINDOW, modal.getType());
         assertTrue(modal.getElement().hasClassName(ModalType.WINDOW.getCssName()));
     }
 
-    public <T extends MaterialModal> void checkDimissible(T modal) {
+    public void testDismissible() {
+        // given
+        MaterialModal modal = getWidget();
+
+        // when / then
         modal.setDismissible(true);
         assertTrue(modal.isDismissible());
+
+        modal.setDismissible(false);
+        assertFalse(modal.isDismissible());
+    }
+
+    @Override
+    public void testOpacity() {
+        // given
+        final double INITIAL_OPACITY = 0.5;
+        final double FINAL_OPACITY = 0.9;
+        MaterialModal modal = getWidget();
+
+        // when
+        modal.setOpacity(INITIAL_OPACITY);
+        modal.open();
+
+        // then
+        assertEquals(INITIAL_OPACITY, modal.getOpacity());
+        modal.close();
+
+        // when
+        modal.setOpacity(FINAL_OPACITY);
+        modal.open();
+
+        // then
+        assertEquals(FINAL_OPACITY, modal.getOpacity());
+        modal.close();
     }
 }

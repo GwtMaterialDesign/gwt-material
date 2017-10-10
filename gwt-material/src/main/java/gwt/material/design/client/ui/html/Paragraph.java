@@ -27,7 +27,7 @@ import gwt.material.design.client.base.mixin.TextMixin;
 
 public class Paragraph extends MaterialWidget implements HasText {
 
-    private final TextMixin<Paragraph> textMixin = new TextMixin<>(this);
+    private TextMixin<Paragraph> textMixin;
 
     public Paragraph() {
         super(Document.get().createElement("p"));
@@ -45,11 +45,18 @@ public class Paragraph extends MaterialWidget implements HasText {
 
     @Override
     public String getText() {
-        return textMixin.getText();
+        return getTextMixin().getText();
     }
 
     @Override
     public void setText(String text) {
-        textMixin.setText(text);
+        getTextMixin().setText(text);
+    }
+
+    protected TextMixin<Paragraph> getTextMixin() {
+        if (textMixin == null) {
+            textMixin = new TextMixin<>(this);
+        }
+        return textMixin;
     }
 }

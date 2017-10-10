@@ -21,26 +21,30 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.WidgetTestCase;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Checkbox
+ * Test case for Checkbox.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialCheckBoxTest extends MaterialWidgetTest {
+public class MaterialCheckBoxTest extends WidgetTestCase<MaterialCheckBox> {
 
-    public void init() {
-        MaterialCheckBox checkBox = new MaterialCheckBox();
-        checkType(checkBox);
-        checkValue(checkBox);
+    @Override
+    protected MaterialCheckBox createWidget() {
+        return new MaterialCheckBox();
     }
 
-    public <T extends MaterialCheckBox> void checkValue(T checkbox) {
+    public void testValue() {
+        // given
+        MaterialCheckBox checkbox = getWidget();
+
+        // when / then
         checkbox.setText("test");
-        assertEquals(checkbox.getText(), "test");
+        assertEquals("test", checkbox.getText());
         assertFalse(checkbox.getValue());
         checkbox.setValue(true);
         assertTrue(checkbox.getValue());
@@ -48,11 +52,15 @@ public class MaterialCheckBoxTest extends MaterialWidgetTest {
         assertFalse(checkbox.getValue());
         checkbox.setValue(true, true);
         checkbox.addValueChangeHandler(valueChangeEvent -> {
-            assertEquals(checkbox.getValue(), valueChangeEvent.getValue());
+            assertEquals(valueChangeEvent.getValue(), checkbox.getValue());
         });
     }
 
-    public <T extends MaterialCheckBox> void checkType(T checkbox) {
+    public void testType() {
+        // given
+        MaterialCheckBox checkbox = getWidget();
+
+        // when / then
         checkbox.setType(CheckBoxType.FILLED);
         Element cb = checkbox.getElement();
         Element input = DOM.getChild(cb, 0);
