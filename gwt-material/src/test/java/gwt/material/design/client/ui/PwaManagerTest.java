@@ -26,26 +26,24 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class PwaManagerTest extends MaterialWidgetTest {
+public class PwaManagerTest extends MaterialWidgetTest<MaterialPanel> {
 
     final String WEB_MANIFEST_URL = "manifest.json";
     final String SERVICE_WORKER_URL = "service-worker.js";
     final String THEME_COLOR = "#ffffff";
 
-    public void init() {
-
+    @Override
+    protected MaterialPanel createWidget() {
         PwaManager.getInstance()
                 .setServiceWorkerUrl(SERVICE_WORKER_URL)
                 .setWebManifestUrl(WEB_MANIFEST_URL)
                 .setThemeColor(THEME_COLOR)
                 .load();
 
-        checkManifest();
-        checkMetaThemeColor();
-        checkServiceWorker();
+        return new MaterialPanel();
     }
 
-    protected void checkManifest() {
+    public void testManifest() {
         // Get the link manifest element and check whether it's null or not
         Element linkManifest = getLinkManifestElement();
         assertNotNull(linkManifest);
@@ -59,7 +57,7 @@ public class PwaManagerTest extends MaterialWidgetTest {
         assertNotNull($(getLinkManifestElement()));
     }
 
-    protected void checkMetaThemeColor() {
+    public void testMetaThemeColor() {
         // Get the link manifest element and check whether it's null or not
         Element metaThemeColor = getMetaThemeColor();
         assertNotNull(metaThemeColor);
@@ -73,7 +71,7 @@ public class PwaManagerTest extends MaterialWidgetTest {
         assertNotNull($(getMetaThemeColor()));
     }
 
-    protected void checkServiceWorker() {
+    public void testServiceWorker() {
         PwaManager.getInstance().setServiceWorkerUrl(SERVICE_WORKER_URL);
     }
 
