@@ -1478,4 +1478,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         }
         return orientationMixin;
     }
+
+    public FilterStyleMixin<MaterialWidget> getFilterStyleMixin() {
+        if (filterMixin == null) {
+            filterMixin = new FilterStyleMixin<>(this);
+        }
+        return filterMixin;
+    }
 }
