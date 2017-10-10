@@ -21,45 +21,46 @@ package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.AbstractIconButton;
-import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialIcon;
+import org.junit.Ignore;
 
 /**
- * Test case for Abstract button icon
+ * Test case for Abstract button icon.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class AbstractIconButtonTest extends AbstractButtonTest {
+@Ignore
+public abstract class AbstractIconButtonTest<T extends AbstractIconButton> extends AbstractButtonTest<T> {
 
-    public void checkIconButton(AbstractIconButton icon) {
-        checkBaseButton(icon);
-        checkIcon(icon);
-    }
+    public void testIcon() {
+        // given
+        T widget = getWidget();
 
-    protected <T extends HasIcon> void checkIcon(T widget) {
+        // when / then
         MaterialIcon icon = widget.getIcon();
         icon.setIconType(IconType.POLYMER);
         assertNotNull(icon);
 
-        assertEquals(icon.getElement().getInnerHTML(), IconType.POLYMER.getCssName());
-        assertEquals(icon.getIconType(), IconType.POLYMER);
+        assertEquals(IconType.POLYMER.getCssName(), icon.getElement().getInnerHTML());
+        assertEquals(IconType.POLYMER, icon.getIconType());
 
         icon.setIconSize(IconSize.LARGE);
         assertTrue(icon.getElement().hasClassName(IconSize.LARGE.getCssName()));
-        assertEquals(icon.getIconSize(), IconSize.LARGE);
+        assertEquals(IconSize.LARGE, icon.getIconSize());
         icon.setIconSize(IconSize.MEDIUM);
         assertTrue(icon.getElement().hasClassName(IconSize.MEDIUM.getCssName()));
-        assertEquals(icon.getIconSize(), IconSize.MEDIUM);
+        assertEquals(IconSize.MEDIUM, icon.getIconSize());
         icon.setIconSize(IconSize.SMALL);
         assertTrue(icon.getElement().hasClassName(IconSize.SMALL.getCssName()));
-        assertEquals(icon.getIconSize(), IconSize.SMALL);
+        assertEquals(IconSize.SMALL, icon.getIconSize());
         icon.setIconSize(IconSize.TINY);
         assertTrue(icon.getElement().hasClassName(IconSize.TINY.getCssName()));
-        assertEquals(icon.getIconSize(), IconSize.TINY);
+        assertEquals(IconSize.TINY, icon.getIconSize());
 
         icon.setIconPosition(IconPosition.RIGHT);
         assertTrue(icon.getElement().hasClassName(IconPosition.RIGHT.getCssName()));
@@ -76,6 +77,6 @@ public class AbstractIconButtonTest extends AbstractButtonTest {
         assertFalse(icon.isIconPrefix());
 
         icon.setIconFontSize(2, Style.Unit.PX);
-        assertEquals(icon.getElement().getStyle().getFontSize(), "2px");
+        assertEquals("2px", icon.getElement().getStyle().getFontSize());
     }
 }

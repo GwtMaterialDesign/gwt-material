@@ -25,7 +25,6 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.BaseCheckBox;
 import gwt.material.design.client.base.HasGrid;
 import gwt.material.design.client.base.mixin.GridMixin;
@@ -61,8 +60,8 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
 
     private Object object;
 
-    private final GridMixin<MaterialCheckBox> gridMixin = new GridMixin<>(this);
-    private ToggleStyleMixin<MaterialCheckBox> toggleOldMixin = new ToggleStyleMixin<>(this, CssName.OLD_CHECKBOX);
+    private GridMixin<MaterialCheckBox> gridMixin;
+    private ToggleStyleMixin<MaterialCheckBox> toggleOldMixin;
 
     public MaterialCheckBox() {
         super();
@@ -105,6 +104,23 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         setType(type);
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
+    }
+
+    @Override
+    public void setGrid(String grid) {
+        getGridMixin().setGrid(grid);
+    }
+
+    @Override
+    public void setOffset(String offset) {
+        getGridMixin().setOffset(offset);
+    }
+
     public Object getObject() {
         return object;
     }
@@ -113,22 +129,15 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         this.object = object;
     }
 
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
-    }
-
-    public boolean isOld() {
-        return toggleOldMixin.isOn();
-    }
-
     /**
      * Used the old checkbox.
      */
     public void setOld(boolean old) {
-        toggleOldMixin.setOn(old);
+        getToggleOldMixin().setOn(old);
+    }
+
+    public boolean isOld() {
+        return getToggleOldMixin().isOn();
     }
 
     /**
@@ -149,13 +158,17 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         }
     }
 
-    @Override
-    public void setGrid(String grid) {
-        gridMixin.setGrid(grid);
+    public GridMixin<MaterialCheckBox> getGridMixin() {
+        if (gridMixin == null) {
+            gridMixin = new GridMixin<>(this);
+        }
+        return gridMixin;
     }
 
-    @Override
-    public void setOffset(String offset) {
-        gridMixin.setOffset(offset);
+    public ToggleStyleMixin<MaterialCheckBox> getToggleOldMixin() {
+        if (toggleOldMixin == null) {
+            toggleOldMixin = new ToggleStyleMixin<>(this, CssName.OLD_CHECKBOX);
+        }
+        return toggleOldMixin;
     }
 }

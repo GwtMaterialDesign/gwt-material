@@ -20,23 +20,20 @@
 package gwt.material.design.client.ui.animation;
 
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.animate.MaterialAnimation;
 import gwt.material.design.client.ui.animate.Transition;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Core Animations
+ * Test case for Core Animations.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class AnimationTest extends MaterialWidgetTest {
+public class AnimationTest extends MaterialTestCase {
 
-    public void init() {
-        checkAnimation();
-    }
-
-    protected void checkAnimation() {
+    public void testAnimation() {
         MaterialPanel panel = new MaterialPanel();
         RootPanel.get().add(panel);
         MaterialAnimation animation = new MaterialAnimation();

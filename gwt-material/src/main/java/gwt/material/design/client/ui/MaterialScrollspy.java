@@ -19,7 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -76,7 +78,21 @@ public class MaterialScrollspy extends UnorderedList {
     }
 
     @Override
-    protected void initialize() {
+    protected void onLoad() {
+        super.onLoad();
+
+        clearActiveState();
         $(".scrollspy").scrollSpy();
+    }
+
+    public void clearActiveState() {
+        getChildren().forEach(widget -> {
+            if (widget instanceof ListItem) {
+                ListItem item = (ListItem) widget;
+                if (item.getWidgetCount() > 0 && item.getWidget(0) != null) {
+                    item.getWidget(0).removeStyleName(CssName.ACTIVE);
+                }
+            }
+        });
     }
 }

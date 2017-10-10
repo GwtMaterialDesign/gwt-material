@@ -27,7 +27,7 @@ import gwt.material.design.client.base.mixin.TextMixin;
 
 public class Span extends MaterialWidget implements HasText {
 
-    private final TextMixin<Span> textMixin = new TextMixin<>(this);
+    private TextMixin<Span> textMixin;
 
     public Span() {
         super(Document.get().createSpanElement());
@@ -44,11 +44,18 @@ public class Span extends MaterialWidget implements HasText {
 
     @Override
     public String getText() {
-        return textMixin.getText();
+        return getTextMixin().getText();
     }
 
     @Override
     public void setText(String text) {
-        textMixin.setText(text);
+        getTextMixin().setText(text);
+    }
+
+    public TextMixin<Span> getTextMixin() {
+        if (textMixin == null) {
+            textMixin = new TextMixin<>(this);
+        }
+        return textMixin;
     }
 }

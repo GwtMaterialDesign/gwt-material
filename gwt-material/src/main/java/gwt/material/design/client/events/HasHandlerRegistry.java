@@ -19,8 +19,6 @@
  */
 package gwt.material.design.client.events;
 
-import com.google.gwt.event.shared.HandlerRegistration;
-
 public interface HasHandlerRegistry {
 
     HandlerRegistry getHandlerRegistry();

@@ -21,41 +21,58 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Tabs
+ * Test case for Tabs.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialTabTest extends MaterialWidgetTest {
+public class MaterialTabTest extends MaterialWidgetTest<MaterialTab> {
 
-    public void init() {
-        MaterialRow row = new MaterialRow();
+    private MaterialRow row;
+
+    @Override
+    protected MaterialTab createWidget() {
+        row = new MaterialRow();
         MaterialTab tab = new MaterialTab();
-        checkWidget(tab);
-        generateTabItems(tab, row);
-        checkEvents(tab);
-        checkTypes(tab);
-        checkTabIndex(tab);
-        checkDynamicTab(tab);
         row.add(tab);
+        generateTabItems(tab, row);
+        RootPanel.get().add(row);
+        return tab;
     }
 
-    public void checkDynamicTab(MaterialTab tab) {
-        MaterialRow row = new MaterialRow();
+    @Override
+    public boolean neverAttach() {
+        // we will handle the attachment
+        return true;
+    }
 
+    @Override
+    protected void gwtTearDown() throws Exception {
+        super.gwtTearDown();
+
+        row = null;
+    }
+
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.TABS);
+    }
+
+    public void testDynamicTab() {
+        // given
+        MaterialTab tab = getWidget();
+
+        // when / then
         // This will dynamically add new Tab Item
         MaterialTabItem item = newTabItem(tab, row, 1);
-
-        row.add(tab);
-        RootPanel.get().add(row);
 
         boolean[] selectionEventFired = new boolean[]{false};
         tab.addSelectionHandler(selectionEvent -> selectionEventFired[0] = true);
@@ -77,50 +94,57 @@ public class MaterialTabTest extends MaterialWidgetTest {
         assertTrue(selectionEventFired[0]);
     }
 
-    public void checkTabIndex(MaterialTab tab) {
+    public void testTabIndex() {
+        // given
+        MaterialTab tab = getWidget();
+
+        // when / then
         // Expected default selected tab (0 index)
-        assertEquals(tab.getTabIndex(), 0);
+        assertEquals(0, tab.getTabIndex());
 
         tab.setTabIndex(1);
         // Expected index : 1
-        assertEquals(tab.getTabIndex(), 1);
+        assertEquals(1, tab.getTabIndex());
 
         tab.setTabIndex(2);
         // Expected index : 2
-        assertEquals(tab.getTabIndex(), 2);
+        assertEquals(2, tab.getTabIndex());
     }
 
-    public void checkEvents(MaterialTab widget) {
-        final boolean[] isSelectionEventFired = {false};
-        widget.addSelectionHandler(selectionEvent -> isSelectionEventFired[0] = true);
-        widget.fireEvent(new GwtEvent<SelectionHandler<?>>() {
-            @Override
-            public Type<SelectionHandler<?>> getAssociatedType() {
-                return SelectionEvent.getType();
-            }
+    public void testSelection() {
+        // given
+        MaterialTab tab = getWidget();
 
-            @Override
-            protected void dispatch(SelectionHandler eventHandler) {
-                eventHandler.onSelection(null);
-            }
-        });
-        
-        assertEquals(isSelectionEventFired[0], true);
+        // when / then
+        assertNotNull(tab.getWidget(0));
+        checkSelectionHandler(tab, 0);
     }
 
-    public void generateTabItems(MaterialTab tab, MaterialRow row) {
+    public void testTypes() {
+        // given
+        MaterialTab tab = getWidget();
 
+        // when / then
+        tab.setType(TabType.DEFAULT);
+        assertEquals(TabType.DEFAULT, tab.getType());
+        assertTrue(tab.getElement().getClassName().contains(TabType.DEFAULT.getCssName()));
+        tab.setType(TabType.ICON);
+        assertEquals(TabType.ICON, tab.getType());
+        assertTrue(tab.getElement().hasClassName(TabType.ICON.getCssName()));
+    }
+
+    protected void generateTabItems(MaterialTab tab, MaterialRow row) {
         for (int i = 0; i < 5; i++) {
             newTabItem(tab, row, i);
         }
 
-        assertEquals(tab.getChildren().size(), 5);
+        assertEquals(5, tab.getChildren().size());
         for (Widget w : tab.getChildren()) {
             assertNotNull(w);
             assertTrue(w instanceof MaterialTabItem);
         }
 
-        assertEquals(tab.getChildren().size(), 5);
+        assertEquals(5, tab.getChildren().size());
     }
 
     protected MaterialTabItem newTabItem(MaterialTab tab, MaterialRow row, int index) {
@@ -131,20 +155,11 @@ public class MaterialTabTest extends MaterialWidgetTest {
         item.add(link);
         tab.add(item);
         assertTrue(item.getWidget(0) instanceof MaterialLink);
-        /*assertEquals(tab.getWidget(index), item);*/
+        /*assertEquals(item, tab.getWidget(index));*/
         // Build Panel
         MaterialPanel panel = new MaterialPanel();
         panel.setId("item" + index);
         row.add(panel);
         return item;
-    }
-
-    public <T extends MaterialTab> void checkTypes(T tab) {
-        tab.setType(TabType.DEFAULT);
-        assertEquals(tab.getType(), TabType.DEFAULT);
-        assertTrue(tab.getElement().getClassName().contains(TabType.DEFAULT.getCssName()));
-        tab.setType(TabType.ICON);
-        assertEquals(tab.getType(), TabType.ICON);
-        assertTrue(tab.getElement().hasClassName(TabType.ICON.getCssName()));
     }
 }

@@ -19,7 +19,24 @@
  */
 package gwt.material.design.client.constants;
 
-public enum DatePickerContainer {
+import gwt.material.design.client.base.helper.EnumHelper;
 
-    BODY, SELF
+public enum DatePickerContainer implements CssType {
+    BODY("body"),
+    SELF("self");
+
+    private final String cssClass;
+
+    DatePickerContainer(final String cssClass) {
+        this.cssClass = cssClass;
+    }
+
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static DatePickerContainer fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, DatePickerContainer.class, BODY);
+    }
 }

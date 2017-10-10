@@ -63,9 +63,9 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage,
         HasLoadHandlers, HasErrorHandlers, HasActivates, HasValue<String> {
 
-    private final CssTypeMixin<ImageType, MaterialImage> typeMixin = new CssTypeMixin<>(this);
-    private final ImageMixin<MaterialImage> imageMixin = new ImageMixin<>(this);
-    private final ActivatesMixin<MaterialImage> activatesMixin = new ActivatesMixin<>(this);
+    private CssTypeMixin<ImageType, MaterialImage> typeMixin;
+    private ImageMixin<MaterialImage> imageMixin;
+    private ActivatesMixin<MaterialImage> activatesMixin;
 
     /**
      * Creates an empty image.
@@ -107,18 +107,20 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     @Override
-    protected void initialize() {
+    protected void onLoad() {
+        super.onLoad();
+
         $(".materialboxed").materialbox();
     }
 
     @Override
     public void setType(ImageType type) {
-        typeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public ImageType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     @Override
@@ -143,12 +145,12 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
 
     @Override
     public void setResource(ImageResource resource) {
-        imageMixin.setResource(resource);
+        getImageMixin().setResource(resource);
     }
 
     @Override
     public ImageResource getResource() {
-        return imageMixin.getResource();
+        return getImageMixin().getResource();
     }
 
     public int getWidth() {
@@ -157,6 +159,36 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
 
     public int getHeight() {
         return ((ImageElement)getElement().cast()).getHeight();
+    }
+
+    @Override
+    public void setActivates(String activates) {
+        getActivatesMixin().setActivates(activates);
+    }
+
+    @Override
+    public String getActivates() {
+        return getActivatesMixin().getActivates();
+    }
+
+    @Override
+    public String getValue() {
+        return getImageMixin().getUrl();
+    }
+
+    @Override
+    public void setValue(String value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        String oldValue = getUrl();
+        getImageMixin().setUrl(value);
+
+        if(fireEvents) {
+            ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
+        }
     }
 
     @Override
@@ -170,37 +202,28 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
     }
 
     @Override
-    public void setActivates(String activates) {
-        activatesMixin.setActivates(activates);
-    }
-
-    @Override
-    public String getActivates() {
-        return activatesMixin.getActivates();
-    }
-
-    @Override
-    public String getValue() {
-        return imageMixin.getUrl();
-    }
-
-    @Override
-    public void setValue(String value) {
-        setValue(value, false);
-    }
-
-    @Override
-    public void setValue(String value, boolean fireEvents) {
-        String oldValue = getUrl();
-        imageMixin.setUrl(value);
-
-        if(fireEvents) {
-            ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
-        }
-    }
-
-    @Override
     public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
         return addHandler(handler, ValueChangeEvent.getType());
+    }
+
+    protected CssTypeMixin<ImageType, MaterialImage> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
+    }
+
+    protected ImageMixin<MaterialImage> getImageMixin() {
+        if (imageMixin == null) {
+            imageMixin = new ImageMixin<>(this);
+        }
+        return imageMixin;
+    }
+
+    protected ActivatesMixin<MaterialImage> getActivatesMixin() {
+        if (activatesMixin == null) {
+            activatesMixin = new ActivatesMixin<>(this);
+        }
+        return activatesMixin;
     }
 }

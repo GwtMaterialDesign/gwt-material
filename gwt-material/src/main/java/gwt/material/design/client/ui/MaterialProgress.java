@@ -50,15 +50,17 @@ import gwt.material.design.client.ui.html.Div;
  */
 public class MaterialProgress extends Div implements HasType<ProgressType> {
 
-    private Div fillContainer = new Div();
     private double percent = 0;
+    private Div fillContainer = new Div();
 
-    private final ColorsMixin<Div> colorsMixin = new ColorsMixin<>(fillContainer);
-    private final CssTypeMixin<ProgressType, MaterialProgress> typeMixin = new CssTypeMixin<>(this, fillContainer);
+    private ColorsMixin<Div> fillColorMixin;
+    private CssTypeMixin<ProgressType, MaterialProgress> typeMixin;
 
     public MaterialProgress() {
         super(CssName.PROGRESS);
-        build();
+        getElement().getStyle().setMargin(0, Unit.PX);
+        add(fillContainer);
+        setType(ProgressType.INDETERMINATE);
     }
 
     public MaterialProgress(ProgressType type) {
@@ -72,20 +74,13 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
     }
 
     @Override
-    protected void build() {
-        getElement().getStyle().setMargin(0, Unit.PX);
-        add(fillContainer);
-        setType(ProgressType.INDETERMINATE);
-    }
-
-    @Override
     public void setType(ProgressType type) {
-        typeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public ProgressType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     /**
@@ -118,7 +113,7 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
      * Get the progress bar color.
      */
     public Color getColor() {
-        return colorsMixin.getBackgroundColor();
+        return getFillColorMixin().getBackgroundColor();
     }
 
     /**
@@ -127,10 +122,24 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
      * @param color String value of the color.
      */
     public void setColor(Color color) {
-        colorsMixin.setBackgroundColor(color);
+        getFillColorMixin().setBackgroundColor(color);
     }
 
     public Div getFillContainer() {
         return fillContainer;
+    }
+
+    protected ColorsMixin<Div> getFillColorMixin() {
+        if (fillColorMixin == null) {
+            fillColorMixin = new ColorsMixin<>(fillContainer);
+        }
+        return fillColorMixin;
+    }
+
+    protected CssTypeMixin<ProgressType, MaterialProgress> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this, fillContainer);
+        }
+        return typeMixin;
     }
 }

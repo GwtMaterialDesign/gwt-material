@@ -25,25 +25,28 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
 /**
- * Test case for Collections
+ * Test case for Collections.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialCollectionTest extends MaterialWidgetTest {
+public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollection> {
 
-    public void init() {
-        MaterialCollection collection = new MaterialCollection();
-        checkWidget(collection);
-        checkCollectionItem(collection);
-        checkDismissible(collection);
-        checkActive(collection);
-        checkType(collection);
-        checkSecondary(collection);
-        checkHeader(collection);
-        checkCheckBoxType(collection);
+    @Override
+    protected MaterialCollection createWidget() {
+        return new MaterialCollection();
     }
 
-    protected <T extends MaterialCollection> void checkActive(T collection) {
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.COLLECTION);
+    }
+
+    public void testActive() {
+        // given
+        MaterialCollection collection = populateCollection(getWidget());
+
+        // when / then
         // Set active index on one-base index
         collection.setActive(1);
         // We get the widget with one-base index which will 0
@@ -60,14 +63,18 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
         }
     }
 
-    protected <T extends MaterialCollection> void checkHeader(T collection) {
+    public void testHeader() {
+        // given
+        MaterialCollection collection = getWidget();
+
+        // when / then
         collection.setHeader("Test");
         assertTrue(collection.getElement().hasClassName(CssName.WITH_HEADER));
         assertTrue(collection.getWidget(0).getElement().hasClassName(CssName.COLLECTION_HEADER));
     }
 
-    protected <T extends MaterialCollection> void checkType(T collection) {
-        MaterialCollectionItem item = generateFirstItem(collection);
+    public void testType() {
+        MaterialCollectionItem item = new MaterialCollectionItem();
         item.setType(CollectionType.CHECKBOX);
         assertTrue(item.getElement().hasClassName(CollectionType.CHECKBOX.getCssName()));
         item.setType(CollectionType.AVATAR);
@@ -75,16 +82,16 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
         assertTrue(item.getElement().hasClassName(CollectionType.AVATAR.getCssName()));
     }
 
-    protected <T extends MaterialCollection> void checkSecondary(T collection) {
-        MaterialCollectionItem item = generateFirstItem(collection);
+    public void testSecondary() {
+        MaterialCollectionItem item = new MaterialCollectionItem();
         MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
         item.add(secondary);
         assertNotNull(secondary);
-        assertEquals(item.getWidget(0), secondary);
+        assertEquals(secondary, item.getWidget(0));
     }
 
-    protected <T extends MaterialCollection> void checkDismissible(T collection) {
-        MaterialCollectionItem item = generateFirstItem(collection);
+    public void testDismissible() {
+        MaterialCollectionItem item = new MaterialCollectionItem();
         item.setDismissible(true);
         assertTrue(item.isDismissible());
         assertTrue(item.getElement().hasClassName(CssName.DISMISSABLE));
@@ -93,14 +100,11 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
         assertFalse(item.getElement().hasClassName(CssName.DISMISSABLE));
     }
 
-    protected MaterialCollectionItem generateFirstItem(MaterialCollection collection) {
-        assertTrue(collection.getChildren().size() != 0);
-        Widget w = collection.getWidget(0);
-        assertTrue(w instanceof MaterialCollectionItem);
-        return (MaterialCollectionItem) w;
-    }
+    public void testCollectionItem() {
+        // given
+        MaterialCollection collection = getWidget();
 
-    protected void checkCollectionItem(MaterialCollection collection) {
+        // when / then
         for (int i = 1; i <= 5; i++) {
             MaterialCollectionItem item = new MaterialCollectionItem();
             boolean[] clickHandler = {false};
@@ -110,11 +114,18 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
             collection.add(item);
             assertNotNull(item);
         }
-        assertEquals(collection.getChildren().size(), 5);
+        assertEquals(5, collection.getChildren().size());
     }
 
-    protected <T extends MaterialCollection> void checkCheckBoxType(T collection) {
-        collection.clear();
+    public void testCheckBoxType() {
+        // given / when
+        MaterialCollection collection = populateCollection(getWidget());
+
+        // then
+        assertEquals(5, collection.getChildren().size());
+    }
+
+    protected MaterialCollection populateCollection(MaterialCollection collection) {
         for (int i = 1; i <= 5; i++) {
             MaterialCollectionItem item = new MaterialCollectionItem();
 
@@ -132,6 +143,7 @@ public class MaterialCollectionTest extends MaterialWidgetTest {
             collection.add(item);
             assertNotNull(item);
         }
-        assertEquals(collection.getChildren().size(), 5);
+        assertEquals(5, collection.getChildren().size());
+        return collection;
     }
 }

@@ -25,5 +25,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 public interface HandlerRegistry extends IsWidget {
     HandlerRegistration registerHandler(HandlerRegistration registration);
 
+    void removeHandler(HandlerRegistration registration);
+
     void clearHandlers();
 }

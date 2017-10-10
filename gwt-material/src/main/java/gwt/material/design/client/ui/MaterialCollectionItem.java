@@ -47,12 +47,10 @@ import gwt.material.design.client.js.JsMaterialElement;
 //@formatter:on
 public class MaterialCollectionItem extends MaterialWidget implements HasDismissible, HasAvatar, HasType<CollectionType>, HasActive {
 
-    private final ToggleStyleMixin<MaterialCollectionItem> avatarMixin = new ToggleStyleMixin<>(this, CssName.AVATAR);
-    private final ToggleStyleMixin<MaterialCollectionItem> dismissableMixin = new ToggleStyleMixin<>(this, CssName.DISMISSABLE);
-    private final CssTypeMixin<CollectionType, MaterialCollectionItem> typeMixin = new CssTypeMixin<>(this);
-    private final ActiveMixin<MaterialCollectionItem> activeMixin = new ActiveMixin<>(this);
-
-    private HandlerRegistration handlerReg;
+    private ToggleStyleMixin<MaterialCollectionItem> avatarMixin;
+    private ToggleStyleMixin<MaterialCollectionItem> dismissableMixin;
+    private CssTypeMixin<CollectionType, MaterialCollectionItem> typeMixin;
+    private ActiveMixin<MaterialCollectionItem> activeMixin;
 
     public MaterialCollectionItem() {
         super(Document.get().createLIElement(), CssName.COLLECTION_ITEM);
@@ -60,27 +58,10 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
     }
 
     @Override
-    protected void initialize() {
-        JsMaterialElement.initDismissableCollection();
-    }
+    protected void onLoad() {
+        super.onLoad();
 
-    @Override
-    public void setType(CollectionType type) {
-        typeMixin.setType(type);
-        if (type == CollectionType.CHECKBOX) {
-            applyCheckBoxType();
-        }
-    }
-
-    private void applyCheckBoxType() {
-        if (getWidgetCount() > 0) {
-            getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
-        }
-        if (handlerReg != null) {
-            handlerReg.removeHandler();
-            handlerReg = null;
-        }
-        handlerReg = addClickHandler(event -> {
+        HandlerRegistration handlerRegistration = addClickHandler(event -> {
             // Stop propagation of event when checkbox / other elements has
             // been clicked to avoid duplicate events.
             if (Element.as(event.getNativeEvent().getEventTarget()) != getElement()) {
@@ -107,40 +88,85 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
                 }
             }
         });
+        registerHandler(handlerRegistration);
+
+        JsMaterialElement.initDismissableCollection();
+    }
+
+    @Override
+    public void setType(CollectionType type) {
+        getTypeMixin().setType(type);
+        if (type == CollectionType.CHECKBOX) {
+            applyCheckBoxType();
+        }
+    }
+
+    protected void applyCheckBoxType() {
+        if (getWidgetCount() > 0) {
+            getWidget(0).getElement().getStyle().setDisplay(Style.Display.INLINE);
+        }
     }
 
     @Override
     public CollectionType getType() {
-        return typeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     @Override
     public void setDismissible(boolean dismissible) {
-        dismissableMixin.setOn(dismissible);
+        getDismissableMixin().setOn(dismissible);
     }
 
     @Override
     public boolean isDismissible() {
-        return dismissableMixin.isOn();
+        return getDismissableMixin().isOn();
     }
 
     @Override
     public void setAvatar(boolean avatar) {
-        avatarMixin.setOn(avatar);
+        getAvatarMixin().setOn(avatar);
     }
 
     @Override
     public boolean isAvatar() {
-        return avatarMixin.isOn();
+        return getAvatarMixin().isOn();
     }
 
     @Override
     public void setActive(boolean active) {
-        activeMixin.setActive(active);
+        getActiveMixin().setActive(active);
     }
 
     @Override
     public boolean isActive() {
-        return activeMixin.isActive();
+        return getActiveMixin().isActive();
+    }
+
+    protected CssTypeMixin<CollectionType, MaterialCollectionItem> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
+    }
+
+    protected ToggleStyleMixin<MaterialCollectionItem> getDismissableMixin() {
+        if (dismissableMixin == null) {
+            dismissableMixin = new ToggleStyleMixin<>(this, CssName.DISMISSABLE);
+        }
+        return dismissableMixin;
+    }
+
+    protected ToggleStyleMixin<MaterialCollectionItem> getAvatarMixin() {
+        if (avatarMixin == null) {
+            avatarMixin = new ToggleStyleMixin<>(this, CssName.AVATAR);
+        }
+        return avatarMixin;
+    }
+
+    protected ActiveMixin<MaterialCollectionItem> getActiveMixin() {
+        if (activeMixin == null) {
+            activeMixin = new ActiveMixin<>(this);
+        }
+        return activeMixin;
     }
 }

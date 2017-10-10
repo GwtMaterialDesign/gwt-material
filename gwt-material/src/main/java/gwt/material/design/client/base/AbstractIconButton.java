@@ -95,6 +95,11 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     }
 
     @Override
+    public Color getIconColor() {
+        return icon.getIconColor();
+    }
+
+    @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
     }

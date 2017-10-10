@@ -22,15 +22,22 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
-public class MaterialPanelTest extends MaterialWidgetTest {
+/**
+ * @author kevzlou7979
+ * @author Ben Dol
+ */
+public class MaterialPanelTest extends MaterialWidgetTest<MaterialPanel> {
 
-    public void init() {
-        MaterialPanel panel = new MaterialPanel();
-        checkWidget(panel);
-        checkContainer(panel);
+    @Override
+    protected MaterialPanel createWidget() {
+        return new MaterialPanel();
     }
 
-    protected void checkContainer(MaterialPanel panel) {
+    public void testContainer() {
+        // given
+        MaterialPanel panel = getWidget();
+
+        // when / then
         panel.setContainerEnabled(true);
         assertTrue(panel.isContainerEnabed());
         assertTrue(panel.getElement().hasClassName(CssName.CONTAINER));

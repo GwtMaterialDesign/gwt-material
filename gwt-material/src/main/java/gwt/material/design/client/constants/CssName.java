@@ -142,4 +142,5 @@ public interface CssName {
     String INFINITE = "infinite";
     String DISPLAY_ANIMATION= "display-animation";
     String MATERIALIZE_CSS = "materialcss";
+    String PREFIX = "prefix";
 }

@@ -29,7 +29,7 @@ import java.util.List;
 public class DefaultHandlerRegistry implements HandlerRegistry {
 
     private final Widget widget;
-    private List<HandlerRegistration> registrations;
+    private List<HandlerRegistration> handlers;
     private HandlerRegistration attachHandler;
 
     private boolean clearOnUnload = true;
@@ -72,24 +72,29 @@ public class DefaultHandlerRegistry implements HandlerRegistry {
     }
 
     @Override
-    public HandlerRegistration registerHandler(HandlerRegistration registration) {
-        if(registrations == null) {
-            registrations = new ArrayList<>();
+    public HandlerRegistration registerHandler(HandlerRegistration handler) {
+        if(handlers == null) {
+            handlers = new ArrayList<>();
         }
 
-        registrations.add(registration);
-        return registration;
+        handlers.add(handler);
+        return handler;
+    }
+
+    @Override
+    public void removeHandler(HandlerRegistration registration) {
+        if (registration != null) {
+            registration.removeHandler();
+        }
     }
 
     @Override
     public void clearHandlers() {
-        if(registrations != null) {
-            for(HandlerRegistration registration : registrations) {
-                if(registration != null) {
-                    registration.removeHandler();
-                }
+        if(handlers != null) {
+            for(HandlerRegistration handler : handlers) {
+                removeHandler(handler);
             }
-            registrations.clear();
+            handlers.clear();
         }
     }
 
