@@ -96,7 +96,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     private MaterialIcon icon = new MaterialIcon();
 
     private JsDatePickerOptions options = new JsDatePickerOptions();
-    private HandlerRegistration autoCloseHandlerRegistration;
+    private HandlerRegistration autoCloseHandlerRegistration, attachHandler;
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
@@ -441,6 +441,19 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     public void setLanguage(DatePickerLanguage language) {
         this.language = language;
 
+        if (attachHandler != null) {
+            attachHandler.removeHandler();
+            attachHandler = null;
+        }
+
+        if (isAttached()) {
+            setupLanguage(language);
+        } else {
+            attachHandler = registerHandler(addAttachHandler(attachEvent -> setupLanguage(language)));
+        }
+    }
+
+    protected void setupLanguage(DatePickerLanguage language) {
         if (language.getJs() != null) {
             ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
             getPicker().stop();
