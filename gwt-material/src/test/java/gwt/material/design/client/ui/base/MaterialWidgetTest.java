@@ -60,7 +60,7 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
 
     public void testBorder() {
         // given
-        T widget = getWidget();
+        T widget = getWidget(false);
 
         // when / then
         final String BORDER = "1px solid red";
@@ -68,6 +68,11 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         final String BORDER_RIGHT = "20px dotted";
         final String BORDER_BOTTOM = "10px solid";
         final String BORDER_TOP = "5px ridge";
+
+        // test before attach
+        widget.setBorder(BORDER);
+
+        attachWidget();
 
         widget.setBorder(BORDER);
         assertEquals(BORDER, widget.getBorder());
