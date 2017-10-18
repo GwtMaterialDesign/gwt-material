@@ -44,17 +44,27 @@ public class MaterialCardTest extends MaterialWidgetTest<MaterialCard> {
     }
 
     public void testOrientation() {
+        // UiBinder
         // given
-        MaterialCard card = getWidget();
+        MaterialCard card = getWidget(false);
+
+        // when / then
+        card.setOrientation(Orientation.LANDSCAPE);
+        assertEquals(Orientation.LANDSCAPE, card.getOrientation());
+
+        card.setOrientation(Orientation.PORTRAIT);
+        assertEquals(Orientation.PORTRAIT, card.getOrientation());
+
+        // Standard
+        // given
+        attachWidget();
 
         // when / then
         card.setOrientation(Orientation.LANDSCAPE);
         assertTrue(card.getElement().hasClassName(Orientation.LANDSCAPE.getCssName()));
-        assertEquals(Orientation.LANDSCAPE, card.getOrientation());
 
         card.setOrientation(Orientation.PORTRAIT);
         assertTrue(card.getElement().hasClassName(Orientation.PORTRAIT.getCssName()));
-        assertEquals(Orientation.PORTRAIT, card.getOrientation());
     }
 
     public void testStructure() {

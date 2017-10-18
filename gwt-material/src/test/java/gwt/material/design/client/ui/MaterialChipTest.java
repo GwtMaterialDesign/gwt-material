@@ -67,8 +67,9 @@ public class MaterialChipTest extends AbstractValueWidgetTest<MaterialChip> {
     }
 
     public void testLetter() {
+        // UiBinder
         // given
-        MaterialChip chip = getWidget();
+        MaterialChip chip = getWidget(false);
 
         // when / then
         chip.setLetter("A");
@@ -78,11 +79,21 @@ public class MaterialChipTest extends AbstractValueWidgetTest<MaterialChip> {
         assertEquals("A", chip.getLetter());
         assertEquals(letter.getText(), chip.getLetter());
         chip.setLetterBackgroundColor(Color.AMBER);
-        assertTrue(letter.getElement().hasClassName(Color.AMBER.getCssName()));
         assertEquals(Color.AMBER, letter.getBackgroundColor());
         chip.setLetterColor(Color.AMBER);
-        assertTrue(letter.getElement().hasClassName(Color.AMBER.getCssName()));
         assertEquals(Color.AMBER, letter.getTextColor());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        chip.setLetter("A");
+        letter = (Span) chip.getWidget(0);
+        chip.setLetterBackgroundColor(Color.AMBER);
+        assertTrue(letter.getElement().hasClassName(Color.AMBER.getCssName()));
+        chip.setLetterColor(Color.AMBER);
+        assertTrue(letter.getElement().hasClassName(Color.AMBER.getCssName()));
     }
 
     public void testImage() {

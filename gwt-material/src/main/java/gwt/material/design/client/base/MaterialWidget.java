@@ -272,7 +272,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public void setEnabled(boolean enabled) {
-        getEnabledMixin().setEnabled(enabled);
+        getEnabledMixin().setEnabled(this, enabled);
     }
 
     @Override
@@ -698,6 +698,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getTruncateMixin().setOn(truncate);
     }
 
+    public boolean isTruncate() {
+        return getTruncateMixin().isOn();
+    }
+
     @Override
     public void setBorder(String value) {
         getBorderMixin().setBorder(value);
@@ -914,7 +918,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     /**
      * Applies a CSS3 Transition property to this widget.
      */
-
     public void setTransition(TransitionConfig property) {
         Element target = getElement();
         if (property.getTarget() != null) {
