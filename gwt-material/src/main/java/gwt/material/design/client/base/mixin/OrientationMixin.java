@@ -25,6 +25,7 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.events.OrientationChangeEvent;
 import gwt.material.design.client.js.Window;
+import gwt.material.design.client.ui.MaterialToast;
 
 /**
  *  @author kevzlou7979
@@ -38,8 +39,6 @@ public class OrientationMixin<T extends MaterialWidget & HasOrientation> extends
 
     public OrientationMixin(T widget) {
         super(widget);
-
-        widget.registerHandler(widget.addAttachHandler(attachEvent -> setDetectOrientation(detectOrientation)));
     }
 
     @Override
@@ -66,7 +65,7 @@ public class OrientationMixin<T extends MaterialWidget & HasOrientation> extends
         }
 
         if(detectOrientation) {
-            orientationHandler = uiObject.registerHandler(Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation()));
+            orientationHandler = Window.addResizeHandler(resizeEvent -> detectAndApplyOrientation());
             detectAndApplyOrientation();
         }
     }
