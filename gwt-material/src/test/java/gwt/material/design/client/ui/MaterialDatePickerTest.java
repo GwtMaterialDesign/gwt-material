@@ -162,15 +162,26 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
     }
 
     public void testClear() {
+        // UiBinder
         // given
-        MaterialDatePicker picker = getWidget();
+        MaterialDatePicker picker = getWidget(false);
 
-        // when
+        // when / then
+        checkClear(picker);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkClear(picker);
+    }
+
+    protected void checkClear(MaterialDatePicker picker) {
         picker.setValue(DATE);
         picker.setError("error");
         picker.clear();
 
-        // then
         assertEquals("", picker.getDateInput().getElement().getInnerText());
         assertFalse(picker.getLabel().getElement().hasClassName(CssName.ACTIVE));
         assertFalse(picker.getDateInput().getElement().hasClassName(CssName.VALID));

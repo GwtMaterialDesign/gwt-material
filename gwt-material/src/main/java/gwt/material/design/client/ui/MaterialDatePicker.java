@@ -655,12 +655,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     @Override
     public void clear() {
         dateInput.clear();
-        getPicker().set("select", null);
-
+        if (getPicker() != null) {
+            getPicker().set("select", null);
+        }
         // Clear all active / error styles on datepicker
         clearErrorOrSuccess();
         label.removeStyleName(CssName.ACTIVE);
         dateInput.removeStyleName(CssName.VALID);
+
     }
 
     protected void setPopupEnabled(boolean enabled) {
