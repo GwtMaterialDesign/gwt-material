@@ -140,11 +140,14 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
             options.set = thing -> {
                 if (thing.hasOwnProperty("clear")) {
                     clear();
-                } else if (thing.hasOwnProperty("select")) {
-                    select();
                 }
             };
         }
+
+        getPicker().on("set", event -> {
+            select();
+            return true;
+        });
 
         getPicker().on(options).on("open", (e, param1) -> {
             onOpen();
@@ -174,7 +177,9 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     public void unload() {
         JsMaterialElement picker = getPicker();
         if (picker != null) {
-            picker.stop();
+            picker.off("set");
+            picker.off("open");
+            picker.off("close");
         }
     }
 
