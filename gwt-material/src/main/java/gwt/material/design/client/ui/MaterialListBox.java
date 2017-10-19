@@ -57,4 +57,24 @@ public class MaterialListBox extends MaterialListValueBox<String> {
         getSelectElement().add(OptionElement.as(option.getElement()), null);
         values.add(option.getValue());
     }
+
+    @Override
+    public String getValue() {
+        String value = super.getValue();
+        if (value == null) {
+            return BLANK_VALUE_TEXT;
+        } else {
+            return value;
+        }
+    }
+
+    @Override
+    public void setValue(String value) {
+        if (BLANK_VALUE_TEXT.equals(value)) {
+            super.setValue(null);
+        } else {
+            super.setValue(value);
+        }
+    }
+
 }

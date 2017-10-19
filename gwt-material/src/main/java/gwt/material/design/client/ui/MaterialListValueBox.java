@@ -38,10 +38,7 @@ import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.jquery.client.api.JQuery;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
@@ -76,10 +73,12 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
         HasConstrainedValue<T>, HasReadOnly {
 
+    public static final String BLANK_VALUE_TEXT = "";
+
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
     protected final List<T> values = new ArrayList<>();
-    private KeyFactory<T, String> keyFactory = Object::toString;
+    private KeyFactory<T, String> keyFactory = new AllowBlankKeyFactory();
     private MaterialLabel errorLabel = new MaterialLabel();
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
@@ -88,6 +87,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
+        super.setAllowBlank(false);
     }
 
     @Override
@@ -480,6 +480,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         values.clear();
         listBox.clear();
         reload();
+        if (isAllowBlank()) {
+            addBlankItemIfNeeded();
+        }
     }
 
     @Override
@@ -528,6 +531,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public void setAcceptableValues(Collection<T> values) {
         this.values.clear();
         clear();
+        if (isAllowBlank()) {
+            addBlankItemIfNeeded();
+        }
         values.forEach(this::addItem);
     }
 
@@ -785,6 +791,30 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return getReadOnlyMixin().isToggleReadOnly();
     }
 
+    @Override
+    public void setAllowBlank(boolean allowBlank) {
+        super.setAllowBlank(allowBlank);
+        if (allowBlank) {
+            addBlankItemIfNeeded();
+        } else {
+            removeBlankItemIfNeeded();
+        }
+    }
+
+    private void addBlankItemIfNeeded() {
+        int idx = getIndex(null);
+        if (idx < 0) {
+            addItem(null, true);
+        }
+    }
+
+    private void removeBlankItemIfNeeded() {
+        int idx = getIndex(null);
+        if (idx >= 0 && idx < values.size()) {
+            removeItem(idx, true);
+        }
+    }
+
     public ListBox getListBox() {
         return listBox;
     }
@@ -859,7 +889,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public int getIndex(String value) {
         int count = getItemCount();
         for (int i = 0; i < count; i++) {
-            if (getValue(i).equals(value)) {
+            if (Objects.equals(getValue(i), value)) {
                 return i;
             }
         }
@@ -879,4 +909,17 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         }
         return toggleOldMixin;
     }
+
+    class AllowBlankKeyFactory implements KeyFactory<T, String> {
+
+        @Override
+        public String generateKey(T object) {
+            if (object == null) {
+                return BLANK_VALUE_TEXT;
+            } else {
+                return object.toString();
+            }
+        }
+    }
+
 }
