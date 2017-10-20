@@ -28,7 +28,6 @@ import gwt.material.design.client.base.HasReload;
 import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.base.helper.EventHelper;
 import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.events.DefaultHandlerRegistry;
 import gwt.material.design.client.js.JsTooltipOptions;
 
 import java.util.Iterator;
@@ -202,23 +201,19 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
             setAttribute("data-tooltip", options.tooltip);
         }
 
-        if (!this.widget.isAttached()) {
-            // When we attach it, configure the tooltip
+        if (this.widget.isAttached()) {
+            reload();
+        } else {
+            // Smart detect the attachment and detachment of widget to update the tooltip
             widget.addAttachHandler(event -> {
                 if (event.isAttached()) {
+                    // If its attached - reload the tooltip
                     reload();
                 } else {
+                    // If it was detached - unload the tooltip
                     unload();
                 }
             });
-        } else {
-            // ensure the tooltip is removed on detachment
-            widget.addAttachHandler(event -> {
-                if (!event.isAttached()) {
-                    unload();
-                }
-            });
-            reload();
         }
     }
 

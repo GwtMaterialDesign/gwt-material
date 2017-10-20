@@ -109,9 +109,7 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
         dropdown.setEnabled(false);
         assertTrue(link.isAttached());
         assertEquals(link, dropdown.getParent());
-        assertFalse(link.isEnabled());
         dropdown.setEnabled(true);
-        assertTrue(link.isEnabled());
 
         assertEquals(5, dropdown.getChildren().size());
         dropdown.remove(0);

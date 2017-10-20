@@ -38,6 +38,7 @@ import gwt.material.design.client.events.DragLeaveEvent;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.client.events.OrientationChangeEvent.OrientationChangeHandler;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -272,7 +273,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public void setEnabled(boolean enabled) {
-        getEnabledMixin().setEnabled(enabled);
+        getEnabledMixin().setEnabled(this, enabled);
     }
 
     @Override
@@ -497,18 +498,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public void setDataAttribute(String dataAttr, String value) {
-        if (!dataAttr.startsWith("data-")) {
-            dataAttr = "data-" + dataAttr;
-        }
-        getElement().setAttribute(dataAttr, value);
+        getElement().setAttribute(!dataAttr.startsWith("data-") ? "data-" + dataAttr : dataAttr, value);
     }
 
     @Override
     public String getDataAttribute(String dataAttr) {
-        if (!dataAttr.startsWith("data-")) {
-            dataAttr = "data-" + dataAttr;
-        }
-        return getElement().getAttribute(dataAttr);
+        return getElement().getAttribute(!dataAttr.startsWith("data-") ? "data-" + dataAttr : dataAttr);
     }
 
     @Override
@@ -711,6 +706,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      **/
     public void setTruncate(boolean truncate) {
         getTruncateMixin().setOn(truncate);
+    }
+
+    public boolean isTruncate() {
+        return getTruncateMixin().isOn();
     }
 
     @Override
@@ -929,7 +928,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     /**
      * Applies a CSS3 Transition property to this widget.
      */
-
     public void setTransition(TransitionConfig property) {
         Element target = getElement();
         if (property.getTarget() != null) {
@@ -1286,13 +1284,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public HandlerRegistration addOrientationChangeHandler(OrientationChangeEvent.OrientationChangeHandler handler) {
-        return addHandler(new OrientationChangeEvent.OrientationChangeHandler() {
-            @Override
-            public void onOrientationChange(OrientationChangeEvent event) {
-                if (isEnabled()) {
-                    handler.onOrientationChange(event);
-                }
+    public HandlerRegistration addOrientationChangeHandler(OrientationChangeHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onOrientationChange(event);
             }
         }, OrientationChangeEvent.TYPE);
     }

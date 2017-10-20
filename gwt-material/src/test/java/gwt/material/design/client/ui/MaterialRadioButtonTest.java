@@ -46,17 +46,27 @@ public class MaterialRadioButtonTest extends WidgetTestCase<MaterialRadioButton>
     }
 
     public void testType() {
+        // UiBinder
         // given
-        MaterialRadioButton radioButton = getWidget();
+        MaterialRadioButton radioButton = getWidget(false);
+
+        // when / then
+        radioButton.setType(RadioButtonType.GAP);
+        assertEquals(RadioButtonType.GAP, radioButton.getType());
+        radioButton.setType(RadioButtonType.NO_GAP);
+        assertEquals(RadioButtonType.NO_GAP, radioButton.getType());
+        assertEquals("", radioButton.getType().getCssName());
+
+        // Standard
+        // given
+        attachWidget();
 
         // when / then
         assertNotNull(DOM.getChild(radioButton.getElement(), 0));
         Element element = DOM.getChild(radioButton.getElement(), 0);
         radioButton.setType(RadioButtonType.GAP);
-        assertEquals(RadioButtonType.GAP, radioButton.getType());
         assertTrue(element.hasClassName(RadioButtonType.GAP.getCssName()));
         radioButton.setType(RadioButtonType.NO_GAP);
-        assertEquals(RadioButtonType.NO_GAP, radioButton.getType());
         assertFalse(element.hasClassName(RadioButtonType.GAP.getCssName()));
         assertEquals("", radioButton.getType().getCssName());
     }

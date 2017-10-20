@@ -123,7 +123,6 @@ public class MaterialCollapsible extends MaterialWidget implements JsLoader, Has
     protected void onLoad() {
         super.onLoad();
 
-        setAccordion(accordion);
         if (activeIndex != -1 && activeWidget == null) {
             setActive(activeIndex);
         }
