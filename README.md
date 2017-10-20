@@ -7,7 +7,7 @@
 <br/>
 
 ## Demo
-* [2.0-rc6 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
+* [2.0-rc7 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
 * [2.0 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 * [2.1 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/2.1/)
 
@@ -17,12 +17,12 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
-### Current Version 2.0-rc6
+### Current Version 2.0-rc7
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.0-rc6</version>
+    <version>2.0-rc7</version>
 </dependency>
 ```
 ### Snapshot Version 2.0-SNAPSHOT
@@ -63,6 +63,15 @@ Please follow the [contribution document](https://github.com/GwtMaterialDesign/g
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-template" >Starter</a></li>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-patterns" >Patterns</a></li>
 </ul>
+
+## JUnit Test
+
+| Project | Number of Tests |
+| --- | --- | 
+| gwt-material | 1545 |
+| gwt-material-addins | 1048 |
+| gwt-material-table | 100 |
+| **Total Unit Tests** | **2693** |
 
 ## Testing Platform
 <p>Many thanks to BrowserStack for sponsoring our Open Source projects</p>
