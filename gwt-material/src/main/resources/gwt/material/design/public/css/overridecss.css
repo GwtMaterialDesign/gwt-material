@@ -675,7 +675,7 @@ nav.pinned {
 }
 
 .search-result a span {
-    margin-left: 28px;
+    margin-left: 0px;
 }
 
 .search-result a:hover, .search-result a.higlighted {
@@ -986,6 +986,7 @@ i[class*="waves-"].material-icons {
     .input-field input[type=search] {
         width: calc(100% - 10rem) !important;
         margin-bottom: 0 !important;
+        padding-left: 0px !important;
     }
 
     .input-field input[type=search] + label {

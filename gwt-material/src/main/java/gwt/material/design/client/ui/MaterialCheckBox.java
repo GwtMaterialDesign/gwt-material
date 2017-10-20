@@ -63,6 +63,8 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
     private GridMixin<MaterialCheckBox> gridMixin;
     private ToggleStyleMixin<MaterialCheckBox> toggleOldMixin;
 
+    private CheckBoxType type;
+
     public MaterialCheckBox() {
         super();
     }
@@ -144,6 +146,7 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
      * Setting the type of Checkbox.
      */
     public void setType(CheckBoxType type) {
+        this.type = type;
         switch (type) {
             case FILLED:
                 Element input = DOM.getChild(getElement(), 0);
@@ -156,6 +159,10 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
                 addStyleName(type.getCssName());
                 break;
         }
+    }
+
+    public CheckBoxType getType() {
+        return type;
     }
 
     public GridMixin<MaterialCheckBox> getGridMixin() {

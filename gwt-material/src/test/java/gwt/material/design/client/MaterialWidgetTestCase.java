@@ -333,16 +333,26 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     }
 
     protected <H extends UIObject & HasEnabled> void checkEnabled(HasEnabled widget, H target) {
+        checkEnabled(widget, target, true);
+    }
+
+    protected <H extends UIObject & HasEnabled> void checkEnabled(HasEnabled widget, H target, boolean checkElement) {
         final Element element = target.getElement();
-        assertFalse(element.hasClassName(CssName.DISABLED));
-        assertFalse(element.hasAttribute(CssName.DISABLED));
+        if(checkElement) {
+            assertFalse(element.hasClassName(CssName.DISABLED));
+            assertFalse(element.hasAttribute(CssName.DISABLED));
+        }
         widget.setEnabled(true);
-        assertFalse(element.hasClassName(CssName.DISABLED));
-        assertFalse(element.hasAttribute(CssName.DISABLED));
+        if(checkElement) {
+            assertFalse(element.hasClassName(CssName.DISABLED));
+            assertFalse(element.hasAttribute(CssName.DISABLED));
+        }
         assertEquals(widget.isEnabled(), true);
         widget.setEnabled(false);
-        assertTrue(element.hasClassName(CssName.DISABLED));
-        assertTrue(element.hasAttribute(CssName.DISABLED));
+        if(checkElement) {
+            assertTrue(element.hasClassName(CssName.DISABLED));
+            assertTrue(element.hasAttribute(CssName.DISABLED));
+        }
         assertEquals(target.isEnabled(), false);
     }
 

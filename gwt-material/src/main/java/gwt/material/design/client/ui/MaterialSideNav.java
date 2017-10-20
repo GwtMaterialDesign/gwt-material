@@ -286,7 +286,7 @@ public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSele
             if (strict) {
                 throw new IllegalArgumentException(
                     "Could not setup MaterialSideNav please ensure you have " +
-                    "MaterialNavBar with an activator setup to match this widgets id.");
+                    "MaterialNavBar with an activator setup to match this widgets id.", ex);
             }
         }
 

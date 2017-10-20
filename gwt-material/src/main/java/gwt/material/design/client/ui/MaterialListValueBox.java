@@ -104,6 +104,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             }
         }));
 
+        load();
+    }
+
+    @Override
+    public void load() {
+        JsMaterialElement.$(listBox.getElement()).material_select(
+                () -> JQuery.$("input.select-dropdown").trigger("close", null));
         $(listBox.getElement()).change((e, param) -> {
             try {
                 ValueChangeEvent.fire(this, getValue());
@@ -113,21 +120,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             return true;
         });
 
-        // Fixed auto hide when scrolling on IE Browsers
         $(listBox.getElement()).siblings("input.select-dropdown").on("mousedown", (e, param1) -> {
             if (!UiHelper.isTouchScreenDevice()) {
                 e.preventDefault();
             }
             return true;
         });
-
-        load();
-    }
-
-    @Override
-    public void load() {
-        JsMaterialElement.$(listBox.getElement()).material_select(
-                () -> JQuery.$("input.select-dropdown").trigger("close", null));
     }
 
     @Override

@@ -55,8 +55,9 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
     }
 
     public void testFullScreenMode() {
+        // UiBinder
         // given
-        MaterialModal modal = getWidget();
+        MaterialModal modal = getWidget(false);
 
         // when / then
         // By default fullscreen mode is turned off
@@ -74,6 +75,20 @@ public class MaterialModalTest extends MaterialWidgetTest<MaterialModal> {
         modal.setType(ModalType.BOTTOM_SHEET);
         modal.setFullscreen(true);
         assertFalse(modal.isFullscreen());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        // By default fullscreen mode is turned off
+        modal.setType(ModalType.DEFAULT);
+        // Turn on Fullscreen mode
+        modal.setFullscreen(true);
+        assertTrue(modal.getElement().hasClassName(CssName.FULLSCREEN));
+        // Turn off Fullscreen mode
+        modal.setFullscreen(false);
+        assertFalse(modal.getElement().hasClassName(CssName.FULLSCREEN));
     }
 
     public void testMultipleModalZIndexes() {

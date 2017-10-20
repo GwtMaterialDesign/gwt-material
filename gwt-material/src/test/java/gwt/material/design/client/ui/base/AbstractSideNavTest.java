@@ -52,6 +52,33 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
         assertTrue(navBar.isAttached());
     }
 
+    @Override
+    public void testId() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
+
+        // when / then
+        widget.setId(ACTIVATES);
+        assertNotNull(widget.getId());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        final Element element = widget.getElement();
+        widget.setId(ACTIVATES);
+        assertTrue(element.hasAttribute("id"));
+        assertEquals(widget.getId(), element.getId());
+    }
+
+    @Override
+    public void testScrollspy() {
+        // Suppress this test since side nav does not support scroll spy
+        // Both require unique id's.
+    }
+
     public void testContent() {
         // given
         MaterialSideNav sideNav = getWidget();
@@ -65,8 +92,21 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
     }
 
     public void testEdge() {
+        // UiBinder
         // given
-        MaterialSideNav sideNav = getWidget();
+        MaterialSideNav sideNav = getWidget(false);
+
+        // when / then
+        sideNav.setEdge(Edge.RIGHT);
+        assertEquals(Edge.RIGHT, sideNav.getEdge());
+
+        // when / then
+        sideNav.setEdge(Edge.LEFT);
+        assertEquals(Edge.LEFT, sideNav.getEdge());
+
+        // Standard
+        // given
+        attachWidget();
 
         // when / then
         sideNav.setEdge(Edge.RIGHT);
@@ -78,6 +118,7 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
     }
 
     public void testDuration() {
+        // UiBinder
         // given
         MaterialSideNav sideNav = getWidget(false);
 
@@ -94,11 +135,35 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
         assertEquals(IN_DURATION, sideNav.getInDuration());
         sideNav.setOutDuration(OUT_DURATION);
         assertEquals(OUT_DURATION, sideNav.getOutDuration());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        sideNav.setInDuration(IN_DURATION);
+        assertEquals(IN_DURATION, sideNav.getInDuration());
+        sideNav.setOutDuration(OUT_DURATION);
+        assertEquals(OUT_DURATION, sideNav.getOutDuration());
     }
 
     public void testActivator() {
+        // UiBinder
         // given
-        MaterialSideNav sideNav = getWidget();
+        MaterialSideNav sideNav = getWidget(false);
+
+        // when / then
+        assertEquals(ACTIVATES, sideNav.getId());
+
+        // Check Nav Menu
+        assertNotNull(navBar.getNavMenu());
+
+        // isAlwaysShowActivator() must be true by default
+        assertTrue(sideNav.isAlwaysShowActivator());
+
+        // Standard
+        // given
+        attachWidget();
 
         // when / then
         assertEquals(ACTIVATES, sideNav.getId());
@@ -112,8 +177,31 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
     }
 
     public void testBoolean() {
+        // UiBinder
         // given
-        MaterialSideNav sideNav = getWidget();
+        MaterialSideNav sideNav = getWidget(false);
+
+        // when / then
+        sideNav.setCloseOnClick(true);
+        assertTrue(sideNav.isCloseOnClick());
+        sideNav.setCloseOnClick(false);
+        assertFalse(sideNav.isCloseOnClick());
+        sideNav.setAlwaysShowActivator(true);
+        assertTrue(sideNav.isAlwaysShowActivator());
+        sideNav.setAlwaysShowActivator(false);
+        assertFalse(sideNav.isAlwaysShowActivator());
+        sideNav.setAllowBodyScroll(true);
+        assertTrue(sideNav.isAllowBodyScroll());
+        sideNav.setAllowBodyScroll(false);
+        assertFalse(sideNav.isAllowBodyScroll());
+        sideNav.setShowOnAttach(true);
+        assertTrue(sideNav.isShowOnAttach());
+        sideNav.setShowOnAttach(false);
+        assertFalse(sideNav.isShowOnAttach());
+
+        // Standard
+        // given
+        attachWidget();
 
         // when / then
         sideNav.setCloseOnClick(true);

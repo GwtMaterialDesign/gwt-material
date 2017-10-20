@@ -42,7 +42,14 @@ public abstract class WidgetTestCase<T extends Widget> extends MaterialTestCase 
         if(widget == null) {
             widget = createWidget();
         }
-        if(!neverAttach() && tryAttach && !widget.isAttached()) {
+        if(tryAttach && !widget.isAttached()) {
+            attachWidget();
+        }
+        return widget;
+    }
+
+    protected void attachWidget() {
+        if(!neverAttach()) {
             RootPanel.get().add(widget);
 
             if (unloadThenLoad()) {
@@ -50,7 +57,6 @@ public abstract class WidgetTestCase<T extends Widget> extends MaterialTestCase 
                 RootPanel.get().add(widget);
             }
         }
-        return widget;
     }
 
     public boolean neverAttach() {

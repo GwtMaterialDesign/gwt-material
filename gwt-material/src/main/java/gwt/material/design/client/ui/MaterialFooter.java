@@ -77,7 +77,7 @@ public class MaterialFooter extends MaterialWidget implements HasType<FooterType
         super.onLoad();
 
         container.setStyleName(CssName.CONTAINER);
-        super.insert(container, getChildren().size() - 1);
+        super.insert(container, 0);
     }
 
     @Override

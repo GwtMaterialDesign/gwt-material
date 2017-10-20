@@ -57,15 +57,26 @@ public class MaterialCheckBoxTest extends WidgetTestCase<MaterialCheckBox> {
     }
 
     public void testType() {
+        // UiBinder
         // given
-        MaterialCheckBox checkbox = getWidget();
+        MaterialCheckBox widget = getWidget(false);
 
         // when / then
-        checkbox.setType(CheckBoxType.FILLED);
-        Element cb = checkbox.getElement();
+        widget.setType(CheckBoxType.FILLED);
+        assertEquals(CheckBoxType.FILLED, widget.getType());
+        widget.setType(CheckBoxType.INTERMEDIATE);
+        assertEquals(CheckBoxType.INTERMEDIATE, widget.getType());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        widget.setType(CheckBoxType.FILLED);
+        Element cb = widget.getElement();
         Element input = DOM.getChild(cb, 0);
         assertTrue(input.hasClassName(CssName.FILLED_IN));
-        checkbox.setType(CheckBoxType.INTERMEDIATE);
-        assertTrue(checkbox.getElement().hasClassName(CheckBoxType.INTERMEDIATE.getCssName() + "-checkbox"));
+        widget.setType(CheckBoxType.INTERMEDIATE);
+        assertTrue(widget.getElement().hasClassName(CheckBoxType.INTERMEDIATE.getCssName() + "-checkbox"));
     }
 }

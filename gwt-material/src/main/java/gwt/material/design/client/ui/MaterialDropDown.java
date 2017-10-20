@@ -117,7 +117,9 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
                 ListItem item = (ListItem) widget;
                 if (item.getWidget(0) instanceof MaterialWidget) {
                     MaterialWidget child = (MaterialWidget) item.getWidget(0);
-                    registerHandler(child.addDomHandler(event -> SelectionEvent.fire(MaterialDropDown.this, child), ClickEvent.getType()));
+                    registerHandler(child.addDomHandler(event -> {
+                        SelectionEvent.fire(MaterialDropDown.this, child);
+                    }, ClickEvent.getType()));
                 }
             }
         });
@@ -276,16 +278,6 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
     public void setActivator(String activator) {
         this.activator = activator;
         setId(activator);
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        Widget parent = getParent();
-        if (parent instanceof HasEnabled) {
-            ((HasEnabled) parent).setEnabled(isEnabled());
-        }
-        reload();
     }
 
     public List<Widget> getItems() {
