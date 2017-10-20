@@ -19,100 +19,159 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.shared.HasHandlers;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ValueBoxBase;
+import gwt.material.design.client.base.HasError;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
-import gwt.material.design.client.ui.html.Label;
 
 /**
- * Test case for ValueBox
+ * Test case for ValueBox.
  *
  * @author kevzlou7979
  */
-public class MaterialValueBoxTest extends AbstractValueWidgetTest {
+public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends AbstractValueWidgetTest<T> {
 
-    public void checkValueBox(MaterialValueBox widget) {
-        checkAbstractValueWidget(widget, widget.getValueBoxBase());
-        checkValue(widget);
-        checkIcon(widget);
-        checkActiveState(widget);
+    public abstract void testValue();
+
+    public void testFieldErrorSuccess() {
+        // given
+        MaterialValueBox widget = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(widget, widget.getErrorLabel(), widget.getValueBoxBase(), widget.getLabel());
     }
 
-    public <T extends MaterialValueBox> void checkActiveState(T widget) {
-        if (!(widget instanceof MaterialSearch)) {
-            widget.setLabel("Label");
-            widget.setPlaceholder("Placeholder");
+    public void testPlaceholder() {
+        // given
+        T widget = getWidget();
+        checkPlaceholder(widget);
+    }
 
-            widget.setActive(true);
-            assertTrue(widget.isActive());
-            assertTrue(widget.getWidget(2) instanceof Label);
-            assertEquals(widget.getWidget(2).getElement().getInnerHTML(), "Label");
-            assertTrue(widget.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
+    public void testIcon() {
+        // given
+        T widget = getWidget();
 
-            widget.setActive(false);
-            assertFalse(widget.isActive());
-            assertFalse(widget.getWidget(2).getElement().hasClassName(CssName.ACTIVE));
-        }
+        checkFieldIcon(widget);
+    }
+
+    public void testReadOnly() {
+        // given
+        T widget = getWidget();
+
+        checkReadOnly(widget);
     }
 
     @Override
-    protected <T extends MaterialWidget> void checkInteractionEvents(T widget, boolean enabled) {
-        // Need to skip the tests because the target element ValueBoxBase has been added a test on GWT itself.
+    public void testTabIndex() {
+        ValueBoxBase widget = getWidget().getValueBoxBase();
+        final int INITIAL_TAB_INDEX = 0;
+        final int FINAL_TAB_INDEX = 1;
+
+        // when / then
+        widget.setTabIndex(INITIAL_TAB_INDEX);
+        assertEquals(INITIAL_TAB_INDEX, widget.getTabIndex());
+        assertEquals(String.valueOf(INITIAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
+
+        // when / then
+        widget.setTabIndex(FINAL_TAB_INDEX);
+        assertEquals(FINAL_TAB_INDEX, widget.getTabIndex());
+        assertEquals(String.valueOf(FINAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
     }
 
-    protected <T extends MaterialValueBox> void checkValue(T widget) {
-        if (widget instanceof MaterialTextBox || widget instanceof MaterialTextArea) {
-            widget.setValue("Value");
-            assertEquals("Value", widget.getValue());
-        } else if (widget instanceof MaterialIntegerBox) {
-            widget.setValue(123);
-            assertEquals(123, widget.getValue());
-        } else if (widget instanceof MaterialFloatBox) {
-            widget.setValue(123f);
-            assertEquals(123f, widget.getValue());
-        } else if (widget instanceof MaterialDoubleBox) {
-            widget.setValue(123.00);
-            assertEquals(123.00, widget.getValue());
-        } else if (widget instanceof MaterialLongBox) {
-            widget.setValue(123000l);
-            assertEquals(123000l, widget.getValue());
-        }
+    @Override
+    public void fireBlurEvent(HasHandlers widget) {
+        super.fireBlurEvent(((MaterialValueBox)widget).getValueBoxBase());
     }
 
-    public <T extends MaterialValueBox> void checkIcon(T widget) {
-        Element iconElement = widget.getIcon().getElement();
-        widget.setIconType(IconType.POLYMER);
-        assertEquals(iconElement.getInnerHTML(), IconType.POLYMER.getCssName());
-        widget.setIconColor(Color.RED);
-        assertTrue(iconElement.hasClassName(Color.RED.getCssName() + "-text"));
-        widget.setIconPosition(IconPosition.LEFT);
-        assertTrue(iconElement.hasClassName(IconPosition.LEFT.getCssName()));
-        widget.setIconPrefix(true);
-        assertTrue(iconElement.hasClassName("prefix"));
-        widget.setIconPrefix(false);
-        assertFalse(iconElement.hasClassName("prefix"));
-        widget.setIconSize(IconSize.LARGE);
-        assertTrue(iconElement.hasClassName(IconSize.LARGE.getCssName()));
+    @Override
+    public void fireFocusEvent(HasHandlers widget) {
+        super.fireFocusEvent(((MaterialValueBox)widget).getValueBoxBase());
     }
 
-    protected <T extends MaterialValueBox> void checkReadOnly(T widget) {
-        Element element = widget.getElement();
-        widget.setReadOnly(true);
-        assertTrue(element.hasAttribute("disabled"));
-        assertTrue(element.hasClassName(CssName.READ_ONLY));
-        assertTrue(widget.isReadOnly());
-        widget.setReadOnly(false);
-        assertFalse(element.hasAttribute("disabled"));
-        assertFalse(element.hasClassName(CssName.READ_ONLY));
-        assertFalse(widget.isReadOnly());
+    @Override
+    public void fireClickEvent(HasHandlers widget) {
+        super.fireClickEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
 
-        widget.setToggleReadOnly(true);
-        assertTrue(element.addClassName(CssName.READ_ONLY_TOGGLE));
-        assertTrue(widget.isToggleReadOnly());
-        widget.setToggleReadOnly(false);
-        assertFalse(element.addClassName(CssName.READ_ONLY_TOGGLE));
-        assertFalse(widget.isToggleReadOnly());
+    @Override
+    public void fireDoubleClickEvent(HasHandlers widget) {
+        super.fireDoubleClickEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireKeyDownEvent(HasHandlers widget) {
+        super.fireKeyDownEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireKeyUpEvent(HasHandlers widget) {
+        super.fireKeyUpEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireKeyPressEvent(HasHandlers widget) {
+        super.fireKeyPressEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireGestureStartEvent(HasHandlers widget) {
+        super.fireGestureStartEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireGestureChangeEvent(HasHandlers widget) {
+        super.fireGestureChangeEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireGestureEndEvent(HasHandlers widget) {
+        super.fireGestureEndEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireTouchStartEvent(HasHandlers widget) {
+        super.fireTouchStartEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireTouchMoveEvent(HasHandlers widget) {
+        super.fireTouchMoveEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireTouchEndEvent(HasHandlers widget) {
+        super.fireTouchEndEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireTouchCancelEvent(HasHandlers widget) {
+        super.fireTouchCancelEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireMouseUpEvent(HasHandlers widget) {
+        super.fireMouseUpEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireMouseDownEvent(HasHandlers widget) {
+        super.fireMouseDownEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireMouseMoveEvent(HasHandlers widget) {
+        super.fireMouseMoveEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public void fireMouseWheelEvent(HasHandlers widget) {
+        super.fireMouseWheelEvent(((MaterialValueBox)widget).getValueBoxBase());
+    }
+
+    @Override
+    public <H extends HasHandlers & IsWidget> void fireMouseOverEvent(H widget) {
+        super.fireMouseOverEvent(((MaterialValueBox)widget).getValueBoxBase());
     }
 }

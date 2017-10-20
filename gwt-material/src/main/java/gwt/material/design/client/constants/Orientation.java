@@ -19,10 +19,9 @@
  */
 package gwt.material.design.client.constants;
 
-import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.helper.EnumHelper;
 
-public enum Orientation implements Style.HasCssName {
+public enum Orientation implements CssType {
     LANDSCAPE("landscape"),
     PORTRAIT("portrait");
 

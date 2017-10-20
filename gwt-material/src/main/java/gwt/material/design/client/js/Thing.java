@@ -28,4 +28,4 @@ public class Thing {
 
     @JsMethod
     public native boolean hasOwnProperty(String property);
-};
+}

@@ -21,17 +21,15 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.helper.ViewPortHelper;
+import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
@@ -75,85 +73,395 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/menus.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements HasPlaceholder,
+public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
         HasConstrainedValue<T>, HasReadOnly {
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
-
-    // By default the key is generated using toString
-    private KeyFactory<T, String> keyFactory = Object::toString;
-
     protected final List<T> values = new ArrayList<>();
+    private KeyFactory<T, String> keyFactory = Object::toString;
+    private MaterialLabel errorLabel = new MaterialLabel();
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
-    private HandlerRegistration valueChangeHandler;
-
-    private MaterialLabel errorLabel = new MaterialLabel();
+    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
-        toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
     }
 
     @Override
     protected void onLoad() {
-        build();
-
         super.onLoad();
+
+        add(listBox);
+        add(label);
+        add(errorLabel);
+
+        registerHandler(addValueChangeHandler(valueChangeEvent -> {
+            if (isToggleReadOnly()) {
+                setReadOnly(true);
+            }
+        }));
+
+        load();
     }
 
     @Override
-    protected void build() {
-        if (!isInitialize()) {
-            $(listBox.getElement()).change((e, param) -> {
-                try {
-                    ValueChangeEvent.fire(this, getValue());
-                } catch (IndexOutOfBoundsException ex) {
-                    GWT.log("ListBox value change handler threw an exception.", ex);
-                }
-                return true;
-            });
-            valueChangeHandler = addValueChangeHandler(valueChangeEvent -> {
-                if (isToggleReadOnly()) {
-                    setReadOnly(true);
-                }
-            });
-            add(listBox);
-            add(label);
-            add(errorLabel);
-        }
+    public void load() {
+        JsMaterialElement.$(listBox.getElement()).material_select(
+                () -> JQuery.$("input.select-dropdown").trigger("close", null));
+        $(listBox.getElement()).change((e, param) -> {
+            try {
+                ValueChangeEvent.fire(this, getValue());
+            } catch (IndexOutOfBoundsException ex) {
+                GWT.log("ListBox value change handler threw an exception.", ex);
+            }
+            return true;
+        });
+
+        $(listBox.getElement()).siblings("input.select-dropdown").on("mousedown", (e, param1) -> {
+            if (!UiHelper.isTouchScreenDevice()) {
+                e.preventDefault();
+            }
+            return true;
+        });
     }
 
     @Override
     protected void onUnload() {
         super.onUnload();
 
-        if (valueChangeHandler != null) {
-            valueChangeHandler.removeHandler();
-            valueChangeHandler = null;
-        }
-        $(listBox.getElement()).off("change");
-        $(listBox.getElement()).material_select("destroy");
+        unload();
     }
 
     @Override
-    public void setPlaceholder(String placeholder) {
-        label.setText(placeholder);
-
-        if (placeholder != null) {
-            reinitialize();
+    public void unload() {
+        if (listBox != null && listBox.isAttached()) {
+            $(listBox.getElement()).siblings("input.select-dropdown").off("mousedown");
+            $(listBox.getElement()).off("change");
+            $(listBox.getElement()).material_select("destroy");
         }
     }
 
     @Override
-    public String getPlaceholder() {
-        return label.getText();
+    public void reload() {
+        unload();
+        load();
     }
 
-    public OptionElement getOptionElement(int index) {
-        return getSelectElement().getOptions().getItem(index);
+    public void add(T value) {
+        addItem(value);
+    }
+
+    /**
+     * Adds an item to the list box, specifying its direction. This method has
+     * the same effect as
+     * <pre>addItem(value, dir, item)</pre>
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     * @param dir   the item's direction
+     */
+    public void addItem(T value, Direction dir) {
+        addItem(value, dir, true);
+    }
+
+    /**
+     * Adds an item to the list box, specifying its direction. This method has
+     * the same effect as
+     * <pre>addItem(value, dir, item)</pre>
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     * @param dir    the item's direction
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T value, Direction dir, boolean reload) {
+        values.add(value);
+        listBox.addItem(keyFactory.generateKey(value), dir);
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Adds an item to the list box. This method has the same effect as
+     * <pre>addItem(value, item)</pre>
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     */
+    public void addItem(T value) {
+        addItem(value, true);
+    }
+
+    /**
+     * Adds an item to the list box. This method has the same effect as
+     * <pre>addItem(value, item)</pre>
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T value, boolean reload) {
+        values.add(value);
+        listBox.addItem(keyFactory.generateKey(value));
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Adds an item to the list box, specifying an initial value for the item.
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     * @param text  the text of the item to be added
+     */
+    public void addItem(T value, String text) {
+        addItem(value, text, true);
+    }
+
+    /**
+     * Adds an item to the list box, specifying an initial value for the item.
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *               {@link FormPanel}; cannot be <code>null</code>
+     * @param text   the text of the item to be added
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T value, String text, boolean reload) {
+        values.add(value);
+        listBox.addItem(text, keyFactory.generateKey(value));
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Adds an item to the list box, specifying its direction and an initial
+     * value for the item.
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}; cannot be <code>null</code>
+     * @param dir   the item's direction
+     * @param text  the text of the item to be added
+     */
+    public void addItem(T value, Direction dir, String text) {
+        addItem(value, dir, text, true);
+    }
+
+    /**
+     * Adds an item to the list box, specifying its direction and an initial
+     * value for the item.
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *               {@link FormPanel}; cannot be <code>null</code>
+     * @param dir    the item's direction
+     * @param text   the text of the item to be added
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void addItem(T value, Direction dir, String text, boolean reload) {
+        values.add(value);
+        listBox.addItem(text, dir, keyFactory.generateKey(value));
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Inserts an item into the list box. Has the same effect as
+     * <pre>insertItem(value, item, index)</pre>
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param index the index at which to insert it
+     */
+    public void insertItem(T value, int index) {
+        insertItem(value, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box. Has the same effect as
+     * <pre>insertItem(value, item, index)</pre>
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param index  the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T value, int index, boolean reload) {
+        values.add(index, value);
+        listBox.insertItem(keyFactory.generateKey(value), index);
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Inserts an item into the list box, specifying its direction. Has the same
+     * effect as
+     * <pre>insertItem(value, dir, item, index)</pre>
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param dir   the item's direction
+     * @param index the index at which to insert it
+     */
+    public void insertItem(T value, Direction dir, int index) {
+        insertItem(value, dir, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box, specifying its direction. Has the same
+     * effect as
+     * <pre>insertItem(value, dir, item, index)</pre>
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param dir    the item's direction
+     * @param index  the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T value, Direction dir, int index, boolean reload) {
+        values.add(index, value);
+        listBox.insertItem(keyFactory.generateKey(value), dir, index);
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Inserts an item into the list box, specifying an initial value for the
+     * item. Has the same effect as
+     * <pre>insertItem(value, null, item, index)</pre>
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param text  the text of the item to be inserted
+     * @param index the index at which to insert it
+     */
+    public void insertItem(T value, String text, int index) {
+        insertItem(value, text, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box, specifying an initial value for the
+     * item. Has the same effect as
+     * <pre>insertItem(value, null, item, index)</pre>
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *               {@link FormPanel}.
+     * @param text   the text of the item to be inserted
+     * @param index  the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T value, String text, int index, boolean reload) {
+        values.add(index, value);
+        listBox.insertItem(text, keyFactory.generateKey(value), index);
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Inserts an item into the list box, specifying its direction and an
+     * initial value for the item. If the index is less than zero, or greater
+     * than or equal to the length of the list, then the item will be appended
+     * to the end of the list.
+     *
+     * @param value the item's value, to be submitted if it is part of a
+     *              {@link FormPanel}.
+     * @param dir   the item's direction. If {@code null}, the item is displayed
+     *              in the widget's overall direction, or, if a direction
+     *              estimator has been set, in the item's estimated direction.
+     * @param text  the text of the item to be inserted
+     * @param index the index at which to insert it
+     */
+    public void insertItem(T value, Direction dir, String text, int index) {
+        insertItem(value, dir, text, index, true);
+    }
+
+    /**
+     * Inserts an item into the list box, specifying its direction and an
+     * initial value for the item. If the index is less than zero, or greater
+     * than or equal to the length of the list, then the item will be appended
+     * to the end of the list.
+     *
+     * @param value  the item's value, to be submitted if it is part of a
+     *               {@link FormPanel}.
+     * @param dir    the item's direction. If {@code null}, the item is displayed
+     *               in the widget's overall direction, or, if a direction
+     *               estimator has been set, in the item's estimated direction.
+     * @param text   the text of the item to be inserted
+     * @param index  the index at which to insert it
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void insertItem(T value, Direction dir, String text, int index, boolean reload) {
+        values.add(index, value);
+        listBox.insertItem(keyFactory.generateKey(value), dir, text, index);
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Removes the item at the specified index.
+     *
+     * @param index the index of the item to be removed
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
+    public void removeItem(int index) {
+        removeItem(index, true);
+    }
+
+    /**
+     * Removes the item at the specified index.
+     *
+     * @param index  the index of the item to be removed
+     * @param reload perform a 'material select' reload to update the DOM.
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
+    public void removeItem(int index, boolean reload) {
+        values.remove(index);
+        listBox.removeItem(index);
+
+        if (reload) {
+            reload();
+        }
+    }
+
+    /**
+     * Removes a value from the list box. Nothing is done if the value isn't on
+     * the list box.
+     *
+     * @param value the value to be removed from the list
+     */
+    public void removeValue(String value) {
+        removeValue(value, true);
+    }
+
+    /**
+     * Removes a value from the list box. Nothing is done if the value isn't on
+     * the list box.
+     *
+     * @param value  the value to be removed from the list
+     * @param reload perform a 'material select' reload to update the DOM.
+     */
+    public void removeValue(String value, boolean reload) {
+        int idx = getIndex(value);
+        if (idx >= 0) {
+            removeItem(idx, reload);
+        }
     }
 
     @Override
@@ -169,38 +477,25 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     public void clear() {
         values.clear();
         listBox.clear();
-        reinitialize();
+        reload();
+    }
+
+    @Override
+    public void setPlaceholder(String placeholder) {
+        label.setText(placeholder);
+    }
+
+    @Override
+    public String getPlaceholder() {
+        return label.getText();
+    }
+
+    public OptionElement getOptionElement(int index) {
+        return getSelectElement().getOptions().getItem(index);
     }
 
     protected SelectElement getSelectElement() {
         return listBox.getElement().cast();
-    }
-
-    /**
-     * Initializes the Materialize CSS list box. Should be
-     * called every time the contents of the list box
-     * changes, to keep the Materialize CSS design updated.
-     */
-    @Override
-    protected void initialize() {
-        JsMaterialElement.$(listBox.getElement()).material_select(() -> JQuery.$("input.select-dropdown").trigger("close", null));
-        // Fixed auto hide when scrolling on IE Browsers
-        JQuery.$(listBox.getElement()).siblings("input.select-dropdown").off("mousedown").on("mousedown", (e, param1) -> {
-            if (!ViewPortHelper.isTouchScreenDevice()) {
-                e.preventDefault();
-            }
-            return true;
-        });
-    }
-
-    /**
-     * Initialize if we have already initialized before.
-     */
-    @Override
-    public void reinitialize() {
-        if (isInitialize()) {
-            initialize();
-        }
     }
 
     /**
@@ -210,7 +505,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setMultipleSelect(boolean multipleSelect) {
         listBox.setMultipleSelect(multipleSelect);
-        reinitialize();
     }
 
     /**
@@ -226,8 +520,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         listBox.insertItem(value, 0);
 
         getOptionElement(0).setDisabled(true);
-
-        reinitialize();
     }
 
     @Override
@@ -265,37 +557,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     }
 
     public boolean isOld() {
-        return toggleOldMixin.isOn();
+        return getToggleOldMixin().isOn();
     }
 
     public void setOld(boolean old) {
-        toggleOldMixin.setOn(old);
-    }
-
-    // delegate methods
-
-    public void add(T value) {
-        addItem(value);
-    }
-
-    /**
-     * Inserts an item into the list box, specifying its direction and an
-     * initial value for the item. If the index is less than zero, or greater
-     * than or equal to the length of the list, then the item will be appended
-     * to the end of the list.
-     *
-     * @param item  the text of the item to be inserted
-     * @param dir   the item's direction. If {@code null}, the item is displayed
-     *              in the widget's overall direction, or, if a direction
-     *              estimator has been set, in the item's estimated direction.
-     * @param value the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}.
-     * @param index the index at which to insert it
-     */
-    public void insertItem(T item, Direction dir, String value, int index) {
-        values.add(index, item);
-        listBox.insertItem(keyFactory.generateKey(item), dir, value, index);
-        reinitialize();
+        getToggleOldMixin().setOn(old);
     }
 
     /**
@@ -309,126 +575,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setValue(int index, String value) {
         listBox.setValue(index, value);
-        reinitialize();
+        reload();
     }
 
     @Override
     public void setTitle(String title) {
         listBox.setTitle(title);
-        reinitialize();
-    }
-
-    /**
-     * Adds an item to the list box, specifying its direction. This method has
-     * the same effect as
-     * <p>
-     * <pre>
-     * addItem(item, dir, item)
-     * </pre>
-     *
-     * @param item the text of the item to be added
-     * @param dir  the item's direction
-     */
-    public void addItem(T item, Direction dir) {
-        values.add(item);
-        listBox.addItem(keyFactory.generateKey(item), dir);
-        reinitialize();
-    }
-
-    /**
-     * Adds an item to the list box. This method has the same effect as
-     * <p>
-     * <pre>
-     * addItem(item, item)
-     * </pre>
-     *
-     * @param item the text of the item to be added
-     */
-    public void addItem(T item) {
-        values.add(item);
-        listBox.addItem(keyFactory.generateKey(item));
-        reinitialize();
-    }
-
-    /**
-     * Adds an item to the list box, specifying an initial value for the item.
-     *
-     * @param item  the text of the item to be added
-     * @param value the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}; cannot be <code>null</code>
-     */
-    public void addItem(T item, String value) {
-        values.add(item);
-        listBox.addItem(value, keyFactory.generateKey(item));
-        reinitialize();
-    }
-
-    /**
-     * Adds an item to the list box, specifying its direction and an initial
-     * value for the item.
-     *
-     * @param item  the text of the item to be added
-     * @param dir   the item's direction
-     * @param value the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}; cannot be <code>null</code>
-     */
-    public void addItem(T item, Direction dir, String value) {
-        values.add(item);
-        listBox.addItem(value, dir, keyFactory.generateKey(item));
-        reinitialize();
-    }
-
-    /**
-     * Inserts an item into the list box. Has the same effect as
-     * <p>
-     * <pre>
-     * insertItem(item, item, index)
-     * </pre>
-     *
-     * @param item  the text of the item to be inserted
-     * @param index the index at which to insert it
-     */
-    public void insertItem(T item, int index) {
-        values.add(index, item);
-        listBox.insertItem(keyFactory.generateKey(item), index);
-        reinitialize();
-    }
-
-    /**
-     * Inserts an item into the list box, specifying its direction. Has the same
-     * effect as
-     * <p>
-     * <pre>
-     * insertItem(item, dir, item, index)
-     * </pre>
-     *
-     * @param item  the text of the item to be inserted
-     * @param dir   the item's direction
-     * @param index the index at which to insert it
-     */
-    public void insertItem(T item, Direction dir, int index) {
-        values.add(index, item);
-        listBox.insertItem(keyFactory.generateKey(item), dir, index);
-        reinitialize();
-    }
-
-    /**
-     * Inserts an item into the list box, specifying an initial value for the
-     * item. Has the same effect as
-     * <p>
-     * <pre>
-     * insertItem(item, null, value, index)
-     * </pre>
-     *
-     * @param item  the text of the item to be inserted
-     * @param value the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}.
-     * @param index the index at which to insert it
-     */
-    public void insertItem(T item, String value, int index) {
-        values.add(index, item);
-        listBox.insertItem(value, keyFactory.generateKey(item), index);
-        reinitialize();
     }
 
     /**
@@ -440,7 +592,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemSelected(int index, boolean selected) {
         listBox.setItemSelected(index, selected);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -452,7 +604,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemText(int index, String text) {
         listBox.setItemText(index, text);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -465,12 +617,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setItemText(int index, String text, Direction dir) {
         listBox.setItemText(index, text, dir);
-        reinitialize();
+        reload();
     }
 
     public void setName(String name) {
         listBox.setName(name);
-        reinitialize();
     }
 
     /**
@@ -485,7 +636,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setSelectedIndex(int index) {
         listBox.setSelectedIndex(index);
-        reinitialize();
+        reload();
     }
 
     /**
@@ -496,7 +647,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
      */
     public void setVisibleItemCount(int visibleItems) {
         listBox.setVisibleItemCount(visibleItems);
-        reinitialize();
     }
 
     /**
@@ -590,19 +740,68 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         return listBox.isItemSelected(index);
     }
 
-    /**
-     * Removes the item at the specified index.
-     *
-     * @param index the index of the item to be removed
-     * @throws IndexOutOfBoundsException if the index is out of range
-     */
-    public void removeItem(int index) {
-        values.remove(index);
-        listBox.removeItem(index);
-        reinitialize();
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        listBox.setEnabled(enabled);
+        reload();
     }
 
-    // utility methods
+    @Override
+    public boolean isEnabled() {
+        return listBox.isEnabled();
+    }
+
+    /**
+     * Use your own key factory for value keys.
+     */
+    public void setKeyFactory(KeyFactory<T, String> keyFactory) {
+        this.keyFactory = keyFactory;
+    }
+
+    @Override
+    public void setReadOnly(boolean value) {
+        getReadOnlyMixin().setReadOnly(value);
+        if (!value) {
+            $(listBox.getElement()).material_select("destroy");
+            $(listBox.getElement()).material_select();
+        }
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return getReadOnlyMixin().isReadOnly();
+    }
+
+    @Override
+    public void setToggleReadOnly(boolean toggle) {
+        getReadOnlyMixin().setToggleReadOnly(toggle);
+    }
+
+    @Override
+    public boolean isToggleReadOnly() {
+        return getReadOnlyMixin().isToggleReadOnly();
+    }
+
+    public ListBox getListBox() {
+        return listBox;
+    }
+
+    @Override
+    public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
+        if (errorMixin == null) {
+            errorMixin = new ErrorMixin<>(this, errorLabel, listBox, label);
+        }
+        return errorMixin;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public MaterialLabel getErrorLabel() {
+        return errorLabel;
+    }
 
     /**
      * Returns all selected values of the list box, or empty array if none.
@@ -637,6 +836,19 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
     }
 
     /**
+     * Sets whether an individual list value is selected.
+     *
+     * @param value    the value of the item to be selected or unselected
+     * @param selected <code>true</code> to select the item
+     */
+    public void setValueSelected(String value, boolean selected) {
+        int idx = getIndex(value);
+        if (idx >= 0) {
+            setItemSelected(idx, selected);
+        }
+    }
+
+    /**
      * Gets the index of the specified value.
      *
      * @param value the value of the item to be found
@@ -652,50 +864,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         return -1;
     }
 
-    /**
-     * Sets whether an individual list value is selected.
-     *
-     * @param value    the value of the item to be selected or unselected
-     * @param selected <code>true</code> to select the item
-     */
-    public void setValueSelected(String value, boolean selected) {
-        int idx = getIndex(value);
-        if (idx >= 0) {
-            setItemSelected(idx, selected);
-        }
-    }
-
-    /**
-     * Removes a value from the list box. Nothing is done if the value isn't on
-     * the list box.
-     *
-     * @param value the value to be removed from the list
-     */
-    public void removeValue(String value) {
-        int idx = getIndex(value);
-        if (idx >= 0) {
-            removeItem(idx);
-        }
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        listBox.setEnabled(enabled);
-        reinitialize();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return listBox.isEnabled();
-    }
-
-    /**
-     * Use your own key factory for value keys.
-     */
-    public void setKeyFactory(KeyFactory<T, String> keyFactory) {
-        this.keyFactory = keyFactory;
-    }
-
     public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
         if (readOnlyMixin == null) {
             readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
@@ -703,45 +871,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements H
         return readOnlyMixin;
     }
 
-    @Override
-    public void setReadOnly(boolean value) {
-        getReadOnlyMixin().setReadOnly(value);
-        if (!value) {
-            $(listBox.getElement()).material_select("destroy");
-            $(listBox.getElement()).material_select();
+    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
+        if (toggleOldMixin == null) {
+            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
         }
-    }
-
-    @Override
-    public boolean isReadOnly() {
-        return getReadOnlyMixin().isReadOnly();
-    }
-
-    @Override
-    public void setToggleReadOnly(boolean toggle) {
-        getReadOnlyMixin().setToggleReadOnly(toggle);
-    }
-
-    @Override
-    public boolean isToggleReadOnly() {
-        return getReadOnlyMixin().isToggleReadOnly();
-    }
-
-    public ListBox getListBox() {
-        return listBox;
-    }
-
-    @Override
-    public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        MaterialWidget target = new MaterialWidget($(getElement()).find(".select-dropdown"));
-        return new ErrorMixin<>(this, errorLabel, target, label);
-    }
-
-    public Label getLabel() {
-        return label;
-    }
-
-    public MaterialLabel getErrorLabel() {
-        return errorLabel;
+        return toggleOldMixin;
     }
 }

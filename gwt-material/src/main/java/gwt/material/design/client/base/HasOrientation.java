@@ -21,9 +21,13 @@ package gwt.material.design.client.base;
 
 import gwt.material.design.client.constants.Orientation;
 
-public interface HasOrientation {
+public interface HasOrientation extends HasOrientationChangeHandler {
 
     void setOrientation(Orientation orientation);
 
     Orientation getOrientation();
+
+    void setDetectOrientation(boolean detectOrientation);
+
+    boolean isDetectOrientation();
 }

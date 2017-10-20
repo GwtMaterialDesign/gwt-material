@@ -23,12 +23,30 @@ package gwt.material.design.client.ui;
  * Test case for Float Box
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialFloatBoxTest extends MaterialValueBoxTest {
+public class MaterialFloatBoxTest extends MaterialValueBoxTest<MaterialFloatBox> {
 
-    public void init() {
-        MaterialFloatBox floatBox = new MaterialFloatBox();
-        checkValueBox(floatBox);
+    @Override
+    protected MaterialFloatBox createWidget() {
+        return new MaterialFloatBox();
+    }
+
+    @Override
+    public void testValue() {
+        // given
+        MaterialFloatBox floatBox = getWidget();
+
+        // when / then
+        floatBox.setValue(123f);
+        assertEquals(123f, floatBox.getValue());
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialFloatBox floatBox = getWidget();
+
+        // when / then
         checkValueChangeEvent(floatBox, 1.0f, 2.0f);
     }
 }

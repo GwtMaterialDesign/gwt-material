@@ -34,7 +34,7 @@ import gwt.material.design.client.constants.LoaderSize;
  * <pre>
  * {@code
  *
- * MaterialLoader.showLoading(true);
+ * MaterialLoader.loading(true);
  *
  * }
  * <pre>
@@ -46,7 +46,7 @@ import gwt.material.design.client.constants.LoaderSize;
 //@formatter:on
 public class MaterialPreLoader extends MaterialWidget {
 
-    private final CssNameMixin<MaterialPreLoader, LoaderSize> sizeMixin = new CssNameMixin<>(this);
+    private CssNameMixin<MaterialPreLoader, LoaderSize> sizeMixin;
 
     public MaterialPreLoader() {
         super(Document.get().createDivElement(), CssName.PRELOADER_WRAPPER, CssName.ACTIVE);
@@ -56,10 +56,28 @@ public class MaterialPreLoader extends MaterialWidget {
      * Sets the size of the pre loader.
      */
     public void setSize(LoaderSize size) {
-        sizeMixin.setCssName(size);
+        getSizeMixin().setCssName(size);
+    }
+
+    /**
+     * Same as {@link #setSize(LoaderSize)}, but will not clash with {@link com.google.gwt.user.client.ui.UIObject#setSize(String, String)}
+     */
+    public void setLoaderSize(LoaderSize size) {
+        setSize(size);
     }
 
     public LoaderSize getSize() {
-        return sizeMixin.getCssName();
+        return getSizeMixin().getCssName();
+    }
+
+    public LoaderSize getLoaderSize() {
+        return getSize();
+    }
+
+    protected CssNameMixin<MaterialPreLoader, LoaderSize> getSizeMixin() {
+        if (sizeMixin == null) {
+            sizeMixin = new CssNameMixin<>(this);
+        }
+        return sizeMixin;
     }
 }

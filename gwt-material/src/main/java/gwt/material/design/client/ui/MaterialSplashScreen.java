@@ -72,15 +72,15 @@ public class MaterialSplashScreen extends MaterialWidget {
 
     public MaterialSplashScreen() {
         super(Document.get().createDivElement(), CssName.SPLASH_SCREEN);
-        build();
     }
 
     @Override
-    protected void build() {
+    protected void onLoad() {
         setDisplay(Display.NONE);
 
         container.setWidth("100%");
         container.getElement().getStyle().setMarginTop(15, Style.Unit.PCT);
+        super.onLoad();
 
         super.add(container);
         super.add(progress);

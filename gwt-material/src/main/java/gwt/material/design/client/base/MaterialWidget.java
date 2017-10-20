@@ -31,13 +31,14 @@ import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.constants.*;
+import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
 import gwt.material.design.client.events.DragLeaveEvent;
-import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.client.events.OrientationChangeEvent.OrientationChangeHandler;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -48,14 +49,13 @@ import java.util.Map;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasColors, HasGrid,
-        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn,
-        HasCircle, HasWaves, HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight,
-        HasDepth, HasInitialClasses, HasInteractionHandlers, HasAllFocusHandlers {
+public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
+        HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
+        HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
+        HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform, HasOrientation {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
-    private boolean initialize;
 
     public static JQueryElement window() {
         if (window == null) {
@@ -102,6 +102,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private String[] initialClasses;
     protected JQueryElement $this;
 
+    private HandlerRegistry handlerRegistry;
+
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
     private CssNameMixin<MaterialWidget, TextAlign> textAlignMixin;
@@ -123,6 +125,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
+    private BorderMixin<MaterialWidget> borderMixin;
+    private DimensionMixin<MaterialWidget> dimensionMixin;
+    private VerticalAlignMixin<MaterialWidget> verticalAlignMixin;
+    private TransformMixin<MaterialWidget> transformMixin;
+    private OrientationMixin<MaterialWidget> orientationMixin;
 
     public MaterialWidget() {
     }
@@ -176,11 +183,20 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             }
             onLoadAdd.clear();
         }
+    }
 
-        if (!initialize) {
-            initialize();
-            initialize = true;
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        getHandlerRegistry().clearHandlers();
+    }
+
+    public HandlerRegistry getHandlerRegistry() {
+        if (handlerRegistry == null) {
+            handlerRegistry = new DefaultHandlerRegistry(this);
         }
+        return handlerRegistry;
     }
 
     @Override
@@ -214,43 +230,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     /**
-     * A protected method to build the structure of any complex widget that
-     * can be overridden to perform a different behavior of this widget.
-     */
-    protected void build() {}
-
-    /**
-     * A initialization phase that can be overriden by any complex widget
-     * that needs to initialize their feature specially for JSInterop instances.
-     */
-    protected void initialize() {}
-
-    /**
-     * Can be called multiple times to reinitialize the state of any complex widget
-     */
-    public void reinitialize() {
-        initialize();
-    }
-
-    /**
-     * Returns whether the widget has been initialized or not
-     */
-    public boolean isInitialize() {
-        return initialize;
-    }
-
-    protected void setInitialize(boolean initialize) {
-        this.initialize = initialize;
-    }
-
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        this.initialize = false;
-    }
-
-    /**
      * Inserts a widget at a specific index
      *
      * @param child       - widget to be inserted
@@ -276,8 +255,763 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getElement().setAttribute("class", cssClasses);
     }
 
-    // Events
+    @Override
+    public void setId(String id) {
+        getIdMixin().setId(id);
+    }
 
+    @Override
+    public String getId() {
+        return getIdMixin().getId();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return getEnabledMixin().isEnabled();
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        getEnabledMixin().setEnabled(this, enabled);
+    }
+
+    @Override
+    public TextAlign getTextAlign() {
+        return getTextAlignMixin().getCssName();
+    }
+
+    @Override
+    public void setTextAlign(TextAlign align) {
+        getTextAlignMixin().setCssName(align);
+    }
+
+    @Override
+    public void setBackgroundColor(Color bgColor) {
+        getColorsMixin().setBackgroundColor(bgColor);
+    }
+
+    @Override
+    public Color getBackgroundColor() {
+        return getColorsMixin().getBackgroundColor();
+    }
+
+    @Override
+    public void setTextColor(Color textColor) {
+        getColorsMixin().setTextColor(textColor);
+    }
+
+    @Override
+    public Color getTextColor() {
+        return getColorsMixin().getTextColor();
+    }
+
+    @Override
+    public int getTabIndex() {
+        return getFocusableMixin().getTabIndex();
+    }
+
+    @Override
+    public void setAccessKey(char key) {
+        getFocusableMixin().setAccessKey(key);
+    }
+
+    @Override
+    public void setFocus(boolean focused) {
+        getFocusableMixin().setFocus(focused);
+    }
+
+    @Override
+    public void setTabIndex(int index) {
+        getFocusableMixin().setTabIndex(index);
+    }
+
+    @Override
+    public void setGrid(String grid) {
+        getGridMixin().setGrid(grid);
+    }
+
+    @Override
+    public void setOffset(String offset) {
+        getGridMixin().setOffset(offset);
+    }
+
+    @Override
+    public void setShadow(int shadow) {
+        getShadowMixin().setShadow(shadow);
+    }
+
+    @Override
+    public int getShadow() {
+        return getShadowMixin().getShadow();
+    }
+
+    @Override
+    public void setMargin(double margin) {
+        getElement().getStyle().setMargin(margin, Style.Unit.PX);
+    }
+
+    @Override
+    public void setMarginTop(final double margin) {
+        getElement().getStyle().setMarginTop(margin, Style.Unit.PX);
+    }
+
+    @Override
+    public void setMarginLeft(final double margin) {
+        getElement().getStyle().setMarginLeft(margin, Style.Unit.PX);
+    }
+
+    @Override
+    public void setMarginRight(final double margin) {
+        getElement().getStyle().setMarginRight(margin, Style.Unit.PX);
+    }
+
+    @Override
+    public void setMarginBottom(final double margin) {
+        getElement().getStyle().setMarginBottom(margin, Style.Unit.PX);
+    }
+
+    @Override
+    public void setPadding(double padding) {
+        getElement().getStyle().setPadding(padding, Style.Unit.PX);
+    }
+
+    @Override
+    public void setPaddingTop(final double padding) {
+        getElement().getStyle().setPaddingTop(padding, Style.Unit.PX);
+    }
+
+    @Override
+    public void setPaddingLeft(final double padding) {
+        getElement().getStyle().setPaddingLeft(padding, Style.Unit.PX);
+    }
+
+    @Override
+    public void setPaddingRight(final double padding) {
+        getElement().getStyle().setPaddingRight(padding, Style.Unit.PX);
+    }
+
+    @Override
+    public void setPaddingBottom(final double padding) {
+        getElement().getStyle().setPaddingBottom(padding, Style.Unit.PX);
+    }
+
+    @Override
+    public void setGwtDisplay(Style.Display display) {
+        getFlexboxMixin().setGwtDisplay(display);
+    }
+
+    @Override
+    public void setOpacity(double opacity) {
+        getElement().getStyle().setOpacity(opacity);
+    }
+
+    @Override
+    public double getOpacity() {
+        return Double.parseDouble(getElement().getStyle().getOpacity());
+    }
+
+    @Override
+    public void setSeparator(boolean separator) {
+        getSeparatorMixin().setSeparator(separator);
+    }
+
+    @Override
+    public boolean isSeparator() {
+        return getSeparatorMixin().isSeparator();
+    }
+
+    @Override
+    public void setScrollspy(String scrollspy) {
+        getScrollspyMixin().setScrollspy(scrollspy);
+    }
+
+    @Override
+    public String getScrollspy() {
+        return getScrollspyMixin().getScrollspy();
+    }
+
+    @Override
+    public void setCenterOn(CenterOn centerOn) {
+        getCenterOnMixin().setCssName(centerOn);
+    }
+
+    @Override
+    public CenterOn getCenterOn() {
+        return getCenterOnMixin().getCssName();
+    }
+
+    @Override
+    public void setHideOn(HideOn hideOn) {
+        getHideOnMixin().setCssName(hideOn);
+    }
+
+    @Override
+    public HideOn getHideOn() {
+        return getHideOnMixin().getCssName();
+    }
+
+    @Override
+    public void setShowOn(ShowOn showOn) {
+        getShowOnMixin().setCssName(showOn);
+    }
+
+    @Override
+    public ShowOn getShowOn() {
+        return getShowOnMixin().getCssName();
+    }
+
+    @Override
+    public void setFontSize(String fontSize) {
+        getFontSizeMixin().setFontSize(fontSize);
+    }
+
+    @Override
+    public String getFontSize() {
+        return getFontSizeMixin().getFontSize();
+    }
+
+    @Override
+    public void setFontSize(double fontSize, Style.Unit unit) {
+        getFontSizeMixin().setFontSize(fontSize, unit);
+    }
+
+    @Override
+    public void setCircle(boolean circle) {
+        getCircleMixin().setOn(circle);
+    }
+
+    @Override
+    public boolean isCircle() {
+        return getCircleMixin().isOn();
+    }
+
+    @Override
+    public void setWaves(WavesType waves) {
+        getWavesMixin().setWaves(waves);
+    }
+
+    @Override
+    public WavesType getWaves() {
+        return getWavesMixin().getWaves();
+    }
+
+    @Override
+    public void setDataAttribute(String dataAttr, String value) {
+        getElement().setAttribute(!dataAttr.startsWith("data-") ? "data-" + dataAttr : dataAttr, value);
+    }
+
+    @Override
+    public String getDataAttribute(String dataAttr) {
+        return getElement().getAttribute(!dataAttr.startsWith("data-") ? "data-" + dataAttr : dataAttr);
+    }
+
+    @Override
+    public void setFloat(Float floatAlign) {
+        getFloatMixin().setCssName(floatAlign);
+    }
+
+    @Override
+    public Float getFloat() {
+        return StyleHelper.fromStyleName(Float.class, getFloatMixin().getCssName());
+    }
+
+    @Override
+    public String getTooltip() {
+        return getTooltipMixin().getTooltip();
+    }
+
+    @Override
+    public void setTooltip(String tooltip) {
+        getTooltipMixin().setTooltip(tooltip);
+    }
+
+    @Override
+    public Position getTooltipPosition() {
+        return getTooltipMixin().getTooltipPosition();
+    }
+
+    @Override
+    public void setTooltipPosition(Position position) {
+        getTooltipMixin().setTooltipPosition(position);
+    }
+
+    @Override
+    public int getTooltipDelayMs() {
+        return getTooltipMixin().getTooltipDelayMs();
+    }
+
+    @Override
+    public void setTooltipDelayMs(int delayMs) {
+        getTooltipMixin().setTooltipDelayMs(delayMs);
+    }
+
+    @Override
+    public void setTooltipHTML(String html) {
+        getTooltipMixin().setTooltipHTML(html);
+    }
+
+    @Override
+    public String getTooltipHTML() {
+        return getTooltipMixin().getTooltipHTML();
+    }
+
+    public void setVisibility(Style.Visibility visibility) {
+        getElement().getStyle().setVisibility(visibility);
+    }
+
+    @Override
+    public void setDisplay(Display display) {
+        getFlexboxMixin().setDisplay(display);
+    }
+
+    @Override
+    public void setFlexDirection(FlexDirection flexDirection) {
+        getFlexboxMixin().setFlexDirection(flexDirection);
+    }
+
+    @Override
+    public void setFlex(Flex flex) {
+        getFlexboxMixin().setFlex(flex);
+    }
+
+    @Override
+    public void setFlexGrow(Integer flexGrow) {
+        getFlexboxMixin().setFlexGrow(flexGrow);
+    }
+
+    @Override
+    public void setFlexShrink(Integer flexShrink) {
+        getFlexboxMixin().setFlexShrink(flexShrink);
+    }
+
+    @Override
+    public void setFlexBasis(String flexBasis) {
+        getFlexboxMixin().setFlexBasis(flexBasis);
+    }
+
+    @Override
+    public void setFlexOrder(Integer flexOrder) {
+        getFlexboxMixin().setFlexOrder(flexOrder);
+    }
+
+    @Override
+    public void setFlexWrap(FlexWrap flexWrap) {
+        getFlexboxMixin().setFlexWrap(flexWrap);
+    }
+
+    @Override
+    public void setFlexAlignContent(FlexAlignContent flexAlignContent) {
+        getFlexboxMixin().setFlexAlignContent(flexAlignContent);
+    }
+
+    @Override
+    public void setFlexAlignSelf(FlexAlignSelf flexAlignSelf) {
+        getFlexboxMixin().setFlexAlignSelf(flexAlignSelf);
+    }
+
+    @Override
+    public void setFlexAlignItems(FlexAlignItems flexAlignItems) {
+        getFlexboxMixin().setFlexAlignItems(flexAlignItems);
+    }
+
+    @Override
+    public void setFlexJustifyContent(FlexJustifyContent flexJustifyContent) {
+        getFlexboxMixin().setFlexJustifyContent(flexJustifyContent);
+    }
+
+    @Override
+    public void setVerticalAlign(Style.VerticalAlign value) {
+        getVerticalAlignMixin().setVerticalAlign(value);
+    }
+
+    @Override
+    public String getVerticalAlign() {
+        return getVerticalAlignMixin().getVerticalAlign();
+    }
+
+    public void setOverflow(Style.Overflow overflow) {
+        getElement().getStyle().setOverflow(overflow);
+    }
+
+    public void setLayoutPosition(Style.Position position) {
+        getElement().getStyle().setPosition(position);
+    }
+
+    public String getLayoutPosition() {
+        return getElement().getStyle().getPosition();
+    }
+
+    public void setLeft(double value) {
+        getElement().getStyle().setLeft(value, Style.Unit.PX);
+    }
+
+    public void setRight(double value) {
+        getElement().getStyle().setRight(value, Style.Unit.PX);
+    }
+
+    public void setTop(double value) {
+        getElement().getStyle().setTop(value, Style.Unit.PX);
+    }
+
+    public void setBottom(double value) {
+        getElement().getStyle().setBottom(value, Style.Unit.PX);
+    }
+
+    public void setLineHeight(double value) {
+        getElement().getStyle().setLineHeight(value, Style.Unit.PX);
+    }
+
+    @Override
+    public void setHoverable(boolean hoverable) {
+        getHoverableMixin().setOn(hoverable);
+    }
+
+    @Override
+    public boolean isHoverable() {
+        return getHoverableMixin().isOn();
+    }
+
+    @Override
+    public void setFontWeight(FontWeight fontWeight) {
+        getElement().getStyle().setFontWeight(fontWeight);
+    }
+
+    @Override
+    public String getFontWeight() {
+        return getElement().getStyle().getFontWeight();
+    }
+
+    @Override
+    public void setDepth(int depth) {
+        getElement().getStyle().setZIndex(depth);
+    }
+
+    @Override
+    public int getDepth() {
+        return Integer.parseInt(getElement().getStyle().getZIndex());
+    }
+
+    /**
+     * If true the label inside this component will be truncated by ellipsis
+     **/
+    public void setTruncate(boolean truncate) {
+        getTruncateMixin().setOn(truncate);
+    }
+
+    public boolean isTruncate() {
+        return getTruncateMixin().isOn();
+    }
+
+    @Override
+    public void setBorder(String value) {
+        getBorderMixin().setBorder(value);
+    }
+
+    @Override
+    public String getBorder() {
+        return getBorderMixin().getBorder();
+    }
+
+    @Override
+    public void setBorderLeft(String value) {
+        getBorderMixin().setBorderLeft(value);
+    }
+
+    @Override
+    public String getBorderLeft() {
+        return getBorderMixin().getBorderLeft();
+    }
+
+    @Override
+    public void setBorderRight(String value) {
+        getBorderMixin().setBorderRight(value);
+    }
+
+    @Override
+    public String getBorderRight() {
+        return getBorderMixin().getBorderRight();
+    }
+
+    @Override
+    public void setBorderTop(String value) {
+        getBorderMixin().setBorderTop(value);
+    }
+
+    @Override
+    public String getBorderTop() {
+        return getBorderMixin().getBorderTop();
+    }
+
+    @Override
+    public void setBorderBottom(String value) {
+        getBorderMixin().setBorderBottom(value);
+    }
+
+    @Override
+    public String getBorderBottom() {
+        return getBorderMixin().getBorderBottom();
+    }
+
+    @Override
+    public void setBorderRadius(String value) {
+        getBorderMixin().setBorderRadius(value);
+    }
+
+    @Override
+    public String getBorderRadius() {
+        return getBorderMixin().getBorderRadius();
+    }
+
+    @Override
+    public void setMinHeight(String value) {
+        getDimensionMixin().setMinHeight(value);
+    }
+
+    @Override
+    public String getMinHeight() {
+        return getDimensionMixin().getMinHeight();
+    }
+
+    @Override
+    public void setMaxHeight(String value) {
+        getDimensionMixin().setMaxHeight(value);
+    }
+
+    @Override
+    public String getMaxHeight() {
+        return getDimensionMixin().getMaxHeight();
+    }
+
+    @Override
+    public void setMinWidth(String value) {
+        getDimensionMixin().setMinWidth(value);
+    }
+
+    @Override
+    public String getMinWidth() {
+        return getDimensionMixin().getMinWidth();
+    }
+
+    @Override
+    public void setMaxWidth(String value) {
+        getDimensionMixin().setMaxWidth(value);
+    }
+
+    @Override
+    public String getMaxWidth() {
+        return getDimensionMixin().getMaxWidth();
+    }
+
+    @Override
+    public void setTransform(String value) {
+        getTransformMixin().setTransform(value);
+    }
+
+    @Override
+    public String getTransform() {
+        return getTransformMixin().getTransform();
+    }
+
+    @Override
+    public void setTransformOrigin(String value) {
+        getTransformMixin().setTransformOrigin(value);
+    }
+
+    @Override
+    public String getTransformOrigin() {
+        return getTransformMixin().getTransformOrigin();
+    }
+
+    @Override
+    public void setTransformStyle(String value) {
+        getTransformMixin().setTransformStyle(value);
+    }
+
+    @Override
+    public String getTransformStyle() {
+        return getTransformMixin().getTransformStyle();
+    }
+
+    @Override
+    public void setPerspective(String value) {
+        getTransformMixin().setPerspective(value);
+    }
+
+    @Override
+    public String getPerspective() {
+        return getTransformMixin().getPerspective();
+    }
+
+    @Override
+    public void setPerspectiveOrigin(String value) {
+        getTransformMixin().setPerspectiveOrigin(value);
+    }
+
+    @Override
+    public String getPerspectiveOrigin() {
+        return getTransformMixin().getPerspectiveOrigin();
+    }
+
+    @Override
+    public void setBackfaceVisibility(String value) {
+        getTransformMixin().setBackfaceVisibility(value);
+    }
+
+    @Override
+    public String getBackfaceVisibility() {
+        return getTransformMixin().getBackfaceVisibility();
+    }
+
+    @Override
+    public void setOrientation(Orientation orientation) {
+        getOrientationMixin().setOrientation(orientation);
+    }
+
+    @Override
+    public Orientation getOrientation() {
+        return getOrientationMixin().getOrientation();
+    }
+
+    @Override
+    public void setDetectOrientation(boolean detectOrientation) {
+        getOrientationMixin().setDetectOrientation(detectOrientation);
+    }
+
+    @Override
+    public boolean isDetectOrientation() {
+        return getOrientationMixin().isDetectOrientation();
+    }
+
+    public HandlerRegistration registerHandler(HandlerRegistration handler) {
+        return getHandlerRegistry().registerHandler(handler);
+    }
+
+    public void removeHandler(HandlerRegistration handler) {
+        getHandlerRegistry().removeHandler(handler);
+    }
+
+    // Avoid touch events on mobile devices
+    public void stopTouchStartEvent() {
+        $(getElement()).bind("touchstart", e -> {
+            e.stopPropagation();
+            return true;
+        });
+    }
+
+    public int getWidth() {
+        return $(getElement()).outerWidth();
+    }
+
+    protected void clearActiveClass(HasWidgets widget) {
+        for (Widget child : widget) {
+            Element element = child.getElement();
+            if (StyleHelper.containsStyle(element.getClassName(), CssName.ACTIVE)) {
+                element.removeClassName(CssName.ACTIVE);
+            }
+
+            if (child instanceof HasWidgets) {
+                clearActiveClass((HasWidgets) child);
+            }
+        }
+    }
+
+    /**
+     * Applies a CSS3 Transition property to this widget.
+     */
+    public void setTransition(TransitionConfig property) {
+        Element target = getElement();
+        if (property.getTarget() != null) {
+            target = property.getTarget();
+        }
+        target.getStyle().setProperty("WebkitTransition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
+        target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
+    }
+
+
+    /**
+     * Add an {@code AttachHandler} for attachment events.
+     *
+     * @param handler Attach event handler.
+     * @param oneTime Only execute this handler once, then detach handler.
+     * @return The events handler registration.
+     */
+    public HandlerRegistration addAttachHandler(final AttachEvent.Handler handler, boolean oneTime) {
+        if (!oneTime) {
+            return addAttachHandler(handler);
+        } else {
+            final HandlerRegistration[] registration = {null};
+            registration[0] = addAttachHandler(event -> {
+                handler.onAttachOrDetach(event);
+
+                if (registration[0] != null) {
+                    registration[0].removeHandler();
+                }
+            });
+            return registration[0];
+        }
+    }
+
+    @Override
+    public void setInitialClasses(String... initialClasses) {
+        this.initialClasses = initialClasses;
+    }
+
+    @Override
+    public String[] getInitialClasses() {
+        return initialClasses;
+    }
+
+    @Override
+    public WidgetCollection getChildren() {
+        return super.getChildren();
+    }
+
+    public List<Widget> getChildrenList() {
+        List<Widget> children = new ArrayList<>();
+        for (int i = 0; i < getWidgetCount(); i++) {
+            children.add(getWidget(i));
+        }
+        return children;
+    }
+
+    /**
+     * Enable or disable a complex {@link Feature}.<br/>
+     *
+     * @param feature the feature to enable.
+     * @param enabled true to enable false to disable.
+     */
+    public void enableFeature(Feature feature, boolean enabled) {
+        if (features == null) {
+            features = new HashMap<>();
+        }
+        features.put(feature, enabled);
+    }
+
+    /**
+     * Check if a {@link Feature} is enabled.
+     */
+    public boolean isFeatureEnabled(Feature feature) {
+        if (features != null) {
+            Boolean enabled = features.get(feature);
+            return enabled != null && enabled;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+        for (Widget child : getChildren()) {
+            if (child instanceof HasValidators && !((HasValidators) child).validate()) {
+                valid = false;
+            } else if (child instanceof MaterialWidget && !((MaterialWidget) child).validate()) {
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
+    // Events
     @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
         return addDomHandler(event -> {
@@ -539,6 +1273,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         }, FocusEvent.getType());
     }
 
+    @Override
+    public HandlerRegistration addOrientationChangeHandler(OrientationChangeHandler handler) {
+        return addHandler(event -> {
+            if (isEnabled()) {
+                handler.onOrientationChange(event);
+            }
+        }, OrientationChangeEvent.TYPE);
+    }
+
     protected IdMixin<MaterialWidget> getIdMixin() {
         if (idMixin == null) {
             idMixin = new IdMixin<>(this);
@@ -686,560 +1429,38 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return truncateMixin;
     }
 
-    @Override
-    public void setId(String id) {
-        getIdMixin().setId(id);
-    }
-
-    @Override
-    public String getId() {
-        return getIdMixin().getId();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return getEnabledMixin().isEnabled();
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        getEnabledMixin().setEnabled(enabled);
-    }
-
-    @Override
-    public TextAlign getTextAlign() {
-        return getTextAlignMixin().getCssName();
-    }
-
-    @Override
-    public void setTextAlign(TextAlign align) {
-        getTextAlignMixin().setCssName(align);
-    }
-
-    @Override
-    public void setBackgroundColor(Color bgColor) {
-        getColorsMixin().setBackgroundColor(bgColor);
-    }
-
-    @Override
-    public Color getBackgroundColor() {
-        return getColorsMixin().getBackgroundColor();
-    }
-
-    @Override
-    public void setTextColor(Color textColor) {
-        getColorsMixin().setTextColor(textColor);
-    }
-
-    @Override
-    public Color getTextColor() {
-        return getColorsMixin().getTextColor();
-    }
-
-    @Override
-    public int getTabIndex() {
-        return getFocusableMixin().getTabIndex();
-    }
-
-    @Override
-    public void setAccessKey(char key) {
-        getFocusableMixin().setAccessKey(key);
-    }
-
-    @Override
-    public void setFocus(boolean focused) {
-        getFocusableMixin().setFocus(focused);
-    }
-
-    @Override
-    public void setTabIndex(int index) {
-        getFocusableMixin().setTabIndex(index);
-    }
-
-    @Override
-    public void setGrid(String grid) {
-        getGridMixin().setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        getGridMixin().setOffset(offset);
-    }
-
-    @Override
-    public void setShadow(int shadow) {
-        getShadowMixin().setShadow(shadow);
-    }
-
-    @Override
-    public int getShadow() {
-        return getShadowMixin().getShadow();
-    }
-
-    @Override
-    public void setMargin(double margin) {
-        getElement().getStyle().setMargin(margin, Style.Unit.PX);
-    }
-
-    @Override
-    public void setMarginTop(final double margin) {
-        getElement().getStyle().setMarginTop(margin, Style.Unit.PX);
-    }
-
-    @Override
-    public void setMarginLeft(final double margin) {
-        getElement().getStyle().setMarginLeft(margin, Style.Unit.PX);
-    }
-
-    @Override
-    public void setMarginRight(final double margin) {
-        getElement().getStyle().setMarginRight(margin, Style.Unit.PX);
-    }
-
-    @Override
-    public void setMarginBottom(final double margin) {
-        getElement().getStyle().setMarginBottom(margin, Style.Unit.PX);
-    }
-
-    @Override
-    public void setPadding(double padding) {
-        getElement().getStyle().setPadding(padding, Style.Unit.PX);
-    }
-
-    @Override
-    public void setPaddingTop(final double padding) {
-        getElement().getStyle().setPaddingTop(padding, Style.Unit.PX);
-    }
-
-    @Override
-    public void setPaddingLeft(final double padding) {
-        getElement().getStyle().setPaddingLeft(padding, Style.Unit.PX);
-    }
-
-    @Override
-    public void setPaddingRight(final double padding) {
-        getElement().getStyle().setPaddingRight(padding, Style.Unit.PX);
-    }
-
-    @Override
-    public void setPaddingBottom(final double padding) {
-        getElement().getStyle().setPaddingBottom(padding, Style.Unit.PX);
-    }
-
-    @Override
-    public void setGwtDisplay(Style.Display display) {
-        getFlexboxMixin().setGwtDisplay(display);
-    }
-
-    @Override
-    public void setOpacity(double opacity) {
-        getElement().getStyle().setOpacity(opacity);
-    }
-
-    @Override
-    public double getOpacity() {
-        return Double.parseDouble(getElement().getStyle().getOpacity());
-    }
-
-    @Override
-    public void setSeparator(boolean separator) {
-        getSeparatorMixin().setSeparator(separator);
-    }
-
-    @Override
-    public boolean isSeparator() {
-        return getSeparatorMixin().isSeparator();
-    }
-
-    @Override
-    public void setScrollspy(String scrollspy) {
-        getScrollspyMixin().setScrollspy(scrollspy);
-    }
-
-    @Override
-    public String getScrollspy() {
-        return getScrollspyMixin().getScrollspy();
-    }
-
-    @Override
-    public void setCenterOn(CenterOn centerOn) {
-        getCenterOnMixin().setCssName(centerOn);
-    }
-
-    @Override
-    public CenterOn getCenterOn() {
-        return getCenterOnMixin().getCssName();
-    }
-
-    @Override
-    public void setHideOn(HideOn hideOn) {
-        getHideOnMixin().setCssName(hideOn);
-    }
-
-    @Override
-    public HideOn getHideOn() {
-        return getHideOnMixin().getCssName();
-    }
-
-    @Override
-    public void setShowOn(ShowOn showOn) {
-        getShowOnMixin().setCssName(showOn);
-    }
-
-    @Override
-    public ShowOn getShowOn() {
-        return getShowOnMixin().getCssName();
-    }
-
-    @Override
-    public void setFontSize(String fontSize) {
-        getFontSizeMixin().setFontSize(fontSize);
-    }
-
-    @Override
-    public String getFontSize() {
-        return getFontSizeMixin().getFontSize();
-    }
-
-    @Override
-    public void setFontSize(double fontSize, Style.Unit unit) {
-        getFontSizeMixin().setFontSize(fontSize, unit);
-    }
-
-    @Override
-    public void setCircle(boolean circle) {
-        getCircleMixin().setOn(circle);
-    }
-
-    @Override
-    public boolean isCircle() {
-        return getCircleMixin().isOn();
-    }
-
-    @Override
-    public void setWaves(WavesType waves) {
-        getWavesMixin().setWaves(waves);
-    }
-
-    @Override
-    public WavesType getWaves() {
-        return getWavesMixin().getWaves();
-    }
-
-    @Override
-    public void setDataAttribute(String dataAttr, String value) {
-        if (!dataAttr.startsWith("data-")) {
-            dataAttr = "data-" + dataAttr;
+    public BorderMixin<MaterialWidget> getBorderMixin() {
+        if (borderMixin == null) {
+            borderMixin = new BorderMixin<>(this);
         }
-        getElement().setAttribute(dataAttr, value);
+        return borderMixin;
     }
 
-    @Override
-    public String getDataAttribute(String dataAttr) {
-        if (!dataAttr.startsWith("data-")) {
-            dataAttr = "data-" + dataAttr;
+    public DimensionMixin<MaterialWidget> getDimensionMixin() {
+        if (dimensionMixin == null) {
+            dimensionMixin = new DimensionMixin<>(this);
         }
-        return getElement().getAttribute(dataAttr);
+        return dimensionMixin;
     }
 
-    @Override
-    public void setFloat(Float floatAlign) {
-        getFloatMixin().setCssName(floatAlign);
-    }
-
-    @Override
-    public Float getFloat() {
-        return StyleHelper.fromStyleName(Float.class, getFloatMixin().getCssName());
-    }
-
-    @Override
-    public String getTooltip() {
-        return getTooltipMixin().getTooltip();
-    }
-
-    @Override
-    public void setTooltip(String tooltip) {
-        getTooltipMixin().setTooltip(tooltip);
-    }
-
-    @Override
-    public Position getTooltipPosition() {
-        return getTooltipMixin().getTooltipPosition();
-    }
-
-    @Override
-    public void setTooltipPosition(Position position) {
-        getTooltipMixin().setTooltipPosition(position);
-    }
-
-    @Override
-    public int getTooltipDelayMs() {
-        return getTooltipMixin().getTooltipDelayMs();
-    }
-
-    @Override
-    public void setTooltipDelayMs(int delayMs) {
-        getTooltipMixin().setTooltipDelayMs(delayMs);
-    }
-
-    @Override
-    public void setTooltipHTML(String html) {
-        getTooltipMixin().setTooltipHTML(html);
-    }
-
-    @Override
-    public String getTooltipHTML() {
-        return getTooltipMixin().getTooltipHTML();
-    }
-
-    public void setVisibility(Style.Visibility visibility) {
-        getElement().getStyle().setVisibility(visibility);
-    }
-
-    @Override
-    public void setDisplay(Display display) {
-        getFlexboxMixin().setDisplay(display);
-    }
-
-    @Override
-    public void setFlexDirection(FlexDirection flexDirection) {
-        getFlexboxMixin().setFlexDirection(flexDirection);
-    }
-
-    @Override
-    public void setFlex(Flex flex) {
-        getFlexboxMixin().setFlex(flex);
-    }
-
-    @Override
-    public void setFlexGrow(Integer flexGrow) {
-        getFlexboxMixin().setFlexGrow(flexGrow);
-    }
-
-    @Override
-    public void setFlexShrink(Integer flexShrink) {
-        getFlexboxMixin().setFlexShrink(flexShrink);
-    }
-
-    @Override
-    public void setFlexBasis(String flexBasis) {
-        getFlexboxMixin().setFlexBasis(flexBasis);
-    }
-
-    @Override
-    public void setFlexOrder(Integer flexOrder) {
-        getFlexboxMixin().setFlexOrder(flexOrder);
-    }
-
-    @Override
-    public void setFlexWrap(FlexWrap flexWrap) {
-        getFlexboxMixin().setFlexWrap(flexWrap);
-    }
-
-    @Override
-    public void setFlexAlignContent(FlexAlignContent flexAlignContent) {
-        getFlexboxMixin().setFlexAlignContent(flexAlignContent);
-    }
-
-    @Override
-    public void setFlexAlignSelf(FlexAlignSelf flexAlignSelf) {
-        getFlexboxMixin().setFlexAlignSelf(flexAlignSelf);
-    }
-
-    @Override
-    public void setFlexAlignItems(FlexAlignItems flexAlignItems) {
-        getFlexboxMixin().setFlexAlignItems(flexAlignItems);
-    }
-
-    @Override
-    public void setFlexJustifyContent(FlexJustifyContent flexJustifyContent) {
-        getFlexboxMixin().setFlexJustifyContent(flexJustifyContent);
-    }
-
-    public void setOverflow(Style.Overflow overflow) {
-        getElement().getStyle().setOverflow(overflow);
-    }
-
-    public void setLayoutPosition(Style.Position position) {
-        getElement().getStyle().setPosition(position);
-    }
-
-    public void setLeft(double value) {
-        getElement().getStyle().setLeft(value, Style.Unit.PX);
-    }
-
-    public void setRight(double value) {
-        getElement().getStyle().setRight(value, Style.Unit.PX);
-    }
-
-    public void setTop(double value) {
-        getElement().getStyle().setTop(value, Style.Unit.PX);
-    }
-
-    public void setBottom(double value) {
-        getElement().getStyle().setBottom(value, Style.Unit.PX);
-    }
-
-    public void setLineHeight(double value) {
-        getElement().getStyle().setLineHeight(value, Style.Unit.PX);
-    }
-
-    @Override
-    public void setHoverable(boolean hoverable) {
-        getHoverableMixin().setOn(hoverable);
-    }
-
-    @Override
-    public boolean isHoverable() {
-        return getHoverableMixin().isOn();
-    }
-
-    @Override
-    public void setFontWeight(FontWeight fontWeight) {
-        getElement().getStyle().setFontWeight(fontWeight);
-    }
-
-    @Override
-    public String getFontWeight() {
-        return getElement().getStyle().getFontWeight();
-    }
-
-    @Override
-    public void setDepth(int depth) {
-        getElement().getStyle().setZIndex(depth);
-    }
-
-    @Override
-    public int getDepth() {
-        return Integer.parseInt(getElement().getStyle().getZIndex());
-    }
-
-    /**
-     * If true the label inside this component will be truncated by ellipsis
-     **/
-    public void setTruncate(boolean truncate) {
-        getTruncateMixin().setOn(truncate);
-    }
-
-    // Avoid touch events on mobile devices
-    public void stopTouchStartEvent() {
-        $(getElement()).bind("touchstart", e -> {
-            e.stopPropagation();
-            return true;
-        });
-    }
-
-    public int getWidth() {
-        return $(getElement()).outerWidth();
-    }
-
-    protected void clearActiveClass(HasWidgets widget) {
-        for (Widget child : widget) {
-            Element element = child.getElement();
-            if (StyleHelper.containsStyle(element.getClassName(), CssName.ACTIVE)) {
-                element.removeClassName(CssName.ACTIVE);
-            }
-
-            if (child instanceof HasWidgets) {
-                clearActiveClass((HasWidgets) child);
-            }
+    public VerticalAlignMixin<MaterialWidget> getVerticalAlignMixin() {
+        if (verticalAlignMixin == null) {
+            verticalAlignMixin = new VerticalAlignMixin<>(this);
         }
+        return verticalAlignMixin;
     }
 
-    /**
-     * Applies a CSS3 Transition property to this widget.
-     */
-
-    public void setTransition(TransitionConfig property) {
-        Element target = getElement();
-        if (property.getTarget() != null) {
-            target = property.getTarget();
+    public TransformMixin<MaterialWidget> getTransformMixin() {
+        if (transformMixin == null) {
+            transformMixin = new TransformMixin<>(this);
         }
-        target.getStyle().setProperty("WebkitTransition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
-        target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
+        return transformMixin;
     }
 
-
-    /**
-     * Add an {@code AttachHandler} for attachment events.
-     *
-     * @param handler Attach event handler.
-     * @param oneTime Only execute this handler once, then detach handler.
-     * @return The events handler registration.
-     */
-    public HandlerRegistration addAttachHandler(final AttachEvent.Handler handler, boolean oneTime) {
-        if (!oneTime) {
-            return addAttachHandler(handler);
-        } else {
-            final HandlerRegistration[] registration = {null};
-            registration[0] = addAttachHandler(event -> {
-                handler.onAttachOrDetach(event);
-
-                if (registration[0] != null) {
-                    registration[0].removeHandler();
-                }
-            });
-            return registration[0];
+    public OrientationMixin<MaterialWidget> getOrientationMixin() {
+        if (orientationMixin == null) {
+            orientationMixin = new OrientationMixin<>(this);
         }
-    }
-
-    @Override
-    public void setInitialClasses(String... initialClasses) {
-        this.initialClasses = initialClasses;
-    }
-
-    @Override
-    public String[] getInitialClasses() {
-        return initialClasses;
-    }
-
-    @Override
-    public WidgetCollection getChildren() {
-        return super.getChildren();
-    }
-
-    public List<Widget> getChildrenList() {
-        List<Widget> children = new ArrayList<>();
-        for (int i = 0; i < getWidgetCount(); i++) {
-            children.add(getWidget(i));
-        }
-        return children;
-    }
-
-    /**
-     * Enable or disable a complex {@link Feature}.<br/>
-     *
-     * @param feature the feature to enable.
-     * @param enabled true to enable false to disable.
-     */
-    public void enableFeature(Feature feature, boolean enabled) {
-        if (features == null) {
-            features = new HashMap<>();
-        }
-        features.put(feature, enabled);
-    }
-
-    /**
-     * Check if a {@link Feature} is enabled.
-     */
-    public boolean isFeatureEnabled(Feature feature) {
-        if (features != null) {
-            Boolean enabled = features.get(feature);
-            return enabled != null && enabled;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean validate() {
-        boolean valid = true;
-        for(Widget child : getChildren()) {
-            if(child instanceof HasValidators && !((HasValidators) child).validate()) {
-                valid = false;
-            } else if(child instanceof MaterialWidget && !((MaterialWidget) child).validate()) {
-                valid = false;
-            }
-        }
-        return valid;
+        return orientationMixin;
     }
 }

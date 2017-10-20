@@ -23,12 +23,15 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.events.DefaultHandlerRegistry;
 
 /**
  * This static helper class is supposed to collect common methods used for multiple kind of UI classes.
  * It is defined as abstract to prohibit
  */
 public final class UiHelper {
+
+    private static DefaultHandlerRegistry handlerRegistry;
 
     private static String PRESSED_CSS_STYLE_NAME = "pressed";
 
@@ -57,33 +60,22 @@ public final class UiHelper {
         widget.sinkEvents(Event.ONMOUSEOUT);
         widget.sinkEvents(Event.TOUCHEVENTS);
 
-        widget.addHandler(event -> {
-            widget.addStyleName(cssStyleName);
-        }, MouseDownEvent.getType());
-
-        widget.addHandler(event -> {
-            widget.removeStyleName(cssStyleName);
-        }, MouseUpEvent.getType());
-
-        widget.addHandler(event -> {
-            widget.removeStyleName(cssStyleName);
-        }, MouseOutEvent.getType());
+        handlerRegistry = new DefaultHandlerRegistry(widget);
+        handlerRegistry.registerHandler(widget.addHandler(event -> widget.addStyleName(cssStyleName), MouseDownEvent.getType()));
+        handlerRegistry.registerHandler(widget.addHandler(event -> widget.removeStyleName(cssStyleName), MouseUpEvent.getType()));
+        handlerRegistry.registerHandler(widget.addHandler(event -> widget.removeStyleName(cssStyleName), MouseOutEvent.getType()));
 
         // Touch Events
-        widget.addHandler(event -> {
-            widget.addStyleName(cssStyleName);
-        }, TouchStartEvent.getType());
-
-        widget.addHandler(event -> {
-            widget.removeStyleName(cssStyleName);
-        }, TouchEndEvent.getType());
-
-        widget.addHandler(event -> {
-            widget.removeStyleName(cssStyleName);
-        }, TouchCancelEvent.getType());
+        handlerRegistry.registerHandler(widget.addHandler(event -> widget.addStyleName(cssStyleName), TouchStartEvent.getType()));
+        handlerRegistry.registerHandler(widget.addHandler(event -> widget.removeStyleName(cssStyleName), TouchEndEvent.getType()));
+        handlerRegistry.registerHandler(widget.addHandler(event -> widget.removeStyleName(cssStyleName), TouchCancelEvent.getType()));
     }
 
     public static int calculateSpaceToBottom(Widget widget) {
         return Window.getClientHeight() - widget.getAbsoluteTop() - widget.getOffsetHeight();
     }
+
+    public static native boolean isTouchScreenDevice() /*-{
+        return 'ontouchstart' in document.documentElement;
+    }-*/;
 }

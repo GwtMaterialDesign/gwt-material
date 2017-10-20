@@ -52,17 +52,14 @@ public class MaterialPager extends MaterialWidget {
     private int pageSize = 10;
     private int currentPage = 1;
     private int maxPageLinksShown = 10;
-    private boolean enableIndicator;
-    private String indicatorTemplate = "Page {page} of {total}";
-
     private int calcTotalPages;
     private int calcShowingPageFrom;
     private int calcShowingPageTo;
+    private boolean enableIndicator;
     private boolean calcInitialized;
-
+    private String indicatorTemplate = "Page {page} of {total}";
     private PagerListItem linkLeft;
     private PagerListItem linkRight;
-
     private MaterialChip indicator;
 
     public MaterialPager() {
@@ -85,10 +82,11 @@ public class MaterialPager extends MaterialWidget {
     @Override
     protected void onLoad() {
         super.onLoad();
-        initialize();
+
+        load();
     }
 
-    protected void initialize() {
+    protected void load() {
         if (!calcInitialized) {
             calcTotalPages = total / pageSize + (((double) total % (double) pageSize) > 0 ? 1 : 0);
 
@@ -141,15 +139,12 @@ public class MaterialPager extends MaterialWidget {
         pageLiElement.setFixed(false);
         pageLiElement.add(createLinkPage(page));
 
-        addPageSelectionHandler(event -> {
-            pageLiElement.setActive(event.getPageTo() == page);
-        });
-
-        pageLiElement.addHandler(event -> {
+        registerHandler(addPageSelectionHandler(event -> pageLiElement.setActive(event.getPageTo() == page)));
+        registerHandler(pageLiElement.addHandler(event -> {
             onPageSelection(page);
             event.preventDefault();
             event.stopPropagation();
-        }, ClickEvent.getType());
+        }, ClickEvent.getType()));
 
         return pageLiElement;
     }
@@ -157,34 +152,30 @@ public class MaterialPager extends MaterialWidget {
     protected PagerListItem getOrCreateLiElementLeft() {
         linkLeft = new PagerListItem();
         linkLeft.setFixed(true);
-        linkLeft.addHandler(event -> {
+        registerHandler(linkLeft.addHandler(event -> {
             if (linkLeft.isEnabled()) {
                 onPageSelection(currentPage - 1);
             }
             event.preventDefault();
             event.stopPropagation();
-        }, ClickEvent.getType());
+        }, ClickEvent.getType()));
         linkLeft.add(createLinkLeft());
-
-        addPageSelectionHandler(event -> MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1));
-
+        registerHandler(addPageSelectionHandler(event -> MaterialPager.this.linkLeft.setEnabled(event.getPageTo() > 1)));
         return linkLeft;
     }
 
     protected PagerListItem getOrCreateLiElementRight() {
         linkRight = new PagerListItem();
         linkRight.setFixed(true);
-        linkRight.addHandler(event -> {
+        registerHandler(linkRight.addHandler(event -> {
             if (linkRight.isEnabled()) {
                 onPageSelection(currentPage + 1);
             }
             event.stopPropagation();
             event.preventDefault();
-        }, ClickEvent.getType());
+        }, ClickEvent.getType()));
         linkRight.add(createLinkRight());
-
-        addPageSelectionHandler(event -> MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages));
-
+        registerHandler(addPageSelectionHandler(event -> MaterialPager.this.linkRight.setEnabled(event.getPageTo() < calcTotalPages)));
         return linkRight;
     }
 
@@ -198,12 +189,10 @@ public class MaterialPager extends MaterialWidget {
     protected MaterialChip getOrCreateIndicator() {
         indicator = new MaterialChip();
         indicator.getElement().getStyle().setBackgroundColor("inherit");
-        addPageSelectionHandler(event -> {
-            indicator.setText(indicatorTemplate
+        registerHandler(addPageSelectionHandler(event -> indicator.setText(indicatorTemplate
                 .replaceAll("\\{page\\}", String.valueOf(event.getPageTo()))
                 .replaceAll("\\{total\\}", String.valueOf(event.getTotalPage()))
-            );
-        });
+        )));
         return indicator;
     }
 
@@ -263,7 +252,7 @@ public class MaterialPager extends MaterialWidget {
         currentPage = 1;
         if (calcInitialized && needToClear) {
             clear();
-            initialize();
+            load();
         }
     }
 

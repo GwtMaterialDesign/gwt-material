@@ -20,6 +20,7 @@
 package gwt.material.design.client.base;
 
 import gwt.material.design.client.constants.ProgressType;
+import gwt.material.design.client.ui.MaterialProgress;
 
 public interface HasProgress {
 
@@ -37,4 +38,6 @@ public interface HasProgress {
      * Hides the progress.
      */
     void hideProgress();
+
+    MaterialProgress getProgress();
 }

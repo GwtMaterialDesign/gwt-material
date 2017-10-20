@@ -19,9 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.DatePickerContainer;
 import gwt.material.design.client.constants.DatePickerLanguage;
 import gwt.material.design.client.constants.Orientation;
@@ -33,40 +31,127 @@ import java.util.Date;
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
 /**
- * Test case for Datepicker
+ * Test case for Datepicker.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialDatePickerTest extends AbstractValueWidgetTest {
+public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDatePicker> {
 
-    public void init() {
-        MaterialDatePicker datePicker = new MaterialDatePicker();
-        checkAbstractValueWidget(datePicker, datePicker.getDateInput());
-        datePicker.initialize();
-        assertNotNull(datePicker.getPickerId());
-        checkFormat(datePicker);
-        checkDateMinAndMax(datePicker);
-        checkDateValue(datePicker);
-        checkOrientation(datePicker);
-        checkLanguage(datePicker);
-        checkSelectionType(datePicker);
-        checkOpenCloseControl(datePicker);
-        checkAutoClose(datePicker);
-        checkContainaer(datePicker);
+    final static Date DATE = new Date(116, 2, 5);
+    final static Date SECOND_DATE = new Date(116, 1, 0);
+
+    @Override
+    protected MaterialDatePicker createWidget() {
+        return new MaterialDatePicker();
     }
 
-    public <T extends MaterialDatePicker> void checkContainaer(T datePicker) {
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.INPUT_FIELD);
+    }
+
+    public void testStructure() {
+        // given
+        MaterialDatePicker picker = getWidget();
+
+        // when / then
+        assertEquals(CssName.INPUT_FIELD, picker.getInitialClasses()[0]);
+        assertEquals(3, picker.getWidgetCount());
+        assertEquals(picker.getDateInput(), picker.getWidget(0));
+        assertEquals(picker.getLabel(), picker.getWidget(1));
+        assertEquals(picker.getPlaceholderLabel(), picker.getLabel().getWidget(0));
+        assertEquals(picker.getErrorLabel(), picker.getWidget(2));
+    }
+
+    public void testPlaceholder() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
+        datePicker.setPlaceholder("Placeholder");
+        assertEquals("Placeholder", datePicker.getPlaceholder());
+        datePicker.setPlaceholder("");
+        assertEquals("", datePicker.getPlaceholder());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        datePicker.setPlaceholder("Placeholder");
+        assertEquals("Placeholder", datePicker.getPlaceholder());
+        datePicker.setPlaceholder("");
+        assertEquals("", datePicker.getPlaceholder());
+    }
+
+    public void testErrorSuccess() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(datePicker, datePicker.getErrorLabel(), datePicker.getDateInput(), datePicker.getPlaceholderLabel());
+    }
+
+    public void testReadOnly() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
+        checkReadOnly(datePicker, false);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkReadOnly(datePicker, true);
+    }
+
+    public void testFieldIcon() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
+        checkFieldIcon(datePicker);
+    }
+
+    public void testContainer() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
         // Check the default container - SELF
-        assertEquals(datePicker.getContainer(), DatePickerContainer.SELF);
+        assertEquals(DatePickerContainer.SELF, datePicker.getContainer());
 
         datePicker.setContainer(DatePickerContainer.BODY);
-        assertEquals(datePicker.getContainer(), DatePickerContainer.BODY);
+        assertEquals(DatePickerContainer.BODY, datePicker.getContainer());
 
         datePicker.setContainer(DatePickerContainer.SELF);
-        assertEquals(datePicker.getContainer(), DatePickerContainer.SELF);
+        assertEquals(DatePickerContainer.SELF, datePicker.getContainer());
     }
 
-    public <T extends MaterialDatePicker> void checkAutoClose(T datePicker) {
+    public void testAutoClose() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, false);
+        // Test multiple set to autoclose (leaks checking)
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, true);
+        checkAutoClose(datePicker, false);
+        checkAutoClose(datePicker, false);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
         checkAutoClose(datePicker, true);
         checkAutoClose(datePicker, false);
         // Test multiple set to autoclose (leaks checking)
@@ -76,67 +161,130 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
         checkAutoClose(datePicker, false);
     }
 
+    public void testClear() {
+        // UiBinder
+        // given
+        MaterialDatePicker picker = getWidget(false);
+
+        // when / then
+        checkClear(picker);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkClear(picker);
+    }
+
+    protected void checkClear(MaterialDatePicker picker) {
+        picker.setValue(DATE);
+        picker.setError("error");
+        picker.clear();
+
+        assertEquals("", picker.getDateInput().getElement().getInnerText());
+        assertFalse(picker.getLabel().getElement().hasClassName(CssName.ACTIVE));
+        assertFalse(picker.getDateInput().getElement().hasClassName(CssName.VALID));
+        assertFalse(picker.getDateInput().getElement().hasClassName(CssName.INVALID));
+
+        assertFalse(picker.getErrorLabel().getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
+        assertFalse(picker.getDateInput().getElement().hasClassName(CssName.FIELD_ERROR));
+        assertNull(picker.getValue());
+    }
+
     protected void checkAutoClose(MaterialDatePicker datePicker, boolean autoClose) {
         datePicker.setAutoClose(autoClose);
         if (autoClose) {
             assertTrue(datePicker.isAutoClose());
-            assertNotNull(datePicker.autoCloseHandler);
         } else {
             assertFalse(datePicker.isAutoClose());
-            assertNull(datePicker.autoCloseHandler);
         }
     }
 
-    public <T extends MaterialDatePicker> void checkOpenCloseControl(T datePicker) {
+    public void testOpenCloseControl() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
         datePicker.setEnabled(true);
         assertTrue(datePicker.isEnabled());
         checkOpenHandler(datePicker);
         checkCloseHandler(datePicker);
     }
 
-    public <T extends MaterialDatePicker> void checkFormat(T datePicker) {
+    public void testFormat() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
+
+        // when / then
         final String FORMAT = "mm/dd/yyyy";
         datePicker.setFormat(FORMAT);
-        assertEquals(datePicker.getFormat(), FORMAT);
+        assertEquals(FORMAT, datePicker.getFormat());
     }
 
     @Override
-    protected <T extends MaterialWidget & HasEnabled> void checkEnabled(T widget) {
-        super.checkEnabled(widget);
+    public void testEnabled() {
+        super.testEnabled();
 
-        RootPanel.get().add(widget);
+        destroyWidget();
 
-        assertTrue(widget instanceof MaterialDatePicker);
-        MaterialDatePicker picker = (MaterialDatePicker) widget;
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
 
-        picker.setEnabled(true);
+        // when / then
+        datePicker.setEnabled(true);
+        datePicker.setEnabled(false);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        datePicker.setEnabled(true);
         // Check Initial Tab index value for Root Picker Element - tabindex = 0
-        assertEquals("0", $(picker.getPickerRootElement()).attr("tabindex"));
+        assertEquals("0", $(datePicker.getPickerRootElement()).attr("tabindex"));
         // Expected when datepicker is disabled - tabindex = -1
-        picker.setEnabled(false);
-        assertEquals("-1", $(picker.getPickerRootElement()).attr("tabindex"));
+        datePicker.setEnabled(false);
+        assertEquals("-1", $(datePicker.getPickerRootElement()).attr("tabindex"));
     }
 
-    public <T extends MaterialDatePicker> void checkDateMinAndMax(T datePicker) {
+    public void testDateMinAndMax() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
         final Date DATE_MIN = new Date(116, 2, 2);
         final Date DATE_MAX = new Date(116, 2, 20);
+
+        // when / then
         datePicker.setDateMin(DATE_MIN);
-        assertEquals(datePicker.getDateMin(), DATE_MIN);
+        assertEquals(DATE_MIN, datePicker.getDateMin());
         datePicker.setDateMax(DATE_MAX);
-        assertEquals(datePicker.getDateMax(), DATE_MAX);
+        assertEquals(DATE_MAX, datePicker.getDateMax());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        datePicker.setDateMin(DATE_MIN);
+        assertEquals(DATE_MIN, datePicker.getDateMin());
+        datePicker.setDateMax(DATE_MAX);
+        assertEquals(DATE_MAX, datePicker.getDateMax());
     }
 
-    public <T extends MaterialDatePicker> void checkDateValue(T datePicker) {
-        final Date DATE = new Date(116, 2, 5);
-        final Date SECOND_DATE = new Date(116, 1, 0);
+    public void testDateValue() {
+        // given
+        MaterialDatePicker datePicker = getWidget();
 
         boolean[] isValueChanged = {false};
         datePicker.addValueChangeHandler(event -> isValueChanged[0] = true);
 
         datePicker.setDate(DATE);
-        assertEquals(datePicker.getDate(), DATE);
+        assertEquals(DATE, datePicker.getDate());
 
-        assertEquals(datePicker.getValue(), DATE);
+        assertEquals(DATE, datePicker.getValue());
 
         datePicker.setEnabled(true);
 
@@ -145,38 +293,111 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest {
 
         datePicker.setValue(DATE);
         datePicker.setValue(DATE, false);
-        assertEquals(datePicker.getValue(), DATE);
+        assertEquals(DATE, datePicker.getValue());
         assertFalse(isValueChanged[0]);
 
         datePicker.setValue(SECOND_DATE, true);
         assertTrue(isValueChanged[0]);
     }
 
-    public <T extends MaterialDatePicker> void checkLanguage(T datePicker) {
-        final DatePickerLanguage LANGUAGE = DatePickerLanguage.DA;
-        datePicker.setLanguage(LANGUAGE);
-        assertEquals(datePicker.getLanguage(), LANGUAGE);
+    public void testLanguage() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        final DatePickerLanguage DANISH = DatePickerLanguage.DA;
+
+        // when / then
+        datePicker.setLanguage(DANISH);
+        assertEquals(DANISH, datePicker.getLanguage());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        datePicker.setLanguage(DANISH);
+        assertEquals(DANISH, datePicker.getLanguage());
     }
 
-    public <T extends MaterialDatePicker> void checkOrientation(T datePicker) {
+    public void testOrientation() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
+        datePicker.setOrientation(Orientation.LANDSCAPE);
+        assertEquals(Orientation.LANDSCAPE, datePicker.getOrientation());
+        datePicker.setOrientation(Orientation.PORTRAIT);
+        assertEquals(Orientation.PORTRAIT, datePicker.getOrientation());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
         JsMaterialElement element = $(datePicker.pickatizedDateInput).pickadate("picker");
         datePicker.setOrientation(Orientation.LANDSCAPE);
-        assertEquals(datePicker.getOrientation(), Orientation.LANDSCAPE);
         assertTrue(element.root.hasClass(Orientation.LANDSCAPE.getCssName()));
         datePicker.setOrientation(Orientation.PORTRAIT);
-        assertEquals(datePicker.getOrientation(), Orientation.PORTRAIT);
         assertTrue(element.root.hasClass(Orientation.PORTRAIT.getCssName()));
     }
 
-    public <T extends MaterialDatePicker> void checkSelectionType(T datePicker) {
+    public void testSelectionType() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.DAY);
-        assertEquals(datePicker.getSelectionType(), MaterialDatePicker.MaterialDatePickerType.DAY);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.DAY, datePicker.getSelectionType());
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR_MONTH_DAY);
-        assertEquals(datePicker.getSelectionType(), MaterialDatePicker.MaterialDatePickerType.YEAR_MONTH_DAY);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.YEAR_MONTH_DAY, datePicker.getSelectionType());
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.MONTH_DAY);
-        assertEquals(datePicker.getSelectionType(), MaterialDatePicker.MaterialDatePickerType.MONTH_DAY);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.MONTH_DAY, datePicker.getSelectionType());
         datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR);
-        assertEquals(datePicker.getSelectionType(), MaterialDatePicker.MaterialDatePickerType.YEAR);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.YEAR, datePicker.getSelectionType());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.DAY);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.DAY, datePicker.getSelectionType());
+        datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR_MONTH_DAY);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.YEAR_MONTH_DAY, datePicker.getSelectionType());
+        datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.MONTH_DAY);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.MONTH_DAY, datePicker.getSelectionType());
+        datePicker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.YEAR);
+        assertEquals(MaterialDatePicker.MaterialDatePickerType.YEAR, datePicker.getSelectionType());
     }
 
+    public void testYearsToDisplay() {
+        // UiBinder
+        // given
+        MaterialDatePicker picker = getWidget(false);
+
+        // when / then
+        picker.setYearsToDisplay(10);
+        assertEquals(10, picker.getYearsToDisplay());
+        picker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.DAY, 20);
+        assertEquals(20, picker.getYearsToDisplay());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        picker.setYearsToDisplay(10);
+        assertEquals(10, picker.getYearsToDisplay());
+        picker.setSelectionType(MaterialDatePicker.MaterialDatePickerType.DAY, 20);
+        assertEquals(20, picker.getYearsToDisplay());
+    }
+
+    @Override
+    public void testTabIndex() {
+        MaterialDatePicker datePicker = getWidget();
+        super.checkTabIndex(datePicker.getDateInput());
+    }
 }

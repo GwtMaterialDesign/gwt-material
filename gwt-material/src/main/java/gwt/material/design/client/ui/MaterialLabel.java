@@ -20,11 +20,8 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HasText;
-import gwt.material.design.client.base.HasFontSize;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.FontSizeMixin;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
@@ -44,10 +41,9 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="https://material.io/guidelines/style/typography.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialLabel extends MaterialWidget implements HasFontSize, HasText {
+public class MaterialLabel extends AbstractValueWidget<String> implements HasText {
 
-    private final TextMixin<MaterialLabel> textMixin = new TextMixin<>(this);
-    private final FontSizeMixin<MaterialLabel> fontSizeMixin = new FontSizeMixin<>(this);
+    private TextMixin<MaterialLabel> textMixin;
 
     public MaterialLabel() {
         super(Document.get().createSpanElement(), CssName.MATERIAL_LABEL);
@@ -64,27 +60,30 @@ public class MaterialLabel extends MaterialWidget implements HasFontSize, HasTex
     }
 
     @Override
-    public void setFontSize(String fontSize) {
-        fontSizeMixin.setFontSize(fontSize);
-    }
-
-    @Override
-    public String getFontSize() {
-        return fontSizeMixin.getFontSize();
-    }
-
-    @Override
-    public void setFontSize(double fontSize, Unit unit) {
-        fontSizeMixin.setFontSize(fontSize, unit);
-    }
-
-    @Override
     public String getText() {
-        return textMixin.getText();
+        return getValue();
     }
 
     @Override
     public void setText(String text) {
-        textMixin.setText(text);
+        setValue(text, true);
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        getTextMixin().setText(value);
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
+        return getTextMixin().getText();
+    }
+
+    protected TextMixin<MaterialLabel> getTextMixin() {
+        if (textMixin == null) {
+            textMixin = new TextMixin<>(this);
+        }
+        return textMixin;
     }
 }

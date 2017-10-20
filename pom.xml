@@ -6,7 +6,7 @@
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.0-rc6</version>
+    <version>2.0-rc7</version>
 
     <modules>
         <module>gwt-material</module>
@@ -62,7 +62,7 @@
         <connection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</connection>
         <developerConnection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</developerConnection>
         <url>http://github.com/GwtMaterialDesign/gwt-material</url>
-        <tag>v2.0-rc6</tag>
+        <tag>v2.0-rc7</tag>
     </scm>
 
     <licenses>
@@ -145,6 +145,27 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>Jar Package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>Jar Tests Package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.3</version>
                 <configuration>
@@ -193,6 +214,12 @@
                             <id>attach-sources</id>
                             <goals>
                                 <goal>jar</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>attach-test-jar</id>
+                            <goals>
+                                <goal>test-jar</goal>
                             </goals>
                         </execution>
                     </executions>

@@ -33,13 +33,12 @@ import gwt.material.design.client.ui.html.Span;
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
         HasTargetHistoryToken, HasType<ButtonType> {
 
-    private final ActivatesMixin<AbstractButton> activatesMixin = new ActivatesMixin<>(this);
-    private final CssTypeMixin<ButtonType, AbstractButton> cssTypeMixin = new CssTypeMixin<>(this);
-
+    private String targetHistoryToken;
     private Span span = new Span();
     private ButtonSize size;
 
-    private String targetHistoryToken;
+    private ActivatesMixin<AbstractButton> activatesMixin;
+    private CssTypeMixin<ButtonType, AbstractButton> typeMixin;
 
     /**
      * Creates button with RAISED type.
@@ -105,23 +104,23 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     @Override
     public void setActivates(String activates) {
         removeStyleName(getActivates() + " " + CssName.DROPDOWN_BUTTON);
-        activatesMixin.setActivates(activates);
+        getActivatesMixin().setActivates(activates);
         addStyleName(activates + " " + CssName.DROPDOWN_BUTTON);
     }
 
     @Override
     public String getActivates() {
-        return activatesMixin.getActivates();
+        return getActivatesMixin().getActivates();
     }
 
     @Override
     public void setType(ButtonType type) {
-        cssTypeMixin.setType(type);
+        getTypeMixin().setType(type);
     }
 
     @Override
     public ButtonType getType() {
-        return cssTypeMixin.getType();
+        return getTypeMixin().getType();
     }
 
     /**
@@ -191,5 +190,19 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     public Span getSpan() {
         return span;
+    }
+
+    protected ActivatesMixin<AbstractButton> getActivatesMixin() {
+        if (activatesMixin == null) {
+            activatesMixin = new ActivatesMixin<>(this);
+        }
+        return activatesMixin;
+    }
+
+    protected CssTypeMixin<ButtonType, AbstractButton> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
     }
 }

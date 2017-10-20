@@ -17,17 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.base.viewport;
 
-import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import gwt.material.design.client.ui.MaterialImage;
+/**
+ * @author Ben
+ */
+public class ViewPortChange extends ViewPortRect {
 
-public class MaterialImageCell extends AbstractCell<MaterialImage> {
+    private Boundary boundary;
 
-    @Override
-    public void render(com.google.gwt.cell.client.Cell.Context context,
-                       MaterialImage value, SafeHtmlBuilder sb) {
-        sb.appendHtmlConstant(value.getElement().getString());
+    public ViewPortChange(int width, int height, Boundary boundary) {
+        super(width, height);
+        this.boundary = boundary;
+    }
+
+    public Boundary getBoundary() {
+        return boundary;
     }
 }

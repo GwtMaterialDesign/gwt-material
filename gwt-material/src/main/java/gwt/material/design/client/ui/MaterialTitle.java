@@ -21,6 +21,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasTitle;
 import gwt.material.design.client.constants.HeadingSize;
 import gwt.material.design.client.ui.html.Div;
@@ -45,14 +47,10 @@ import gwt.material.design.client.ui.html.Paragraph;
  * @author Ben Dol
  */
 //@formatter:on
-public class MaterialTitle extends Div implements HasTitle {
+public class MaterialTitle extends AbstractValueWidget<String> implements HasTitle {
 
     private Heading header = new Heading(HeadingSize.H4);
     private Paragraph paragraph = new Paragraph();
-
-    public MaterialTitle() {
-        build();
-    }
 
     public MaterialTitle(String title, String description) {
         this();
@@ -65,8 +63,14 @@ public class MaterialTitle extends Div implements HasTitle {
         setTitle(title);
     }
 
+    public MaterialTitle() {
+        super(DOM.createDiv());
+    }
+
     @Override
-    protected void build() {
+    protected void onLoad() {
+        super.onLoad();
+
         header.setFontWeight(300);
         header.getElement().getStyle().setMarginTop(60, Unit.PX);
         add(header);
@@ -80,7 +84,12 @@ public class MaterialTitle extends Div implements HasTitle {
 
     @Override
     public void setTitle(String title) {
-        header.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(title));
+        setValue(title, true);
+    }
+
+    @Override
+    public String getTitle() {
+        return getValue();
     }
 
     public Heading getHeader() {
@@ -89,5 +98,16 @@ public class MaterialTitle extends Div implements HasTitle {
 
     public Paragraph getParagraph() {
         return paragraph;
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        header.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(value));
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
+        return header.getElement().getInnerHTML();
     }
 }

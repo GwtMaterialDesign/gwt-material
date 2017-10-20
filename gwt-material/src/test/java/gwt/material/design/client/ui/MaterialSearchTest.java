@@ -19,54 +19,121 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.SearchObject;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.InputType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Test case for Search
+ * Test case for Search.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialSearchTest extends MaterialValueBoxTest {
+public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
 
-    public void init() {
+    static final List<SearchObject> SEARCH_OBJECTS = new ArrayList<>();
+
+    @Override
+    protected MaterialSearch createWidget() {
         MaterialSearch search = new MaterialSearch();
-        RootPanel.get().add(search);
-        checkStructure(search);
-        checkSearchEvents(search);
-        checkCloseHandler(search);
-        checkValueBox(search);
-        checkValueChangeEvent(search, "Value 1", "Value 2");
-    }
 
-    public <T extends MaterialSearch> void checkStructure(T search) {
-        assertEquals(search.getType(), InputType.SEARCH);
-        assertEquals(search.getChildren().size(), 4);
-
-        assertEquals(search.getWidget(0), search.getValueBoxBase());
-        assertEquals(search.getWidget(1), search.getLabel());
-        assertEquals(search.getWidget(2), search.getIconClose());
-        assertEquals(search.getWidget(3), search.getSearchResultPanel());
-
-        search.onLoad();
-        MaterialSearchResult searchResultWidget = search.getSearchResultPanel();
-        assertNotNull(searchResultWidget);
-
-        List<SearchObject> objects = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             SearchObject obj = new SearchObject();
             obj.setKeyword("keyword" + i);
             obj.setLink("link" + i);
-            objects.add(obj);
+            SEARCH_OBJECTS.add(obj);
         }
 
-        // Expected result by default 0
-        search.setListSearches(objects);
-        assertEquals(objects.size(), search.getListSearches().size());
-        assertEquals(searchResultWidget.getChildren().size(), 0);
+        search.setListSearches(SEARCH_OBJECTS);
+        return search;
+    }
+
+    @Override
+    public void testValue() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        search.setValue("test");
+        assertEquals("test", search.getValue());
+    }
+
+    public void testStructure() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        search.open();
+        assertEquals(InputType.SEARCH, search.getType());
+        assertEquals(4, search.getChildren().size());
+
+        assertEquals(search.getValueBoxBase(), search.getWidget(0));
+        assertEquals(search.getLabel(), search.getWidget(1));
+        assertEquals(search.getIconClose(), search.getWidget(2));
+        assertEquals(search.getSearchResultPanel(), search.getWidget(3));
+
+        MaterialSearchResult searchResultWidget = search.getSearchResultPanel();
+        assertNotNull(searchResultWidget);
+
+        assertEquals(SEARCH_OBJECTS.size(), search.getListSearches().size());
+        assertEquals(0, searchResultWidget.getChildren().size());
+    }
+
+    public void testEmptySearchResult() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        assertNotSame(0, search.getListSearches().size());
+        search.open();
+        search.setValue("noresult");
+        assertEquals("noresult", search.getValue());
+        MaterialSearchResult searchResult = search.getSearchResultPanel();
+        assertEquals(0, searchResult.getChildren().size());
+    }
+
+    public void testValueChangeEvent() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        checkValueChangeEvent(search, "Value 1", "Value 2");
+    }
+
+    public void testActiveState() {
+        // given
+        MaterialSearch search = getWidget();
+
+        // when / then
+        search.setActive(true);
+        assertNotNull(search.getIconClose());
+        assertNotNull(search.getIconSearch());
+
+        assertEquals(Color.BLACK, search.getIconClose().getIconColorMixin().getTextColor());
+        assertEquals(Color.BLACK, search.getIconSearch().getIconColorMixin().getTextColor());
+        search.setActive(false);
+        assertEquals(Color.WHITE, search.getIconClose().getIconColorMixin().getTextColor());
+        assertEquals(Color.WHITE, search.getIconSearch().getIconColorMixin().getTextColor());
+
+        // when / then
+        search.open();
+        assertTrue(search.isActive());
+        checkOpenHandler(search);
+
+        search.close();
+        assertFalse(search.isActive());
+        checkCloseHandler(search);
+    }
+
+    @Override
+    public void testFieldErrorSuccess() {
+        // given
+        MaterialSearch widget = getWidget();
+
+        // when / then
+        checkFieldErrorSuccess(widget, widget.getErrorLabel());
     }
 }

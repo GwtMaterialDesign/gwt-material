@@ -66,12 +66,13 @@ import gwt.material.design.client.ui.html.Div;
 //@formatter:on
 public class MaterialLoader {
 
-    private Div div = new Div();
     private static MaterialLoader loader = new MaterialLoader(LoaderType.CIRCULAR);
+
+    private boolean scrollDisabled;
+    private Div div = new Div();
     private MaterialPreLoader preLoader = new MaterialPreLoader();
     private MaterialProgress progress = new MaterialProgress();
     private Panel container = RootPanel.get();
-    private boolean scrollDisabled;
     private LoaderType type = LoaderType.CIRCULAR;
 
     public MaterialLoader(LoaderType type) {
@@ -132,17 +133,17 @@ public class MaterialLoader {
     /**
      * Static helper class that shows / hides a circular loader
      */
-    public static void showLoading(boolean isShow) {
-        showLoading(isShow, RootPanel.get());
+    public static void loading(boolean visible) {
+        loading(visible, RootPanel.get());
     }
 
     /**
      * Static helper class that shows / hides a circular loader within a container
      */
-    public static void showLoading(boolean isShow, Panel container) {
+    public static void loading(boolean visible, Panel container) {
         loader.setType(LoaderType.CIRCULAR);
         loader.setContainer(container);
-        if (isShow) {
+        if (visible) {
             loader.show();
         } else {
             loader.hide();
@@ -152,17 +153,17 @@ public class MaterialLoader {
     /**
      * Static helper class that shows / hides a progress loader
      */
-    public static void showProgress(boolean isShow) {
-        showProgress(isShow, RootPanel.get());
+    public static void progress(boolean visible) {
+        progress(visible, RootPanel.get());
     }
 
     /**
      * Static helper class that shows / hides a progress loader within a container
      */
-    public static void showProgress(boolean isShow, Panel container) {
+    public static void progress(boolean visible, Panel container) {
         loader.setType(LoaderType.PROGRESS);
         loader.setContainer(container);
-        if (isShow) {
+        if (visible) {
             loader.show();
         } else {
             loader.hide();
@@ -179,7 +180,7 @@ public class MaterialLoader {
     /**
      * Set the type of the MaterialLoader
      *
-     * @type There are two types of Loader (CIRCULAR and PROGRESS Loaders)
+     * @param type There are two types of Loader (CIRCULAR and PROGRESS)
      */
     public void setType(LoaderType type) {
         this.type = type;

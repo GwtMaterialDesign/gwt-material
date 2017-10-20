@@ -17,20 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.events;
 
-import com.google.gwt.dom.client.Element;
+public interface HasHandlerRegistry {
 
-/**
- * @deprecated Please use {@link MaterialWidget} instead.
- */
-@Deprecated
-public class ComplexWidget extends MaterialWidget {
-
-    public ComplexWidget() {
-    }
-
-    public ComplexWidget(Element element) {
-        super(element);
-    }
+    HandlerRegistry getHandlerRegistry();
 }

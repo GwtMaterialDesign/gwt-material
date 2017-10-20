@@ -52,9 +52,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialPushpin {
 
     private Widget widget;
-    private Double offset;
-    private Double top;
-    private Double bottom;
+    private JsPushpinOptions options = new JsPushpinOptions();
 
     public MaterialPushpin() {}
 
@@ -63,10 +61,6 @@ public class MaterialPushpin {
      */
     public void apply() {
         Scheduler.get().scheduleDeferred(() -> {
-            JsPushpinOptions options = new JsPushpinOptions();
-            options.top = (top != null) ? top : 0;
-            options.offset = (offset != null) ? offset : 0;
-            options.bottom = (bottom != null) ? bottom : "Infinity";
             if (widget != null) {
                 $(widget.getElement()).pushpin(options);
             } else {
@@ -134,14 +128,14 @@ public class MaterialPushpin {
      * Get the offset from the top the element will be fixd at.
      */
     public Double getOffset() {
-        return offset;
+        return options.offset;
     }
 
     /**
      * Set the offset from the top the element will be fixed at. (Default: 0)
      */
     public void setOffset(Double offset) {
-        this.offset = offset;
+        options.offset = (offset != null) ? offset : 0;
     }
 
     /**
@@ -149,27 +143,31 @@ public class MaterialPushpin {
      * @return
      */
     public Double getTop() {
-        return top;
+        return options.top;
     }
 
     /**
      * Set the distance in pixels from the top of the page where the element becomes fixed. (Default: 0)
      */
     public void setTop(Double top) {
-        this.top = top;
+        options.top = (top != null) ? top : 0;
     }
 
     /**
      * Get the distance in pixels from the top of the page where the elements stops being fixed. (Default: Infinity)
      */
     public Double getBottom() {
-        return bottom;
+        return options.bottom;
     }
 
     /**
      * Set the distance in pixels from the top of the page where the elements stops being fixed. (Default: Infinity)
      */
     public void setBottom(Double bottom) {
-        this.bottom = bottom;
+        // Avoid overriding the bottom property if it's null,
+        // as it takes "Infinity" as the default value
+        if (bottom != null) {
+            options.bottom = bottom;
+        }
     }
 }

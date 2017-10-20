@@ -25,13 +25,12 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DOMHelper;
-import gwt.material.design.client.base.mixin.ActiveMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
@@ -67,20 +66,20 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_fixed">Pattern</a>
  */
 //@formatter:on
-public class MaterialSideNav extends MaterialWidget implements HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
+public class MaterialSideNav extends MaterialWidget implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
 
     private int width = 240;
-    private Edge edge = Edge.LEFT;
-    private boolean closeOnClick = false;
-    private boolean alwaysShowActivator = true;
-    private boolean allowBodyScroll = true;
-    private boolean open;
-    private Boolean showOnAttach;
-    private Element activator;
     private int inDuration = 400;
     private int outDuration = 200;
+    private boolean open;
+    private boolean closeOnClick;
+    private boolean alwaysShowActivator = true;
+    private boolean allowBodyScroll = true;
+    private Edge edge = Edge.LEFT;
+    private Boolean showOnAttach;
+    private Element activator;
 
-    private final StyleMixin<MaterialSideNav> typeMixin = new StyleMixin<>(this);
+    private StyleMixin<MaterialSideNav> typeMixin;
 
     /**
      * Container for App Toolbar and App Sidebar , contains Material Links,
@@ -107,32 +106,35 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        load();
+
+        if (showOnAttach != null) {
+            // Ensure the side nav starts closed
+            $(activator).trigger("menu-in", null);
+
+            if (showOnAttach) {
+                Scheduler.get().scheduleDeferred(() -> {
+                    // We are ignoring cases with mobile
+                    if (Window.getClientWidth() > 960) {
+                        show();
+                    }
+                });
+            }
+        } else {
+            if (Window.getClientWidth() > 960) {
+                $(activator).trigger("menu-out", null);
+            }
+        }
+    }
+
+    @Override
     protected void onUnload() {
         super.onUnload();
 
-        $("#sidenav-overlay").remove();
-        activator = null;
-    }
-
-
-    @Override
-    public HandlerRegistration addOpeningHandler(SideNavOpeningHandler handler) {
-        return addHandler(handler, SideNavOpeningEvent.TYPE);
-    }
-
-    @Override
-    public HandlerRegistration addOpenedHandler(SideNavOpenedHandler handler) {
-        return addHandler(handler, SideNavOpenedEvent.TYPE);
-    }
-
-    @Override
-    public HandlerRegistration addClosingHandler(SideNavClosingHandler handler) {
-        return addHandler(handler, SideNavClosingEvent.TYPE);
-    }
-
-    @Override
-    public HandlerRegistration addClosedHandler(SideNavClosedHandler handler) {
-        return addHandler(handler, SideNavClosedEvent.TYPE);
+        unload();
     }
 
     public Widget wrap(Widget child) {
@@ -176,10 +178,10 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
         final Widget finalChild = child;
         if (!isNotSelectable) {
             // Active click handler
-            finalChild.addDomHandler(event -> {
+            registerHandler(finalChild.addDomHandler(event -> {
                 clearActive();
                 finalChild.addStyleName(CssName.ACTIVE);
-            }, ClickEvent.getType());
+            }, ClickEvent.getType()));
         }
         child.getElement().getStyle().setDisplay(Style.Display.BLOCK);
         return child;
@@ -193,6 +195,178 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     @Override
     protected void insert(Widget child, com.google.gwt.user.client.Element container, int beforeIndex, boolean domInsert) {
         super.insert(wrap(child), container, beforeIndex, domInsert);
+    }
+
+    protected void pushElement(Element element, int value) {
+        applyTransition($(element).asElement());
+        if (getEdge() == Edge.RIGHT) {
+            $(element).css("paddingRight", value + "px");
+        } else {
+            $(element).css("paddingLeft", value + "px");
+        }
+
+    }
+
+    protected void pushElementMargin(Element element, int value) {
+        applyTransition($(element).asElement());
+        if (getEdge() == Edge.LEFT) {
+            $(element).css("margin-left", value + "px");
+        } else {
+            $(element).css("margin-right", value + "px");
+        }
+    }
+
+    protected void applyBodyScroll() {
+        if (isAllowBodyScroll()) {
+            $("header").css("width", "100%");
+            $("header").css("position", "fixed");
+            $("header").css("zIndex", "997");
+            $(getElement()).css("position", "fixed");
+        }
+    }
+
+    protected void applyTransition(Element element) {
+        applyTransition(element, "all");
+    }
+
+    protected void applyTransition(Element element, String property) {
+        int duration;
+        if (isOpen()) {
+            duration = inDuration;
+        } else {
+            duration = outDuration;
+        }
+        if (element != null) {
+            setTransition(new TransitionConfig(element, duration, 0, property, "cubic-bezier(0, 0, 0.2, 1)"));
+        }
+    }
+
+    @Override
+    public void clearActive() {
+        clearActiveClass(this);
+        ClearActiveEvent.fire(this);
+    }
+
+    public void setActive(int index) {
+        clearActive();
+        getWidget(index).addStyleName(CssName.ACTIVE);
+    }
+
+    @Override
+    public void load() {
+        load(true);
+    }
+
+    @Override
+    public void unload() {
+        $("#sidenav-overlay").remove();
+        activator = null;
+    }
+
+    /**
+     * Reinitialize the side nav configurations when changing properties.
+     */
+    @Override
+    public void reload() {
+        unload();
+        load(false);
+    }
+
+    protected void load(boolean strict) {
+        try {
+            activator = DOMHelper.getElementByAttribute("data-activates", getId());
+            getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
+            if (alwaysShowActivator && !getTypeMixin().getStyle().equals(SideNavType.FIXED.getCssName())) {
+                getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
+            } else {
+                getNavMenu().setHideOn(HideOn.HIDE_ON_LARGE);
+            }
+            getNavMenu().removeStyleName(CssName.NAVMENU_PERMANENT);
+        } catch (Exception ex) {
+            if (strict) {
+                throw new IllegalArgumentException(
+                    "Could not setup MaterialSideNav please ensure you have " +
+                    "MaterialNavBar with an activator setup to match this widgets id.", ex);
+            }
+        }
+
+        setup();
+
+        JsSideNavOptions options = new JsSideNavOptions();
+        options.menuWidth = width;
+        options.edge = edge != null ? edge.getCssName() : null;
+        options.closeOnClick = closeOnClick;
+
+        JsMaterialElement element = $(activator);
+        element.sideNav(options);
+
+        element.off("side-nav-closing");
+        element.on("side-nav-closing", e1 -> {
+            onClosing();
+            return true;
+        });
+
+        element.off("side-nav-closed");
+        element.on("side-nav-closed", e1 -> {
+            onClosed();
+            return true;
+        });
+
+        element.off("side-nav-opening");
+        element.on("side-nav-opening", e1 -> {
+            onOpening();
+            return true;
+        });
+
+        element.off("side-nav-opened");
+        element.on("side-nav-opened", e1 -> {
+            onOpened();
+            return true;
+        });
+    }
+
+    /**
+     * Override the type of your sidenav.
+     * Used by {@link MaterialSideNavDrawer}, {@link MaterialSideNavCard}, {@link MaterialSideNavMini}, {@link MaterialSideNavPush}
+     */
+    protected void setup() {
+        setType(SideNavType.FIXED);
+        applyBodyScroll();
+
+        Scheduler.get().scheduleDeferred(() -> {
+            pushElement(getHeader(), this.width);
+            pushElement(getMain(), this.width);
+            pushElement(getFooter(), this.width);
+        });
+    }
+
+    @Override
+    protected void onDetach() {
+        super.onDetach();
+        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
+        getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
+        pushElement(getHeader(), 0);
+        pushElement(getMain(), 0);
+        pushElementMargin(getFooter(), 0);
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
+    }
+
+    protected Element getMain() {
+        return $("main").asElement();
+    }
+
+    protected Element getHeader() {
+        return $("header").asElement();
+    }
+
+    protected Element getFooter() {
+        return $("footer").asElement();
     }
 
     @Override
@@ -237,7 +411,7 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     protected void setType(SideNavType type) {
-        typeMixin.setStyle(type.getCssName());
+        getTypeMixin().setStyle(type.getCssName());
     }
 
     protected boolean isSmall() {
@@ -250,177 +424,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
             return new MaterialWidget(navMenuElement);
         }
         return null;
-    }
-
-    /**
-     * Provides a Fixed type sidenav which by default on desktop - activator will notbe visible
-     * but you can configure it by setting the property setAlwaysShowActivator() to true
-     */
-    protected void applyFixedType() {
-        setType(SideNavType.FIXED);
-        applyBodyScroll();
-
-        Scheduler.get().scheduleDeferred(() -> {
-            pushElement(getHeader(), this.width);
-            pushElement(getMain(), this.width);
-            pushElement(getFooter(), this.width);
-        });
-    }
-
-    protected void pushElement(Element element, int value) {
-        applyTransition($(element).asElement());
-        if (getEdge() == Edge.RIGHT) {
-            $(element).css("paddingRight", value + "px");
-        } else {
-            $(element).css("paddingLeft", value + "px");
-        }
-
-    }
-
-    protected void pushElementMargin(Element element, int value) {
-        applyTransition($(element).asElement());
-        if (getEdge() == Edge.LEFT) {
-            $(element).css("margin-left", value + "px");
-        } else {
-            $(element).css("margin-right", value + "px");
-        }
-    }
-
-    protected void applyBodyScroll() {
-        if (isAllowBodyScroll()) {
-            $("header").css("width", "100%");
-            $("header").css("position", "fixed");
-            $("header").css("zIndex", "997");
-            $(getElement()).css("position", "fixed");
-        }
-    }
-
-    protected Element getMain() {
-        return $("main").asElement();
-    }
-
-    protected Element getHeader() {
-        return $("header").asElement();
-    }
-
-    protected Element getFooter() {
-        return $("footer").asElement();
-    }
-
-    protected void applyTransition(Element element) {
-        applyTransition(element, "all");
-    }
-
-    protected void applyTransition(Element element, String property) {
-        int duration;
-        if (isOpen()) {
-            duration = inDuration;
-        } else {
-            duration = outDuration;
-        }
-        if (element != null) {
-            setTransition(new TransitionConfig(element, duration, 0, property, "cubic-bezier(0, 0, 0.2, 1)"));
-        }
-    }
-
-    @Override
-    public void clearActive() {
-        clearActiveClass(this);
-        ClearActiveEvent.fire(this);
-    }
-
-    public void setActive(int index) {
-        clearActive();
-        getWidget(index).addStyleName(CssName.ACTIVE);
-    }
-
-    @Override
-    protected void build() {
-        applyFixedType();
-    }
-
-    /**
-     * Reinitialize the side nav configurations when changing
-     * properties.
-     */
-    @Override
-    public void reinitialize() {
-        activator = null;
-        initialize(false);
-    }
-
-    @Override
-    protected void initialize() {
-        initialize(true);
-
-        if (showOnAttach != null) {
-            // Ensure the side nav starts closed
-            $(activator).trigger("menu-in", null);
-
-            if (showOnAttach) {
-                Scheduler.get().scheduleDeferred(() -> {
-                    // We are ignoring cases with mobile
-                    if (Window.getClientWidth() > 960) {
-                        show();
-                    }
-                });
-            }
-        } else {
-            if (Window.getClientWidth() > 960) {
-                $(activator).trigger("menu-out", null);
-            }
-        }
-    }
-
-    protected void initialize(boolean strict) {
-        try {
-            activator = DOMHelper.getElementByAttribute("data-activates", getId());
-            getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (alwaysShowActivator && !typeMixin.getStyle().equals(SideNavType.FIXED.getCssName())) {
-                getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
-            } else {
-                getNavMenu().setHideOn(HideOn.HIDE_ON_LARGE);
-            }
-            getNavMenu().removeStyleName(CssName.NAVMENU_PERMANENT);
-        } catch (Exception ex) {
-            if (strict) {
-                throw new IllegalArgumentException("Could not setup MaterialSideNav please ensure you have MaterialNavBar with an activator setup to match this widgets id.");
-            }
-        }
-
-        build();
-
-        JsSideNavOptions options = new JsSideNavOptions();
-        options.menuWidth = width;
-        options.edge = edge != null ? edge.getCssName() : null;
-        options.closeOnClick = closeOnClick;
-
-        JsMaterialElement element = $(activator);
-        element.sideNav(options);
-
-        element.off("side-nav-closing");
-        element.on("side-nav-closing", e1 -> {
-            onClosing();
-            return true;
-        });
-
-        element.off("side-nav-closed");
-        element.on("side-nav-closed", e1 -> {
-            onClosed();
-            return true;
-        });
-
-        element.off("side-nav-opening");
-        element.on("side-nav-opening", e1 -> {
-            onOpening();
-            return true;
-        });
-
-        element.off("side-nav-opened");
-        element.on("side-nav-opened", e1 -> {
-            onOpened();
-            return true;
-        });
     }
 
     protected void onClosing() {
@@ -522,24 +525,6 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
     }
 
     @Override
-    protected void onDetach() {
-        super.onDetach();
-        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
-        getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
-        getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
-        pushElement(getHeader(), 0);
-        pushElement(getMain(), 0);
-        pushElementMargin(getFooter(), 0);
-    }
-
-    @Override
-    protected void onAttach() {
-        super.onAttach();
-        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
-    }
-
-
-    @Override
     public void setInDuration(int inDuration) {
         this.inDuration = inDuration;
     }
@@ -561,5 +546,32 @@ public class MaterialSideNav extends MaterialWidget implements HasSelectables, H
 
     public Element getActivator() {
         return activator;
+    }
+
+    @Override
+    public HandlerRegistration addOpeningHandler(SideNavOpeningHandler handler) {
+        return addHandler(handler, SideNavOpeningEvent.TYPE);
+    }
+
+    @Override
+    public HandlerRegistration addOpenedHandler(SideNavOpenedHandler handler) {
+        return addHandler(handler, SideNavOpenedEvent.TYPE);
+    }
+
+    @Override
+    public HandlerRegistration addClosingHandler(SideNavClosingHandler handler) {
+        return addHandler(handler, SideNavClosingEvent.TYPE);
+    }
+
+    @Override
+    public HandlerRegistration addClosedHandler(SideNavClosedHandler handler) {
+        return addHandler(handler, SideNavClosedEvent.TYPE);
+    }
+
+    protected StyleMixin<MaterialSideNav> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new StyleMixin<>(this);
+        }
+        return typeMixin;
     }
 }

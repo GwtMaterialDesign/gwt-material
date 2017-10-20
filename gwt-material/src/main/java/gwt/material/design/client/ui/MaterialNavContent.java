@@ -26,7 +26,7 @@ import gwt.material.design.client.constants.CssName;
 //@formatter:off
 
 /**
- * MaterilaNavContent is a child of {@link MaterialNavBar} that provides an area wherein
+ * MaterialNavContent is a child of {@link MaterialNavBar} that provides an area wherein
  * we can attach any widget to be placed in this extension panel.
  * <p>
  * <h3>UiBinder Usage:</h3>

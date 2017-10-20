@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CssName;
 
 /**
@@ -35,6 +34,8 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     private static final String DISABLED = "disabled";
 
     private HandlerRegistration handler;
+
+    private boolean propagateToChildren;
 
     public EnabledMixin(final T widget) {
         super(widget);
@@ -74,10 +75,14 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     public void setEnabled(MaterialWidget widget, boolean enabled) {
         setEnabled(enabled);
-        for (Widget child : widget.getChildren()) {
-            if (child instanceof MaterialWidget) {
-                ((MaterialWidget) child).setEnabled(enabled);
-                setEnabled((MaterialWidget) child, enabled);
+
+        if(isPropagateToChildren()) {
+            for (Widget child : widget.getChildren()) {
+                if (child instanceof MaterialWidget) {
+                    ((MaterialWidget) child).setEnabled(enabled);
+                } else if (child instanceof HasEnabled) {
+                    ((HasEnabled) child).setEnabled(enabled);
+                }
             }
         }
     }
@@ -90,5 +95,13 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
             obj.addStyleName(CssName.DISABLED);
             obj.getElement().setAttribute(DISABLED, "");
         }
+    }
+
+    public boolean isPropagateToChildren() {
+        return propagateToChildren;
+    }
+
+    public void setPropagateToChildren(boolean propagateToChildren) {
+        this.propagateToChildren = propagateToChildren;
     }
 }

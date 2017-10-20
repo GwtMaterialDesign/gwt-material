@@ -22,12 +22,9 @@ package gwt.material.design.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasActiveParent;
-import gwt.material.design.client.base.HasNoSideNavSelection;
-import gwt.material.design.client.base.HasType;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.constants.CssName;
@@ -94,7 +91,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/expansion-panels.html#expansion-panels-behavior">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends MaterialWidget implements HasType<CollapsibleType>, HasActiveParent, HasNoSideNavSelection {
+public class MaterialCollapsible extends MaterialWidget implements JsLoader, HasType<CollapsibleType>, HasActiveParent, HasNoSideNavSelection, HasClearActiveHandler {
 
     protected interface HasCollapsibleParent {
         void setParent(MaterialCollapsible parent);
@@ -103,11 +100,9 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     private boolean accordion = true;
     private int activeIndex = -1;
     private Widget activeWidget;
-    private final CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin = new CssTypeMixin<>(this);
 
-    /**
-     * Creates an empty collapsible
-     */
+    private CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin;
+
     public MaterialCollapsible() {
         super(Document.get().createULElement(), CssName.COLLAPSIBLE);
 
@@ -116,9 +111,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
         enableFeature(Feature.ONLOAD_ADD_QUEUE, true);
     }
 
-    /**
-     * Creates a list and adds the given widgets.
-     */
     public MaterialCollapsible(final MaterialCollapsibleItem... widgets) {
         this();
 
@@ -131,25 +123,26 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
     protected void onLoad() {
         super.onLoad();
 
-        build();
-    }
-
-    @Override
-    protected void build() {
-        // Setup the expansion type
-        getElement().setAttribute("data-collapsible", isAccordion() ? CssName.ACCORDION : CssName.EXPANDABLE);
-
-        // Activate preset activation index
         if (activeIndex != -1 && activeWidget == null) {
             setActive(activeIndex);
         }
+
+        load();
     }
 
     @Override
-    protected void initialize() {
-        // Initialize collapsible after all elements
-        // are attached and marked as active, etc.
-        collapsible(getElement(), accordion);
+    public void load() {
+        collapsible(getElement());
+    }
+
+    @Override
+    public void unload() {
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
     @Override
@@ -168,82 +161,6 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
         w.removeStyleName(CssName.ACTIVE);
 
         return super.remove(w);
-    }
-
-    @Override
-    public void setType(CollapsibleType type) {
-        typeMixin.setType(type);
-    }
-
-    @Override
-    public CollapsibleType getType() {
-        return typeMixin.getType();
-    }
-
-    /**
-     * Initialize the collapsible material component.
-     */
-    protected void collapsible() {
-        collapsible(getElement(), isAccordion());
-    }
-
-    protected void collapsible(final Element e, boolean accordion) {
-        $(e).collapsible(accordion);
-    }
-
-    /**
-     * Configure if you want this collapsible container to
-     * accordion its child elements or use expandable.
-     */
-    public void setAccordion(boolean accordion) {
-        this.accordion = accordion;
-
-        if (isInitialize()) {
-            // Since we have attached already reinitialize collapsible.
-            collapsible();
-        }
-    }
-
-    /**
-     * Is the collapsible an 'accordion' type.
-     */
-    public boolean isAccordion() {
-        return accordion;
-    }
-
-    @Override
-    public void setActive(int index) {
-        clearActive();
-        setActive(index, true);
-    }
-
-    @Override
-    public void setActive(int index, boolean active) {
-        activeIndex = index;
-        if (isAttached()) {
-            if (index <= getWidgetCount()) {
-                if (index != 0) {
-                    activeWidget = getWidget(index - 1);
-                    if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
-                        ((MaterialCollapsibleItem) activeWidget).setActive(active);
-                        if (isInitialize()) {
-                            collapsible();
-                        }
-                    }
-                } else {
-                    GWT.log("The active index must be a one-base index to mark as active.", new IndexOutOfBoundsException());
-                }
-            }
-        }
-    }
-
-    @Override
-    public Widget getActive() {
-        try {
-            return activeWidget;
-        } catch (IndexOutOfBoundsException ex) {
-            return null;
-        }
     }
 
     @Override
@@ -275,17 +192,86 @@ public class MaterialCollapsible extends MaterialWidget implements HasType<Colla
      */
     public void closeAll() {
         clearActive();
-        if (isInitialize()) {
-            collapsible();
-        }
-    }
-
-    public HandlerRegistration addClearActiveHandler(final ClearActiveHandler handler) {
-        return addHandler(handler, ClearActiveEvent.TYPE);
+        reload();
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         getEnabledMixin().setEnabled(this, enabled);
+    }
+
+    @Override
+    public void setType(CollapsibleType type) {
+        getTypeMixin().setType(type);
+    }
+
+    @Override
+    public CollapsibleType getType() {
+        return getTypeMixin().getType();
+    }
+
+    protected void collapsible(final Element e) {
+        $(e).collapsible(isAccordion());
+    }
+
+    /**
+     * Configure if you want this collapsible container to
+     * accordion its child elements or use expandable.
+     */
+    public void setAccordion(boolean accordion) {
+        getElement().setAttribute("data-collapsible", accordion ? CssName.ACCORDION : CssName.EXPANDABLE);
+        reload();
+    }
+
+    /**
+     * Is the collapsible an 'accordion' type.
+     */
+    public boolean isAccordion() {
+        return getElement().getAttribute("data-collapsible").equals(CssName.ACCORDION);
+    }
+
+    @Override
+    public void setActive(int index) {
+        clearActive();
+        setActive(index, true);
+    }
+
+    @Override
+    public void setActive(int index, boolean active) {
+        activeIndex = index;
+        if (isAttached()) {
+            if (index <= getWidgetCount()) {
+                if (index != 0) {
+                    activeWidget = getWidget(index - 1);
+                    if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
+                        ((MaterialCollapsibleItem) activeWidget).setActive(active);
+                        reload();
+                    }
+                } else {
+                    GWT.log("The active index must be a one-base index to mark as active.", new IndexOutOfBoundsException());
+                }
+            }
+        }
+    }
+
+    @Override
+    public Widget getActive() {
+        try {
+            return activeWidget;
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public HandlerRegistration addClearActiveHandler(final ClearActiveHandler handler) {
+        return addHandler(handler, ClearActiveEvent.TYPE);
+    }
+
+    protected CssTypeMixin<CollapsibleType, MaterialCollapsible> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
     }
 }

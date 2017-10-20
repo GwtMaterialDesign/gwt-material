@@ -21,12 +21,18 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.event.logical.shared.HasCloseHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
+import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasImage;
 import gwt.material.design.client.base.HasLetter;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
@@ -56,21 +62,18 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/chips.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, HasLetter {
+public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter, HasValue<String>, HasCloseHandlers {
 
-    private MaterialIcon icon = new MaterialIcon();
+    private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
+    private MaterialImage image = new MaterialImage();
 
-    private ImageResource resource;
-    private Image image = new Image();
+    private ImageMixin<MaterialImage> imageMixin;
+    private LetterMixin<MaterialChip> letterMixin;
 
-    private final LetterMixin<MaterialChip> letterMixin = new LetterMixin<>(this);
-
-    /**
-     * Creates an empty chip.
-     */
     public MaterialChip() {
         super(Document.get().createDivElement(), CssName.CHIP);
+        add(chipLabel);
     }
 
     public MaterialChip(String text) {
@@ -99,50 +102,59 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
         this(text, Color.fromStyleName(bgColor), Color.fromStyleName(textColor));
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        registerHandler(icon.addClickHandler(clickEvent -> close()));
+    }
+
+    public void close() {
+        if (isAttached()) {
+            removeFromParent();
+            CloseEvent.fire(this, this);
+        }
+    }
+
     public void setText(String text) {
-        chipLabel.setText(text);
-        add(chipLabel);
+        setValue(text, true);
     }
 
     public String getText() {
+        return getValue();
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents) {
+        chipLabel.setText(value);
+        super.setValue(value, fireEvents);
+    }
+
+    @Override
+    public String getValue() {
         return chipLabel.getElement().getInnerText();
     }
 
     @Override
     public void setUrl(String url) {
-        image.setUrl(url);
+        getImageMixin().setUrl(url);
         add(image);
     }
 
     @Override
     public String getUrl() {
-        return image.getUrl();
+        return getImageMixin().getUrl();
     }
 
     @Override
     public void setResource(ImageResource resource) {
-        this.resource = resource;
-        image.setResource(resource);
+        getImageMixin().setResource(resource);
         add(image);
     }
 
     @Override
     public ImageResource getResource() {
-        return resource;
-    }
-
-    /**
-     * @return the image
-     */
-    public Image getImage() {
-        return image;
-    }
-
-    /**
-     * @param image the image to set
-     */
-    public void setImage(Image image) {
-        this.image = image;
+        return getImageMixin().getResource();
     }
 
     @Override
@@ -177,6 +189,11 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
     }
 
     @Override
+    public Color getIconColor() {
+        return icon.getIconColor();
+    }
+
+    @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
     }
@@ -188,29 +205,57 @@ public class MaterialChip extends MaterialWidget implements HasImage, HasIcon, H
 
     @Override
     public void setLetter(String letter) {
-        letterMixin.setLetter(letter);
+        getLetterMixin().setLetter(letter);
     }
 
     @Override
     public String getLetter() {
-        return letterMixin.getLetter();
+        return getLetterMixin().getLetter();
+    }
+
+    @Override
+    public Span getLetterLabel() {
+        return getLetterMixin().getLetterLabel();
     }
 
     @Override
     public void setLetterColor(Color letterColor) {
-        letterMixin.setLetterColor(letterColor);
+        getLetterMixin().setLetterColor(letterColor);
     }
 
     @Override
     public void setLetterBackgroundColor(Color letterBackgroundColor) {
-        letterMixin.setLetterBackgroundColor(letterBackgroundColor);
+        getLetterMixin().setLetterBackgroundColor(letterBackgroundColor);
     }
 
-    public LetterMixin<MaterialChip> getLetterMixin() {
-        return letterMixin;
+    public MaterialImage getImage() {
+        return image;
+    }
+
+    public void setImage(MaterialImage image) {
+        this.image = image;
     }
 
     public Span getChipLabel() {
         return chipLabel;
+    }
+
+    @Override
+    public HandlerRegistration addCloseHandler(CloseHandler closeHandler) {
+        return addHandler(closeHandler, CloseEvent.getType());
+    }
+
+    protected LetterMixin<MaterialChip> getLetterMixin() {
+        if (letterMixin == null) {
+            letterMixin = new LetterMixin<>(this);
+        }
+        return letterMixin;
+    }
+
+    protected ImageMixin<MaterialImage> getImageMixin() {
+        if (imageMixin == null) {
+            imageMixin = new ImageMixin<>(image);
+        }
+        return imageMixin;
     }
 }

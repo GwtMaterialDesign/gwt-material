@@ -19,30 +19,35 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.Alignment;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.client.ui.html.ListItem;
 
 /**
- * Test case for Dropdown
+ * Test case for Dropdown.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public class MaterialDropdownTest extends MaterialWidgetTest {
+public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
 
-    public void init() {
-        MaterialDropDown dropDown = new MaterialDropDown();
-        checkWidget(dropDown);
-        checkOptions(dropDown);
-        checkStructure(dropDown);
-        checkSelection(dropDown);
+    @Override
+    protected MaterialDropDown createWidget() {
+        return new MaterialDropDown();
     }
 
-    public <T extends MaterialDropDown> void checkOptions(T dropdown) {
+    @Override
+    public void testInitialClasses() {
+        checkInitialClasses(CssName.DROPDOWN_CONTENT);
+    }
+
+    public void testOptions() {
+        // given
+        MaterialDropDown dropdown = getWidget();
+
+        // when / then
         dropdown.setBelowOrigin(true);
         assertTrue(dropdown.isBelowOrigin());
         dropdown.setBelowOrigin(false);
@@ -54,12 +59,12 @@ public class MaterialDropdownTest extends MaterialWidgetTest {
         assertFalse(dropdown.isConstrainWidth());
 
         dropdown.setGutter(20);
-        assertEquals(dropdown.getGutter(), 20);
+        assertEquals(20, dropdown.getGutter());
 
         dropdown.setInDuration(100);
-        assertEquals(dropdown.getInDuration(), 100);
+        assertEquals(100, dropdown.getInDuration());
         dropdown.setOutDuration(100);
-        assertEquals(dropdown.getOutDuration(), 100);
+        assertEquals(100, dropdown.getOutDuration());
 
         dropdown.setHover(true);
         assertTrue(dropdown.isHover());
@@ -67,31 +72,64 @@ public class MaterialDropdownTest extends MaterialWidgetTest {
         assertFalse(dropdown.isHover());
 
         dropdown.setAlignment(Alignment.CENTER);
-        assertEquals(dropdown.getAlignment(), Alignment.CENTER);
+        assertEquals(Alignment.CENTER, dropdown.getAlignment());
         dropdown.setAlignment(Alignment.RIGHT);
-        assertEquals(dropdown.getAlignment(), Alignment.RIGHT);
+        assertEquals(Alignment.RIGHT, dropdown.getAlignment());
         dropdown.setAlignment(Alignment.LEFT);
-        assertEquals(dropdown.getAlignment(), Alignment.LEFT);
+        assertEquals(Alignment.LEFT, dropdown.getAlignment());
         dropdown.setAlignment(Alignment.DEFAULT);
-        assertEquals(dropdown.getAlignment(), Alignment.DEFAULT);
+        assertEquals(Alignment.DEFAULT, dropdown.getAlignment());
     }
 
-    public <T extends MaterialDropDown> void checkStructure(T dropdown) {
+    public void testStructure() {
+        // given
+        MaterialDropDown dropdown = getWidget();
+
+        // when / then
         final String ACTIVATOR = "dpActivator";
         MaterialLink link = new MaterialLink();
         link.setActivates(ACTIVATOR);
-        assertEquals(link.getActivates(), ACTIVATOR);
+        assertEquals(ACTIVATOR, link.getActivates());
         assertTrue(link.getElement().hasAttribute("data-activates"));
-        assertEquals(link.getElement().getAttribute("data-activates"), ACTIVATOR);
+        assertEquals(ACTIVATOR, link.getElement().getAttribute("data-activates"));
         RootPanel.get().add(link);
 
-        dropdown.setActivator(ACTIVATOR);
-        assertEquals(dropdown.getId(), ACTIVATOR);
-        assertEquals(dropdown.getActivator(), ACTIVATOR);
-        RootPanel.get().add(dropdown);
-        assertNotNull(dropdown.getActivatorElement());
-        assertEquals(dropdown.getActivatorElement(), link.getElement());
 
+        dropdown.setActivator(ACTIVATOR);
+        assertEquals(ACTIVATOR, dropdown.getId());
+        assertEquals(ACTIVATOR, dropdown.getActivator());
+        link.add(dropdown);
+        assertNotNull(dropdown.getActivatorElement());
+        assertEquals(link.getElement(), dropdown.getActivatorElement());
+
+        populateDropDown(dropdown);
+
+        // Smart check for parent Enabled / Disabled property
+        dropdown.setEnabled(true);
+        assertTrue(link.isEnabled());
+        dropdown.setEnabled(false);
+        assertTrue(link.isAttached());
+        assertEquals(link, dropdown.getParent());
+        dropdown.setEnabled(true);
+
+        assertEquals(5, dropdown.getChildren().size());
+        dropdown.remove(0);
+        assertEquals(4, dropdown.getChildren().size());
+    }
+
+    public void testSelection() {
+        // given
+        MaterialDropDown dropdown = populateDropDown(getWidget());
+
+        // when / then
+        assertTrue(dropdown.getWidget(0) instanceof ListItem);
+        ListItem item = (ListItem) dropdown.getWidget(0);
+        assertTrue(item.getWidget(0) instanceof MaterialLink);
+        MaterialLink link = (MaterialLink) item.getWidget(0);
+        checkSelectionHandler(dropdown, link);
+    }
+
+    protected MaterialDropDown populateDropDown(MaterialDropDown dropdown) {
         for (int i = 1; i <= 5; i++) {
             MaterialLink item = new MaterialLink("Item" + i);
             dropdown.add(item);
@@ -99,35 +137,6 @@ public class MaterialDropdownTest extends MaterialWidgetTest {
             ListItem li = (ListItem) dropdown.getWidget(0);
             assertTrue(li.getWidget(0) instanceof MaterialLink);
         }
-
-        assertEquals(dropdown.getChildren().size(), 5);
-        dropdown.remove(0);
-        assertEquals(dropdown.getChildren().size(), 4);
-    }
-
-    public <T extends MaterialDropDown> void checkSelection(T dropdown) {
-        assertTrue(dropdown.getWidget(0) instanceof ListItem);
-        ListItem item = (ListItem) dropdown.getWidget(0);
-        assertTrue(item.getWidget(0) instanceof MaterialLink);
-        MaterialLink link = (MaterialLink) item.getWidget(0);
-        final boolean[] isSelectionFired = {false};
-        dropdown.addSelectionHandler(selectionEvent -> {
-            assertEquals(link, selectionEvent.getSelectedItem());
-            isSelectionFired[0] = true;
-
-        });
-
-        link.fireEvent(new GwtEvent<ClickHandler>() {
-            @Override
-            public Type<ClickHandler> getAssociatedType() {
-                return ClickEvent.getType();
-            }
-
-            @Override
-            protected void dispatch(ClickHandler eventHandler) {
-                eventHandler.onClick(null);
-            }
-        });
-        assertTrue(isSelectionFired[0]);
+        return dropdown;
     }
 }

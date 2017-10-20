@@ -54,20 +54,16 @@ public class MaterialSpinner extends MaterialWidget {
     private Div circle3 = new Div();
     private Div gapPatch = new Div();
 
-    private CssNameMixin<MaterialSpinner, SpinnerColor> spinnerColorMixin = new CssNameMixin<>(this);
+    private CssNameMixin<MaterialSpinner, SpinnerColor> spinnerColorMixin;
 
     public MaterialSpinner() {
         super(Document.get().createDivElement(), CssName.SPINNER_LAYER);
-        build();
-    }
-
-    public MaterialSpinner(SpinnerColor spinnerColor) {
-        this();
-        setColor(spinnerColor);
     }
 
     @Override
-    protected void build() {
+    protected void onLoad() {
+        super.onLoad();
+
         add(circleClipperLeft);
         circleClipperLeft.add(circle1);
         add(gapPatch);
@@ -84,12 +80,17 @@ public class MaterialSpinner extends MaterialWidget {
         circle3.setStyleName(CssName.CIRCLE);
     }
 
+    public MaterialSpinner(SpinnerColor spinnerColor) {
+        this();
+        setColor(spinnerColor);
+    }
+
     public void setColor(SpinnerColor spinnerColor) {
-        spinnerColorMixin.setCssName(spinnerColor);
+        getSpinnerColorMixin().setCssName(spinnerColor);
     }
 
     public SpinnerColor getColor() {
-        return spinnerColorMixin.getCssName();
+        return getSpinnerColorMixin().getCssName();
     }
 
     public Div getCircleClipperLeft() {
@@ -114,5 +115,12 @@ public class MaterialSpinner extends MaterialWidget {
 
     public Div getGapPatch() {
         return gapPatch;
+    }
+
+    protected CssNameMixin<MaterialSpinner, SpinnerColor> getSpinnerColorMixin() {
+        if (spinnerColorMixin == null) {
+            spinnerColorMixin = new CssNameMixin<>(this);
+        }
+        return spinnerColorMixin;
     }
 }

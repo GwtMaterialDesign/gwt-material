@@ -19,20 +19,16 @@
  */
 package gwt.material.design.client.ui.base.helper;
 
+import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.base.helper.ColorHelper;
 import gwt.material.design.client.constants.Color;
-import junit.framework.TestCase;
 
 /**
  * Test case for {@link gwt.material.design.client.base.helper.ColorHelper}.
  */
-public class ColorHelperTest extends TestCase {
+public class ColorHelperTest extends MaterialTestCase {
 
-    public ColorHelperTest() {
-        checkFromStyleName();
-    }
-
-    private void checkFromStyleName() {
+    public void testFromStyleName() {
         assertEquals(Color.PINK_LIGHTEN_1,
             ColorHelper.fromStyleName("pink lighten-1", Color.class, Color.DEFAULT));
     }

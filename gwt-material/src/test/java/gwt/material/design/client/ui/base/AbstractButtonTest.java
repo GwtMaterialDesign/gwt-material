@@ -21,70 +21,129 @@ package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.AbstractButton;
-import gwt.material.design.client.base.HasActivates;
-import gwt.material.design.client.base.HasHref;
-import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
+import org.junit.Ignore;
 
 /**
- * Test case for Abstract button
+ * Test case for Abstract button.
  *
  * @author kevzlou7979
+ * @author Ben Dol
  */
-public abstract class AbstractButtonTest extends MaterialWidgetTest {
+@Ignore
+public abstract class AbstractButtonTest<T extends AbstractButton> extends MaterialWidgetTest<T> {
 
-    public void checkBaseButton(AbstractButton button) {
-        checkWidget(button);
-        checkHref(button);
-        checkActivates(button);
-        checkType(button);
-        checkSize(button);
-        checkText(button);
-    }
+    public void testSize() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
 
-    protected <T extends AbstractButton> void checkSize(T widget) {
+        // when / then
+        widget.setSize(ButtonSize.LARGE);
+        assertEquals(ButtonSize.LARGE, widget.getSize());
+
+        widget.setSize(ButtonSize.MEDIUM);
+        assertEquals(ButtonSize.MEDIUM, widget.getSize());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
         final Element element = widget.getElement();
         widget.setSize(ButtonSize.LARGE);
         assertTrue(element.hasClassName(ButtonSize.LARGE.getCssName()));
         widget.setSize(ButtonSize.MEDIUM);
         assertTrue(element.hasClassName(ButtonSize.MEDIUM.getCssName()));
         assertFalse(element.hasClassName(ButtonSize.LARGE.getCssName()));
-        assertEquals(widget.getSize(), ButtonSize.MEDIUM);
     }
 
-    protected <T extends AbstractButton & HasType<ButtonType>> void checkType(T widget) {
+    public void testType() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
+
+        // when / then
+        widget.setType(ButtonType.FLAT);
+        assertEquals(ButtonType.FLAT, widget.getType());
+
+        widget.setType(ButtonType.FLOATING);
+        assertEquals(ButtonType.FLOATING, widget.getType());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
         final Element element = widget.getElement();
         widget.setType(ButtonType.FLAT);
         assertTrue(element.hasClassName(ButtonType.FLAT.getCssName()));
         widget.setType(ButtonType.FLOATING);
         assertTrue(element.hasClassName(ButtonType.FLOATING.getCssName()));
         assertFalse(element.hasClassName(ButtonType.FLAT.getCssName()));
-        assertEquals(widget.getType(), ButtonType.FLOATING);
     }
 
-    protected <T extends AbstractButton & HasActivates> void checkActivates(T widget) {
+    public void testActivates() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
+
+        // when / then
+        widget.setActivates("test");
+        assertEquals("test", widget.getActivates());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
         final Element element = widget.getElement();
         widget.setActivates("test");
         assertTrue(element.hasAttribute("data-activates"));
-        assertEquals(element.getAttribute("data-activates"), "test");
-        assertEquals(widget.getActivates(), "test");
+        assertEquals("test", element.getAttribute("data-activates"));
     }
 
-    protected <T extends AbstractButton & HasHref> void checkHref(T widget) {
+    public void testHref() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
+
+        // when / then
+        widget.setHref("href-test");
+        assertEquals("href-test", widget.getHref());
+        widget.setTarget("_blank");
+        assertEquals("_blank", widget.getTarget());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
         final Element element = widget.getElement();
         widget.setHref("href-test");
         assertTrue(element.hasAttribute("href"));
-        assertEquals(element.getAttribute("href"), "href-test");
-        assertEquals(widget.getHref(), "href-test");
+        assertEquals("href-test", element.getAttribute("href"));
         widget.setTarget("_blank");
         assertTrue(element.hasAttribute("target"));
-        assertEquals(element.getAttribute("target"), "_blank");
-        assertEquals(widget.getTarget(), "_blank");
+        assertEquals("_blank", element.getAttribute("target"));
     }
 
-    protected <T extends AbstractButton> void checkText(T widget) {
+    public void testText() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
+
+        // when / then
         widget.setText("test");
-        assertEquals(widget.getText(), "test");
+        assertEquals("test", widget.getText());
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        widget.setText("test1");
+        assertEquals("test1", widget.getText());
     }
 }

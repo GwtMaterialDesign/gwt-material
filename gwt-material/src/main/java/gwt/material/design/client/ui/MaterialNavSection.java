@@ -29,9 +29,6 @@ import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //@formatter:off
 
 /**
@@ -58,8 +55,7 @@ import java.util.List;
 //@formatter:on
 public class MaterialNavSection extends UnorderedList implements HasPosition, HasSelectionHandlers<Integer> {
 
-    private final CssNameMixin<MaterialNavSection, Position> posMixin = new CssNameMixin<>(this);
-    private List<HandlerRegistration> handlers = new ArrayList<>();
+    private CssNameMixin<MaterialNavSection, Position> positionMixin;
 
     /**
      * Container for App Toolbar and App Sidebar, contains Material
@@ -78,39 +74,33 @@ public class MaterialNavSection extends UnorderedList implements HasPosition, Ha
     @Override
     protected void onLoad() {
         super.onLoad();
-        build();
-    }
 
-    @Override
-    protected void build() {
         for (Widget widget : getChildren()) {
             if (widget instanceof ListItem) {
-                handlers.add(((ListItem) widget).addClickHandler(clickEvent -> SelectionEvent.fire(this, getWidgetIndex(widget))));
+                registerHandler(((ListItem) widget).addClickHandler(clickEvent -> SelectionEvent.fire(this, getWidgetIndex(widget))));
             }
         }
     }
 
     @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        for (HandlerRegistration hr : handlers) {
-            hr.removeHandler();
-        }
-    }
-
-    @Override
     public Position getPosition() {
-        return posMixin.getCssName();
+        return getPositionMixin().getCssName();
     }
 
     @Override
     public void setPosition(Position position) {
-        posMixin.setCssName(position);
+        getPositionMixin().setCssName(position);
     }
 
     @Override
     public HandlerRegistration addSelectionHandler(SelectionHandler<Integer> selectionHandler) {
         return addHandler(selectionHandler, SelectionEvent.getType());
+    }
+
+    protected CssNameMixin<MaterialNavSection, Position> getPositionMixin() {
+        if (positionMixin == null) {
+            positionMixin = new CssNameMixin<>(this);
+        }
+        return positionMixin;
     }
 }

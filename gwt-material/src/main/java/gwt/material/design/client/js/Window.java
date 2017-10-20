@@ -19,13 +19,19 @@
  */
 package gwt.material.design.client.js;
 
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import jsinterop.annotations.JsType;
 
-@JsType(isNative = false)
+@JsType
 public class Window {
 
     public static native boolean matchMedia(String query) /*-{
         return $wnd.window.matchMedia(query).matches;
     }-*/;
+
+    public static HandlerRegistration addResizeHandler(ResizeHandler handler) {
+        return com.google.gwt.user.client.Window.addResizeHandler(handler);
+    }
 
 }

@@ -93,6 +93,11 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
     }
 
     @Override
+    public Color getIconColor() {
+        return icon.getIconColor();
+    }
+
+    @Override
     public void setIconPrefix(boolean prefix) {
         icon.setIconPrefix(prefix);
     }
