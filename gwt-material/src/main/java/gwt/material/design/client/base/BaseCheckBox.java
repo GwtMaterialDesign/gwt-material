@@ -82,7 +82,7 @@ import gwt.material.design.client.constants.CssName;
  * <p>
  * <p>
  * <h3>Example</h3>
- * {@example com.google.gwt.examples.CheckBoxExample}
+ * { @example com.google.gwt.examples.CheckBoxExample}
  * </p>
  */
 public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolean>,

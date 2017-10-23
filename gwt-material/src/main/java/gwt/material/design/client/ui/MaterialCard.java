@@ -122,7 +122,6 @@ public class MaterialCard extends MaterialWidget implements HasAxis {
 
     /**
      * Replace by {@link MaterialWidget#getOrientation()}
-     * @return
      */
     @Deprecated
     @Override
