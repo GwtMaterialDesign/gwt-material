@@ -45,7 +45,7 @@ import gwt.material.design.client.ui.html.Span;
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code// Simple Chips
+ * {@code Simple Chips
  * <m:MaterialChip text="Default" iconType="CLOSE"/>
  *
  * // Static Chip

@@ -28,7 +28,7 @@ import gwt.material.design.client.constants.InputType;
  * Material Text Box is an input field that accepts any text based string from user.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code <m:MaterialTextBox placeholder="First Name" />
+ * {@code <m:MaterialTextBox placeholder="First Name" /> }
  * </pre>
  *
  * @author kevzlou7979

@@ -47,8 +47,8 @@ import gwt.material.design.client.ui.html.Div;
  * loader.setType(LoaderType.CIRCULAR);
  * loader.setScrollDisabled(true);
  * loader.show();
- * Timer t = new Timer() {
- * @Override
+ * Timer t = new Timer()
+ * { @Override
  * public void run() {
  * loader.hide();
  * }
@@ -61,7 +61,8 @@ import gwt.material.design.client.ui.html.Div;
  * @author Ben Dol
  *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Loaders</a>
- * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
+ * @see <a href="https://material.io/guidelines/components/progress-activity.html">Material Design Specification</a>
+ * }
  */
 //@formatter:on
 public class MaterialLoader {

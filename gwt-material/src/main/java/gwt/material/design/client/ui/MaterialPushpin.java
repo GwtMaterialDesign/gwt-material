@@ -140,7 +140,6 @@ public class MaterialPushpin {
 
     /**
      * Get the distance in pixels from the top of the page where the element becomes fixed. (Default: 0)
-     * @return
      */
     public Double getTop() {
         return options.top;
