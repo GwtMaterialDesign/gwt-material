@@ -24,7 +24,7 @@ package gwt.material.design.client.base;
  * It allows you to center your page content. The container class is set to ~70% of the window width.
  * It helps you center and contain your page content.
  *
- * @author
+ * @author kevzlou7979
  */
 public interface HasContainer {
 

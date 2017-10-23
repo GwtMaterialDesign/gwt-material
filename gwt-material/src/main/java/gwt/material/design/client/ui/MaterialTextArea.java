@@ -33,7 +33,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * Material Text Area represents a multiple line text box where users can define comment, detail and etc.
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code <m:MaterialTextArea placeholder="Your Comment" />
+ * {@code <m:MaterialTextArea placeholder="Your Comment" /> }
  * </pre>
  *
  * @author kevzlou7979

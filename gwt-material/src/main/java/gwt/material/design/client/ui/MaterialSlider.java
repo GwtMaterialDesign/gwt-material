@@ -42,7 +42,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <p>
  * <h3>UiBinder Usage:</h3>
  * <pre>
- * {@code<m:MaterialSection>
+ * {@code <m:MaterialSection>
  * <m:MaterialSlider fullScreen="false">
  *     <m:MaterialSlideItem>
  *         <m:MaterialImage url="http://lorempixel.com/580/250/nature/1"/>
