@@ -136,17 +136,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     public void load() {
         pickatizedDateInput = $(dateInput.getElement()).pickadate(options).asElement();
 
-        if (options.set == null) {
-            options.set = thing -> {
-                if (thing.hasOwnProperty("clear")) {
-                    clear();
-                }
-            };
-        }
-
-        getPicker().on("set", event -> {
-            select();
-            return true;
+        getPicker().on("set", thing -> {
+            if (thing.hasOwnProperty("clear")) {
+                clear();
+            } else if (thing.hasOwnProperty("select")) {
+                select();
+            }
         });
 
         getPicker().on(options).on("open", (e, param1) -> {

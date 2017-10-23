@@ -164,6 +164,9 @@ public class JsMaterialElement extends JQueryElement {
     public native JsMaterialElement set(String key, Object value);
 
     @JsMethod
+    public native JsMaterialElement on(String action, Functions.Func1<Thing> thing);
+
+    @JsMethod
     public native JsMaterialElement set(String key, Object value, Functions.Func function);
 
     @JsMethod
