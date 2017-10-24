@@ -173,7 +173,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>addItem(value, dir, item)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}; cannot be <code>null</code>
+     *               {@link FormPanel}; cannot be <code>null</code>
      * @param dir    the item's direction
      * @param reload perform a 'material select' reload to update the DOM.
      */
@@ -202,7 +202,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>addItem(value, item)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}; cannot be <code>null</code>
+     *               {@link FormPanel}; cannot be <code>null</code>
      * @param reload perform a 'material select' reload to update the DOM.
      */
     public void addItem(T value, boolean reload) {
@@ -291,7 +291,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>insertItem(value, item, index)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}.
+     *               {@link FormPanel}.
      * @param index  the index at which to insert it
      * @param reload perform a 'material select' reload to update the DOM.
      */
@@ -324,7 +324,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>insertItem(value, dir, item, index)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}.
+     *               {@link FormPanel}.
      * @param dir    the item's direction
      * @param index  the index at which to insert it
      * @param reload perform a 'material select' reload to update the DOM.
@@ -799,14 +799,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         }
     }
 
-    private void addBlankItemIfNeeded() {
+    protected void addBlankItemIfNeeded() {
         int idx = getIndex(null);
         if (idx < 0) {
             addItem(null, true);
         }
     }
 
-    private void removeBlankItemIfNeeded() {
+    protected void removeBlankItemIfNeeded() {
         int idx = getIndex(null);
         if (idx >= 0 && idx < values.size()) {
             removeItem(idx, true);
