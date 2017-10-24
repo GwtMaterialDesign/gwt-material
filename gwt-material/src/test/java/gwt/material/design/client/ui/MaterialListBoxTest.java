@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.client.ui.html.Option;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,4 +64,44 @@ public class MaterialListBoxTest extends MaterialListValueBoxTest<String> {
         assertTrue(listBox.getWidget(1) instanceof Label);
         assertTrue(listBox.getWidget(2) instanceof MaterialLabel);
     }
+
+    public void testAllowBlanks() {
+        // given
+        MaterialListBox listBox = (MaterialListBox)getWidget();
+        assertFalse(listBox.isAllowBlank());
+        assertEquals(0, listBox.getItemCount());
+
+        // when / then
+        listBox.setValue(null);
+        assertEquals("", listBox.getValue());
+
+        listBox.setAllowBlank(true);
+        listBox.addItem("user1");
+        listBox.addItem("user2");
+        Option option = new Option("user3");
+        listBox.add(option);
+        assertEquals(4, listBox.getItemCount());
+
+        listBox.setValue("");
+        assertEquals("", listBox.getValue());
+        assertEquals(0, listBox.getSelectedIndex());
+
+        listBox.setValue("user3");
+        assertEquals("user3", listBox.getValue());
+        assertEquals(3, listBox.getSelectedIndex());
+
+        listBox.setValue(null);
+        assertEquals("", listBox.getValue());
+        assertEquals(0, listBox.getSelectedIndex());
+
+        listBox.setValue("user4");
+        assertEquals("", listBox.getValue());
+        assertEquals(0, listBox.getSelectedIndex());
+
+        listBox.setAllowBlank(false);
+        assertEquals(3, listBox.getItemCount());
+        assertEquals("user1", listBox.getValue());
+        assertEquals(0, listBox.getSelectedIndex());
+    }
+
 }
