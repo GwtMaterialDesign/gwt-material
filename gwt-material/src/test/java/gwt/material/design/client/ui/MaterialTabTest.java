@@ -162,4 +162,16 @@ public class MaterialTabTest extends MaterialWidgetTest<MaterialTab> {
         row.add(panel);
         return item;
     }
+
+    public void testTabItemSelect() {
+        // given
+        MaterialTab tab = getWidget(true);
+
+        // when / then
+        assertEquals(0, tab.getTabIndex());
+        tab.selectTab("item1");
+        assertEquals(1, tab.getTabIndex());
+        tab.selectTab("item2");
+        assertEquals(2, tab.getTabIndex());
+    }
 }

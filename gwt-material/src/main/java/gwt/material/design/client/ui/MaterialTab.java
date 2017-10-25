@@ -73,7 +73,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabType>, HasSelectionHandlers<Integer> {
 
-    private int tabIndex;
     private Color indicatorColor;
     private MaterialWidget indicator;
 
@@ -126,7 +125,7 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
      * @param tabId Tab to selects id.
      */
     public void selectTab(String tabId) {
-        Scheduler.get().scheduleDeferred(() -> $(getElement()).tabs("select_tab", tabId));
+        $(getElement()).tabs("select_tab", tabId);
     }
 
     @Override
@@ -139,10 +138,7 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
         if (child instanceof MaterialTabItem) {
             MaterialTabItem item = (MaterialTabItem) child;
             item.getHandlerRegistry().clearHandlers();
-            item.registerHandler(item.addMouseDownHandler(e -> {
-                tabIndex = getChildren().indexOf(child);
-                SelectionEvent.fire(MaterialTab.this, tabIndex);
-            }));
+            item.registerHandler(item.addMouseDownHandler(e -> SelectionEvent.fire(MaterialTab.this, getChildren().indexOf(child))));
         }
     }
 
@@ -181,11 +177,10 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
     }
 
     public int getTabIndex() {
-        return tabIndex;
+        return $(getElement()).find("li:has(a.active)").index();
     }
 
     public void setTabIndex(int tabIndex) {
-        this.tabIndex = tabIndex;
         int i = 0;
         for (Widget w : this) {
             if (i == tabIndex) {
