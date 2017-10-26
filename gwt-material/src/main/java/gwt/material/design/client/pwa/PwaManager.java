@@ -22,9 +22,9 @@ package gwt.material.design.client.pwa;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.jscore.client.api.Navigator;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
+import gwt.material.design.client.pwa.manifest.WebManifestManager;
+import gwt.material.design.client.pwa.serviceworker.IsServiceWorker;
+import gwt.material.design.client.pwa.theme.BrowserThemeManager;
 
 //@formatter:off
 
@@ -43,159 +43,72 @@ import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistra
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#pwa">Progressive Web Apps</a>
  */
 //@formatter:on
-public class PwaManager implements HasPwaFeature {
+public class PwaManager {
 
     private static PwaManager instance = GWT.create(PwaManager.class);
 
-    private Element headElement, manifestElement, themeColorElement;
+    private Element headElement;
 
-    private String serviceWorkerUrl, manifestUrl, themeColor;
+    private IsServiceWorker serviceWorker;
+    private WebManifestManager webManifestManager;
+    private BrowserThemeManager browserThemeManager;
 
+    public PwaManager() {
+        load();
+    }
 
-    @Override
     public void load() {
         if (headElement == null) {
             headElement = Document.get().getElementsByTagName("head").getItem(0);
         }
-
-        injectManifest(manifestUrl);
-        injectMetaThemeColor(themeColor);
-        loadServiceWorker(serviceWorkerUrl);
     }
 
-
-    @Override
     public void reload() {
         unLoad();
         load();
     }
 
-    @Override
     public void unLoad() {
-        // Unregister the manifest
-        if (manifestElement != null) {
-            manifestElement.removeFromParent();
-            manifestElement = null;
-            GWT.log("Web manifest has been unloaded.");
-        }
-        // Unregister the theme color
-        if (themeColorElement != null) {
-            themeColorElement.removeFromParent();
-            themeColorElement = null;
-            GWT.log("Meta theme color has been unloaded.");
-        }
-
-        // Unregister the service worker
-        unRegisterServiceWorker();
+        serviceWorker.unload();
+        getWebManifestManager().unload();
+        getBrowserThemeManager().unload();
     }
 
-    @Override
-    public PwaManager setWebManifestUrl(String manifestUrl) {
-        this.manifestUrl = manifestUrl;
+    public PwaManager loadServiceWorker(IsServiceWorker serviceWorker) {
+        this.serviceWorker = serviceWorker;
+        serviceWorker.load();
         return this;
     }
 
-    /**
-     * Will inject the manifest url into the head element.
-     */
-    protected void injectManifest(String manifestUrl) {
-        if (manifestUrl != null && !manifestUrl.isEmpty()) {
-            // Check whether manifestElement was already attached to the head element.
-            if (manifestElement == null) {
-                manifestElement = Document.get().createLinkElement();
-                headElement.appendChild(manifestElement);
-            }
-
-            manifestElement.setAttribute("rel", "manifest");
-            manifestElement.setAttribute("href", manifestUrl);
-        }
-    }
-
-    @Override
-    public PwaManager setThemeColor(String themeColor) {
-        this.themeColor = themeColor;
+    public PwaManager loadWebManifest(String url) {
+        getWebManifestManager().load(url);
         return this;
     }
 
-    /**
-     * Will inject the meta link to specify the theme color of your app design.
-     */
-    protected void injectMetaThemeColor(String themeColor) {
-        if (themeColor != null && !themeColor.isEmpty()) {
-            // Check whether themeColor was already attached to the head element.
-            if (themeColorElement == null) {
-                themeColorElement = Document.get().createMetaElement();
-                headElement.appendChild(themeColorElement);
-            }
-            themeColorElement.setAttribute("name", "theme-color");
-            themeColorElement.setAttribute("content", themeColor);
-        }
-    }
-
-    @Override
-    public PwaManager setServiceWorkerUrl(String serviceWorkerUrl) {
-        this.serviceWorkerUrl = serviceWorkerUrl;
+    public PwaManager loadThemeColor(String themeColor) {
+        getBrowserThemeManager().load(themeColor);
         return this;
     }
 
-    /**
-     * Will load the service worker with provided url.
-     */
-    protected void loadServiceWorker(String serviceWorkerUrl) {
-        if (serviceWorkerUrl != null && Navigator.serviceWorker != null) {
-            Navigator.serviceWorker.register(serviceWorkerUrl)
-                    .then(arg -> {
-                        GWT.log("Registered service worker successfully");
-                        return null;
-                    });
-        } else {
-            GWT.log("Service worker is not supported by this browser.");
-        }
-    }
-
-    @Override
-    public void unRegisterServiceWorker() {
-        if (Navigator.serviceWorker != null) {
-            Navigator.serviceWorker.getRegistration().then(obj -> {
-                ServiceWorkerRegistration registration = (ServiceWorkerRegistration) obj;
-                if (registration != null) {
-                    registration.unregister();
-                    GWT.log("Successfully unregistered Service Worker");
-                } else {
-                    GWT.log("There's no Service worker that is registered.");
-                }
-                return null;
-            });
-        }
-    }
-
-    @Override
-    public void updateServiceWorker() {
-        if (Navigator.serviceWorker != null) {
-            Navigator.serviceWorker.getRegistration().then(obj -> {
-                ServiceWorkerRegistration registration = (ServiceWorkerRegistration) obj;
-                if (registration != null) {
-                    registration.update();
-                    GWT.log("Successfully updated Service Worker");
-                } else {
-                    GWT.log("There's no Service worker that is registered.");
-                }
-                return null;
-            });
-        }
-    }
-
-    @Override
-    public ServiceWorker getServiceWorker() {
-        return Navigator.serviceWorker.controller;
-    }
-
-    @Override
-    public boolean isOnline() {
-        return Navigator.onLine;
+    public Element getHeadElement() {
+        return headElement;
     }
 
     public static PwaManager getInstance() {
         return instance;
+    }
+
+    public BrowserThemeManager getBrowserThemeManager() {
+        if (browserThemeManager == null) {
+            browserThemeManager = new BrowserThemeManager(this);
+        }
+        return browserThemeManager;
+    }
+
+    public WebManifestManager getWebManifestManager() {
+        if (webManifestManager == null) {
+            webManifestManager = new WebManifestManager(this);
+        }
+        return webManifestManager;
     }
 }

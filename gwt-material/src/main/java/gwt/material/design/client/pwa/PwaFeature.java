@@ -19,28 +19,23 @@
  */
 package gwt.material.design.client.pwa;
 
-public interface HasPwaFeature extends HasServiceWorker, HasWebManifest {
+public abstract class PwaFeature {
 
-    /**
-     * Configures the whole application structure of progressive web app to be
-     * integrated to Gwt Material Design
-     */
-    void load();
+    private PwaManager manager;
 
-    /**
-     * Reloads the PWA Feature and reconfigure it.
-     */
-    void reload();
+    public PwaFeature() {}
 
-    /**
-     * Unregisters / Uninstall the PWA Feature into
-     * your GMD App.
-     */
-    void unLoad();
+    public PwaFeature(PwaManager manager) {
+        this.manager = manager;
+    }
 
-    /**
-     * Returns a network status of your GMD PWA App.
-     * @return true if your network status is Online.
-     */
-    boolean isOnline();
+    public abstract void load(String object);
+
+    public abstract void unload();
+
+    public abstract void reload();
+
+    public PwaManager getManager() {
+        return manager;
+    }
 }
