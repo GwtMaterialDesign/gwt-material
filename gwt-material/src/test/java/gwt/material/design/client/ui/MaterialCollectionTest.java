@@ -107,12 +107,20 @@ public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollectio
         // when / then
         for (int i = 1; i <= 5; i++) {
             MaterialCollectionItem item = new MaterialCollectionItem();
+            boolean[] linkClickHandler = {false};
             boolean[] clickHandler = {false};
+
+            MaterialLink link = new MaterialLink("Link");
+            link.addClickHandler(clickEvent -> linkClickHandler[0] = true);
             item.addClickHandler(clickEvent -> clickHandler[0] = true);
-            fireClickEvent(item);
-            assertTrue(clickHandler[0]);
+            item.add(link);
             collection.add(item);
             assertNotNull(item);
+
+            fireClickEvent(item);
+            fireClickEvent(link);
+            assertTrue(clickHandler[0]);
+            assertTrue(linkClickHandler[0]);
         }
         assertEquals(5, collection.getChildren().size());
     }
