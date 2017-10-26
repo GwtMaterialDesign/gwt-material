@@ -65,8 +65,10 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
             // Stop propagation of event when checkbox / other elements has
             // been clicked to avoid duplicate events.
             if (Element.as(event.getNativeEvent().getEventTarget()) != getElement()) {
-                event.stopPropagation();
-                event.preventDefault();
+                if (getType() == CollectionType.CHECKBOX) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
             }
             for (Widget w : MaterialCollectionItem.this) {
                 if (w instanceof MaterialCollectionSecondary) {

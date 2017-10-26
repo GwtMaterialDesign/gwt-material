@@ -106,7 +106,6 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void expand() {
         if (body != null) {
             setActive(true);
-            body.setDisplay(Display.BLOCK);
         }
     }
 
@@ -116,7 +115,6 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void collapse() {
         if (body != null) {
             setActive(false);
-            body.setDisplay(Display.NONE);
         }
     }
 
@@ -159,6 +157,10 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             if (header != null) {
                 header.addStyleName(CssName.ACTIVE);
             }
+        }
+
+        if (body != null) {
+            body.setDisplay(active ? Display.BLOCK : Display.NONE);
         }
     }
 
