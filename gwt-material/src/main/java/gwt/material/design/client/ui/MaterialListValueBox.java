@@ -37,6 +37,7 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.jquery.client.api.JQuery;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.*;
 
@@ -109,9 +110,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     @Override
     public void load() {
+        JQueryElement listBoxElement = $(listBox.getElement());
         JsMaterialElement.$(listBox.getElement()).material_select(
-                () -> JQuery.$("input.select-dropdown").trigger("close", null));
-        $(listBox.getElement()).change((e, param) -> {
+                () -> $("input.select-dropdown").trigger("close", true));
+        listBoxElement.change((e, param) -> {
             try {
                 ValueChangeEvent.fire(this, getValue());
             } catch (IndexOutOfBoundsException ex) {
@@ -120,9 +122,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             return true;
         });
 
-        $(listBox.getElement()).siblings("input.select-dropdown").on("mousedown", (e, param1) -> {
+        // Fixed IE browser for select dropdown scrolling
+        // Related materialize issue https://github.com/Dogfalo/materialize/issues/901
+        listBoxElement.siblings("input.select-dropdown").mousedown((event, o) -> {
+            $("input[data-activates!='" + listBoxElement.attr("data-activates") + "'].select-dropdown").trigger("close", true);
             if (!UiHelper.isTouchScreenDevice()) {
-                e.preventDefault();
+                event.preventDefault();
             }
             return true;
         });
