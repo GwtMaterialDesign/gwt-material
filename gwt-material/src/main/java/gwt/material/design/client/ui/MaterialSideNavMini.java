@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.SideNavType;
 
@@ -51,7 +51,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_mini_expandable">Pattern Expandable</a>
  */
 //@formatter:on
-public class MaterialSideNavMini extends MaterialSideNav {
+public class MaterialSideNavMini extends AbstractSideNav {
 
     private boolean overlay;
     private boolean expandable;
