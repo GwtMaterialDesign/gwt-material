@@ -120,9 +120,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             return true;
         });
 
-        $(listBox.getElement()).siblings("input.select-dropdown").on("mousedown", (e, param1) -> {
+        // Fixed IE browser for select dropdown scrolling
+        // Related materialize issue https://github.com/Dogfalo/materialize/issues/901
+        $(listBox.getElement()).siblings("input.select-dropdown").mousedown((event, o) -> {
+            $(".select-dropdown").trigger("close", true);
             if (!UiHelper.isTouchScreenDevice()) {
-                e.preventDefault();
+                event.preventDefault();
             }
             return true;
         });
