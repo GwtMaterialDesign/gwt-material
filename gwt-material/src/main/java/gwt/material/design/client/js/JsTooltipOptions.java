@@ -33,11 +33,10 @@ public class JsTooltipOptions {
     @JsOverlay
     public static final JsTooltipOptions create() {
         JsTooltipOptions options = new JsTooltipOptions();
-        options.delay = 0;
+        options.delay = 350;
         options.position = Position.BOTTOM.getCssName();
         return options;
     }
-
 
     @JsProperty
     public String tooltip;
