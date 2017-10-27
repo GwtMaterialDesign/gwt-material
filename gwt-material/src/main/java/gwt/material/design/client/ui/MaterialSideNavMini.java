@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.SideNavType;
 
@@ -51,8 +51,9 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_mini_expandable">Pattern Expandable</a>
  */
 //@formatter:on
-public class MaterialSideNavMini extends MaterialSideNav {
+public class MaterialSideNavMini extends AbstractSideNav {
 
+    private boolean overlay;
     private boolean expandable;
     private boolean expandOnClick;
 
@@ -96,15 +97,19 @@ public class MaterialSideNavMini extends MaterialSideNav {
     protected void expand(int width) {
         addStyleName("expanded");
         setWidth(width);
-        pushElement(getMain(), width);
-        pushElementMargin(getFooter(), width);
+        if (!isOverlay()) {
+            pushElement(getMain(), width);
+            pushElementMargin(getFooter(), width);
+        }
     }
 
     protected void collapse(int width) {
         removeStyleName("expanded");
         setWidth(width);
-        pushElement(getMain(), width);
-        pushElementMargin(getFooter(), width);
+        if (!isOverlay()) {
+            pushElement(getMain(), width);
+            pushElementMargin(getFooter(), width);
+        }
     }
 
     public void setExpandable(boolean expandable) {
@@ -121,5 +126,13 @@ public class MaterialSideNavMini extends MaterialSideNav {
 
     public void setExpandOnClick(boolean expandOnClick) {
         this.expandOnClick = expandOnClick;
+    }
+
+    public boolean isOverlay() {
+        return overlay;
+    }
+
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
     }
 }

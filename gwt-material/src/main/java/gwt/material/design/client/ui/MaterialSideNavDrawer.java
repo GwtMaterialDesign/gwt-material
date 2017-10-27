@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
+import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.base.HasWithHeader;
 import gwt.material.design.client.constants.SideNavType;
 
@@ -49,7 +50,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_drawer_header">Pattern with Header</a>
  */
 //@formatter:on
-public class MaterialSideNavDrawer extends MaterialSideNav implements HasWithHeader {
+public class MaterialSideNavDrawer extends AbstractSideNav implements HasWithHeader {
 
     private boolean withHeader;
 

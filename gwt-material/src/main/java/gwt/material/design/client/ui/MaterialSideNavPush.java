@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
+import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.base.HasWithHeader;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.SideNavPushEvent;
@@ -51,7 +52,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_push">Pattern</a>
  */
 //@formatter:on
-public class MaterialSideNavPush extends MaterialSideNav implements HasWithHeader {
+public class MaterialSideNavPush extends AbstractSideNav implements HasWithHeader {
 
     private boolean withHeader;
 

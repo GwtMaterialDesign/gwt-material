@@ -22,6 +22,7 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.events.SideNavClosedEvent;
@@ -31,12 +32,12 @@ import gwt.material.design.client.events.SideNavOpeningEvent;
 import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.ListItem;
 
-public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends MaterialWidgetTest<T> {
+public abstract class AbstractSideNavTest<T extends AbstractSideNav> extends MaterialWidgetTest<T> {
 
     protected static MaterialNavBar navBar;
     protected static final String ACTIVATES = "activates";
 
-    public static void construct(MaterialSideNav sideNav) {
+    public void construct(T sideNav) {
         navBar = new MaterialNavBar();
         navBar.setActivates(ACTIVATES);
         sideNav.setId(ACTIVATES);
@@ -81,7 +82,7 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
 
     public void testContent() {
         // given
-        MaterialSideNav sideNav = getWidget();
+        T sideNav = getWidget();
 
         // when / then
         assertEquals(0, sideNav.getChildren().size());
@@ -94,7 +95,7 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
     public void testEdge() {
         // UiBinder
         // given
-        MaterialSideNav sideNav = getWidget(false);
+        T sideNav = getWidget(false);
 
         // when / then
         sideNav.setEdge(Edge.RIGHT);
@@ -120,7 +121,7 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
     public void testDuration() {
         // UiBinder
         // given
-        MaterialSideNav sideNav = getWidget(false);
+        T sideNav = getWidget(false);
 
         final int IN_DURATION = 500;
         final int OUT_DURATION = 800;
@@ -150,7 +151,7 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
     public void testActivator() {
         // UiBinder
         // given
-        MaterialSideNav sideNav = getWidget(false);
+        T sideNav = getWidget(false);
 
         // when / then
         assertEquals(ACTIVATES, sideNav.getId());
@@ -179,7 +180,7 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
     public void testBoolean() {
         // UiBinder
         // given
-        MaterialSideNav sideNav = getWidget(false);
+        T sideNav = getWidget(false);
 
         // when / then
         sideNav.setCloseOnClick(true);
@@ -225,7 +226,7 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
 
     public void testSideNavItems() {
         // given
-        MaterialSideNav sideNav = getWidget();
+        T sideNav = getWidget();
 
         // when / then
         for (int i = 1; i <= 5; i++) {
@@ -284,28 +285,28 @@ public abstract class AbstractSideNavTest<T extends MaterialSideNav> extends Mat
         checkClosedHandler(sideNav);
     }
 
-    protected void checkOpeningHandler(MaterialSideNav sideNav) {
+    protected void checkOpeningHandler(T sideNav) {
         boolean[] openingEventFired = {false};
         sideNav.addOpeningHandler(event -> openingEventFired[0] = true);
         SideNavOpeningEvent.fire(sideNav);
         assertTrue(openingEventFired[0]);
     }
 
-    protected void checkClosingHandler(MaterialSideNav sideNav) {
+    protected void checkClosingHandler(T sideNav) {
         boolean[] closingEventFired = {false};
         sideNav.addClosingHandler(event -> closingEventFired[0] = true);
         SideNavClosingEvent.fire(sideNav);
         assertTrue(closingEventFired[0]);
     }
 
-    protected void checkOpenedHandler(MaterialSideNav sideNav) {
+    protected void checkOpenedHandler(T sideNav) {
         boolean[] openedEventFired = {false};
         sideNav.addOpenedHandler(event -> openedEventFired[0] = true);
         SideNavOpenedEvent.fire(sideNav);
         assertTrue(openedEventFired[0]);
     }
 
-    protected void checkClosedHandler(MaterialSideNav sideNav) {
+    protected void checkClosedHandler(T sideNav) {
         boolean[] closedEventFired = {false};
         sideNav.addClosedHandler(event -> closedEventFired[0] = true);
         SideNavClosedEvent.fire(sideNav);
