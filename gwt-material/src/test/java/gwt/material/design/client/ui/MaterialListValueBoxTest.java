@@ -100,26 +100,54 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
     }
 
     public void testProperties() {
+        // UiBinder
         // given
-        MaterialListValueBox<T> listValueBox = getWidget();
+        MaterialListValueBox<T> listValueBox = getWidget(false);
 
+        // when / then
+        checkProperties(listValueBox);
+
+        attachWidget();
+
+        // Standard
+        // given
+        checkProperties(listValueBox);
+    }
+
+    protected void checkProperties(MaterialListValueBox listValueBox) {
         // when / then
         listValueBox.setMultipleSelect(true);
         assertTrue(listValueBox.isMultipleSelect());
     }
 
     public void testBrowserDefault() {
+        // UiBinder
         // given
-        MaterialListValueBox<T> listValueBox = getWidget();
+        MaterialListValueBox<T> listValueBox = getWidget(false);
 
         // when / then
+        checkBrowserDefault(listValueBox, false);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkBrowserDefault(listValueBox, true);
+    }
+
+    protected void checkBrowserDefault(MaterialListValueBox listValueBox, boolean checkElement) {
         listValueBox.setOld(true);
         assertTrue(listValueBox.isOld());
-        assertTrue(listValueBox.getListBox().getElement().hasClassName("browser-default"));
+        if (checkElement) {
+            assertTrue(listValueBox.getListBox().getElement().hasClassName("browser-default"));
+        }
 
         listValueBox.setOld(false);
         assertFalse(listValueBox.isOld());
-        assertFalse(listValueBox.getListBox().getElement().hasClassName("browser-default"));
+        if (checkElement) {
+            assertFalse(listValueBox.getListBox().getElement().hasClassName("browser-default"));
+        }
     }
 
     public void testEnabled() {
@@ -154,8 +182,16 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
     }
 
     public void testPlaceholder() {
+        // UiBinder
         // given
-        MaterialListValueBox<T> valueBox = getWidget();
+        MaterialListValueBox<T> valueBox = getWidget(false);
+
+        // when / then
+        checkPlaceholder(valueBox);
+
+        // Standard
+        // given
+        attachWidget();
 
         // when / then
         checkPlaceholder(valueBox);

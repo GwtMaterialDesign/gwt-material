@@ -41,7 +41,7 @@ public class MaterialListBoxTest extends MaterialListValueBoxTest<String> {
     @Override
     public void testValues() {
         // given
-        MaterialListBox listBox = (MaterialListBox)getWidget();
+        MaterialListBox listBox = (MaterialListBox) getWidget();
 
         List<String> users = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
@@ -53,12 +53,12 @@ public class MaterialListBoxTest extends MaterialListValueBoxTest<String> {
     }
 
     public void testChildren() {
+        // UiBinder
         // given
         MaterialListBox listBox = (MaterialListBox)getWidget();
 
         // when / then
         assertEquals(3, listBox.getChildren().size());
-
         assertTrue(listBox.getWidget(0) instanceof ListBox);
         assertTrue(listBox.getWidget(1) instanceof Label);
         assertTrue(listBox.getWidget(2) instanceof MaterialLabel);

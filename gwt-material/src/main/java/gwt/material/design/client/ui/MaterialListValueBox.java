@@ -151,8 +151,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     @Override
     public void reload() {
-        unload();
-        load();
+        if (isAttached()) {
+            unload();
+            load();
+        }
     }
 
     public void add(T value) {
