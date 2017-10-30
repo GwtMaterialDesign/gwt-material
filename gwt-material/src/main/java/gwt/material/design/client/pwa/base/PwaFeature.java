@@ -17,20 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.pwa;
+package gwt.material.design.client.pwa.base;
 
-public interface HasWebManifest {
+import gwt.material.design.client.base.JsLoader;
+import gwt.material.design.client.pwa.PwaManager;
 
-    /**
-     * Set up the manifest.json file to enable the Installable feature of GMD PWA
-     * @param manifestUrl - the url of your manifest.json file
-     */
-    PwaManager setWebManifestUrl(String manifestUrl);
+public interface PwaFeature extends JsLoader {
 
-    /**
-     * Added a meta tag theme color to provide the browser's address
-     * bar a designated color by your app.
-     * @param themeColor - Hexadecimal value for your the background color of the address bar
-     */
-    PwaManager setThemeColor(String themeColor);
+    PwaManager getManager();
+
+    String getResource();
 }
