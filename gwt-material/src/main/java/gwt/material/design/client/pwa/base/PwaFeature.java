@@ -17,15 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.pwa.serviceworker;
+package gwt.material.design.client.pwa.base;
 
-import gwt.material.design.client.pwa.PwaFeature;
+import gwt.material.design.client.base.JsLoader;
+import gwt.material.design.client.pwa.PwaManager;
 
-public interface IsServiceWorker {
+public interface PwaFeature extends JsLoader {
 
-    void load();
+    PwaManager getManager();
 
-    void unload();
-
-    void reload();
+    String getResource();
 }

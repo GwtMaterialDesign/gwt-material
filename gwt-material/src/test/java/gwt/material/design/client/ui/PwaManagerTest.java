@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.pwa.PwaManager;
+import gwt.material.design.client.pwa.serviceworker.DefaultServiceWorkerManager;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -35,43 +36,55 @@ public class PwaManagerTest extends MaterialTestCase {
     @Override
     protected void gwtSetUp() throws Exception {
         super.gwtSetUp();
-        /*PwaManager.getInstance()
-                .loadServiceWorker(SERVICE_WORKER_URL)
-                .loadWebManifest(WEB_MANIFEST_URL)
-                .loadThemeColor(THEME_COLOR)
-                .load();*/
     }
 
     public void testManifest() {
+        // Load Web Manifest
+        PwaManager.getInstance().setWebManifest(WEB_MANIFEST_URL).load();
+        assertNotNull(PwaManager.getInstance().getWebManifestManager());
+
         // Get the link manifest element and check whether it's null or not
         Element linkManifest = getLinkManifestElement();
         assertNotNull(linkManifest);
         // Check whether the link manifest has an href of expected result
         assertEquals(linkManifest.getAttribute("href"), WEB_MANIFEST_URL);
+
         // Unregister the PWA Manager
-        PwaManager.getInstance().unLoad();
+        PwaManager.getInstance().unload();
         assertNull(getLinkManifestElement());
+
         // Reload the PWA Manager
         PwaManager.getInstance().reload();
         assertNotNull($(getLinkManifestElement()));
     }
 
     public void testMetaThemeColor() {
+        // Load Browser meta theme color
+        PwaManager.getInstance().setThemeColor(THEME_COLOR).load();
+        assertNotNull(PwaManager.getInstance().getBrowserThemeManager());
+
         // Get the link manifest element and check whether it's null or not
         Element metaThemeColor = getMetaThemeColor();
         assertNotNull(metaThemeColor);
         // Check whether the link manifest has an href of expected result
         assertEquals(metaThemeColor.getAttribute("content"), THEME_COLOR);
+
         // Unregister the PWA Manager
-        PwaManager.getInstance().unLoad();
+        PwaManager.getInstance().unload();
         assertNull(getMetaThemeColor());
+
         // Reload the PWA Manager
         PwaManager.getInstance().reload();
         assertNotNull($(getMetaThemeColor()));
     }
 
     public void testServiceWorker() {
-        /*PwaManager.getInstance().loadServiceWorker(SERVICE_WORKER_URL);*/
+        // Load Service worker
+        PwaManager.getInstance().setServiceWorker(SERVICE_WORKER_URL);
+        assertNotNull(PwaManager.getInstance().getServiceWorkerManager());
+        assertTrue(PwaManager.getInstance().getServiceWorkerManager() instanceof DefaultServiceWorkerManager);
+        DefaultServiceWorkerManager manager = (DefaultServiceWorkerManager) PwaManager.getInstance().getServiceWorkerManager();
+        assertEquals(SERVICE_WORKER_URL, manager.getResource());
     }
 
     protected Element getMetaThemeColor() {

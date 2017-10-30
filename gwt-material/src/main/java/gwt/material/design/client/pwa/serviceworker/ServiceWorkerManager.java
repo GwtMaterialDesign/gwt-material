@@ -19,98 +19,28 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
-import com.google.gwt.core.client.GWT;
-import gwt.material.design.client.pwa.PwaFeature;
-import gwt.material.design.client.pwa.PwaManager;
-import gwt.material.design.client.pwa.serviceworker.constants.State;
-import gwt.material.design.jscore.client.api.Navigator;
+import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
 
-public abstract class ServiceWorkerManager extends PwaFeature implements IsServiceWorker {
+public interface ServiceWorkerManager extends PwaFeature {
 
-    private State state;
-    private String url;
-    private ServiceWorkerRegistration _registration;
+    /**
+     * Update the Service Worker Registration
+     */
+    void update();
 
-    public ServiceWorkerManager(String url) {
-        this.url = url;
-    }
+    /**
+     * Get the Service Worker Registration after the ServiceWorker container has been successfully
+     * registered
+     */
+    ServiceWorkerRegistration getServiceWorkerRegistration();
 
-    public ServiceWorkerManager(PwaManager manager) {
-        super(manager);
-    }
 
-    @Override
-    public void load() {
-        load(url);
-    }
+    ServiceWorker getServiceWorker();
 
-    @Override
-    public void load(String url) {
-        if (url != null && Navigator.serviceWorker != null) {
-            registerServiceWorker(url);
-        } else {
-            GWT.log("Service worker is not supported by this browser.");
-        }
-    }
-
-    protected void registerServiceWorker(String url) {
-        this.url = url;
-        Navigator.serviceWorker.register(url).then(registration -> {
-            GWT.log("Service Worker Registered");
-            _registration = (ServiceWorkerRegistration) registration;
-            _registration.onupdatefound = e -> {
-
-                ServiceWorker newServiceWorker = this._registration.installing;
-                newServiceWorker.onstatechange = e1 -> {
-                    String currentState = newServiceWorker.state;
-                    if (currentState != null && !currentState.isEmpty()) {
-                        state = State.fromStyleName(currentState);
-                        onStateChange(state, newServiceWorker);
-                    }
-                    return true;
-                };
-                return true;
-            };
-
-            return null;
-        }, error -> {
-            GWT.log("ServiceWorker registration failed: " + error);
-            return null;
-        });
-    }
-
-    @Override
-    public void unload() {
-        _registration.unregister();
-    }
-
-    @Override
-    public void reload() {
-        unload();
-        load(url);
-    }
-
-    public void update() {
-        _registration.update();
-    }
-
-    public boolean isOnline() {
-        return Navigator.onLine;
-    }
-
-    public boolean isOfflineReady() {
-        return state.equals(State.ACTIVATED) && getServiceWorker() == null;
-    }
-
-    public boolean isNewCacheReleased() {
-        return state.equals(State.INSTALLED) && getServiceWorker() != null;
-    }
-
-    public ServiceWorker getServiceWorker() {
-        return Navigator.serviceWorker.controller;
-    }
-
-    public abstract void onStateChange(State state, ServiceWorker newServiceWorker);
+    /**
+     * Returns true if Browser supported service worker.
+     */
+    boolean isServiceWorkerSupported();
 }

@@ -22,23 +22,20 @@ package gwt.material.design.client.pwa.manifest;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.pwa.PwaFeature;
+import gwt.material.design.client.pwa.base.AbstractPwaFeature;
 import gwt.material.design.client.pwa.PwaManager;
 
-public class WebManifestManager extends PwaFeature {
-
-    private String url;
+public class WebManifestManager extends AbstractPwaFeature {
 
     private Element manifestElement;
 
-    public WebManifestManager(PwaManager manager) {
-        super(manager);
+    public WebManifestManager(PwaManager manager, String resource) {
+        super(manager, resource);
     }
 
     @Override
-    public void load(String url) {
-        this.url = url;
-        if (url != null && !url.isEmpty()) {
+    public void load() {
+        if (getResource() != null && !getResource().isEmpty()) {
             // Check whether manifestElement was already attached to the head element.
             if (manifestElement == null) {
                 manifestElement = Document.get().createLinkElement();
@@ -46,7 +43,7 @@ public class WebManifestManager extends PwaFeature {
             }
 
             manifestElement.setAttribute("rel", "manifest");
-            manifestElement.setAttribute("href", url);
+            manifestElement.setAttribute("href", getResource());
         }
     }
 
@@ -62,6 +59,6 @@ public class WebManifestManager extends PwaFeature {
     @Override
     public void reload() {
         unload();
-        load(url);
+        load();
     }
 }

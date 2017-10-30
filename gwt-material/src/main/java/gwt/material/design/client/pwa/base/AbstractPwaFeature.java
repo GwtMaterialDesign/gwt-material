@@ -17,25 +17,29 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.pwa;
+package gwt.material.design.client.pwa.base;
 
-public abstract class PwaFeature {
+import gwt.material.design.client.pwa.PwaManager;
+
+public abstract class AbstractPwaFeature implements PwaFeature {
 
     private PwaManager manager;
+    private String resouce;
 
-    public PwaFeature() {}
+    public AbstractPwaFeature() {}
 
-    public PwaFeature(PwaManager manager) {
+    public AbstractPwaFeature(PwaManager manager, String resource) {
         this.manager = manager;
+        this.resouce = resource;
     }
 
-    public abstract void load(String object);
-
-    public abstract void unload();
-
-    public abstract void reload();
-
+    @Override
     public PwaManager getManager() {
         return manager;
+    }
+
+    @Override
+    public String getResource() {
+        return resouce;
     }
 }

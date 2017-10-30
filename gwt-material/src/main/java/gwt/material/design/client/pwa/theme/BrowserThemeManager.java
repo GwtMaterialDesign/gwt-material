@@ -22,28 +22,26 @@ package gwt.material.design.client.pwa.theme;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.pwa.PwaFeature;
 import gwt.material.design.client.pwa.PwaManager;
+import gwt.material.design.client.pwa.base.AbstractPwaFeature;
 
-public class BrowserThemeManager extends PwaFeature {
+public class BrowserThemeManager extends AbstractPwaFeature {
 
     private Element themeColorElement;
-    private String themeColor;
 
-    public BrowserThemeManager(PwaManager manager) {
-        super(manager);
+    public BrowserThemeManager(PwaManager manager, String resource) {
+        super(manager, resource);
     }
 
     @Override
-    public void load(String themeColor) {
-        this.themeColor = themeColor;
-        if (this.themeColor != null && !this.themeColor.isEmpty()) {
+    public void load() {
+        if (getResource() != null && !getResource().isEmpty()) {
             if (themeColorElement == null) {
                 themeColorElement = Document.get().createMetaElement();
                 getManager().getHeadElement().appendChild(themeColorElement);
             }
             themeColorElement.setAttribute("name", "theme-color");
-            themeColorElement.setAttribute("content", this.themeColor);
+            themeColorElement.setAttribute("content", getResource());
         }
     }
 
@@ -59,6 +57,6 @@ public class BrowserThemeManager extends PwaFeature {
     @Override
     public void reload() {
         unload();
-        load(themeColor);
+        load();
     }
 }
