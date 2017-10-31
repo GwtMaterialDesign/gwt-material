@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import gwt.material.design.client.async.HasAsyncWidget;
 import gwt.material.design.client.base.AbstractIconButton;
 import gwt.material.design.client.constants.ButtonType;
 import gwt.material.design.client.constants.Color;
@@ -58,7 +59,7 @@ import gwt.material.design.client.constants.IconType;
  * @see <a href="https://material.io/guidelines/components/buttons.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialButton extends AbstractIconButton {
+public class MaterialButton extends AbstractIconButton implements HasAsyncWidget {
 
     public MaterialButton() {
         super(ButtonType.RAISED);
@@ -96,5 +97,20 @@ public class MaterialButton extends AbstractIconButton {
     @Override
     protected Element createElement() {
         return Document.get().createPushButtonElement();
+    }
+
+    /**
+     * TODO Make it asynchronous method
+     */
+    @Override
+    public void showLoading() {
+        //TODO Build a UX for async loading button
+        MaterialLoader.showLoading(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        // TODO Set the UI into default view
+        MaterialLoader.showLoading(false);
     }
 }
