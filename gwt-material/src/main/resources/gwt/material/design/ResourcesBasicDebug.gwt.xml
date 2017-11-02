@@ -26,9 +26,9 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.0//EN"
     "http://gwtproject.org/doctype/2.8.0/gwt-module.dtd">
 <module>
-  <inherits name="gwt.material.design.GwtMaterialDesignBase"/>
-  <inherits name="gwt.material.design.ResourcesBasicDebug"/>
+  <!-- public resources -->
+  <public path="public"/>
 
-  <!-- Specify the app entry point class -->
-  <entry-point class="gwt.material.design.client.MaterialDesignDebug"/>
+  <stylesheet src="css/animation.css"/>
+  <stylesheet src="css/material-icons.css"/>
 </module>
