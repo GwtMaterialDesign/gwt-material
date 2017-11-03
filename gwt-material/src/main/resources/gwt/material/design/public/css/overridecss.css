@@ -226,6 +226,11 @@ button.disabled:hover, i.disabled:hover {
     padding: 2rem;
 }
 
+.collapsible li.active .collapsible-body .input-field label {
+    font-size: 0.8rem;
+    transform: translateY(-140%); }
+}
+
 .collapsible-header > i {
     font-size: 1.4rem !important;
     line-height: 2.5rem !important;
@@ -467,6 +472,10 @@ footer.fixed {
 /** Input Field **/
 .input-field label {
     left: 0 !important;
+}
+
+.col .input-field label {
+    left: 0px;
 }
 
 .row > .input-field label {

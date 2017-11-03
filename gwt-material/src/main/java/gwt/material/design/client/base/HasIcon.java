@@ -35,7 +35,7 @@ public interface HasIcon {
 
     /**
      * Set Material Design icon.
-     * {@link //www.google.com/design/icons/}
+     * @see <a href="//www.google.com/design/icons/">Material Design Icons</a>
      */
     void setIconType(IconType iconType);
 
@@ -61,7 +61,6 @@ public interface HasIcon {
 
     /**
      * Get the color of the icon
-     * @return
      */
     Color getIconColor();
 

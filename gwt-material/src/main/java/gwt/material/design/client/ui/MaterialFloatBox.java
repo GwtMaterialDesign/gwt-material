@@ -36,7 +36,7 @@ package gwt.material.design.client.ui;
  * i18n settings from the user.
  *
  * @author paulux84
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material FloatBox</a>
+ * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#textfields">Material FloatBox</a>
  * @see <a href="https://material.io/guidelines/components/text-fields.html#">Material Design Specification</a>
  */
 //@formatter:on

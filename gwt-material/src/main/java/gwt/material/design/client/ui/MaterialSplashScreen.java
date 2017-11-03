@@ -45,19 +45,18 @@ import gwt.material.design.client.ui.html.Div;
  * }</pre>
  * <h3>Java Usage:</h3>
  * <pre>
- * {@code
- *
- * @UiField MaterialSplashScreen splash;
+ * {@code @UiField MaterialSplashScreen splash;
  * splash.show();
- * Timer t = new Timer() {
- *     @Override
+ * Timer t = new Timer()
+ *  { @Override
  *     public void run() {
  *         splash.hide();
  *     }
  * };
  * t.schedule(3000);
- *
  * }</pre>
+ * }
+ *
  *
  * @author kevzlou7979
  * @author Ben Dol
