@@ -48,6 +48,8 @@
         </developer>
     </developers>
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.encoding>UTF-8</project.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -102,6 +104,7 @@
             <url>https://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>snapshots-repo</id>
@@ -115,33 +118,25 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt</artifactId>
+                <version>${gwt.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>1.5</version>
-                <configuration>
-                    <licenseName>apache_v2</licenseName>
-                    <inceptionYear>2015</inceptionYear>
-                    <organizationName>GwtMaterialDesign</organizationName>
-                    <projectName>GwtMaterial</projectName>
-                    <lineLength>19</lineLength>
-                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
-                    <includes>
-                        <include>**/*.java</include>
-                        <include>**/*.xml</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>license</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>update-file-header</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>1.0-rc-6</version>
+                <inherited>false</inherited>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -228,40 +223,22 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.5.1</version>
-                    <configuration>
-                        <source>${source.version}</source>
-                        <target>${target.version}</target>
-                    </configuration>
+                    <version>3.1</version>
                 </plugin>
 
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
+                    <groupId>net.ltgt.gwt.maven</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
-                    <version>${gwt.version}</version>
+                    <version>1.0-rc-6</version>
+                    <extensions>true</extensions>
                     <configuration>
-                        <style>${gwt.style}</style>
+                        <configuration>
+                            <source>${source.version}</source>
+                            <skipModule>true</skipModule>
+                            <target>${target.version}</target>
+                            <failOnError>true</failOnError>
+                        </configuration>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <id>gwt-compile</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>gwt-resources</id>
-                            <goals>
-                                <goal>resources</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
 
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
