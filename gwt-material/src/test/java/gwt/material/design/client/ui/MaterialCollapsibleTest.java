@@ -197,11 +197,13 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
             assertTrue(item.isActive());
             assertTrue(item.getElement().hasClassName(CssName.ACTIVE));
             assertTrue(item.getHeader().getElement().hasClassName(CssName.ACTIVE));
+            assertEquals(Display.BLOCK.getCssName(), item.getBody().getElement().getStyle().getDisplay());
 
             item.setActive(false);
             assertFalse(item.isActive());
             assertFalse(item.getElement().hasClassName(CssName.ACTIVE));
             assertFalse(item.getHeader().getElement().hasClassName(CssName.ACTIVE));
+            assertEquals(Display.NONE.getCssName(), item.getBody().getElement().getStyle().getDisplay());
         }
 
         collapsible.clearActive();

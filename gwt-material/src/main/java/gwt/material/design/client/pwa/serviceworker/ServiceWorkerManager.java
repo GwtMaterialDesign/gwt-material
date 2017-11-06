@@ -17,28 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.pwa;
+package gwt.material.design.client.pwa.serviceworker;
 
+import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
+import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
 
-public interface HasServiceWorker {
-
-    /**
-     * Set up the service worker configuration file (service-worker.js) to enable
-     * the Offline Feature of your GMD PWA App.
-     * @param serviceWorkerUrl
-     */
-    PwaManager setServiceWorkerUrl(String serviceWorkerUrl);
+public interface ServiceWorkerManager extends PwaFeature {
 
     /**
-     * Unregister the Service Worker
+     * Update the Service Worker Registration
      */
-    void unRegisterServiceWorker();
+    void update();
 
     /**
-     * Checks the server for an updated version of the service worker without consulting caches.
+     * Get the Service Worker Registration after the ServiceWorker container has been successfully
+     * registered
      */
-    void updateServiceWorker();
+    ServiceWorkerRegistration getServiceWorkerRegistration();
+
 
     ServiceWorker getServiceWorker();
+
+    /**
+     * Returns true if Browser supported service worker.
+     */
+    boolean isServiceWorkerSupported();
 }
