@@ -9,6 +9,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>gwt-material</artifactId>
+    <packaging>gwt-lib</packaging>
+
     <name>Gwt Material</name>
     <description>A Material Design look and feel for GWT Applications</description>
 
@@ -22,13 +24,11 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
             <version>${gwt.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -70,9 +70,17 @@
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
                 <version>${tbroyer.version}</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <moduleName>gwt.material.design.GwtMaterialDesign</moduleName>
+                    <moduleName>gwt.material.design.GwtMaterialDesignWithJQuery</moduleName>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
