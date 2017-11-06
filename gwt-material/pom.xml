@@ -9,7 +9,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>gwt-material</artifactId>
-
     <name>Gwt Material</name>
     <description>A Material Design look and feel for GWT Applications</description>
 
@@ -56,7 +55,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
+                <version>${surefire.version}</version>
                 <configuration>
                     <additionalClasspathElements>
                         <additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
@@ -70,7 +69,7 @@
             <plugin>
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>1.0-rc-6</version>
+                <version>${tbroyer.version}</version>
                 <configuration>
                     <moduleName>gwt.material.design.GwtMaterialDesign</moduleName>
                 </configuration>
