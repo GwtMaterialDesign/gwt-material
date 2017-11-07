@@ -72,7 +72,7 @@
                 <version>${tbroyer.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <moduleName>gwt.material.design.GwtMaterialDesignWithJQuery</moduleName>
+                    <moduleName>gwt.material.design.GwtMaterialWithJQuery</moduleName>
                 </configuration>
                 <executions>
                     <execution>
