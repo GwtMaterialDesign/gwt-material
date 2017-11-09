@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.constants.SideNavType;
 
@@ -45,7 +46,7 @@ import gwt.material.design.client.constants.SideNavType;
  * @see <a href="https://gwtmaterialdesign.github.io/gwt-material-patterns/snapshot/#sidenav_card">Pattern</a>
  */
 //@formatter:on
-public class MaterialSideNavCard extends MaterialSideNav {
+public class MaterialSideNavCard extends AbstractSideNav {
 
     public MaterialSideNavCard() {
         super(SideNavType.CARD);
