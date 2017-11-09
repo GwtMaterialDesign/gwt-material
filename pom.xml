@@ -135,10 +135,30 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>net.ltgt.gwt.maven</groupId>
-                <artifactId>gwt-maven-plugin</artifactId>
-                <version>${tbroyer.version}</version>
-                <inherited>false</inherited>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <licenseName>apache_v2</licenseName>
+                    <inceptionYear>2015</inceptionYear>
+                    <organizationName>GwtMaterialDesign</organizationName>
+                    <projectName>GwtMaterial</projectName>
+                    <lineLength>19</lineLength>
+                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.xml</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>license</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>update-file-header</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
