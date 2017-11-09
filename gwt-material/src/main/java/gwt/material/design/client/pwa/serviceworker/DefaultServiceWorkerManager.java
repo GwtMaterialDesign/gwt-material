@@ -21,12 +21,9 @@ package gwt.material.design.client.pwa.serviceworker;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
-import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialToast;
-import gwt.material.design.jscore.client.api.Navigator;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
 
 /**
  * Default Service Worker Manager that delegates all methods needed

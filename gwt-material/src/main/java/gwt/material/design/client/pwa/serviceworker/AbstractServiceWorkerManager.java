@@ -20,17 +20,23 @@
 package gwt.material.design.client.pwa.serviceworker;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.SimpleEventBus;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
+import gwt.material.design.client.pwa.serviceworker.events.ConnectionStatusUpdatedEvent;
+import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jscore.client.api.Navigator;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * An abstract implementation of Service Worker to manage its lifecycle
  * For more references see <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Worker Lifecycle</a>
  */
-public abstract class AbstractServiceWorkerManager implements ServiceWorkerManager {
+public abstract class AbstractServiceWorkerManager extends SimpleEventBus implements ServiceWorkerManager {
 
     private PwaManager manager;
     private String resource;
@@ -88,6 +94,16 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
                     return true;
                 };
             }
+
+            $(JQuery.window()).on("online", (e, param1) -> {
+                ConnectionStatusUpdatedEvent.fire(this, true);
+                return true;
+            });
+
+            $(JQuery.window()).on("offline", (e, param1) -> {
+                ConnectionStatusUpdatedEvent.fire(this, false);
+                return true;
+            });
 
             return null;
         }, error -> {
@@ -204,5 +220,10 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
     @Override
     public PwaManager getManager() {
         return manager;
+    }
+
+    @Override
+    public HandlerRegistration addConnectionStatusUpdateHandler(ConnectionStatusUpdatedEvent.ConnectionStatusUpdatedHandler handler) {
+        return addHandler(ConnectionStatusUpdatedEvent.TYPE, handler);
     }
 }
