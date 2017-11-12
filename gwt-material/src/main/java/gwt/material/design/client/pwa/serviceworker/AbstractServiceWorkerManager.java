@@ -66,6 +66,8 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
         if (registration != null) {
             registration.unregister();
         }
+        $(JQuery.window()).off("online");
+        $(JQuery.window()).off("offline");
     }
 
     @Override
@@ -81,29 +83,21 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
 
             registration = (ServiceWorkerRegistration) object;
 
-            if (Navigator.serviceWorker == null) return null;
-
             if (registration.waiting != null) {
                 onNewServiceWorkerFound(registration.waiting);
                 return null;
             }
 
             if (registration.installing != null) {
-                registration.onupdatefound = e -> {
-                    onStateChange(registration.installing);
-                    return true;
-                };
+                trackServiceWorkerState(registration.installing);
             }
 
-            $(JQuery.window()).on("online", (e, param1) -> {
-                ConnectionStatusUpdatedEvent.fire(this, true);
+            registration.onupdatefound = e -> {
+                trackServiceWorkerState(registration.installing);
                 return true;
-            });
+            };
 
-            $(JQuery.window()).on("offline", (e, param1) -> {
-                ConnectionStatusUpdatedEvent.fire(this, false);
-                return true;
-            });
+            setupConnectionStatus();
 
             return null;
         }, error -> {
@@ -113,6 +107,36 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
 
         Navigator.serviceWorker.oncontrollerchange = e -> {
             onControllerChange();
+            return true;
+        };
+    }
+
+    protected void setupConnectionStatus() {
+
+        updateConnectionStatus(Navigator.onLine);
+
+        $(JQuery.window()).on("online", (e, param1) -> {
+            updateConnectionStatus(true);
+            return true;
+        });
+
+        $(JQuery.window()).on("offline", (e, param1) -> {
+            updateConnectionStatus(false);
+            return true;
+        });
+    }
+
+    protected void updateConnectionStatus(boolean online) {
+        ConnectionStatusUpdatedEvent.fire(this, online);
+    }
+
+    /**
+     * Will track the service worker phase of the service worker and once
+     * the service worker state was installed then call {@link #onNewServiceWorkerFound(ServiceWorker)}
+     */
+    protected void trackServiceWorkerState(ServiceWorker serviceWorker) {
+        serviceWorker.onstatechange = e -> {
+            onStateChange(serviceWorker);
             return true;
         };
     }
@@ -128,6 +152,8 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
                     onInstalling();
                     break;
                 case INSTALLED:
+                    onNewServiceWorkerFound(serviceWorker);
+
                     onInstalled();
                     break;
                 case ACTIVATING:
