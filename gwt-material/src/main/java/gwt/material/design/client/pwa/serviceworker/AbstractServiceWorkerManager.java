@@ -83,20 +83,41 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
 
             registration = (ServiceWorkerRegistration) object;
 
+            // If there's no controller, this page wasn't loaded
+            // via a service worker, so they're looking at the latest version.
+            // In that case, exit early
+            if (Navigator.serviceWorker.controller == null) {
+                if (registration.installing != null) {
+                    onStateChange(registration.installing);
+                }
+                return null;
+            }
+
+            // If there's an updated worker already waiting,
+            // call {@link #onNewServiceWorkerFound(serviceworker)
             if (registration.waiting != null) {
                 onNewServiceWorkerFound(registration.waiting);
                 return null;
             }
 
+            // If there's an updated worker installing, track its
+            // progress. If it becomes "installed", call
+            // {@link #onNewServiceWorkerFound(serviceworker)
             if (registration.installing != null) {
                 trackServiceWorkerState(registration.installing);
+                return null;
             }
 
+            // Otherwise, listen for new installing workers arriving
+            // If on arrives, track its progress.
+            // If it becomes "installed", call
+            // {@link #onNewServiceWorkerFound(serviceworker)
             registration.onupdatefound = e -> {
                 trackServiceWorkerState(registration.installing);
                 return true;
             };
 
+            // Will configure any offline and online network status updates
             setupConnectionStatus();
 
             return null;
@@ -105,6 +126,7 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
             return null;
         });
 
+        // Will listen to any service worker response
         Navigator.serviceWorker.oncontrollerchange = e -> {
             onControllerChange();
             return true;
@@ -136,7 +158,9 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
      */
     protected void trackServiceWorkerState(ServiceWorker serviceWorker) {
         serviceWorker.onstatechange = e -> {
-            onStateChange(serviceWorker);
+            if (serviceWorker.state.equals("installed")) {
+                onNewServiceWorkerFound(serviceWorker);
+            }
             return true;
         };
     }
@@ -152,8 +176,6 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
                     onInstalling();
                     break;
                 case INSTALLED:
-                    onNewServiceWorkerFound(serviceWorker);
-
                     onInstalled();
                     break;
                 case ACTIVATING:
