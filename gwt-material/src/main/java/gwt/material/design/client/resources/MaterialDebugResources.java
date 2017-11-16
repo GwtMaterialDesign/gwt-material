@@ -34,4 +34,7 @@ public interface MaterialDebugResources extends ClientBundle {
 
     @Source("js/push.js")
     TextResource pushNotificationJsDebug();
+
+    @Source("js/app-installer.js")
+    TextResource appInstallerJsDebug();
 }

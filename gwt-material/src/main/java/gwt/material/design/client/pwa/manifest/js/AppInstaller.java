@@ -17,11 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.pwa.serviceworker.events;
+package gwt.material.design.client.pwa.manifest.js;
 
-import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jquery.client.api.JQueryElement;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
-public interface HasConnectionStatusHandler {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+public class AppInstaller extends JQueryElement {
 
-    HandlerRegistration addConnectionStatusUpdateHandler(ConnectionStatusUpdatedEvent.ConnectionStatusUpdatedHandler handler);
+    public AppInstaller() {}
+
+    public native void install(Functions.Func1 success, Functions.Func1<String> failure);
 }

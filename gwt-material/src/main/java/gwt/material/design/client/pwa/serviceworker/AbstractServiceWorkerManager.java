@@ -20,15 +20,16 @@
 package gwt.material.design.client.pwa.serviceworker;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.shared.SimpleEventBus;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
-import gwt.material.design.client.pwa.serviceworker.events.ConnectionStatusUpdatedEvent;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jscore.client.api.Navigator;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
+
+import java.util.logging.Logger;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -38,6 +39,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 public abstract class AbstractServiceWorkerManager extends SimpleEventBus implements ServiceWorkerManager {
 
+    private static final Logger logger = Logger.getLogger(AbstractServiceWorkerManager.class.getSimpleName());
     private PwaManager manager;
     private String resource;
     private ServiceWorkerRegistration registration;
@@ -57,7 +59,7 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
         if (getResource() != null && isServiceWorkerSupported()) {
             setupRegistration();
         } else {
-            GWT.log("Service worker is not supported by this browser.");
+            logger.info("Service worker is not supported by this browser.");
         }
     }
 
@@ -79,7 +81,7 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
     protected void setupRegistration() {
         Navigator.serviceWorker.register(getResource()).then(object -> {
 
-            GWT.log("Service worker has been successfully registered");
+            logger.info("Service worker has been successfully registered");
 
             registration = (ServiceWorkerRegistration) object;
 
@@ -122,7 +124,7 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
 
             return null;
         }, error -> {
-            GWT.log("ServiceWorker registration failed: " + error);
+            logger.info("ServiceWorker registration failed: " + error);
             return null;
         });
 
@@ -149,7 +151,11 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
     }
 
     protected void updateConnectionStatus(boolean online) {
-        ConnectionStatusUpdatedEvent.fire(this, online);
+        if (online) {
+            onOnline();
+        } else {
+            onOffline();
+        }
     }
 
     /**
@@ -158,7 +164,7 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
      */
     protected void trackServiceWorkerState(ServiceWorker serviceWorker) {
         serviceWorker.onstatechange = e -> {
-            if (serviceWorker.state.equals("installed")) {
+            if (serviceWorker.state.equals(State.INSTALLED.getCssName())) {
                 onNewServiceWorkerFound(serviceWorker);
             }
             return true;
@@ -190,6 +196,34 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
             }
             return true;
         };
+    }
+
+    /**
+     * Will set the polling request interval in milliseconds for new Service Worker instance.
+     * @param interval - Interval must be in milliseconds and must be at least 1000ms (1 second).
+     */
+    public void setPollingInterval(int interval) {
+        if (interval >= 1 ) {
+            Scheduler.get().scheduleFixedDelay(() -> {
+                checkStatus();
+                return true;
+            }, interval);
+        } else {
+            logger.warning("Polling Interval must be at least 1000ms or 1 second to perform the request.");
+        }
+    }
+
+    protected void checkStatus() {
+        if (registration != null) {
+            registration.update();
+        }
+    }
+
+    /**
+     * Forces the waiting service worker to become the active service worker.
+     */
+    protected void skipWaiting(ServiceWorker serviceWorker) {
+        serviceWorker.postMessage("skipWaiting");
     }
 
     /**
@@ -240,6 +274,16 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
      */
     protected abstract void onNewServiceWorkerFound(ServiceWorker serviceWorker);
 
+    /**
+     * Called when the network status is online
+     */
+    protected abstract void onOnline();
+
+    /**
+     * Called when the network status is offline
+     */
+    protected abstract void onOffline();
+
     @Override
     public void update() {
         registration.update();
@@ -268,10 +312,5 @@ public abstract class AbstractServiceWorkerManager extends SimpleEventBus implem
     @Override
     public PwaManager getManager() {
         return manager;
-    }
-
-    @Override
-    public HandlerRegistration addConnectionStatusUpdateHandler(ConnectionStatusUpdatedEvent.ConnectionStatusUpdatedHandler handler) {
-        return addHandler(ConnectionStatusUpdatedEvent.TYPE, handler);
     }
 }

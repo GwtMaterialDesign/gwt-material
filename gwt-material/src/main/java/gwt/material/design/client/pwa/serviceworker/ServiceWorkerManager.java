@@ -20,11 +20,10 @@
 package gwt.material.design.client.pwa.serviceworker;
 
 import gwt.material.design.client.pwa.base.PwaFeature;
-import gwt.material.design.client.pwa.serviceworker.events.HasConnectionStatusHandler;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
 
-public interface ServiceWorkerManager extends PwaFeature, HasConnectionStatusHandler {
+public interface ServiceWorkerManager extends PwaFeature {
 
     /**
      * Update the Service Worker Registration
