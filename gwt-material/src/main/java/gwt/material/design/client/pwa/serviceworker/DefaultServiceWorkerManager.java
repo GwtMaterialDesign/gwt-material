@@ -22,7 +22,6 @@ package gwt.material.design.client.pwa.serviceworker;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import gwt.material.design.client.base.AbstractButton;
-import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
@@ -75,12 +74,12 @@ public class DefaultServiceWorkerManager extends AbstractServiceWorkerManager {
     @Override
     protected void onNewServiceWorkerFound(ServiceWorker serviceWorker) {
         MaterialLink reload = new MaterialLink("REFRESH");
-        onNewServiceWorkerFound(serviceWorker, reload, "A new version of this app is available.");
+        onNewServiceWorkerFound(serviceWorker, reload, "New updates available.");
     }
 
     protected void onNewServiceWorkerFound(ServiceWorker serviceWorker, AbstractButton refreshButton, String message) {
         refreshButton.addClickHandler(clickEvent -> skipWaiting(serviceWorker));
-        new MaterialToast(refreshButton).toast(message);
+        new MaterialToast(refreshButton).toast(message, 0);
     }
 
     @Override
