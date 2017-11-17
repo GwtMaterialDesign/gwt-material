@@ -27,7 +27,7 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class AppInstaller extends JQueryElement {
 
-    public AppInstaller() {}
+    public AppInstaller(Functions.Func fallback) {}
 
-    public native void install(Functions.Func1 success, Functions.Func1<String> failure);
+    public native void prompt();
 }

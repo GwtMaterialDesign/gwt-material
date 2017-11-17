@@ -1,18 +1,19 @@
-function AppInstaller() {
-    this.install = function () {
-        window.install.prompt()
-            .then(function (outcome) {
-                // The user actioned the prompt (good or bad).
-            })
-            .catch(function (installError) {
-                // Boo. update the UI.
+function AppInstaller(fallback) {
 
-            });
-    }
-
-    window.install.canPrompt()
+    window.install.canPrompt(fallback)
         .then(function () {
+
+        }).catch(function (error) {
+            fallback.call(error);
+        }
+    );
+
+    this.prompt = function () {
+        window.install.prompt().then(function (outcome) {
+        }).catch(function (error) {
+            fallback.call(error);
         });
+    }
 }
 
 (function () {
@@ -53,7 +54,8 @@ function AppInstaller() {
             if (promptTriggered === false) {
                 // There can be a whole host or reasons, we should determine them
                 reject('User Agent decided not to prompt');
-            };
+            }
+            ;
 
             deferredInstall.prompt().then(function () {
                 return deferredInstall.userChoice

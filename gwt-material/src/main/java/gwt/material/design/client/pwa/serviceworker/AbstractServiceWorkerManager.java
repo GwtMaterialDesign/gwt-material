@@ -19,9 +19,7 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.shared.SimpleEventBus;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
 import gwt.material.design.jquery.client.api.JQuery;
@@ -37,7 +35,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * An abstract implementation of Service Worker to manage its lifecycle
  * For more references see <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Worker Lifecycle</a>
  */
-public abstract class AbstractServiceWorkerManager extends SimpleEventBus implements ServiceWorkerManager {
+public abstract class AbstractServiceWorkerManager implements ServiceWorkerManager {
 
     private static final Logger logger = Logger.getLogger(AbstractServiceWorkerManager.class.getSimpleName());
     private PwaManager manager;

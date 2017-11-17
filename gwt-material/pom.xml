@@ -72,13 +72,29 @@
                 <version>${tbroyer.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <skipModule>true</skipModule>
                     <moduleName>gwt.material.design.GwtMaterialWithJQuery</moduleName>
+                    <style>OBFUSCATED</style>
+                    <logLevel>INFO</logLevel>
+                    <sourceLevel>1.8</sourceLevel>
+                    <jvmArgs>
+                        <jvmArg>-Xmx1g</jvmArg>
+                        <jvmArg>-Xms1g</jvmArg>
+                        <jvmArg>-XX:CompileThreshold=7000</jvmArg>
+                    </jvmArgs>
+                    <optimize>9</optimize>
+                    <compilerArgs>
+                        <compilerArg>-compileReport</compilerArg>
+                        <compilerArg>-XcompilerMetrics</compilerArg>
+                    </compilerArgs>
+                    <skipModule>true</skipModule>
+                    <classpathScope>compile+runtime</classpathScope>
+                    <failOnError>true</failOnError>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>compile</goal>
+                            <goal>test</goal>
                         </goals>
                     </execution>
                 </executions>
