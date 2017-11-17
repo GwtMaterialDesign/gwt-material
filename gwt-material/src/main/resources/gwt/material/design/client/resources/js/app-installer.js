@@ -14,6 +14,10 @@ function AppInstaller(fallback) {
             fallback.call(error);
         });
     }
+
+    this.isLaunched = function (displayMode) {
+        return window.matchMedia('(display-mode: ' + displayMode + ')').matches;
+    }
 }
 
 (function () {

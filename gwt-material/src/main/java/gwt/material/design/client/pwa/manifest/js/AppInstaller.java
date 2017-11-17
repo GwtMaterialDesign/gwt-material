@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.pwa.manifest.js;
 
+import gwt.material.design.client.js.Window;
 import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.jquery.client.api.JQueryElement;
 import jsinterop.annotations.JsPackage;
@@ -30,4 +31,6 @@ public class AppInstaller extends JQueryElement {
     public AppInstaller(Functions.Func fallback) {}
 
     public native void prompt();
+
+    public native boolean isLaunched(String displayMode);
 }
