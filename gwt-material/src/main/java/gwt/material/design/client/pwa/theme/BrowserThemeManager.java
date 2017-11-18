@@ -35,14 +35,12 @@ public class BrowserThemeManager extends AbstractPwaFeature {
 
     @Override
     public void load() {
-        if (getResource() != null && !getResource().isEmpty()) {
-            if (themeColorElement == null) {
-                themeColorElement = Document.get().createMetaElement();
-                getManager().getHeadElement().appendChild(themeColorElement);
-            }
-            themeColorElement.setAttribute("name", "theme-color");
-            themeColorElement.setAttribute("content", getResource());
+        if (themeColorElement == null) {
+            themeColorElement = Document.get().createMetaElement();
+            getManager().getHeadElement().appendChild(themeColorElement);
         }
+        themeColorElement.setAttribute("name", "theme-color");
+        themeColorElement.setAttribute("content", getResource());
     }
 
     @Override

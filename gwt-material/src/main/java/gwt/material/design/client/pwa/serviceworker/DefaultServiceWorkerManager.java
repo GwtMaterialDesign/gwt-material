@@ -33,6 +33,8 @@ import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
  */
 public class DefaultServiceWorkerManager extends AbstractServiceWorkerManager {
 
+    protected DefaultServiceWorkerManager() {}
+
     public DefaultServiceWorkerManager(String resource) {
         super(resource);
     }

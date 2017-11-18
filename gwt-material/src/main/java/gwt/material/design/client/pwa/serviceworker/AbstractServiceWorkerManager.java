@@ -38,10 +38,12 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public abstract class AbstractServiceWorkerManager implements ServiceWorkerManager {
 
     private static final Logger logger = Logger.getLogger(AbstractServiceWorkerManager.class.getSimpleName());
+
     private PwaManager manager;
     private String resource;
     private ServiceWorkerRegistration registration;
 
+    protected AbstractServiceWorkerManager() {}
 
     public AbstractServiceWorkerManager(PwaManager manager, String resource) {
         this(resource);
@@ -49,12 +51,13 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
     }
 
     public AbstractServiceWorkerManager(String resource) {
+        assert resource != null : "Cannot have a null pwa resource.";
         this.resource = resource;
     }
 
     @Override
     public void load() {
-        if (getResource() != null && isServiceWorkerSupported()) {
+        if (isServiceWorkerSupported()) {
             setupRegistration();
         } else {
             logger.info("Service worker is not supported by this browser.");
@@ -78,7 +81,6 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
     protected void setupRegistration() {
         Navigator.serviceWorker.register(getResource()).then(object -> {
-
             logger.info("Service worker has been successfully registered");
 
             registration = (ServiceWorkerRegistration) object;
@@ -134,7 +136,6 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
     }
 
     protected void setupConnectionStatus() {
-
         updateConnectionStatus(Navigator.onLine);
 
         $(JQuery.window()).on("online", (e, param1) -> {
@@ -198,16 +199,16 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
     /**
      * Will set the polling request interval in milliseconds for new Service Worker instance.
-     * @param interval - Interval must be in milliseconds and must be at least 1000ms (1 second).
+     * @param interval Interval must be in milliseconds and must be at least 1000ms.
      */
     public void setPollingInterval(int interval) {
-        if (interval >= 1 ) {
+        if (interval >= 1000) {
             Scheduler.get().scheduleFixedDelay(() -> {
                 checkStatus();
                 return true;
             }, interval);
         } else {
-            logger.warning("Polling Interval must be at least 1000ms or 1 second to perform the request.");
+            logger.warning("Polling interval must be at least 1000ms to perform the request.");
         }
     }
 
