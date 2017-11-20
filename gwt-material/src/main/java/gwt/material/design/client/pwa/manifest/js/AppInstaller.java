@@ -17,24 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.resources;
+package gwt.material.design.client.pwa.manifest.js;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
+import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jquery.client.api.JQueryElement;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
-public interface MaterialDebugResources extends ClientBundle {
-    MaterialDebugResources INSTANCE = GWT.create(MaterialDebugResources.class);
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+public class AppInstaller extends JQueryElement {
 
-    @Source("js/materialize-0.97.5.js")
-    TextResource materializeJsDebug();
+    public AppInstaller(Functions.Func fallback) {}
 
-    @Source("js/animation.js")
-    TextResource animationJsDebug();
+    public native void prompt();
 
-    @Source("js/push.js")
-    TextResource pushNotificationJsDebug();
-
-    @Source("js/app-installer.js")
-    TextResource appInstallerJsDebug();
+    public native boolean isLaunched(String displayMode);
 }

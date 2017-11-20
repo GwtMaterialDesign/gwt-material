@@ -19,12 +19,17 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
+import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jscore.client.api.Navigator;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
+
+import java.util.logging.Logger;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * An abstract implementation of Service Worker to manage its lifecycle
@@ -32,10 +37,13 @@ import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistra
  */
 public abstract class AbstractServiceWorkerManager implements ServiceWorkerManager {
 
+    private static final Logger logger = Logger.getLogger(AbstractServiceWorkerManager.class.getSimpleName());
+
     private PwaManager manager;
     private String resource;
     private ServiceWorkerRegistration registration;
 
+    protected AbstractServiceWorkerManager() {}
 
     public AbstractServiceWorkerManager(PwaManager manager, String resource) {
         this(resource);
@@ -43,15 +51,16 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
     }
 
     public AbstractServiceWorkerManager(String resource) {
+        assert resource != null : "Cannot have a null pwa resource.";
         this.resource = resource;
     }
 
     @Override
     public void load() {
-        if (getResource() != null && isServiceWorkerSupported()) {
+        if (isServiceWorkerSupported()) {
             setupRegistration();
         } else {
-            GWT.log("Service worker is not supported by this browser.");
+            logger.info("Service worker is not supported by this browser.");
         }
     }
 
@@ -60,6 +69,8 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
         if (registration != null) {
             registration.unregister();
         }
+        $(JQuery.window()).off("online");
+        $(JQuery.window()).off("offline");
     }
 
     @Override
@@ -70,33 +81,91 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
     protected void setupRegistration() {
         Navigator.serviceWorker.register(getResource()).then(object -> {
-
-            GWT.log("Service worker has been successfully registered");
+            logger.info("Service worker has been successfully registered");
 
             registration = (ServiceWorkerRegistration) object;
 
-            if (Navigator.serviceWorker == null) return null;
+            // If there's no controller, this page wasn't loaded
+            // via a service worker, so they're looking at the latest version.
+            // In that case, exit early
+            if (Navigator.serviceWorker.controller == null) {
+                if (registration.installing != null) {
+                    onStateChange(registration.installing);
+                }
+                return null;
+            }
 
+            // If there's an updated worker already waiting,
+            // call {@link #onNewServiceWorkerFound(serviceworker)
             if (registration.waiting != null) {
                 onNewServiceWorkerFound(registration.waiting);
                 return null;
             }
 
+            // If there's an updated worker installing, track its
+            // progress. If it becomes "installed", call
+            // {@link #onNewServiceWorkerFound(serviceworker)
             if (registration.installing != null) {
-                registration.onupdatefound = e -> {
-                    onStateChange(registration.installing);
-                    return true;
-                };
+                trackServiceWorkerState(registration.installing);
+                return null;
             }
+
+            // Otherwise, listen for new installing workers arriving
+            // If on arrives, track its progress.
+            // If it becomes "installed", call
+            // {@link #onNewServiceWorkerFound(serviceworker)
+            registration.onupdatefound = e -> {
+                trackServiceWorkerState(registration.installing);
+                return true;
+            };
+
+            // Will configure any offline and online network status updates
+            setupConnectionStatus();
 
             return null;
         }, error -> {
-            GWT.log("ServiceWorker registration failed: " + error);
+            logger.info("ServiceWorker registration failed: " + error);
             return null;
         });
 
+        // Will listen to any service worker response
         Navigator.serviceWorker.oncontrollerchange = e -> {
             onControllerChange();
+            return true;
+        };
+    }
+
+    protected void setupConnectionStatus() {
+        updateConnectionStatus(Navigator.onLine);
+
+        $(JQuery.window()).on("online", (e, param1) -> {
+            updateConnectionStatus(true);
+            return true;
+        });
+
+        $(JQuery.window()).on("offline", (e, param1) -> {
+            updateConnectionStatus(false);
+            return true;
+        });
+    }
+
+    protected void updateConnectionStatus(boolean online) {
+        if (online) {
+            onOnline();
+        } else {
+            onOffline();
+        }
+    }
+
+    /**
+     * Will track the service worker phase of the service worker and once
+     * the service worker state was installed then call {@link #onNewServiceWorkerFound(ServiceWorker)}
+     */
+    protected void trackServiceWorkerState(ServiceWorker serviceWorker) {
+        serviceWorker.onstatechange = e -> {
+            if (serviceWorker.state.equals(State.INSTALLED.getCssName())) {
+                onNewServiceWorkerFound(serviceWorker);
+            }
             return true;
         };
     }
@@ -126,6 +195,34 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
             }
             return true;
         };
+    }
+
+    /**
+     * Will set the polling request interval in milliseconds for new Service Worker instance.
+     * @param interval Interval must be in milliseconds and must be at least 1000ms.
+     */
+    public void setPollingInterval(int interval) {
+        if (interval >= 1000) {
+            Scheduler.get().scheduleFixedDelay(() -> {
+                checkStatus();
+                return true;
+            }, interval);
+        } else {
+            logger.warning("Polling interval must be at least 1000ms to perform the request.");
+        }
+    }
+
+    protected void checkStatus() {
+        if (registration != null) {
+            registration.update();
+        }
+    }
+
+    /**
+     * Forces the waiting service worker to become the active service worker.
+     */
+    protected void skipWaiting(ServiceWorker serviceWorker) {
+        serviceWorker.postMessage("skipWaiting");
     }
 
     /**
@@ -175,6 +272,16 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
      * Called when there are new service worker updates on the appcache.
      */
     protected abstract void onNewServiceWorkerFound(ServiceWorker serviceWorker);
+
+    /**
+     * Called when the network status is online
+     */
+    protected abstract void onOnline();
+
+    /**
+     * Called when the network status is offline
+     */
+    protected abstract void onOffline();
 
     @Override
     public void update() {

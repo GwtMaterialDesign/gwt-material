@@ -31,6 +31,7 @@ public class MaterialDesignDebugBase extends MaterialDesignBase {
             injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.pushNotificationJsDebug());
+            injectDebugJs(MaterialDebugResources.INSTANCE.appInstallerJsDebug());
         }
         onModuleLoaded();
     }

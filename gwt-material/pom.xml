@@ -9,6 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>gwt-material</artifactId>
+    <packaging>gwt-lib</packaging>
 
     <name>Gwt Material</name>
     <description>A Material Design look and feel for GWT Applications</description>
@@ -23,13 +24,11 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
             <version>${gwt.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -56,7 +55,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
+                <version>${surefire.version}</version>
                 <configuration>
                     <additionalClasspathElements>
                         <additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
@@ -68,12 +67,33 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
+                <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>${gwt.version}</version>
+                <version>${tbroyer.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <moduleName>gwt.material.design.GwtMaterialWithJQuery</moduleName>
+                    <style>OBFUSCATED</style>
+                    <logLevel>INFO</logLevel>
+                    <sourceLevel>1.8</sourceLevel>
+                    <jvmArgs>
+                        <jvmArg>-Xmx1g</jvmArg>
+                        <jvmArg>-Xms1g</jvmArg>
+                        <jvmArg>-XX:CompileThreshold=7000</jvmArg>
+                    </jvmArgs>
+                    <optimize>9</optimize>
+                    <compilerArgs>
+                        <compilerArg>-compileReport</compilerArg>
+                        <compilerArg>-XcompilerMetrics</compilerArg>
+                    </compilerArgs>
+                    <skipModule>true</skipModule>
+                    <classpathScope>compile+runtime</classpathScope>
+                    <failOnError>true</failOnError>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
+                            <goal>compile</goal>
                             <goal>test</goal>
                         </goals>
                     </execution>
