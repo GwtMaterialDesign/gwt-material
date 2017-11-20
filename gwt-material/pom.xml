@@ -65,6 +65,13 @@
                     <forkMode>always</forkMode>
                     <argLine>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.NoOpLog</argLine>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>net.ltgt.gwt.maven</groupId>
@@ -86,7 +93,6 @@
                         <compilerArg>-compileReport</compilerArg>
                         <compilerArg>-XcompilerMetrics</compilerArg>
                     </compilerArgs>
-                    <skipModule>true</skipModule>
                     <classpathScope>compile+runtime</classpathScope>
                     <failOnError>true</failOnError>
                 </configuration>
@@ -94,7 +100,6 @@
                     <execution>
                         <goals>
                             <goal>compile</goal>
-                            <goal>test</goal>
                         </goals>
                     </execution>
                 </executions>
