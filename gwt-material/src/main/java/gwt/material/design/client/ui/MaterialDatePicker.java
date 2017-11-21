@@ -385,16 +385,21 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     @Override
     public Date getValue() {
-        return getPickerDate();
+        if (isAttached()) {
+            return getPickerDate();
+        }
+        else {
+            return this.date;
+        }
     }
 
     @Override
     public void setValue(Date value, boolean fireEvents) {
+        this.date = value;
         if (value == null) {
             clear();
             return;
         }
-        this.date = value;
         if (isAttached()) {
             suppressChangeEvent = !fireEvents;
             setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
@@ -649,6 +654,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     @Override
     public void clear() {
+        this.date = null;
         dateInput.clear();
         if (getPicker() != null) {
             getPicker().set("select", null);
