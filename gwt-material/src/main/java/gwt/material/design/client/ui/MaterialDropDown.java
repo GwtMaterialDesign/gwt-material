@@ -115,11 +115,13 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
         getChildren().forEach(widget -> {
             if (widget instanceof ListItem) {
                 ListItem item = (ListItem) widget;
-                if (item.getWidget(0) instanceof MaterialWidget) {
-                    MaterialWidget child = (MaterialWidget) item.getWidget(0);
-                    registerHandler(child.addDomHandler(event -> {
-                        SelectionEvent.fire(MaterialDropDown.this, child);
-                    }, ClickEvent.getType()));
+                if (item.getWidgetCount() > 0) {
+                    if (item.getWidget(0) instanceof MaterialWidget) {
+                        MaterialWidget child = (MaterialWidget) item.getWidget(0);
+                        registerHandler(child.addDomHandler(event -> {
+                            SelectionEvent.fire(MaterialDropDown.this, child);
+                        }, ClickEvent.getType()));
+                    }
                 }
             }
         });
