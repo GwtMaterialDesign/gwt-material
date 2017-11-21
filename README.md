@@ -6,6 +6,10 @@
 
 <br/>
 
+## Migration 2.0 -> 2.1
+- [Mojo to TBroyer](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-Mojo-GWT-Maven-Plugin-to-TBroyer)
+- [PWA Support](https://github.com/GwtMaterialDesign/gwt-material/wiki/PWA-:-Service-Worker-Automation)
+
 ## Demo
 * [2.0 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
 * [2.1 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
