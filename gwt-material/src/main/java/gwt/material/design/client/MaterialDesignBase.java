@@ -72,7 +72,7 @@ public class MaterialDesignBase {
     }
 
     public static void injectJs(TextResource resource, boolean removeTag, boolean sourceUrl) {
-        if (!resource.getName().contains("jQuery") && !checkJQuery(sourceUrl)) {
+        if (!resource.getName().equals("jQuery") && !resource.getName().equals("jQueryDebug") && !checkJQuery(sourceUrl)) {
             // We need to wait for jQuery to load
             if (futureResources == null) {
                 futureResources = new ArrayList<>();
