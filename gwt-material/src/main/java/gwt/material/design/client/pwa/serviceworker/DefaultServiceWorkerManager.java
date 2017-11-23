@@ -21,7 +21,9 @@ package gwt.material.design.client.pwa.serviceworker;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.AbstractButton;
+import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
@@ -87,10 +89,12 @@ public class DefaultServiceWorkerManager extends AbstractServiceWorkerManager {
     @Override
     protected void onOnline() {
         GWT.log("Network Status is now online");
+        RootPanel.get().removeStyleName(CssName.OFFLINE);
     }
 
     @Override
     protected void onOffline() {
         GWT.log("Network Status is now offline");
+        RootPanel.get().addStyleName(CssName.OFFLINE);
     }
 }
