@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.DefaultServiceWorkerManager;
+import gwt.material.design.client.ui.base.CustomServiceWorker;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -81,6 +82,18 @@ public class PwaManagerTest extends MaterialTestCase {
     public void testServiceWorker() {
         // Load Service worker
         PwaManager.getInstance().setServiceWorker(SERVICE_WORKER_URL);
+        checkServiceWorker();
+        PwaManager.getInstance().unload();
+    }
+
+    public void testCustomServiceWorker() {
+        // Load Custom Service Worker
+        PwaManager.getInstance().setServiceWorker(new CustomServiceWorker(SERVICE_WORKER_URL));
+        checkServiceWorker();
+        PwaManager.getInstance().unload();
+    }
+
+    protected void checkServiceWorker() {
         assertNotNull(PwaManager.getInstance().getServiceWorkerManager());
         assertTrue(PwaManager.getInstance().getServiceWorkerManager() instanceof DefaultServiceWorkerManager);
         DefaultServiceWorkerManager manager = (DefaultServiceWorkerManager) PwaManager.getInstance().getServiceWorkerManager();

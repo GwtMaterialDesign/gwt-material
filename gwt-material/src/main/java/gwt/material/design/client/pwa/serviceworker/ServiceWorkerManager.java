@@ -20,8 +20,8 @@
 package gwt.material.design.client.pwa.serviceworker;
 
 import gwt.material.design.client.pwa.base.PwaFeature;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 
 public interface ServiceWorkerManager extends PwaFeature {
 

@@ -21,11 +21,12 @@ package gwt.material.design.client.pwa.serviceworker;
 
 import com.google.gwt.core.client.Scheduler;
 import gwt.material.design.client.pwa.PwaManager;
+import gwt.material.design.client.pwa.serviceworker.constants.ServiceWorkerMessage;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
+import gwt.material.design.client.pwa.serviceworker.js.Navigator;
 import gwt.material.design.jquery.client.api.JQuery;
-import gwt.material.design.jscore.client.api.Navigator;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorkerRegistration;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 
 import java.util.logging.Logger;
 
@@ -85,6 +86,9 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
             registration = (ServiceWorkerRegistration) object;
 
+            onRegistered(registration);
+
+
             // If there's no controller, this page wasn't loaded
             // via a service worker, so they're looking at the latest version.
             // In that case, exit early
@@ -128,9 +132,22 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
             return null;
         });
 
-        // Will listen to any service worker response
+        // The oncontrollerchange property of the ServiceWorkerContainer interface is an event handler
+        // fired whenever a controllerchange event occurs — when the document's associated
+        // ServiceWorkerRegistration acquires a new ServiceWorkerRegistration.active worker.
         Navigator.serviceWorker.oncontrollerchange = e -> {
             onControllerChange();
+            return true;
+        };
+
+        // Will listen to any broadcast messages from the service worker
+        Navigator.serviceWorker.onmessage = e -> {
+            String data  = (String) e.data;
+            switch (data) {
+                case ServiceWorkerMessage.FAILING_SERVER:
+                    onServerFailing();
+                    break;
+            }
             return true;
         };
     }
@@ -222,8 +239,10 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
      * Forces the waiting service worker to become the active service worker.
      */
     protected void skipWaiting(ServiceWorker serviceWorker) {
-        serviceWorker.postMessage("skipWaiting");
+        serviceWorker.postMessage(ServiceWorkerMessage.SKIP_WAITING);
     }
+
+    public abstract void onRegistered(ServiceWorkerRegistration registration);
 
     /**
      * When a new service worker is registered using navigator.serviceWorker.register,
@@ -282,6 +301,8 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
      * Called when the network status is offline
      */
     protected abstract void onOffline();
+
+    protected abstract void onServerFailing();
 
     @Override
     public void update() {

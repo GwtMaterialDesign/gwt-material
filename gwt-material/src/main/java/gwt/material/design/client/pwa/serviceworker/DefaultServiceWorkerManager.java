@@ -26,12 +26,14 @@ import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialToast;
-import gwt.material.design.jscore.client.api.serviceworker.ServiceWorker;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 
 /**
  * Default Service Worker Manager that delegates all methods needed
  * for service worker lifecycle from {@link AbstractServiceWorkerManager}.
- * You can check all the lifecycle states of a service worker here {@link gwt.material.design.client.pwa.serviceworker.constants.State}
+ * You can check all the lifecycle states of a service worker here
+ * {@link gwt.material.design.client.pwa.serviceworker.constants.State}
  */
 public class DefaultServiceWorkerManager extends AbstractServiceWorkerManager {
 
@@ -39,6 +41,11 @@ public class DefaultServiceWorkerManager extends AbstractServiceWorkerManager {
 
     public DefaultServiceWorkerManager(String resource) {
         super(resource);
+    }
+
+    @Override
+    public void onRegistered(ServiceWorkerRegistration registration) {
+        GWT.log("Service Worker is registered");
     }
 
     @Override
@@ -96,5 +103,10 @@ public class DefaultServiceWorkerManager extends AbstractServiceWorkerManager {
     protected void onOffline() {
         GWT.log("Network Status is now offline");
         RootPanel.get().addStyleName(CssName.OFFLINE);
+    }
+
+    @Override
+    protected void onServerFailing() {
+        GWT.log("Can't connect to the server at the moment.", new RuntimeException());
     }
 }
