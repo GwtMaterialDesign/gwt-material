@@ -51,7 +51,6 @@ public class MaterialDesignBase {
         if(!isMaterializeLoaded()) {
             injectJs(MaterialResources.INSTANCE.materializeJs());
             injectJs(MaterialResources.INSTANCE.animationJs());
-            injectJs(MaterialResources.INSTANCE.pushNotificationJs());
             injectJs(MaterialResources.INSTANCE.appInstallerJs());
         }
         onModuleLoaded();
