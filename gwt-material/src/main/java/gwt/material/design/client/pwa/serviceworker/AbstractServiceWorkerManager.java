@@ -24,9 +24,9 @@ import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.constants.ServiceWorkerMessage;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
 import gwt.material.design.client.pwa.serviceworker.js.Navigator;
-import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
+import gwt.material.design.jquery.client.api.JQuery;
 
 import java.util.logging.Logger;
 
@@ -35,6 +35,8 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 /**
  * An abstract implementation of Service Worker to manage its lifecycle
  * For more references see <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Worker Lifecycle</a>
+ *
+ * @author kevzlou7979
  */
 public abstract class AbstractServiceWorkerManager implements ServiceWorkerManager {
 
@@ -142,7 +144,7 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
         // Will listen to any broadcast messages from the service worker
         Navigator.serviceWorker.onmessage = e -> {
-            String data  = (String) e.data;
+            String data = (String) e.data;
             switch (data) {
                 case ServiceWorkerMessage.FAILING_SERVER:
                     onServerFailing();
@@ -216,6 +218,7 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
     /**
      * Will set the polling request interval in milliseconds for new Service Worker instance.
+     *
      * @param interval Interval must be in milliseconds and must be at least 1000ms.
      */
     public void setPollingInterval(int interval) {
@@ -270,9 +273,9 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
     /**
      * Once a service worker is activated, it is ready to take control of the page and listen to functional events (such as fetch).
-
-     A service worker can only take control of pages before they start loading.
-     This means that pages that began loading before the service worker became active cannot be controlled by it.
+     * <p>
+     * A service worker can only take control of pages before they start loading.
+     * This means that pages that began loading before the service worker became active cannot be controlled by it.
      */
     public abstract void onActivated();
 
@@ -302,6 +305,9 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
      */
     protected abstract void onOffline();
 
+    /**
+     * Called when the service worker can't fetch any request to the server or the server was already dead.
+     */
     protected abstract void onServerFailing();
 
     @Override
