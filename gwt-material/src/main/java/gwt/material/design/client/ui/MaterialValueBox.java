@@ -69,6 +69,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
         HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive {
 
+    /**
+     * @see #setReturnBlankAsNull(boolean)
+     */
+    private boolean returnBlankAsNull;
+
     private InputType type = InputType.TEXT;
     private ValueBoxEditor<T> editor;
     private Label label = new Label();
@@ -211,7 +216,39 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     @Override
     public T getValue() {
+        if(isReturnBlankAsNull() && isBlank()) {
+            return null;
+        }
         return valueBoxBase.getValue();
+    }
+
+    /**
+     * @see #setReturnBlankAsNull(boolean)
+     *
+     * @return
+     */
+    public boolean isReturnBlankAsNull() {
+        return this.returnBlankAsNull;
+    }
+
+    /**
+     * <p>With this attribute set to <code>true</code> a call to {@link #getValue()} returns <code>null</code> when
+     * the validator obtained by {@link #createBlankValidator()} recognizes the value as blank.
+     * </p>
+     * <p>
+     * You can use this attribute for non-mandatory input fields that have @Pattern constraint, like an e-mail or phone input.
+     * This way you avoid the @Pattern#regexp being matched against an empty string when your user does not enter
+     * a value into such input.
+     * </p>
+     *
+     * @param returnBlankAsNull should {@link #getValue()} return <code>null</code> instead of a blank value?
+     */
+    public void setReturnBlankAsNull(boolean returnBlankAsNull) {
+        this.returnBlankAsNull = returnBlankAsNull;
+    }
+
+    protected boolean isBlank() {
+        return !createBlankValidator().isValid(valueBoxBase.getValue());
     }
 
     @Override
