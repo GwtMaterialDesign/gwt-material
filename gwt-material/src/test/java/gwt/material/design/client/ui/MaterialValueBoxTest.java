@@ -22,8 +22,6 @@ package gwt.material.design.client.ui;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ValueBoxBase;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
 /**
@@ -63,6 +61,33 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
         checkReadOnly(widget);
     }
 
+    public void testValueReturnAsNull() {
+        T widget = getWidget(false);
+
+        if (widget.getValue() instanceof String) {
+            checkValueReturnAsNull(widget);
+
+            attachWidget();
+
+            checkValueReturnAsNull(widget);
+        }
+    }
+
+    protected void checkValueReturnAsNull(T widget) {
+        assertTrue(widget.isBlank());
+        assertFalse(widget.isReturnBlankAsNull());
+        widget.setReturnBlankAsNull(true);
+        assertTrue(widget.isReturnBlankAsNull());
+
+        widget.setValue("");
+        assertEquals(null, widget.getValue());
+
+        widget.setReturnBlankAsNull(false);
+        widget.setValue("");
+        assertEquals("", widget.getValue());
+        assertNotNull(widget.getValue());
+    }
+
     @Override
     public void testTabIndex() {
         ValueBoxBase widget = getWidget().getValueBoxBase();
@@ -82,96 +107,96 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
 
     @Override
     public void fireBlurEvent(HasHandlers widget) {
-        super.fireBlurEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireBlurEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireFocusEvent(HasHandlers widget) {
-        super.fireFocusEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireFocusEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireClickEvent(HasHandlers widget) {
-        super.fireClickEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireClickEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireDoubleClickEvent(HasHandlers widget) {
-        super.fireDoubleClickEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireDoubleClickEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireKeyDownEvent(HasHandlers widget) {
-        super.fireKeyDownEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireKeyDownEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireKeyUpEvent(HasHandlers widget) {
-        super.fireKeyUpEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireKeyUpEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireKeyPressEvent(HasHandlers widget) {
-        super.fireKeyPressEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireKeyPressEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireGestureStartEvent(HasHandlers widget) {
-        super.fireGestureStartEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireGestureStartEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireGestureChangeEvent(HasHandlers widget) {
-        super.fireGestureChangeEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireGestureChangeEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireGestureEndEvent(HasHandlers widget) {
-        super.fireGestureEndEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireGestureEndEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireTouchStartEvent(HasHandlers widget) {
-        super.fireTouchStartEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireTouchStartEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireTouchMoveEvent(HasHandlers widget) {
-        super.fireTouchMoveEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireTouchMoveEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireTouchEndEvent(HasHandlers widget) {
-        super.fireTouchEndEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireTouchEndEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireTouchCancelEvent(HasHandlers widget) {
-        super.fireTouchCancelEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireTouchCancelEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireMouseUpEvent(HasHandlers widget) {
-        super.fireMouseUpEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireMouseUpEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireMouseDownEvent(HasHandlers widget) {
-        super.fireMouseDownEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireMouseDownEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireMouseMoveEvent(HasHandlers widget) {
-        super.fireMouseMoveEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireMouseMoveEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public void fireMouseWheelEvent(HasHandlers widget) {
-        super.fireMouseWheelEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireMouseWheelEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 
     @Override
     public <H extends HasHandlers & IsWidget> void fireMouseOverEvent(H widget) {
-        super.fireMouseOverEvent(((MaterialValueBox)widget).getValueBoxBase());
+        super.fireMouseOverEvent(((MaterialValueBox) widget).getValueBoxBase());
     }
 }
