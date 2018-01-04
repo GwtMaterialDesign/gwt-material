@@ -474,7 +474,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      *
      * @param value the value to be removed from the list
      */
-    public void removeValue(String value) {
+    public void removeValue(T value) {
         removeValue(value, true);
     }
 
@@ -485,7 +485,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param value  the value to be removed from the list
      * @param reload perform a 'material select' reload to update the DOM.
      */
-    public void removeValue(String value, boolean reload) {
+    public void removeValue(T value, boolean reload) {
         int idx = getIndex(value);
         if (idx >= 0) {
             removeItemInternal(idx, reload);
@@ -891,12 +891,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <p>
      * After calling this method, only the specified item in the list will
      * remain selected. For a ListBox with multiple selection enabled, see
-     * {@link #setValueSelected(String, boolean)} to select multiple items at a
+     * {@link #setValueSelected(T, boolean)} to select multiple items at a
      * time.
      *
      * @param value the value of the item to be selected
      */
-    public void setSelectedValue(String value) {
+    public void setSelectedValue(T value) {
         int idx = getIndex(value);
         if (idx >= 0) {
             setSelectedIndexInternal(idx);
@@ -909,7 +909,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param value    the value of the item to be selected or unselected
      * @param selected <code>true</code> to select the item
      */
-    public void setValueSelected(String value, boolean selected) {
+    public void setValueSelected(T value, boolean selected) {
         int idx = getIndex(value);
         if (idx >= 0) {
             setItemSelectedInternal(idx, selected);
@@ -922,7 +922,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param value the value of the item to be found
      * @return the index of the value
      */
-    public int getIndex(String value) {
+    public int getIndex(T value) {
         int count = getItemCount();
         for (int i = 0; i < count; i++) {
             if (getValueInternal(i).equals(value)) {
