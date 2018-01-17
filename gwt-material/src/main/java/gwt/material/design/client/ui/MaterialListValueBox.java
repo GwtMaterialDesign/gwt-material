@@ -562,7 +562,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
                     // indeed first item is actually emptyPlaceHolder
                     removeEmptyPlaceHolder();
                 } else {
-                    GWT.log("WARNING: emptyPlaceHolder is set but not listed!");
+                    GWT.log("WARNING: emptyPlaceHolder is set but not listed.", new IllegalStateException());
                 }
             }   // else no change
         } else {
@@ -573,6 +573,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         }
 
         emptyPlaceHolder = value;
+    }
+
+    public String getEmptyPlaceHolder() {
+        return emptyPlaceHolder;
     }
 
     @Override
@@ -972,7 +976,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         // indeed the first item/value is emptyPlaceHolder
         listBox.removeItem(0);
         values.remove(0);
-        getOptionElement(0).setDisabled(false);
+
+        OptionElement currentPlaceholder = getOptionElement(0);
+        if (currentPlaceholder != null) {
+            currentPlaceholder.setDisabled(false);
+        }
     }
 
     /**
