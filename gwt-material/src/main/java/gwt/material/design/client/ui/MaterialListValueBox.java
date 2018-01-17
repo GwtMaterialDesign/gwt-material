@@ -23,20 +23,19 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
-import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.ArrayList;
@@ -122,13 +121,19 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             return true;
         });
 
-        // Fixed IE browser for select dropdown scrolling
-        // Related materialize issue https://github.com/Dogfalo/materialize/issues/901
-        listBoxElement.siblings("input.select-dropdown").mousedown((event, o) -> {
+        JQueryElement selectDropdown = listBoxElement.siblings("input.select-dropdown");
+        selectDropdown.mousedown((event, o) -> {
             $("input[data-activates!='" + listBoxElement.attr("data-activates") + "'].select-dropdown").trigger("close", true);
-            if (!UiHelper.isTouchScreenDevice()) {
-                event.preventDefault();
-            }
+            return true;
+        });
+
+        selectDropdown.blur((e, param1) -> {
+            DomEvent.fireNativeEvent(Document.get().createBlurEvent(), this);
+            return true;
+        });
+
+        selectDropdown.focus((e, param1) -> {
+            DomEvent.fireNativeEvent(Document.get().createFocusEvent(), this);
             return true;
         });
     }
