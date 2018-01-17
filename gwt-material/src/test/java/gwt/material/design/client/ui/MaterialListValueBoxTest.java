@@ -196,4 +196,9 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         // when / then
         checkPlaceholder(valueBox);
     }
+
+    public void testFocusAndBlurHandlers() {
+        MaterialListValueBox<T> valueBox = getWidget();
+        checkFocusAndBlurEvents(valueBox);
+    }
 }
