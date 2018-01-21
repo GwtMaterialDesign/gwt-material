@@ -38,7 +38,10 @@ import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
@@ -318,6 +321,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, index, reload);
     }
+
     protected void insertItemInternal(T value, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), index);
@@ -356,6 +360,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, dir, index, reload);
     }
+
     protected void insertItemInternal(T value, Direction dir, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), dir, index);
@@ -394,6 +399,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, text, index, reload);
     }
+
     protected void insertItemInternal(T value, String text, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(text, keyFactory.generateKey(value), index);
@@ -440,6 +446,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, dir, text, index, reload);
     }
+
     protected void insertItemInternal(T value, Direction dir, String text, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), dir, text, index);
@@ -470,6 +477,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         removeItemInternal(index, reload);
     }
+
     protected void removeItemInternal(int index, boolean reload) {
         values.remove(index);
         listBox.removeItem(index);
@@ -516,7 +524,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public void clear() {
         values.clear();
         listBox.clear();
-        if(emptyPlaceHolder != null) {
+        if (emptyPlaceHolder != null) {
             insertEmptyPlaceHolder(emptyPlaceHolder);
         }
         reload();
@@ -562,11 +570,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     public void setEmptyPlaceHolder(String value) {
-        if(value == null) {
+        if (value == null) {
             // about to un-set emptyPlaceHolder
-            if(emptyPlaceHolder != null) {
+            if (emptyPlaceHolder != null) {
                 // emptyPlaceHolder is about to change from null to non-null
-                if(isEmptyPlaceHolderListed()) {
+                if (isEmptyPlaceHolderListed()) {
                     // indeed first item is actually emptyPlaceHolder
                     removeEmptyPlaceHolder();
                 } else {
@@ -574,7 +582,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
                 }
             }   // else no change
         } else {
-            if(!value.equals(emptyPlaceHolder)) {
+            if (!value.equals(emptyPlaceHolder)) {
                 // adding emptyPlaceHolder
                 insertEmptyPlaceHolder(value);
             }   // else no change
@@ -662,6 +670,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         setItemSelectedInternal(index, selected);
     }
+
     private void setItemSelectedInternal(int index, boolean selected) {
         listBox.setItemSelected(index, selected);
         reload();
@@ -712,6 +721,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         setSelectedIndexInternal(index);
     }
+
     protected void setSelectedIndexInternal(int index) {
         listBox.setSelectedIndex(index);
         reload();
@@ -771,11 +781,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     public int getSelectedIndex() {
         int selectedIndex = getSelectedIndexInternal();
-        if(selectedIndex >= 0) {
+        if (selectedIndex >= 0) {
             selectedIndex -= getIndexOffset();
         }
         return selectedIndex;
     }
+
     protected int getSelectedIndexInternal() {
         return listBox.getSelectedIndex();
     }
@@ -790,6 +801,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public T getValue(int index) {
         return getValueInternal(index + getIndexOffset());
     }
+
     protected T getValueInternal(int index) {
         return values.get(index);
     }
