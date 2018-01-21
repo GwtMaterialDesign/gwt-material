@@ -31,6 +31,7 @@ import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.helper.DateFormatHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
@@ -380,7 +381,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
      * To call before initialization.
      */
     public void setFormat(String format) {
-        options.format = format;
+        options.format = DateFormatHelper.format(format);
     }
 
     @Override

@@ -23,20 +23,19 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.helper.UiHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
-import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.*;
@@ -87,6 +86,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
 
+    private String emptyPlaceHolder = null;
+
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
         super.setAllowBlank(false);
@@ -123,13 +124,19 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             return true;
         });
 
-        // Fixed IE browser for select dropdown scrolling
-        // Related materialize issue https://github.com/Dogfalo/materialize/issues/901
-        listBoxElement.siblings("input.select-dropdown").mousedown((event, o) -> {
+        JQueryElement selectDropdown = listBoxElement.siblings("input.select-dropdown");
+        selectDropdown.mousedown((event, o) -> {
             $("input[data-activates!='" + listBoxElement.attr("data-activates") + "'].select-dropdown").trigger("close", true);
-            if (!UiHelper.isTouchScreenDevice()) {
-                event.preventDefault();
-            }
+            return true;
+        });
+
+        selectDropdown.blur((e, param1) -> {
+            DomEvent.fireNativeEvent(Document.get().createBlurEvent(), this);
+            return true;
+        });
+
+        selectDropdown.focus((e, param1) -> {
+            DomEvent.fireNativeEvent(Document.get().createFocusEvent(), this);
             return true;
         });
         loaded = true;
@@ -295,7 +302,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index at which to insert it
      */
     public void insertItem(T value, int index) {
-        insertItem(value, index, true);
+        insertItemInternal(value, index, true);
     }
 
     /**
@@ -308,6 +315,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param reload perform a 'material select' reload to update the DOM.
      */
     public void insertItem(T value, int index, boolean reload) {
+        index += getIndexOffset();
+        insertItemInternal(value, index, reload);
+    }
+    protected void insertItemInternal(T value, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), index);
 
@@ -327,7 +338,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index at which to insert it
      */
     public void insertItem(T value, Direction dir, int index) {
-        insertItem(value, dir, index, true);
+        insertItemInternal(value, dir, index, true);
     }
 
     /**
@@ -342,6 +353,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param reload perform a 'material select' reload to update the DOM.
      */
     public void insertItem(T value, Direction dir, int index, boolean reload) {
+        index += getIndexOffset();
+        insertItemInternal(value, dir, index, reload);
+    }
+    protected void insertItemInternal(T value, Direction dir, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), dir, index);
 
@@ -361,7 +376,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index at which to insert it
      */
     public void insertItem(T value, String text, int index) {
-        insertItem(value, text, index, true);
+        insertItemInternal(value, text, index, true);
     }
 
     /**
@@ -376,6 +391,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param reload perform a 'material select' reload to update the DOM.
      */
     public void insertItem(T value, String text, int index, boolean reload) {
+        index += getIndexOffset();
+        insertItemInternal(value, text, index, reload);
+    }
+    protected void insertItemInternal(T value, String text, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(text, keyFactory.generateKey(value), index);
 
@@ -399,7 +418,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index at which to insert it
      */
     public void insertItem(T value, Direction dir, String text, int index) {
-        insertItem(value, dir, text, index, true);
+        insertItemInternal(value, dir, text, index, true);
     }
 
     /**
@@ -418,6 +437,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param reload perform a 'material select' reload to update the DOM.
      */
     public void insertItem(T value, Direction dir, String text, int index, boolean reload) {
+        index += getIndexOffset();
+        insertItemInternal(value, dir, text, index, reload);
+    }
+    protected void insertItemInternal(T value, Direction dir, String text, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), dir, text, index);
 
@@ -433,7 +456,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void removeItem(int index) {
-        removeItem(index, true);
+        removeItemInternal(index, true);
     }
 
     /**
@@ -444,6 +467,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void removeItem(int index, boolean reload) {
+        index += getIndexOffset();
+        removeItemInternal(index, reload);
+    }
+    protected void removeItemInternal(int index, boolean reload) {
         values.remove(index);
         listBox.removeItem(index);
 
@@ -458,7 +485,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      *
      * @param value the value to be removed from the list
      */
-    public void removeValue(String value) {
+    public void removeValue(T value) {
         removeValue(value, true);
     }
 
@@ -469,10 +496,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param value  the value to be removed from the list
      * @param reload perform a 'material select' reload to update the DOM.
      */
-    public void removeValue(String value, boolean reload) {
+    public void removeValue(T value, boolean reload) {
         int idx = getIndex(value);
         if (idx >= 0) {
-            removeItem(idx, reload);
+            removeItemInternal(idx, reload);
         }
     }
 
@@ -489,6 +516,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public void clear() {
         values.clear();
         listBox.clear();
+        if(emptyPlaceHolder != null) {
+            insertEmptyPlaceHolder(emptyPlaceHolder);
+        }
         reload();
         if (isAllowBlank()) {
             addBlankItemIfNeeded();
@@ -532,14 +562,33 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     public void setEmptyPlaceHolder(String value) {
-        listBox.insertItem(value, 0);
+        if(value == null) {
+            // about to un-set emptyPlaceHolder
+            if(emptyPlaceHolder != null) {
+                // emptyPlaceHolder is about to change from null to non-null
+                if(isEmptyPlaceHolderListed()) {
+                    // indeed first item is actually emptyPlaceHolder
+                    removeEmptyPlaceHolder();
+                } else {
+                    GWT.log("WARNING: emptyPlaceHolder is set but not listed.", new IllegalStateException());
+                }
+            }   // else no change
+        } else {
+            if(!value.equals(emptyPlaceHolder)) {
+                // adding emptyPlaceHolder
+                insertEmptyPlaceHolder(value);
+            }   // else no change
+        }
 
-        getOptionElement(0).setDisabled(true);
+        emptyPlaceHolder = value;
+    }
+
+    public String getEmptyPlaceHolder() {
+        return emptyPlaceHolder;
     }
 
     @Override
     public void setAcceptableValues(Collection<T> values) {
-        this.values.clear();
         clear();
         if (isAllowBlank()) {
             addBlankItemIfNeeded();
@@ -547,11 +596,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         values.forEach(this::addItem);
     }
 
-
     @Override
     public T getValue() {
-        if (getSelectedIndex() != -1) {
-            return values.get(getSelectedIndex());
+        int selectedIndex = listBox.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            return values.get(selectedIndex);
         }
         return null;
     }
@@ -566,7 +615,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         int index = values.indexOf(value);
         if (index >= 0) {
             T before = getValue();
-            setSelectedIndex(index);
+            setSelectedIndexInternal(index);
 
             if (fireEvents) {
                 ValueChangeEvent.fireIfNotEqual(this, before, value);
@@ -592,6 +641,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setValue(int index, String value) {
+        index += getIndexOffset();
         listBox.setValue(index, value);
         reload();
     }
@@ -609,6 +659,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setItemSelected(int index, boolean selected) {
+        index += getIndexOffset();
+        setItemSelectedInternal(index, selected);
+    }
+    private void setItemSelectedInternal(int index, boolean selected) {
         listBox.setItemSelected(index, selected);
         reload();
     }
@@ -621,6 +675,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setItemText(int index, String text) {
+        index += getIndexOffset();
         listBox.setItemText(index, text);
         reload();
     }
@@ -634,6 +689,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public void setItemText(int index, String text, Direction dir) {
+        index += getIndexOffset();
         listBox.setItemText(index, text, dir);
         reload();
     }
@@ -653,6 +709,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index of the item to be selected
      */
     public void setSelectedIndex(int index) {
+        index += getIndexOffset();
+        setSelectedIndexInternal(index);
+    }
+    protected void setSelectedIndexInternal(int index) {
         listBox.setSelectedIndex(index);
         reload();
     }
@@ -684,6 +744,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public String getItemText(int index) {
+        index += getIndexOffset();
         return listBox.getItemText(index);
     }
 
@@ -709,6 +770,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @return the selected index, or <code>-1</code> if none is selected
      */
     public int getSelectedIndex() {
+        int selectedIndex = getSelectedIndexInternal();
+        if(selectedIndex >= 0) {
+            selectedIndex -= getIndexOffset();
+        }
+        return selectedIndex;
+    }
+    protected int getSelectedIndexInternal() {
         return listBox.getSelectedIndex();
     }
 
@@ -720,6 +788,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public T getValue(int index) {
+        return getValueInternal(index + getIndexOffset());
+    }
+    protected T getValueInternal(int index) {
         return values.get(index);
     }
 
@@ -731,7 +802,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     public T getSelectedValue() {
         try {
-            return values.get(getSelectedIndex());
+            return values.get(getSelectedIndexInternal());
         } catch (IndexOutOfBoundsException ex) {
             return null;
         }
@@ -755,7 +826,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public boolean isItemSelected(int index) {
-        return listBox.isItemSelected(index);
+        return listBox.isItemSelected(index + getIndexOffset());
     }
 
 
@@ -860,7 +931,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     public String[] getItemsSelected() {
         List<String> selected = new LinkedList<>();
-        for (int i = 0; i < listBox.getItemCount(); i++) {
+        for (int i = getIndexOffset(); i < listBox.getItemCount(); i++) {
             if (listBox.isItemSelected(i)) {
                 selected.add(listBox.getValue(i));
             }
@@ -873,15 +944,15 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <p>
      * After calling this method, only the specified item in the list will
      * remain selected. For a ListBox with multiple selection enabled, see
-     * {@link #setValueSelected(String, boolean)} to select multiple items at a
+     * {@link #setValueSelected(T, boolean)} to select multiple items at a
      * time.
      *
      * @param value the value of the item to be selected
      */
-    public void setSelectedValue(String value) {
+    public void setSelectedValue(T value) {
         int idx = getIndex(value);
         if (idx >= 0) {
-            setSelectedIndex(idx);
+            setSelectedIndexInternal(idx);
         }
     }
 
@@ -891,10 +962,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param value    the value of the item to be selected or unselected
      * @param selected <code>true</code> to select the item
      */
-    public void setValueSelected(String value, boolean selected) {
+    public void setValueSelected(T value, boolean selected) {
         int idx = getIndex(value);
         if (idx >= 0) {
-            setItemSelected(idx, selected);
+            setItemSelectedInternal(idx, selected);
         }
     }
 
@@ -904,10 +975,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param value the value of the item to be found
      * @return the index of the value
      */
-    public int getIndex(String value) {
+    public int getIndex(T value) {
         int count = getItemCount();
         for (int i = 0; i < count; i++) {
-            if (Objects.equals(getValue(i), value)) {
+            if (getValueInternal(i).equals(value)) {
                 return i;
             }
         }
@@ -928,6 +999,40 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return toggleOldMixin;
     }
 
+    /**
+     * Checks whether {@link #emptyPlaceHolder} is added/present in both {@link #listBox} and {@link #values} at 0 index.
+     *
+     * @return is {@link #emptyPlaceHolder} added/present in both {@link #listBox} and {@link #values}?
+     */
+    protected boolean isEmptyPlaceHolderListed() {
+        return emptyPlaceHolder.equals(listBox.getValue(0)) &&
+                values.get(0) == null;
+    }
+
+    protected void insertEmptyPlaceHolder(String emptyPlaceHolder) {
+        listBox.insertItem(emptyPlaceHolder, 0);
+        values.add(0, null);
+        getOptionElement(0).setDisabled(true);
+    }
+
+    protected void removeEmptyPlaceHolder() {
+        // indeed the first item/value is emptyPlaceHolder
+        listBox.removeItem(0);
+        values.remove(0);
+
+        OptionElement currentPlaceholder = getOptionElement(0);
+        if (currentPlaceholder != null) {
+            currentPlaceholder.setDisabled(false);
+        }
+    }
+
+    /**
+     * @return index increased by number of special items/values at the start (e.g. {@link #emptyPlaceHolder})
+     */
+    protected int getIndexOffset() {
+        return emptyPlaceHolder != null && isEmptyPlaceHolderListed() ? 1 : 0;
+    }
+
     class AllowBlankKeyFactory implements KeyFactory<T, String> {
 
         @Override
@@ -939,5 +1044,4 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             }
         }
     }
-
 }

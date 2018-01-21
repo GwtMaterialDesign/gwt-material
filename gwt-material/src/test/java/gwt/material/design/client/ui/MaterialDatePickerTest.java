@@ -415,4 +415,34 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         MaterialDatePicker datePicker = getWidget();
         super.checkTabIndex(datePicker.getDateInput());
     }
+
+    public void testDateFormat() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
+        checkAllFormats(datePicker);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkAllFormats(datePicker);
+    }
+
+    protected void checkAllFormats(MaterialDatePicker datePicker) {
+        checkFormat(datePicker, "YYYY-MM-DD", "yyyy-mm-dd");
+        checkFormat(datePicker, "DD", "dd");
+        checkFormat(datePicker, "MM", "mm");
+        checkFormat(datePicker, "YYYY", "yyyy");
+        // If Format is null, expected would be the default format (d mmmm, yyyy)
+        checkFormat(datePicker, null, "d mmmm, yyyy");
+    }
+
+    protected void checkFormat(MaterialDatePicker datePicker, String format, String expected) {
+        datePicker.setFormat(format);
+        assertEquals(expected, datePicker.getFormat());
+    }
 }

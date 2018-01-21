@@ -236,4 +236,29 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
     }
 
+    public void testFocusAndBlurHandlers() {
+        MaterialListValueBox<T> valueBox = getWidget();
+        checkFocusAndBlurEvents(valueBox);
+    }
+
+    public void testEmptyPlaceHolder() {
+        // Given
+        final String EMPTY_PLACEHOLDER = "select-item";
+        MaterialListValueBox<Integer> valueBox = new MaterialListValueBox<>();
+        for (int i = 0; i <= 10; i++) {
+            valueBox.addItem(i, "Item " + i);
+        }
+        RootPanel.get().add(valueBox);
+
+        // when / then
+        valueBox.setEmptyPlaceHolder(EMPTY_PLACEHOLDER);
+        assertEquals(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
+        assertEquals(valueBox.getListBox().getItemText(0), EMPTY_PLACEHOLDER);
+        assertTrue(valueBox.getOptionElement(0).isDisabled());
+
+        valueBox.setEmptyPlaceHolder(null);
+        assertNotSame(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
+        assertNotSame(EMPTY_PLACEHOLDER, valueBox.getOptionElement(0));
+        assertNotNull(valueBox.getValue());
+    }
 }
