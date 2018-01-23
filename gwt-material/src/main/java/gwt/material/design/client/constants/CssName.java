@@ -144,4 +144,5 @@ public interface CssName {
     String MATERIALIZE_CSS = "materialcss";
     String PREFIX = "prefix";
     String OFFLINE = "offline";
+    String LISTBOX_WRAPPER = "listbox-wrapper";
 }

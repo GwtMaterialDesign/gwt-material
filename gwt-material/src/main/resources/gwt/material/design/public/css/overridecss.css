@@ -506,6 +506,21 @@ input:-webkit-autofill {
     transform: translateY(0);
 }
 
+.input-field.listbox-wrapper {
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.field-error.input-field.listbox-wrapper input.select-dropdown {
+    border-bottom: 1px solid #F44336 !important;
+    box-shadow: 0 1px 0 0 #F44336 !important;
+}
+
+.field-success.input-field.listbox-wrapper input.select-dropdown {
+    border-bottom: 1px solid #4CAF50 !important;
+    box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
+
 /** Loader */
 .loader-wrapper {
     width: 100%;

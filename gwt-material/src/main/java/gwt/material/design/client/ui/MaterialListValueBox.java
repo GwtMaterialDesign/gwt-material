@@ -92,7 +92,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     private String emptyPlaceHolder = null;
 
     public MaterialListValueBox() {
-        super(Document.get().createDivElement(), CssName.INPUT_FIELD);
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD,  CssName.LISTBOX_WRAPPER);
         super.setAllowBlank(false);
     }
 
@@ -923,7 +923,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
         if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, listBox, label);
+            errorMixin = new ErrorMixin<>(this, errorLabel, this, label);
         }
         return errorMixin;
     }
