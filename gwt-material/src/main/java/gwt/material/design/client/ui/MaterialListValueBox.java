@@ -38,10 +38,7 @@ import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
@@ -990,7 +987,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public int getIndex(T value) {
         int count = getItemCount();
         for (int i = 0; i < count; i++) {
-            if (getValueInternal(i).equals(value)) {
+            if (Objects.equals(getValue(i), value)) {
                 return i;
             }
         }
