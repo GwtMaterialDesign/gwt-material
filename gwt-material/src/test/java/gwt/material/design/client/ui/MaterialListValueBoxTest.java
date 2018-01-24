@@ -178,7 +178,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         MaterialListValueBox<T> valueBox = getWidget();
 
         // when / then
-        checkFieldErrorSuccess(valueBox, valueBox.getErrorLabel(), valueBox.getListBox(), valueBox.getLabel());
+        checkFieldErrorSuccess(valueBox, valueBox.getErrorLabel(), valueBox, valueBox.getLabel());
     }
 
     public void testPlaceholder() {
