@@ -715,7 +715,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index of the item to be selected
      */
     public void setSelectedIndex(int index) {
-        index += getIndexOffset();
+        if (index >= 0) {
+            index += getIndexOffset();
+        }
         setSelectedIndexInternal(index);
     }
 
@@ -900,8 +902,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
                 values.add(null);
                 values.addAll(previous);
                 listBox.insertItem(BLANK_VALUE_TEXT, 0);
-                setSelectedIndex(-1);
-                reload();
+                setSelectedIndexInternal(-1);
             }
         }
     }
