@@ -95,6 +95,21 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
             obj.addStyleName(CssName.DISABLED);
             obj.getElement().setAttribute(DISABLED, "");
         }
+
+        updateWaves(enabled, obj);
+    }
+
+    protected void updateWaves(boolean enabled, UIObject obj) {
+        if (obj instanceof MaterialWidget) {
+            MaterialWidget widget = (MaterialWidget) obj;
+            if (enabled) {
+                if (widget.getWaves() != null) {
+                    widget.getElement().addClassName(CssName.WAVES_EFFECT);
+                }
+            } else {
+                widget.getElement().removeClassName(CssName.WAVES_EFFECT);
+            }
+        }
     }
 
     public boolean isPropagateToChildren() {
