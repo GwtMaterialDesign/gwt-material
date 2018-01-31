@@ -226,8 +226,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
 
     @Override
-    protected void checkWaves(MaterialWidget widget, boolean checkElement) {
-        MaterialListValueBox<T> valueBox = getWidget();
-        super.checkWaves(valueBox, false);
+    protected void checkWaves(MaterialListValueBox<T> widget, boolean checkElement) {
+        super.checkWaves(getWidget(), false);
     }
 }
