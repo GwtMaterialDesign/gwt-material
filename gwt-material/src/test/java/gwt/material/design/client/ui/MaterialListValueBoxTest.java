@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.dto.User;
@@ -221,5 +222,12 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         assertNotSame(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
         assertNotSame(EMPTY_PLACEHOLDER, valueBox.getOptionElement(0));
         assertNotNull(valueBox.getValue());
+    }
+
+
+    @Override
+    protected void checkWaves(MaterialWidget widget, boolean checkElement) {
+        MaterialListValueBox<T> valueBox = getWidget();
+        super.checkWaves(valueBox, false);
     }
 }
