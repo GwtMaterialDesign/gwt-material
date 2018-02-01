@@ -99,7 +99,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
         updateWaves(enabled, obj);
     }
 
-    protected void updateWaves(boolean enabled, UIObject obj) {
+    public void updateWaves(boolean enabled, UIObject obj) {
         if (obj instanceof MaterialWidget) {
             MaterialWidget widget = (MaterialWidget) obj;
             if (enabled) {
