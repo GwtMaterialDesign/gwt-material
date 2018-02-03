@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 import gwt.material.design.client.ui.dto.User;
@@ -178,7 +179,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         MaterialListValueBox<T> valueBox = getWidget();
 
         // when / then
-        checkFieldErrorSuccess(valueBox, valueBox.getErrorLabel(), valueBox.getListBox(), valueBox.getLabel());
+        checkFieldErrorSuccess(valueBox, valueBox.getErrorLabel(), valueBox, valueBox.getLabel());
     }
 
     public void testPlaceholder() {
@@ -195,5 +196,37 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
 
         // when / then
         checkPlaceholder(valueBox);
+    }
+
+    public void testFocusAndBlurHandlers() {
+        MaterialListValueBox<T> valueBox = getWidget();
+        checkFocusAndBlurEvents(valueBox);
+    }
+
+    public void testEmptyPlaceHolder() {
+        // Given
+        final String EMPTY_PLACEHOLDER = "select-item";
+        MaterialListValueBox<Integer> valueBox = new MaterialListValueBox<>();
+        for (int i = 0; i <= 10; i++) {
+            valueBox.addItem(i, "Item " + i);
+        }
+        RootPanel.get().add(valueBox);
+
+        // when / then
+        valueBox.setEmptyPlaceHolder(EMPTY_PLACEHOLDER);
+        assertEquals(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
+        assertEquals(valueBox.getListBox().getItemText(0), EMPTY_PLACEHOLDER);
+        assertTrue(valueBox.getOptionElement(0).isDisabled());
+
+        valueBox.setEmptyPlaceHolder(null);
+        assertNotSame(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
+        assertNotSame(EMPTY_PLACEHOLDER, valueBox.getOptionElement(0));
+        assertNotNull(valueBox.getValue());
+    }
+
+
+    @Override
+    protected void checkWaves(MaterialListValueBox<T> widget, boolean checkElement) {
+        super.checkWaves(getWidget(), false);
     }
 }

@@ -67,7 +67,7 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
     protected void checkVerticalAlign(MaterialWidget widget, Style.VerticalAlign value, boolean checkElement) {
         widget.setVerticalAlign(value);
         assertEquals(value.getCssName(), widget.getVerticalAlign());
-        if(checkElement) {
+        if (checkElement) {
             assertEquals(widget.getVerticalAlign(), widget.getElement().getStyle().getVerticalAlign());
         }
     }
@@ -340,16 +340,35 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         T widget = getWidget(false);
 
         // when / then
-        widget.setWaves(WavesType.YELLOW);
-        assertEquals(WavesType.YELLOW, widget.getWaves());
+        checkWaves(widget, false);
 
         // Standard
         attachWidget();
 
         // given / when
-        final Element element = widget.getElement();
+        checkWaves(widget, true);
+    }
+
+    protected void checkWaves(T widget, boolean checkElement) {
         widget.setWaves(WavesType.YELLOW);
-        assertTrue(element.hasClassName(WavesType.YELLOW.getCssName()));
+        assertEquals(WavesType.YELLOW, widget.getWaves());
+
+        if (checkElement) {
+            final Element element = widget.getElement();
+            widget.setWaves(WavesType.YELLOW);
+            assertTrue(element.hasClassName(WavesType.YELLOW.getCssName()));
+
+            // Check Waves when the element is disabled
+            widget.setEnabled(false);
+            assertFalse(widget.getElement().hasClassName(CssName.WAVES_EFFECT));
+
+            widget.setWaves(WavesType.YELLOW);
+            assertFalse(widget.getElement().hasClassName(CssName.WAVES_EFFECT));
+
+            // Check Waves when the element is enabled
+            widget.setEnabled(true);
+            assertTrue(widget.getElement().hasClassName(CssName.WAVES_EFFECT));
+        }
     }
 
     public void testCircle() {
@@ -775,14 +794,14 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         // when / then
         widget.setTabIndex(INITIAL_TAB_INDEX);
         assertEquals(INITIAL_TAB_INDEX, widget.getTabIndex());
-        if(checkElement) {
+        if (checkElement) {
             assertEquals(String.valueOf(INITIAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
         }
 
         // when / then
         widget.setTabIndex(FINAL_TAB_INDEX);
         assertEquals(FINAL_TAB_INDEX, widget.getTabIndex());
-        if(checkElement) {
+        if (checkElement) {
             assertEquals(String.valueOf(FINAL_TAB_INDEX), widget.getElement().getPropertyString("tabIndex"));
         }
     }
@@ -850,25 +869,25 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
 
         // when / then
         widget.setReadOnly(true);
-        if(checkElement) {
+        if (checkElement) {
             assertTrue(targetElement.hasAttribute("disabled"));
             assertTrue(widgetElement.hasClassName(CssName.READ_ONLY));
         }
         assertTrue(widget.isReadOnly());
         widget.setReadOnly(false);
-        if(checkElement) {
+        if (checkElement) {
             assertFalse(targetElement.hasAttribute("disabled"));
             assertFalse(widgetElement.hasClassName(CssName.READ_ONLY));
         }
         assertFalse(widget.isReadOnly());
 
         widget.setToggleReadOnly(true);
-        if(checkElement) {
+        if (checkElement) {
             assertTrue(widgetElement.hasClassName(CssName.READ_ONLY_TOGGLE));
         }
         assertTrue(widget.isToggleReadOnly());
         widget.setToggleReadOnly(false);
-        if(checkElement) {
+        if (checkElement) {
             assertFalse(widgetElement.hasClassName(CssName.READ_ONLY_TOGGLE));
         }
         assertFalse(widget.isToggleReadOnly());

@@ -139,4 +139,12 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
         }
         return dropdown;
     }
+
+    public void testEmptyItems() {
+        MaterialDropDown dropdown = getWidget(false);
+
+        dropdown.clear();
+        dropdown.add(new ListItem());
+        RootPanel.get().add(dropdown);
+    }
 }

@@ -275,8 +275,20 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
     }
 
     public void testDateValue() {
+        // UiBinder
         // given
-        MaterialDatePicker datePicker = getWidget();
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
+        datePicker.setValue(DATE);
+        assertEquals(datePicker.getValue(), DATE);
+
+        datePicker.setValue(null);
+        assertEquals(datePicker.getValue(), null);
+
+        // Standard
+        // given
+        attachWidget();
 
         boolean[] isValueChanged = {false};
         datePicker.addValueChangeHandler(event -> isValueChanged[0] = true);
@@ -290,6 +302,9 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
 
         datePicker.setValue(DATE);
         assertEquals(datePicker.getValue(), DATE);
+
+        datePicker.setValue(null);
+        assertEquals(datePicker.getValue(), null);
 
         datePicker.setValue(DATE);
         datePicker.setValue(DATE, false);
@@ -399,5 +414,35 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
     public void testTabIndex() {
         MaterialDatePicker datePicker = getWidget();
         super.checkTabIndex(datePicker.getDateInput());
+    }
+
+    public void testDateFormat() {
+        // UiBinder
+        // given
+        MaterialDatePicker datePicker = getWidget(false);
+
+        // when / then
+        checkAllFormats(datePicker);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkAllFormats(datePicker);
+    }
+
+    protected void checkAllFormats(MaterialDatePicker datePicker) {
+        checkFormat(datePicker, "YYYY-MM-DD", "yyyy-mm-dd");
+        checkFormat(datePicker, "DD", "dd");
+        checkFormat(datePicker, "MM", "mm");
+        checkFormat(datePicker, "YYYY", "yyyy");
+        // If Format is null, expected would be the default format (d mmmm, yyyy)
+        checkFormat(datePicker, null, "d mmmm, yyyy");
+    }
+
+    protected void checkFormat(MaterialDatePicker datePicker, String format, String expected) {
+        datePicker.setFormat(format);
+        assertEquals(expected, datePicker.getFormat());
     }
 }

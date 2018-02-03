@@ -31,6 +31,7 @@ import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.helper.DateFormatHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
@@ -380,21 +381,26 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
      * To call before initialization.
      */
     public void setFormat(String format) {
-        options.format = format;
+        options.format = DateFormatHelper.format(format);
     }
 
     @Override
     public Date getValue() {
-        return getPickerDate();
+        if (isAttached()) {
+            return getPickerDate();
+        }
+        else {
+            return this.date;
+        }
     }
 
     @Override
     public void setValue(Date value, boolean fireEvents) {
+        this.date = value;
         if (value == null) {
             clear();
             return;
         }
-        this.date = value;
         if (isAttached()) {
             suppressChangeEvent = !fireEvents;
             setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
@@ -649,6 +655,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     @Override
     public void clear() {
+        this.date = null;
         dateInput.clear();
         if (getPicker() != null) {
             getPicker().set("select", null);
