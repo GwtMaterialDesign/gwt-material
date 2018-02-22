@@ -26,5 +26,8 @@ public interface HasOpacity {
 
     void setOpacity(double opacity);
 
-    double getOpacity();
+    /**
+     * Return's a valid double or null if not set.
+     */
+    Double getOpacity();
 }

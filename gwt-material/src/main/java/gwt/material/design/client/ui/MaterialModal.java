@@ -133,7 +133,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public double getOpacity() {
+    public Double getOpacity() {
         return options.opacity;
     }
 

@@ -407,8 +407,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public double getOpacity() {
-        return Double.parseDouble(getElement().getStyle().getOpacity());
+    public Double getOpacity() {
+        try {
+            return Double.parseDouble(getElement().getStyle().getOpacity());
+        } catch (NumberFormatException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -560,6 +564,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getElement().getStyle().setVisibility(visibility);
     }
 
+    public Style.Visibility getVisibility() {
+        return Style.Visibility.valueOf(getElement().getStyle().getVisibility());
+    }
+
     @Override
     public void setDisplay(Display display) {
         getFlexboxMixin().setDisplay(display);
@@ -689,7 +697,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public int getDepth() {
-        return Integer.parseInt(getElement().getStyle().getZIndex());
+        try {
+            return Integer.parseInt(getElement().getStyle().getZIndex());
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public void setFilterStyle(String property) {
