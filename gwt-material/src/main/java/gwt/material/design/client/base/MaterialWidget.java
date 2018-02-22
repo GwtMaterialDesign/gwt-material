@@ -564,8 +564,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getElement().getStyle().setVisibility(visibility);
     }
 
+    /**
+     * Get the visibility style or null if not applied.
+     */
     public Style.Visibility getVisibility() {
-        return Style.Visibility.valueOf(getElement().getStyle().getVisibility());
+        String visibility = getElement().getStyle().getVisibility();
+        if(visibility != null && !visibility.isEmpty()) {
+            return Style.Visibility.valueOf(visibility.toUpperCase());
+        }
+        return null;
     }
 
     @Override
