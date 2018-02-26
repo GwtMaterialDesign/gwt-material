@@ -21,7 +21,11 @@ package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.*;
@@ -31,7 +35,7 @@ import gwt.material.design.client.ui.html.Span;
  * @author Ben Dol
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
-        HasTargetHistoryToken, HasType<ButtonType> {
+        HasTargetHistoryToken, HasType<ButtonType>, HasValue<String> {
 
     private String targetHistoryToken;
     private Span span = new Span();
@@ -190,6 +194,28 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     public Span getSpan() {
         return span;
+    }
+
+    @Override
+    public String getValue() {
+        return getText();
+    }
+
+    @Override
+    public void setValue(String value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(String value, boolean b) {
+        if (value != null) {
+            setText(value);
+        }
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> valueChangeHandler) {
+        return addHandler(valueChangeHandler, ValueChangeEvent.getType());
     }
 
     protected ActivatesMixin<AbstractButton> getActivatesMixin() {
