@@ -207,9 +207,13 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     }
 
     @Override
-    public void setValue(String value, boolean b) {
+    public void setValue(String value, boolean fireEvent) {
         if (value != null) {
             setText(value);
+        }
+
+        if (fireEvent) {
+            ValueChangeEvent.fire(this, value);
         }
     }
 
