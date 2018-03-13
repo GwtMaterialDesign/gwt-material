@@ -148,6 +148,13 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         return input.getElement().hasAttribute("checked");
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+
+        setValue(false);
+    }
+
     /**
      * @return the input
      */

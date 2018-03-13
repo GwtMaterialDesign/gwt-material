@@ -144,12 +144,21 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
 
         // Will listen to any broadcast messages from the service worker
         Navigator.serviceWorker.onmessage = e -> {
-            String data = (String) e.data;
-            switch (data) {
-                case ServiceWorkerMessage.FAILING_SERVER:
-                    onServerFailing();
-                    break;
+            boolean failing = false;
+            if (e.data != null && e.data instanceof String) {
+                switch (e.data.toString()) {
+                    case ServiceWorkerMessage.FAILING_SERVER:
+                        failing = true;
+                        break;
+                }
             }
+
+            if (failing) {
+                onServerFailing();
+            } else {
+                onMessageReceived(e.data);
+            }
+
             return true;
         };
     }
@@ -309,6 +318,11 @@ public abstract class AbstractServiceWorkerManager implements ServiceWorkerManag
      * Called when the service worker can't fetch any request to the server or the server was already dead.
      */
     protected abstract void onServerFailing();
+
+    /**
+     * Will be called once service worker send data to client
+     */
+    protected abstract void onMessageReceived(Object data);
 
     @Override
     public void update() {

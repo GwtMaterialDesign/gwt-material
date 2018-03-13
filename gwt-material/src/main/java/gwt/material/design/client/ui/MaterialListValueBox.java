@@ -508,10 +508,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         }
     }
 
+    /**
+     * This will reset the listbox from original selected index.
+     */
     @Override
     public void reset() {
         super.reset();
-        clear();
+
+        setSelectedIndex(0);
     }
 
     /**
@@ -521,6 +525,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public void clear() {
         values.clear();
         listBox.clear();
+
+        clearErrorOrSuccess();
         if (emptyPlaceHolder != null) {
             insertEmptyPlaceHolder(emptyPlaceHolder);
         }

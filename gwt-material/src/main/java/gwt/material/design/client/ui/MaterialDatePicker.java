@@ -637,11 +637,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         fireEvent(new FocusEvent() {});
     }
 
-    /**
-     * Replaced by {@link MaterialDatePicker#clear()}
-     */
-    @Deprecated
-    public void clearValues() {
+    @Override
+    public void reset() {
+        super.reset();
+
         clear();
     }
 

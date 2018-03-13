@@ -140,13 +140,23 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+
+        clear();
+    }
+
     /**
      * Resets the text box by removing its content and resetting visual state.
      */
     public void clear() {
         valueBoxBase.setText("");
         clearErrorOrSuccess();
-        label.removeStyleName(CssName.ACTIVE);
+
+        if (getPlaceholder() == null || getPlaceholder().isEmpty()) {
+            label.removeStyleName(CssName.ACTIVE);
+        }
     }
 
     public void removeErrorModifiers() {

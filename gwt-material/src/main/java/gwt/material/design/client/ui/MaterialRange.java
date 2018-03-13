@@ -85,8 +85,9 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     }
 
     public void reset() {
+        super.reset();
+
         setValue(getMin());
-        clearErrorOrSuccess();
     }
 
     @Override

@@ -109,4 +109,9 @@ public class DefaultServiceWorkerManager extends AbstractServiceWorkerManager {
     protected void onServerFailing() {
         GWT.log("Can't connect to the server at the moment.", new RuntimeException());
     }
+
+    @Override
+    protected void onMessageReceived(Object data) {
+        GWT.log("Message received: " + data);
+    }
 }
