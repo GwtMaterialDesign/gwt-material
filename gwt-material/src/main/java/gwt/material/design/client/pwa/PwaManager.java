@@ -25,7 +25,6 @@ import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.client.pwa.manifest.WebManifestManager;
-import gwt.material.design.client.pwa.serviceworker.DefaultServiceWorkerManager;
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 import gwt.material.design.client.pwa.theme.BrowserThemeManager;
 
@@ -97,11 +96,11 @@ public class PwaManager implements JsLoader {
     }
 
     /**
-     * This will load {@link DefaultServiceWorkerManager} providing the service worker
+     * This will load {@link ServiceWorkerManager} providing the service worker
      * url to initialize the service worker.
      */
     public PwaManager setServiceWorker(String serviceWorkerUrl) {
-        this.serviceWorkerManager = new DefaultServiceWorkerManager(serviceWorkerUrl);
+        this.serviceWorkerManager = new ServiceWorkerManager(serviceWorkerUrl);
         return this;
     }
 

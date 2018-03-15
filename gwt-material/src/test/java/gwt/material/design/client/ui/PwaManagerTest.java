@@ -23,7 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.MaterialTestCase;
 import gwt.material.design.client.pwa.PwaManager;
-import gwt.material.design.client.pwa.serviceworker.DefaultServiceWorkerManager;
+import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 import gwt.material.design.client.ui.base.CustomServiceWorker;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -95,8 +95,7 @@ public class PwaManagerTest extends MaterialTestCase {
 
     protected void checkServiceWorker() {
         assertNotNull(PwaManager.getInstance().getServiceWorkerManager());
-        assertTrue(PwaManager.getInstance().getServiceWorkerManager() instanceof DefaultServiceWorkerManager);
-        DefaultServiceWorkerManager manager = (DefaultServiceWorkerManager) PwaManager.getInstance().getServiceWorkerManager();
+        ServiceWorkerManager manager = PwaManager.getInstance().getServiceWorkerManager();
         assertEquals(SERVICE_WORKER_URL, manager.getResource());
     }
 
