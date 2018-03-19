@@ -19,9 +19,9 @@
  */
 package gwt.material.design.client.ui.base;
 
-import gwt.material.design.client.pwa.serviceworker.DefaultServiceWorkerManager;
+import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 
-public class CustomServiceWorker extends DefaultServiceWorkerManager {
+public class CustomServiceWorker extends ServiceWorkerManager {
 
     public CustomServiceWorker(String resource) {
         super(resource);
