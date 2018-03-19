@@ -25,8 +25,10 @@ import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.client.pwa.manifest.WebManifestManager;
+import gwt.material.design.client.pwa.manifest.js.AppInstaller;
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 import gwt.material.design.client.pwa.theme.BrowserThemeManager;
+import gwt.material.design.jquery.client.api.Functions;
 
 //@formatter:off
 
@@ -54,6 +56,7 @@ public class PwaManager implements JsLoader {
     private ServiceWorkerManager serviceWorkerManager;
     private WebManifestManager webManifestManager;
     private BrowserThemeManager browserThemeManager;
+    private AppInstaller appInstaller;
 
     @Override
     public void load() {
@@ -119,6 +122,16 @@ public class PwaManager implements JsLoader {
     public PwaManager setThemeColor(String themeColor) {
         browserThemeManager = new BrowserThemeManager(this, themeColor);
         return this;
+    }
+
+    /**
+     * Will prompt a user the "Add to Homescreen" feature
+     *
+     * @param callback A callback function after the method has been executed.
+     */
+    public void installApp(Functions.Func callback) {
+        appInstaller = new AppInstaller(callback);
+        appInstaller.prompt();
     }
 
     public static PwaManager getInstance() {

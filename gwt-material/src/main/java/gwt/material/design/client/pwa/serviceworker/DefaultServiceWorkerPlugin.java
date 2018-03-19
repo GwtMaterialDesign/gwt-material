@@ -47,7 +47,7 @@ class DefaultServiceWorkerPlugin extends ServiceWorkerPlugin {
     @Override
     public void onNewServiceWorkerFound(ServiceWorker serviceWorker) {
         MaterialLink reload = new MaterialLink("REFRESH");
-        reload.addClickHandler(clickEvent -> getServiceWorkerManager().skipWaiting());
+        reload.addClickHandler(clickEvent -> getServiceWorkerManager().skipWaiting(serviceWorker));
         new MaterialToast(reload).toast("New updates available.", 0);
     }
 

@@ -104,6 +104,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
                 registration = (ServiceWorkerRegistration) object;
                 onRegistered(registration);
                 observeLifeCycle(registration);
+                // Setup events
                 setupOnControllerChangeEvent(registration);
                 setupOnMessageEvent(registration);
                 return null;
@@ -277,8 +278,8 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     /**
      * Forces the waiting service worker to become the active service worker.
      */
-    public void skipWaiting() {
-        postMessage("skipWaiting");
+    public void skipWaiting(ServiceWorker serviceWorker) {
+        serviceWorker.postMessage("skipWaiting");
         Window.Location.reload();
     }
 
@@ -286,6 +287,10 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      * Will post a message to service-worker.js file with predefined data message.
      * It requires a command and object pattern to be extracted on the service worker.
      */
+    public void postMessage(ServiceWorker serviceWorker, Object message) {
+        serviceWorker.postMessage(message);
+    }
+
     public void postMessage(Object message) {
         getServiceWorker().postMessage(message);
     }
