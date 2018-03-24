@@ -33,31 +33,36 @@ class DefaultServiceWorkerPlugin extends ServiceWorkerPlugin {
     }
 
     @Override
-    public void onActivated() {
+    public boolean onActivated(ServiceEvent event) {
         // Prompt the user with a toast to notify him that the service worker is activated
         // and ready for future offline visits.
         new MaterialToast().toast("Caching complete! Future visits will work offline.");
+        return false;
     }
 
     @Override
-    public void onControllerChange() {
+    public boolean onControllerChange(ServiceEvent event) {
         Window.Location.reload();
+        return false;
     }
 
     @Override
-    public void onNewServiceWorkerFound(ServiceWorker serviceWorker) {
+    public boolean onNewServiceWorkerFound(ServiceEvent event, ServiceWorker serviceWorker) {
         MaterialLink reload = new MaterialLink("REFRESH");
         reload.addClickHandler(clickEvent -> getServiceWorkerManager().skipWaiting(serviceWorker));
         new MaterialToast(reload).toast("New updates available.", 0);
+        return false;
     }
 
     @Override
-    public void onOnline() {
+    public boolean onOnline(ServiceEvent event) {
         RootPanel.get().removeStyleName(CssName.OFFLINE);
+        return false;
     }
 
     @Override
-    public void onOffline() {
+    public boolean onOffline(ServiceEvent event) {
         RootPanel.get().addStyleName(CssName.OFFLINE);
+        return false;
     }
 }

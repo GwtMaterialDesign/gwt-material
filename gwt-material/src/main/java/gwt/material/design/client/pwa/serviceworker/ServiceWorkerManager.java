@@ -72,9 +72,9 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         networkStatusManager.load();
         networkStatusManager.addNetworkStatusChangeEvent(event -> {
             if (event.isOnline()) {
-                onOnline();
+                onOnline(new ServiceEvent());
             } else {
-                onOffline();
+                onOffline(new ServiceEvent());
             }
         });
     }
@@ -102,7 +102,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
             Navigator.serviceWorker.register(getResource()).then(object -> {
                 logger.info("Service worker has been successfully registered");
                 registration = (ServiceWorkerRegistration) object;
-                onRegistered(registration);
+                onRegistered(new ServiceEvent(), registration);
                 observeLifeCycle(registration);
                 // Setup events
                 setupOnControllerChangeEvent(registration);
@@ -124,7 +124,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     protected void setupOnControllerChangeEvent(ServiceWorkerRegistration registration) {
         Navigator.serviceWorker.oncontrollerchange = e -> {
-            onControllerChange();
+            onControllerChange(new ServiceEvent());
             return true;
         };
     }
@@ -144,9 +144,9 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
             }
 
             if (failing) {
-                onServerFailing();
+                onServerFailing(new ServiceEvent());
             } else {
-                onMessageReceived(e.data);
+                onMessageReceived(new ServiceEvent(), e.data);
             }
 
             return true;
@@ -169,7 +169,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         // If there's an updated worker already waiting,
         // call {@link #onNewServiceWorkerFound(serviceworker)
         if (registration.waiting != null) {
-            onNewServiceWorkerFound(registration.waiting);
+            onNewServiceWorkerFound(new ServiceEvent(), registration.waiting);
         }
 
         // If there's an updated worker installing, track its
@@ -191,12 +191,12 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     /**
      * Will track the service worker phase of the service worker and once
-     * the service worker state was installed then call {@link #onNewServiceWorkerFound(ServiceWorker)}
+     * the service worker state was installed then call {@link #onNewServiceWorkerFound(ServiceEvent, ServiceWorker)}
      */
     protected void trackServiceWorkerState(ServiceWorker serviceWorker) {
         serviceWorker.onstatechange = e -> {
             if (serviceWorker.state.equals(State.INSTALLED.getCssName())) {
-                onNewServiceWorkerFound(serviceWorker);
+                onNewServiceWorkerFound(new ServiceEvent(), serviceWorker);
             }
             return true;
         };
@@ -210,19 +210,19 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
             State state = State.fromStyleName(serviceWorker.state);
             switch (state) {
                 case INSTALLING:
-                    onInstalling();
+                    onInstalling(new ServiceEvent());
                     break;
                 case INSTALLED:
-                    onInstalled();
+                    onInstalled(new ServiceEvent());
                     break;
                 case ACTIVATING:
-                    onActivating();
+                    onActivating(new ServiceEvent());
                     break;
                 case ACTIVATED:
-                    onActivated();
+                    onActivated(new ServiceEvent());
                     break;
                 case REDUNDANT:
-                    onRedundant();
+                    onRedundant(new ServiceEvent());
                     break;
             }
             return true;
@@ -269,13 +269,6 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     }
 
     /**
-     * Will remove the defined plugin upon registration of the service worker.
-     */
-    public boolean removePlugin(ServiceWorkerPlugin plugin) {
-        return plugins.remove(plugin);
-    }
-
-    /**
      * Forces the waiting service worker to become the active service worker.
      */
     public void skipWaiting(ServiceWorker serviceWorker) {
@@ -311,6 +304,11 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public void addPlugin(ServiceWorkerPlugin plugin) {
         plugin.setServiceWorkerManager(this);
         plugins.add(plugin);
+    }
+
+    public boolean removePlugin(ServiceWorkerPlugin plugin) {
+        plugin.setServiceWorkerManager(null);
+        return plugins.remove(plugin);
     }
 
     /**
@@ -349,152 +347,188 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     }
 
     @Override
-    public void onRegistered(ServiceWorkerRegistration registration) {
+    public boolean onRegistered(ServiceEvent event, ServiceWorkerRegistration registration) {
         GWT.log("Service Worker is registered");
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onRegistered(registration);
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onRegistered(event, registration) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onRegistered(registration);
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onRegistered(event, registration);
         }
+        return true;
     }
 
     @Override
-    public void onInstalling() {
+    public boolean onInstalling(ServiceEvent event) {
         GWT.log("Service worker is installing");
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onInstalling();
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onInstalling(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onInstalling();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onInstalling(event);
         }
+        return false;
     }
 
     @Override
-    public void onInstalled() {
+    public boolean onInstalled(ServiceEvent event) {
         GWT.log("Service worker is installed");
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onInstalled();
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onInstalled(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onInstalled();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onInstalled(event);
         }
+        return false;
     }
 
     @Override
-    public void onActivating() {
+    public boolean onActivating(ServiceEvent event) {
         GWT.log("Service worker is activating");
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onActivating();
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onActivating(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onActivating();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onActivating(event);
         }
+        return false;
     }
 
     @Override
-    public void onActivated() {
+    public boolean onActivated(ServiceEvent event) {
         GWT.log("Service worker is activated");
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onActivated();
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onActivated(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onActivated();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onActivated(event);
         }
+        return false;
     }
 
     @Override
-    public void onRedundant() {
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onRedundant();
+    public boolean onRedundant(ServiceEvent event) {
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onRedundant(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onRedundant();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onRedundant(event);
         }
+        return false;
     }
 
     @Override
-    public void onControllerChange() {
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onControllerChange();
+    public boolean onControllerChange(ServiceEvent event) {
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onControllerChange(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onControllerChange();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onControllerChange(event);
         }
+        return false;
     }
 
     @Override
-    public void onNewServiceWorkerFound(ServiceWorker serviceWorker) {
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onNewServiceWorkerFound(serviceWorker);
+    public boolean onNewServiceWorkerFound(ServiceEvent event, ServiceWorker serviceWorker) {
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onNewServiceWorkerFound(event, serviceWorker) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onNewServiceWorkerFound(serviceWorker);
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onNewServiceWorkerFound(event, serviceWorker);
         }
+        return false;
     }
 
     @Override
-    public void onOnline() {
+    public boolean onOnline(ServiceEvent event) {
         GWT.log("Network Status is now online");
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onOnline();
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onOnline(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onOnline();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onOnline(event);
         }
+        return false;
     }
 
     @Override
-    public void onOffline() {
+    public boolean onOffline(ServiceEvent event) {
         GWT.log("Network Status is now offline");
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onOffline();
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onOffline(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onOffline();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onOffline(event);
         }
+        return false;
     }
 
     @Override
-    public void onServerFailing() {
+    public boolean onServerFailing(ServiceEvent event) {
         GWT.log("Can't connect to the server at the moment.", new RuntimeException());
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onServerFailing();
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onServerFailing(event) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onServerFailing();
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onServerFailing(event);
         }
+        return false;
     }
 
     @Override
-    public void onMessageReceived(Object data) {
+    public boolean onMessageReceived(ServiceEvent event, Object data) {
         GWT.log("Message received: " + data);
 
-        if (isUsingDefaultPlugin()) {
-            defaultPlugin.onMessageReceived(data);
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onMessageReceived(event, data) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
         }
 
-        for (ServiceWorkerPlugin plugin : plugins) {
-            plugin.onMessageReceived(data);
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onMessageReceived(event, data);
         }
+        return false;
     }
 }

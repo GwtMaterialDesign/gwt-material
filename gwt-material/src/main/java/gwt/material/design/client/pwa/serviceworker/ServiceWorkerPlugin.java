@@ -33,40 +33,64 @@ public class ServiceWorkerPlugin implements ServiceWorkerLifecycle {
     }
 
     @Override
-    public void onRegistered(ServiceWorkerRegistration registration) {}
+    public boolean onRegistered(ServiceEvent event, ServiceWorkerRegistration registration) {
+        return false;
+    }
 
     @Override
-    public void onInstalling() {}
+    public boolean onInstalling(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onInstalled() {}
+    public boolean onInstalled(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onActivating() {}
+    public boolean onActivating(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onActivated() {}
+    public boolean onActivated(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onRedundant() {}
+    public boolean onRedundant(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onControllerChange() {}
+    public boolean onControllerChange(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onNewServiceWorkerFound(ServiceWorker serviceWorker) {}
+    public boolean onNewServiceWorkerFound(ServiceEvent event, ServiceWorker serviceWorker) {
+        return false;
+    }
 
     @Override
-    public void onOnline() {}
+    public boolean onOnline(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onOffline() {}
+    public boolean onOffline(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onServerFailing() {}
+    public boolean onServerFailing(ServiceEvent event) {
+        return false;
+    }
 
     @Override
-    public void onMessageReceived(Object data) {}
+    public boolean onMessageReceived(ServiceEvent event, Object data) {
+        return false;
+    }
 
     public void setServiceWorkerManager(ServiceWorkerManager serviceWorkerManager) {
         this.serviceWorkerManager = serviceWorkerManager;
