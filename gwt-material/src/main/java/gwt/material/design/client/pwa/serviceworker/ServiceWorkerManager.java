@@ -330,6 +330,14 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         return defaultPlugin != null;
     }
 
+    public List<ServiceWorkerPlugin> getPlugins() {
+        return plugins;
+    }
+
+    public <T extends ServiceWorkerPlugin> T getPlugin(Class<T> plugin) {
+        return (T) plugins.stream().filter(serviceWorkerPlugin -> serviceWorkerPlugin.getClass().equals(plugin)).findFirst().orElse(null);
+    }
+
     @Override
     public String getResource() {
         return resource;
