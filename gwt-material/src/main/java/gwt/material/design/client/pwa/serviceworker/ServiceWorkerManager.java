@@ -28,6 +28,7 @@ import gwt.material.design.client.pwa.serviceworker.constants.ServiceWorkerMessa
 import gwt.material.design.client.pwa.serviceworker.constants.State;
 import gwt.material.design.client.pwa.serviceworker.js.Navigator;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerContainer;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 import gwt.material.design.client.pwa.serviceworker.network.NetworkStatusManager;
 
@@ -102,11 +103,16 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
             Navigator.serviceWorker.register(getResource()).then(object -> {
                 logger.info("Service worker has been successfully registered");
                 registration = (ServiceWorkerRegistration) object;
+
                 onRegistered(new ServiceEvent(), registration);
-                observeLifeCycle(registration);
-                // Setup events
-                setupOnControllerChangeEvent(registration);
-                setupOnMessageEvent(registration);
+
+                // Observe service worker lifecycle
+                observeLifecycle(registration);
+
+                // Setup Service Worker events events
+                setupOnControllerChangeEvent();
+                setupOnMessageEvent();
+                setupOnErrorEvent();
                 return null;
             }, error -> {
                 logger.info("ServiceWorker registration failed: " + error);
@@ -117,12 +123,19 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         }
     }
 
+    protected void setupOnErrorEvent() {
+        getServiceWorkerContainer().onerror = (e) -> {
+            onError(new ServiceEvent(), "");
+            return true;
+        };
+    }
+
     /**
      * The oncontrollerchange property of the ServiceWorkerContainer interface is an event handler
      * fired whenever a controllerchange event occurs — when the document's associated
      * ServiceWorkerRegistration acquires a new ServiceWorkerRegistration.active worker.
      */
-    protected void setupOnControllerChangeEvent(ServiceWorkerRegistration registration) {
+    protected void setupOnControllerChangeEvent() {
         Navigator.serviceWorker.oncontrollerchange = e -> {
             onControllerChange(new ServiceEvent());
             return true;
@@ -132,7 +145,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     /**
      * Will listen to any broadcast messages from the service worker
      */
-    protected void setupOnMessageEvent(ServiceWorkerRegistration registration) {
+    protected void setupOnMessageEvent() {
         Navigator.serviceWorker.onmessage = e -> {
             boolean failing = false;
             if (e.data != null && e.data instanceof String) {
@@ -154,52 +167,24 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     }
 
     /**
-     * Will observe the lifecycle of the Service Worker Registration
+     * Will listen and observe to service worker life cycle. This method also tracks if there are incoming service worker.
+     * @see <a href="https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle">Service Worker Lifecycles</a>
+     * @param registration - The Service Worker Registration
      */
-    protected void observeLifeCycle(ServiceWorkerRegistration registration) {
-        // If there's no controller, this page wasn't loaded
-        // via a service worker, so they're looking at the latest version.
-        // In that case, exit early
-        if (Navigator.serviceWorker.controller == null) {
-            if (registration.installing != null) {
+    protected void observeLifecycle(ServiceWorkerRegistration registration) {
+        // Will listen to Service Worker lifecycle
+        if (registration.installing != null) {
+            registration.onupdatefound = event -> {
                 onStateChange(registration.installing);
-            }
+                return true;
+            };
         }
 
-        // If there's an updated worker already waiting,
-        // call {@link #onNewServiceWorkerFound(serviceworker)
+        // Will check if there's a waiting service worker to be installed from the current registration
+        // If any then fire {@link #onNewServiceWorkerFound}
         if (registration.waiting != null) {
             onNewServiceWorkerFound(new ServiceEvent(), registration.waiting);
         }
-
-        // If there's an updated worker installing, track its
-        // progress. If it becomes "installed", call
-        // {@link #onNewServiceWorkerFound(serviceworker)
-        if (registration.installing != null) {
-            trackServiceWorkerState(registration.installing);
-        }
-
-        // Otherwise, listen for new installing workers arriving
-        // If on arrives, track its progress.
-        // If it becomes "installed", call
-        // {@link #onNewServiceWorkerFound(serviceworker)
-        registration.onupdatefound = e -> {
-            trackServiceWorkerState(registration.installing);
-            return true;
-        };
-    }
-
-    /**
-     * Will track the service worker phase of the service worker and once
-     * the service worker state was installed then call {@link #onNewServiceWorkerFound(ServiceEvent, ServiceWorker)}
-     */
-    protected void trackServiceWorkerState(ServiceWorker serviceWorker) {
-        serviceWorker.onstatechange = e -> {
-            if (serviceWorker.state.equals(State.INSTALLED.getCssName())) {
-                onNewServiceWorkerFound(new ServiceEvent(), serviceWorker);
-            }
-            return true;
-        };
     }
 
     /**
@@ -259,6 +244,10 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     public ServiceWorkerRegistration getServiceWorkerRegistration() {
         return registration;
+    }
+
+    public ServiceWorkerContainer getServiceWorkerContainer() {
+        return Navigator.serviceWorker;
     }
 
     /**
@@ -528,6 +517,20 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
         if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
             defaultPlugin.onMessageReceived(event, data);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onError(ServiceEvent event, String message) {
+        for (ServiceWorkerPlugin plugin : plugins) {
+            if(plugin.onError(event, message) || event.isStopPropagation()) {
+                break; // Stop propagation
+            }
+        }
+
+        if (isUsingDefaultPlugin() && !event.isPreventDefault()) {
+            defaultPlugin.onError(event, message);
         }
         return false;
     }

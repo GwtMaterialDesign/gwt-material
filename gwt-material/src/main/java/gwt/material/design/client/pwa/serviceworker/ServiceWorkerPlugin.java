@@ -92,6 +92,11 @@ public class ServiceWorkerPlugin implements ServiceWorkerLifecycle {
         return false;
     }
 
+    @Override
+    public boolean onError(ServiceEvent event, String message) {
+        return false;
+    }
+
     public void setServiceWorkerManager(ServiceWorkerManager serviceWorkerManager) {
         this.serviceWorkerManager = serviceWorkerManager;
     }

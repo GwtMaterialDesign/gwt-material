@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
+import com.google.web.bindery.requestfactory.shared.Service;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 
@@ -132,4 +133,9 @@ public interface ServiceWorkerLifecycle {
      * @return stop propagation, default: false
      */
     boolean onMessageReceived(ServiceEvent event, Object data);
+
+    /**
+     * Will be called whenever an error event occurs in the associated service workers.
+     */
+    boolean onError(ServiceEvent event, String message);
 }
