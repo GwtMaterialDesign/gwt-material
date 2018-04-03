@@ -33,8 +33,11 @@ import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration
 import gwt.material.design.client.pwa.serviceworker.network.NetworkStatusManager;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * An implementation of Service Worker to manage its lifecycle
@@ -51,7 +54,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     private ServiceWorkerRegistration registration;
 
     private DefaultServiceWorkerPlugin defaultPlugin = new DefaultServiceWorkerPlugin(this);
-    private List<ServiceWorkerPlugin> plugins = new ArrayList<>();
+    private Map<Class<? extends ServiceWorkerPlugin>, ServiceWorkerPlugin> plugins = new LinkedHashMap();
     private NetworkStatusManager networkStatusManager = new NetworkStatusManager();
 
     protected ServiceWorkerManager() {}
@@ -292,12 +295,12 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     public void addPlugin(ServiceWorkerPlugin plugin) {
         plugin.setServiceWorkerManager(this);
-        plugins.add(plugin);
+        plugins.put(plugin.getClass(), plugin);
     }
 
-    public boolean removePlugin(ServiceWorkerPlugin plugin) {
+    public void removePlugin(ServiceWorkerPlugin plugin) {
         plugin.setServiceWorkerManager(null);
-        return plugins.remove(plugin);
+        plugins.remove(plugin.getClass());
     }
 
     /**
@@ -318,11 +321,11 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     }
 
     public List<ServiceWorkerPlugin> getPlugins() {
-        return plugins;
+        return plugins.values().stream().collect(Collectors.toList());
     }
 
-    public <T extends ServiceWorkerPlugin> T getPlugin(Class<T> plugin) {
-        return (T) plugins.stream().filter(serviceWorkerPlugin -> serviceWorkerPlugin.getClass().equals(plugin)).findFirst().orElse(null);
+    public ServiceWorkerPlugin getPlugin(Class<? extends ServiceWorkerPlugin> plugin) {
+        return plugins.get(plugin);
     }
 
     @Override
@@ -339,7 +342,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onRegistered(ServiceEvent event, ServiceWorkerRegistration registration) {
         GWT.log("Service Worker is registered");
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onRegistered(event, registration) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -355,7 +358,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onInstalling(ServiceEvent event) {
         GWT.log("Service worker is installing");
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onInstalling(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -371,7 +374,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onInstalled(ServiceEvent event) {
         GWT.log("Service worker is installed");
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onInstalled(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -387,7 +390,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onActivating(ServiceEvent event) {
         GWT.log("Service worker is activating");
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onActivating(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -403,7 +406,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onActivated(ServiceEvent event) {
         GWT.log("Service worker is activated");
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onActivated(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -417,7 +420,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onRedundant(ServiceEvent event) {
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onRedundant(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -431,7 +434,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onControllerChange(ServiceEvent event) {
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onControllerChange(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -445,7 +448,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onNewServiceWorkerFound(ServiceEvent event, ServiceWorker serviceWorker) {
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onNewServiceWorkerFound(event, serviceWorker) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -461,7 +464,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onOnline(ServiceEvent event) {
         GWT.log("Network Status is now online");
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onOnline(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -477,7 +480,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onOffline(ServiceEvent event) {
         GWT.log("Network Status is now offline");
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onOffline(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -493,7 +496,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onServerFailing(ServiceEvent event) {
         GWT.log("Can't connect to the server at the moment.", new RuntimeException());
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onServerFailing(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -509,7 +512,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     public boolean onMessageReceived(ServiceEvent event, Object data) {
         GWT.log("Message received: " + data);
 
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onMessageReceived(event, data) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
@@ -523,7 +526,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onError(ServiceEvent event, String message) {
-        for (ServiceWorkerPlugin plugin : plugins) {
+        for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onError(event, message) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
