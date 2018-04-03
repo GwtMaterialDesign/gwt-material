@@ -44,6 +44,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         HasEditorErrors<V>, HasErrorHandler, HasError, HasValidators<V> {
 
     private boolean allowBlank = true;
+    private boolean autoValidate;
     private BlankValidator<V> blankValidator;
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
     private ErrorMixin<AbstractValueWidget, ?> errorMixin;
@@ -206,6 +207,25 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         } else {
             registerHandler(inputWidget.addBlurHandler(blurEvent -> validate(isValidateOnBlur())));
         }
+    }
+
+    public boolean isAutoValidate() {
+        return autoValidate;
+    }
+
+    public void setAutoValidate(boolean autoValidate) {
+        this.autoValidate = autoValidate;
+        if (autoValidate) {
+            if (isAttached()) {
+                autoValidate();
+            } else {
+                registerHandler(addAttachHandler(event -> autoValidate()));
+            }
+        }
+    }
+
+    protected void autoValidate() {
+        registerHandler(addValueChangeHandler(event -> validate()));
     }
 
     @Override
