@@ -324,8 +324,9 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         return plugins.values().stream().collect(Collectors.toList());
     }
 
-    public ServiceWorkerPlugin getPlugin(Class<? extends ServiceWorkerPlugin> plugin) {
-        return plugins.get(plugin);
+    @SuppressWarnings("unchecked")
+    public <T extends ServiceWorkerPlugin> T getPlugin(Class<T> plugin) {
+        return (T) plugins.get(plugin);
     }
 
     @Override
