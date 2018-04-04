@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.base.helper;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.ScrollOption;
@@ -38,6 +39,10 @@ public class ScrollHelper {
     private String easing = "swing";
     private int duration = 400;
     private double offset;
+
+    public ScrollHelper() {
+        containerElement = $("html, body").asElement();
+    }
 
     public Element getContainerElement() {
         return containerElement;
@@ -115,17 +120,46 @@ public class ScrollHelper {
      */
     public void scrollTo(double offset) {
         this.offset = offset;
-        ScrollOption option = new ScrollOption();
-        option.scrollTop = offset;
 
-        if (containerElement == null) {
-            containerElement = $("html, body").asElement();
-        }
+        ScrollOption option = new ScrollOption();
+        option.scrollTop = $(containerElement).scrollTop() - $(containerElement).offset().top + offset;
 
         $(containerElement).animate(option, duration, easing, () -> {
             if (completeCallback != null) {
                 completeCallback.call();
             }
         });
+    }
+
+    /**
+     * Will perform a detection whether the widget is in the View Port Scope or not, providing
+     * the {@link #containerElement} as the wrapper or container of the target element.
+     * <p/>
+     * Note: By default if you didn't provide a container, the html or body element should be
+     * applied as the target's container.
+     *
+     * @param widget The widget you are checking if it's inside the viewport scope.
+     */
+    public boolean isInViewPort(Widget widget) {
+        return isInViewPort(widget.getElement());
+    }
+
+    /**
+     * Will perform a detection whether the element is in the View Port Scope or not, providing
+     * the {@link #containerElement} as the wrapper or container of the target element.
+     * <p/>
+     * Note: By default if you didn't provide a container, the html or body element should be
+     * applied as the target's container.
+     *
+     * @param element The element you are checking if it's inside the viewport scope.
+     */
+    public boolean isInViewPort(Element element) {
+        double elementTop = $(element).offset().top;
+        double elementBottom = elementTop + $(element).outerHeight();
+
+        double viewportTop = $(containerElement).offset().top;
+        double viewportBottom = viewportTop + $(containerElement).height();
+
+        return elementBottom > viewportTop && elementTop < viewportBottom;
     }
 }
