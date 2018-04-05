@@ -200,6 +200,10 @@ public class ScrollHelper {
         return offsetPosition;
     }
 
+    /**
+     * Will set the desired offset position of the target element.
+     * Available options are TOP, MIDDLE and BOTTOM.
+     */
     public void setOffsetPosition(OffsetPosition offsetPosition) {
         this.offsetPosition = offsetPosition;
     }

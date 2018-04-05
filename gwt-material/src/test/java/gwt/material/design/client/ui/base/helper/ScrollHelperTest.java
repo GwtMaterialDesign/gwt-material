@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui.base.helper;
 
 import gwt.material.design.client.base.helper.ScrollHelper;
+import gwt.material.design.client.constants.OffsetPosition;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 import gwt.material.design.jquery.client.api.Functions;
@@ -69,10 +70,20 @@ public class ScrollHelperTest extends MaterialWidgetTest<MaterialPanel> {
         scrollHelper.setCompleteCallback(CALLBACK);
         scrollHelper.setContainer(container);
         scrollHelper.scrollTo(target);
+        checkOffsetPositioning(scrollHelper);
 
         assertEquals(LINEAR_EASING, scrollHelper.getEasing());
         assertEquals(CALLBACK, scrollHelper.getCompleteCallback());
         assertEquals(container.getElement(), scrollHelper.getContainerElement());
+    }
+
+    protected void checkOffsetPositioning(ScrollHelper scrollHelper) {
+        scrollHelper.setOffsetPosition(OffsetPosition.TOP);
+        assertEquals(OffsetPosition.TOP, scrollHelper.getOffsetPosition());
+        scrollHelper.setOffsetPosition(OffsetPosition.MIDDLE);
+        assertEquals(OffsetPosition.MIDDLE, scrollHelper.getOffsetPosition());
+        scrollHelper.setOffsetPosition(OffsetPosition.BOTTOM);
+        assertEquals(OffsetPosition.BOTTOM, scrollHelper.getOffsetPosition());
     }
 
     public void testScrollOnTarget() {
