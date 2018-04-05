@@ -124,6 +124,10 @@ public class ScrollHelper {
         this.offset = offset;
 
         ScrollOption option = new ScrollOption();
+
+        if (containerElement != getDefaultContainer()) {
+            offset = $(containerElement).scrollTop() - $(containerElement).offset().top + offset;
+        }
         option.scrollTop = offset;
 
         $(containerElement).animate(option, duration, easing, () -> {
@@ -148,6 +152,7 @@ public class ScrollHelper {
                 offsetTop = (offsetTop - containerHeight) + $(target).height();
                 break;
         }
+
         return offsetTop;
     }
 
