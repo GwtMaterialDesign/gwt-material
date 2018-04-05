@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.base.helper;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.ScrollOption;
@@ -41,7 +40,7 @@ public class ScrollHelper {
     private double offset;
 
     public ScrollHelper() {
-        containerElement = $("html, body").asElement();
+        containerElement = getDefaultContainer();
     }
 
     public Element getContainerElement() {
@@ -157,9 +156,17 @@ public class ScrollHelper {
         double elementTop = $(element).offset().top;
         double elementBottom = elementTop + $(element).outerHeight();
 
-        double viewportTop = $(containerElement).offset().top;
+        double viewportTop = $(containerElement).scrollTop();
+        if (containerElement != getDefaultContainer()) {
+            viewportTop = $(containerElement).offset().top;
+        }
+
         double viewportBottom = viewportTop + $(containerElement).height();
 
         return elementBottom > viewportTop && elementTop < viewportBottom;
+    }
+
+    protected Element getDefaultContainer() {
+        return $("html, body").asElement();
     }
 }
