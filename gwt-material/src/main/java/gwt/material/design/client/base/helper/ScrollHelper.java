@@ -19,8 +19,10 @@
  */
 package gwt.material.design.client.base.helper;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.constants.OffsetPosition;
 import gwt.material.design.client.js.ScrollOption;
 import gwt.material.design.jquery.client.api.Functions;
 
@@ -33,6 +35,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 public class ScrollHelper {
 
+    private OffsetPosition offsetPosition = OffsetPosition.TOP;
     private Element containerElement;
     private Functions.Func completeCallback;
     private String easing = "swing";
@@ -111,7 +114,7 @@ public class ScrollHelper {
      * Will scroll to target element.
      */
     public void scrollTo(Element target) {
-        scrollTo($(target).offset().top);
+        scrollTo(extractOffsetPosition(target));
     }
 
     /**
@@ -121,13 +124,31 @@ public class ScrollHelper {
         this.offset = offset;
 
         ScrollOption option = new ScrollOption();
-        option.scrollTop = $(containerElement).scrollTop() - $(containerElement).offset().top + offset;
+        option.scrollTop = offset;
 
         $(containerElement).animate(option, duration, easing, () -> {
             if (completeCallback != null) {
                 completeCallback.call();
             }
         });
+    }
+
+    /**
+     * Will recalculate the offset provided by the positioning based on the container's height
+     * See {@link #setOffsetPosition(OffsetPosition)}
+     */
+    protected double extractOffsetPosition(Element target) {
+        double offsetTop = $(target).offset().top;
+        double containerHeight = $(containerElement).height();
+        switch (getOffsetPosition()) {
+            case MIDDLE:
+                offsetTop = offsetTop - (containerHeight / 2) + ($(target).height() / 2);
+                break;
+            case BOTTOM:
+                offsetTop = (offsetTop - containerHeight) + $(target).height();
+                break;
+        }
+        return offsetTop;
     }
 
     /**
@@ -168,5 +189,13 @@ public class ScrollHelper {
 
     protected Element getDefaultContainer() {
         return $("html, body").asElement();
+    }
+
+    public OffsetPosition getOffsetPosition() {
+        return offsetPosition;
+    }
+
+    public void setOffsetPosition(OffsetPosition offsetPosition) {
+        this.offsetPosition = offsetPosition;
     }
 }
