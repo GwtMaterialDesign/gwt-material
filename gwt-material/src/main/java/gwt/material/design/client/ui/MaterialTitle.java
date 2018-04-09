@@ -83,6 +83,11 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
     }
 
     @Override
+    public String getDescription() {
+        return paragraph.getText();
+    }
+
+    @Override
     public void setTitle(String title) {
         setValue(title, true);
     }

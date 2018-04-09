@@ -36,4 +36,5 @@ public interface HasTitle {
      */
     void setDescription(String description);
 
+    String getDescription();
 }
