@@ -73,8 +73,8 @@ public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
 
         assertTrue(shrinkNavBar.getStyleName().contains(NavBarType.SHRINK.getCssName()));
 
-        shrinkNavBar.setOffset(OFFSET);
-        assertEquals(OFFSET, shrinkNavBar.getOffset());
+        shrinkNavBar.setScrollOffset(OFFSET);
+        assertEquals(OFFSET, shrinkNavBar.getScrollOffset());
 
         final boolean[] expandFired = {false};
         shrinkNavBar.addExpandHandler(event -> expandFired[0] = true);
