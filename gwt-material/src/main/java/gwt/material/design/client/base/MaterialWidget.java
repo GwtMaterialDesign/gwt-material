@@ -98,11 +98,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     private Map<Feature, Boolean> features;
     private List<Appender> onLoadAdd;
-
     private String[] initialClasses;
     protected JQueryElement $this;
-
     private HandlerRegistry handlerRegistry;
+    private String translationKey;
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -1498,5 +1497,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             filterMixin = new FilterStyleMixin<>(this);
         }
         return filterMixin;
+    }
+
+    public void setTranslationKey(String key) {
+        this.translationKey = key;
+    }
+
+    public String getTranslationKey() {
+        return translationKey;
     }
 }
