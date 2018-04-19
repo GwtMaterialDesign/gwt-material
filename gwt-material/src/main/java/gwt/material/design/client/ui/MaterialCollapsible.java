@@ -30,6 +30,9 @@ import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
+import gwt.material.design.client.events.CollapseEvent;
+import gwt.material.design.client.events.ExpandEvent;
+import gwt.material.design.client.base.HasCollapsibleHandlers;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -91,7 +94,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/expansion-panels.html#expansion-panels-behavior">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCollapsible extends MaterialWidget implements JsLoader, HasType<CollapsibleType>, HasActiveParent, HasNoSideNavSelection, HasClearActiveHandler {
+public class MaterialCollapsible extends MaterialWidget
+        implements JsLoader, HasType<CollapsibleType>, HasActiveParent, HasNoSideNavSelection, HasCollapsibleHandlers<MaterialCollapsibleItem> {
 
     protected interface HasCollapsibleParent {
         void setParent(MaterialCollapsible parent);
@@ -267,6 +271,17 @@ public class MaterialCollapsible extends MaterialWidget implements JsLoader, Has
     public HandlerRegistration addClearActiveHandler(final ClearActiveHandler handler) {
         return addHandler(handler, ClearActiveEvent.TYPE);
     }
+
+    @Override
+    public HandlerRegistration addCollapseHandler(CollapseEvent.CollapseHandler<MaterialCollapsibleItem> handler) {
+        return addHandler(handler, CollapseEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addExpandHandler(ExpandEvent.ExpandHandler<MaterialCollapsibleItem> handler) {
+        return addHandler(handler, ExpandEvent.getType());
+    }
+
 
     protected CssTypeMixin<CollapsibleType, MaterialCollapsible> getTypeMixin() {
         if (typeMixin == null) {

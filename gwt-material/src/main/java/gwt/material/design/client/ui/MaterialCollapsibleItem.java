@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -31,6 +32,8 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.events.CollapseEvent;
+import gwt.material.design.client.events.ExpandEvent;
 import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 
 //@formatter:off
@@ -82,6 +85,7 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             body = (MaterialCollapsibleBody) child;
         } else if (child instanceof MaterialCollapsibleHeader) {
             header = (MaterialCollapsibleHeader) child;
+            header.addClickHandler(clickEvent -> fireCollapsibleHandler());
         }
         super.add(child);
     }
@@ -144,23 +148,37 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     @Override
     public void setActive(boolean active) {
         this.active = active;
-        removeStyleName(CssName.ACTIVE);
-        if (header != null) {
-            header.removeStyleName(CssName.ACTIVE);
-        }
-        if (active) {
-            if (parent != null) {
-                parent.clearActive();
-            }
-            addStyleName(CssName.ACTIVE);
 
+        if (parent != null) {
+            fireCollapsibleHandler();
+            removeStyleName(CssName.ACTIVE);
             if (header != null) {
-                header.addStyleName(CssName.ACTIVE);
+                header.removeStyleName(CssName.ACTIVE);
             }
-        }
+            if (active) {
+                if (parent != null) {
+                    parent.clearActive();
+                }
+                addStyleName(CssName.ACTIVE);
 
-        if (body != null) {
-            body.setDisplay(active ? Display.BLOCK : Display.NONE);
+                if (header != null) {
+                    header.addStyleName(CssName.ACTIVE);
+                }
+            }
+
+            if (body != null) {
+                body.setDisplay(active ? Display.BLOCK : Display.NONE);
+            }
+        } else {
+            GWT.log("Please make sure that the Collapsible parent is attached or existed.", new IllegalStateException());
+        }
+    }
+
+    protected void fireCollapsibleHandler() {
+        if (getElement().hasClassName(CssName.ACTIVE)) {
+            parent.fireEvent(new CollapseEvent<>(this));
+        } else {
+            parent.fireEvent(new ExpandEvent<>(this));
         }
     }
 
@@ -183,8 +201,6 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
     public void setWaves(WavesType waves) {
         super.setWaves(waves);
 
-        // Waves change to inline block.
-        // We need to retain 'block' display
         setDisplay(Display.BLOCK);
     }
 
