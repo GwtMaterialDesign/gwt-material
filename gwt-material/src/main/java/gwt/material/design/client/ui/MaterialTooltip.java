@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.*;
@@ -321,16 +322,20 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     public void setHtml(String html) {
         this.html = html;
 
-        Element element = widget.getElement();
-        if (widget.isAttached()) {
-            $("#" + element.getAttribute("data-tooltip-id"))
-                    .find("span")
-                    .html(html != null ? html : "");
+        if (widget != null) {
+            Element element = widget.getElement();
+            if (widget.isAttached()) {
+                $("#" + element.getAttribute("data-tooltip-id"))
+                        .find("span")
+                        .html(html != null ? html : "");
+            } else {
+                widget.addAttachHandler(event ->
+                        $("#" + element.getAttribute("data-tooltip-id"))
+                                .find("span")
+                                .html(html != null ? html : ""));
+            }
         } else {
-            widget.addAttachHandler(event ->
-                    $("#" + element.getAttribute("data-tooltip-id"))
-                            .find("span")
-                            .html(html != null ? html : ""));
+            GWT.log("Please initialize the Target widget.", new IllegalStateException());
         }
     }
 
@@ -344,6 +349,8 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
             } else {
                 EventHelper.onAttachOnce(widget, handler);
             }
+        }else {
+            GWT.log("Please initialize the Target widget.", new IllegalStateException());
         }
     }
 }
