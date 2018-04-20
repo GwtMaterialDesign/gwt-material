@@ -20,6 +20,8 @@
 package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
@@ -145,5 +147,17 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
         // when / then
         widget.setText("test1");
         assertEquals("test1", widget.getText());
+    }
+
+    @Override
+    protected <H extends UIObject & HasEnabled> void checkEnabled(HasEnabled widget, H target) {
+        super.checkEnabled(widget, target);
+
+        widget.setEnabled(false);
+        assertTrue(target.getElement().hasAttribute("onclick"));
+        assertEquals("return false", target.getElement().getAttribute("onclick"));
+
+        widget.setEnabled(true);
+        assertFalse(target.getElement().hasAttribute("onclick"));
     }
 }

@@ -93,9 +93,11 @@ button.disabled, i.disabled, a.disabled {
     color: #9F9F9F !important;
     cursor: default !important;
     transition: none !important;
+    pointer-events: none;
 }
 
-i.disabled, a.disabled {
+i.disabled, a.disabled, a.disabled i {
+    color: #9F9F9F !important;
     background-color: transparent !important;
 }
 

@@ -25,6 +25,7 @@ import gwt.material.design.client.base.HasNoSideNavSelection;
 import gwt.material.design.client.base.HasPosition;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.HrefMixin;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Position;
@@ -53,6 +54,7 @@ public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosi
 
     private Div container = new Div();
     private CssNameMixin<MaterialNavBrand, Position> positionMixin;
+    private HrefMixin<MaterialNavBrand> hrefMixin;
 
     /**
      * Material NavBrand is a component wherein you can pass a text / logo branding of your app
@@ -82,22 +84,22 @@ public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosi
 
     @Override
     public String getHref() {
-        return getElement().getAttribute("href");
+        return getHrefMixin().getHref();
     }
 
     @Override
     public void setHref(String href) {
-        getElement().setAttribute("href", href);
+        getHrefMixin().setHref(href);
     }
 
     @Override
     public String getTarget() {
-        return getElement().getAttribute("target");
+        return getHrefMixin().getTarget();
     }
 
     @Override
     public void setTarget(String target) {
-        getElement().setAttribute("target", target);
+        getHrefMixin().setTarget(target);
     }
 
     @Override
@@ -119,5 +121,12 @@ public class MaterialNavBrand extends MaterialWidget implements HasHref, HasPosi
             positionMixin = new CssNameMixin<>(this);
         }
         return positionMixin;
+    }
+
+    protected HrefMixin<MaterialNavBrand> getHrefMixin() {
+        if (hrefMixin == null) {
+            hrefMixin = new HrefMixin<>(this);
+        }
+        return hrefMixin;
     }
 }

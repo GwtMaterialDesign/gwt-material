@@ -28,6 +28,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.HrefMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
 
@@ -43,6 +44,8 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     private ActivatesMixin<AbstractButton> activatesMixin;
     private CssTypeMixin<ButtonType, AbstractButton> typeMixin;
+    private HrefMixin<AbstractButton> hrefMixin;
+
 
     /**
      * Creates button with RAISED type.
@@ -87,22 +90,22 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     @Override
     public void setHref(String href) {
-        getElement().setAttribute("href", href);
+        getHrefMixin().setHref(href);
     }
 
     @Override
     public String getHref() {
-        return getElement().getAttribute("href");
+        return getHrefMixin().getHref();
     }
 
     @Override
     public void setTarget(String target) {
-        getElement().setAttribute("target", target);
+        getHrefMixin().setTarget(target);
     }
 
     @Override
     public String getTarget() {
-        return getElement().getAttribute("target");
+        return getHrefMixin().getTarget();
     }
 
     @Override
@@ -234,5 +237,12 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
             typeMixin = new CssTypeMixin<>(this);
         }
         return typeMixin;
+    }
+
+    protected HrefMixin<AbstractButton> getHrefMixin() {
+        if (hrefMixin == null) {
+            hrefMixin = new HrefMixin<>(this);
+        }
+        return hrefMixin;
     }
 }

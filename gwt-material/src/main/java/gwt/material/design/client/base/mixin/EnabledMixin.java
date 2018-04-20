@@ -23,6 +23,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasHref;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 
@@ -97,6 +98,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
         }
 
         updateWaves(enabled, obj);
+        updateHrefs(enabled, obj);
     }
 
     public void updateWaves(boolean enabled, UIObject obj) {
@@ -108,6 +110,16 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
                 }
             } else {
                 widget.getElement().removeClassName(CssName.WAVES_EFFECT);
+            }
+        }
+    }
+
+    protected void updateHrefs(boolean enabled, UIObject obj) {
+        if (obj instanceof HasHref) {
+            if (!enabled) {
+                obj.getElement().setAttribute("onclick", "return false");
+            } else {
+                obj.getElement().removeAttribute("onclick");
             }
         }
     }
