@@ -72,7 +72,6 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
         super.onLoad();
 
         header.setFontWeight(300);
-        header.getElement().getStyle().setMarginTop(60, Unit.PX);
         add(header);
         add(paragraph);
     }

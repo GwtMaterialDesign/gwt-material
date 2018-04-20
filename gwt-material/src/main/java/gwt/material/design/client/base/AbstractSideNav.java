@@ -89,6 +89,8 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         super.onLoad();
 
         load();
+
+        setupShowOnAttach();
     }
 
     protected void setupShowOnAttach() {
