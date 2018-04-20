@@ -23,6 +23,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractSideNav;
+import gwt.material.design.client.base.viewport.Resolution;
+import gwt.material.design.client.base.viewport.WidthBoundary;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Edge;
 import gwt.material.design.client.events.SideNavClosedEvent;
@@ -283,6 +285,31 @@ public abstract class AbstractSideNavTest<T extends AbstractSideNav> extends Mat
         checkClosingHandler(sideNav);
         checkOpenedHandler(sideNav);
         checkClosedHandler(sideNav);
+    }
+
+    public void testAutoHideOnResize() {
+        T sideNav = getWidget();
+
+        if (sideNav instanceof MaterialSideNavPush) {
+            assertTrue(sideNav.isAutoHideOnResize());
+        } else {
+            assertFalse(sideNav.isAutoHideOnResize());
+        }
+
+        sideNav.setAutoHideOnResize(true);
+        assertTrue(sideNav.isAutoHideOnResize());
+
+        sideNav.setAutoHideOnResize(false);
+        assertFalse(sideNav.isAutoHideOnResize());
+
+        assertNotNull(sideNav.getClosingBoundary());
+
+        WidthBoundary boundary = sideNav.getClosingBoundary();
+        assertEquals(0, boundary.getMin());
+        assertEquals(992, boundary.getMax());
+
+        sideNav.setClosingBoundary(Resolution.ALL_MOBILE.getBoundary());
+        assertEquals(Resolution.ALL_MOBILE.getBoundary(), sideNav.getClosingBoundary());
     }
 
     protected void checkOpeningHandler(T sideNav) {
