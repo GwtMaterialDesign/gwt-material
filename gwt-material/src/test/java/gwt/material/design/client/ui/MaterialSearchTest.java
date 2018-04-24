@@ -136,4 +136,17 @@ public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
         // when / then
         checkFieldErrorSuccess(widget, widget.getErrorLabel());
     }
+
+    public void testSelectedObject() {
+        // given
+        MaterialSearch widget = getWidget();
+
+        assertTrue(widget.getListSearches().size() > 0);
+        SearchObject object = widget.getListSearches().get(0);
+
+        // when / then
+        widget.setSelectedObject(object);
+        assertEquals(object, widget.getSelectedObject());
+        assertEquals(object.getKeyword(), widget.getText());
+    }
 }

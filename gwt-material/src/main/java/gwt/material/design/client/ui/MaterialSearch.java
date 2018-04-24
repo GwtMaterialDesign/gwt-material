@@ -325,6 +325,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
 
     public void setSelectedObject(SearchObject selectedObject) {
         this.selectedObject = selectedObject;
+
+        if (selectedObject != null) {
+            setText(selectedObject.getKeyword());
+        }
     }
 
     /**
