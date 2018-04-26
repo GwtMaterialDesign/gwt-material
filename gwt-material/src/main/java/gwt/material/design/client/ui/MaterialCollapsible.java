@@ -130,7 +130,6 @@ public class MaterialCollapsible extends MaterialWidget
      */
     private Object onMutation(MutationRecord[] records) {
         for (MutationRecord r : records) {
-            System.out.println(r.target.nodeName + " " + r.attributeName + ": " + r.oldValue + " type: " + r.type);
             Element element = Js.cast(r.target);
 
             // find item for mutated node
