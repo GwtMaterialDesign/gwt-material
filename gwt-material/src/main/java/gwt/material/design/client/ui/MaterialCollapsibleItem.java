@@ -32,8 +32,6 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.events.CollapseEvent;
-import gwt.material.design.client.events.ExpandEvent;
 import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
 
 //@formatter:off
@@ -85,7 +83,6 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             body = (MaterialCollapsibleBody) child;
         } else if (child instanceof MaterialCollapsibleHeader) {
             header = (MaterialCollapsibleHeader) child;
-            header.addClickHandler(clickEvent -> fireCollapsibleHandler());
         }
         super.add(child);
     }
@@ -150,7 +147,6 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         this.active = active;
 
         if (parent != null) {
-            fireCollapsibleHandler();
             removeStyleName(CssName.ACTIVE);
             if (header != null) {
                 header.removeStyleName(CssName.ACTIVE);
@@ -171,14 +167,6 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             }
         } else {
             GWT.log("Please make sure that the Collapsible parent is attached or existed.", new IllegalStateException());
-        }
-    }
-
-    protected void fireCollapsibleHandler() {
-        if (getElement().hasClassName(CssName.ACTIVE)) {
-            parent.fireEvent(new CollapseEvent<>(this));
-        } else {
-            parent.fireEvent(new ExpandEvent<>(this));
         }
     }
 

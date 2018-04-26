@@ -24,6 +24,9 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import elemental2.dom.MutationObserver;
+import elemental2.dom.MutationObserverInit;
+import elemental2.dom.MutationRecord;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.CollapsibleType;
@@ -32,6 +35,7 @@ import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 import gwt.material.design.client.events.CollapseEvent;
 import gwt.material.design.client.events.ExpandEvent;
+import jsinterop.base.Js;
 import gwt.material.design.client.base.HasCollapsibleHandlers;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -104,6 +108,8 @@ public class MaterialCollapsible extends MaterialWidget
     private boolean accordion = true;
     private int activeIndex = -1;
     private Widget activeWidget;
+    
+    private MutationObserver observer;
 
     private CssTypeMixin<CollapsibleType, MaterialCollapsible> typeMixin;
 
@@ -113,6 +119,37 @@ public class MaterialCollapsible extends MaterialWidget
         // Items need to be added after the widget has loaded to avoid
         // premature configuration issues.
         enableFeature(Feature.ONLOAD_ADD_QUEUE, true);
+
+        // initialize the mutation observer responsible for firing the collapse and expand events
+        observer = new MutationObserver((records, o) -> onMutation(records));
+    }
+
+    /**
+     * @param records
+     * @return
+     */
+    private Object onMutation(MutationRecord[] records) {
+        for (MutationRecord r : records) {
+            System.out.println(r.target.nodeName + " " + r.attributeName + ": " + r.oldValue + " type: " + r.type);
+            Element element = Js.cast(r.target);
+
+            // find item for mutated node
+            for (Widget w : getChildren()) {
+                if (w instanceof MaterialCollapsibleItem && element.equals(w.getElement())) {
+                    fireCollapsibleHandler((MaterialCollapsibleItem) w);
+                    break;
+                }
+            }
+        }
+        return null;
+    }
+    
+    protected void fireCollapsibleHandler(MaterialCollapsibleItem item) {
+        if (item.getElement().hasClassName(CssName.ACTIVE)) {
+            fireEvent(new ExpandEvent<>(item));
+        } else {
+            fireEvent(new CollapseEvent<>(item));
+        }
     }
 
     public MaterialCollapsible(final MaterialCollapsibleItem... widgets) {
@@ -153,6 +190,13 @@ public class MaterialCollapsible extends MaterialWidget
     public void add(final Widget child) {
         if (child instanceof MaterialCollapsibleItem) {
             ((MaterialCollapsibleItem) child).setParent(this);
+
+            // observe the item
+            MutationObserverInit ops = MutationObserverInit.create();
+            ops.setAttributes(true);
+            ops.setAttributeFilter(new String[] { "class" });
+            ops.setSubtree(false);
+            observer.observe(Js.cast(child.getElement()), ops);
         }
         super.add(child);
     }
