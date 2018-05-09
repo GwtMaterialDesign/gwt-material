@@ -214,4 +214,12 @@ public class MaterialLoader {
     public void setScrollDisabled(boolean scrollDisabled) {
         this.scrollDisabled = scrollDisabled;
     }
+
+    public MaterialProgress getProgress() {
+        return progress;
+    }
+
+    public MaterialPreLoader getPreLoader() {
+        return preLoader;
+    }
 }
