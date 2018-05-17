@@ -31,9 +31,11 @@ import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.FieldTypeMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.FieldType;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.jquery.client.api.JQueryElement;
@@ -71,7 +73,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
-        HasConstrainedValue<T>, HasReadOnly {
+        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes {
 
     public static final String BLANK_VALUE_TEXT = "";
 
@@ -85,6 +87,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private FieldTypeMixin<MaterialListValueBox> fieldTypeMixin;
 
     private String emptyPlaceHolder = null;
 
@@ -1015,6 +1018,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return toggleOldMixin;
     }
 
+    protected FieldTypeMixin<MaterialListValueBox> getFieldTypeMixin() {
+        if (fieldTypeMixin == null) {
+            fieldTypeMixin = new FieldTypeMixin<>(this);
+        }
+        return fieldTypeMixin;
+    }
+
     /**
      * Checks whether {@link #emptyPlaceHolder} is added/present in both {@link #listBox} and {@link #values} at 0 index.
      *
@@ -1047,6 +1057,26 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     protected int getIndexOffset() {
         return emptyPlaceHolder != null && isEmptyPlaceHolderListed() ? 1 : 0;
+    }
+
+    @Override
+    public void setFieldType(FieldType type) {
+        getFieldTypeMixin().setFieldType(type);
+    }
+
+    @Override
+    public FieldType getFieldType() {
+        return getFieldTypeMixin().getFieldType();
+    }
+
+    @Override
+    public void setLabelWidth(double percentWidth) {
+        getFieldTypeMixin().setLabelWidth(percentWidth);
+    }
+
+    @Override
+    public void setFieldWidth(double percentWidth) {
+        getFieldTypeMixin().setFieldWidth(percentWidth);
     }
 
     class AllowBlankKeyFactory implements KeyFactory<T, String> {

@@ -230,7 +230,7 @@ button.disabled:hover, i.disabled:hover {
 
 .collapsible li.active .collapsible-body .input-field label {
     font-size: 0.8rem;
-    transform: translateY(-140%); }
+    transform: translateY(-140%);
 }
 
 .collapsible-header > i {
@@ -497,6 +497,25 @@ nav .input-field {
 input:-webkit-autofill {
     -webkit-animation-name: autofill !important;
     -webkit-animation-fill-mode: both !important;;
+}
+
+/** Input Fields - Label Aligned **/
+.input-field.aligned-label input {
+    width: 69%;
+    display: inline;
+    position: relative;
+    vertical-align: middle;
+}
+
+.input-field.aligned-label label {
+    width: 30%;
+    display: inline;
+    position: relative;
+    float: left;
+    vertical-align: middle;
+    transform: none;
+    font-size: 1em;
+    color: rgba(0,0,0,.87);
 }
 
 /** ListBox **/
