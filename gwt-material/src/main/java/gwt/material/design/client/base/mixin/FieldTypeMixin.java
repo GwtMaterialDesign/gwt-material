@@ -21,14 +21,12 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasFieldTypes;
-import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.viewport.Resolution;
+import gwt.material.design.client.base.viewport.ViewPort;
 import gwt.material.design.client.constants.FieldType;
-import gwt.material.design.jscore.client.api.core.Element;
-import gwt.material.design.jscore.client.api.media.WebkitURL;
 
 /**
  * @author kevzlou7979
@@ -59,7 +57,16 @@ public class FieldTypeMixin<T extends UIObject & HasFieldTypes> extends Abstract
 
     @Override
     public void setFieldType(FieldType type) {
-        getCssNameMixin().setCssName(type);
+        if (type.equals(FieldType.ALIGNED_LABEL)) {
+            ViewPort.when(Resolution.ALL_MOBILE).then(param1 -> {
+                getCssNameMixin().setCssName(FieldType.DEFAULT);
+            }, viewPort -> {
+                getCssNameMixin().setCssName(type);
+                return false;
+            });
+        } else {
+            getCssNameMixin().setCssName(type);
+        }
     }
 
     @Override
