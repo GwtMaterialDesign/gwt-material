@@ -26,13 +26,12 @@ import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.client.pwa.serviceworker.constants.ServiceWorkerMessage;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
-import gwt.material.design.client.pwa.serviceworker.js.Navigator;
+import gwt.material.design.client.js.Navigator;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerContainer;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 import gwt.material.design.client.pwa.serviceworker.network.NetworkStatusManager;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

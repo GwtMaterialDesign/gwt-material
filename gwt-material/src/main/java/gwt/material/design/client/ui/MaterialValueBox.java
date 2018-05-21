@@ -67,7 +67,7 @@ import gwt.material.design.client.ui.html.Label;
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive {
+        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes {
 
     /**
      * @see #setReturnBlankAsNull(boolean)
@@ -88,6 +88,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private ReadOnlyMixin<MaterialValueBox, ValueBoxBase> readOnlyMixin;
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
+    private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -189,7 +190,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setLabel(String label) {
         this.label.setText(label);
 
-        if(!getPlaceholder().isEmpty()) {
+        if (!getPlaceholder().isEmpty()) {
             this.label.setStyleName(CssName.ACTIVE);
         }
     }
@@ -203,7 +204,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setPlaceholder(String placeholder) {
         valueBoxBase.getElement().setAttribute("placeholder", placeholder);
 
-        if(!label.getText().isEmpty()) {
+        if (!label.getText().isEmpty()) {
             label.setStyleName(CssName.ACTIVE);
         }
     }
@@ -226,16 +227,15 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     @Override
     public T getValue() {
-        if(isReturnBlankAsNull() && isBlank()) {
+        if (isReturnBlankAsNull() && isBlank()) {
             return null;
         }
         return valueBoxBase.getValue();
     }
 
     /**
-     * @see #setReturnBlankAsNull(boolean)
-     *
      * @return
+     * @see #setReturnBlankAsNull(boolean)
      */
     public boolean isReturnBlankAsNull() {
         return this.returnBlankAsNull;
@@ -495,6 +495,26 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public boolean isEnabled() {
         return valueBoxBase.isEnabled();
+    }
+
+    @Override
+    public void setFieldType(FieldType type) {
+        getFieldTypeMixin().setFieldType(type);
+    }
+
+    @Override
+    public FieldType getFieldType() {
+        return getFieldTypeMixin().getFieldType();
+    }
+
+    @Override
+    public void setLabelWidth(double percentWidth) {
+        getFieldTypeMixin().setLabelWidth(percentWidth);
+    }
+
+    @Override
+    public void setFieldWidth(double percentWidth) {
+        getFieldTypeMixin().setFieldWidth(percentWidth);
     }
 
     @Ignore
@@ -824,5 +844,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             counterMixin = new CounterMixin<>(this);
         }
         return counterMixin;
+    }
+
+    protected FieldTypeMixin<MaterialValueBox> getFieldTypeMixin() {
+        if (fieldTypeMixin == null) {
+            fieldTypeMixin = new FieldTypeMixin<>(this, label, valueBoxBase, errorLabel);
+        }
+        return fieldTypeMixin;
     }
 }

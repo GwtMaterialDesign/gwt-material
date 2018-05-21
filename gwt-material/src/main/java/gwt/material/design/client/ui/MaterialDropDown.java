@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -144,10 +143,6 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             activatorElement = parent.getElement();
         } else if (activatorElement == null) {
             activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
-            if (activatorElement == null) {
-                GWT.log("There is no activator element with id: '" + activator + "' in the DOM, " +
-                        "cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
-            }
         }
 
         $(activatorElement).dropdown(options);

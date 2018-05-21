@@ -19,12 +19,12 @@
  */
 package gwt.material.design.client.base.helper;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.OffsetPosition;
 import gwt.material.design.client.js.ScrollOption;
 import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -44,24 +44,6 @@ public class ScrollHelper {
 
     public ScrollHelper() {
         containerElement = getDefaultContainer();
-    }
-
-    public Element getContainerElement() {
-        return containerElement;
-    }
-
-    /**
-     * The container element of which the scrolling feature will be applied.
-     */
-    public void setContainerElement(Element containerElement) {
-        this.containerElement = containerElement;
-    }
-
-    /**
-     * The container of which the scrolling feature will be applied.
-     */
-    public void setContainer(Widget widget) {
-        this.containerElement = widget.getElement();
     }
 
     public Functions.Func getCompleteCallback() {
@@ -124,13 +106,15 @@ public class ScrollHelper {
         this.offset = offset;
 
         ScrollOption option = new ScrollOption();
-
+        JQueryElement target = getContainerElement();
         if (containerElement != getDefaultContainer()) {
-            offset = $(containerElement).scrollTop() - $(containerElement).offset().top + offset;
+            offset = target.scrollTop() - target.offset().top + offset;
+        } else {
+            target = $("html, body");
         }
         option.scrollTop = offset;
 
-        $(containerElement).animate(option, duration, easing, () -> {
+        target.animate(option, duration, easing, () -> {
             if (completeCallback != null) {
                 completeCallback.call();
             }
@@ -182,18 +166,40 @@ public class ScrollHelper {
         double elementTop = $(element).offset().top;
         double elementBottom = elementTop + $(element).outerHeight();
 
-        double viewportTop = $(containerElement).scrollTop();
-        if (containerElement != getDefaultContainer()) {
-            viewportTop = $(containerElement).offset().top;
+        JQueryElement target = getContainerElement();
+        double viewportTop = target.scrollTop();
+
+        if (target.asElement() != getDefaultContainer()) {
+            viewportTop = target.offset().top;
         }
 
-        double viewportBottom = viewportTop + $(containerElement).height();
-
+        double viewportBottom = viewportTop + target.height();
         return elementBottom > viewportTop && elementTop < viewportBottom;
     }
 
     protected Element getDefaultContainer() {
         return $("html, body").asElement();
+    }
+
+    /**
+     * The container element of which the scrolling feature will be applied.
+     */
+    public void setContainerElement(Element containerElement) {
+        this.containerElement = containerElement;
+    }
+
+    /**
+     * The container of which the scrolling feature will be applied.
+     */
+    public void setContainer(Widget widget) {
+        this.containerElement = widget.getElement();
+    }
+
+    public JQueryElement getContainerElement() {
+        if (containerElement == null) {
+            return $("html, body");
+        }
+        return $(containerElement);
     }
 
     public OffsetPosition getOffsetPosition() {

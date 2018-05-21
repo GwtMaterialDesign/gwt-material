@@ -17,8 +17,10 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.pwa.serviceworker.js;
+package gwt.material.design.client.js;
 
+import com.google.gwt.geolocation.client.Geolocation;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerContainer;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
@@ -28,6 +30,8 @@ import static jsinterop.annotations.JsPackage.GLOBAL;
 public class Navigator {
 
     public static ServiceWorkerContainer serviceWorker;
+
+    public static Geolocation geolocation;
 
     @JsProperty
     public static boolean onLine;

@@ -230,7 +230,7 @@ button.disabled:hover, i.disabled:hover {
 
 .collapsible li.active .collapsible-body .input-field label {
     font-size: 0.8rem;
-    transform: translateY(-140%); }
+    transform: translateY(-140%);
 }
 
 .collapsible-header > i {
@@ -499,6 +499,115 @@ input:-webkit-autofill {
     -webkit-animation-fill-mode: both !important;;
 }
 
+/** Input Fields - Label Aligned **/
+.input-field.aligned-label input {
+    width: 70%;
+    display: inline;
+    position: relative;
+    vertical-align: middle;
+}
+
+.input-field.aligned-label label, .input-field.aligned-label label.active {
+    width: 30%;
+    display: inline;
+    position: relative;
+    float: left;
+    vertical-align: middle;
+    transform: none;
+    font-size: 1em;
+    color: rgba(0, 0, 0, .87);
+    top: 24px;
+}
+
+.input-field.filled input, .input-field.outlined input {
+    padding: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.input-field.filled label, .input-field.outlined label {
+    margin-left: 12px;
+}
+
+.input-field.filled label:active, .input-field.outlined label:active {
+    margin-left: 8px;
+}
+
+/** Input Field - Filled **/
+.input-field.filled input {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 4px 4px 0px 0px;
+    padding-top: 18px;
+}
+
+.input-field.filled input:focus {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.input-field.filled label.active {
+    -webkit-transform: translateY(-64%);
+    -moz-transform: translateY(-64%);
+    -ms-transform: translateY(-64%);
+    -o-transform: translateY(-64%);
+    transform: translateY(-64%);
+}
+
+/** Input Field : Outlined **/
+.input-field.outlined input, .input-field.outlined input.valid, .input-field.outlined textarea, .input-field.outlined input.select-dropdown {
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.input-field.outlined textarea {
+    padding-left: 12px;
+}
+
+.input-field.outlined input.select-dropdown {
+    padding-left: 12px;
+}
+.input-field.outlined .select-wrapper + label {
+    top: -8px;
+    background: white;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 8px;
+}
+
+.input-field.outlined input:focus, .input-field.outlined textarea:focus, .input-field.outlined input.picker__input--active {
+    border: 2px solid #42a5f5;
+    box-shadow: none;
+}
+
+.input-field.outlined label.active {
+    padding: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background: white;
+    margin-top: 4px;
+    margin-left: 8px;
+    z-index: 1;
+}
+
+.input-field.outlined input.invalid {
+    border: 2px solid #f44336;
+    box-shadow: none;
+    margin-bottom: 8px;
+}
+
+.input-field.outlined .field-error-label, .input-field.outlined  .field-success-label {
+    margin-left: 14px;
+    margin-bottom: 12px;
+}
+
+/** TextArea **/
+.input-field.aligned-label textarea {
+    width: 70%;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
 /** ListBox **/
 .input-field .select-wrapper.gwt-ListBox + label.active {
     -webkit-transform: translateY(0);
@@ -521,6 +630,14 @@ input:-webkit-autofill {
 .field-success.input-field.listbox-wrapper input.select-dropdown {
     border-bottom: 1px solid #4CAF50 !important;
     box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
+
+/** ListBox - AlignedLabel **/
+.input-field.aligned-label .select-wrapper {
+    width: 70%;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
 }
 
 /** Loader */

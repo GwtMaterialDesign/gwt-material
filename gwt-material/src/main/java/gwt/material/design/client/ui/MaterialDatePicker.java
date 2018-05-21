@@ -33,6 +33,7 @@ import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DateFormatHelper;
 import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.FieldTypeMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
@@ -65,7 +66,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsLoader, HasPlaceholder,
-        HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly {
+        HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly,
+        HasFieldTypes {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -101,6 +103,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
+    private FieldTypeMixin<MaterialDatePicker> fieldTypeMixin;
 
     public MaterialDatePicker() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
@@ -677,6 +680,26 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     @Override
+    public void setFieldType(FieldType type) {
+        getFieldTypeMixin().setFieldType(type);
+    }
+
+    @Override
+    public FieldType getFieldType() {
+        return getFieldTypeMixin().getFieldType();
+    }
+
+    @Override
+    public void setLabelWidth(double percentWidth) {
+        getFieldTypeMixin().setLabelWidth(percentWidth);
+    }
+
+    @Override
+    public void setFieldWidth(double percentWidth) {
+        getFieldTypeMixin().setFieldWidth(percentWidth);
+    }
+
+    @Override
     public HandlerRegistration addCloseHandler(final CloseHandler<MaterialDatePicker> handler) {
         return addHandler(handler, CloseEvent.getType());
     }
@@ -699,5 +722,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
             readOnlyMixin = new ReadOnlyMixin<>(this, dateInput);
         }
         return readOnlyMixin;
+    }
+
+    protected FieldTypeMixin<MaterialDatePicker> getFieldTypeMixin() {
+        if (fieldTypeMixin == null) {
+            fieldTypeMixin = new FieldTypeMixin<>(this);
+        }
+        return fieldTypeMixin;
     }
 }
