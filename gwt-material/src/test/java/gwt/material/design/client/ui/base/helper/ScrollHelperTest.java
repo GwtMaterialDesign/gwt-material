@@ -74,7 +74,7 @@ public class ScrollHelperTest extends MaterialWidgetTest<MaterialPanel> {
 
         assertEquals(LINEAR_EASING, scrollHelper.getEasing());
         assertEquals(CALLBACK, scrollHelper.getCompleteCallback());
-        assertEquals(container.getElement(), scrollHelper.getContainerElement());
+        assertEquals(container.getElement(), scrollHelper.getContainerElement().asElement());
     }
 
     protected void checkOffsetPositioning(ScrollHelper scrollHelper) {
@@ -106,7 +106,7 @@ public class ScrollHelperTest extends MaterialWidgetTest<MaterialPanel> {
         ScrollHelper scrollHelper = new ScrollHelper();
         scrollHelper.scrollTo(target);
 
-        assertEquals($("html, body").asElement(), scrollHelper.getContainerElement());
+        assertEquals($("html, body").asElement(), scrollHelper.getContainerElement().asElement());
     }
 
     public void testScrollToOffset() {
