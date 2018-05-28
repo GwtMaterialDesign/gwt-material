@@ -67,6 +67,7 @@ public class MaterialTabItem extends ListItem {
                 String href = ((HasHref) child).getHref();
                 if (parent != null && !href.isEmpty()) {
                     parent.selectTab(href.replaceAll("[^a-zA-Z\\d\\s:]", ""));
+                    parent.reload();
                     break;
                 }
             }

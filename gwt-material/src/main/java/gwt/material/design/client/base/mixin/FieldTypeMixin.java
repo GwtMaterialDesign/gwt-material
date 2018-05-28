@@ -78,7 +78,9 @@ public class FieldTypeMixin<T extends UIObject & HasFieldTypes> extends Abstract
     public void setLabelWidth(double percentWidth) {
         if (label != null) {
             label.getElement().getStyle().setWidth(percentWidth, Style.Unit.PCT);
-            errorLabel.getElement().getStyle().setPaddingLeft(percentWidth, Style.Unit.PCT);
+            if (getFieldType().equals(FieldType.ALIGNED_LABEL)) {
+                errorLabel.getElement().getStyle().setPaddingLeft(percentWidth, Style.Unit.PCT);
+            }
         } else {
             GWT.log("Label is not defined", new IllegalStateException());
         }

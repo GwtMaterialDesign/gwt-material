@@ -23,6 +23,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import gwt.material.design.client.base.JsLoader;
+import gwt.material.design.client.js.Navigator;
 import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.client.pwa.manifest.WebManifestManager;
 import gwt.material.design.client.pwa.manifest.js.AppInstaller;
@@ -130,8 +131,10 @@ public class PwaManager implements JsLoader {
      * @param callback A callback function after the method has been executed.
      */
     public void installApp(Functions.Func callback) {
-        appInstaller = new AppInstaller(callback);
-        appInstaller.prompt();
+        if (isPwaSupported()) {
+            appInstaller = new AppInstaller(callback);
+            appInstaller.prompt();
+        }
     }
 
     public static PwaManager getInstance() {
@@ -143,6 +146,10 @@ public class PwaManager implements JsLoader {
             headElement = Document.get().getElementsByTagName("head").getItem(0);
         }
         return headElement;
+    }
+
+    public static boolean isPwaSupported() {
+        return Navigator.serviceWorker != null;
     }
 
     public BrowserThemeManager getBrowserThemeManager() {

@@ -328,6 +328,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setHelperText(String helperText) {
+        super.setHelperText(helperText);
+        removeErrorModifiers();
+    }
+
+    @Override
     public void clearErrorOrSuccess() {
         super.clearErrorOrSuccess();
         removeErrorModifiers();

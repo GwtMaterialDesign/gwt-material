@@ -372,6 +372,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     @Override
     public void clearErrorOrSuccess() {
         super.clearErrorOrSuccess();
+        removeErrorModifiers();
+    }
+
+    @Override
+    public void setHelperText(String helperText) {
+        super.setHelperText(helperText);
+        removeErrorModifiers();
+    }
+
+    protected void removeErrorModifiers() {
         dateInput.removeStyleName(CssName.VALID);
         dateInput.removeStyleName(CssName.INVALID);
     }
