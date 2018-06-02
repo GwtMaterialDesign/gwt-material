@@ -86,7 +86,6 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
         super(Document.get().createDivElement(), CssName.MODAL);
     }
 
-
     @Override
     public void setType(ModalType type) {
         getTypeMixin().setType(type);

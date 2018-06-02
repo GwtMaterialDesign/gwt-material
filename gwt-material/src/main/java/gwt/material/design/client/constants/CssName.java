@@ -67,6 +67,7 @@ public interface CssName {
     String VALIGN_WRAPPER = "valign-wrapper";
     String LOADER_WRAPPER = "loader-wrapper";
     String MODAL = "modal";
+    String MODAL_HEADER = "modal-header";
     String MODAL_CONTENT = "modal-content";
     String MODAL_FOOTER = "modal-footer";
     String NAV_WRAPPER = "nav-wrapper";
