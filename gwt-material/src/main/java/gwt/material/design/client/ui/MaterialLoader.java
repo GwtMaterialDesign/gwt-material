@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.LoaderType;
+import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
 
@@ -99,7 +100,9 @@ public class MaterialLoader {
      */
     public void show() {
         if (!(container instanceof RootPanel)) {
-            container.getElement().getStyle().setPosition(Style.Position.RELATIVE);
+            if (!(container instanceof MaterialModal)) {
+                container.getElement().getStyle().setPosition(Style.Position.RELATIVE);
+            }
             div.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
         }
         if (scrollDisabled) {
