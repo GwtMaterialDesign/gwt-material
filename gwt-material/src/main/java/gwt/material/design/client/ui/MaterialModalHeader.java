@@ -34,6 +34,6 @@ import gwt.material.design.client.constants.CssName;
 public class MaterialModalHeader extends MaterialPanel {
 
     public MaterialModalHeader() {
-        super(CssName.MODAL_CONTENT);
+        super(CssName.MODAL_HEADER);
     }
 }
