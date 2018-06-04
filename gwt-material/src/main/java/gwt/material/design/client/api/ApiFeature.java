@@ -23,7 +23,7 @@ import com.google.gwt.core.client.Callback;
 
 /**
  * A Base feature that can be extended to build your own custom API Component.
- * See {@link ApiLoader#register(ApiFeature, Callback)}
+ * See {@link ApiRegistry#register(ApiFeature, Callback)}
  * @author kevzlou7979
  */
 public interface ApiFeature {

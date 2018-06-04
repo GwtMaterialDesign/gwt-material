@@ -22,6 +22,7 @@ package gwt.material.design.client.api;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
+import com.google.gwt.dom.client.Element;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,11 +31,11 @@ import java.util.Set;
 /**
  * A class to register a {@link ApiFeature} that contains apiKey and apiUrl to load your custom API the provided a callback
  * upon injecting the resource api url as a script element into the DOM. You can also unload the api resources by calling
- * {@link ApiLoader#unregister(ApiFeature)}.
+ * {@link ApiRegistry#unregister(ApiFeature)}.
  *
  * @author kevzlou7979
  */
-public class ApiLoader {
+public class ApiRegistry {
 
     protected static Map<ApiFeature, JavaScriptObject> features = new LinkedHashMap<>();
 
@@ -67,7 +68,10 @@ public class ApiLoader {
     public static void unregister(ApiFeature apiFeature) {
         JavaScriptObject scriptObject = features.get(apiFeature);
         if (scriptObject != null) {
-            nativeRemove(scriptObject);
+            if (scriptObject.cast() instanceof Element) {
+                Element scriptElement = scriptObject.cast();
+                scriptElement.removeFromParent();
+            }
         }
         features.remove(apiFeature);
     }
@@ -87,12 +91,4 @@ public class ApiLoader {
     public static Set<ApiFeature> getAllFeatures() {
         return features.keySet();
     }
-
-    /**
-     * Natively remove any javascript element into the dom. This was needed by {@link ApiLoader#unregister(ApiFeature)}
-     * for clearing all script element objects directly into the dom.
-     */
-    private static native void nativeRemove(JavaScriptObject scriptElement) /*-{
-        scriptElement.parentNode.removeChild(scriptElement);
-    }-*/;
 }
