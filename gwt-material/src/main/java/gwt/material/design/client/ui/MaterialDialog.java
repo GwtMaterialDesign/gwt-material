@@ -27,7 +27,7 @@ import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.FullscreenMixin;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.ModalType;
+import gwt.material.design.client.constants.DialogType;
 import gwt.material.design.client.js.JsModalOptions;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -43,14 +43,14 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * <p>
  * <pre>
  * {@code
- * <m:MaterialModal ui:field="modal" type="FIXED_FOOTER" dismissible="true" inDuration="500" outDuration="800">
- *     <m:MaterialModalContent>
+ * <m:MaterialDialog ui:field="dialog" type="FIXED_FOOTER" dismissible="true" inDuration="500" outDuration="800">
+ *     <m:MaterialDialogContent>
  *         <m:MaterialTitle title="Title" description="Description" />
- *     </m:MaterialModalContent>
- *     <m:MaterialModalFooter>
+ *     </m:MaterialDialogContent>
+ *     <m:MaterialDialogFooter>
  *         <m:MaterialButton text="Close Modal" type="FLAT"/>
- *     </m:MaterialModalFooter>
- * </m:MaterialModal>
+ *     </m:MaterialDialogFooter>
+ * </m:MaterialDialog>
  * }
  * </pre>
  * <p>
@@ -61,7 +61,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * {
  *     &#064;code
  *     &#064;UiField
- *     MaterialModal modal;
+ *     MaterialDialog modal;
  *     modal.open();
  * }
  * </pre>
@@ -74,25 +74,25 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/dialogs.html#">Material Design Specification</a>
  */
 // @formatter:on
-public class MaterialModal extends MaterialWidget implements HasType<ModalType>, HasInOutDurationTransition,
-        HasDismissible, HasCloseHandlers<MaterialModal>, HasOpenHandlers<MaterialModal>, HasFullscreen {
+public class MaterialDialog extends MaterialWidget implements HasType<DialogType>, HasInOutDurationTransition,
+        HasDismissible, HasCloseHandlers<MaterialDialog>, HasOpenHandlers<MaterialDialog>, HasFullscreen {
 
     private JsModalOptions options = new JsModalOptions();
 
-    private CssTypeMixin<ModalType, MaterialModal> typeMixin;
+    private CssTypeMixin<DialogType, MaterialDialog> typeMixin;
     private FullscreenMixin fullscreenMixin;
 
-    public MaterialModal() {
+    public MaterialDialog() {
         super(Document.get().createDivElement(), CssName.MODAL);
     }
 
     @Override
-    public void setType(ModalType type) {
+    public void setType(DialogType type) {
         getTypeMixin().setType(type);
     }
 
     @Override
-    public ModalType getType() {
+    public DialogType getType() {
         return getTypeMixin().getType();
     }
 
@@ -143,7 +143,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
 
     @Override
     public void setFullscreen(boolean value) {
-        if (getType() != ModalType.BOTTOM_SHEET) {
+        if (getType() != DialogType.BOTTOM_SHEET) {
             getFullscreenMixin().setFullscreen(value);
         }
     }
@@ -156,18 +156,18 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     /**
      * Open the modal programmatically
      * <p>
-     * Note: the MaterialModal component must be added to the document before
+     * Note: the MaterialDialog component must be added to the document before
      * calling this method. When declaring this modal on a UiBinder file, the
-     * MaterialModal is already added, but if you call it using pure Java, you
+     * MaterialDialog is already added, but if you call it using pure Java, you
      * must add it to a container before opening the modal. You can do it by
      * calling, for example:
      * </p>
      * <pre>
-     * MaterialModal modal = new MaterialModal();
+     * MaterialDialog modal = new MaterialDialog();
      * RootPanel.get().add(modal);
      * </pre>
      *
-     * @throws IllegalStateException If the MaterialModal is not added to the document
+     * @throws IllegalStateException If the MaterialDialog is not added to the document
      */
     public void open() {
         open(true);
@@ -176,25 +176,25 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     /**
      * Open the modal programmatically
      * <p>
-     * Note: the MaterialModal component must be added to the document before
+     * Note: the MaterialDialog component must be added to the document before
      * calling this method. When declaring this modal on a UiBinder file, the
-     * MaterialModal is already added, but if you call it using pure Java, you
+     * MaterialDialog is already added, but if you call it using pure Java, you
      * must add it to a container before opening the modal. You can do it by
      * calling, for example:
      * </p>
      * <pre>
-     * MaterialModal modal = new MaterialModal();
+     * MaterialDialog modal = new MaterialDialog();
      * RootPanel.get().add(modal);
      * </pre>
      * @param fireEvent - Flag whether this component fires Open Event
      *
-     * @throws IllegalStateException If the MaterialModal is not added to the document
+     * @throws IllegalStateException If the MaterialDialog is not added to the document
      */
     public void open(boolean fireEvent) {
         // the modal must be added to the document before opening
         if (this.getParent() == null) {
             throw new IllegalStateException(
-                    "The MaterialModal must be added to the document before calling open().");
+                    "The MaterialDialog must be added to the document before calling open().");
         }
         open(getElement(), fireEvent);
     }
@@ -227,7 +227,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
      * Close the modal programmatically. It is the same as calling
      * {@link #close(boolean)} with <code>false</code> as parameter.
      * <p>
-     * Note: you may need to remove it MaterialModal from the document if you
+     * Note: you may need to remove it MaterialDialog from the document if you
      * are not using UiBinder. See {@link #open()}.
      * </p>
      */
@@ -238,7 +238,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     /**
      * Close the modal programmatically.
      * <p>
-     * Note: you may need to remove it MaterialModal from the document if you
+     * Note: you may need to remove it MaterialDialog from the document if you
      * are not using UiBinder. See {@link #open()}.
      * </p>
      *
@@ -252,7 +252,7 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     /**
      * Close the modal programmatically.
      * <p>
-     * Note: you may need to remove it MaterialModal from the document if you
+     * Note: you may need to remove it MaterialDialog from the document if you
      * are not using UiBinder. See {@link #open()}.
      * </p>
      *
@@ -272,16 +272,16 @@ public class MaterialModal extends MaterialWidget implements HasType<ModalType>,
     }
 
     @Override
-    public HandlerRegistration addCloseHandler(CloseHandler<MaterialModal> handler) {
+    public HandlerRegistration addCloseHandler(CloseHandler<MaterialDialog> handler) {
         return addHandler(handler, CloseEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addOpenHandler(OpenHandler<MaterialModal> handler) {
+    public HandlerRegistration addOpenHandler(OpenHandler<MaterialDialog> handler) {
         return addHandler(handler, OpenEvent.getType());
     }
 
-    protected CssTypeMixin<ModalType, MaterialModal> getTypeMixin() {
+    protected CssTypeMixin<DialogType, MaterialDialog> getTypeMixin() {
         if (typeMixin == null) {
             typeMixin = new CssTypeMixin<>(this);
         }

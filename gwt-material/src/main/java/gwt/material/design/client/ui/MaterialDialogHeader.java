@@ -24,16 +24,16 @@ package gwt.material.design.client.ui;
 import gwt.material.design.client.constants.CssName;
 
 /**
- * Footer container for Material Modal
+ * Header container for MaterialDialog
  *
  * @author kevzlou7979
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Modal</a>
  * @see <a href="https://material.io/guidelines/components/dialogs.html#">Material Design Specification</a>
  *///@formatter:on
-public class MaterialModalFooter extends MaterialPanel {
+public class MaterialDialogHeader extends MaterialPanel {
 
-    public MaterialModalFooter() {
-        super(CssName.MODAL_FOOTER);
+    public MaterialDialogHeader() {
+        super(CssName.MODAL_HEADER);
     }
 }

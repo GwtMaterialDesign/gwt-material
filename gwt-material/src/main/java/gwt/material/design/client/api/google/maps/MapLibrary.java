@@ -28,5 +28,5 @@ public enum MapLibrary {
     DRAWING,
     GEOMETRY,
     PLACES,
-    VISUALIZATION;
+    VISUALIZATION
 }
