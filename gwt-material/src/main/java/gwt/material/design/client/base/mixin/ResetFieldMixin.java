@@ -34,7 +34,7 @@ import gwt.material.design.client.ui.MaterialValueBox;
 public class ResetFieldMixin<C extends Widget> implements HasResetField {
 
     private C content;
-    private boolean allowResettingFields;
+    private boolean allowResettingFields = true;
     private boolean propagateToChildren = true;
 
     public ResetFieldMixin(C content) {

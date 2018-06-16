@@ -40,6 +40,7 @@ import gwt.material.design.client.js.JsDropdownOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -71,6 +72,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
 
     private String activator;
     private Element activatorElement;
+    private List<HandlerRegistration> handlers = new ArrayList<>();
     private JsDropdownOptions options = new JsDropdownOptions();
 
     public MaterialDropDown() {
@@ -105,25 +107,6 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
         super.onLoad();
 
         load();
-
-        // register dropdown item handler
-        registerDropdownItemHandlers();
-    }
-
-    protected void registerDropdownItemHandlers() {
-        getChildren().forEach(widget -> {
-            if (widget instanceof ListItem) {
-                ListItem item = (ListItem) widget;
-                if (item.getWidgetCount() > 0) {
-                    if (item.getWidget(0) instanceof MaterialWidget) {
-                        MaterialWidget child = (MaterialWidget) item.getWidget(0);
-                        registerHandler(child.addDomHandler(event -> {
-                            SelectionEvent.fire(MaterialDropDown.this, child);
-                        }, ClickEvent.getType()));
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -150,6 +133,9 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
 
     @Override
     public void unload() {
+        for (HandlerRegistration handler : handlers) {
+            handler.removeHandler();
+        }
         $(activatorElement).dropdown("remove");
     }
 
@@ -170,6 +156,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             // Checks if there are sub dropdown components
             if (child instanceof MaterialLink) {
                 MaterialLink link = (MaterialLink) child;
+                handlers.add(link.addClickHandler(event -> SelectionEvent.fire(MaterialDropDown.this, child)));
                 for (int i = 0; i < link.getWidgetCount(); i++) {
                     if (link.getWidget(i) instanceof MaterialDropDown) {
                         registerHandler(link.addClickHandler(DomEvent::stopPropagation));
