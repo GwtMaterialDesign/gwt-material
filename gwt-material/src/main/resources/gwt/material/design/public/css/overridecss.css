@@ -506,6 +506,12 @@ footer.fixed {
     }
 }
 
+/** Autofill fixed layout **/
+input:-webkit-autofill + label {
+    font-size: 0.8rem !important;
+    transform: translateY(-112%);
+}
+
 nav .input-field {
     height: 100%;
 }
@@ -656,7 +662,8 @@ input:-webkit-autofill {
     box-shadow: none;
 }
 
-.input-field.outlined label.active {
+.input-field.outlined label.active,
+.input-field.outlined input:-webkit-autofill + label {
     padding: 4px;
     padding-top: 0px;
     padding-bottom: 0px;
