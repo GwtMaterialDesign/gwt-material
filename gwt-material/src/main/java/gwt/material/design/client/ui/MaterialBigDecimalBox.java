@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
 
 import java.math.BigDecimal;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 //@formatter:off
 

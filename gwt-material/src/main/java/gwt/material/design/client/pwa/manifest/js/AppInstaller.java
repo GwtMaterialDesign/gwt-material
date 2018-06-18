@@ -19,8 +19,8 @@
  */
 package gwt.material.design.client.pwa.manifest.js;
 
-import gwt.material.design.jquery.client.api.Functions;
-import gwt.material.design.jquery.client.api.JQueryElement;
+import gwt.material.design.jquery.Functions;
+import gwt.material.design.jquery.JQueryElement;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 

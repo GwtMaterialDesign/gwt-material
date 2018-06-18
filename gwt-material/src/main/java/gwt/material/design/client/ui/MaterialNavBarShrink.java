@@ -26,7 +26,7 @@ import gwt.material.design.client.constants.NavBarType;
 import gwt.material.design.client.events.NavBarExpandEvent;
 import gwt.material.design.client.events.NavBarShrinkEvent;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 //@formatter:off
 

@@ -19,7 +19,8 @@
  */
 package gwt.material.design.client.js;
 
-import gwt.material.design.jquery.client.api.Functions;
+import elemental2.core.JsObject;
+import gwt.material.design.jquery.Functions;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -40,5 +41,5 @@ public class JsDatePickerOptions {
     public String format;
 
     @JsProperty
-    public Functions.Func1<Thing> set;
+    public Functions.Func1<JsObject> set;
 }

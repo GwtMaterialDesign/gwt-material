@@ -20,9 +20,9 @@
 package gwt.material.design.client.pwa.push;
 
 import com.google.gwt.typedarrays.shared.Uint8Array;
-import gwt.material.design.jquery.client.api.Functions;
-import gwt.material.design.client.pwa.push.js.PushManager;
-import gwt.material.design.client.pwa.push.js.PushSubscription;
+import elemental2.dom.PushManager;
+import elemental2.dom.PushSubscription;
+import gwt.material.design.jquery.Functions;
 
 public interface HasPushNotificationFeatures {
 
@@ -42,7 +42,7 @@ public interface HasPushNotificationFeatures {
     void subscribe(boolean userVisibleOnly, String applicationServerKey, Functions.Func1<PushSubscription> callback);
 
     /**
-     * Will do the same thing as {@link #subscribe(boolean, String, gwt.material.design.jquery.client.api.Functions.Func1<PushSubscription)} but
+     * Will do the same thing as {@link #subscribe(boolean, String, gwt.material.design.jquery.Functions.Func1<PushSubscription)} but
      * the param for userVisibleOnly will be set to true.
      */
     void subscribe(String applicationServerKey, Functions.Func1<PushSubscription> callback);

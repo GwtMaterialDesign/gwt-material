@@ -22,16 +22,17 @@ package gwt.material.design.client.pwa.serviceworker;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Window;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.ServiceWorker;
+import elemental2.dom.ServiceWorkerContainer;
+import elemental2.dom.ServiceWorkerRegistration;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.client.pwa.serviceworker.constants.ServiceWorkerMessage;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
-import gwt.material.design.client.js.Navigator;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerContainer;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 import gwt.material.design.client.pwa.serviceworker.network.NetworkStatusManager;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     private ServiceWorkerRegistration registration;
 
     private DefaultServiceWorkerPlugin defaultPlugin = new DefaultServiceWorkerPlugin(this);
-    private Map<Class<? extends ServiceWorkerPlugin>, ServiceWorkerPlugin> plugins = new LinkedHashMap();
+    private Map<Class<? extends ServiceWorkerPlugin>, ServiceWorkerPlugin> plugins = new LinkedHashMap<>();
     private NetworkStatusManager networkStatusManager = new NetworkStatusManager();
 
     protected ServiceWorkerManager() {}
@@ -102,9 +103,8 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     protected void setupRegistration() {
         if (isServiceWorkerSupported()) {
-            Navigator.serviceWorker.register(getResource()).then(object -> {
+            DomGlobal.navigator.serviceWorker.register(getResource()).then(registration -> {
                 logger.info("Service worker has been successfully registered");
-                registration = (ServiceWorkerRegistration) object;
 
                 onRegistered(new ServiceEvent(), registration);
 
@@ -126,10 +126,10 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     }
 
     protected void setupOnErrorEvent() {
-        getServiceWorkerContainer().onerror = (e) -> {
+        getServiceWorkerContainer().setOnerror((e) -> {
             onError(new ServiceEvent(), "");
             return true;
-        };
+        });
     }
 
     /**
@@ -138,17 +138,18 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      * ServiceWorkerRegistration acquires a new ServiceWorkerRegistration.active worker.
      */
     protected void setupOnControllerChangeEvent() {
-        Navigator.serviceWorker.oncontrollerchange = e -> {
+        DomGlobal.navigator.serviceWorker.setOncontrollerchange(e -> {
             onControllerChange(new ServiceEvent());
             return true;
-        };
+        });
     }
 
     /**
      * Will listen to any broadcast messages from the service worker
      */
     protected void setupOnMessageEvent() {
-        Navigator.serviceWorker.onmessage = e -> {
+        //TODO: Why isnt this in elemental2 ServiceWorker?
+        DomGlobal.navigator.serviceWorker.onmessage = e -> {
             boolean failing = false;
             if (e.data != null && e.data instanceof String) {
                 switch (e.data.toString()) {
@@ -175,17 +176,17 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     protected void observeLifecycle(ServiceWorkerRegistration registration) {
         // Will listen to Service Worker lifecycle
-        if (registration.installing != null) {
-            registration.onupdatefound = event -> {
-                onStateChange(registration.installing);
+        if (registration.getInstalling() != null) {
+            registration.setOnupdatefound(event -> {
+                onStateChange(registration.getInstalling());
                 return true;
-            };
+            });
         }
 
         // Will check if there's a waiting service worker to be installed from the current registration
         // If any then fire {@link #onNewServiceWorkerFound}
-        if (registration.waiting != null) {
-            onNewServiceWorkerFound(new ServiceEvent(), registration.waiting);
+        if (registration.getWaiting() != null) {
+            onNewServiceWorkerFound(new ServiceEvent(), registration.getWaiting());
         }
     }
 
@@ -249,14 +250,14 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     }
 
     public ServiceWorkerContainer getServiceWorkerContainer() {
-        return Navigator.serviceWorker;
+        return DomGlobal.navigator.serviceWorker;
     }
 
     /**
      * Get the active Service Worker from the registration stack.
      */
     public ServiceWorker getServiceWorker() {
-        return registration.active;
+        return registration.getActive();
     }
 
     /**
@@ -285,7 +286,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      * @see <a href="https://caniuse.com/#feat=serviceworkers">Browser Support</a>
      */
     public boolean isServiceWorkerSupported() {
-        return Navigator.serviceWorker != null;
+        return DomGlobal.navigator.serviceWorker != null;
     }
 
     /**
@@ -320,7 +321,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     }
 
     public List<ServiceWorkerPlugin> getPlugins() {
-        return plugins.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(plugins.values());
     }
 
     @SuppressWarnings("unchecked")

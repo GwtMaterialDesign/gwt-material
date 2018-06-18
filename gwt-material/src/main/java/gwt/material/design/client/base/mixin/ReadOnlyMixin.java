@@ -25,7 +25,7 @@ import gwt.material.design.client.base.HasReadOnly;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CssName;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 public class ReadOnlyMixin<T extends UIObject & HasReadOnly, H extends UIObject> extends AbstractMixin<T>
         implements HasReadOnly {

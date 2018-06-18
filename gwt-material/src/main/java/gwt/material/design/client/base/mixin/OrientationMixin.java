@@ -20,12 +20,12 @@
 package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
+import elemental2.dom.DomGlobal;
 import gwt.material.design.client.base.HasOrientation;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Orientation;
 import gwt.material.design.client.events.OrientationChangeEvent;
-import gwt.material.design.client.js.Window;
-import gwt.material.design.client.ui.MaterialToast;
 
 /**
  *  @author kevzlou7979
@@ -71,7 +71,7 @@ public class OrientationMixin<T extends MaterialWidget & HasOrientation> extends
     }
 
     protected void detectAndApplyOrientation() {
-        if (Window.matchMedia("(orientation: portrait)")) {
+        if (DomGlobal.window.matchMedia("(orientation: portrait)").matches) {
             setOrientation(Orientation.PORTRAIT);
         } else {
             setOrientation(Orientation.LANDSCAPE);

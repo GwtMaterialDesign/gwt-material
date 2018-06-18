@@ -28,6 +28,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import elemental2.dom.DomGlobal;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.base.viewport.ViewPort;
@@ -389,7 +390,7 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     }
 
     protected boolean isSmall() {
-        return !gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)");
+        return !DomGlobal.window.matchMedia("all and (max-width: 992px)").matches;
     }
 
     protected MaterialWidget getNavMenu() {

@@ -22,7 +22,7 @@ package gwt.material.design.client.events;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
-import gwt.material.design.jquery.client.api.JQueryElement;
+import gwt.material.design.jquery.JQueryElement;
 
 public class DragEnterEvent extends GwtEvent<DragEnterEvent.DragEnterHandler> {
 

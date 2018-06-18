@@ -19,8 +19,8 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
+import elemental2.dom.ServiceWorker;
+import elemental2.dom.ServiceWorkerRegistration;
 
 public class ServiceWorkerPlugin implements ServiceWorkerLifecycle {
 

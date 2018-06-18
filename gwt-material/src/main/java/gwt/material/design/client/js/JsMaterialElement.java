@@ -22,8 +22,9 @@ package gwt.material.design.client.js;
 
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.jquery.client.api.Functions;
-import gwt.material.design.jquery.client.api.JQueryElement;
+import elemental2.core.JsObject;
+import gwt.material.design.jquery.Functions;
+import gwt.material.design.jquery.JQueryElement;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -164,7 +165,7 @@ public class JsMaterialElement extends JQueryElement {
     public native JsMaterialElement set(String key, Object value);
 
     @JsMethod
-    public native JsMaterialElement on(String action, Functions.Func1<Thing> thing);
+    public native JsMaterialElement on(String action, Functions.Func1<JsObject> thing);
 
     @JsMethod
     public native JsMaterialElement set(String key, Object value, Functions.Func function);

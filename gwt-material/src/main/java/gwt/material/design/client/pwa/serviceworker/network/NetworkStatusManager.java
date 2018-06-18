@@ -22,9 +22,9 @@ package gwt.material.design.client.pwa.serviceworker.network;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.SimpleEventBus;
 import gwt.material.design.client.pwa.serviceworker.network.events.NetworkStatusChangeEvent;
-import gwt.material.design.jquery.client.api.JQuery;
+import gwt.material.design.jquery.JQuery;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 /**
  * A Network Status Manager that listens to any Online / Offline network status updates.

@@ -20,12 +20,11 @@
 package gwt.material.design.client.pwa.push;
 
 import com.google.gwt.core.client.GWT;
-import gwt.material.design.client.pwa.push.helper.PushCryptoHelper;
-import gwt.material.design.jquery.client.api.Functions;
-import gwt.material.design.client.pwa.push.js.PushManager;
-import gwt.material.design.client.pwa.push.js.PushSubscription;
-import gwt.material.design.client.pwa.push.js.PushSubscriptionOptions;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
+import elemental2.dom.PushManager;
+import elemental2.dom.PushSubscription;
+import elemental2.dom.PushSubscriptionOptions;
+import elemental2.dom.ServiceWorkerRegistration;
+import gwt.material.design.jquery.Functions;
 
 /**
  * A class that manage all Push Notification Services to the Service Worker.
@@ -44,25 +43,23 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
     @Override
     public void load(Functions.Func1<PushSubscription> callback) {
         if (isSupported()) {
-            getPushManager().getSubscription().then(object -> {
-                subscribed = object != null;
-                PushSubscription subscription = (PushSubscription) object;
+            getPushManager().getSubscription().then(subscription -> {
+                subscribed = subscription != null;
                 callback.call(subscription);
-                return true;
+                return null;
             });
         }
     }
 
     @Override
     public void subscribe(boolean userVisibleOnly, String applicationServerKey, Functions.Func1<PushSubscription> callback) {
-        PushSubscriptionOptions options = new PushSubscriptionOptions();
-        options.userVisibleOnly = userVisibleOnly;
-        options.applicationServerKey = PushCryptoHelper.Base64ToArrayBuffer(applicationServerKey);
-        getPushManager().subscribe(options).then(object -> {
-            PushSubscription subscription = (PushSubscription) object;
+        PushSubscriptionOptions options = PushSubscriptionOptions.create();
+        options.setUserVisibleOnly(userVisibleOnly);
+        //options.applicationServerKey = PushCryptoHelper.Base64ToArrayBuffer(applicationServerKey);
+        getPushManager().subscribe(options).then(subscription -> {
             subscribed = subscription != null;
             callback.call(subscription);
-            return true;
+            return null;
         });
     }
 
@@ -73,17 +70,15 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
 
     @Override
     public void unsubscribe(Functions.Func callback) {
-        getPushManager().getSubscription().then(object -> {
-            PushSubscription subscription;
-            if (object != null) {
-                subscription = (PushSubscription) object;
+        getPushManager().getSubscription().then(subscription -> {
+            if (subscription != null) {
                 subscription.unsubscribe().then(o -> {
                     callback.call();
-                     return true;
+                    return null;
                 });
                 subscribed = false;
             }
-            return true;
+            return null;
         });
     }
 
@@ -100,7 +95,7 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
     @Override
     public PushManager getPushManager() {
         if (registration != null) {
-            return registration.pushManager;
+            return registration.getPushManager();
         } else {
             GWT.log("Service worker is not yet registered", new IllegalStateException());
         }

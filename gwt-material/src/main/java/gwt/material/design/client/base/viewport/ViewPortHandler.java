@@ -20,8 +20,9 @@
 package gwt.material.design.client.base.viewport;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwt.material.design.client.js.Window;
-import gwt.material.design.jquery.client.api.Functions;
+import com.google.gwt.user.client.Window;
+import elemental2.dom.DomGlobal;
+import gwt.material.design.jquery.Functions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,7 +122,7 @@ public class ViewPortHandler {
     protected void execute(int width, int height) {
         boolean match = false;
         for(Boundary boundary : boundaries) {
-            if (Window.matchMedia(boundary.asMediaQuery())) {
+            if (DomGlobal.window.matchMedia(boundary.asMediaQuery()).matches) {
                 then.call(new ViewPortChange(width, height, boundary));
                 match = true;
             } else if(propagateFallback && fallback != null && !fallback.call(new ViewPortRect(width, height))) {

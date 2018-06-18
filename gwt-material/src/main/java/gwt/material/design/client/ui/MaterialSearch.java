@@ -40,7 +40,7 @@ import gwt.material.design.client.ui.html.Label;
 import java.util.ArrayList;
 import java.util.List;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 //@formatter:off
 

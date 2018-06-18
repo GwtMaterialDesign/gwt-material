@@ -19,9 +19,8 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
-import com.google.web.bindery.requestfactory.shared.Service;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
+import elemental2.dom.ServiceWorker;
+import elemental2.dom.ServiceWorkerRegistration;
 
 public interface ServiceWorkerLifecycle {
 

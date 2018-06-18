@@ -22,14 +22,14 @@ package gwt.material.design.client.pwa;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import elemental2.dom.DomGlobal;
 import gwt.material.design.client.base.JsLoader;
-import gwt.material.design.client.js.Navigator;
 import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.client.pwa.manifest.WebManifestManager;
 import gwt.material.design.client.pwa.manifest.js.AppInstaller;
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 import gwt.material.design.client.pwa.theme.BrowserThemeManager;
-import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jquery.Functions;
 
 //@formatter:off
 
@@ -149,7 +149,7 @@ public class PwaManager implements JsLoader {
     }
 
     public static boolean isPwaSupported() {
-        return Navigator.serviceWorker != null;
+        return DomGlobal.navigator.serviceWorker != null;
     }
 
     public BrowserThemeManager getBrowserThemeManager() {

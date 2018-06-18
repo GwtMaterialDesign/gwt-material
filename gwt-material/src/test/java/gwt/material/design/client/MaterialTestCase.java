@@ -26,7 +26,7 @@ import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.resources.WithJQueryResources;
 import org.junit.Ignore;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 @Ignore
 public class MaterialTestCase extends GWTTestCase {

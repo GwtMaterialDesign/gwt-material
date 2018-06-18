@@ -20,11 +20,12 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
+import elemental2.dom.DomGlobal;
 import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.base.HasWithHeader;
 import gwt.material.design.client.constants.SideNavType;
 import gwt.material.design.client.events.SideNavPushEvent;
-import gwt.material.design.jquery.client.api.JQuery;
+import gwt.material.design.jquery.JQuery;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -79,7 +80,7 @@ public class MaterialSideNavPush extends AbstractSideNav implements HasWithHeade
         applyBodyScroll();
         setType(SideNavType.PUSH);
         $(JQuery.window()).off("resize").resize((e, param1) -> {
-            if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
+            if (!isAlwaysShowActivator() && !isOpen() && DomGlobal.window.matchMedia("all and (min-width: 992px)").matches) {
                 show();
             }
             pushElements(isOpen(), getWidth());
@@ -137,7 +138,7 @@ public class MaterialSideNavPush extends AbstractSideNav implements HasWithHeade
 
     protected void pushElements(boolean toggle, int width) {
         int w = 0;
-        if (!gwt.material.design.client.js.Window.matchMedia("all and (max-width: 992px)")) {
+        if (!DomGlobal.window.matchMedia("all and (max-width: 992px)").matches) {
             if (toggle) {
                 w = width;
             }

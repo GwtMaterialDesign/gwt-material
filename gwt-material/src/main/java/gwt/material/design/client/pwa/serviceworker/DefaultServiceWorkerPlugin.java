@@ -21,8 +21,8 @@ package gwt.material.design.client.pwa.serviceworker;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
+import elemental2.dom.ServiceWorker;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialToast;
 

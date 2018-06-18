@@ -23,10 +23,10 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.OffsetPosition;
 import gwt.material.design.client.js.ScrollOption;
-import gwt.material.design.jquery.client.api.Functions;
-import gwt.material.design.jquery.client.api.JQueryElement;
+import gwt.material.design.jquery.Functions;
+import gwt.material.design.jquery.JQueryElement;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 /**
  * A set of scroll helper utils for GMD Widgets

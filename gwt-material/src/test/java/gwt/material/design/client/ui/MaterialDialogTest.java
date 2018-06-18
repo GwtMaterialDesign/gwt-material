@@ -25,7 +25,7 @@ import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.DialogType;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 /**
  * Test case for Dialogs.

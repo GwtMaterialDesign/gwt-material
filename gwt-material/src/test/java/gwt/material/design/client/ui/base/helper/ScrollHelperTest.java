@@ -23,7 +23,7 @@ import gwt.material.design.client.base.helper.ScrollHelper;
 import gwt.material.design.client.constants.OffsetPosition;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.base.MaterialWidgetTest;
-import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jquery.Functions;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 

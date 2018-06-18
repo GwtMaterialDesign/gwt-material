@@ -26,7 +26,7 @@ import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 import gwt.material.design.client.ui.base.CustomServiceWorker;
 
-import static gwt.material.design.jquery.client.api.JQuery.$;
+import static gwt.material.design.jquery.JQuery.$;
 
 public class PwaManagerTest extends MaterialTestCase {
 
