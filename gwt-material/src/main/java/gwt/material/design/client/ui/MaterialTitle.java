@@ -112,6 +112,6 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
 
     @Override
     public String getValue() {
-        return header.getElement().getInnerHTML();
+        return SafeHtmlUtils.fromString(header.getElement().getInnerHTML()).asString();
     }
 }

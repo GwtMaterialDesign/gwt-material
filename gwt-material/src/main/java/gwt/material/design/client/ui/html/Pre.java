@@ -21,6 +21,8 @@ package gwt.material.design.client.ui.html;
  */
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import gwt.material.design.client.base.AbstractTextWidget;
 
 /**
@@ -39,6 +41,6 @@ public class Pre extends AbstractTextWidget {
 
     @Override
     public void setHTML(String html) {
-        getElement().setInnerHTML(html);
+        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(html));
     }
 }

@@ -24,11 +24,13 @@ import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.editor.ui.client.adapters.HasTextEditor;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.safehtml.shared.SimpleHtmlSanitizer;
 import com.google.gwt.user.client.ui.HasHTML;
 
 /**
  * @author Ben Dol
  */
+//TODO : Setting HasRawValue - break the sanitizer
 public abstract class AbstractTextWidget extends AbstractValueWidget<String> implements HasId, HasHTML,
         IsEditor<LeafValueEditor<String>> {
 
@@ -40,11 +42,12 @@ public abstract class AbstractTextWidget extends AbstractValueWidget<String> imp
 
     @Override
     public String getValue() {
-        return getElement().getInnerText();
+        return SafeHtmlUtils.fromString(getElement().getInnerText()).asString();
     }
 
     @Override
     public void setValue(String value, boolean fireEvents) {
+        value = SafeHtmlUtils.fromString(value).asString();
         getElement().setInnerText(value);
         super.setValue(value, fireEvents);
     }

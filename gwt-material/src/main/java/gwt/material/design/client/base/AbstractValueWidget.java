@@ -40,6 +40,7 @@ import gwt.material.design.client.base.validator.Validator;
 
 import java.util.List;
 
+//TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
         HasEditorErrors<V>, HasErrorHandler, HasError, HasValidators<V> {
 
@@ -79,6 +80,9 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
             }
         }
     }
+
+    //TODO:
+    //setSanitizer();
 
     @Override
     public void setError(String error) {
