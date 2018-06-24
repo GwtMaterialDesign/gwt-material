@@ -40,6 +40,10 @@ public abstract class AbstractTextWidget extends AbstractValueWidget<String> imp
         super(element);
     }
 
+    protected AbstractTextWidget(Element element, String... initialClasses) {
+        super(element, initialClasses);
+    }
+
     @Override
     public String getValue() {
         return SafeHtmlUtils.fromString(getElement().getInnerText()).asString();
