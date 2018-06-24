@@ -60,7 +60,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/chips.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialChip extends AbstractTextWidget implements HasImage, HasIcon, HasLetter,
+public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter,
         HasValue<String>, HasCloseHandlers, HasType<ChipType> {
 
     private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
