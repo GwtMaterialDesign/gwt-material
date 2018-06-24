@@ -52,6 +52,7 @@ nav ul a span.badge {
 
 .side-nav .badge {
     float: right;
+    top: 22px;
 }
 
 .sideBarBadge {
@@ -231,6 +232,15 @@ i.disabled:hover {
     text-align: center;
 }
 
+/** Outlined Chips (MD2) **/
+.chip.outlined,
+.chip.outlined:hover,
+.chip.outlined:active,
+.chip.outlined:focus {
+    border: 1px solid #0000001e;
+    background-color: transparent;
+}
+
 /** Collapsible **/
 .collapsible-body {
     margin: 0;
@@ -361,6 +371,10 @@ table .gwt-CheckBox label {
     padding: 0 !important;
 }
 
+.picker .picker__select--year.browser-default {
+    width: 26%;
+}
+
 /** Dropdown **/
 ul.dropdown-content {
     max-height: 70vh !important;
@@ -422,6 +436,21 @@ ul.dropdown-content {
 .field-success-picker input {
     border-bottom: 1px solid #4CAF50 !important;
     box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
+
+/** Outlined Button (MD2) **/
+button.btn-outlined,
+button.btn-outlined:hover,
+button.btn-outlined:focus,
+button.btn-outlined:active {
+    border: 1px solid #0000001e;
+    box-shadow: none;
+    background-color: white;
+    color: #000;
+}
+
+button.btn-outlined.disabled {
+    background-color: transparent !important;
 }
 
 /** Floating Action Button **/
@@ -496,6 +525,19 @@ footer.fixed {
     left: 0px;
 }
 
+.row .col.input-field {
+    min-height: 72px;
+    margin-bottom: 0px;
+}
+
+.row .col.input-field textarea {
+    margin-bottom: 4px;
+}
+
+.row .col.input-field input {
+    margin-bottom: 8px;
+}
+
 .row > .input-field label {
     left: 0.75rem !important;
 }
@@ -504,6 +546,11 @@ footer.fixed {
     to {
         background: transparent;
     }
+}
+
+/** IE Fixed for having the huge clear button **/
+.input-field input::-ms-clear {
+    display: none;
 }
 
 /** Autofill fixed layout **/
@@ -597,8 +644,11 @@ input:-webkit-autofill {
     padding-top: 18px;
 }
 
-.input-field.filled textarea {
+.input-field.filled textarea,
+.input-field.outlined textarea {
     padding-left: 12px;
+    width: calc(100% - 24px);
+    padding-right: 12px;
 }
 
 .input-field.filled input:focus {
@@ -639,16 +689,12 @@ input:-webkit-autofill {
     border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.input-field.outlined textarea {
-    padding-left: 12px;
-}
-
 .input-field.outlined input.select-dropdown {
     padding-left: 12px;
 }
 
 .input-field.outlined .select-wrapper + label {
-    top: -12px;
+    top: -10px;
     background: white;
     padding-left: 4px;
     padding-right: 4px;
@@ -692,14 +738,12 @@ input:-webkit-autofill {
 .input-field.outlined input.valid.picker__input--active {
     border: 2px solid #4caf50;
     box-shadow: none;
-    margin-bottom: 8px;
 }
 
 .input-field.outlined .field-error-label,
 .input-field.outlined .field-success-label,
-.input-field.outlined .field-helper-label{
+.input-field.outlined .field-helper-label {
     margin-left: 14px;
-    margin-bottom: 12px;
 }
 
 .input-field.field-error.listbox-wrapper.outlined input.select-dropdown {
@@ -721,6 +765,32 @@ input:-webkit-autofill {
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
     transform: translateY(0);
+}
+
+.input-field .select-wrapper.gwt-ListBox .caret:before {
+    content: "";
+    position: absolute;
+    right: 8px;
+    bottom: 12px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 12px 12px;
+    border-color: transparent transparent #9c9c9c transparent;
+}
+
+.input-field.aligned-label .select-wrapper.gwt-ListBox .caret:before {
+    bottom: 26px;
+}
+
+.input-field .select-wrapper.gwt-ListBox .caret.disabled:before {
+    border-color: transparent transparent #c7c7c7 transparent;
+}
+
+.input-field .select-wrapper.gwt-ListBox .caret.disabled,
+.input-field .select-wrapper .caret {
+    color: transparent;
+    bottom: 0;
 }
 
 .input-field.listbox-wrapper {

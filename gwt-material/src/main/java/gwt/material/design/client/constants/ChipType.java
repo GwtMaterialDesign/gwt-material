@@ -1,10 +1,8 @@
-package gwt.material.design.client.ui.html;
-
 /*
  * #%L
- * GwtBootstrap3
+ * GwtMaterial
  * %%
- * Copyright (C) 2013 GwtBootstrap3
+ * Copyright (C) 2015 - 2017 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,27 +17,32 @@ package gwt.material.design.client.ui.html;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.constants;
 
-import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.AbstractTextWidget;
-import gwt.material.design.client.base.helper.CodeHelper;
+import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
+ * Types of Chip.<br>
+ *
+ * @author kevzlou7979
  * @author Ben Dol
  */
-public class Code extends AbstractTextWidget {
+public enum ChipType implements CssType {
+    DEFAULT(""),
+    OUTLINED("outlined");
 
-    public Code() {
-        super(Document.get().createElement("code"));
-    }
+    private final String cssClass;
 
-    public Code(final String text) {
-        this();
-        setHTML(text);
+    ChipType(final String cssClass) {
+        this.cssClass = cssClass;
     }
 
     @Override
-    public void setHTML(String html) {
-        this.getElement().setInnerHTML(html);
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static ChipType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, ChipType.class, DEFAULT);
     }
 }

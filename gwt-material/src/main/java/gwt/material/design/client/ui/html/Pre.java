@@ -41,6 +41,6 @@ public class Pre extends AbstractTextWidget {
 
     @Override
     public void setHTML(String html) {
-        getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(html));
+        getElement().setInnerHTML(html);
     }
 }

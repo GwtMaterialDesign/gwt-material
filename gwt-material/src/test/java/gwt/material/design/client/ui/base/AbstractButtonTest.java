@@ -73,6 +73,12 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
         widget.setType(ButtonType.FLOATING);
         assertEquals(ButtonType.FLOATING, widget.getType());
 
+        widget.setType(ButtonType.RAISED);
+        assertEquals(ButtonType.RAISED, widget.getType());
+
+        widget.setType(ButtonType.OUTLINED);
+        assertEquals(ButtonType.OUTLINED, widget.getType());
+
         // Standard
         // given
         attachWidget();
@@ -81,9 +87,15 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
         final Element element = widget.getElement();
         widget.setType(ButtonType.FLAT);
         assertTrue(element.hasClassName(ButtonType.FLAT.getCssName()));
+
         widget.setType(ButtonType.FLOATING);
         assertTrue(element.hasClassName(ButtonType.FLOATING.getCssName()));
-        assertFalse(element.hasClassName(ButtonType.FLAT.getCssName()));
+
+        widget.setType(ButtonType.RAISED);
+        assertTrue(element.hasClassName(ButtonType.RAISED.getCssName()));
+
+        widget.setType(ButtonType.OUTLINED);
+        assertTrue(element.hasClassName(ButtonType.OUTLINED.getCssName()));
     }
 
     public void testActivates() {
