@@ -81,9 +81,39 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
 
     private CssTypeMixin<DialogType, MaterialDialog> typeMixin;
     private FullscreenMixin fullscreenMixin;
+    private boolean open;
+    private boolean closeOnBrowserBackNavigation = true;
 
     public MaterialDialog() {
         super(Document.get().createDivElement(), CssName.MODAL);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        setupBackNavigation();
+    }
+
+    protected void setupBackNavigation() {
+        if (closeOnBrowserBackNavigation) {
+            window().on("hashchange", (e, param1) -> {
+                e.preventDefault();
+                if (isOpen()) {
+                    close();
+                }
+                return true;
+            });
+        } else {
+            window().off("hashchange");
+        }
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        window().off("hashchange");
     }
 
     @Override
@@ -124,6 +154,17 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     @Override
     public boolean isDismissible() {
         return options.dismissible;
+    }
+
+    public boolean isCloseOnBrowserBackNavigation() {
+        return closeOnBrowserBackNavigation;
+    }
+
+    /**
+     * A property wherein if enabled - upon updating the browser url will automatically close the dialog
+     */
+    public void setCloseOnBrowserBackNavigation(boolean closeOnBrowserBackNavigation) {
+        this.closeOnBrowserBackNavigation = closeOnBrowserBackNavigation;
     }
 
     @Override
@@ -206,6 +247,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
      * @param fireEvent   - Flag whether this component fires Open Event
      */
     protected void open(Element e, boolean fireEvent) {
+        this.open = true;
         options.complete = () -> onNativeClose(true, true);
         options.ready = () -> onNativeOpen(fireEvent);
         $(e).openModal(options);
@@ -265,10 +307,15 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     }
 
     protected void close(Element e, boolean autoClosed, boolean fireEvent) {
+        this.open = false;
         if (options != null) {
             options.complete = () -> onNativeClose(autoClosed, fireEvent);
             $(e).closeModal(options);
         }
+    }
+
+    public boolean isOpen() {
+        return open;
     }
 
     @Override
