@@ -20,6 +20,7 @@
 package gwt.material.design.client.api;
 
 import com.google.gwt.core.client.Callback;
+import gwt.material.design.client.api.google.maps.GoogleApi;
 
 /**
  * A Base feature that can be extended to build your own custom API Component.
@@ -28,9 +29,18 @@ import com.google.gwt.core.client.Callback;
  */
 public interface ApiFeature {
 
+    /**
+     * Will construct the given url. See {@link GoogleApi#constructApiUrl()} for the usage.
+     */
     String constructApiUrl();
 
+    /**
+     * A Feature Api Key {i.e Google API Key}
+     */
     String getApiKey();
 
+    /**
+     * A Feature Api Url provided to load any external js framework {i.e Google Maps Js resources}
+     */
     String getApiUrl();
 }

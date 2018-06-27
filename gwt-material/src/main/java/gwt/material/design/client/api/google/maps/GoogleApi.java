@@ -21,6 +21,11 @@ package gwt.material.design.client.api.google.maps;
 
 import gwt.material.design.client.api.ApiFeature;
 
+/**
+ * An abstract implementation for loading any {@link GoogleApi}.
+ *
+ * @author kevzlou7979
+ */
 public abstract class GoogleApi implements ApiFeature {
 
     protected final String apiKey;

@@ -36,5 +36,8 @@ public abstract class GoogleMapsApi extends GoogleApi {
         return super.constructApiUrl() + "&libraries=" + getLibrary().name().toLowerCase();
     }
 
+    /**
+     * Will pull any {@link MapLibrary} from Google Maps API
+     */
     protected abstract MapLibrary getLibrary();
 }
