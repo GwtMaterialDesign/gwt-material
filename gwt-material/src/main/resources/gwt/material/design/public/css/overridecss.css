@@ -85,7 +85,7 @@ nav ul a span.badge {
 /** Button **/
 button.btn-flat:focus {
     outline: none;
-    background-color: inherit;
+    background-color: transparent;
 }
 
 button.disabled,
@@ -1183,6 +1183,16 @@ ul.side-nav.mini-with-expand li a span {
 /** Switch **/
 .switch label input[type=checkbox]:checked + .lever.disabled {
     background-color: #D4D4D4;
+}
+
+/** Range Slider **/
+/** Fixed for IE issue with multiple indicator https://github.com/GwtMaterialDesign/gwt-material/issues/815 **/
+::-ms-tooltip {
+    display: none;
+}
+
+input[type=range]::-ms-fill-lower {
+    background-color: #deddde !important;
 }
 
 /** Tabs **/
