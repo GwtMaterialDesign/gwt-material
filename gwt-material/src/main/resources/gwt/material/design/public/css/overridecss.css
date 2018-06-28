@@ -719,6 +719,12 @@ input:-webkit-autofill {
     z-index: 1;
 }
 
+.modal .input-field.outlined label.active,
+.modal .input-field.outlined .select-wrapper + label,
+.modal .input-field.outlined input:-webkit-autofill + label {
+    background-color: #fafafa;
+}
+
 .input-field.outlined.field-error input.select-dropdown,
 .input-field.outlined input.invalid,
 .input-field.outlined input.invalid:focus,
