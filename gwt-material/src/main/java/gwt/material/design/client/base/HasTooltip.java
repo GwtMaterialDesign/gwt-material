@@ -22,6 +22,7 @@ package gwt.material.design.client.base;
 import gwt.material.design.client.base.mixin.TooltipMixin;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.MaterialTooltip;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 /**
  * Interface that determines the class has a {@link MaterialTooltip} attached to
@@ -42,6 +43,11 @@ public interface HasTooltip {
      * Sets the tooltip text to be shown for the component.
      */
     void setTooltip(String tooltip);
+
+    /**
+     * Sets the tooltip text to be shown with additional classes
+     */
+    void setTooltip(String tooltip, String... classes);
 
     /**
      * @return the position where the tooltip text should appear, relative to
@@ -69,4 +75,8 @@ public interface HasTooltip {
 
     String getTooltipHTML();
 
+    /**
+     * Get the Tooltip element to ease of customization
+     */
+    JQueryElement getTooltipElement();
 }

@@ -530,6 +530,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
+    public void setTooltip(String tooltip, String... classes) {
+        getTooltipMixin().setTooltip(tooltip, classes);
+    }
+
+    @Override
     public Position getTooltipPosition() {
         return getTooltipMixin().getTooltipPosition();
     }
@@ -557,6 +562,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public String getTooltipHTML() {
         return getTooltipMixin().getTooltipHTML();
+    }
+
+    @Override
+    public JQueryElement getTooltipElement() {
+        return getTooltipMixin().getTooltipElement();
     }
 
     public void setVisibility(Style.Visibility visibility) {

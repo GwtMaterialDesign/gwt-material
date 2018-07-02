@@ -30,6 +30,7 @@ import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.base.helper.EventHelper;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.js.JsTooltipOptions;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -58,6 +59,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     private String html;
     private Widget widget;
     private JsTooltipOptions options = JsTooltipOptions.create();
+    private JQueryElement tooltipElement;
 
     /**
      * Creates the empty Tooltip
@@ -88,6 +90,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     @Override
     public void load() {
         $(widget.getElement()).tooltip(options);
+        tooltipElement = $("#" + $(widget.getElement()).attr("data-tooltip-id"));
     }
 
     @Override
@@ -323,15 +326,12 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
         this.html = html;
 
         if (widget != null) {
-            Element element = widget.getElement();
             if (widget.isAttached()) {
-                $("#" + element.getAttribute("data-tooltip-id"))
-                        .find("span")
+                tooltipElement.find("span")
                         .html(html != null ? html : "");
             } else {
                 widget.addAttachHandler(event ->
-                        $("#" + element.getAttribute("data-tooltip-id"))
-                                .find("span")
+                        tooltipElement.find("span")
                                 .html(html != null ? html : ""));
             }
         } else {
@@ -349,8 +349,12 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
             } else {
                 EventHelper.onAttachOnce(widget, handler);
             }
-        }else {
+        } else {
             GWT.log("Please initialize the Target widget.", new IllegalStateException());
         }
+    }
+
+    public JQueryElement getTooltipElement() {
+        return tooltipElement;
     }
 }
