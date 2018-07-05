@@ -232,6 +232,11 @@ i.disabled:hover {
     text-align: center;
 }
 
+.outlined.chip .letter {
+    width: 30px;
+    height: 30px;
+}
+
 /** Outlined Chips (MD2) **/
 .chip.outlined,
 .chip.outlined:hover,
