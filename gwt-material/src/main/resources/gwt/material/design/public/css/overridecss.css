@@ -1508,3 +1508,24 @@ i[class*="waves-"].material-icons {
         left: 0 !important;
     }
 }
+
+/**
+* Fix IOS Issue - Auto zooms when focusing on input element.
+* Read more - https://github.com/Dogfalo/materialize/issues/5008
+**/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    input:not([type]),
+    input[type=text],
+    input[type=password],
+    input[type=email],
+    input[type=url],
+    input[type=time],
+    input[type=date],
+    input[type=datetime-local],
+    input[type=tel],
+    input[type=number],
+    input[type=search],
+    textarea.materialize-textarea {
+        font-size: 16px;
+    }
+}
