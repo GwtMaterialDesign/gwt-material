@@ -43,11 +43,19 @@ div {
     display: block;
 }
 
+/*
+* IE Fixed for staircase issue
+* Read more under SECTION 2 : https://code.tutsplus.com/tutorials/9-most-common-ie-bugs-and-how-to-fix-them--net-7764
+*/
+nav ul li a {
+    float: left;
+}
+
 /** Badge **/
 nav ul a span.badge {
     margin-left: 8px !important;
     float: right;
-    margin-top: 20px;
+    margin-top: 22px;
 }
 
 .side-nav .badge {
@@ -1386,6 +1394,11 @@ i[class*="waves-"].material-icons {
     ul.side-nav.card {
         margin: initial;
         position: fixed;
+    }
+
+    /** Badge **/
+    nav ul a span.badge {
+        margin-top: 18px;
     }
 
     /** Tabs **/
