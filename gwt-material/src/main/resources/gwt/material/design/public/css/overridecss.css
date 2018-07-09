@@ -835,6 +835,18 @@ input:-webkit-autofill {
     vertical-align: middle;
 }
 
+/**
+* ListBox - Fixed for Safari9+ Issue with Blinking Indicator on IOS Devices
+* Read More - https://stackoverflow.com/questions/38848742/material-select-blinking-on-ios
+**/
+input.select-dropdown {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
 /** Loader */
 .loader-wrapper {
     width: 100%;
