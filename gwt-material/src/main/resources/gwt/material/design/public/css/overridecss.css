@@ -1365,7 +1365,7 @@ i[class*="waves-"].material-icons {
     }
 
     .input-field input[type=search] + label {
-        z-index: 999 !important;
+        z-index: 998 !important;
     }
 
     .search-result {
@@ -1513,7 +1513,7 @@ i[class*="waves-"].material-icons {
 * Fix IOS Issue - Auto zooms when focusing on input element.
 * Read more - https://github.com/Dogfalo/materialize/issues/5008
 **/
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
+@media screen and (min-width: 768px) {
     input:not([type]),
     input[type=text],
     input[type=password],
