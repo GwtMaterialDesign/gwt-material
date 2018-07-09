@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.FieldTypeMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
@@ -86,7 +86,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private FieldTypeMixin<MaterialListValueBox> fieldTypeMixin;
 
     private String emptyPlaceHolder = null;
@@ -529,7 +529,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         values.clear();
         listBox.clear();
 
-        clearErrorOrSuccess();
+        clearStatusText();
         if (emptyPlaceHolder != null) {
             insertEmptyPlaceHolder(emptyPlaceHolder);
         }
@@ -928,11 +928,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     @Override
-    public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, this, label);
+    public StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, this, label);
         }
-        return errorMixin;
+        return statusTextMixin;
     }
 
     public Label getLabel() {

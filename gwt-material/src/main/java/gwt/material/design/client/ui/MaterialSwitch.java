@@ -26,7 +26,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.AbstractValueWidget;
-import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Label;
@@ -58,7 +58,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
     private Span onLabel = new Span();
     private Span offLabel = new Span();
 
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
 
     /**
      * Creates a switch element
@@ -199,23 +199,23 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
     }
 
     @Override
-    public void setError(String error) {
-        getErrorMixin().setError(error);
+    public void setErrorText(String errorText) {
+        getStatusTextMixin().setErrorText(errorText);
     }
 
     @Override
-    public void setSuccess(String success) {
-        getErrorMixin().setSuccess(success);
+    public void setSuccessText(String successText) {
+        getStatusTextMixin().setSuccessText(successText);
     }
 
     @Override
     public void setHelperText(String helperText) {
-        getErrorMixin().setHelperText(helperText);
+        getStatusTextMixin().setHelperText(helperText);
     }
 
     @Override
-    public void clearErrorOrSuccess() {
-        getErrorMixin().clearErrorOrSuccess();
+    public void clearStatusText() {
+        getStatusTextMixin().clearStatusText();
     }
 
     /**
@@ -250,10 +250,10 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
     }
 
     @Override
-    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, null);
+    protected StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
         }
-        return errorMixin;
+        return statusTextMixin;
     }
 }

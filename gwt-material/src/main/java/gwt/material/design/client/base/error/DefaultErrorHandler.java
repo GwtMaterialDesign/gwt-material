@@ -22,7 +22,8 @@ package gwt.material.design.client.base.error;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasError;
+import gwt.material.design.client.base.HasErrorText;
+import gwt.material.design.client.base.HasStatusText;
 import gwt.material.design.client.ui.MaterialHelpBlock;
 
 import java.util.List;
@@ -74,8 +75,8 @@ public class DefaultErrorHandler implements ErrorHandler {
 
     @Override
     public void clearErrors() {
-        if (inputWidget instanceof HasError) {
-            ((HasError) inputWidget).clearErrorOrSuccess();
+        if (inputWidget instanceof HasStatusText) {
+            ((HasStatusText) inputWidget).clearStatusText();
         }
         if (helpBlock != null) {
             helpBlock.removeStyleName("field-error-label");
@@ -139,8 +140,8 @@ public class DefaultErrorHandler implements ErrorHandler {
             }
         }
 
-        if (inputWidget instanceof HasError) {
-            ((HasError) inputWidget).setError(errorMsg);
+        if (inputWidget instanceof HasErrorText) {
+            ((HasErrorText) inputWidget).setErrorText(errorMsg);
         }
 
         if (helpBlock != null) {

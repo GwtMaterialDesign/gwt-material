@@ -179,7 +179,7 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
 
     protected void checkClear(MaterialDatePicker picker) {
         picker.setValue(DATE);
-        picker.setError("error");
+        picker.setErrorText("error");
         picker.clear();
 
         assertEquals("", picker.getDateInput().getElement().getInnerText());
