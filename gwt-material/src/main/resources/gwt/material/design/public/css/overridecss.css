@@ -1510,22 +1510,23 @@ i[class*="waves-"].material-icons {
 }
 
 /**
-* Fix IOS Issue - Auto zooms when focusing on input element.
+* Fix IOS Issue - Auto zooms when focusing on input element. And also the excess box-shadow
+* Causing a border on the left part of input-fields on mobile devices.
 * Read more - https://github.com/Dogfalo/materialize/issues/5008
 **/
-@media screen and (min-width: 768px) {
-    input:not([type]),
-    input[type=text],
-    input[type=password],
-    input[type=email],
-    input[type=url],
-    input[type=time],
-    input[type=date],
-    input[type=datetime-local],
-    input[type=tel],
-    input[type=number],
-    input[type=search],
-    textarea.materialize-textarea {
+@media screen and (max-width: 768px) {
+    .input-field input:not([type]),
+    .input-field input[type=text],
+    .input-field input[type=password],
+    .input-field input[type=email],
+    .input-field input[type=url],
+    .input-field input[type=time],
+    .input-field input[type=date],
+    .input-field input[type=datetime-local],
+    .input-field input[type=tel],
+    .input-field input[type=number],
+    .input-field input[type=search],
+    .input-field textarea.materialize-textarea {
         font-size: 16px;
     }
 }
