@@ -26,8 +26,8 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.AbstractValueWidget;
-import gwt.material.design.client.base.HasError;
-import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.HasStatusText;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Paragraph;
@@ -51,7 +51,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @see <a href="https://material.io/guidelines/components/sliders.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasError {
+public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasStatusText {
 
     private Paragraph paragraph = new Paragraph();
     private MaterialInput rangeInputElement = new MaterialInput();
@@ -61,7 +61,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private static String MAX = "max";
     private static String MIN = "min";
     private MaterialLabel errorLabel = new MaterialLabel();
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
 
     /**
      * Creates a range
@@ -196,23 +196,38 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     }
 
     @Override
-    public void setError(String error) {
-        getErrorMixin().setError(error);
+    public void setErrorText(String errorText) {
+        getStatusTextMixin().setErrorText(errorText);
     }
 
     @Override
-    public void setSuccess(String success) {
-        getErrorMixin().setSuccess(success);
+    public void setSuccessText(String successText) {
+        getStatusTextMixin().setSuccessText(successText);
     }
 
     @Override
     public void setHelperText(String helperText) {
-        getErrorMixin().setHelperText(helperText);
+        getStatusTextMixin().setHelperText(helperText);
     }
 
     @Override
-    public void clearErrorOrSuccess() {
-        getErrorMixin().clearErrorOrSuccess();
+    public void clearStatusText() {
+        getStatusTextMixin().clearStatusText();
+    }
+
+    @Override
+    public void clearErrorText() {
+        getStatusTextMixin().clearErrorText();
+    }
+
+    @Override
+    public void clearHelperText() {
+        getStatusTextMixin().clearHelperText();
+    }
+
+    @Override
+    public void clearSuccessText() {
+        getStatusTextMixin().clearSuccessText();
     }
 
     public MaterialLabel getErrorLabel() {
@@ -242,10 +257,10 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     }
 
     @Override
-    public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, null);
+    public StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
         }
-        return errorMixin;
+        return statusTextMixin;
     }
 }

@@ -84,7 +84,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     protected ValueBoxBase<T> valueBoxBase;
 
     private CounterMixin<MaterialValueBox<T>> counterMixin;
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private ReadOnlyMixin<MaterialValueBox, ValueBoxBase> readOnlyMixin;
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
@@ -153,7 +153,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
      */
     public void clear() {
         valueBoxBase.setText("");
-        clearErrorOrSuccess();
+        clearStatusText();
 
         if (getPlaceholder() == null || getPlaceholder().isEmpty()) {
             label.removeStyleName(CssName.ACTIVE);
@@ -314,15 +314,15 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void setError(String error) {
-        super.setError(error);
+    public void setErrorText(String errorText) {
+        super.setErrorText(errorText);
         removeErrorModifiers();
         valueBoxBase.getElement().addClassName(CssName.INVALID);
     }
 
     @Override
-    public void setSuccess(String success) {
-        super.setSuccess(success);
+    public void setSuccessText(String successText) {
+        super.setSuccessText(successText);
         removeErrorModifiers();
         valueBoxBase.getElement().addClassName(CssName.VALID);
     }
@@ -334,8 +334,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void clearErrorOrSuccess() {
-        super.clearErrorOrSuccess();
+    public void clearStatusText() {
+        super.clearStatusText();
         removeErrorModifiers();
     }
 
@@ -824,11 +824,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, valueBoxBase, label);
+    protected StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, valueBoxBase, label);
         }
-        return errorMixin;
+        return statusTextMixin;
     }
 
     protected ReadOnlyMixin<MaterialValueBox, ValueBoxBase> getReadOnlyMixin() {

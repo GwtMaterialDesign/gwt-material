@@ -31,7 +31,7 @@ import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
 import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
-import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.ValidatorMixin;
 import gwt.material.design.client.base.validator.BlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
@@ -42,13 +42,13 @@ import java.util.List;
 
 //TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
-        HasEditorErrors<V>, HasErrorHandler, HasError, HasValidators<V> {
+        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V> {
 
     private boolean allowBlank = true;
     private boolean autoValidate;
     private BlankValidator<V> blankValidator;
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
-    private ErrorMixin<AbstractValueWidget, ?> errorMixin;
+    private StatusTextMixin<AbstractValueWidget, ?> statusTextMixin;
     private ErrorHandlerMixin<V> errorHandlerMixin;
 
     public AbstractValueWidget(Element element) {
@@ -85,23 +85,53 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     //setSanitizer();
 
     @Override
-    public void setError(String error) {
-        getErrorMixin().setError(error);
+    public void setErrorText(String errorText) {
+        getStatusTextMixin().setErrorText(errorText);
     }
 
     @Override
-    public void setSuccess(String success) {
-        getErrorMixin().setSuccess(success);
+    public void setSuccessText(String successText) {
+        getStatusTextMixin().setSuccessText(successText);
     }
 
     @Override
     public void setHelperText(String helperText) {
-        getErrorMixin().setHelperText(helperText);
+        getStatusTextMixin().setHelperText(helperText);
     }
 
     @Override
-    public void clearErrorOrSuccess() {
-        getErrorMixin().clearErrorOrSuccess();
+    public void clearErrorText() {
+        getStatusTextMixin().clearErrorText();
+    }
+
+    @Override
+    public void clearHelperText() {
+        getStatusTextMixin().clearHelperText();
+    }
+
+    @Override
+    public void clearSuccessText() {
+        getStatusTextMixin().clearSuccessText();
+    }
+
+    @Override
+    public void clearStatusText() {
+        getStatusTextMixin().clearStatusText();
+    }
+
+    @Override
+    public boolean isErrorTextVisible() {
+        return getStatusTextMixin().isErrorTextVisible();
+    }
+
+    @Override
+    public boolean isHelperTextVisible() {
+        return getStatusTextMixin().isHelperTextVisible();
+    }
+
+    @Override
+    public boolean isSuccessTextVisible() {
+        return getStatusTextMixin().isSuccessTextVisible();
     }
 
     @Override
@@ -249,11 +279,11 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return validatorMixin;
     }
 
-    protected ErrorMixin<AbstractValueWidget, ?> getErrorMixin() {
-        if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this);
+    protected StatusTextMixin<AbstractValueWidget, ?> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this);
         }
-        return errorMixin;
+        return statusTextMixin;
     }
 
     protected ErrorHandlerMixin<V> getErrorHandlerMixin() {

@@ -32,7 +32,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DateFormatHelper;
-import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.FieldTypeMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.constants.*;
@@ -101,7 +101,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     private JsDatePickerOptions options = new JsDatePickerOptions();
     private HandlerRegistration autoCloseHandlerRegistration, attachHandler;
 
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private ReadOnlyMixin<MaterialDatePicker, DateInput> readOnlyMixin;
     private FieldTypeMixin<MaterialDatePicker> fieldTypeMixin;
 
@@ -356,28 +356,28 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     @Override
-    public void setError(String error) {
-        super.setError(error);
+    public void setErrorText(String errorText) {
+        super.setErrorText(errorText);
         dateInput.addStyleName(CssName.INVALID);
         dateInput.removeStyleName(CssName.VALID);
     }
 
     @Override
-    public void setSuccess(String success) {
-        super.setSuccess(success);
+    public void setSuccessText(String successText) {
+        super.setSuccessText(successText);
         dateInput.addStyleName(CssName.VALID);
         dateInput.removeStyleName(CssName.INVALID);
     }
 
     @Override
-    public void clearErrorOrSuccess() {
-        super.clearErrorOrSuccess();
+    public void setHelperText(String helperText) {
+        super.setHelperText(helperText);
         removeErrorModifiers();
     }
 
     @Override
-    public void setHelperText(String helperText) {
-        super.setHelperText(helperText);
+    public void clearStatusText() {
+        super.clearStatusText();
         removeErrorModifiers();
     }
 
@@ -672,7 +672,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
             getPicker().set("select", null);
         }
         // Clear all active / error styles on datepicker
-        clearErrorOrSuccess();
+        clearStatusText();
         label.removeStyleName(CssName.ACTIVE);
     }
 
@@ -717,11 +717,11 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     @Override
-    protected ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, dateInput, placeholderLabel);
+    protected StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, dateInput, placeholderLabel);
         }
-        return errorMixin;
+        return statusTextMixin;
     }
 
     protected ReadOnlyMixin<MaterialDatePicker, DateInput> getReadOnlyMixin() {
