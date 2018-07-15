@@ -628,7 +628,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     protected void select() {
         label.addStyleName(CssName.ACTIVE);
-        dateInput.addStyleName(CssName.VALID);
 
         // Ensure the value change event is
         // triggered on selecting a date if the picker is open
@@ -675,8 +674,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         // Clear all active / error styles on datepicker
         clearErrorOrSuccess();
         label.removeStyleName(CssName.ACTIVE);
-        dateInput.removeStyleName(CssName.VALID);
-
     }
 
     protected void setPopupEnabled(boolean enabled) {
