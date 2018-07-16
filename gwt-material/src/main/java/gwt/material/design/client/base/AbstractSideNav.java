@@ -242,7 +242,6 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     @Override
     public void unload() {
-        $("#sidenav-overlay").remove();
         activator = null;
     }
 
@@ -412,6 +411,10 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     protected void onOpening() {
         open = true;
         SideNavOpeningEvent.fire(this);
+        // Ensure to clean all the overlays attached before opening
+        // This will fixed multiple sidenav implementations with edge support.
+        $(".drag-target").remove();
+        $("#sidenav-overlay").each((param1, element) -> element.removeFromParent());
     }
 
     protected void onOpened() {
