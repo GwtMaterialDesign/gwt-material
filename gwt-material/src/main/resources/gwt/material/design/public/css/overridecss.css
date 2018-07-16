@@ -1076,9 +1076,13 @@ ul.side-nav li {
 }
 
 ul.side-nav i {
-    font-size: 2em !important;
+    font-size: 2em;
     width: 2rem;
     line-height: inherit;
+}
+
+ul.side-nav .sidenav-content i {
+    font-size: 1.6em;
 }
 
 ul.side-nav .collapsible-header,
