@@ -129,12 +129,18 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
         }
 
         $(activatorElement).dropdown(options);
+
     }
 
     @Override
     public void unload() {
         for (HandlerRegistration handler : handlers) {
             handler.removeHandler();
+        }
+
+        // Hook for materialize bug on dropdown for not having closed once detach
+        if (getElement() != null && isAttached()) {
+            getElement().getStyle().setDisplay(Style.Display.NONE);
         }
         $(activatorElement).dropdown("remove");
     }
