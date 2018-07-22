@@ -6,9 +6,13 @@
 
 <br/>
 
+## Migration 2.0 -> 2.1
+- [Mojo to TBroyer](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-Mojo-GWT-Maven-Plugin-to-TBroyer)
+- [PWA Support](https://github.com/GwtMaterialDesign/gwt-material/wiki/PWA-:-Service-Worker-Automation)
+
 ## Demo
-* [2.0.1 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
-* [2.1 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
+* [2.1 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
+* [2.2 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
 
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
@@ -16,20 +20,20 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
-### Current Version 2.0.1
+### Current Version 2.1
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.0.1</version>
+    <version>2.1</version>
 </dependency>
 ```
-### Snapshot Version 2.1-SNAPSHOT
+### Snapshot Version 2.2-SNAPSHOT
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.1-SNAPSHOT</version>
+    <version>2.2-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -57,6 +61,7 @@ Please follow the [contribution document](https://github.com/GwtMaterialDesign/g
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-themes" >Themes</a></li>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-jquery" >JQuery</a></li>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-table" >Table</a></li>
+ <li><a href="https://github.com/GwtMaterialDesign/gwt-material-amcharts" >AmCharts</a></li>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-demo" >Demo</a></li>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-demo-errai" >Errai Demo</a></li>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-template" >Starter</a></li>

@@ -198,6 +198,45 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         checkPlaceholder(valueBox);
     }
 
+    public void testAllowBlanks() {
+        // given
+        MaterialListValueBox<Integer> valueBox = (MaterialListValueBox<Integer>) getWidget();
+        assertFalse(valueBox.isAllowBlank());
+        assertEquals(0, valueBox.getItemCount());
+
+        // when / then
+        valueBox.setAllowBlank(true);
+        assertEquals(1, valueBox.getItemCount());
+
+        valueBox.addItem(Integer.valueOf(1));
+        assertEquals(2, valueBox.getItemCount());
+        valueBox.addItem(Integer.valueOf(2));
+        valueBox.addItem(Integer.valueOf(3));
+        assertTrue(valueBox.isAllowBlank());
+        valueBox.setSelectedIndex(-1);
+        assertNull(valueBox.getSelectedValue());
+        assertNull(valueBox.getValue());
+
+        valueBox.setValue(null);
+        assertEquals(0, valueBox.getSelectedIndex());
+        assertNull(valueBox.getValue());
+        valueBox.setValue(Integer.valueOf(2));
+        assertEquals(2, valueBox.getSelectedIndex());
+        assertNotNull(valueBox.getValue());
+        valueBox.setValue(null);
+        assertEquals(0, valueBox.getSelectedIndex());
+        assertNull(valueBox.getValue());
+
+        valueBox.setAllowBlank(false);
+        assertEquals(0, valueBox.getSelectedIndex());
+        assertNotNull(valueBox.getValue());
+
+        valueBox.setAllowBlank(true);
+        valueBox.setValue(null);
+        assertNull(valueBox.getValue());
+
+    }
+
     public void testFocusAndBlurHandlers() {
         MaterialListValueBox<T> valueBox = getWidget();
         checkFocusAndBlurEvents(valueBox);

@@ -99,7 +99,9 @@ public class MaterialLoader {
      */
     public void show() {
         if (!(container instanceof RootPanel)) {
-            container.getElement().getStyle().setPosition(Style.Position.RELATIVE);
+            if (!(container instanceof MaterialDialog)) {
+                container.getElement().getStyle().setPosition(Style.Position.RELATIVE);
+            }
             div.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
         }
         if (scrollDisabled) {
@@ -213,5 +215,13 @@ public class MaterialLoader {
      */
     public void setScrollDisabled(boolean scrollDisabled) {
         this.scrollDisabled = scrollDisabled;
+    }
+
+    public MaterialProgress getProgress() {
+        return progress;
+    }
+
+    public MaterialPreLoader getPreLoader() {
+        return preLoader;
     }
 }

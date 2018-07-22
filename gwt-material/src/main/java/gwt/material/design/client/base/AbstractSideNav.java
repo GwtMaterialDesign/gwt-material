@@ -30,6 +30,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.StyleMixin;
+import gwt.material.design.client.base.viewport.ViewPort;
+import gwt.material.design.client.base.viewport.WidthBoundary;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.js.JsMaterialElement;
@@ -61,12 +63,13 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     protected Edge edge = Edge.LEFT;
     protected Boolean showOnAttach;
     protected Element activator;
+    protected WidthBoundary closingBoundary;
+    protected ViewPort autoHideViewport;
 
     private StyleMixin<MaterialSideNav> typeMixin;
 
     public AbstractSideNav() {
         super(Document.get().createULElement(), CssName.SIDE_NAV);
-
     }
 
     public AbstractSideNav(final Widget... widgets) {
@@ -87,6 +90,10 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
         load();
 
+        setupShowOnAttach();
+    }
+
+    protected void setupShowOnAttach() {
         if (showOnAttach != null) {
             // Ensure the side nav starts closed
             $(activator).trigger("menu-in", null);
@@ -235,7 +242,6 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     @Override
     public void unload() {
-        $("#sidenav-overlay").remove();
         activator = null;
     }
 
@@ -405,6 +411,10 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     protected void onOpening() {
         open = true;
         SideNavOpeningEvent.fire(this);
+        // Ensure to clean all the overlays attached before opening
+        // This will fixed multiple sidenav implementations with edge support.
+        $(".drag-target").remove();
+        $("#sidenav-overlay").each((param1, element) -> element.removeFromParent());
     }
 
     protected void onOpened() {
@@ -486,6 +496,25 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         this.showOnAttach = showOnAttach;
     }
 
+    public boolean isAutoHideOnResize() {
+        return autoHideViewport != null;
+    }
+
+    /**
+     * When enabled the sidenav will auto hide / collapse it durating browser resized.
+     * Default true
+     */
+    public void setAutoHideOnResize(boolean autoHideOnResize) {
+        if (autoHideOnResize) {
+            autoHideViewport = ViewPort.when(getClosingBoundary()).then(param1 -> hide());
+        } else {
+            if (autoHideViewport != null) {
+                autoHideViewport.destroy();
+                autoHideViewport = null;
+            }
+        }
+    }
+
     @Override
     public void setEnabled(boolean enabled) {
         getEnabledMixin().setEnabled(this, enabled);
@@ -509,6 +538,17 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     @Override
     public int getOutDuration() {
         return outDuration;
+    }
+
+    public void setClosingBoundary(WidthBoundary closingBoundary) {
+        this.closingBoundary = closingBoundary;
+    }
+
+    public WidthBoundary getClosingBoundary() {
+        if (closingBoundary == null) {
+            closingBoundary = new WidthBoundary(0, 992);
+        }
+        return closingBoundary;
     }
 
     public Element getActivator() {

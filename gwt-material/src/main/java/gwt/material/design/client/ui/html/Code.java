@@ -40,6 +40,6 @@ public class Code extends AbstractTextWidget {
 
     @Override
     public void setHTML(String html) {
-        this.getElement().setInnerHTML(CodeHelper.parseCode(html).asString());
+        this.getElement().setInnerHTML(html);
     }
 }

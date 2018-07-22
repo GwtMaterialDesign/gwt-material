@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.base.viewport;
 
+import com.google.gwt.event.shared.HandlerRegistration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public class ViewPort {
+public class ViewPort implements HandlerRegistration {
 
     private List<ViewPortHandler> handlers = new ArrayList<>();
 
@@ -77,5 +79,10 @@ public class ViewPort {
             handler.destroy();
         }
         return this;
+    }
+
+    @Override
+    public void removeHandler() {
+        unload();
     }
 }

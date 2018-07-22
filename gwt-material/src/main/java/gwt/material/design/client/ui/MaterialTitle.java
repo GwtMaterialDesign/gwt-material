@@ -72,7 +72,6 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
         super.onLoad();
 
         header.setFontWeight(300);
-        header.getElement().getStyle().setMarginTop(60, Unit.PX);
         add(header);
         add(paragraph);
     }
@@ -80,6 +79,11 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
     @Override
     public void setDescription(String description) {
         paragraph.setText(description);
+    }
+
+    @Override
+    public String getDescription() {
+        return paragraph.getText();
     }
 
     @Override
@@ -108,6 +112,6 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
 
     @Override
     public String getValue() {
-        return header.getElement().getInnerHTML();
+        return SafeHtmlUtils.fromString(header.getElement().getInnerHTML()).asString();
     }
 }

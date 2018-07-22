@@ -116,7 +116,7 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
 
     protected void provideActiveClickHandler(final Widget child) {
         // Active click handler
-        registerHandler(child.addDomHandler(event -> makeActive(child), ClickEvent.getType()));
+        child.addDomHandler(event -> makeActive(child), ClickEvent.getType());
     }
 
     /**

@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
@@ -242,5 +243,35 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
             assertEquals(icon1, item.getHeader().getWidget(0));
             assertEquals(icon2, item.getHeader().getWidget(1));
         }
+    }
+
+    public void testCollapsibleHandlers() {
+        MaterialCollapsible collapsible = getWidget();
+
+        for (Widget widget : collapsible.getChildren()) {
+            if (widget instanceof MaterialCollapsibleItem) {
+                checkCollapsibleItemEvent(collapsible, (MaterialCollapsibleItem) widget);
+            }
+        }
+    }
+
+    protected void checkCollapsibleItemEvent(MaterialCollapsible collapsible, MaterialCollapsibleItem item) {
+        final boolean[] collapseEventFired = {false};
+        final boolean[] expandEventFired = {false};
+
+        collapsible.addCollapseHandler(event -> collapseEventFired[0] = true);
+        collapsible.addExpandHandler(event -> expandEventFired[0] = true);
+
+        item.setActive(true);
+        assertTrue(expandEventFired[0]);
+
+        item.setActive(false);
+        assertTrue(collapseEventFired[0]);
+
+        fireClickEvent(item.getHeader());
+        assertTrue(expandEventFired[0]);
+
+        fireClickEvent(item.getHeader());
+        assertTrue(collapseEventFired[0]);
     }
 }

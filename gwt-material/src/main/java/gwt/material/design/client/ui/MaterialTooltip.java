@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.*;
@@ -29,6 +30,7 @@ import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.base.helper.EventHelper;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.js.JsTooltipOptions;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -57,6 +59,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     private String html;
     private Widget widget;
     private JsTooltipOptions options = JsTooltipOptions.create();
+    private JQueryElement tooltipElement;
 
     /**
      * Creates the empty Tooltip
@@ -87,6 +90,7 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     @Override
     public void load() {
         $(widget.getElement()).tooltip(options);
+        tooltipElement = $("#" + $(widget.getElement()).attr("data-tooltip-id"));
     }
 
     @Override
@@ -321,16 +325,17 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
     public void setHtml(String html) {
         this.html = html;
 
-        Element element = widget.getElement();
-        if (widget.isAttached()) {
-            $("#" + element.getAttribute("data-tooltip-id"))
-                    .find("span")
-                    .html(html != null ? html : "");
+        if (widget != null) {
+            if (widget.isAttached()) {
+                tooltipElement.find("span")
+                        .html(html != null ? html : "");
+            } else {
+                widget.addAttachHandler(event ->
+                        tooltipElement.find("span")
+                                .html(html != null ? html : ""));
+            }
         } else {
-            widget.addAttachHandler(event ->
-                    $("#" + element.getAttribute("data-tooltip-id"))
-                            .find("span")
-                            .html(html != null ? html : ""));
+            GWT.log("Please initialize the Target widget.", new IllegalStateException());
         }
     }
 
@@ -344,6 +349,12 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
             } else {
                 EventHelper.onAttachOnce(widget, handler);
             }
+        } else {
+            GWT.log("Please initialize the Target widget.", new IllegalStateException());
         }
+    }
+
+    public JQueryElement getTooltipElement() {
+        return tooltipElement;
     }
 }

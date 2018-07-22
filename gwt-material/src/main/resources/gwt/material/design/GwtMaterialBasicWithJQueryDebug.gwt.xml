@@ -27,7 +27,7 @@
     "http://gwtproject.org/doctype/2.8.0/gwt-module.dtd">
 <module>
   <inherits name="gwt.material.design.GwtMaterialDesignBase"/>
-  <inherits name="gwt.material.design.ResourcesBasic"/>
+  <inherits name="gwt.material.design.ResourcesBasicDebug"/>
 
   <replace-with class="gwt.material.design.client.JQueryProvider.JQueryDebug">
     <when-type-is class="gwt.material.design.client.JQueryProvider"/>

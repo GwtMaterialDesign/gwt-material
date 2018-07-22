@@ -84,7 +84,7 @@ public class MaterialBadge extends Span {
 
     @Override
     public String getText() {
-        return getElement().getInnerHTML();
+        return SafeHtmlUtils.fromString(getElement().getInnerText()).asString();
     }
 
     @Override

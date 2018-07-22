@@ -65,8 +65,9 @@ public class MaterialTabItem extends ListItem {
         for (Widget child : getChildren()) {
             if (child instanceof HasHref) {
                 String href = ((HasHref) child).getHref();
-                if (!href.isEmpty()) {
+                if (parent != null && !href.isEmpty()) {
                     parent.selectTab(href.replaceAll("[^a-zA-Z\\d\\s:]", ""));
+                    parent.reload();
                     break;
                 }
             }

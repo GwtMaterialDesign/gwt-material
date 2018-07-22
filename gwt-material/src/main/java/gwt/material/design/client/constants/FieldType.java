@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2018 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,19 +21,15 @@ package gwt.material.design.client.constants;
 
 import gwt.material.design.client.base.helper.EnumHelper;
 
-/**
- * @author kevzlou7979
- * @author Ben Dol
- */
-public enum ModalType implements CssType {
+public enum FieldType implements CssType {
     DEFAULT(""),
-    BOTTOM_SHEET("bottom-sheet"),
-    FIXED_FOOTER("modal-fixed-footer"),
-    WINDOW("material-window");
+    OUTLINED("outlined"),
+    FILLED("filled"),
+    ALIGNED_LABEL("aligned-label");
 
     private final String cssClass;
 
-    ModalType(final String cssClass) {
+    FieldType(final String cssClass) {
         this.cssClass = cssClass;
     }
 
@@ -42,7 +38,7 @@ public enum ModalType implements CssType {
         return cssClass;
     }
 
-    public static ModalType fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, ModalType.class, DEFAULT);
+    public static FieldType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, FieldType.class, DEFAULT);
     }
 }

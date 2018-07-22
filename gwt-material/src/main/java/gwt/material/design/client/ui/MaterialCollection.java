@@ -20,8 +20,13 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActiveParent;
 import gwt.material.design.client.base.HasClearActiveHandler;
@@ -95,16 +100,40 @@ import gwt.material.design.client.ui.html.ListItem;
  * @see <a href="https://material.io/guidelines/components/lists-controls.html#lists-controls-types-of-menu-controls">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCollection extends MaterialWidget implements HasActiveParent, HasClearActiveHandler {
+public class MaterialCollection extends MaterialWidget
+        implements HasActiveParent, HasClearActiveHandler, HasSelectionHandlers<MaterialCollectionItem> {
 
     private int index;
+    private boolean selectable;
     private Heading headerLabel = new Heading(HeadingSize.H4);
+    private HandlerRegistration selectHandler;
 
     /**
      * Creates an empty collection component.
      */
     public MaterialCollection() {
         super(Document.get().createULElement(), CssName.COLLECTION);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        if (selectable) {
+            selectHandler = registerHandler(addSelectionHandler(selectionEvent -> {
+                clearActive();
+                selectionEvent.getSelectedItem().setActive(true);
+            }));
+
+            for (Widget child : getChildren()) {
+                if (child instanceof MaterialCollectionItem) {
+                    child.getElement().getStyle().setCursor(Style.Cursor.POINTER);
+                    ((MaterialCollectionItem) child).addClickHandler(clickEvent -> SelectionEvent.fire(MaterialCollection.this, (MaterialCollectionItem) child));
+                }
+            }
+        } else {
+            removeHandler(selectHandler);
+        }
     }
 
     @Override
@@ -160,8 +189,21 @@ public class MaterialCollection extends MaterialWidget implements HasActiveParen
         return headerLabel;
     }
 
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
+    }
+
     @Override
     public HandlerRegistration addClearActiveHandler(final ClearActiveEvent.ClearActiveHandler handler) {
         return addHandler(handler, ClearActiveEvent.TYPE);
+    }
+
+    @Override
+    public HandlerRegistration addSelectionHandler(SelectionHandler<MaterialCollectionItem> selectionHandler) {
+        return addHandler(selectionHandler, SelectionEvent.getType());
     }
 }

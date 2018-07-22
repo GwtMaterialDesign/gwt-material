@@ -93,9 +93,9 @@ public class MaterialTab extends UnorderedList implements JsLoader, HasType<TabT
     @Override
     public void load() {
         if (getWidgetCount() > 0) {
+            getChildren().forEach(child -> registerChildHandler(child));
             $(getElement()).tabs();
             applyIndicator();
-            getChildren().forEach(child -> registerChildHandler(child));
         }
     }
 

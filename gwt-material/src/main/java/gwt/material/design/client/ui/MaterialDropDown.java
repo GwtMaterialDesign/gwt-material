@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -41,6 +40,7 @@ import gwt.material.design.client.js.JsDropdownOptions;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -72,6 +72,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
 
     private String activator;
     private Element activatorElement;
+    private List<HandlerRegistration> handlers = new ArrayList<>();
     private JsDropdownOptions options = new JsDropdownOptions();
 
     public MaterialDropDown() {
@@ -106,25 +107,6 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
         super.onLoad();
 
         load();
-
-        // register dropdown item handler
-        registerDropdownItemHandlers();
-    }
-
-    protected void registerDropdownItemHandlers() {
-        getChildren().forEach(widget -> {
-            if (widget instanceof ListItem) {
-                ListItem item = (ListItem) widget;
-                if (item.getWidgetCount() > 0) {
-                    if (item.getWidget(0) instanceof MaterialWidget) {
-                        MaterialWidget child = (MaterialWidget) item.getWidget(0);
-                        registerHandler(child.addDomHandler(event -> {
-                            SelectionEvent.fire(MaterialDropDown.this, child);
-                        }, ClickEvent.getType()));
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -144,17 +126,22 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             activatorElement = parent.getElement();
         } else if (activatorElement == null) {
             activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
-            if (activatorElement == null) {
-                GWT.log("There is no activator element with id: '" + activator + "' in the DOM, " +
-                        "cannot instantiate MaterialDropDown without a data-activates.", new IllegalStateException());
-            }
         }
 
         $(activatorElement).dropdown(options);
+
     }
 
     @Override
     public void unload() {
+        for (HandlerRegistration handler : handlers) {
+            handler.removeHandler();
+        }
+
+        // Hook for materialize bug on dropdown for not having closed once detach
+        if (getElement() != null && isAttached()) {
+            getElement().getStyle().setDisplay(Style.Display.NONE);
+        }
         $(activatorElement).dropdown("remove");
     }
 
@@ -175,6 +162,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             // Checks if there are sub dropdown components
             if (child instanceof MaterialLink) {
                 MaterialLink link = (MaterialLink) child;
+                handlers.add(link.addClickHandler(event -> SelectionEvent.fire(MaterialDropDown.this, child)));
                 for (int i = 0; i < link.getWidgetCount(); i++) {
                     if (link.getWidget(i) instanceof MaterialDropDown) {
                         registerHandler(link.addClickHandler(DomEvent::stopPropagation));

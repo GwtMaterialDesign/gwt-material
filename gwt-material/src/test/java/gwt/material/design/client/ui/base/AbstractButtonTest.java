@@ -20,6 +20,8 @@
 package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.constants.ButtonSize;
 import gwt.material.design.client.constants.ButtonType;
@@ -71,6 +73,12 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
         widget.setType(ButtonType.FLOATING);
         assertEquals(ButtonType.FLOATING, widget.getType());
 
+        widget.setType(ButtonType.RAISED);
+        assertEquals(ButtonType.RAISED, widget.getType());
+
+        widget.setType(ButtonType.OUTLINED);
+        assertEquals(ButtonType.OUTLINED, widget.getType());
+
         // Standard
         // given
         attachWidget();
@@ -79,9 +87,15 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
         final Element element = widget.getElement();
         widget.setType(ButtonType.FLAT);
         assertTrue(element.hasClassName(ButtonType.FLAT.getCssName()));
+
         widget.setType(ButtonType.FLOATING);
         assertTrue(element.hasClassName(ButtonType.FLOATING.getCssName()));
-        assertFalse(element.hasClassName(ButtonType.FLAT.getCssName()));
+
+        widget.setType(ButtonType.RAISED);
+        assertTrue(element.hasClassName(ButtonType.RAISED.getCssName()));
+
+        widget.setType(ButtonType.OUTLINED);
+        assertTrue(element.hasClassName(ButtonType.OUTLINED.getCssName()));
     }
 
     public void testActivates() {
@@ -145,5 +159,17 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
         // when / then
         widget.setText("test1");
         assertEquals("test1", widget.getText());
+    }
+
+    @Override
+    protected <H extends UIObject & HasEnabled> void checkEnabled(HasEnabled widget, H target) {
+        super.checkEnabled(widget, target);
+
+        widget.setEnabled(false);
+        assertTrue(target.getElement().hasAttribute("onclick"));
+        assertEquals("return false", target.getElement().getAttribute("onclick"));
+
+        widget.setEnabled(true);
+        assertFalse(target.getElement().hasAttribute("onclick"));
     }
 }

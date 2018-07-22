@@ -17,23 +17,32 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
+package gwt.material.design.client.constants;
 
-//@formatter:off
-
-import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.base.helper.EnumHelper;
 
 /**
- * Content container for Material Modal
- *
  * @author kevzlou7979
  * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Modal</a>
- * @see <a href="https://material.io/guidelines/components/dialogs.html#">Material Design Specification</a>
- *///@formatter:on
-public class MaterialModalContent extends MaterialPanel {
+ */
+public enum DialogType implements CssType {
+    DEFAULT(""),
+    BOTTOM_SHEET("bottom-sheet"),
+    FIXED_FOOTER("modal-fixed-footer"),
+    WINDOW("material-window");
 
-    public MaterialModalContent() {
-        super(CssName.MODAL_CONTENT);
+    private final String cssClass;
+
+    DialogType(final String cssClass) {
+        this.cssClass = cssClass;
+    }
+
+    @Override
+    public String getCssName() {
+        return cssClass;
+    }
+
+    public static DialogType fromStyleName(final String styleName) {
+        return EnumHelper.fromStyleName(styleName, DialogType.class, DEFAULT);
     }
 }

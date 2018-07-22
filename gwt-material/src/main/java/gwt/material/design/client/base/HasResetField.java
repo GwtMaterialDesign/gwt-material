@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2018 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,28 +19,11 @@
  */
 package gwt.material.design.client.base;
 
-public interface HasError {
+public interface HasResetField {
 
-    /**
-     * Errors occur when an app fails to complete what is expected, such as:
-     * - The app does not understand user input
-     * - The system or app fails
-     * - A user intends to run incompatible operations concurrently
-     */
-    void setError(String error);
+    void resetFields();
 
-    /**
-     * Set the success message marking a widget as success.
-     */
-    void setSuccess(String success);
+    void setAllowResettingFields(boolean allowResettingFields);
 
-    /**
-     * Apply a widgets help text.
-     */
-    void setHelperText(String helperText);
-
-    /**
-     * Clear the error or success states.
-     */
-    void clearErrorOrSuccess();
+    boolean isAllowResettingFields();
 }

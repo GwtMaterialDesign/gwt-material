@@ -57,7 +57,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 //@formatter:on
 public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkableNavBarHandlers {
 
-    private int offset = 300;
+    private int scrollOffset = 300;
 
     public MaterialNavBarShrink() {
         super();
@@ -74,7 +74,7 @@ public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkabl
         registerHandler(Window.addWindowScrollHandler(scrollEvent -> {
             int distanceY = window().scrollTop();
 
-            if (distanceY > offset) {
+            if (distanceY > scrollOffset) {
                 $(getElement()).addClass("smaller");
                 if (!fired[0]) {
                     NavBarShrinkEvent.fire(this);
@@ -90,12 +90,12 @@ public class MaterialNavBarShrink extends MaterialNavBar implements HasShrinkabl
         }));
     }
 
-    public int getOffset() {
-        return offset;
+    public int getScrollOffset() {
+        return scrollOffset;
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
+    public void setScrollOffset(int scrollOffset) {
+        this.scrollOffset = scrollOffset;
     }
 
     @Override

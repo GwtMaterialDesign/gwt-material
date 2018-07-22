@@ -5,9 +5,8 @@
 
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material-parent</artifactId>
+    <version>2.1</version>
     <packaging>pom</packaging>
-    <version>2.0.1</version>
-
     <modules>
         <module>gwt-material</module>
     </modules>
@@ -48,13 +47,17 @@
         </developer>
     </developers>
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.encoding>UTF-8</project.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <source.version>1.8</source.version>
         <target.version>1.8</target.version>
+        <surefire.version>2.6</surefire.version>
         <gwt.version>2.8.2</gwt.version>
+        <tbroyer.version>1.0-rc-9</tbroyer.version>
         <gwt.style>OBF</gwt.style>
     </properties>
 
@@ -62,7 +65,7 @@
         <connection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</connection>
         <developerConnection>scm:git:git@github.com:GwtMaterialDesign/gwt-material.git</developerConnection>
         <url>http://github.com/GwtMaterialDesign/gwt-material</url>
-        <tag>v2.0.1</tag>
+        <tag>v2.1</tag>
     </scm>
 
     <licenses>
@@ -102,6 +105,7 @@
             <url>https://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>snapshots-repo</id>
@@ -114,6 +118,18 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt</artifactId>
+                <version>${gwt.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -166,30 +182,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration>
-                    <!-- comment out for now because doesn't work on JDK < 8 -->
-                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <locale>en</locale>
-                    <linksource>true</linksource>
-                    <validateLinks>true</validateLinks>
-                    <links>
-                        <link>https://github.com/gwtproject/gwt/tree/master/doc/validation-package-list</link>
-                    </links>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
@@ -228,40 +220,15 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.5.1</version>
-                    <configuration>
-                        <source>${source.version}</source>
-                        <target>${target.version}</target>
-                    </configuration>
+                    <version>3.1</version>
                 </plugin>
 
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
+                    <groupId>net.ltgt.gwt.maven</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
-                    <version>${gwt.version}</version>
-                    <configuration>
-                        <style>${gwt.style}</style>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>gwt-compile</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>gwt-resources</id>
-                            <goals>
-                                <goal>resources</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <version>${tbroyer.version}</version>
+                    <extensions>true</extensions>
+                    <inherited>false</inherited>
                 </plugin>
 
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -314,6 +281,38 @@
     </build>
 
     <profiles>
+        <!-- Generate JavaDoc -->
+        <profile>
+            <id>generate-java-doc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.10.3</version>
+                        <configuration>
+                            <!-- comment out for now because doesn't work on JDK < 8 -->
+                            <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <locale>en</locale>
+                            <linksource>true</linksource>
+                            <validateLinks>true</validateLinks>
+                            <links>
+                                <link>https://github.com/gwtproject/gwt/tree/master/doc/validation-package-list</link>
+                            </links>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <!-- Disable doclint on JDK 8 -->
         <profile>
             <id>nodoclint</id>
@@ -327,7 +326,7 @@
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-javadoc-plugin</artifactId>
                             <configuration>
-                                <additionalparam>-Xdoclint:none</additionalparam>
+                                <!--<additionalparam>-Xdoclint:none</additionalparam>-->
                             </configuration>
                         </plugin>
                     </plugins>

@@ -30,18 +30,17 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
+import gwt.material.design.client.base.mixin.FieldTypeMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.FieldType;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:off
@@ -74,22 +73,27 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
-        HasConstrainedValue<T>, HasReadOnly {
+        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes {
+
+    public static final String BLANK_VALUE_TEXT = "";
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
     protected final List<T> values = new ArrayList<>();
-    private KeyFactory<T, String> keyFactory = Object::toString;
+    private KeyFactory<T, String> keyFactory = new AllowBlankKeyFactory();
     private MaterialLabel errorLabel = new MaterialLabel();
+    private boolean loaded = false;
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
-    private ErrorMixin<AbstractValueWidget, MaterialLabel> errorMixin;
+    private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
+    private FieldTypeMixin<MaterialListValueBox> fieldTypeMixin;
 
     private String emptyPlaceHolder = null;
 
     public MaterialListValueBox() {
-        super(Document.get().createDivElement(), CssName.INPUT_FIELD, CssName.LISTBOX_WRAPPER);
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD,  CssName.LISTBOX_WRAPPER);
+        super.setAllowBlank(false);
     }
 
     @Override
@@ -138,6 +142,10 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             DomEvent.fireNativeEvent(Document.get().createFocusEvent(), this);
             return true;
         });
+        loaded = true;
+        if (isAllowBlank()) {
+            addBlankItemIfNeeded();
+        }
     }
 
     @Override
@@ -187,7 +195,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>addItem(value, dir, item)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}; cannot be <code>null</code>
+     *               {@link FormPanel}; cannot be <code>null</code>
      * @param dir    the item's direction
      * @param reload perform a 'material select' reload to update the DOM.
      */
@@ -216,7 +224,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>addItem(value, item)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}; cannot be <code>null</code>
+     *               {@link FormPanel}; cannot be <code>null</code>
      * @param reload perform a 'material select' reload to update the DOM.
      */
     public void addItem(T value, boolean reload) {
@@ -305,7 +313,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>insertItem(value, item, index)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}.
+     *               {@link FormPanel}.
      * @param index  the index at which to insert it
      * @param reload perform a 'material select' reload to update the DOM.
      */
@@ -313,6 +321,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, index, reload);
     }
+
     protected void insertItemInternal(T value, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), index);
@@ -342,7 +351,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * <pre>insertItem(value, dir, item, index)</pre>
      *
      * @param value  the item's value, to be submitted if it is part of a
-     *              {@link FormPanel}.
+     *               {@link FormPanel}.
      * @param dir    the item's direction
      * @param index  the index at which to insert it
      * @param reload perform a 'material select' reload to update the DOM.
@@ -351,6 +360,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, dir, index, reload);
     }
+
     protected void insertItemInternal(T value, Direction dir, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), dir, index);
@@ -389,6 +399,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, text, index, reload);
     }
+
     protected void insertItemInternal(T value, String text, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(text, keyFactory.generateKey(value), index);
@@ -435,6 +446,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         insertItemInternal(value, dir, text, index, reload);
     }
+
     protected void insertItemInternal(T value, Direction dir, String text, int index, boolean reload) {
         values.add(index, value);
         listBox.insertItem(keyFactory.generateKey(value), dir, text, index);
@@ -465,6 +477,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         removeItemInternal(index, reload);
     }
+
     protected void removeItemInternal(int index, boolean reload) {
         values.remove(index);
         listBox.removeItem(index);
@@ -498,10 +511,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         }
     }
 
+    /**
+     * This will reset the listbox from original selected index.
+     */
     @Override
     public void reset() {
         super.reset();
-        clear();
+
+        setSelectedIndex(0);
     }
 
     /**
@@ -511,10 +528,15 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public void clear() {
         values.clear();
         listBox.clear();
-        if(emptyPlaceHolder != null) {
+
+        clearStatusText();
+        if (emptyPlaceHolder != null) {
             insertEmptyPlaceHolder(emptyPlaceHolder);
         }
         reload();
+        if (isAllowBlank()) {
+            addBlankItemIfNeeded();
+        }
     }
 
     @Override
@@ -554,11 +576,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     public void setEmptyPlaceHolder(String value) {
-        if(value == null) {
+        if (value == null) {
             // about to un-set emptyPlaceHolder
-            if(emptyPlaceHolder != null) {
+            if (emptyPlaceHolder != null) {
                 // emptyPlaceHolder is about to change from null to non-null
-                if(isEmptyPlaceHolderListed()) {
+                if (isEmptyPlaceHolderListed()) {
                     // indeed first item is actually emptyPlaceHolder
                     removeEmptyPlaceHolder();
                 } else {
@@ -566,7 +588,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
                 }
             }   // else no change
         } else {
-            if(!value.equals(emptyPlaceHolder)) {
+            if (!value.equals(emptyPlaceHolder)) {
                 // adding emptyPlaceHolder
                 insertEmptyPlaceHolder(value);
             }   // else no change
@@ -582,6 +604,9 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setAcceptableValues(Collection<T> values) {
         clear();
+        if (isAllowBlank()) {
+            addBlankItemIfNeeded();
+        }
         values.forEach(this::addItem);
     }
 
@@ -651,6 +676,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         index += getIndexOffset();
         setItemSelectedInternal(index, selected);
     }
+
     private void setItemSelectedInternal(int index, boolean selected) {
         listBox.setItemSelected(index, selected);
         reload();
@@ -698,9 +724,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @param index the index of the item to be selected
      */
     public void setSelectedIndex(int index) {
-        index += getIndexOffset();
+        if (index >= 0) {
+            index += getIndexOffset();
+        }
         setSelectedIndexInternal(index);
     }
+
     protected void setSelectedIndexInternal(int index) {
         listBox.setSelectedIndex(index);
         reload();
@@ -760,11 +789,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     public int getSelectedIndex() {
         int selectedIndex = getSelectedIndexInternal();
-        if(selectedIndex >= 0) {
+        if (selectedIndex >= 0) {
             selectedIndex -= getIndexOffset();
         }
         return selectedIndex;
     }
+
     protected int getSelectedIndexInternal() {
         return listBox.getSelectedIndex();
     }
@@ -779,6 +809,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public T getValue(int index) {
         return getValueInternal(index + getIndexOffset());
     }
+
     protected T getValueInternal(int index) {
         return values.get(index);
     }
@@ -861,16 +892,47 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return getReadOnlyMixin().isToggleReadOnly();
     }
 
+    @Override
+    public void setAllowBlank(boolean allowBlank) {
+        super.setAllowBlank(allowBlank);
+        if (allowBlank) {
+            addBlankItemIfNeeded();
+        } else {
+            removeBlankItemIfNeeded();
+        }
+    }
+
+    protected void addBlankItemIfNeeded() {
+        if (loaded) {
+            int idx = getIndex(null);
+            if (idx < 0) {
+                ArrayList<T> previous = new ArrayList<>(values);
+                values.clear();
+                values.add(null);
+                values.addAll(previous);
+                listBox.insertItem(BLANK_VALUE_TEXT, 0);
+                setSelectedIndexInternal(-1);
+            }
+        }
+    }
+
+    protected void removeBlankItemIfNeeded() {
+        int idx = getIndex(null);
+        if (idx >= 0 && idx < values.size()) {
+            removeItem(idx, true);
+        }
+    }
+
     public ListBox getListBox() {
         return listBox;
     }
 
     @Override
-    public ErrorMixin<AbstractValueWidget, MaterialLabel> getErrorMixin() {
-        if (errorMixin == null) {
-            errorMixin = new ErrorMixin<>(this, errorLabel, this, label);
+    public StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, this, label);
         }
-        return errorMixin;
+        return statusTextMixin;
     }
 
     public Label getLabel() {
@@ -935,7 +997,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public int getIndex(T value) {
         int count = getItemCount();
         for (int i = 0; i < count; i++) {
-            if (getValueInternal(i).equals(value)) {
+            if (Objects.equals(getValue(i), value)) {
                 return i;
             }
         }
@@ -954,6 +1016,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
         }
         return toggleOldMixin;
+    }
+
+    protected FieldTypeMixin<MaterialListValueBox> getFieldTypeMixin() {
+        if (fieldTypeMixin == null) {
+            fieldTypeMixin = new FieldTypeMixin<>(this);
+        }
+        return fieldTypeMixin;
     }
 
     /**
@@ -988,5 +1057,37 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     protected int getIndexOffset() {
         return emptyPlaceHolder != null && isEmptyPlaceHolderListed() ? 1 : 0;
+    }
+
+    @Override
+    public void setFieldType(FieldType type) {
+        getFieldTypeMixin().setFieldType(type);
+    }
+
+    @Override
+    public FieldType getFieldType() {
+        return getFieldTypeMixin().getFieldType();
+    }
+
+    @Override
+    public void setLabelWidth(double percentWidth) {
+        getFieldTypeMixin().setLabelWidth(percentWidth);
+    }
+
+    @Override
+    public void setFieldWidth(double percentWidth) {
+        getFieldTypeMixin().setFieldWidth(percentWidth);
+    }
+
+    class AllowBlankKeyFactory implements KeyFactory<T, String> {
+
+        @Override
+        public String generateKey(T object) {
+            if (object == null) {
+                return BLANK_VALUE_TEXT;
+            } else {
+                return object.toString();
+            }
+        }
     }
 }

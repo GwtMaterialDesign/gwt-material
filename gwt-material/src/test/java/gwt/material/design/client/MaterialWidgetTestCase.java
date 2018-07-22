@@ -418,14 +418,13 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
 
     public void checkFieldErrorSuccess(AbstractValueWidget widget, UIObject errorLabel, UIObject target, UIObject placeholder) {
         if (errorLabel != null) {
-            widget.setError("error");
-
+            widget.setErrorText("error");
             assertTrue(errorLabel.getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
             assertFalse(errorLabel.getElement().hasClassName(CssName.FIELD_HELPER_LABEL));
             assertFalse(errorLabel.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
             errorLabel.setVisible(true);
 
-            widget.setSuccess("success");
+            widget.setSuccessText("success");
             assertFalse(errorLabel.getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
             assertFalse(errorLabel.getElement().hasClassName(CssName.FIELD_HELPER_LABEL));
             assertTrue(errorLabel.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
@@ -436,11 +435,11 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
             assertFalse(errorLabel.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
         }
         if (target != null) {
-            widget.setError("error");
+            widget.setErrorText("error");
             assertTrue(target.getElement().hasClassName(CssName.FIELD_ERROR));
             assertFalse(target.getElement().hasClassName(CssName.FIELD_SUCCESS));
 
-            widget.setSuccess("success");
+            widget.setSuccessText("success");
             assertFalse(target.getElement().hasClassName(CssName.FIELD_ERROR));
             assertTrue(target.getElement().hasClassName(CssName.FIELD_SUCCESS));
 
@@ -449,11 +448,11 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
             assertFalse(target.getElement().hasClassName(CssName.FIELD_SUCCESS));
         }
         if (placeholder != null) {
-            widget.setError("error");
+            widget.setErrorText("error");
             assertFalse(placeholder.getElement().hasClassName("green-text"));
             assertTrue(placeholder.getElement().hasClassName("red-text"));
 
-            widget.setSuccess("success");
+            widget.setSuccessText("success");
             assertTrue(placeholder.getElement().hasClassName("green-text"));
             assertFalse(placeholder.getElement().hasClassName("red-text"));
 

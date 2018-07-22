@@ -24,6 +24,7 @@ import gwt.material.design.client.base.HasTooltip;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.ui.MaterialTooltip;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 /**
  * Mixin for the {@link MaterialTooltip} component.
@@ -69,6 +70,26 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
     }
 
     @Override
+    public void setTooltip(String tooltip, String... classes) {
+        setTooltip(tooltip);
+
+        if (this.tooltip.getWidget().isAttached()) {
+            addTooltipClass(classes);
+        } else {
+            this.tooltip.getWidget().addAttachHandler(event -> addTooltipClass(classes));
+        }
+    }
+
+    public void addTooltipClass(String... classes) {
+        JQueryElement tooltipElement = this.tooltip.getTooltipElement();
+        if (tooltipElement != null) {
+            for (String tooltipClass : classes) {
+                tooltipElement.addClass(tooltipClass);
+            }
+        }
+    }
+
+    @Override
     public Position getTooltipPosition() {
         return tooltip == null ? null : tooltip.getPosition();
     }
@@ -99,5 +120,10 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
     @Override
     public String getTooltipHTML() {
         return tooltip.getHtml();
+    }
+
+    @Override
+    public JQueryElement getTooltipElement() {
+        return tooltip.getTooltipElement();
     }
 }

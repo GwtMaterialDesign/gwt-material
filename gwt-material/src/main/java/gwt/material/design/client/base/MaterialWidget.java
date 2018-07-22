@@ -52,7 +52,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
         HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
-        HasInteractionHandlers, HasAllFocusHandlers, HasBorder, HasVerticalAlign, HasTransform, HasOrientation {
+        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -98,11 +98,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     private Map<Feature, Boolean> features;
     private List<Appender> onLoadAdd;
-
     private String[] initialClasses;
     protected JQueryElement $this;
-
     private HandlerRegistry handlerRegistry;
+    private String translationKey;
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -125,6 +124,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
     private ToggleStyleMixin<MaterialWidget> truncateMixin;
+    private FilterStyleMixin<MaterialWidget> filterMixin;
     private BorderMixin<MaterialWidget> borderMixin;
     private DimensionMixin<MaterialWidget> dimensionMixin;
     private VerticalAlignMixin<MaterialWidget> verticalAlignMixin;
@@ -406,8 +406,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
-    public double getOpacity() {
-        return Double.parseDouble(getElement().getStyle().getOpacity());
+    public Double getOpacity() {
+        try {
+            return Double.parseDouble(getElement().getStyle().getOpacity());
+        } catch (NumberFormatException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -526,6 +530,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
+    public void setTooltip(String tooltip, String... classes) {
+        getTooltipMixin().setTooltip(tooltip, classes);
+    }
+
+    @Override
     public Position getTooltipPosition() {
         return getTooltipMixin().getTooltipPosition();
     }
@@ -555,8 +564,24 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getTooltipMixin().getTooltipHTML();
     }
 
+    @Override
+    public JQueryElement getTooltipElement() {
+        return getTooltipMixin().getTooltipElement();
+    }
+
     public void setVisibility(Style.Visibility visibility) {
         getElement().getStyle().setVisibility(visibility);
+    }
+
+    /**
+     * Get the visibility style or null if not applied.
+     */
+    public Style.Visibility getVisibility() {
+        String visibility = getElement().getStyle().getVisibility();
+        if(visibility != null && !visibility.isEmpty()) {
+            return Style.Visibility.valueOf(visibility.toUpperCase());
+        }
+        return null;
     }
 
     @Override
@@ -688,7 +713,20 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public int getDepth() {
-        return Integer.parseInt(getElement().getStyle().getZIndex());
+        try {
+            return Integer.parseInt(getElement().getStyle().getZIndex());
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+
+    public void setFilterStyle(String property) {
+        getFilterStyleMixin().setFilterStyle(property);
+    }
+
+    @Override
+    public String getFilterStyle() {
+        return getFilterStyleMixin().getFilterStyle();
     }
 
     /**
@@ -1462,5 +1500,20 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             orientationMixin = new OrientationMixin<>(this);
         }
         return orientationMixin;
+    }
+
+    public FilterStyleMixin<MaterialWidget> getFilterStyleMixin() {
+        if (filterMixin == null) {
+            filterMixin = new FilterStyleMixin<>(this);
+        }
+        return filterMixin;
+    }
+
+    public void setTranslationKey(String key) {
+        this.translationKey = key;
+    }
+
+    public String getTranslationKey() {
+        return translationKey;
     }
 }

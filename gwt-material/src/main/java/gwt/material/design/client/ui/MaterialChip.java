@@ -26,12 +26,10 @@ import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Image;
-import gwt.material.design.client.base.AbstractValueWidget;
-import gwt.material.design.client.base.HasIcon;
-import gwt.material.design.client.base.HasImage;
-import gwt.material.design.client.base.HasLetter;
+import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.base.mixin.LetterMixin;
 import gwt.material.design.client.constants.*;
@@ -62,7 +60,8 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/chips.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter, HasValue<String>, HasCloseHandlers {
+public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter,
+        HasValue<String>, HasCloseHandlers, HasType<ChipType> {
 
     private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
@@ -70,6 +69,7 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     private ImageMixin<MaterialImage> imageMixin;
     private LetterMixin<MaterialChip> letterMixin;
+    private CssTypeMixin<ChipType, MaterialChip> typeMixin;
 
     public MaterialChip() {
         super(Document.get().createDivElement(), CssName.CHIP);
@@ -132,7 +132,7 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     @Override
     public String getValue() {
-        return chipLabel.getElement().getInnerText();
+        return SafeHtmlUtils.fromString(chipLabel.getElement().getInnerText()).asString();
     }
 
     @Override
@@ -228,6 +228,16 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
         getLetterMixin().setLetterBackgroundColor(letterBackgroundColor);
     }
 
+    @Override
+    public void setType(ChipType type) {
+        getTypeMixin().setType(type);
+    }
+
+    @Override
+    public ChipType getType() {
+        return getTypeMixin().getType();
+    }
+
     public MaterialImage getImage() {
         return image;
     }
@@ -257,5 +267,12 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
             imageMixin = new ImageMixin<>(image);
         }
         return imageMixin;
+    }
+
+    public CssTypeMixin<ChipType, MaterialChip> getTypeMixin() {
+        if (typeMixin == null) {
+            typeMixin = new CssTypeMixin<>(this);
+        }
+        return typeMixin;
     }
 }

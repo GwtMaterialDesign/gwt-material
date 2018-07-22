@@ -27,7 +27,7 @@
     "http://gwtproject.org/doctype/2.8.0/gwt-module.dtd">
 <module>
   <inherits name="gwt.material.design.GwtMaterialDesignBase"/>
-  <inherits name="gwt.material.design.ResourcesBasic"/>
+  <inherits name="gwt.material.design.ResourcesBasicDebug"/>
 
   <!-- Specify the app entry point class -->
   <entry-point class="gwt.material.design.client.MaterialDesignDebug"/>

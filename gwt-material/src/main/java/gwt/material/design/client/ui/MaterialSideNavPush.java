@@ -58,6 +58,8 @@ public class MaterialSideNavPush extends AbstractSideNav implements HasWithHeade
 
     public MaterialSideNavPush() {
         super(SideNavType.PUSH);
+
+        setAutoHideOnResize(true);
         setShowOnAttach(true);
     }
 

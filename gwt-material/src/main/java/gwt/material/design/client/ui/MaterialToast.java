@@ -81,6 +81,7 @@ public class MaterialToast {
      *
      * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
+     *                   If value is less than 0 - then it will be treated as unlimited duration
      */
     public static void fireToast(String msg, int lifeMillis) {
         fireToast(msg, lifeMillis, null);
@@ -91,6 +92,7 @@ public class MaterialToast {
      *
      * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
+     *                   If value is less than 0 - then it will be treated as unlimited duration
      * @param className  class name to custom style your toast.
      */
     public static void fireToast(String msg, int lifeMillis, String className) {
@@ -117,6 +119,7 @@ public class MaterialToast {
     /**
      * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
+     *                   If value is less than 0 - then it will be treated as unlimited duration
      */
     public void toast(String msg, int lifeMillis) {
         toast(msg, lifeMillis, null);
@@ -133,6 +136,7 @@ public class MaterialToast {
     /**
      * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
+     *                   If value is less than 0 - then it will be treated as unlimited duration
      * @param className  class name to custom style your toast.
      */
     public void toast(String msg, int lifeMillis, String className) {
@@ -153,11 +157,17 @@ public class MaterialToast {
     }
 
     protected void toast(String msg, int lifeMillis, String id, String className, Functions.Func callback) {
-        JsMaterialElement.toast(msg, lifeMillis, className, () -> {
+        Object duration = lifeMillis;
+        if (lifeMillis <= 0) {
+            duration = "unlimited";
+        }
+
+        JsMaterialElement.toast(msg, duration, className, () -> {
             if (callback != null) {
                 callback.call();
             }
         });
+
         $(".toast." + id).attr("id", id);
     }
 }

@@ -19,12 +19,14 @@
     outline: 0;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
 }
 
-a:hover, a:visited {
+a:hover,
+a:visited {
     color: none !important;
     text-decoration: none !important;
 }
@@ -41,15 +43,24 @@ div {
     display: block;
 }
 
+/*
+* IE Fixed for staircase issue
+* Read more under SECTION 2 : https://code.tutsplus.com/tutorials/9-most-common-ie-bugs-and-how-to-fix-them--net-7764
+*/
+nav ul li a {
+    float: left;
+}
+
 /** Badge **/
 nav ul a span.badge {
     margin-left: 8px !important;
     float: right;
-    margin-top: 20px;
+    margin-top: 22px;
 }
 
 .side-nav .badge {
     float: right;
+    top: 22px;
 }
 
 .sideBarBadge {
@@ -82,10 +93,12 @@ nav ul a span.badge {
 /** Button **/
 button.btn-flat:focus {
     outline: none;
-    background-color: inherit;
+    background-color: transparent;
 }
 
-button.disabled, i.disabled, a.disabled {
+button.disabled,
+i.disabled,
+a.disabled {
     background-color: #DFDFDF !important;
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -93,13 +106,18 @@ button.disabled, i.disabled, a.disabled {
     color: #9F9F9F !important;
     cursor: default !important;
     transition: none !important;
+    pointer-events: none;
 }
 
-i.disabled, a.disabled {
+i.disabled,
+a.disabled,
+a.disabled i {
+    color: #9F9F9F !important;
     background-color: transparent !important;
 }
 
-button.disabled:hover, i.disabled:hover {
+button.disabled:hover,
+i.disabled:hover {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
@@ -152,7 +170,8 @@ button.disabled:hover, i.disabled:hover {
     float: left;
 }
 
-.landscape .card-image img, .horizontal.card {
+.landscape .card-image img,
+.horizontal.card {
     height: 120px;
 }
 
@@ -161,7 +180,8 @@ button.disabled:hover, i.disabled:hover {
 }
 
 /** CheckBox **/
-[type="checkbox"]:not (:checked ), [type="checkbox"]:checked {
+[type="checkbox"]:not (:checked ),
+[type="checkbox"]:checked {
     position: absolute;
     left: -9999px;
 }
@@ -220,6 +240,20 @@ button.disabled:hover, i.disabled:hover {
     text-align: center;
 }
 
+.outlined.chip .letter {
+    width: 30px;
+    height: 30px;
+}
+
+/** Outlined Chips (MD2) **/
+.chip.outlined,
+.chip.outlined:hover,
+.chip.outlined:active,
+.chip.outlined:focus {
+    border: 1px solid #0000001e;
+    background-color: transparent;
+}
+
 /** Collapsible **/
 .collapsible-body {
     margin: 0;
@@ -228,7 +262,7 @@ button.disabled:hover, i.disabled:hover {
 
 .collapsible li.active .collapsible-body .input-field label {
     font-size: 0.8rem;
-    transform: translateY(-140%); }
+    transform: translateY(-140%);
 }
 
 .collapsible-header > i {
@@ -249,7 +283,8 @@ ul.collection .collection-item .secondary-content i {
     margin-top: -28px;
 }
 
-ul.collection .collection-item .gwt-Label, ul.collection .collection-item a:first-child {
+ul.collection .collection-item .gwt-Label,
+ul.collection .collection-item a:first-child {
     display: block;
 }
 
@@ -278,7 +313,9 @@ table .gwt-CheckBox label {
 }
 
 /** Date Picker - Landscape **/
-.picker__close, .picker__today, .picker__clear {
+.picker__close,
+.picker__today,
+.picker__clear {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -347,6 +384,10 @@ table .gwt-CheckBox label {
     padding: 0 !important;
 }
 
+.picker .picker__select--year.browser-default {
+    width: 26%;
+}
+
 /** Dropdown **/
 ul.dropdown-content {
     max-height: 70vh !important;
@@ -363,7 +404,8 @@ ul.dropdown-content.disabled {
     display: none;
 }
 
-ul.dropdown-content li > a, .dropdown-content li > span {
+ul.dropdown-content li > a,
+.dropdown-content li > span {
     width: 100%;
 }
 
@@ -380,12 +422,14 @@ ul.dropdown-content {
 }
 
 /** Errors **/
-.field-error, .field-error-picker input {
+.field-error,
+.field-error-picker input {
     border-bottom: 1px solid #F44336 !important;
     box-shadow: 0 1px 0 0 #F44336 !important;
 }
 
-.field-error-label, .field-success-label {
+.field-error-label,
+.field-success-label {
     color: #F44336 !important;
     font-size: 12px;
     opacity: 1 !important;
@@ -401,9 +445,25 @@ ul.dropdown-content {
     opacity: 1 !important;
 }
 
-.field-success, .field-success-picker input {
+.field-success,
+.field-success-picker input {
     border-bottom: 1px solid #4CAF50 !important;
     box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
+
+/** Outlined Button (MD2) **/
+button.btn-outlined,
+button.btn-outlined:hover,
+button.btn-outlined:focus,
+button.btn-outlined:active {
+    border: 1px solid #0000001e;
+    box-shadow: none;
+    background-color: white;
+    color: #000;
+}
+
+button.btn-outlined.disabled {
+    background-color: transparent !important;
 }
 
 /** Floating Action Button **/
@@ -478,6 +538,19 @@ footer.fixed {
     left: 0px;
 }
 
+.row .col.input-field {
+    min-height: 72px;
+    margin-bottom: 0px;
+}
+
+.row .col.input-field textarea {
+    margin-bottom: 4px;
+}
+
+.row .col.input-field input {
+    margin-bottom: 8px;
+}
+
 .row > .input-field label {
     left: 0.75rem !important;
 }
@@ -486,6 +559,17 @@ footer.fixed {
     to {
         background: transparent;
     }
+}
+
+/** IE Fixed for having the huge clear button **/
+.input-field input::-ms-clear {
+    display: none;
+}
+
+/** Autofill fixed layout **/
+input:-webkit-autofill + label {
+    font-size: 0.8rem !important;
+    transform: translateY(-112%);
 }
 
 nav .input-field {
@@ -497,6 +581,202 @@ input:-webkit-autofill {
     -webkit-animation-fill-mode: both !important;;
 }
 
+/** Type[number] spinner fixed for firefox and safari **/
+.input-field.disabled input[type=number]::-webkit-inner-spin-button,
+.input-field.disabled input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-field.disabled input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.input-field.disabled input[type="number"]:focus {
+    color: rgba(0, 0, 0, 0.26);
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.input-field.disabled label {
+    color: rgba(0, 0, 0, 0.26) !important;
+}
+
+/** Aligned Label **/
+.input-field.aligned-label input {
+    width: 70%;
+    display: inline;
+    position: relative;
+    vertical-align: middle;
+}
+
+.input-field.aligned-label label,
+.input-field.aligned-label label.active {
+    width: 30%;
+    display: inline;
+    position: relative;
+    float: left;
+    vertical-align: middle;
+    transform: none;
+    font-size: 1em;
+    color: rgba(0, 0, 0, .87);
+    top: 24px;
+}
+
+.input-field.aligned-label .field-error-label,
+.input-field.aligned-label .field-success-label,
+.input-field.aligned-label .field-helper-label {
+    padding-left: 30%;
+}
+
+.input-field.filled input,
+.input-field.outlined input {
+    padding: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.input-field.filled label,
+.input-field.outlined label {
+    margin-left: 12px;
+}
+
+.input-field.filled label:active,
+.input-field.outlined label:active {
+    margin-left: 8px;
+}
+
+/** Filled Type **/
+.input-field.filled input,
+.input-field.filled textarea {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 4px 4px 0px 0px;
+    padding-top: 18px;
+}
+
+.input-field.filled textarea,
+.input-field.outlined textarea {
+    padding-left: 12px;
+    width: calc(100% - 24px);
+    padding-right: 12px;
+}
+
+.input-field.filled input:focus {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.input-field.filled label.active {
+    -webkit-transform: translateY(-64%);
+    -moz-transform: translateY(-64%);
+    -ms-transform: translateY(-64%);
+    -o-transform: translateY(-64%);
+    transform: translateY(-64%);
+}
+
+.input-field.filled.listbox-wrapper input.select-dropdown {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 4px 4px 0px 0px;
+    padding-left: 12px;
+    padding-top: 12px;
+}
+
+.input-field.filled.listbox-wrapper label {
+    padding-top: 14px;
+}
+
+.input-field.filled .field-error-label,
+.input-field.filled .field-success-label,
+.input-field.filled .field-helper-label {
+    padding-left: 12px;
+}
+
+/** Outlined Type **/
+.input-field.outlined input,
+.input-field.outlined input.valid,
+.input-field.outlined textarea,
+.input-field.outlined input.select-dropdown {
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.input-field.outlined input.select-dropdown {
+    padding-left: 12px;
+}
+
+.input-field.outlined .select-wrapper + label {
+    top: -10px;
+    background: white;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 8px;
+}
+
+.input-field.outlined input:focus,
+.input-field.outlined textarea:focus,
+.input-field.outlined input.picker__input--active {
+    border: 2px solid #42a5f5;
+    box-shadow: none;
+}
+
+.input-field.outlined label.active,
+.input-field.outlined input:-webkit-autofill + label {
+    padding: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background: white;
+    margin-top: 4px;
+    margin-left: 8px;
+    z-index: 1;
+}
+
+.modal .input-field.outlined label.active,
+.modal .input-field.outlined .select-wrapper + label,
+.modal .input-field.outlined input:-webkit-autofill + label {
+    background-color: #fafafa;
+}
+
+.input-field.outlined.field-error input.select-dropdown,
+.input-field.outlined input.invalid,
+.input-field.outlined input.invalid:focus,
+.input-field.outlined textarea.invalid,
+.input-field.outlined textarea.invalid:focus,
+.input-field.outlined input.invalid.picker__input--active {
+    border: 2px solid #f44336;
+    box-shadow: none;
+    margin-bottom: 8px;
+}
+
+.input-field.outlined.field-success input.select-dropdown,
+.input-field.outlined input.valid,
+.input-field.outlined input.valid:focus,
+.input-field.outlined textarea.valid,
+.input-field.outlined textarea.valid:focus,
+.input-field.outlined input.valid.picker__input--active {
+    border: 2px solid #4caf50;
+    box-shadow: none;
+}
+
+.input-field.outlined .field-error-label,
+.input-field.outlined .field-success-label,
+.input-field.outlined .field-helper-label {
+    margin-left: 14px;
+}
+
+.input-field.field-error.listbox-wrapper.outlined input.select-dropdown {
+    border: 2px solid #F44336;
+}
+
+/** TextArea **/
+.input-field.aligned-label textarea {
+    width: 70%;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
 /** ListBox **/
 .input-field .select-wrapper.gwt-ListBox + label.active {
     -webkit-transform: translateY(0);
@@ -504,6 +784,32 @@ input:-webkit-autofill {
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
     transform: translateY(0);
+}
+
+.input-field .select-wrapper.gwt-ListBox .caret:before {
+    content: "";
+    position: absolute;
+    right: 8px;
+    bottom: 12px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 12px 12px;
+    border-color: transparent transparent #9c9c9c transparent;
+}
+
+.input-field.aligned-label .select-wrapper.gwt-ListBox .caret:before {
+    bottom: 26px;
+}
+
+.input-field .select-wrapper.gwt-ListBox .caret.disabled:before {
+    border-color: transparent transparent #c7c7c7 transparent;
+}
+
+.input-field .select-wrapper.gwt-ListBox .caret.disabled,
+.input-field .select-wrapper .caret {
+    color: transparent;
+    bottom: 0;
 }
 
 .input-field.listbox-wrapper {
@@ -519,6 +825,26 @@ input:-webkit-autofill {
 .field-success.input-field.listbox-wrapper input.select-dropdown {
     border-bottom: 1px solid #4CAF50 !important;
     box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
+
+/** ListBox - AlignedLabel **/
+.input-field.aligned-label .select-wrapper {
+    width: 70%;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+/**
+* ListBox - Fixed for Safari9+ Issue with Blinking Indicator on IOS Devices
+* Read More - https://stackoverflow.com/questions/38848742/material-select-blinking-on-ios
+**/
+input.select-dropdown {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 /** Loader */
@@ -543,7 +869,8 @@ input:-webkit-autofill {
 }
 
 /** Modals **/
-.modal.fullscreen, .modal.modal-fixed-footer.fullscreen {
+.modal.fullscreen,
+.modal.modal-fixed-footer.fullscreen {
     width: 100%;
     max-height: 100%;
     height: 100%;
@@ -586,7 +913,8 @@ nav .brand-logo img {
     padding: 12px;
 }
 
-nav.navbar-shrink, nav.navbar-shrink .brand-logo {
+nav.navbar-shrink,
+nav.navbar-shrink .brand-logo {
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
     -ms-transition: 0.3s;
@@ -643,7 +971,8 @@ nav.pinned {
     -moz-transition: 1s all;
 }
 
-.navmenu-permanent, .drag-target {
+.navmenu-permanent,
+.drag-target {
     visibility: hidden !important;
 }
 
@@ -653,7 +982,8 @@ nav.pinned {
     box-shadow: 1px 1px #e9e9e9;
 }
 
-.read-only input, .read-only textarea {
+.read-only input,
+.read-only textarea {
     border: none !important;
     box-shadow: none !important;
     color: #000 !important;
@@ -702,7 +1032,8 @@ nav.pinned {
     margin-left: 0px;
 }
 
-.search-result a:hover, .search-result a.higlighted {
+.search-result a:hover,
+.search-result a.higlighted {
     background-color: #eeeeee;
 }
 
@@ -732,7 +1063,8 @@ ul.side-nav .brand-logo {
     border-bottom: 1px solid #e9e9e9;
 }
 
-ul.side-nav.fixed a, ul.side-nav a {
+ul.side-nav.fixed a,
+ul.side-nav a {
     width: 100%;
     display: flex;
     line-height: normal;
@@ -744,12 +1076,17 @@ ul.side-nav li {
 }
 
 ul.side-nav i {
-    font-size: 2em !important;
+    font-size: 2em;
     width: 2rem;
     line-height: inherit;
 }
 
-ul.side-nav .collapsible-header, .side-nav .collapsible-body {
+ul.side-nav .sidenav-content i {
+    font-size: 1.6em;
+}
+
+ul.side-nav .collapsible-header,
+.side-nav .collapsible-body {
     padding: 0 !important;
     margin: 0 !important;
 }
@@ -772,7 +1109,8 @@ ul.side-nav.right-aligned {
 }
 
 /** SideNav Card **/
-ul.side-nav.card, .side-nav.drawer-with-header {
+ul.side-nav.card,
+.side-nav.drawer-with-header {
     position: absolute;
 }
 
@@ -800,7 +1138,8 @@ ul.side-nav.push-with-header {
 }
 
 /** Sidenav Mini **/
-ul.side-nav.mini, ul.side-nav.mini-with-expand {
+ul.side-nav.mini,
+ul.side-nav.mini-with-expand {
     top: 65px;
     text-align: center;
     overflow-x: hidden;
@@ -881,6 +1220,16 @@ ul.side-nav.mini-with-expand li a span {
     background-color: #D4D4D4;
 }
 
+/** Range Slider **/
+/** Fixed for IE issue with multiple indicator https://github.com/GwtMaterialDesign/gwt-material/issues/815 **/
+::-ms-tooltip {
+    display: none;
+}
+
+input[type=range]::-ms-fill-lower {
+    background-color: #deddde !important;
+}
+
 /** Tabs **/
 ul.tabs {
     overflow: hidden !important;
@@ -899,7 +1248,8 @@ ul.tabs .tab.disabled {
     opacity: 0.5;
 }
 
-ul.tabs .tab a i, .tabs .tab a span {
+ul.tabs .tab a i,
+.tabs .tab a span {
     float: none !important;
     display: inline-block;
     vertical-align: top;
@@ -919,7 +1269,8 @@ i[class*="waves-"].material-icons {
 }
 
 /** Animations **/
-.materialScaleInitial, .pullInitial {
+.materialScaleInitial,
+.pullInitial {
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -972,7 +1323,9 @@ i[class*="waves-"].material-icons {
 /** Media Queries **/
 @media screen and (max-width: 992px) {
     /** Global **/
-    header, footer, main {
+    header,
+    footer,
+    main {
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding-left: 0 !important;
@@ -985,7 +1338,9 @@ i[class*="waves-"].material-icons {
     }
 
     /** NavBar **/
-    .navmenu-permanent, .drag-target, #sidenav-overlay {
+    .navmenu-permanent,
+    .drag-target,
+    #sidenav-overlay {
         visibility: visible !important;
     }
 
@@ -1014,7 +1369,7 @@ i[class*="waves-"].material-icons {
     }
 
     .input-field input[type=search] + label {
-        z-index: 999 !important;
+        z-index: 998 !important;
     }
 
     .search-result {
@@ -1057,6 +1412,11 @@ i[class*="waves-"].material-icons {
         position: fixed;
     }
 
+    /** Badge **/
+    nav ul a span.badge {
+        margin-top: 18px;
+    }
+
     /** Tabs **/
     .tabs.tab-icon a span {
         display: none !important;
@@ -1065,6 +1425,11 @@ i[class*="waves-"].material-icons {
     .tabs .tab a i {
         margin: auto;
         margin-top: 12px;
+    }
+
+    /** Images **/
+    .card .card-image img {
+        height: auto !important;
     }
 
     /** Table **/
@@ -1145,5 +1510,27 @@ i[class*="waves-"].material-icons {
 
     ul.side-nav.fixed {
         left: 0 !important;
+    }
+}
+
+/**
+* Fix IOS Issue - Auto zooms when focusing on input element. And also the excess box-shadow
+* Causing a border on the left part of input-fields on mobile devices.
+* Read more - https://github.com/Dogfalo/materialize/issues/5008
+**/
+@media screen and (max-width: 768px) {
+    .input-field input:not([type]),
+    .input-field input[type=text],
+    .input-field input[type=password],
+    .input-field input[type=email],
+    .input-field input[type=url],
+    .input-field input[type=time],
+    .input-field input[type=date],
+    .input-field input[type=datetime-local],
+    .input-field input[type=tel],
+    .input-field input[type=number],
+    .input-field input[type=search],
+    .input-field textarea.materialize-textarea {
+        font-size: 16px;
     }
 }

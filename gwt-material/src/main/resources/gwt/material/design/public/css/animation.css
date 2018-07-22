@@ -281,7 +281,7 @@
 }
 
 @-webkit-keyframes headShake {
-  0 {
+  0% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }
@@ -313,35 +313,35 @@
 }
 
 @keyframes headShake {
-0 {
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-}
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
 
-6.5% {
-  -webkit-transform: translateX(-6px) rotateY(-9deg);
-  transform: translateX(-6px) rotateY(-9deg);
-}
+  6.5% {
+    -webkit-transform: translateX(-6px) rotateY(-9deg);
+    transform: translateX(-6px) rotateY(-9deg);
+  }
 
-18.5% {
-  -webkit-transform: translateX(5px) rotateY(7deg);
-  transform: translateX(5px) rotateY(7deg);
-}
+  18.5% {
+    -webkit-transform: translateX(5px) rotateY(7deg);
+    transform: translateX(5px) rotateY(7deg);
+  }
 
-31.5% {
-  -webkit-transform: translateX(-3px) rotateY(-5deg);
-  transform: translateX(-3px) rotateY(-5deg);
-}
+  31.5% {
+    -webkit-transform: translateX(-3px) rotateY(-5deg);
+    transform: translateX(-3px) rotateY(-5deg);
+  }
 
-43.5% {
-  -webkit-transform: translateX(2px) rotateY(3deg);
-  transform: translateX(2px) rotateY(3deg);
-}
+  43.5% {
+    -webkit-transform: translateX(2px) rotateY(3deg);
+    transform: translateX(2px) rotateY(3deg);
+  }
 
-50% {
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-}
+  50% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
 }
 
 .headShake {
@@ -3340,15 +3340,17 @@
 }
 
 /** SHOW GRID **/
-.display-animation{
-	opacity: 1 !important;
+.display-animation {
+  opacity: 1 !important;
 }
+
 .display-animation > * {
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   -o-transform: scale(0);
   transform: scale(0);
 }
+
 .display-animation > .animated {
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
@@ -3358,6 +3360,7 @@
   -o-transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
   transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
 }
+
 .no-js .display-animation > * {
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
@@ -3365,7 +3368,7 @@
   transform: scale(1);
 }
 
-.display-animation > .closed{
+.display-animation > .closed {
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   -o-transform: scale(0);

@@ -106,7 +106,7 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
         range.setMax(MAX);
         range.setValue(VALUE);
         assertEquals(VALUE, range.getValue());
-        range.setError("some-error");
+        range.setErrorText("some-error");
         range.reset();
         assertEquals(MIN, range.getValue());
         assertFalse(range.getElement().hasClassName(CssName.FIELD_ERROR));

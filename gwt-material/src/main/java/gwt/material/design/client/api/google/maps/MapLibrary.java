@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2018 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,23 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
-
-//@formatter:off
-
-import gwt.material.design.client.constants.CssName;
+package gwt.material.design.client.api.google.maps;
 
 /**
- * Footer container for Material Modal
+ * Set of Google Maps Library used in {@link GoogleMapsApi#getLibrary()}
  *
  * @author kevzlou7979
- * @author Ben Dol
- * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#dialogs">Material Modal</a>
- * @see <a href="https://material.io/guidelines/components/dialogs.html#">Material Design Specification</a>
- *///@formatter:on
-public class MaterialModalFooter extends MaterialPanel {
-
-    public MaterialModalFooter() {
-        super(CssName.MODAL_FOOTER);
-    }
+ */
+public enum MapLibrary {
+    DRAWING,
+    GEOMETRY,
+    PLACES,
+    VISUALIZATION
 }
