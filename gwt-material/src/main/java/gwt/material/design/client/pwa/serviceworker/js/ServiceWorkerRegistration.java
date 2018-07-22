@@ -20,6 +20,7 @@
 package gwt.material.design.client.pwa.serviceworker.js;
 
 
+import gwt.material.design.client.pwa.push.js.Notification;
 import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.jscore.client.api.promise.Promise;
 import gwt.material.design.client.pwa.push.js.PushManager;
@@ -102,4 +103,16 @@ public class ServiceWorkerRegistration {
      */
     @JsMethod
     public native Promise unregister();
+
+    /**
+     * Returns a Promise that resolves to an array of {@link Notification} objects.
+     */
+    @JsMethod
+    public native Promise getNotifications();
+
+    /**
+     * Displays the notification with the requested title.
+     */
+    @JsMethod
+    public native void showNotification(String title, Notification notification);
 }
