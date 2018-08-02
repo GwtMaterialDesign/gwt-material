@@ -30,14 +30,19 @@ public final class EventHelper {
 
     public static void onAttachOnce(HasAttachHandlers has, AttachEvent.Handler handler) {
         HandlerRegistration[] reg = new HandlerRegistration[1];
-        reg[0] = has.addAttachHandler(event -> {
-            if(event.isAttached()) {
-                handler.onAttachOrDetach(event);
 
-                if (reg[0] != null) {
-                    reg[0].removeHandler();
+        if (has.isAttached()) {
+            handler.onAttachOrDetach(null);
+        } else {
+            reg[0] = has.addAttachHandler(event -> {
+                if (event.isAttached()) {
+                    handler.onAttachOrDetach(event);
+
+                    if (reg[0] != null) {
+                        reg[0].removeHandler();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

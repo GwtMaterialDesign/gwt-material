@@ -627,7 +627,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setValue(T value, boolean fireEvents) {
         int index = values.indexOf(value);
-        if (index >= 0) {
+        if (index < 0 && value instanceof String) {
+            index = getIndexByString((String) value);
+        }
+
+        if (index > -1) {
             T before = getValue();
             setSelectedIndexInternal(index);
 
@@ -635,6 +639,28 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
                 ValueChangeEvent.fireIfNotEqual(this, before, value);
             }
         }
+    }
+
+    // TODO: Optimize performance (maybe use a map)
+    public T getValueByString(String key) {
+        for (T value : values) {
+            if (keyFactory.generateKey(value).equals(key)) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    // TODO: Optimize performance (maybe use a map)
+    public int getIndexByString(String key) {
+        int index = -1;
+        for (T value : values) {
+            index++;
+            if (keyFactory.generateKey(value).equals(key)) {
+                return index;
+            }
+        }
+        return index;
     }
 
     public boolean isOld() {

@@ -190,8 +190,6 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     /**
      * As of now use {@link MaterialDatePicker#setSelectionType(MaterialDatePickerType)}
-     *
-     * @param type
      */
     @Deprecated
     public void setDateSelectionType(MaterialDatePickerType type) {
@@ -399,12 +397,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     @Override
     public Date getValue() {
-        if (isAttached()) {
-            return getPickerDate();
-        }
-        else {
-            return this.date;
-        }
+        return isAttached() ? getPickerDate() : this.date;
     }
 
     @Override
@@ -412,15 +405,15 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         this.date = value;
         if (value == null) {
             clear();
-            return;
+        } else {
+            if (isAttached()) {
+                suppressChangeEvent = !fireEvents;
+                setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
+                suppressChangeEvent = false;
+                label.addStyleName(CssName.ACTIVE);
+            }
+            super.setValue(value, fireEvents);
         }
-        if (isAttached()) {
-            suppressChangeEvent = !fireEvents;
-            setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
-            suppressChangeEvent = false;
-            label.addStyleName(CssName.ACTIVE);
-        }
-        super.setValue(value, fireEvents);
     }
 
     @Override
@@ -476,7 +469,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         if (language.getJs() != null) {
             ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
             getPicker().stop();
-            Scheduler.get().scheduleDeferred(() -> load());
+            Scheduler.get().scheduleDeferred(this::load);
         }
     }
 
