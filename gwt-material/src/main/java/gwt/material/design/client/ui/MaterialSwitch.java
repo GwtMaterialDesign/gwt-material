@@ -198,26 +198,6 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         this.label = label;
     }
 
-    @Override
-    public void setErrorText(String errorText) {
-        getStatusTextMixin().setErrorText(errorText);
-    }
-
-    @Override
-    public void setSuccessText(String successText) {
-        getStatusTextMixin().setSuccessText(successText);
-    }
-
-    @Override
-    public void setHelperText(String helperText) {
-        getStatusTextMixin().setHelperText(helperText);
-    }
-
-    @Override
-    public void clearStatusText() {
-        getStatusTextMixin().clearStatusText();
-    }
-
     /**
      * Set the On State Label of the switch component
      */
