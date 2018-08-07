@@ -30,5 +30,5 @@
   <public path="public"/>
 
   <stylesheet src="css/animation.min.css"/>
-  <stylesheet src="css/material-icons.css"/>
+  <stylesheet src="css/material-icons.min.css"/>
 </module>
