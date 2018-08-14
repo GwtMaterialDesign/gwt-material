@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,6 +38,7 @@ import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -242,7 +243,6 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     @Override
     public void unload() {
-        $("#sidenav-overlay").remove();
         activator = null;
     }
 
@@ -402,6 +402,7 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     protected void onClosing() {
         open = false;
+        $("#sidenav-overlay").remove();
         SideNavClosingEvent.fire(this);
     }
 
@@ -411,6 +412,8 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     protected void onOpening() {
         open = true;
+
+        $("#sidenav-overlay").each((param1, element) -> element.removeFromParent());
         SideNavOpeningEvent.fire(this);
     }
 
@@ -418,6 +421,9 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         if (allowBodyScroll) {
             RootPanel.getBodyElement().getStyle().clearOverflow();
         }
+
+        String overlayZIndex = $("#sidenav-overlay").css("zIndex");
+        $(".drag-target").css("zIndex", (overlayZIndex != null ? Integer.parseInt(overlayZIndex) : 1) + "");
         SideNavOpenedEvent.fire(this);
     }
 
@@ -550,6 +556,14 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     public Element getActivator() {
         return activator;
+    }
+
+    public JQueryElement getOverlayElement() {
+        return $("#sidenav-overlay");
+    }
+
+    public JQueryElement getDragTargetElement() {
+        return $(".drag-target");
     }
 
     @Override
