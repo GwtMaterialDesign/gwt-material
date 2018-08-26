@@ -156,7 +156,7 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
                 header.removeStyleName(CssName.ACTIVE);
             }
             if (active) {
-                if (parent != null) {
+                if (parent != null && !parent.isAccordion()) {
                     parent.clearActive();
                 }
                 addStyleName(CssName.ACTIVE);

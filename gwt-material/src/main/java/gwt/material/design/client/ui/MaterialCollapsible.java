@@ -236,7 +236,9 @@ public class MaterialCollapsible extends MaterialWidget
 
     @Override
     public void setActive(int index) {
-        clearActive();
+        if (!isAccordion()) {
+            clearActive();
+        }
         setActive(index, true);
     }
 
