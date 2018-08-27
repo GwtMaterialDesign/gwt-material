@@ -23,16 +23,17 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.CollapsibleType;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.events.ClearActiveEvent;
 import gwt.material.design.client.events.ClearActiveEvent.ClearActiveHandler;
 import gwt.material.design.client.events.CollapseEvent;
 import gwt.material.design.client.events.ExpandEvent;
-import gwt.material.design.client.base.HasCollapsibleHandlers;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -173,13 +174,24 @@ public class MaterialCollapsible extends MaterialWidget
         ClearActiveEvent.fire(this);
     }
 
+    @Override
+    protected void clearActiveClass(HasWidgets widget) {
+        super.clearActiveClass(widget);
+
+        for (Widget child : widget) {
+            if (child instanceof MaterialCollapsibleBody) {
+                ((MaterialCollapsibleBody) child).setDisplay(Display.NONE);
+            }
+        }
+    }
+
     /**
      * Open the given collapsible item.
      *
      * @param index the one-based collapsible item index.
      */
     public void open(int index) {
-        setActive(index, true);
+        setActive(index);
     }
 
     /**
@@ -236,7 +248,7 @@ public class MaterialCollapsible extends MaterialWidget
 
     @Override
     public void setActive(int index) {
-        if (!isAccordion()) {
+        if (isAccordion()) {
             clearActive();
         }
         setActive(index, true);

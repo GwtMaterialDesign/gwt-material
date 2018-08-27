@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
@@ -129,6 +128,7 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
 
         // when / then
         collapsible.setAccordion(false);
+        assertFalse(collapsible.isAccordion());
         assertTrue(collapsible.getWidget(FIRST_ITEM) instanceof MaterialCollapsibleItem);
         assertTrue(collapsible.getWidget(SECOND_ITEM) instanceof MaterialCollapsibleItem);
 
@@ -145,6 +145,20 @@ public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsi
         assertTrue(item2.getElement().hasClassName(CssName.ACTIVE));
         item2.collapse();
         assertFalse(item2.getElement().hasClassName(CssName.ACTIVE));
+
+        // Test case for MaterialCollapsible Issue programtically setting more than one active
+        // https://github.com/GwtMaterialDesign/gwt-material/issues/869
+        item1.expand();
+        assertTrue(item1.getElement().hasClassName(CssName.ACTIVE));
+        item2.expand();
+        assertTrue(item2.getElement().hasClassName(CssName.ACTIVE));
+        assertTrue(item1.getElement().hasClassName(CssName.ACTIVE));
+        item1.collapse();
+        assertFalse(item1.getElement().hasClassName(CssName.ACTIVE));
+        assertTrue(item2.getElement().hasClassName(CssName.ACTIVE));
+        item2.collapse();
+        assertFalse(item1.getElement().hasClassName(CssName.ACTIVE));
+        assertFalse(item1.getElement().hasClassName(CssName.ACTIVE));
     }
 
     public void testProgress() {
