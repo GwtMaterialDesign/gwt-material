@@ -38,6 +38,7 @@ import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.js.JsSideNavOptions;
 import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.ListItem;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -401,6 +402,7 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     protected void onClosing() {
         open = false;
+        $("#sidenav-overlay").remove();
         SideNavClosingEvent.fire(this);
     }
 
@@ -410,17 +412,18 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     protected void onOpening() {
         open = true;
-        SideNavOpeningEvent.fire(this);
-        // Ensure to clean all the overlays attached before opening
-        // This will fixed multiple sidenav implementations with edge support.
-        $(".drag-target").remove();
+
         $("#sidenav-overlay").each((param1, element) -> element.removeFromParent());
+        SideNavOpeningEvent.fire(this);
     }
 
     protected void onOpened() {
         if (allowBodyScroll) {
             RootPanel.getBodyElement().getStyle().clearOverflow();
         }
+
+        String overlayZIndex = $("#sidenav-overlay").css("zIndex");
+        $(".drag-target").css("zIndex", (overlayZIndex != null ? Integer.parseInt(overlayZIndex) : 1) + "");
         SideNavOpenedEvent.fire(this);
     }
 
@@ -553,6 +556,14 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
 
     public Element getActivator() {
         return activator;
+    }
+
+    public JQueryElement getOverlayElement() {
+        return $("#sidenav-overlay");
+    }
+
+    public JQueryElement getDragTargetElement() {
+        return $(".drag-target");
     }
 
     @Override

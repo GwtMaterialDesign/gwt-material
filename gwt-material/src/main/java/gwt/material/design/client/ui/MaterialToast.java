@@ -19,12 +19,14 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -57,6 +59,8 @@ public class MaterialToast {
 
     private Functions.Func callback;
     private Widget[] widgets;
+
+    private JQueryElement element;
 
     public MaterialToast(Widget... widgets) {
         this.widgets = widgets;
@@ -140,23 +144,19 @@ public class MaterialToast {
      * @param className  class name to custom style your toast.
      */
     public void toast(String msg, int lifeMillis, String className) {
-        String genId = DOM.createUniqueId();
-        if (className == null) {
-            className = genId;
+        String id;
+        if (element != null) {
+            id = (String) element.attr("id");
         } else {
-            className += ' ' + genId;
+            id = DOM.createUniqueId();
         }
-        toast(msg, lifeMillis, genId, className, callback);
 
-        if (widgets != null) {
-            for (Widget widget : widgets) {
-                widget.getElement().getStyle().setPaddingLeft(30, Unit.PX);
-                RootPanel.get(genId).add(widget);
-            }
+        if (className == null) {
+            className = id;
+        } else {
+            className += ' ' + id;
         }
-    }
 
-    protected void toast(String msg, int lifeMillis, String id, String className, Functions.Func callback) {
         Object duration = lifeMillis;
         if (lifeMillis <= 0) {
             duration = "unlimited";
@@ -168,6 +168,43 @@ public class MaterialToast {
             }
         });
 
-        $(".toast." + id).attr("id", id);
+        element = $(".toast." + id);
+        element.attr("id", id);
+        //element.toggleClass(className, true);
+
+        if (widgets != null) {
+            RootPanel toast = RootPanel.get(id);
+            for (Widget widget : widgets) {
+                widget.getElement().getStyle().setPaddingLeft(20, Unit.PX);
+                toast.add(widget);
+            }
+        }
+    }
+
+    public void close() {
+        String id = getId();
+        if (id != null && !id.isEmpty()) {
+            Widget toast = RootPanel.get(id);
+            if (toast != null && toast.isAttached()) {
+                element.remove();
+            }
+        }
+    }
+
+    public boolean isOpen() {
+        String id = getId();
+        if (id != null && !id.isEmpty()) {
+            Widget toast = RootPanel.get(id);
+            return toast.isAttached() && toast.isVisible();
+        }
+        return false;
+    }
+
+    public String getId() {
+        return element != null ? (String) element.attr("id") : null;
+    }
+
+    public JQueryElement getElement() {
+        return element;
     }
 }

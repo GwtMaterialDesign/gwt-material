@@ -53,13 +53,15 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 //@formatter:on
 public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasStatusText {
 
+    private static String VALUE = "value";
+    private static String MAX = "max";
+    private static String MIN = "min";
+
     private Paragraph paragraph = new Paragraph();
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
     private Span value = new Span();
-    private static String VALUE = "value";
-    private static String MAX = "max";
-    private static String MIN = "min";
+
     private MaterialLabel errorLabel = new MaterialLabel();
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
 
@@ -193,41 +195,6 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      */
     public void setMax(Integer max) {
         setIntToRangeElement(MAX, max);
-    }
-
-    @Override
-    public void setErrorText(String errorText) {
-        getStatusTextMixin().setErrorText(errorText);
-    }
-
-    @Override
-    public void setSuccessText(String successText) {
-        getStatusTextMixin().setSuccessText(successText);
-    }
-
-    @Override
-    public void setHelperText(String helperText) {
-        getStatusTextMixin().setHelperText(helperText);
-    }
-
-    @Override
-    public void clearStatusText() {
-        getStatusTextMixin().clearStatusText();
-    }
-
-    @Override
-    public void clearErrorText() {
-        getStatusTextMixin().clearErrorText();
-    }
-
-    @Override
-    public void clearHelperText() {
-        getStatusTextMixin().clearHelperText();
-    }
-
-    @Override
-    public void clearSuccessText() {
-        getStatusTextMixin().clearSuccessText();
     }
 
     public MaterialLabel getErrorLabel() {
