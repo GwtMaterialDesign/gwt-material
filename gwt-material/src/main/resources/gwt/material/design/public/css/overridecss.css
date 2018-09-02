@@ -466,6 +466,28 @@ button.btn-outlined.disabled {
     background-color: transparent !important;
 }
 
+/** Ghost Button **/
+button.btn-ghost {
+    padding: 8px 20px;
+    border-radius: 26px;
+    color: #009fee;
+    font-size: 19px;
+    font-weight: 400;
+    background: 0;
+    border: 2px solid #009fee;
+    margin-top: 30px;
+    outline: 0;
+    -webkit-transition: all .16s linear;
+    -moz-transition: all .16s linear;
+    -o-transition: all .16s linear;
+    transition: all .16s linear;
+}
+
+button.btn-ghost:hover, button.btn-ghost:active {
+    background: #009fee;
+    color: #fff;
+}
+
 /** Floating Action Button **/
 .horizontal.fixed-action-btn ul {
     left: auto;
