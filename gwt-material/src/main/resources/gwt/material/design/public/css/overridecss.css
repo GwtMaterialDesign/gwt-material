@@ -467,15 +467,16 @@ button.btn-outlined.disabled {
 }
 
 /** Ghost Button **/
-button.btn-ghost {
-    padding: 8px 20px;
-    border-radius: 26px;
+button.btn-ghost, button.btn-ghost:focus {
+    padding: 0px 20px;
+    border-radius: 4px;
     color: #009fee;
-    font-size: 19px;
+    font-size: 1em;
     font-weight: 400;
     background: 0;
-    border: 2px solid #009fee;
-    margin-top: 30px;
+    height: 36px;
+    text-transform: uppercase;
+    border: 1.6px solid #009fee;
     outline: 0;
     -webkit-transition: all .16s linear;
     -moz-transition: all .16s linear;
@@ -486,6 +487,7 @@ button.btn-ghost {
 button.btn-ghost:hover, button.btn-ghost:active {
     background: #009fee;
     color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 /** Floating Action Button **/
@@ -669,6 +671,23 @@ input:-webkit-autofill {
 .input-field.filled label:active,
 .input-field.outlined label:active {
     margin-left: 8px;
+}
+
+/** With Icons **/
+.input-field.filled .prefix ~ input,
+.input-field.filled .prefix ~ textarea,
+.input-field.outlined .prefix ~ input,
+.input-field.outlined .prefix ~ textarea{
+    margin-left: 0px;
+    padding-left: 56px !important;
+    width: 100%;
+}
+
+.input-field.filled .prefix,
+.input-field.outlined .prefix{
+    padding-top: 6px;
+    padding-left: 8px;
+    color: #757575;
 }
 
 /** Filled Type **/
