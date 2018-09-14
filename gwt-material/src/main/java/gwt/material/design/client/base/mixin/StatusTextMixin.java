@@ -132,6 +132,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         }
 
         if (target != null) {
+            target.removeStyleName(CssName.INVALID);
             target.removeStyleName(CssName.FIELD_ERROR);
         }
 
@@ -151,6 +152,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         }
 
         if (target != null) {
+            target.removeStyleName(CssName.VALID);
             target.removeStyleName(CssName.FIELD_SUCCESS);
         }
 
