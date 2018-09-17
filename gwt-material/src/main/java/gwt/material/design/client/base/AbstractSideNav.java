@@ -29,6 +29,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.helper.DOMHelper;
+import gwt.material.design.client.base.mixin.OverlayStyleMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.base.viewport.ViewPort;
 import gwt.material.design.client.base.viewport.WidthBoundary;
@@ -52,7 +53,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  */
 //@formatter:on
-public abstract class AbstractSideNav extends MaterialWidget implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
+public abstract class AbstractSideNav extends MaterialWidget
+        implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers, HasOverlayStyle {
 
     protected int width = 240;
     protected int inDuration = 400;
@@ -68,6 +70,7 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     protected ViewPort autoHideViewport;
 
     private StyleMixin<MaterialSideNav> typeMixin;
+    private OverlayStyleMixin<AbstractSideNav> overlayStyleMixin;
 
     public AbstractSideNav() {
         super(Document.get().createULElement(), CssName.SIDE_NAV);
@@ -404,6 +407,8 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         open = false;
         $("#sidenav-overlay").remove();
         SideNavClosingEvent.fire(this);
+
+        resetOverlayStyle();
     }
 
     protected void onClosed() {
@@ -425,6 +430,7 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         String overlayZIndex = $("#sidenav-overlay").css("zIndex");
         $(".drag-target").css("zIndex", (overlayZIndex != null ? Integer.parseInt(overlayZIndex) : 1) + "");
         SideNavOpenedEvent.fire(this);
+        applyOverlayStyle(getOverlayElement());
     }
 
     /**
@@ -543,6 +549,26 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         return outDuration;
     }
 
+    @Override
+    public void setOverlayOption(OverlayOption overlayOption) {
+        getOverlayStyleMixin().setOverlayOption(overlayOption);
+    }
+
+    @Override
+    public OverlayOption getOverlayOption() {
+        return getOverlayStyleMixin().getOverlayOption();
+    }
+
+    @Override
+    public void applyOverlayStyle(JQueryElement overlayElement) {
+        getOverlayStyleMixin().applyOverlayStyle(getOverlayElement());
+    }
+
+    @Override
+    public void resetOverlayStyle() {
+        getOverlayStyleMixin().resetOverlayStyle();
+    }
+
     public void setClosingBoundary(WidthBoundary closingBoundary) {
         this.closingBoundary = closingBoundary;
     }
@@ -591,5 +617,12 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
             typeMixin = new StyleMixin(this);
         }
         return typeMixin;
+    }
+
+    protected OverlayStyleMixin<AbstractSideNav> getOverlayStyleMixin() {
+        if (overlayStyleMixin == null) {
+            overlayStyleMixin = new OverlayStyleMixin<>(this);
+        }
+        return overlayStyleMixin;
     }
 }
