@@ -964,7 +964,17 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         target.getStyle().setProperty("WebkitTransition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
         target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
     }
+    
+    public String getCursor() {
+        return getElement().getStyle().getCursor();
+    }
 
+    /**
+     * Will set the {@link com.google.gwt.dom.client.Style.Cursor} style property into this widget
+     */
+    public void setCursor(Style.Cursor cursor) {
+        getElement().getStyle().setCursor(cursor);
+    }
 
     /**
      * Add an {@code AttachHandler} for attachment events.
