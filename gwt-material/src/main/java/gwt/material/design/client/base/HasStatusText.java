@@ -19,7 +19,7 @@
  */
 package gwt.material.design.client.base;
 
-public interface HasStatusText extends HasHelperText, HasErrorText, HasSuccessText {
+public interface HasStatusText extends HasHelperText, HasErrorText, HasSuccessText, HasStatusDisplayType {
 
     void clearStatusText();
 }

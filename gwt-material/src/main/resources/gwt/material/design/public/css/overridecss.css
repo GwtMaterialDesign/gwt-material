@@ -451,6 +451,36 @@ ul.dropdown-content {
     box-shadow: 0 1px 0 0 #4CAF50 !important;
 }
 
+/** Errors - Hoverable **/
+.input-field.hoverable-status .field-error-label {
+    position: absolute;
+    background: #d32f2f;
+    width: calc(100% - 20px);
+    color: white !important;
+    min-height: 40px;
+    right: 0px;
+    border-radius: 8px;
+    padding: 12px;
+    margin-right: 12px;
+    font-size: 1em;
+    visibility: hidden;
+    opacity: 0;
+    transition: 400ms all;
+}
+
+.input-field.hoverable-status .field-error-label:after {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+}
+
+.input-field.hoverable-status:hover .field-error-label {
+    visibility: visible;
+    opacity: 1;
+}
+
 /** Outlined Button (MD2) **/
 button.btn-outlined,
 button.btn-outlined:hover,

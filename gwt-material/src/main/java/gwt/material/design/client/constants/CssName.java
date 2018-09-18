@@ -146,4 +146,5 @@ public interface CssName {
     String PREFIX = "prefix";
     String OFFLINE = "offline";
     String LISTBOX_WRAPPER = "listbox-wrapper";
+    String STATUS_ICON = "status-icon";
 }

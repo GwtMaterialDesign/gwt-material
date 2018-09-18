@@ -37,6 +37,7 @@ import gwt.material.design.client.base.validator.BlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent;
 import gwt.material.design.client.base.validator.Validator;
+import gwt.material.design.client.constants.StatusDisplayType;
 
 import java.util.List;
 
@@ -132,6 +133,16 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public boolean isSuccessTextVisible() {
         return getStatusTextMixin().isSuccessTextVisible();
+    }
+
+    @Override
+    public void setStatusDisplayType(StatusDisplayType displayType) {
+        getStatusTextMixin().setStatusDisplayType(displayType);
+    }
+
+    @Override
+    public StatusDisplayType getStatusDisplayType() {
+        return getStatusTextMixin().getStatusDisplayType();
     }
 
     @Override

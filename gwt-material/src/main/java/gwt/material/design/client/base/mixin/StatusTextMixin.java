@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,9 +20,14 @@
 package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasStatusText;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.StatusDisplayType;
+import gwt.material.design.client.ui.MaterialIcon;
 
 /**
  * @author Ben Dol
@@ -34,6 +39,8 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     private UIObject target;
     private UIObject lblPlaceholder;
     private String helperText;
+    private StatusDisplayType displayType = StatusDisplayType.DEFAULT;
+    private MaterialIcon statusIcon = new MaterialIcon(IconType.ERROR);
 
     public StatusTextMixin(final T widget) {
         this(widget, null);
@@ -74,6 +81,17 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             lblPlaceholder.addStyleName("red-text");
             if (errorText != null && !errorText.isEmpty()) {
                 lblPlaceholder.addStyleName(CssName.ACTIVE);
+            }
+        }
+
+        if (displayType == StatusDisplayType.HOVERABLE) {
+            uiObject.addStyleName(displayType.getCssName());
+            if (!statusIcon.getElement().hasClassName(CssName.STATUS_ICON)) {
+                statusIcon.addStyleName(CssName.STATUS_ICON);
+            }
+
+            if (uiObject instanceof HasWidgets) {
+                ((HasWidgets) uiObject).add(statusIcon);
             }
         }
     }
@@ -196,5 +214,15 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     public boolean isSuccessTextVisible() {
         return textObject != null && textObject.getStyleName().contains(CssName.FIELD_SUCCESS_LABEL)
                 && textObject.isVisible();
+    }
+
+    @Override
+    public void setStatusDisplayType(StatusDisplayType displayType) {
+        this.displayType = displayType;
+    }
+
+    @Override
+    public StatusDisplayType getStatusDisplayType() {
+        return displayType;
     }
 }
