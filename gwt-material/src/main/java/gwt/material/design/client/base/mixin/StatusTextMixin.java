@@ -24,11 +24,14 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasStatusText;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.StatusDisplayType;
 import gwt.material.design.client.ui.MaterialIcon;
 import gwt.material.design.client.ui.MaterialToast;
+import gwt.material.design.jquery.client.api.Event;
+import gwt.material.design.jquery.client.api.Functions;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -196,27 +199,35 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     }
 
     protected void addStatusDisplay(IconType iconType) {
-        if (displayType != null && !displayType.getCssName().isEmpty()) {
-            uiObject.addStyleName(displayType.getCssName());
-        }
-        if (!statusIcon.getElement().hasClassName(CssName.STATUS_ICON)) {
-            statusIcon.addStyleName(CssName.STATUS_ICON);
-            statusIcon.setIconType(iconType);
-        }
+        if (displayType == StatusDisplayType.HOVERABLE) {
+            if (displayType != null && !displayType.getCssName().isEmpty()) {
+                uiObject.addStyleName(displayType.getCssName());
+            }
+            if (!statusIcon.getElement().hasClassName(CssName.STATUS_ICON)) {
+                statusIcon.addStyleName(CssName.STATUS_ICON);
+                statusIcon.setIconType(iconType);
+            }
 
-        if (uiObject instanceof HasWidgets) {
-            statusIcon.addMouseOverHandler(event -> {
-                int width = $(textObject.getElement()).width() - 10;
-                int height = 44;
-                textObject.getElement().getStyle().setLeft(statusIcon.getAbsoluteLeft() - width, Style.Unit.PX);
-                textObject.getElement().getStyle().setTop(statusIcon.getAbsoluteTop() + height, Style.Unit.PX);
-                textObject.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
-            });
-            statusIcon.addMouseOutHandler(event -> {
-                textObject.getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
-            });
-            ((HasWidgets) uiObject).add(statusIcon);
+            if (uiObject instanceof HasWidgets && uiObject instanceof MaterialWidget) {
+                statusIcon.addMouseOverHandler(event -> showStatusPopup());
+                statusIcon.addMouseOutHandler(event -> hideStatusPopup());
+                ((HasWidgets) uiObject).add(statusIcon);
+                ((MaterialWidget) uiObject).addFocusHandler(event -> showStatusPopup());
+                ((MaterialWidget) uiObject).addBlurHandler(event -> hideStatusPopup());
+            }
         }
+    }
+
+    protected void showStatusPopup() {
+        int width = $(textObject.getElement()).width() - 10;
+        int height = 44;
+        textObject.getElement().getStyle().setLeft(statusIcon.getAbsoluteLeft() - width, Style.Unit.PX);
+        textObject.getElement().getStyle().setTop(statusIcon.getAbsoluteTop() + height, Style.Unit.PX);
+        textObject.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
+    }
+
+    protected void hideStatusPopup() {
+        textObject.getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
     }
 
     protected void resetStatusDisplay() {

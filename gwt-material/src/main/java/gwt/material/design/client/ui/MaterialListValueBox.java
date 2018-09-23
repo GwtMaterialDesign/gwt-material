@@ -75,8 +75,6 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
         HasConstrainedValue<T>, HasReadOnly, HasFieldTypes {
 
-    public static final String BLANK_VALUE_TEXT = "";
-
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
     protected final List<T> values = new ArrayList<>();
@@ -936,7 +934,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
                 values.clear();
                 values.add(null);
                 values.addAll(previous);
-                listBox.insertItem(BLANK_VALUE_TEXT, 0);
+                listBox.insertItem(AllowBlankKeyFactory.BLANK_VALUE_TEXT, 0);
                 setSelectedIndexInternal(-1);
             }
         }
@@ -1103,17 +1101,5 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setFieldWidth(double percentWidth) {
         getFieldTypeMixin().setFieldWidth(percentWidth);
-    }
-
-    class AllowBlankKeyFactory implements KeyFactory<T, String> {
-
-        @Override
-        public String generateKey(T object) {
-            if (object == null) {
-                return BLANK_VALUE_TEXT;
-            } else {
-                return object.toString();
-            }
-        }
     }
 }

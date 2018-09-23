@@ -920,6 +920,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getOrientationMixin().isDetectOrientation();
     }
 
+    public void setLetterSpacing(String value) {
+        getElement().getStyle().setProperty("letterSpacing", value);
+    }
+
+    public String getLetterSpacing() {
+       return getElement().getStyle().getProperty("letterSpacing");
+    }
+
     public HandlerRegistration registerHandler(HandlerRegistration handler) {
         return getHandlerRegistry().registerHandler(handler);
     }
