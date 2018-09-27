@@ -1,11 +1,8 @@
 package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasStatusDisplayType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Color;
@@ -13,8 +10,9 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.StatusDisplayType;
 import gwt.material.design.client.ui.MaterialIcon;
+import gwt.material.design.client.ui.MaterialToast;
 
-public class StatusDisplayMixin<T extends UIObject , H extends UIObject & HasText>
+public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText>
         extends AbstractMixin<T> implements HasStatusDisplayType {
 
     public enum StatusType {
@@ -26,7 +24,7 @@ public class StatusDisplayMixin<T extends UIObject , H extends UIObject & HasTex
     private StatusDisplayType displayType;
     private MaterialIcon statusIcon = new MaterialIcon();
     private CssNameMixin<T, StatusDisplayType> cssNameMixin;
-    private Panel statusIconContainer;
+    private Widget container;
 
     public StatusDisplayMixin(T uiObject, H textObject) {
         super(uiObject);
@@ -46,7 +44,8 @@ public class StatusDisplayMixin<T extends UIObject , H extends UIObject & HasTex
         return displayType;
     }
 
-    public void setStatusDisplay(StatusType statusType) {
+    @Override
+    public void updateStatusDisplay(StatusType statusType) {
         if (displayType == StatusDisplayType.HOVERABLE) {
 
             if (!statusIcon.getElement().hasClassName(CssName.STATUS_ICON)) {
@@ -61,13 +60,13 @@ public class StatusDisplayMixin<T extends UIObject , H extends UIObject & HasTex
                 statusIcon.setIconColor(Color.GREEN);
             }
 
-            if (statusIconContainer != null && statusIconContainer.isAttached()) {
-                statusIconContainer.add(statusIcon);
-            } else {
-                ((HasWidgets) uiObject).add(statusIcon);
-            }
-
             if (uiObject instanceof HasWidgets && uiObject instanceof MaterialWidget) {
+                if (container != null && container instanceof MaterialWidget) {
+                    ((MaterialWidget) container).insert(statusIcon, 0);
+                } else {
+                    ((HasWidgets) uiObject).add(statusIcon);
+                }
+
                 statusIcon.addMouseOverHandler(event -> showStatus());
                 statusIcon.addMouseOutHandler(event -> hideStatus());
                 ((MaterialWidget) uiObject).addFocusHandler(event -> showStatus());
@@ -96,12 +95,8 @@ public class StatusDisplayMixin<T extends UIObject , H extends UIObject & HasTex
         textObject.getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
     }
 
-    public Panel getStatusIconContainer() {
-        return statusIconContainer;
-    }
-
-    public void setStatusIconContainer(Panel statusIconContainer) {
-        this.statusIconContainer = statusIconContainer;
+    public void setContainer(Widget container) {
+        this.container = container;
     }
 
     public CssNameMixin<T, StatusDisplayType> getCssNameMixin() {

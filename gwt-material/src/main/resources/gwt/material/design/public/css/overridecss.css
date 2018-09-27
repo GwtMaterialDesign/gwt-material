@@ -388,6 +388,12 @@ table .gwt-CheckBox label {
     width: 26%;
 }
 
+/** DatePicker focus state **/
+.picker__input.picker__input--active {
+    border-bottom: 2px solid #42a5f5;
+    box-shadow: 0 2px 0 0 #42a5f5;
+}
+
 /** Dropdown **/
 ul.dropdown-content {
     max-height: 70vh !important;
@@ -453,7 +459,7 @@ ul.dropdown-content {
 
 /** Errors - Hoverable **/
 .input-field.hoverable-status .field-error-label,
-.input-field.hoverable-status .field-success-label{
+.input-field.hoverable-status .field-success-label {
     position: absolute;
     background: #D32F2F;
     color: white !important;
@@ -477,7 +483,7 @@ ul.dropdown-content {
 }
 
 .input-field.hoverable-status .field-error-label::before,
-.input-field.hoverable-status .field-success-label::before{
+.input-field.hoverable-status .field-success-label::before {
     content: "";
     width: 10px;
     height: 12px;
@@ -489,13 +495,29 @@ ul.dropdown-content {
     right: 12px;
 }
 
+.input-field.hoverable-status .field-success-label::before {
+    border-bottom: solid 12px #4caf50;
+}
+
 .input-field.hoverable-status i.status-icon {
     position: absolute;
     top: 10px;
     right: 20px;
+    color: #d32f2f;
+    z-index: 1;
 }
 
 .input-field.hoverable-status.disabled .status-icon {
+    display: none;
+}
+
+.input-field.hoverable-status input {
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+/** Hoverable - ListBox **/
+.input-field.hoverable-status.listbox-wrapper .caret {
     display: none;
 }
 
@@ -729,14 +751,14 @@ input:-webkit-autofill {
 .input-field.filled .prefix ~ input,
 .input-field.filled .prefix ~ textarea,
 .input-field.outlined .prefix ~ input,
-.input-field.outlined .prefix ~ textarea{
+.input-field.outlined .prefix ~ textarea {
     margin-left: 0px;
     padding-left: 56px !important;
     width: 100%;
 }
 
 .input-field.filled .prefix,
-.input-field.outlined .prefix{
+.input-field.outlined .prefix {
     padding-top: 6px;
     padding-left: 8px;
     color: #757575;

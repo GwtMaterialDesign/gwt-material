@@ -8,4 +8,6 @@ public interface HasStatusDisplayType {
     void setStatusDisplayType(StatusDisplayType displayType);
 
     StatusDisplayType getStatusDisplayType();
+
+    void updateStatusDisplay(StatusDisplayMixin.StatusType statusType);
 }

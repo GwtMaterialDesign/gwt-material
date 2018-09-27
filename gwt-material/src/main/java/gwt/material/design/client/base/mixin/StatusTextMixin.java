@@ -61,7 +61,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     public void setErrorText(String errorText) {
         clearSuccessText();
         clearHelperText();
-        setStatusDisplay(StatusDisplayMixin.StatusType.ERROR);
+        updateStatusDisplay(StatusDisplayMixin.StatusType.ERROR);
 
         if (textObject != null) {
             textObject.setVisible(true);
@@ -85,7 +85,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     public void setSuccessText(String successText) {
         clearErrorText();
         clearHelperText();
-        setStatusDisplay(StatusDisplayMixin.StatusType.SUCCESS);
+        updateStatusDisplay(StatusDisplayMixin.StatusType.SUCCESS);
 
         if (textObject != null) {
             textObject.setVisible(true);
@@ -215,8 +215,9 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         return getStatusDisplayMixin().getStatusDisplayType();
     }
 
-    public void setStatusDisplay(StatusDisplayMixin.StatusType statusType) {
-        getStatusDisplayMixin().setStatusDisplay(statusType);
+    @Override
+    public void updateStatusDisplay(StatusDisplayMixin.StatusType statusType) {
+        getStatusDisplayMixin().updateStatusDisplay(statusType);
     }
 
     public void resetStatusDisplay() {

@@ -31,6 +31,7 @@ import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
 import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
+import gwt.material.design.client.base.mixin.StatusDisplayMixin;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.ValidatorMixin;
 import gwt.material.design.client.base.validator.BlankValidator;
@@ -143,6 +144,11 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public StatusDisplayType getStatusDisplayType() {
         return getStatusTextMixin().getStatusDisplayType();
+    }
+
+    @Override
+    public void updateStatusDisplay(StatusDisplayMixin.StatusType statusType) {
+        getStatusTextMixin().updateStatusDisplay(statusType);
     }
 
     @Override
