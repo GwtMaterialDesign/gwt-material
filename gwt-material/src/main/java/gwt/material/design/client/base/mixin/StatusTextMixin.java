@@ -19,21 +19,11 @@
  */
 package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasStatusText;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.StatusDisplayType;
-import gwt.material.design.client.ui.MaterialIcon;
-import gwt.material.design.client.ui.MaterialToast;
-import gwt.material.design.jquery.client.api.Event;
-import gwt.material.design.jquery.client.api.Functions;
-
-import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * @author Ben Dol
@@ -45,8 +35,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     private UIObject target;
     private UIObject lblPlaceholder;
     private String helperText;
-    private StatusDisplayType displayType = StatusDisplayType.DEFAULT;
-    private MaterialIcon statusIcon = new MaterialIcon();
+    private StatusDisplayMixin<T, H> statusDisplayMixin;
 
     public StatusTextMixin(final T widget) {
         this(widget, null);
@@ -72,7 +61,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     public void setErrorText(String errorText) {
         clearSuccessText();
         clearHelperText();
-        addStatusDisplay(IconType.ERROR);
+        setStatusDisplay(StatusDisplayMixin.StatusType.ERROR);
 
         if (textObject != null) {
             textObject.setVisible(true);
@@ -96,7 +85,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     public void setSuccessText(String successText) {
         clearErrorText();
         clearHelperText();
-        addStatusDisplay(IconType.CHECK_CIRCLE);
+        setStatusDisplay(StatusDisplayMixin.StatusType.SUCCESS);
 
         if (textObject != null) {
             textObject.setVisible(true);
@@ -198,47 +187,6 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         }
     }
 
-    protected void addStatusDisplay(IconType iconType) {
-        if (displayType == StatusDisplayType.HOVERABLE) {
-            if (displayType != null && !displayType.getCssName().isEmpty()) {
-                uiObject.addStyleName(displayType.getCssName());
-            }
-            if (!statusIcon.getElement().hasClassName(CssName.STATUS_ICON)) {
-                statusIcon.addStyleName(CssName.STATUS_ICON);
-                statusIcon.setIconType(iconType);
-            }
-
-            if (uiObject instanceof HasWidgets && uiObject instanceof MaterialWidget) {
-                statusIcon.addMouseOverHandler(event -> showStatusPopup());
-                statusIcon.addMouseOutHandler(event -> hideStatusPopup());
-                ((HasWidgets) uiObject).add(statusIcon);
-                ((MaterialWidget) uiObject).addFocusHandler(event -> showStatusPopup());
-                ((MaterialWidget) uiObject).addBlurHandler(event -> hideStatusPopup());
-            }
-        }
-    }
-
-    protected void showStatusPopup() {
-        int width = $(textObject.getElement()).width() - 10;
-        int height = 44;
-        textObject.getElement().getStyle().setLeft(statusIcon.getAbsoluteLeft() - width, Style.Unit.PX);
-        textObject.getElement().getStyle().setTop(statusIcon.getAbsoluteTop() + height, Style.Unit.PX);
-        textObject.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
-    }
-
-    protected void hideStatusPopup() {
-        textObject.getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
-    }
-
-    protected void resetStatusDisplay() {
-        if (displayType != null && !displayType.getCssName().isEmpty()) {
-            uiObject.removeStyleName(displayType.getCssName());
-        }
-        if (statusIcon != null && statusIcon.isAttached()) {
-            statusIcon.removeFromParent();
-        }
-    }
-
     @Override
     public boolean isErrorTextVisible() {
         return textObject != null && textObject.getStyleName().contains(CssName.FIELD_ERROR_LABEL)
@@ -259,11 +207,26 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
 
     @Override
     public void setStatusDisplayType(StatusDisplayType displayType) {
-        this.displayType = displayType;
+        getStatusDisplayMixin().setStatusDisplayType(displayType);
     }
 
     @Override
     public StatusDisplayType getStatusDisplayType() {
-        return displayType;
+        return getStatusDisplayMixin().getStatusDisplayType();
+    }
+
+    public void setStatusDisplay(StatusDisplayMixin.StatusType statusType) {
+        getStatusDisplayMixin().setStatusDisplay(statusType);
+    }
+
+    public void resetStatusDisplay() {
+        getStatusDisplayMixin().resetStatusDisplay();
+    }
+
+    public StatusDisplayMixin<T, H> getStatusDisplayMixin() {
+        if (statusDisplayMixin == null) {
+            statusDisplayMixin = new StatusDisplayMixin<>(uiObject, textObject);
+        }
+        return statusDisplayMixin;
     }
 }

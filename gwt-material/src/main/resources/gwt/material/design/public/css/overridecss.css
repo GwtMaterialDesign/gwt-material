@@ -452,33 +452,51 @@ ul.dropdown-content {
 }
 
 /** Errors - Hoverable **/
-.input-field.hoverable-status .field-error-label {
+.input-field.hoverable-status .field-error-label,
+.input-field.hoverable-status .field-success-label{
     position: absolute;
-    background: #d32f2f;
-    width: calc(100% - 20px);
+    background: #D32F2F;
     color: white !important;
     min-height: 40px;
-    right: 0px;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 12px;
     margin-right: 12px;
-    font-size: 1em;
     visibility: hidden;
-    opacity: 0;
-    transition: 400ms all;
+    font-size: 0.9em;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    z-index: 999;
+    max-width: 400px;
+    display: inline;
+    min-width: 120px;
+    right: 0px;
+    top: 54px;
 }
 
-.input-field.hoverable-status .field-error-label:after {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid black;
+.input-field.hoverable-status .field-success-label {
+    background: #4caf50;
 }
 
-.input-field.hoverable-status:hover .field-error-label {
-    visibility: visible;
-    opacity: 1;
+.input-field.hoverable-status .field-error-label::before,
+.input-field.hoverable-status .field-success-label::before{
+    content: "";
+    width: 10px;
+    height: 12px;
+    border-bottom: solid 12px #D32F2F;
+    border-left: solid 10px transparent;
+    border-right: solid 10px transparent;
+    top: -12px;
+    position: absolute;
+    right: 12px;
+}
+
+.input-field.hoverable-status i.status-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.input-field.hoverable-status.disabled .status-icon {
+    display: none;
 }
 
 /** Outlined Button (MD2) **/
@@ -512,6 +530,10 @@ button.btn-ghost, button.btn-ghost:focus {
     -moz-transition: all .16s linear;
     -o-transition: all .16s linear;
     transition: all .16s linear;
+}
+
+button.btn-ghost.disabled {
+    border: none;
 }
 
 button.btn-ghost:hover, button.btn-ghost:active {
@@ -937,6 +959,14 @@ input.select-dropdown {
     position: fixed;
     z-index: 999;
     width: 100%;
+}
+
+.loader-wrapper span.material-label {
+    display: inline;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    margin-top: 60px;
 }
 
 /** Dialogs **/

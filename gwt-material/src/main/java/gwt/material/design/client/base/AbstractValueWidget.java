@@ -270,7 +270,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     protected void autoValidate() {
-        registerHandler(addValueChangeHandler(event -> validate()));
+        registerHandler(addBlurHandler(event -> validate()));
     }
 
     @Override
