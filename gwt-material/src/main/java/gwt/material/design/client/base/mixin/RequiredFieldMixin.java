@@ -26,7 +26,7 @@ public class RequiredFieldMixin <T extends AbstractValueWidget & HasRequiredFiel
     public void setRequired(boolean required) {
         this.required = required;
 
-        uiObject.setAutoValidate(true);
+        uiObject.setValidateOnBlur(true);
         uiObject.setAllowBlank(false);
 
         if (targetLabel != null) {

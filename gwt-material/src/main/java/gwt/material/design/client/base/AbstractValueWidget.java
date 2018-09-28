@@ -273,10 +273,15 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         }
     }
 
+    @Deprecated
     public boolean isAutoValidate() {
         return autoValidate;
     }
 
+    /**
+     * This method was deprecated and replaced by {@link #setValidateOnBlur(boolean)}
+     */
+    @Deprecated
     public void setAutoValidate(boolean autoValidate) {
         this.autoValidate = autoValidate;
         if (autoValidate) {
@@ -288,6 +293,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         }
     }
 
+    @Deprecated
     protected void autoValidate() {
         registerHandler(addBlurHandler(event -> validate()));
     }
