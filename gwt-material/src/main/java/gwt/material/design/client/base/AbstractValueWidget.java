@@ -26,32 +26,34 @@ import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
-import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
-import gwt.material.design.client.base.mixin.StatusDisplayMixin;
-import gwt.material.design.client.base.mixin.StatusTextMixin;
-import gwt.material.design.client.base.mixin.ValidatorMixin;
+import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.BlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent;
 import gwt.material.design.client.base.validator.Validator;
 import gwt.material.design.client.constants.StatusDisplayType;
+import gwt.material.design.client.ui.MaterialLabel;
 
 import java.util.List;
 
 //TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
-        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V> {
+        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField {
 
     private boolean allowBlank = true;
+    private boolean required;
     private boolean autoValidate;
     private BlankValidator<V> blankValidator;
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
     private StatusTextMixin<AbstractValueWidget, ?> statusTextMixin;
     private ErrorHandlerMixin<V> errorHandlerMixin;
+    private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -217,6 +219,16 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return getValidatorMixin().validate(show);
     }
 
+    @Override
+    public void setRequired(boolean required) {
+        getRequiredFieldMixin().setRequired(required);
+    }
+
+    @Override
+    public boolean isRequired() {
+        return getRequiredFieldMixin().isRequired();
+    }
+
     /**
      * Enable or disable the default blank validator.
      */
@@ -233,6 +245,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         } else {
             removeValidator(blankValidator);
         }
+
     }
 
     /**
@@ -308,5 +321,12 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
             errorHandlerMixin = new ErrorHandlerMixin<>(this);
         }
         return errorHandlerMixin;
+    }
+
+    protected RequiredFieldMixin<AbstractValueWidget, UIObject> getRequiredFieldMixin() {
+        if (requiredFieldMixin == null) {
+            requiredFieldMixin = new RequiredFieldMixin<>(this, getStatusTextMixin().getPlaceholder());
+        }
+        return requiredFieldMixin;
     }
 }

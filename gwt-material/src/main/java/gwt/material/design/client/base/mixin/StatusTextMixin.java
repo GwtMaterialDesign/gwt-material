@@ -33,7 +33,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
 
     private H textObject;
     private UIObject target;
-    private UIObject lblPlaceholder;
+    private UIObject placeholder;
     private String helperText;
     private StatusDisplayMixin<T, H> statusDisplayMixin;
 
@@ -52,9 +52,9 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         this.target = target;
     }
 
-    public StatusTextMixin(final T widget, final H textObject, UIObject target, UIObject lblPlaceholder) {
+    public StatusTextMixin(final T widget, final H textObject, UIObject target, UIObject placeholder) {
         this(widget, textObject, target);
-        this.lblPlaceholder = lblPlaceholder;
+        this.placeholder = placeholder;
     }
 
     @Override
@@ -73,10 +73,10 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             target.addStyleName(CssName.FIELD_ERROR);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.addStyleName("red-text");
+        if (placeholder != null) {
+            placeholder.addStyleName("red-text");
             if (errorText != null && !errorText.isEmpty()) {
-                lblPlaceholder.addStyleName(CssName.ACTIVE);
+                placeholder.addStyleName(CssName.ACTIVE);
             }
         }
     }
@@ -97,10 +97,10 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             target.addStyleName(CssName.FIELD_SUCCESS);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.addStyleName("green-text");
+        if (placeholder != null) {
+            placeholder.addStyleName("green-text");
             if (successText != null && !successText.isEmpty()) {
-                lblPlaceholder.addStyleName(CssName.ACTIVE);
+                placeholder.addStyleName(CssName.ACTIVE);
             }
         }
     }
@@ -141,8 +141,8 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             target.removeStyleName(CssName.FIELD_ERROR);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.removeStyleName("red-text");
+        if (placeholder != null) {
+            placeholder.removeStyleName("red-text");
         }
 
         resetStatusDisplay();
@@ -162,8 +162,8 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             target.removeStyleName(CssName.FIELD_SUCCESS);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.removeStyleName("green-text");
+        if (placeholder != null) {
+            placeholder.removeStyleName("green-text");
         }
 
         resetStatusDisplay();
@@ -208,6 +208,10 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     @Override
     public void setStatusDisplayType(StatusDisplayType displayType) {
         getStatusDisplayMixin().setStatusDisplayType(displayType);
+    }
+
+    public UIObject getPlaceholder() {
+        return placeholder;
     }
 
     @Override
