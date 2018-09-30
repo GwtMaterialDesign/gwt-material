@@ -517,7 +517,7 @@ ul.dropdown-content {
 }
 
 /** Hoverable - ListBox **/
-.input-field.hoverable-status.listbox-wrapper .caret {
+.input-field.hoverable-status.listbox-wrapper.field-error .caret {
     display: none;
 }
 

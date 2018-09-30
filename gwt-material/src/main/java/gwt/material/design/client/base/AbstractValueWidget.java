@@ -26,7 +26,6 @@ import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.error.ErrorHandler;
@@ -44,16 +43,16 @@ import java.util.List;
 
 //TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
-        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField {
+        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp {
 
     private boolean allowBlank = true;
-    private boolean required;
     private boolean autoValidate;
     private BlankValidator<V> blankValidator;
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
     private StatusTextMixin<AbstractValueWidget, ?> statusTextMixin;
     private ErrorHandlerMixin<V> errorHandlerMixin;
     private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
+    private ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> clearOnKeyUpMixin;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -299,6 +298,26 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     @Override
+    public void setClearOnKeyUp(boolean value) {
+        getClearOnKeyUpMixin().setClearOnKeyUp(value);
+    }
+
+    @Override
+    public boolean isClearOnKeyUp() {
+        return getClearOnKeyUpMixin().isClearOnKeyUp();
+    }
+
+    @Override
+    public void setClearKeyCode(int keyCode) {
+        getClearOnKeyUpMixin().setClearKeyCode(keyCode);
+    }
+
+    @Override
+    public int getClearKeyCode() {
+        return getClearOnKeyUpMixin().getClearKeyCode();
+    }
+
+    @Override
     public HandlerRegistration addValidationChangedHandler(ValidationChangedEvent.ValidationChangedHandler handler) {
         return getValidatorMixin().addValidationChangedHandler(handler);
     }
@@ -334,5 +353,12 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
             requiredFieldMixin = new RequiredFieldMixin<>(this, getStatusTextMixin().getPlaceholder());
         }
         return requiredFieldMixin;
+    }
+
+    public ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> getClearOnKeyUpMixin() {
+        if (clearOnKeyUpMixin == null) {
+            clearOnKeyUpMixin = new ClearOnKeyUpMixin(this,  getStatusTextMixin().getPlaceholder());
+        }
+        return clearOnKeyUpMixin;
     }
 }

@@ -1,5 +1,10 @@
 package gwt.material.design.client.base;
 
+/**
+ * See {@link gwt.material.design.client.base.mixin.RequiredFieldMixin}
+ *
+ * @author kevzlou7979
+ */
 public interface HasRequiredField {
 
     /**

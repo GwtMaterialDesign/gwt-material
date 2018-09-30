@@ -69,11 +69,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
         HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes {
 
-    /**
-     * @see #setReturnBlankAsNull(boolean)
-     */
-    private boolean returnBlankAsNull;
 
+    private boolean returnBlankAsNull;
     private InputType type = InputType.TEXT;
     private ValueBoxEditor<T> editor;
     private Label label = new Label();

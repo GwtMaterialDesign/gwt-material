@@ -4,6 +4,12 @@ import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasRequiredField;
 
+/**
+ * A mixin for identifying mandatory field and if {@link #setRequired(boolean)} is enabled then
+ * we marked the field to be mandatory by not allowing null values and will validate the field on blur.
+ *
+ * @author kevzlou7979
+ */
 public class RequiredFieldMixin <T extends AbstractValueWidget & HasRequiredField, H extends UIObject>
         extends AbstractMixin<T> implements HasRequiredField {
 
