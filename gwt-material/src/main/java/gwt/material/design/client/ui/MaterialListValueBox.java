@@ -877,6 +877,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setEnabled(boolean enabled) {
         listBox.setEnabled(enabled);
+        label.setEnabled(enabled);
         reload();
     }
 

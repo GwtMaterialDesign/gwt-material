@@ -80,6 +80,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
 
     private JsModalOptions options = new JsModalOptions();
 
+    private final String HASH_CHANGE = "hashchange";
     private CssTypeMixin<DialogType, MaterialDialog> typeMixin;
     private FullscreenMixin fullscreenMixin;
     private OverlayStyleMixin<MaterialDialog> overlayStyleMixin;
@@ -107,7 +108,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
 
     protected void setupBackNavigation() {
         if (closeOnBrowserBackNavigation) {
-            window().on("hashchange", (e, param1) -> {
+            window().on(HASH_CHANGE, (e, param1) -> {
                 e.preventDefault();
                 if (isOpen()) {
                     close();
@@ -115,7 +116,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
                 return true;
             });
         } else {
-            window().off("hashchange");
+            window().off(HASH_CHANGE);
         }
     }
 
@@ -123,7 +124,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     protected void onUnload() {
         super.onUnload();
 
-        window().off("hashchange");
+        window().off(HASH_CHANGE);
     }
 
     @Override

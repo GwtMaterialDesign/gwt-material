@@ -641,6 +641,12 @@ footer.fixed {
     color: #f44336;
 }
 
+.input-field.disabled label.required:before,
+.input-field.disabled label span.required:before,
+.input-field.listbox-wrapper label.disabled:before {
+    display: none;
+}
+
 .col .input-field label {
     left: 0px;
 }
@@ -779,6 +785,12 @@ input:-webkit-autofill {
     background: rgba(0, 0, 0, 0.04);
     border-radius: 4px 4px 0px 0px;
     padding-top: 18px;
+}
+
+.input-field.filled.disabled input,
+.input-field.filled.disabled textarea,
+.input-field.filled.listbox-wrapper input.select-dropdown[disabled] {
+    background: transparent;
 }
 
 .input-field.filled textarea,

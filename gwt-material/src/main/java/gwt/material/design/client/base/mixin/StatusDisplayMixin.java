@@ -2,6 +2,7 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasStatusDisplayType;
 import gwt.material.design.client.base.MaterialWidget;
@@ -71,6 +72,11 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
                 statusIcon.addMouseOutHandler(event -> hideStatus());
                 ((MaterialWidget) uiObject).addFocusHandler(event -> showStatus());
                 ((MaterialWidget) uiObject).addBlurHandler(event -> hideStatus());
+                ((MaterialWidget) uiObject).addKeyUpHandler(event -> {
+                    if (event.getNativeKeyCode() == KeyCodes.KEY_ESCAPE){
+                        hideStatus();
+                    }
+                });
             }
         } else {
             resetStatusDisplay();
