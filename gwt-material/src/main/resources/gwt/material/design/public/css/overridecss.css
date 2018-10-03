@@ -1021,12 +1021,6 @@ input.select-dropdown {
     top: 0 !important;
 }
 
-div.lean-overlay,
-div#sidenav-overlay {
-    background: transparent;
-    transition: 400ms all;
-}
-
 /** NavBar **/
 nav button i {
     line-height: inherit !important;
