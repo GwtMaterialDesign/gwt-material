@@ -653,9 +653,8 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public int getIndexByString(String key) {
         int index = -1;
         for (T value : values) {
-            index++;
             if (keyFactory.generateKey(value).equals(key)) {
-                return index;
+                index = values.indexOf(value);
             }
         }
         return index;
