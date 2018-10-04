@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.base.mixin;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasOverlayStyle;
 import gwt.material.design.client.constants.Blur;
@@ -57,6 +58,7 @@ public class OverlayStyleMixin<T extends UIObject & HasOverlayStyle> extends Abs
         applyBackgroundColor(overlayOption.getBackgroundColor());
         applyBlur(overlayOption.getBlur(), false);
         applyOpacity(overlayOption.getOpacity());
+        applyVisibility(overlayOption.getVisibility());
     }
 
     @Override
@@ -64,6 +66,7 @@ public class OverlayStyleMixin<T extends UIObject & HasOverlayStyle> extends Abs
         applyBlur(overlayOption.getBlur(), true);
         applyBackgroundColor(null);
         applyOpacity(null);
+        applyVisibility(Style.Visibility.VISIBLE);
     }
 
     /**
@@ -102,6 +105,15 @@ public class OverlayStyleMixin<T extends UIObject & HasOverlayStyle> extends Abs
     protected void applyOpacity(Double opacity) {
         if (overlayElement != null) {
             overlayElement.css("opacity", opacity != null ? String.valueOf(opacity) : "0.5");
+        }
+    }
+
+    /**
+     * Will apply the visibility into the {@link #overlayElement}
+     */
+    protected void applyVisibility(Style.Visibility visibility) {
+        if (overlayElement != null) {
+            overlayElement.css("visibility", visibility.getCssName());
         }
     }
 }

@@ -20,8 +20,10 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.base.AbstractSideNav;
 import gwt.material.design.client.base.HasWithHeader;
+import gwt.material.design.client.constants.OverlayOption;
 import gwt.material.design.client.constants.SideNavType;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -64,20 +66,22 @@ public class MaterialSideNavDrawer extends AbstractSideNav implements HasWithHea
         if (withHeader) {
             applyDrawerWithHeader();
         } else {
-            appyDrawerType();
+            applyDrawerType();
         }
     }
 
     /**
      * Provides an overlay / drawer sidenav just like when opening sidenav on mobile / tablet
      */
-    protected void appyDrawerType() {
+    protected void applyDrawerType() {
         setType(SideNavType.DRAWER);
         registerHandler(addOpeningHandler(event -> Scheduler.get().scheduleDeferred(() -> $("[id=sidenav-overlay]").css("visibility", "visible"))));
         Scheduler.get().scheduleDeferred(() -> {
             pushElement(getHeader(), 0);
             pushElement(getMain(), 0);
         });
+
+        overlayOption.setVisibility(Style.Visibility.VISIBLE);
     }
 
     /**
@@ -94,6 +98,8 @@ public class MaterialSideNavDrawer extends AbstractSideNav implements HasWithHea
                 pushElement(getMain(), 0);
             });
         }
+
+        overlayOption.setVisibility(Style.Visibility.HIDDEN);
     }
 
     @Override

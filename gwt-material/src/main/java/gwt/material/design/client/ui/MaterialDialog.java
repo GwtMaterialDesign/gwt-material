@@ -80,12 +80,14 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
 
     private JsModalOptions options = new JsModalOptions();
 
+    private final String OVERLAY_ATTACHED = "modal-overlay-attached";
     private final String HASH_CHANGE = "hashchange";
     private CssTypeMixin<DialogType, MaterialDialog> typeMixin;
     private FullscreenMixin fullscreenMixin;
     private OverlayStyleMixin<MaterialDialog> overlayStyleMixin;
     private boolean open;
     private boolean closeOnBrowserBackNavigation = true;
+    private JQueryElement overlayElement;
 
     public MaterialDialog() {
         super(Document.get().createDivElement(), CssName.MODAL);
@@ -101,8 +103,13 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
 
     protected void setupOverlayStyles() {
         if (getOverlayOption() != null) {
-            registerHandler(addOpenHandler(event -> getOverlayStyleMixin().applyOverlayStyle(getOverlayElement())));
-            registerHandler(addCloseHandler(event -> getOverlayStyleMixin().resetOverlayStyle()));
+            $(getElement()).on(OVERLAY_ATTACHED, (event, id) -> {
+                setOverlayElement($("#" + id));
+                applyOverlayStyle(overlayElement);
+                return true;
+            });
+
+            registerHandler(addCloseHandler(event -> resetOverlayStyle()));
         }
     }
 
@@ -125,6 +132,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
         super.onUnload();
 
         window().off(HASH_CHANGE);
+        $(getElement()).off(OVERLAY_ATTACHED);
     }
 
     @Override
@@ -329,8 +337,12 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
         return open;
     }
 
+    public void setOverlayElement(JQueryElement overlayElement) {
+        this.overlayElement = overlayElement;
+    }
+
     public JQueryElement getOverlayElement() {
-        return $(getElement()).next(".lean-overlay");
+        return overlayElement;
     }
 
     @Override

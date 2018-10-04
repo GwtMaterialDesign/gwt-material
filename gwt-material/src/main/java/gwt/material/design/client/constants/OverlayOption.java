@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.constants;
 
+import com.google.gwt.dom.client.Style;
+
 /**
  * Overlay Configuration to be used by {@link gwt.material.design.client.base.mixin.OverlayStyleMixin#setOverlayOption(OverlayOption)}
  */
@@ -27,6 +29,7 @@ public class OverlayOption {
     private Blur blur;
     private Color backgroundColor;
     private Double opacity;
+    private Style.Visibility visibility;
 
     private OverlayOption() {}
 
@@ -39,6 +42,7 @@ public class OverlayOption {
         overlayOption.setBlur(null);
         overlayOption.setBackgroundColor(Color.BLACK);
         overlayOption.setOpacity(0.5);
+        overlayOption.setVisibility(Style.Visibility.VISIBLE);
         return overlayOption;
     }
 
@@ -93,5 +97,19 @@ public class OverlayOption {
      */
     public void setOpacity(Double opacity) {
         this.opacity = opacity;
+    }
+
+    /**
+     * Will get the visibility of the overlay element
+     */
+    public Style.Visibility getVisibility() {
+        return visibility;
+    }
+
+    /**
+     * Will set the visibility of the overlay element
+     */
+    public void setVisibility(Style.Visibility visibility) {
+        this.visibility = visibility;
     }
 }
