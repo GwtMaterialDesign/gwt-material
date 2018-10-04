@@ -624,17 +624,25 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     @Override
     public void setValue(T value, boolean fireEvents) {
-        int index = values.indexOf(value);
-        if (index < 0 && value instanceof String) {
-            index = getIndexByString((String) value);
-        }
-
-        if (index > -1) {
-            T before = getValue();
-            setSelectedIndexInternal(index);
+        if (value == null) {
+            reset();
 
             if (fireEvents) {
-                ValueChangeEvent.fireIfNotEqual(this, before, value);
+                ValueChangeEvent.fire(this, null);
+            }
+        } else {
+            int index = values.indexOf(value);
+            if (index < 0 && value instanceof String) {
+                index = getIndexByString((String) value);
+            }
+
+            if (index > -1) {
+                T before = getValue();
+                setSelectedIndexInternal(index);
+
+                if (fireEvents) {
+                    ValueChangeEvent.fireIfNotEqual(this, before, value);
+                }
             }
         }
     }
