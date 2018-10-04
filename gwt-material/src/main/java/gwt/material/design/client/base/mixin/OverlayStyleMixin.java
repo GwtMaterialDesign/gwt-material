@@ -112,7 +112,7 @@ public class OverlayStyleMixin<T extends UIObject & HasOverlayStyle> extends Abs
      * Will apply the visibility into the {@link #overlayElement}
      */
     protected void applyVisibility(Style.Visibility visibility) {
-        if (overlayElement != null) {
+        if (overlayElement != null && visibility != null) {
             overlayElement.css("visibility", visibility.getCssName());
         }
     }
