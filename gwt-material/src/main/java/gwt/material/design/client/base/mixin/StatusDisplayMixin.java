@@ -19,18 +19,15 @@
  */
 package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.ui.*;
 import gwt.material.design.client.base.HasStatusDisplayType;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.Color;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.StatusDisplayType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialIcon;
-import gwt.material.design.client.ui.MaterialToast;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText>
         extends AbstractMixin<T> implements HasStatusDisplayType {
@@ -43,8 +40,10 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     private H textObject;
     private StatusDisplayType displayType;
     private MaterialIcon statusIcon = new MaterialIcon();
-    private CssNameMixin<T, StatusDisplayType> cssNameMixin;
     private Widget container;
+
+    private CssNameMixin<T, StatusDisplayType> statusCssNameMixin;
+    private CssNameMixin<H, Position> positionCssNameMixin;
 
     public StatusDisplayMixin(T uiObject, H textObject) {
         super(uiObject);
@@ -56,7 +55,7 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     public void setStatusDisplayType(StatusDisplayType displayType) {
         this.displayType = displayType;
 
-        getCssNameMixin().setCssName(displayType);
+        getStatusCssNameMixin().setCssName(displayType);
     }
 
     @Override
@@ -112,7 +111,35 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
         }
     }
 
+    public Position getPosition() {
+        return getPositionCssNameMixin().getCssName();
+    }
+
+    public void setPosition(Position position) {
+        getPositionCssNameMixin().setCssName(position);
+    }
+
     protected void showStatus() {
+        setPosition(Position.LEFT);
+
+        if (getPosition() == Position.RIGHT) {
+            textObject.getElement().getStyle().setProperty("left", "unset");
+            textObject.getElement().getStyle().setProperty("right", "0px");
+        }
+
+        if (getPosition() == Position.LEFT) {
+            textObject.getElement().getStyle().setProperty("right", "unset");
+            textObject.getElement().getStyle().setProperty("left", ($(uiObject.getElement()).width() - 32) + "px");
+        }
+
+        if (getPosition() == Position.BOTTOM) {
+            textObject.getElement().getStyle().setProperty("top", "-54px");
+        }
+
+        if (getPosition() == Position.TOP) {
+            textObject.getElement().getStyle().setProperty("top", "54px");
+        }
+
         textObject.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
     }
 
@@ -124,10 +151,17 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
         this.container = container;
     }
 
-    public CssNameMixin<T, StatusDisplayType> getCssNameMixin() {
-        if (cssNameMixin == null) {
-            cssNameMixin = new CssNameMixin<>(uiObject);
+    protected CssNameMixin<T, StatusDisplayType> getStatusCssNameMixin() {
+        if (statusCssNameMixin == null) {
+            statusCssNameMixin = new CssNameMixin<>(uiObject);
         }
-        return cssNameMixin;
+        return statusCssNameMixin;
+    }
+
+    protected CssNameMixin<H, Position> getPositionCssNameMixin() {
+        if (positionCssNameMixin == null) {
+            positionCssNameMixin = new CssNameMixin<>(textObject);
+        }
+        return positionCssNameMixin;
     }
 }

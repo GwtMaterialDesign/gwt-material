@@ -112,7 +112,7 @@ public abstract class AbstractSideNav extends MaterialWidget
                 Scheduler.get().scheduleDeferred(() -> {
                     // We are ignoring cases with mobile
                     if (Window.getClientWidth() > 960) {
-                        show();
+                        open();
                     }
                 });
             }
@@ -322,6 +322,12 @@ public abstract class AbstractSideNav extends MaterialWidget
             onOverlayAttached();
             return true;
         });
+
+        $(".collapsible-header").on("click", (e, param1) -> {
+            //e.stopPropagation();
+
+            return true;
+        });
     }
 
     /**
@@ -462,17 +468,33 @@ public abstract class AbstractSideNav extends MaterialWidget
     }
 
     /**
+     * Replaced with {@link #open()}
+     */
+    @Deprecated
+    public void show() {
+        open();
+    }
+
+    /**
      * Show the sidenav using the activator element
      */
-    public void show() {
+    public void open() {
         $("#sidenav-overlay").remove();
         $(activator).sideNav("show");
     }
 
     /**
+     * Replaced with {@link #close()}
+     */
+    @Deprecated
+    public void hide() {
+        close();
+    }
+
+    /**
      * Hide the sidenav using the activator element
      */
-    public void hide() {
+    public void close() {
         $(activator).sideNav("hide");
     }
 

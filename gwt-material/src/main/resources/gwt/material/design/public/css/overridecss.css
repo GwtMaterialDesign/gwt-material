@@ -492,10 +492,32 @@ ul.dropdown-content {
     border-right: solid 10px transparent;
     top: -12px;
     position: absolute;
-    right: 12px;
+
 }
 
-.input-field.hoverable-status .field-success-label::before {
+.input-field.hoverable-status .field-error-label.right:before,
+.input-field.hoverable-status .field-success-label.right:before {
+    left: unset;
+    right: 12px
+}
+
+.input-field.hoverable-status .field-error-label.left:before,
+.input-field.hoverable-status .field-success-label.left:before {
+    left: 12px;
+    right: unset;
+}
+
+.input-field.hoverable-status .field-error-label.bottom:before,
+.input-field.hoverable-status .field-success-label.bottom:before {
+    left: unset;
+    right: 12px;
+    border-bottom: none;
+    border-top: 12px solid #4caf50;
+    bottom: -12px;
+    top: unset;
+}
+
+.input-field.hoverable-status .field-success-label:before {
     border-bottom: solid 12px #4caf50;
 }
 
@@ -517,7 +539,8 @@ ul.dropdown-content {
 }
 
 /** Hoverable - ListBox **/
-.input-field.hoverable-status.listbox-wrapper.field-error .caret {
+.input-field.hoverable-status.listbox-wrapper.field-error .caret,
+.input-field.hoverable-status.listbox-wrapper.field-success .caret{
     display: none;
 }
 

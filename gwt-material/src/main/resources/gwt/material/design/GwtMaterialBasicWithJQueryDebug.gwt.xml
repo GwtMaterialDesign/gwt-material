@@ -35,4 +35,7 @@
 
   <!-- Specify the app entry point class -->
   <entry-point class="gwt.material.design.client.MaterialWithJQueryDebug"/>
+
+  <!-- OverrideCss must be injected -->
+  <stylesheet src="css/override.min.css"/>
 </module>
