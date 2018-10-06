@@ -41,6 +41,7 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     private StatusDisplayType displayType;
     private MaterialIcon statusIcon = new MaterialIcon();
     private Widget container;
+    private Position position = Position.RIGHT;
 
     private CssNameMixin<T, StatusDisplayType> statusCssNameMixin;
     private CssNameMixin<H, Position> positionCssNameMixin;
@@ -112,31 +113,30 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     }
 
     public Position getPosition() {
-        return getPositionCssNameMixin().getCssName();
+        return position;
     }
 
     public void setPosition(Position position) {
+        this.position = position;
         getPositionCssNameMixin().setCssName(position);
     }
 
     protected void showStatus() {
-        setPosition(Position.LEFT);
-
-        if (getPosition() == Position.RIGHT) {
+        if (position == Position.RIGHT) {
             textObject.getElement().getStyle().setProperty("left", "unset");
             textObject.getElement().getStyle().setProperty("right", "0px");
         }
 
-        if (getPosition() == Position.LEFT) {
+        if (position == Position.LEFT) {
             textObject.getElement().getStyle().setProperty("right", "unset");
             textObject.getElement().getStyle().setProperty("left", ($(uiObject.getElement()).width() - 32) + "px");
         }
 
-        if (getPosition() == Position.BOTTOM) {
+        if (position == Position.BOTTOM) {
             textObject.getElement().getStyle().setProperty("top", "-54px");
         }
 
-        if (getPosition() == Position.TOP) {
+        if (position == Position.TOP) {
             textObject.getElement().getStyle().setProperty("top", "54px");
         }
 
