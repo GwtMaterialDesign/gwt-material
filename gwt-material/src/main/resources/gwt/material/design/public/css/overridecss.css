@@ -482,45 +482,47 @@ ul.dropdown-content {
     background: #4caf50;
 }
 
+/** Arrow Default (LEFT Position) **/
 .input-field.hoverable-status .field-error-label::before,
 .input-field.hoverable-status .field-success-label::before {
     content: "";
     width: 10px;
     height: 12px;
-    border-bottom: solid 12px #D32F2F;
     border-left: solid 10px transparent;
     border-right: solid 10px transparent;
     top: -12px;
     position: absolute;
-
-}
-
-.input-field.hoverable-status .field-error-label.right:before,
-.input-field.hoverable-status .field-success-label.right:before {
     left: unset;
     right: 12px
 }
 
-.input-field.hoverable-status .field-error-label.left:before,
-.input-field.hoverable-status .field-success-label.left:before {
-    left: 12px;
-    right: unset;
+.input-field.hoverable-status .field-error-label.left:before {
+    border-bottom: solid 12px #D32F2F;
 }
 
-.input-field.hoverable-status .field-error-label.bottom:before,
-.input-field.hoverable-status .field-success-label.bottom:before {
+.input-field.hoverable-status .field-success-label.left:before {
+    border-bottom: solid 12px #4caf50;
+}
+
+.input-field.hoverable-status .field-error-label.top:before,
+.input-field.hoverable-status .field-success-label.top:before {
     left: unset;
     right: 12px;
     border-bottom: none;
-    border-top: 12px solid #4caf50;
     bottom: -12px;
     top: unset;
 }
 
-.input-field.hoverable-status .field-success-label:before {
-    border-bottom: solid 12px #4caf50;
+.input-field.hoverable-status .field-error-label.top:before {
+    border-top: solid 12px #D32F2F;
 }
 
+.input-field.hoverable-status .field-success-label.top:before {
+    border-top: solid 12px #4caf50;
+}
+
+
+/** Status Icon **/
 .input-field.hoverable-status i.status-icon {
     position: absolute;
     top: 10px;
