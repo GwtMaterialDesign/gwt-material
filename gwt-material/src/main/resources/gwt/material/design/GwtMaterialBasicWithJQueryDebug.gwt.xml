@@ -37,5 +37,5 @@
   <entry-point class="gwt.material.design.client.MaterialWithJQueryDebug"/>
 
   <!-- OverrideCss must be injected -->
-  <stylesheet src="css/override.min.css"/>
+  <stylesheet src="css/overridecss.css"/>
 </module>
