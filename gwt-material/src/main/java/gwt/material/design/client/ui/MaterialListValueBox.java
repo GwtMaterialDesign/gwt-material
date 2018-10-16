@@ -34,6 +34,9 @@ import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.FieldTypeMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.config.HasStyleConfig;
+import gwt.material.design.client.config.InputFieldConfig;
+import gwt.material.design.client.config.InputFieldStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.FieldType;
 import gwt.material.design.client.js.JsMaterialElement;
@@ -73,7 +76,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
-        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes {
+        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, HasStyleConfig<InputFieldConfig> {
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
@@ -86,12 +89,15 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private FieldTypeMixin<MaterialListValueBox> fieldTypeMixin;
+    private InputFieldStyleMixin<MaterialListValueBox> inputFieldStyleMixin;
 
     private String emptyPlaceHolder = null;
 
     public MaterialListValueBox() {
         super(Document.get().createDivElement(), CssName.INPUT_FIELD,  CssName.LISTBOX_WRAPPER);
         super.setAllowBlank(false);
+
+        setupStyleConfig();
     }
 
     @Override
@@ -1109,5 +1115,22 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setFieldWidth(double percentWidth) {
         getFieldTypeMixin().setFieldWidth(percentWidth);
+    }
+
+    @Override
+    public void setupStyleConfig() {
+        getInputFieldStyleMixin().setupStyleConfig();
+    }
+
+    @Override
+    public InputFieldConfig getConfig() {
+        return getInputFieldStyleMixin().getConfig();
+    }
+
+    public InputFieldStyleMixin<MaterialListValueBox> getInputFieldStyleMixin() {
+        if (inputFieldStyleMixin == null) {
+            inputFieldStyleMixin = new InputFieldStyleMixin<>(this);
+        }
+        return inputFieldStyleMixin;
     }
 }

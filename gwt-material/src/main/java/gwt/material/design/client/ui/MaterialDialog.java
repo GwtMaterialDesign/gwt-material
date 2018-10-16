@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
@@ -27,6 +28,8 @@ import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.FullscreenMixin;
 import gwt.material.design.client.base.mixin.OverlayStyleMixin;
+import gwt.material.design.client.config.DialogConfig;
+import gwt.material.design.client.config.HasStyleConfig;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsModalOptions;
 import gwt.material.design.jquery.client.api.JQueryElement;
@@ -76,7 +79,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 // @formatter:on
 public class MaterialDialog extends MaterialWidget implements HasType<DialogType>, HasInOutDurationTransition,
-        HasDismissible, HasCloseHandlers<MaterialDialog>, HasOpenHandlers<MaterialDialog>, HasFullscreen, HasOverlayStyle {
+        HasDismissible, HasCloseHandlers<MaterialDialog>, HasOpenHandlers<MaterialDialog>, HasFullscreen,
+        HasOverlayStyle, HasStyleConfig<DialogConfig> {
 
     private JsModalOptions options = new JsModalOptions();
 
@@ -91,6 +95,8 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
 
     public MaterialDialog() {
         super(Document.get().createDivElement(), CssName.MODAL);
+
+        setupStyleConfig();
     }
 
     @Override
@@ -363,6 +369,30 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     @Override
     public void resetOverlayStyle() {
         getOverlayStyleMixin().resetOverlayStyle();
+    }
+
+    @Override
+    public void setupStyleConfig() {
+        if (getConfig() != null) {
+            OverlayOption option = OverlayOption.create();
+
+            JQueryElement[] targetElements = new JQueryElement[]{};
+            if (getConfig().OverlayBlurTarget() != null) {
+                for (int i = 0; i < getConfig().OverlayBlurTarget().length; i++) {
+                    targetElements[i] = $("#" + getConfig().OverlayBlurTarget()[i]);
+                }
+            }
+
+            option.setBlur(new Blur(getConfig().OverlayBlur(), targetElements));
+            option.setOpacity(getConfig().OverlayOpacity());
+            option.setBackgroundColor(Color.fromStyleName(getConfig().OverlayBackgroundColor()));
+            setOverlayOption(option);
+        }
+    }
+
+    @Override
+    public DialogConfig getConfig() {
+        return GWT.create(DialogConfig.class);
     }
 
     @Override

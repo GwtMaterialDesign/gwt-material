@@ -31,7 +31,8 @@ import gwt.material.design.client.constants.FieldType;
 /**
  * @author kevzlou7979
  */
-public class FieldTypeMixin<T extends UIObject & HasFieldTypes> extends AbstractMixin<T> implements HasFieldTypes {
+public class FieldTypeMixin<T extends UIObject & HasFieldTypes> extends AbstractMixin<T>
+        implements HasFieldTypes {
 
     protected CssNameMixin<T, FieldType> cssNameMixin;
     protected Widget label;
@@ -43,7 +44,7 @@ public class FieldTypeMixin<T extends UIObject & HasFieldTypes> extends Abstract
     }
 
     public FieldTypeMixin(T uiObject, Widget label, Widget field) {
-        super(uiObject);
+        this(uiObject);
 
         this.label = label;
         this.field = field;

@@ -39,6 +39,9 @@ import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.*;
+import gwt.material.design.client.config.HasStyleConfig;
+import gwt.material.design.client.config.InputFieldConfig;
+import gwt.material.design.client.config.InputFieldStyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
@@ -67,7 +70,7 @@ import gwt.material.design.client.ui.html.Label;
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes {
+        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes, HasStyleConfig<InputFieldConfig> {
 
 
     private boolean returnBlankAsNull;
@@ -86,6 +89,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
+    private InputFieldStyleMixin inputFieldStyleMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -118,6 +122,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setup(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
+        setupStyleConfig();
     }
 
     @Deprecated
@@ -534,6 +539,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setupStyleConfig() {
+        getInputFieldStyleMixin().setupStyleConfig();
+    }
+
+    @Override
+    public InputFieldConfig getConfig() {
+        return getInputFieldStyleMixin().getConfig();
+    }
+
+    @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
         return valueBoxBase.addValueChangeHandler(event -> {
             if (isEnabled()) {
@@ -854,5 +869,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldTypeMixin = new FieldTypeMixin<>(this, label, valueBoxBase, errorLabel);
         }
         return fieldTypeMixin;
+    }
+
+    protected InputFieldStyleMixin getInputFieldStyleMixin() {
+        if (inputFieldStyleMixin == null) {
+            inputFieldStyleMixin = new InputFieldStyleMixin(this);
+        }
+        return inputFieldStyleMixin;
     }
 }
