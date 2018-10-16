@@ -1,4 +1,4 @@
-package gwt.material.design.client.config;
+package gwt.material.design.config;
 
 import com.google.gwt.core.client.GWT;
 import gwt.material.design.client.base.HasFieldTypes;

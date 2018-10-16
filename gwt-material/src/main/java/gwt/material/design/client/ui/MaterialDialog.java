@@ -28,8 +28,8 @@ import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.FullscreenMixin;
 import gwt.material.design.client.base.mixin.OverlayStyleMixin;
-import gwt.material.design.client.config.DialogConfig;
-import gwt.material.design.client.config.HasStyleConfig;
+import gwt.material.design.config.DialogConfig;
+import gwt.material.design.config.HasStyleConfig;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsModalOptions;
 import gwt.material.design.jquery.client.api.JQueryElement;
@@ -376,14 +376,14 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
         if (getConfig() != null) {
             OverlayOption option = OverlayOption.create();
 
-            JQueryElement[] targetElements = new JQueryElement[]{};
-            if (getConfig().OverlayBlurTarget() != null) {
+            if (getConfig().OverlayBlurTarget().length > 0) {
+                JQueryElement[] targetElements = new JQueryElement[]{};
                 for (int i = 0; i < getConfig().OverlayBlurTarget().length; i++) {
                     targetElements[i] = $("#" + getConfig().OverlayBlurTarget()[i]);
                 }
+                option.setBlur(new Blur(getConfig().OverlayBlur(), targetElements));
             }
 
-            option.setBlur(new Blur(getConfig().OverlayBlur(), targetElements));
             option.setOpacity(getConfig().OverlayOpacity());
             option.setBackgroundColor(Color.fromStyleName(getConfig().OverlayBackgroundColor()));
             setOverlayOption(option);

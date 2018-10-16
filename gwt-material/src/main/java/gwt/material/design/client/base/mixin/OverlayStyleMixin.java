@@ -19,12 +19,9 @@
  */
 package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasOverlayStyle;
-import gwt.material.design.client.config.DialogConfig;
-import gwt.material.design.client.config.HasStyleConfig;
 import gwt.material.design.client.constants.Blur;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.OverlayOption;

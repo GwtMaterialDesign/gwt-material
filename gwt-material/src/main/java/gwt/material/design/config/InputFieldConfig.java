@@ -1,6 +1,6 @@
-package gwt.material.design.client.config;
+package gwt.material.design.config;
 
-public interface InputFieldConfig extends WidgetConfig {
+public interface InputFieldConfig extends BaseWidgetConfig {
 
     @Key("GMD.InputField.Type")
     @DefaultStringValue("")

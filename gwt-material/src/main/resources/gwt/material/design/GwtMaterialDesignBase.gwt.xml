@@ -44,6 +44,7 @@
 
   <!-- Specify the paths for translatable code -->
   <source path="client"/>
+  <source path="config"/>
 
   <set-configuration-property name="CssResource.enableGss" value="true"/>
   <!--<set-configuration-property name="CssResource.legacy" value="true"/>-->
