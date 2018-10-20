@@ -97,6 +97,16 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
         return icon.isIconPrefix();
     }
 
+    @Override
+    public void setCustomIconType(String iconType) {
+        icon.setCustomIconType(iconType);
+    }
+
+    @Override
+    public String getCustomIconType() {
+        return icon.getCustomIconType();
+    }
+
     protected TextMixin<MaterialHelpBlock> getTextMixin() {
         if (textMixin == null) {
             textMixin = new TextMixin<>(this);
