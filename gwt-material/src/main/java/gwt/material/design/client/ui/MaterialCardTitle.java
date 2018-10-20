@@ -107,6 +107,16 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
         return icon.isIconPrefix();
     }
 
+    @Override
+    public void setCustomIconType(String iconType) {
+        icon.setCustomIconType(iconType);
+    }
+
+    @Override
+    public String getCustomIconType() {
+        return icon.getCustomIconType();
+    }
+
     public Span getTitleLabel() {
         return titleLabel;
     }
