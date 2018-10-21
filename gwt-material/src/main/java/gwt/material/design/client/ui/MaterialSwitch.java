@@ -20,11 +20,13 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
+import gwt.material.design.client.base.AbstractAsyncWidgetValueWidget;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
@@ -49,7 +51,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-switch">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasValue<Boolean> {
+public class MaterialSwitch extends AbstractAsyncWidgetValueWidget<Boolean> implements HasValue<Boolean> {
 
     private MaterialInput input = new MaterialInput();
     private MaterialLabel errorLabel = new MaterialLabel();
@@ -109,6 +111,12 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         }));
 
         registerHandler(addClickHandler(event -> setValue(!getValue(), true)));
+
+        registerHandler(addValueChangeHandler(event -> {
+            if (widgetCallback != null) {
+                super.load();
+            }
+        }));
     }
 
     @Override
@@ -153,6 +161,18 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         super.reset();
 
         setValue(false);
+    }
+
+    @Override
+    protected void onLoading() {
+        MaterialLoader.loading(true, this);
+        label.setVisibility(Style.Visibility.HIDDEN);
+    }
+
+    @Override
+    protected void onFinalize() {
+        MaterialLoader.loading(false);
+        label.setVisibility(Style.Visibility.VISIBLE);
     }
 
     /**
