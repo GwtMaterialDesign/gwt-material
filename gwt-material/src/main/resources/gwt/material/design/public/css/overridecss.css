@@ -1703,3 +1703,14 @@ i[class*="waves-"].material-icons {
         font-size: 16px;
     }
 }
+
+/** Async - Switch **/
+.switch .loader-wrapper {
+    position: absolute;
+    width: 80px;
+}
+
+.switch .loader-wrapper .preloader-wrapper {
+    width: 24px;
+    height: 24px;
+}
