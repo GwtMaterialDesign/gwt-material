@@ -7,10 +7,4 @@ public interface AsyncWidget extends Asynchronous, HasAsyncHandlers, AsyncLoader
     void setAsyncLoader(AsyncLoader loader);
 
     AsyncLoader getAsyncLoader();
-
-    void loading();
-
-    void success();
-
-    void failure();
 }
