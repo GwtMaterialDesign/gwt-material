@@ -25,7 +25,7 @@ import java.util.Objects;
 
 public abstract class Theme extends HashMap<String, WidgetTheme> implements Comparable<Theme> {
 
-    public abstract List<WidgetTheme> apply();
+    public abstract List<WidgetTheme> load();
 
     public String getName() {
         return getClass().getName();

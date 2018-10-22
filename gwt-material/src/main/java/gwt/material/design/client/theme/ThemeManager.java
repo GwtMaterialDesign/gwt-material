@@ -36,7 +36,7 @@ public class ThemeManager {
         if (!themes.contains(theme)) {
             themes.add(theme);
 
-            for(WidgetTheme widgetTheme : theme.apply()) {
+            for(WidgetTheme widgetTheme : theme.load()) {
                 widgetTheme.setTheme(theme);
                 addWidgetTheme(theme.getName(), widgetTheme);
             }
