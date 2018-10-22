@@ -40,6 +40,8 @@ import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.client.events.OrientationChangeEvent.OrientationChangeHandler;
+import gwt.material.design.client.theme.ThemeManager;
+import gwt.material.design.client.theme.WidgetTheme;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -104,6 +106,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private HandlerRegistry handlerRegistry;
     private String translationKey;
     private boolean asynchronous;
+    private List<WidgetTheme<MaterialWidget>> widgetThemes;
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -165,6 +168,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected void onLoad() {
         super.onLoad();
 
+        if (widgetThemes == null) {
+            widgetThemes = ThemeManager.applyLoad(this);
+        } else {
+            for (WidgetTheme<MaterialWidget> widgetTheme : widgetThemes) {
+                widgetTheme.onWidgetLoad(this);
+            }
+        }
+
         if (initialClasses != null) {
             for (String initial : initialClasses) {
                 if (!initial.isEmpty()) {
@@ -190,6 +201,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     protected void onUnload() {
         super.onUnload();
+
+        if (widgetThemes == null) {
+            widgetThemes = ThemeManager.applyUnload(this);
+        } else {
+            for (WidgetTheme<MaterialWidget> widgetTheme : widgetThemes) {
+                widgetTheme.onWidgetUnload(this);
+            }
+        }
 
         getHandlerRegistry().clearHandlers();
     }
