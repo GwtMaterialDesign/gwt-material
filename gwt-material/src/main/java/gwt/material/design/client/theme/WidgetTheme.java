@@ -21,21 +21,19 @@ package gwt.material.design.client.theme;
 
 import gwt.material.design.client.base.MaterialWidget;
 
-import java.util.Objects;
-
 public abstract class WidgetTheme<T extends MaterialWidget> {
 
     private Theme theme;
     private final Class<T> type;
-    private final String selector;
+    private final String idSelector;
 
     public WidgetTheme(Class<T> type) {
         this(type, type.getName());
     }
 
-    public WidgetTheme(Class<T> type, String selector) {
+    public WidgetTheme(Class<T> type, String idSelector) {
         this.type = type;
-        this.selector = selector;
+        this.idSelector = idSelector;
     }
 
     public abstract T onWidgetLoad(T widget);
@@ -46,8 +44,8 @@ public abstract class WidgetTheme<T extends MaterialWidget> {
         return type;
     }
 
-    public String getSelector() {
-        return selector;
+    public String getIdSelector() {
+        return idSelector;
     }
 
     public Theme getTheme() {

@@ -62,13 +62,11 @@ public class ThemeManager {
                     widgetThemes.add(widgetTheme);
                 }
 
-                // Check by widgets id
+                // Check by widget id selector
                 WidgetTheme idWidgetTheme = theme.get(object.getId());
                 if (idWidgetTheme != null) {
                     widgetThemes.add(idWidgetTheme);
                 }
-
-                // TODO: other selector types?
             }
         }
         return widgetThemes;
@@ -108,6 +106,6 @@ public class ThemeManager {
     }
 
     public static <T extends MaterialWidget> void addWidgetTheme(Theme theme, WidgetTheme<T> widgetTheme) {
-        theme.put(widgetTheme.getSelector(), widgetTheme);
+        theme.put(widgetTheme.getIdSelector(), widgetTheme);
     }
 }
