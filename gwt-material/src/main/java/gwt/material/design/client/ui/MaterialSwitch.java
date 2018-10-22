@@ -26,6 +26,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
+import gwt.material.design.client.async.AsyncLoader;
 import gwt.material.design.client.async.AsyncState;
 import gwt.material.design.client.async.AsyncWidget;
 import gwt.material.design.client.async.AsyncWidgetMixin;
@@ -65,6 +66,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
     private Span onLabel = new Span();
     private Span offLabel = new Span();
 
+    private AsyncLoader asyncLoader;
     private AsyncState<Boolean> asyncState = new AsyncState<>();
     private AsyncWidgetMixin<MaterialSwitch> asyncWidgetMixin;
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
@@ -119,10 +121,10 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
 
         registerHandler(addClickHandler(event -> {
             if (isAsynchronous()) {
-                loading();
                 asyncState.setValue(getValue());
                 event.preventDefault();
                 event.stopPropagation();
+                loading();
             } else {
                 setValue(!getValue(), true);
             }
@@ -175,8 +177,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
 
     @Override
     public void loading() {
-        MaterialLoader.loading(true, this);
-        label.setVisibility(Style.Visibility.HIDDEN);
+        getAsyncLoader().loading();
         LoadingEvent.fire(this);
     }
 
@@ -185,19 +186,45 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         if (asyncState != null) {
             setValue(!asyncState.getValue());
         }
-        hideLoader();
+        getAsyncLoader().success();
         SuccessEvent.fire(this);
     }
 
     @Override
     public void failure() {
-        hideLoader();
+        getAsyncLoader().failure();
         FailureEvent.fire(this);
     }
 
-    protected void hideLoader() {
-        label.setVisibility(Style.Visibility.VISIBLE);
-        MaterialLoader.loading(false);
+    @Override
+    public void setAsyncLoader(AsyncLoader asyncLoader) {
+        this.asyncLoader = asyncLoader;
+    }
+
+    @Override
+    public AsyncLoader getAsyncLoader() {
+        if (asyncLoader == null) {
+            asyncLoader = new AsyncLoader() {
+                @Override
+                public void loading() {
+                    MaterialLoader.loading(true, MaterialSwitch.this);
+                    label.setVisibility(Style.Visibility.HIDDEN);
+                }
+
+                @Override
+                public void success() {
+                    label.setVisibility(Style.Visibility.VISIBLE);
+                    MaterialLoader.loading(false);
+                }
+
+                @Override
+                public void failure() {
+                    label.setVisibility(Style.Visibility.VISIBLE);
+                    MaterialLoader.loading(false);
+                }
+            };
+        }
+        return asyncLoader;
     }
 
     @Override
