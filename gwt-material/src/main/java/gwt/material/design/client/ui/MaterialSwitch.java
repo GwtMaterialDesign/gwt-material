@@ -20,11 +20,19 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
+import gwt.material.design.client.async.AsyncLoader;
+import gwt.material.design.client.async.AsyncState;
+import gwt.material.design.client.async.AsyncWidget;
+import gwt.material.design.client.async.AsyncWidgetMixin;
+import gwt.material.design.client.async.events.FailureEvent;
+import gwt.material.design.client.async.events.LoadingEvent;
+import gwt.material.design.client.async.events.SuccessEvent;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
@@ -49,7 +57,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-switch">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasValue<Boolean> {
+public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasValue<Boolean>, AsyncWidget {
 
     private MaterialInput input = new MaterialInput();
     private MaterialLabel errorLabel = new MaterialLabel();
@@ -58,6 +66,9 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
     private Span onLabel = new Span();
     private Span offLabel = new Span();
 
+    private AsyncLoader asyncLoader;
+    private AsyncState<Boolean> asyncState = new AsyncState<>();
+    private AsyncWidgetMixin<MaterialSwitch> asyncWidgetMixin;
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
 
     /**
@@ -108,7 +119,16 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
             event.stopPropagation();
         }));
 
-        registerHandler(addClickHandler(event -> setValue(!getValue(), true)));
+        registerHandler(addClickHandler(event -> {
+            if (isAsynchronous()) {
+                asyncState.setValue(getValue());
+                event.preventDefault();
+                event.stopPropagation();
+                loading();
+            } else {
+                setValue(!getValue(), true);
+            }
+        }));
     }
 
     @Override
@@ -153,6 +173,73 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         super.reset();
 
         setValue(false);
+    }
+
+    @Override
+    public void loading() {
+        getAsyncLoader().loading();
+        LoadingEvent.fire(this);
+    }
+
+    @Override
+    public void success() {
+        if (asyncState != null) {
+            setValue(!asyncState.getValue());
+        }
+        getAsyncLoader().success();
+        SuccessEvent.fire(this);
+    }
+
+    @Override
+    public void failure() {
+        getAsyncLoader().failure();
+        FailureEvent.fire(this);
+    }
+
+    @Override
+    public void setAsyncLoader(AsyncLoader asyncLoader) {
+        this.asyncLoader = asyncLoader;
+    }
+
+    @Override
+    public AsyncLoader getAsyncLoader() {
+        if (asyncLoader == null) {
+            asyncLoader = new AsyncLoader() {
+                @Override
+                public void loading() {
+                    MaterialLoader.loading(true, MaterialSwitch.this);
+                    label.setVisibility(Style.Visibility.HIDDEN);
+                }
+
+                @Override
+                public void success() {
+                    label.setVisibility(Style.Visibility.VISIBLE);
+                    MaterialLoader.loading(false);
+                }
+
+                @Override
+                public void failure() {
+                    label.setVisibility(Style.Visibility.VISIBLE);
+                    MaterialLoader.loading(false);
+                }
+            };
+        }
+        return asyncLoader;
+    }
+
+    @Override
+    public HandlerRegistration addLoadingHandler(LoadingEvent.LoadingHandler handler) {
+        return getAsyncWidgetMixin().addLoadingHandler(handler);
+    }
+
+    @Override
+    public HandlerRegistration addErrorHandler(FailureEvent.ErrorHandler handler) {
+        return getAsyncWidgetMixin().addErrorHandler(handler);
+    }
+
+    @Override
+    public HandlerRegistration addSuccessHandler(SuccessEvent.SuccessHandler handler) {
+        return getAsyncWidgetMixin().addSuccessHandler(handler);
     }
 
     /**
@@ -235,5 +322,12 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
             statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
         }
         return statusTextMixin;
+    }
+
+    protected AsyncWidgetMixin<MaterialSwitch> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
     }
 }

@@ -27,6 +27,7 @@ import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasSeparator;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.*;
 
@@ -55,13 +56,15 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     private CssNameMixin<MaterialIcon, IconPosition> positionMixin;
     private CssNameMixin<MaterialIcon, IconSize> sizeMixin;
     private ToggleStyleMixin<MaterialIcon> prefixMixin;
+    private ToggleStyleMixin<MaterialIcon> materialIconToggleStyleMixin;
     private ColorsMixin<MaterialIcon> iconColorMixin;
+    private StyleMixin<MaterialIcon> customIconMixin;
 
     /**
      * Creates an empty icon.
      */
     public MaterialIcon() {
-        super(CssName.MATERIAL_ICONS);
+        super();
     }
 
     /**
@@ -111,6 +114,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
 
     @Override
     public void setIconType(IconType icon) {
+        getMaterialIconToggleStyleMixin().setOn(true);
         getElement().setInnerText(icon.getCssName());
     }
 
@@ -153,6 +157,17 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
         return getPrefixMixin().isOn();
     }
 
+    @Override
+    public void setCustomIconType(String iconType) {
+        getMaterialIconToggleStyleMixin().setOn(false);
+        getCustomIconMixin().setStyle(iconType);
+    }
+
+    @Override
+    public String getCustomIconType() {
+        return getCustomIconMixin().getStyle();
+    }
+
     protected CssNameMixin<MaterialIcon, IconPosition> getPositionMixin() {
         if (positionMixin == null) {
             positionMixin = new CssNameMixin<>(this);
@@ -179,5 +194,19 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
             iconColorMixin = new ColorsMixin<>(this);
         }
         return iconColorMixin;
+    }
+
+    protected StyleMixin<MaterialIcon> getCustomIconMixin() {
+        if (customIconMixin == null) {
+            customIconMixin = new CssNameMixin<>(this);
+        }
+        return customIconMixin;
+    }
+
+    protected ToggleStyleMixin<MaterialIcon> getMaterialIconToggleStyleMixin() {
+        if (materialIconToggleStyleMixin == null) {
+            materialIconToggleStyleMixin = new ToggleStyleMixin<>(this, CssName.MATERIAL_ICONS);
+        }
+        return materialIconToggleStyleMixin;
     }
 }

@@ -19,18 +19,17 @@
  */
 package gwt.material.design.client.base.mixin;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasStatusDisplayType;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.constants.Color;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.StatusDisplayType;
+import gwt.material.design.client.base.helper.ScrollHelper;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialIcon;
-import gwt.material.design.client.ui.MaterialToast;
 
 public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText>
         extends AbstractMixin<T> implements HasStatusDisplayType {
@@ -43,8 +42,10 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     private H textObject;
     private StatusDisplayType displayType;
     private MaterialIcon statusIcon = new MaterialIcon();
-    private CssNameMixin<T, StatusDisplayType> cssNameMixin;
     private Widget container;
+
+    private CssNameMixin<T, StatusDisplayType> statusCssNameMixin;
+    private CssNameMixin<H, Position> positionCssNameMixin;
 
     public StatusDisplayMixin(T uiObject, H textObject) {
         super(uiObject);
@@ -56,7 +57,7 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     public void setStatusDisplayType(StatusDisplayType displayType) {
         this.displayType = displayType;
 
-        getCssNameMixin().setCssName(displayType);
+        getStatusCssNameMixin().setCssName(displayType);
     }
 
     @Override
@@ -81,25 +82,34 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
             }
 
             if (uiObject instanceof HasWidgets && uiObject instanceof MaterialWidget) {
+                MaterialWidget widget = ((MaterialWidget) uiObject);
                 if (container != null && container instanceof MaterialWidget) {
                     ((MaterialWidget) container).insert(statusIcon, 0);
                 } else {
                     ((HasWidgets) uiObject).add(statusIcon);
                 }
 
-                statusIcon.addMouseOverHandler(event -> showStatus());
-                statusIcon.addMouseOutHandler(event -> hideStatus());
-                ((MaterialWidget) uiObject).addFocusHandler(event -> showStatus());
-                ((MaterialWidget) uiObject).addBlurHandler(event -> hideStatus());
-                ((MaterialWidget) uiObject).addKeyUpHandler(event -> {
-                    if (event.getNativeKeyCode() == KeyCodes.KEY_ESCAPE){
-                        hideStatus();
-                    }
-                });
+                registerHandlers();
             }
         } else {
             resetStatusDisplay();
         }
+    }
+
+    protected void registerHandlers() {
+        MaterialWidget widget = (MaterialWidget) uiObject;
+        statusIcon.getHandlerRegistry().clearHandlers();
+        statusIcon.registerHandler(statusIcon.addMouseOverHandler(event -> showStatus()));
+        statusIcon.registerHandler(statusIcon.addMouseOutHandler(event -> hideStatus()));
+
+        widget.getHandlerRegistry().clearHandlers();
+        widget.registerHandler(widget.addFocusHandler(event -> showStatus()));
+        widget.registerHandler(widget.addBlurHandler(event -> hideStatus()));
+        widget.registerHandler(widget.addKeyUpHandler(event -> {
+            if (event.getNativeKeyCode() == KeyCodes.KEY_ESCAPE) {
+                hideStatus();
+            }
+        }));
     }
 
     public void resetStatusDisplay() {
@@ -112,8 +122,34 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
         }
     }
 
+    /**
+     * If the message tooltip is our of vertical viewport then we update the position to be at the bottom
+     */
     protected void showStatus() {
+        Position position;
+        if (!new ScrollHelper().isInViewPort(textObject.getElement())) {
+            position = Position.TOP;
+        } else {
+            position = Position.LEFT;
+        }
+
+        updatePosition(position);
         textObject.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
+    }
+
+    protected void updatePosition(Position position) {
+        getPositionCssNameMixin().setCssName(position);
+        if (position == Position.LEFT) {
+            textObject.getElement().getStyle().setProperty("top", "54px");
+            textObject.getElement().getStyle().setProperty("left", "unset");
+            textObject.getElement().getStyle().setProperty("right", "0px");
+        }
+
+        if (position == Position.TOP) {
+            textObject.getElement().getStyle().setProperty("top", "-54px");
+            textObject.getElement().getStyle().setProperty("left", "unset");
+            textObject.getElement().getStyle().setProperty("right", "0px");
+        }
     }
 
     protected void hideStatus() {
@@ -124,10 +160,17 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
         this.container = container;
     }
 
-    public CssNameMixin<T, StatusDisplayType> getCssNameMixin() {
-        if (cssNameMixin == null) {
-            cssNameMixin = new CssNameMixin<>(uiObject);
+    protected CssNameMixin<T, StatusDisplayType> getStatusCssNameMixin() {
+        if (statusCssNameMixin == null) {
+            statusCssNameMixin = new CssNameMixin<>(uiObject);
         }
-        return cssNameMixin;
+        return statusCssNameMixin;
+    }
+
+    protected CssNameMixin<H, Position> getPositionCssNameMixin() {
+        if (positionCssNameMixin == null) {
+            positionCssNameMixin = new CssNameMixin<>(textObject);
+        }
+        return positionCssNameMixin;
     }
 }

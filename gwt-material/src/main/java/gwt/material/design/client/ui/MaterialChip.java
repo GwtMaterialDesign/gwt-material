@@ -204,6 +204,16 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     }
 
     @Override
+    public void setCustomIconType(String iconType) {
+        icon.setCustomIconType(iconType);
+    }
+
+    @Override
+    public String getCustomIconType() {
+        return icon.getCustomIconType();
+    }
+
+    @Override
     public void setLetter(String letter) {
         getLetterMixin().setLetter(letter);
     }

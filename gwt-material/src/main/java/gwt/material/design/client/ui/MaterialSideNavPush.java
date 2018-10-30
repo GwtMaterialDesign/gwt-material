@@ -80,7 +80,7 @@ public class MaterialSideNavPush extends AbstractSideNav implements HasWithHeade
         setType(SideNavType.PUSH);
         $(JQuery.window()).off("resize").resize((e, param1) -> {
             if (!isAlwaysShowActivator() && !isOpen() && gwt.material.design.client.js.Window.matchMedia("all and (min-width: 992px)")) {
-                show();
+                open();
             }
             pushElements(isOpen(), getWidth());
             return true;

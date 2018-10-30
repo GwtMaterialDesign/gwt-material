@@ -482,23 +482,47 @@ ul.dropdown-content {
     background: #4caf50;
 }
 
+/** Arrow Default (LEFT Position) **/
 .input-field.hoverable-status .field-error-label::before,
 .input-field.hoverable-status .field-success-label::before {
     content: "";
     width: 10px;
     height: 12px;
-    border-bottom: solid 12px #D32F2F;
     border-left: solid 10px transparent;
     border-right: solid 10px transparent;
     top: -12px;
     position: absolute;
-    right: 12px;
+    left: unset;
+    right: 12px
 }
 
-.input-field.hoverable-status .field-success-label::before {
+.input-field.hoverable-status .field-error-label.left:before {
+    border-bottom: solid 12px #D32F2F;
+}
+
+.input-field.hoverable-status .field-success-label.left:before {
     border-bottom: solid 12px #4caf50;
 }
 
+.input-field.hoverable-status .field-error-label.top:before,
+.input-field.hoverable-status .field-success-label.top:before {
+    left: unset;
+    right: 12px;
+    border-bottom: none;
+    bottom: -12px;
+    top: unset;
+}
+
+.input-field.hoverable-status .field-error-label.top:before {
+    border-top: solid 12px #D32F2F;
+}
+
+.input-field.hoverable-status .field-success-label.top:before {
+    border-top: solid 12px #4caf50;
+}
+
+
+/** Status Icon **/
 .input-field.hoverable-status i.status-icon {
     position: absolute;
     top: 10px;
@@ -517,7 +541,8 @@ ul.dropdown-content {
 }
 
 /** Hoverable - ListBox **/
-.input-field.hoverable-status.listbox-wrapper.field-error .caret {
+.input-field.hoverable-status.listbox-wrapper.field-error .caret,
+.input-field.hoverable-status.listbox-wrapper.field-success .caret{
     display: none;
 }
 
@@ -1677,4 +1702,15 @@ i[class*="waves-"].material-icons {
     .input-field textarea.materialize-textarea {
         font-size: 16px;
     }
+}
+
+/** Async - Switch **/
+.switch .loader-wrapper {
+    position: absolute;
+    width: 80px;
+}
+
+.switch .loader-wrapper .preloader-wrapper {
+    width: 24px;
+    height: 24px;
 }

@@ -27,6 +27,7 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
+import gwt.material.design.client.async.Asynchronous;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
@@ -54,7 +55,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
         HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
-        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation {
+        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation, Asynchronous {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -104,6 +105,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected JQueryElement $this;
     private HandlerRegistry handlerRegistry;
     private String translationKey;
+    private boolean asynchronous;
     private List<WidgetTheme<MaterialWidget>> widgetThemes;
 
     private IdMixin<MaterialWidget> idMixin;
@@ -272,6 +274,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      */
     public void setClass(String cssClasses) {
         getElement().setAttribute("class", cssClasses);
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        this.asynchronous = asynchronous;
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return asynchronous;
     }
 
     @Override
