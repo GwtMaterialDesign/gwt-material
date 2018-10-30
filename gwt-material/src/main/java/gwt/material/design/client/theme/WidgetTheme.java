@@ -25,15 +25,15 @@ public abstract class WidgetTheme<T extends MaterialWidget> {
 
     private Theme theme;
     private final Class<T> type;
-    private final String idSelector;
+    private final String classSelector;
 
     public WidgetTheme(Class<T> type) {
         this(type, type.getName());
     }
 
-    public WidgetTheme(Class<T> type, String idSelector) {
+    public WidgetTheme(Class<T> type, String classSelector) {
         this.type = type;
-        this.idSelector = idSelector;
+        this.classSelector = classSelector;
     }
 
     public abstract T onWidgetLoad(T widget);
@@ -44,8 +44,8 @@ public abstract class WidgetTheme<T extends MaterialWidget> {
         return type;
     }
 
-    public String getIdSelector() {
-        return idSelector;
+    public String getClassSelector() {
+        return classSelector;
     }
 
     public Theme getTheme() {

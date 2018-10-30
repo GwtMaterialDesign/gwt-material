@@ -40,7 +40,7 @@ public abstract class Theme extends HashMap<String, WidgetTheme> implements Comp
      * Priority of this themes loading. Last priority by default
      */
     public int getPriority() {
-        return 999;
+        return 0;
     }
 
     @Override

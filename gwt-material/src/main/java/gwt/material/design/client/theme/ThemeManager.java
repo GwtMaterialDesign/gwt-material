@@ -27,6 +27,10 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+// TODO: use maps to manage the themes
+// TODO: add a global cache to short curcit
+// TODO: use a context to key the maps
+// TODO: bootstrap the theme loop types to a preset
 @SuppressWarnings("unchecked")
 public class ThemeManager {
 
@@ -62,10 +66,12 @@ public class ThemeManager {
                     widgetThemes.add(widgetTheme);
                 }
 
-                // Check by widget id selector
-                WidgetTheme idWidgetTheme = theme.get(object.getId());
-                if (idWidgetTheme != null) {
-                    widgetThemes.add(idWidgetTheme);
+                // Check by widget class selector
+                for (String styleName : object.getStyleName().split(" ")) {
+                    WidgetTheme styleWidgetTheme = theme.get(styleName);
+                    if (styleWidgetTheme != null) {
+                        widgetThemes.add(styleWidgetTheme);
+                    }
                 }
             }
         }
@@ -73,7 +79,6 @@ public class ThemeManager {
     }
 
     public static <T extends MaterialWidget> List<WidgetTheme<T>> applyLoad(T object) {
-        // TODO: Other onWidgetLoad theme tasks
         List<WidgetTheme<T>> widgetThemes = getWidgetThemes(object);
         for (WidgetTheme<T> widgetTheme : widgetThemes) {
             object = widgetTheme.onWidgetLoad(object);
@@ -82,7 +87,6 @@ public class ThemeManager {
     }
 
     public static <T extends MaterialWidget> List<WidgetTheme<T>> applyUnload(T object) {
-        // TODO: Other onWidgetUnload theme tasks
         List<WidgetTheme<T>> widgetThemes = getWidgetThemes(object);
         for (WidgetTheme<T> widgetTheme : widgetThemes) {
             object = widgetTheme.onWidgetUnload(object);
@@ -106,6 +110,6 @@ public class ThemeManager {
     }
 
     public static <T extends MaterialWidget> void addWidgetTheme(Theme theme, WidgetTheme<T> widgetTheme) {
-        theme.put(widgetTheme.getIdSelector(), widgetTheme);
+        theme.put(widgetTheme.getClassSelector(), widgetTheme);
     }
 }
