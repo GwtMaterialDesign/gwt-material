@@ -37,8 +37,8 @@ public class ThemeManager {
     private static SortedSet<Theme> themes;
 
     public static void addTheme(Theme theme) {
-        if (!themes.contains(theme)) {
-            themes.add(theme);
+        if (!getThemes().contains(theme)) {
+            getThemes().add(theme);
 
             for(WidgetTheme widgetTheme : theme.load()) {
                 widgetTheme.setTheme(theme);
