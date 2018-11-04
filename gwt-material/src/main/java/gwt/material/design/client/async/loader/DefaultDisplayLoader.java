@@ -17,19 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.async;
+package gwt.material.design.client.async.loader;
 
-public class AsyncState<T> {
+import gwt.material.design.client.ui.MaterialLoader;
+import gwt.material.design.client.ui.MaterialToast;
 
-    private T value;
+public class DefaultDisplayLoader implements AsyncDisplayLoader {
 
-    public AsyncState() {}
-
-    public T getValue() {
-        return value;
+    @Override
+    public void loading() {
+        MaterialLoader.loading(true);
     }
 
-    public void setValue(T value) {
-        this.value = value;
+    @Override
+    public void success(Object object) {
+
+    }
+
+    @Override
+    public void failure(String error) {
+        MaterialToast.fireToast(error);
+    }
+
+    @Override
+    public void finalize() {
+        MaterialLoader.loading(false);
     }
 }

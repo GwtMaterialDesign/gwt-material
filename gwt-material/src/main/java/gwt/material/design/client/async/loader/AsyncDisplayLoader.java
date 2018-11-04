@@ -17,13 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.async;
+package gwt.material.design.client.async.loader;
 
-import gwt.material.design.client.async.events.HasAsyncHandlers;
+public interface AsyncDisplayLoader<V> {
 
-public interface AsyncWidget extends Asynchronous, HasAsyncHandlers, AsyncLoader {
+    void loading();
 
-    void setAsyncLoader(AsyncLoader loader);
+    void success(V object);
 
-    AsyncLoader getAsyncLoader();
+    void failure(String error);
+
+    void finalize();
 }

@@ -19,11 +19,21 @@
  */
 package gwt.material.design.client.async;
 
-public interface AsyncLoader {
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
 
-    void loading();
+public interface IsAsyncWidget<V> {
 
-    void success();
+    void setAsynchronous(boolean asynchronous);
 
-    void failure();
+    boolean isAsynchronous();
+
+    void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader);
+
+    AsyncDisplayLoader getAsyncDisplayLoader();
+
+    void setAsyncCallback(AsyncWidgetCallback asyncCallback);
+
+    AsyncWidgetCallback getAsyncCallback();
+
+    void load(AsyncWidgetCallback<V, AbstractAsyncWidget> asyncWidgetCallback);
 }

@@ -8570,6 +8570,23 @@ div {
 nav ul li a {
     float: left; }
 
+/**
+* Async Switch
+*/
+.switch {
+    position: relative;
+    display: inline-block; }
+
+.switch .loader-wrapper {
+    position: absolute;
+    background: transparent;
+    margin-top: -8px; }
+
+.switch .preloader-wrapper.active {
+    margin: auto;
+    width: 28px;
+    height: 28px; }
+
 /* ==========================================================================
    OVERRIDE CSS STYLES
    ========================================================================== */
