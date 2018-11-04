@@ -23,7 +23,7 @@ public interface AsyncDisplayLoader<V> {
 
     void loading();
 
-    void success(V object);
+    void success(V result);
 
     void failure(String error);
 

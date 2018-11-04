@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,8 +25,11 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
-import gwt.material.design.client.async.AbstractAsyncWidget;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
 import gwt.material.design.client.async.loader.DefaultSwitchDisplayLoader;
+import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
@@ -51,7 +54,8 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-switch">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialSwitch extends AbstractAsyncWidget<Boolean> implements HasValue<Boolean> {
+public class MaterialSwitch extends AbstractValueWidget<Boolean>
+        implements HasValue<Boolean>, IsAsyncWidget<MaterialSwitch, Boolean> {
 
     private MaterialInput input = new MaterialInput();
     private MaterialLabel errorLabel = new MaterialLabel();
@@ -61,6 +65,7 @@ public class MaterialSwitch extends AbstractAsyncWidget<Boolean> implements HasV
     private Span offLabel = new Span();
 
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
+    private AsyncWidgetMixin<MaterialSwitch, Boolean> asyncWidgetMixin;
 
     /**
      * Creates a switch element
@@ -244,5 +249,48 @@ public class MaterialSwitch extends AbstractAsyncWidget<Boolean> implements HasV
             statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
         }
         return statusTextMixin;
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        getAsyncWidgetMixin().setAsynchronous(asynchronous);
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return getAsyncWidgetMixin().isAsynchronous();
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<MaterialSwitch, Boolean> asyncCallback) {
+        getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback asyncCallback) {
+        getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
+    }
+
+    @Override
+    public AsyncWidgetCallback getAsyncCallback() {
+        return getAsyncWidgetMixin().getAsyncCallback();
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+        getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
+    }
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return getAsyncWidgetMixin().getAsyncDisplayLoader();
+    }
+
+    protected AsyncWidgetMixin<MaterialSwitch, Boolean> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
     }
 }

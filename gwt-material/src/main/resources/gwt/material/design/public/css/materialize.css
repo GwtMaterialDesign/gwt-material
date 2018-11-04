@@ -8573,19 +8573,47 @@ nav ul li a {
 /**
 * Async Switch
 */
-.switch {
+.async.switch {
     position: relative;
     display: inline-block; }
 
-.switch .loader-wrapper {
+.async.switch .loader-wrapper {
     position: absolute;
     background: transparent;
     margin-top: -8px; }
 
-.switch .preloader-wrapper.active {
+.async.switch .preloader-wrapper.active {
     margin: auto;
     width: 28px;
     height: 28px; }
+
+/**
+* Async Button
+*/
+button.async.loading i {
+    -webkit-animation: spin 400ms linear infinite;
+    -moz-animation: spin 400ms linear infinite;
+    animation: spin 400ms linear infinite;
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
 
 /* ==========================================================================
    OVERRIDE CSS STYLES

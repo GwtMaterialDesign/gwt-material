@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -104,7 +104,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected JQueryElement $this;
     private HandlerRegistry handlerRegistry;
     private String translationKey;
-    private boolean asynchronous;
     private List<WidgetTheme<MaterialWidget>> widgetThemes;
 
     private IdMixin<MaterialWidget> idMixin;
@@ -598,7 +597,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      */
     public Style.Visibility getVisibility() {
         String visibility = getElement().getStyle().getVisibility();
-        if(visibility != null && !visibility.isEmpty()) {
+        if (visibility != null && !visibility.isEmpty()) {
             return Style.Visibility.valueOf(visibility.toUpperCase());
         }
         return null;
@@ -945,7 +944,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     public String getLetterSpacing() {
-       return getElement().getStyle().getProperty("letterSpacing");
+        return getElement().getStyle().getProperty("letterSpacing");
     }
 
     public HandlerRegistration registerHandler(HandlerRegistration handler) {
@@ -992,7 +991,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         target.getStyle().setProperty("WebkitTransition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
         target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
     }
-    
+
     public String getCursor() {
         return getElement().getStyle().getCursor();
     }

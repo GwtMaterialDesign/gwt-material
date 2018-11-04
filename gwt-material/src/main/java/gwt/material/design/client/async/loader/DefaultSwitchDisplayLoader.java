@@ -39,8 +39,9 @@ public class DefaultSwitchDisplayLoader implements AsyncDisplayLoader<Boolean> {
     }
 
     @Override
-    public void success(Boolean object) {
+    public void success(Boolean result) {
         materialSwitch.clearErrorText();
+        materialSwitch.setValue(result, true);
     }
 
     @Override

@@ -19,7 +19,10 @@
  */
 package gwt.material.design.client.async;
 
-public interface AsyncWidgetCallback<T, W extends AbstractAsyncWidget> {
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Widget;
 
-    void load(com.google.gwt.user.client.rpc.AsyncCallback<T> callback, W widget);
+public interface AsyncWidgetCallback<W extends Widget, T> {
+
+    void load(AsyncCallback<T> callback, W widget);
 }
