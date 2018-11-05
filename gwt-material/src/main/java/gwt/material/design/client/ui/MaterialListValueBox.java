@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,6 +29,13 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.HasAsyncRenderer;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultListValueBoxDisplayLoader;
+import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
+import gwt.material.design.client.async.renderer.AsyncRenderer;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.FieldTypeMixin;
@@ -73,7 +80,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
-        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes {
+        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, IsAsyncWidget<MaterialListValueBox<T>, List<T>>,
+        HasAsyncRenderer<String, T> {
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
@@ -81,17 +89,21 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     private KeyFactory<T, String> keyFactory = new AllowBlankKeyFactory();
     private MaterialLabel errorLabel = new MaterialLabel();
     private boolean loaded = false;
+    private AsyncRenderer<String, T> asyncRenderer;
 
     private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private FieldTypeMixin<MaterialListValueBox> fieldTypeMixin;
+    private AsyncWidgetMixin<MaterialListValueBox<T>, List<T>> asyncWidgetMixin;
 
     private String emptyPlaceHolder = null;
 
     public MaterialListValueBox() {
-        super(Document.get().createDivElement(), CssName.INPUT_FIELD,  CssName.LISTBOX_WRAPPER);
-        super.setAllowBlank(false);
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD, CssName.LISTBOX_WRAPPER);
+
+        setAllowBlank(false);
+        setAsyncDisplayLoader(new DefaultListValueBoxDisplayLoader(this));
     }
 
     @Override
@@ -114,8 +126,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void load() {
         JQueryElement listBoxElement = $(listBox.getElement());
-        JsMaterialElement.$(listBox.getElement()).material_select(
-                () -> $("input.select-dropdown").trigger("close", true));
+        JsMaterialElement.$(listBox.getElement()).material_select(() -> $("input.select-dropdown").trigger("close", true));
         listBoxElement.change((e, param) -> {
             try {
                 ValueChangeEvent.fire(this, getValue());
@@ -138,6 +149,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
         selectDropdown.focus((e, param1) -> {
             DomEvent.fireNativeEvent(Document.get().createFocusEvent(), this);
+
+            if (isAsynchronous() && !isLoaded()) {
+                load(getAsyncCallback());
+            }
+
             return true;
         });
         loaded = true;
@@ -1036,27 +1052,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return -1;
     }
 
-    public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
-        if (readOnlyMixin == null) {
-            readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
-        }
-        return readOnlyMixin;
-    }
-
-    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
-        if (toggleOldMixin == null) {
-            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
-        }
-        return toggleOldMixin;
-    }
-
-    protected FieldTypeMixin<MaterialListValueBox> getFieldTypeMixin() {
-        if (fieldTypeMixin == null) {
-            fieldTypeMixin = new FieldTypeMixin<>(this);
-        }
-        return fieldTypeMixin;
-    }
-
     /**
      * Checks whether {@link #emptyPlaceHolder} is added/present in both {@link #listBox} and {@link #values} at 0 index.
      *
@@ -1109,5 +1104,84 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setFieldWidth(double percentWidth) {
         getFieldTypeMixin().setFieldWidth(percentWidth);
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        getAsyncWidgetMixin().setAsynchronous(asynchronous);
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return getAsyncWidgetMixin().isAsynchronous();
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<MaterialListValueBox<T>, List<T>> asyncCallback) {
+        getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialListValueBox<T>, List<T>> asyncCallback) {
+        getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
+    }
+
+    @Override
+    public AsyncWidgetCallback<MaterialListValueBox<T>, List<T>> getAsyncCallback() {
+        return getAsyncWidgetMixin().getAsyncCallback();
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+        getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
+    }
+
+    @Override
+    public void setAsyncRender(AsyncRenderer<String, T> asyncRenderer) {
+        this.asyncRenderer = asyncRenderer;
+    }
+
+    @Override
+    public AsyncRenderer<String, T> getAsyncRenderer() {
+        return asyncRenderer;
+    }
+
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return getAsyncWidgetMixin().getAsyncDisplayLoader();
+    }
+
+    public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
+        }
+        return readOnlyMixin;
+    }
+
+    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
+        if (toggleOldMixin == null) {
+            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
+        }
+        return toggleOldMixin;
+    }
+
+    protected FieldTypeMixin<MaterialListValueBox> getFieldTypeMixin() {
+        if (fieldTypeMixin == null) {
+            fieldTypeMixin = new FieldTypeMixin<>(this);
+        }
+        return fieldTypeMixin;
+    }
+
+    protected AsyncWidgetMixin<MaterialListValueBox<T>, List<T>> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
     }
 }

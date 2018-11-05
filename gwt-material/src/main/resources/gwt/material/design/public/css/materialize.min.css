@@ -8615,6 +8615,12 @@ button.async.loading i {
     }
 }
 
+/** Async ListBox **/
+.async.listbox-wrapper .progress-wrapper {
+    top: unset;
+    bottom: -4px;
+}
+
 /* ==========================================================================
    OVERRIDE CSS STYLES
    ========================================================================== */

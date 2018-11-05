@@ -266,14 +266,18 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
         getAsyncWidgetMixin().load(asyncCallback);
     }
 
+    @Override
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
 
     @Override
-    public void setAsyncCallback(AsyncWidgetCallback asyncCallback) {
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialSwitch, Boolean> asyncCallback) {
         getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
     }
 
     @Override
-    public AsyncWidgetCallback getAsyncCallback() {
+    public AsyncWidgetCallback<MaterialSwitch, Boolean> getAsyncCallback() {
         return getAsyncWidgetMixin().getAsyncCallback();
     }
 

@@ -15,6 +15,7 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
 
 
     protected W widget;
+    protected boolean loaded;
     protected AsyncDisplayLoader<V> displayLoader;
     protected AsyncWidgetCallback asyncCallback;
 
@@ -37,14 +38,21 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
             public void onFailure(Throwable caught) {
                 displayLoader.failure(caught.getMessage());
                 displayLoader.finalize();
+                loaded = false;
             }
 
             @Override
             public void onSuccess(V result) {
                 displayLoader.success(result);
                 displayLoader.finalize();
+                loaded = true;
             }
         }, widget);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return loaded;
     }
 
     @Override

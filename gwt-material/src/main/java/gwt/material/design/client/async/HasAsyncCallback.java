@@ -1,8 +1,10 @@
 package gwt.material.design.client.async;
 
-public interface HasAsyncCallback {
+import com.google.gwt.user.client.ui.Widget;
 
-    void setAsyncCallback(AsyncWidgetCallback asyncCallback);
+public interface HasAsyncCallback<W extends Widget, V> {
 
-    AsyncWidgetCallback getAsyncCallback();
+    void setAsyncCallback(AsyncWidgetCallback<W, V> asyncCallback);
+
+    AsyncWidgetCallback<W, V> getAsyncCallback();
 }

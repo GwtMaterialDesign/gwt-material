@@ -12,6 +12,8 @@ public class DefaultButtonDisplayLoader implements AsyncIconDisplayLoader<String
     protected AbstractIconButton button;
     protected ToggleStyleMixin<AbstractIconButton> loadingStyleMixin;
 
+    protected DefaultButtonDisplayLoader() {}
+
     public DefaultButtonDisplayLoader(AbstractIconButton button) {
         this.button = button;
         if (!button.isAttached()) {

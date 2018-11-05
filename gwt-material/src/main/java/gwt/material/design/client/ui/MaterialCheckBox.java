@@ -21,8 +21,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
@@ -221,12 +219,17 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid, IsAsyncWi
     }
 
     @Override
-    public void setAsyncCallback(AsyncWidgetCallback asyncCallback) {
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialCheckBox, Boolean> asyncCallback) {
         getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
     }
 
     @Override
-    public AsyncWidgetCallback getAsyncCallback() {
+    public AsyncWidgetCallback<MaterialCheckBox, Boolean> getAsyncCallback() {
         return getAsyncWidgetMixin().getAsyncCallback();
     }
 

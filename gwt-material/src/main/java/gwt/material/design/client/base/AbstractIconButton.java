@@ -165,12 +165,17 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     }
 
     @Override
-    public void setAsyncCallback(AsyncWidgetCallback asyncCallback) {
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<AbstractIconButton, String> asyncCallback) {
         getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
     }
 
     @Override
-    public AsyncWidgetCallback getAsyncCallback() {
+    public AsyncWidgetCallback<AbstractIconButton, String> getAsyncCallback() {
         return getAsyncWidgetMixin().getAsyncCallback();
     }
 

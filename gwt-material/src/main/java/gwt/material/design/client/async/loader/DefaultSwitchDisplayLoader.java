@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,16 +26,26 @@ import gwt.material.design.client.ui.MaterialSwitch;
 public class DefaultSwitchDisplayLoader implements AsyncDisplayLoader<Boolean> {
 
     private MaterialSwitch materialSwitch;
+    private MaterialLoader loader;
+
+    protected DefaultSwitchDisplayLoader() {}
 
     public DefaultSwitchDisplayLoader(MaterialSwitch materialSwitch) {
         this.materialSwitch = materialSwitch;
+
+        setupLoader();
+    }
+
+    protected void setupLoader() {
+        loader = new MaterialLoader();
+        loader.setContainer(materialSwitch);
     }
 
     @Override
     public void loading() {
         materialSwitch.setEnabled(false);
         materialSwitch.getLabel().setVisibility(Style.Visibility.HIDDEN);
-        MaterialLoader.loading(true, materialSwitch);
+        loader.show();
     }
 
     @Override
@@ -53,6 +63,6 @@ public class DefaultSwitchDisplayLoader implements AsyncDisplayLoader<Boolean> {
     public void finalize() {
         materialSwitch.setEnabled(true);
         materialSwitch.getLabel().setVisibility(Style.Visibility.VISIBLE);
-        MaterialLoader.loading(false);
+        loader.hide();
     }
 }
