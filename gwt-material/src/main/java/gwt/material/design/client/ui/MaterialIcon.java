@@ -22,6 +22,9 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasSeparator;
@@ -51,7 +54,8 @@ import gwt.material.design.client.constants.*;
  * @see <a href="https://material.io/icons/">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialIcon extends AbstractButton implements HasSeparator, HasIcon {
+public class MaterialIcon extends AbstractButton
+        implements HasSeparator, HasIcon, IsAsyncWidget<MaterialIcon, IconType> {
 
     private CssNameMixin<MaterialIcon, IconPosition> positionMixin;
     private CssNameMixin<MaterialIcon, IconSize> sizeMixin;
@@ -197,7 +201,7 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
     }
 
     protected StyleMixin<MaterialIcon> getCustomIconMixin() {
-        if (customIconMixin == null) {
+        if (customIconMixin ==  null) {
             customIconMixin = new CssNameMixin<>(this);
         }
         return customIconMixin;
@@ -208,5 +212,45 @@ public class MaterialIcon extends AbstractButton implements HasSeparator, HasIco
             materialIconToggleStyleMixin = new ToggleStyleMixin<>(this, CssName.MATERIAL_ICONS);
         }
         return materialIconToggleStyleMixin;
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return false;
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<MaterialIcon, IconType> asyncCallback) {
+
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return false;
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialIcon, IconType> asyncCallback) {
+
+    }
+
+    @Override
+    public AsyncWidgetCallback<MaterialIcon, IconType> getAsyncCallback() {
+        return null;
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+
+    }
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return null;
     }
 }

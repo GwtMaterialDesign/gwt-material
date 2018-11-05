@@ -1,11 +1,14 @@
 package gwt.material.design.client.async.loader;
 
+import com.google.gwt.core.client.Scheduler;
 import gwt.material.design.client.async.renderer.AsyncRenderer;
 import gwt.material.design.client.constants.LoaderType;
 import gwt.material.design.client.ui.MaterialListValueBox;
 import gwt.material.design.client.ui.MaterialLoader;
 
 import java.util.List;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 public class DefaultListValueBoxDisplayLoader<T> implements AsyncDisplayLoader<List<T>> {
 
@@ -35,7 +38,7 @@ public class DefaultListValueBoxDisplayLoader<T> implements AsyncDisplayLoader<L
     public void success(List<T> result) {
         result.forEach(object -> listValueBox.addItem(object, listValueBox.getAsyncRenderer() != null ? listValueBox.getAsyncRenderer().render(object) : object.toString(), false));
         listValueBox.reload();
-        listValueBox.setFocus(true);
+        $(listValueBox.getElement()).find("input").focus();
     }
 
     @Override
