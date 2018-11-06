@@ -13,7 +13,6 @@ import gwt.material.design.client.constants.CssName;
 
 public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V> {
 
-
     protected W widget;
     protected boolean loaded;
     protected AsyncDisplayLoader<V> displayLoader;
@@ -48,6 +47,11 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
                 loaded = true;
             }
         }, widget);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        this.loaded = loaded;
     }
 
     @Override

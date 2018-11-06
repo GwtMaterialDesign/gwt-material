@@ -29,5 +29,7 @@ public interface IsAsyncWidget<W extends Widget, V> extends HasAsyncCallback<W, 
 
     void load(AsyncWidgetCallback<W, V> asyncCallback);
 
+    void setLoaded(boolean loaded);
+
     boolean isLoaded();
 }

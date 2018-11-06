@@ -4,7 +4,7 @@ import gwt.material.design.client.async.renderer.AsyncRenderer;
 
 public interface HasAsyncRenderer<X, T> {
 
-    void setAsyncRender(AsyncRenderer<X, T> renderer);
+    void setAsyncRenderer(AsyncRenderer<X, T> renderer);
 
     AsyncRenderer<X, T> getAsyncRenderer();
 }

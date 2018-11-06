@@ -23,7 +23,7 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.async.AsyncWidgetCallback;
 import gwt.material.design.client.async.IsAsyncWidget;
 import gwt.material.design.client.async.loader.AsyncDisplayLoader;
-import gwt.material.design.client.async.loader.DefaultButtonDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultButtonLoader;
 import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialIcon;
@@ -38,7 +38,7 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
 
     public AbstractIconButton() {
         super();
-        setAsyncDisplayLoader(new DefaultButtonDisplayLoader(this));
+        setAsyncDisplayLoader(new DefaultButtonLoader(this));
         setIconPosition(IconPosition.LEFT);
     }
 
@@ -162,6 +162,11 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
     @Override
     public void load(AsyncWidgetCallback<AbstractIconButton, String> asyncCallback) {
         getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
     }
 
     @Override

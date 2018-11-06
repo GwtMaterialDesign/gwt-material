@@ -28,7 +28,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.async.AsyncWidgetCallback;
 import gwt.material.design.client.async.IsAsyncWidget;
 import gwt.material.design.client.async.loader.AsyncDisplayLoader;
-import gwt.material.design.client.async.loader.DefaultSwitchDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultSwitchLoader;
 import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
@@ -74,7 +74,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
         super(Document.get().createDivElement(), CssName.SWITCH);
         span.setStyleName(CssName.LEVER);
         input.setType(InputType.CHECKBOX);
-        setAsyncDisplayLoader(new DefaultSwitchDisplayLoader(this));
+        setAsyncDisplayLoader(new DefaultSwitchLoader(this));
     }
 
     public MaterialSwitch(String onLabel, String offLabel) {
@@ -264,6 +264,11 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
     @Override
     public void load(AsyncWidgetCallback<MaterialSwitch, Boolean> asyncCallback) {
         getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
     }
 
     @Override

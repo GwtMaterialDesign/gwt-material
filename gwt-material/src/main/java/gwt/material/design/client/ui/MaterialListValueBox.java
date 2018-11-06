@@ -33,7 +33,7 @@ import gwt.material.design.client.async.AsyncWidgetCallback;
 import gwt.material.design.client.async.HasAsyncRenderer;
 import gwt.material.design.client.async.IsAsyncWidget;
 import gwt.material.design.client.async.loader.AsyncDisplayLoader;
-import gwt.material.design.client.async.loader.DefaultListValueBoxDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultListValueBoxLoader;
 import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.async.renderer.AsyncRenderer;
 import gwt.material.design.client.base.*;
@@ -103,7 +103,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         super(Document.get().createDivElement(), CssName.INPUT_FIELD, CssName.LISTBOX_WRAPPER);
 
         setAllowBlank(false);
-        setAsyncDisplayLoader(new DefaultListValueBoxDisplayLoader(this));
+        setAsyncDisplayLoader(new DefaultListValueBoxLoader(this));
     }
 
     @Override
@@ -156,7 +156,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
             return true;
         });
-        loaded = true;
+
         if (isAllowBlank()) {
             addBlankItemIfNeeded();
         }
@@ -1122,6 +1122,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     @Override
+    public void setLoaded(boolean loaded) {
+
+    }
+
+    @Override
     public boolean isLoaded() {
         return getAsyncWidgetMixin().isLoaded();
     }
@@ -1142,7 +1147,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     @Override
-    public void setAsyncRender(AsyncRenderer<String, T> asyncRenderer) {
+    public void setAsyncRenderer(AsyncRenderer<String, T> asyncRenderer) {
         this.asyncRenderer = asyncRenderer;
     }
 

@@ -10,14 +10,14 @@ import java.util.List;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class DefaultListValueBoxDisplayLoader<T> implements AsyncDisplayLoader<List<T>> {
+public class DefaultListValueBoxLoader<T> implements AsyncDisplayLoader<List<T>> {
 
     private MaterialLoader loader;
     private MaterialListValueBox<T> listValueBox;
 
-    protected DefaultListValueBoxDisplayLoader() {}
+    protected DefaultListValueBoxLoader() {}
 
-    public DefaultListValueBoxDisplayLoader(MaterialListValueBox<T> listValueBox) {
+    public DefaultListValueBoxLoader(MaterialListValueBox<T> listValueBox) {
         this.listValueBox = listValueBox;
 
         setupLoader();
@@ -39,6 +39,7 @@ public class DefaultListValueBoxDisplayLoader<T> implements AsyncDisplayLoader<L
         result.forEach(object -> listValueBox.addItem(object, listValueBox.getAsyncRenderer() != null ? listValueBox.getAsyncRenderer().render(object) : object.toString(), false));
         listValueBox.reload();
         $(listValueBox.getElement()).find("input").focus();
+        listValueBox.setLoaded(true);
     }
 
     @Override

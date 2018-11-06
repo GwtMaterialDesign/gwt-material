@@ -230,6 +230,11 @@ public class MaterialIcon extends AbstractButton
     }
 
     @Override
+    public void setLoaded(boolean loaded) {
+
+    }
+
+    @Override
     public boolean isLoaded() {
         return false;
     }

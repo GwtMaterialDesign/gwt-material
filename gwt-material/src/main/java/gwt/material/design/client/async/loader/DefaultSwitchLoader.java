@@ -23,14 +23,14 @@ import com.google.gwt.dom.client.Style;
 import gwt.material.design.client.ui.MaterialLoader;
 import gwt.material.design.client.ui.MaterialSwitch;
 
-public class DefaultSwitchDisplayLoader implements AsyncDisplayLoader<Boolean> {
+public class DefaultSwitchLoader implements AsyncDisplayLoader<Boolean> {
 
     private MaterialSwitch materialSwitch;
     private MaterialLoader loader;
 
-    protected DefaultSwitchDisplayLoader() {}
+    protected DefaultSwitchLoader() {}
 
-    public DefaultSwitchDisplayLoader(MaterialSwitch materialSwitch) {
+    public DefaultSwitchLoader(MaterialSwitch materialSwitch) {
         this.materialSwitch = materialSwitch;
 
         setupLoader();

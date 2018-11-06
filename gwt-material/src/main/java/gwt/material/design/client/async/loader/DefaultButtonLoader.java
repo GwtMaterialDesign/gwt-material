@@ -5,16 +5,16 @@ import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 
-public class DefaultButtonDisplayLoader implements AsyncIconDisplayLoader<String> {
+public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
 
     protected String initialText;
     protected IconType initialIcon;
     protected AbstractIconButton button;
     protected ToggleStyleMixin<AbstractIconButton> loadingStyleMixin;
 
-    protected DefaultButtonDisplayLoader() {}
+    protected DefaultButtonLoader() {}
 
-    public DefaultButtonDisplayLoader(AbstractIconButton button) {
+    public DefaultButtonLoader(AbstractIconButton button) {
         this.button = button;
         if (!button.isAttached()) {
             button.addAttachHandler(event -> {

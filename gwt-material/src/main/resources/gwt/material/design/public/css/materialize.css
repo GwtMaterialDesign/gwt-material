@@ -8615,10 +8615,20 @@ button.async.loading i {
     }
 }
 
-/** Async ListBox **/
+/**
+* Async ListBox
+**/
 .async.listbox-wrapper .progress-wrapper {
     top: unset;
     bottom: -4px;
+}
+
+/**
+* Async Collapsible
+**/
+ul.collapsible li.async .valign-wrapper {
+    top: unset;
+    bottom: 0px;
 }
 
 /* ==========================================================================

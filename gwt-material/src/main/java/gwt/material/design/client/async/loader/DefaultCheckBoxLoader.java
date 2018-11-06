@@ -3,14 +3,14 @@ package gwt.material.design.client.async.loader;
 import gwt.material.design.client.ui.MaterialCheckBox;
 import gwt.material.design.client.ui.MaterialLoader;
 
-public class DefaultCheckBoxDisplayLoader implements AsyncDisplayLoader<Boolean> {
+public class DefaultCheckBoxLoader implements AsyncDisplayLoader<Boolean> {
 
     private MaterialCheckBox checkBox;
     private MaterialLoader loader;
 
-    protected DefaultCheckBoxDisplayLoader() {}
+    protected DefaultCheckBoxLoader() {}
 
-    public DefaultCheckBoxDisplayLoader(MaterialCheckBox checkBox) {
+    public DefaultCheckBoxLoader(MaterialCheckBox checkBox) {
         this.checkBox = checkBox;
 
         setupLoader();

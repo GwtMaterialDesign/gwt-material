@@ -28,7 +28,7 @@ import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.async.AsyncWidgetCallback;
 import gwt.material.design.client.async.IsAsyncWidget;
 import gwt.material.design.client.async.loader.AsyncDisplayLoader;
-import gwt.material.design.client.async.loader.DefaultCheckBoxDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultCheckBoxLoader;
 import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.base.BaseCheckBox;
 import gwt.material.design.client.base.HasGrid;
@@ -76,7 +76,7 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid, IsAsyncWi
 
     public MaterialCheckBox() {
         super();
-        setAsyncDisplayLoader(new DefaultCheckBoxDisplayLoader(this));
+        setAsyncDisplayLoader(new DefaultCheckBoxLoader(this));
     }
 
     public MaterialCheckBox(Element elem) {
@@ -216,6 +216,11 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid, IsAsyncWi
     @Override
     public void load(AsyncWidgetCallback<MaterialCheckBox, Boolean> asyncCallback) {
         getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
     }
 
     @Override
