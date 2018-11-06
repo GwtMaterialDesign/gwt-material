@@ -19,6 +19,7 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
     protected AsyncWidgetCallback asyncCallback;
 
     private ToggleStyleMixin<MaterialWidget> asyncStyleMixin;
+    private ToggleStyleMixin<MaterialWidget> loadingStyleMixin;
 
     public AsyncWidgetMixin(W widget) {
         this.widget = widget;
@@ -32,19 +33,20 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
         }
 
         displayLoader.loading();
+        getLoadingStyleMixin().setOn(true);
         asyncCallback.load(new AsyncCallback<V>() {
             @Override
             public void onFailure(Throwable caught) {
                 displayLoader.failure(caught.getMessage());
                 displayLoader.finalize();
-                loaded = false;
+                getLoadingStyleMixin().setOn(false);
             }
 
             @Override
             public void onSuccess(V result) {
                 displayLoader.success(result);
                 displayLoader.finalize();
-                loaded = true;
+                getLoadingStyleMixin().setOn(false);
             }
         }, widget);
     }
@@ -94,5 +96,12 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
             asyncStyleMixin = new ToggleStyleMixin<>(new MaterialWidget(widget.getElement()), CssName.ASYNC);
         }
         return asyncStyleMixin;
+    }
+
+    public ToggleStyleMixin<MaterialWidget> getLoadingStyleMixin() {
+        if (loadingStyleMixin == null) {
+            loadingStyleMixin = new ToggleStyleMixin<>(new MaterialWidget(widget.getElement()), CssName.LOADING);
+        }
+        return loadingStyleMixin;
     }
 }

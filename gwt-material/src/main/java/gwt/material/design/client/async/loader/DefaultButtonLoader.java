@@ -1,8 +1,6 @@
 package gwt.material.design.client.async.loader;
 
 import gwt.material.design.client.base.AbstractIconButton;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.IconType;
 
 public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
@@ -10,7 +8,6 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
     protected String initialText;
     protected IconType initialIcon;
     protected AbstractIconButton button;
-    protected ToggleStyleMixin<AbstractIconButton> loadingStyleMixin;
 
     protected DefaultButtonLoader() {}
 
@@ -29,7 +26,6 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
         button.setEnabled(false);
         button.setText("Loading");
         button.setIconType(getLoadingIcon());
-        getLoadingStyleMixin().setOn(true);
     }
 
     @Override
@@ -45,7 +41,6 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
     @Override
     public void finalize() {
         button.setEnabled(true);
-        getLoadingStyleMixin().setOn(false);
         if (initialText != null) {
             button.setText(initialText);
         }
@@ -69,12 +64,5 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
     @Override
     public IconType getErrorIcon() {
         return IconType.WARNING;
-    }
-
-    protected ToggleStyleMixin<AbstractIconButton> getLoadingStyleMixin() {
-        if (loadingStyleMixin == null) {
-            loadingStyleMixin = new ToggleStyleMixin<>(button, CssName.LOADING);
-        }
-        return loadingStyleMixin;
     }
 }

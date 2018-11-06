@@ -31,8 +31,6 @@ import gwt.material.design.client.async.loader.AsyncDisplayLoader;
 import gwt.material.design.client.async.loader.DefaultCheckBoxLoader;
 import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.base.BaseCheckBox;
-import gwt.material.design.client.base.HasGrid;
-import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.constants.CssName;
@@ -63,19 +61,18 @@ import gwt.material.design.client.events.HandlerRegistry;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#checkbox">CheckBox</a>
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-checkbox">Material Design Specification</a>
  */
-public class MaterialCheckBox extends BaseCheckBox implements HasGrid, IsAsyncWidget<MaterialCheckBox, Boolean> {
+public class MaterialCheckBox extends BaseCheckBox implements IsAsyncWidget<MaterialCheckBox, Boolean> {
 
     private Object object;
 
     private HandlerRegistry handlerRegistry = new DefaultHandlerRegistry(this);
-    private GridMixin<MaterialCheckBox> gridMixin;
     private ToggleStyleMixin<MaterialCheckBox> toggleOldMixin;
     private AsyncWidgetMixin<MaterialCheckBox, Boolean> asyncWidgetMixin;
 
     private CheckBoxType type;
 
     public MaterialCheckBox() {
-        super();
+        super(DOM.createDiv());
         setAsyncDisplayLoader(new DefaultCheckBoxLoader(this));
     }
 
@@ -137,16 +134,6 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid, IsAsyncWi
         handlerRegistry.clearHandlers();
     }
 
-    @Override
-    public void setGrid(String grid) {
-        getGridMixin().setGrid(grid);
-    }
-
-    @Override
-    public void setOffset(String offset) {
-        getGridMixin().setOffset(offset);
-    }
-
     public Object getObject() {
         return object;
     }
@@ -187,13 +174,6 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid, IsAsyncWi
 
     public CheckBoxType getType() {
         return type;
-    }
-
-    public GridMixin<MaterialCheckBox> getGridMixin() {
-        if (gridMixin == null) {
-            gridMixin = new GridMixin<>(this);
-        }
-        return gridMixin;
     }
 
     public ToggleStyleMixin<MaterialCheckBox> getToggleOldMixin() {
