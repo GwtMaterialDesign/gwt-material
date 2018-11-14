@@ -12870,6 +12870,34 @@ ul.side-nav.mini-with-expand li a span {
     visibility: hidden;
 }
 
+/** SideNav - Compact Density **/
+.compact.side-nav a {
+    height: 32px;
+    line-height: 32px;
+}
+
+.compact.side-nav li {
+    line-height: 32px;
+}
+.compact.side-nav i {
+    font-size: 1.4em !important;
+    margin-left: 4px !important;
+}
+
+/** SideNav - Comfortable Density **/
+.comfortable.side-nav a {
+    height: 40px;
+    line-height: 40px;
+}
+
+.comfortable.side-nav li {
+    line-height: 40px;
+}
+.comfortable.side-nav i {
+    font-size: 1.6em !important;
+    margin-left: 4px !important;
+}
+
 /** SplashScreen */
 .splash-screen {
     position: fixed;

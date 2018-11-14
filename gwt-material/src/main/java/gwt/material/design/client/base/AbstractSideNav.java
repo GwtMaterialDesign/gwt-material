@@ -28,7 +28,9 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.density.DisplayDensity;
 import gwt.material.design.client.base.helper.DOMHelper;
+import gwt.material.design.client.base.mixin.DensityMixin;
 import gwt.material.design.client.base.mixin.OverlayStyleMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.base.viewport.ViewPort;
@@ -54,7 +56,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public abstract class AbstractSideNav extends MaterialWidget
-        implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers, HasOverlayStyle {
+        implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers, HasOverlayStyle, HasDensity {
 
     protected int width = 240;
     protected int inDuration = 400;
@@ -72,6 +74,7 @@ public abstract class AbstractSideNav extends MaterialWidget
 
     private StyleMixin<MaterialSideNav> typeMixin;
     private OverlayStyleMixin<AbstractSideNav> overlayStyleMixin;
+    private DensityMixin<AbstractSideNav> densityMixin;
 
     public AbstractSideNav() {
         super(Document.get().createULElement(), CssName.SIDE_NAV);
@@ -623,6 +626,16 @@ public abstract class AbstractSideNav extends MaterialWidget
         return closingBoundary;
     }
 
+    @Override
+    public void setDensity(DisplayDensity density) {
+        getDensityMixin().setDensity(density);
+    }
+
+    @Override
+    public DisplayDensity getDensity() {
+        return getDensityMixin().getDensity();
+    }
+
     public Element getActivator() {
         return activator;
     }
@@ -667,5 +680,12 @@ public abstract class AbstractSideNav extends MaterialWidget
             overlayStyleMixin = new OverlayStyleMixin<>(this);
         }
         return overlayStyleMixin;
+    }
+
+    protected DensityMixin<AbstractSideNav> getDensityMixin() {
+        if (densityMixin == null) {
+            densityMixin = new DensityMixin<>(this);
+        }
+        return densityMixin;
     }
 }

@@ -7,20 +7,21 @@ import gwt.material.design.client.base.helper.EventHelper;
 
 public class DensityMixin<T extends Widget> extends AbstractMixin<T> implements HasDensity {
 
-    private StyleMixin<Widget> styleMixin;
+    private CssNameMixin<Widget, DisplayDensity> styleMixin;
+    private DisplayDensity density = DisplayDensity.DEFAULT;
 
     public DensityMixin(T uiObject) {
         super(uiObject);
     }
 
     @Override
-    public void setDensity(DisplayDensity displayDensity) {
-        if (uiObject != null) {
-            if (uiObject.isAttached()) {
-                getStyleMixin().setStyle(displayDensity.getCssName());
-            } else {
-                EventHelper.onAttachOnce(uiObject, event -> getStyleMixin().setStyle(displayDensity.getCssName()));
-            }
+    public void setDensity(DisplayDensity density) {
+        this.density = density;
+
+        if (uiObject.isAttached()) {
+            getStyleMixin().setCssName(density);
+        } else {
+            EventHelper.onAttachOnce(uiObject, attachEvent -> getStyleMixin().setCssName(density));
         }
     }
 
@@ -29,9 +30,9 @@ public class DensityMixin<T extends Widget> extends AbstractMixin<T> implements 
         return DisplayDensity.fromStyleName(getStyleMixin().getStyle());
     }
 
-    public StyleMixin<Widget> getStyleMixin() {
+    public CssNameMixin<Widget, DisplayDensity> getStyleMixin() {
         if (styleMixin == null) {
-            styleMixin = new StyleMixin<>(uiObject);
+            styleMixin = new CssNameMixin<>(uiObject);
         }
         return styleMixin;
     }
