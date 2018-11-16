@@ -28,6 +28,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.density.Density;
 import gwt.material.design.client.base.density.DisplayDensity;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.DensityMixin;
@@ -627,12 +628,12 @@ public abstract class AbstractSideNav extends MaterialWidget
     }
 
     @Override
-    public void setDensity(DisplayDensity density) {
+    public void setDensity(Density density) {
         getDensityMixin().setDensity(density);
     }
 
     @Override
-    public DisplayDensity getDensity() {
+    public Density getDensity() {
         return getDensityMixin().getDensity();
     }
 
