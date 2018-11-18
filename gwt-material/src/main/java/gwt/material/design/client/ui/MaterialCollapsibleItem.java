@@ -24,6 +24,13 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.HasAsyncRenderer;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultCollapsibleItemLoader;
+import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
+import gwt.material.design.client.async.renderer.AsyncRenderer;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasActive;
 import gwt.material.design.client.base.HasProgress;
@@ -47,21 +54,25 @@ import gwt.material.design.client.ui.MaterialCollapsible.HasCollapsibleParent;
  * @see <a href="https://material.io/guidelines/components/expansion-panels.html#expansion-panels-behavior">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCollapsibleItem extends AbstractButton implements HasWidgets, HasCollapsibleParent,
-        HasProgress, HasActive {
+public class MaterialCollapsibleItem<T> extends AbstractButton implements HasWidgets, HasCollapsibleParent,
+        HasProgress, HasActive, IsAsyncWidget<MaterialCollapsibleItem, T>, HasAsyncRenderer<MaterialCollapsibleBody, T> {
 
     private boolean active;
     private MaterialCollapsible parent;
     private MaterialCollapsibleBody body;
     private MaterialCollapsibleHeader header;
+    private AsyncRenderer<MaterialCollapsibleBody,T> asyncRenderer;
 
     private ProgressMixin<MaterialCollapsibleItem> progressMixin;
+    private AsyncWidgetMixin<MaterialCollapsibleItem, T> asyncWidgetMixin;
 
     /**
      * Creates an empty collapsible item.
      */
     public MaterialCollapsibleItem() {
         super();
+
+        setAsyncDisplayLoader(new DefaultCollapsibleItemLoader(this));
     }
 
     /**
@@ -85,7 +96,15 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             body = (MaterialCollapsibleBody) child;
         } else if (child instanceof MaterialCollapsibleHeader) {
             header = (MaterialCollapsibleHeader) child;
-            header.addClickHandler(clickEvent -> fireCollapsibleHandler());
+            header.addClickHandler(clickEvent -> {
+                if (isAsynchronous() && !isLoaded()) {
+                    load(getAsyncCallback());
+                    clickEvent.preventDefault();
+                    clickEvent.stopPropagation();
+                } else {
+                    fireCollapsibleHandler();
+                }
+            });
         }
         super.add(child);
     }
@@ -204,6 +223,61 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
         setDisplay(Display.BLOCK);
     }
 
+    @Override
+    public void setAsyncRenderer(AsyncRenderer<MaterialCollapsibleBody, T> asyncRenderer) {
+        this.asyncRenderer = asyncRenderer;
+    }
+
+    @Override
+    public AsyncRenderer<MaterialCollapsibleBody, T> getAsyncRenderer() {
+        return asyncRenderer;
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        getAsyncWidgetMixin().setAsynchronous(asynchronous);
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return getAsyncWidgetMixin().isAsynchronous();
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<MaterialCollapsibleItem, T> asyncCallback) {
+        getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialCollapsibleItem, T> asyncCallback) {
+        getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
+    }
+
+    @Override
+    public AsyncWidgetCallback<MaterialCollapsibleItem, T> getAsyncCallback() {
+        return getAsyncWidgetMixin().getAsyncCallback();
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+        getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
+    }
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return getAsyncWidgetMixin().getAsyncDisplayLoader();
+    }
+
     public MaterialCollapsibleBody getBody() {
         return body;
     }
@@ -217,5 +291,12 @@ public class MaterialCollapsibleItem extends AbstractButton implements HasWidget
             progressMixin = new ProgressMixin<>(this);
         }
         return progressMixin;
+    }
+
+    protected AsyncWidgetMixin<MaterialCollapsibleItem, T> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
     }
 }

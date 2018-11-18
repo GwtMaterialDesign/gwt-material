@@ -25,12 +25,17 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultCheckBoxLoader;
+import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.base.BaseCheckBox;
-import gwt.material.design.client.base.HasGrid;
-import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.events.DefaultHandlerRegistry;
+import gwt.material.design.client.events.HandlerRegistry;
 
 //@formatter:off
 
@@ -56,17 +61,19 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#checkbox">CheckBox</a>
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-checkbox">Material Design Specification</a>
  */
-public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
+public class MaterialCheckBox extends BaseCheckBox implements IsAsyncWidget<MaterialCheckBox, Boolean> {
 
     private Object object;
 
-    private GridMixin<MaterialCheckBox> gridMixin;
+    private HandlerRegistry handlerRegistry = new DefaultHandlerRegistry(this);
     private ToggleStyleMixin<MaterialCheckBox> toggleOldMixin;
+    private AsyncWidgetMixin<MaterialCheckBox, Boolean> asyncWidgetMixin;
 
     private CheckBoxType type;
 
     public MaterialCheckBox() {
-        super();
+        super(DOM.createDiv());
+        setAsyncDisplayLoader(new DefaultCheckBoxLoader(this));
     }
 
     public MaterialCheckBox(Element elem) {
@@ -111,16 +118,20 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         super.onLoad();
 
         getElement().getStyle().setDisplay(isVisible() ? Display.BLOCK : Display.NONE);
+        handlerRegistry.registerHandler(addClickHandler(event -> {
+            if (isAsynchronous()) {
+                load(getAsyncCallback());
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        }));
     }
 
     @Override
-    public void setGrid(String grid) {
-        getGridMixin().setGrid(grid);
-    }
+    protected void onUnload() {
+        super.onUnload();
 
-    @Override
-    public void setOffset(String offset) {
-        getGridMixin().setOffset(offset);
+        handlerRegistry.clearHandlers();
     }
 
     public Object getObject() {
@@ -165,17 +176,62 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         return type;
     }
 
-    public GridMixin<MaterialCheckBox> getGridMixin() {
-        if (gridMixin == null) {
-            gridMixin = new GridMixin<>(this);
-        }
-        return gridMixin;
-    }
-
     public ToggleStyleMixin<MaterialCheckBox> getToggleOldMixin() {
         if (toggleOldMixin == null) {
             toggleOldMixin = new ToggleStyleMixin<>(this, CssName.OLD_CHECKBOX);
         }
         return toggleOldMixin;
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        getAsyncWidgetMixin().setAsynchronous(asynchronous);
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return getAsyncWidgetMixin().isAsynchronous();
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<MaterialCheckBox, Boolean> asyncCallback) {
+        getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialCheckBox, Boolean> asyncCallback) {
+        getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
+    }
+
+    @Override
+    public AsyncWidgetCallback<MaterialCheckBox, Boolean> getAsyncCallback() {
+        return getAsyncWidgetMixin().getAsyncCallback();
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+        getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
+    }
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return getAsyncWidgetMixin().getAsyncDisplayLoader();
+    }
+
+    public AsyncWidgetMixin<MaterialCheckBox, Boolean> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
     }
 }

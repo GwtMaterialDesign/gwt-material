@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2018 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,34 +19,25 @@
  */
 package gwt.material.design.client.base;
 
-import com.google.gwt.resources.client.ImageResource;
+import gwt.material.design.client.base.density.Density;
+import gwt.material.design.client.base.density.DisplayDensity;
 
-public interface HasImage {
-
-    /**
-     * Sets the url of an image.
-     */
-    void setUrl(String url);
-
-    /**
-     * Gets the image url.
-     */
-    String getUrl();
+/**
+ * An interface that defines the density of a widget.
+ *
+ * @author kevzlou7979@gmail.com
+ * @see <a href="https://material.io/design/layout/density.html">Docuemntation</a>
+ * @see DisplayDensity
+ */
+public interface HasDensity {
 
     /**
-     * Sets the resource image.
+     * Set the density of widget
      */
-    void setResource(ImageResource resource);
+    void setDensity(Density density);
 
     /**
-     * Gets the resource image.
+     * Get the density of widget. By Default {@link DisplayDensity#DEFAULT}
      */
-    ImageResource getResource();
-
-    /**
-     * The required alt attribute specifies an alternate text for an image, if the image cannot be displayed.
-     */
-    void setAlt(String alt);
-
-    String getAlt();
+    Density getDensity();
 }

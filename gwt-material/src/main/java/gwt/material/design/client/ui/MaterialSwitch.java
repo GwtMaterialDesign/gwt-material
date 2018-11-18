@@ -25,6 +25,11 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultSwitchLoader;
+import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
@@ -49,7 +54,8 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-switch">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasValue<Boolean> {
+public class MaterialSwitch extends AbstractValueWidget<Boolean>
+        implements HasValue<Boolean>, IsAsyncWidget<MaterialSwitch, Boolean> {
 
     private MaterialInput input = new MaterialInput();
     private MaterialLabel errorLabel = new MaterialLabel();
@@ -59,6 +65,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
     private Span offLabel = new Span();
 
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
+    private AsyncWidgetMixin<MaterialSwitch, Boolean> asyncWidgetMixin;
 
     /**
      * Creates a switch element
@@ -67,6 +74,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
         super(Document.get().createDivElement(), CssName.SWITCH);
         span.setStyleName(CssName.LEVER);
         input.setType(InputType.CHECKBOX);
+        setAsyncDisplayLoader(new DefaultSwitchLoader(this));
     }
 
     public MaterialSwitch(String onLabel, String offLabel) {
@@ -108,7 +116,13 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
             event.stopPropagation();
         }));
 
-        registerHandler(addClickHandler(event -> setValue(!getValue(), true)));
+        registerHandler(addClickHandler(event -> {
+            if (isAsynchronous()) {
+                load(getAsyncCallback());
+            } else {
+                setValue(!getValue(), true);
+            }
+        }));
     }
 
     @Override
@@ -235,5 +249,57 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean> implements HasV
             statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
         }
         return statusTextMixin;
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        getAsyncWidgetMixin().setAsynchronous(asynchronous);
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return getAsyncWidgetMixin().isAsynchronous();
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<MaterialSwitch, Boolean> asyncCallback) {
+        getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialSwitch, Boolean> asyncCallback) {
+        getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
+    }
+
+    @Override
+    public AsyncWidgetCallback<MaterialSwitch, Boolean> getAsyncCallback() {
+        return getAsyncWidgetMixin().getAsyncCallback();
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+        getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
+    }
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return getAsyncWidgetMixin().getAsyncDisplayLoader();
+    }
+
+    protected AsyncWidgetMixin<MaterialSwitch, Boolean> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
     }
 }

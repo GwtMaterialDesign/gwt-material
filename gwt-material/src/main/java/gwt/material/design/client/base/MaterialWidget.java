@@ -39,6 +39,8 @@ import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.client.events.OrientationChangeEvent.OrientationChangeHandler;
+import gwt.material.design.client.theme.ThemeManager;
+import gwt.material.design.client.theme.WidgetTheme;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -102,6 +104,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected JQueryElement $this;
     private HandlerRegistry handlerRegistry;
     private String translationKey;
+    private List<WidgetTheme<MaterialWidget>> widgetThemes;
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -163,6 +166,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected void onLoad() {
         super.onLoad();
 
+        if (widgetThemes == null) {
+            widgetThemes = ThemeManager.applyLoad(this);
+        } else {
+            for (WidgetTheme<MaterialWidget> widgetTheme : widgetThemes) {
+                widgetTheme.onWidgetLoad(this);
+            }
+        }
+
         if (initialClasses != null) {
             for (String initial : initialClasses) {
                 if (!initial.isEmpty()) {
@@ -188,6 +199,14 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     protected void onUnload() {
         super.onUnload();
+
+        if (widgetThemes == null) {
+            widgetThemes = ThemeManager.applyUnload(this);
+        } else {
+            for (WidgetTheme<MaterialWidget> widgetTheme : widgetThemes) {
+                widgetTheme.onWidgetUnload(this);
+            }
+        }
 
         getHandlerRegistry().clearHandlers();
     }
@@ -578,7 +597,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      */
     public Style.Visibility getVisibility() {
         String visibility = getElement().getStyle().getVisibility();
-        if(visibility != null && !visibility.isEmpty()) {
+        if (visibility != null && !visibility.isEmpty()) {
             return Style.Visibility.valueOf(visibility.toUpperCase());
         }
         return null;
@@ -925,7 +944,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     public String getLetterSpacing() {
-       return getElement().getStyle().getProperty("letterSpacing");
+        return getElement().getStyle().getProperty("letterSpacing");
     }
 
     public HandlerRegistration registerHandler(HandlerRegistration handler) {
@@ -972,7 +991,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         target.getStyle().setProperty("WebkitTransition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
         target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
     }
-    
+
     public String getCursor() {
         return getElement().getStyle().getCursor();
     }

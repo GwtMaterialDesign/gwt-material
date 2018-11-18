@@ -29,5 +29,4 @@
   <inherits name="gwt.material.design.ResourcesBasicDebug"/>
 
   <stylesheet src="css/materialize.css"/>
-  <stylesheet src="css/overridecss.css"/>
 </module>
