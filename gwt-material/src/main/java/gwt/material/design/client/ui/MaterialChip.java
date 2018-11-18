@@ -158,6 +158,16 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     }
 
     @Override
+    public void setAlt(String alt) {
+        getImageMixin().setAlt(alt);
+    }
+
+    @Override
+    public String getAlt() {
+        return getImageMixin().getAlt();
+    }
+
+    @Override
     public MaterialIcon getIcon() {
         return icon;
     }

@@ -77,4 +77,15 @@ public class MaterialImageTest extends MaterialWidgetTest<MaterialImage> {
         image.setUrl(URL);
         assertEquals(URL, image.getUrl());
     }
+
+    public void testAlt() {
+        // given
+        final String TEST_ALT = "test-alt";
+        MaterialImage image = getWidget();
+        image.setAlt(TEST_ALT);
+
+        assertEquals(TEST_ALT, image.getAlt());
+        assertTrue(image.getElement().hasAttribute("alt"));
+        assertEquals(TEST_ALT, image.getElement().getAttribute("alt"));
+    }
 }

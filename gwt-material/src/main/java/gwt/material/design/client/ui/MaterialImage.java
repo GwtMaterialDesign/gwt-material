@@ -153,6 +153,16 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
         return getImageMixin().getResource();
     }
 
+    @Override
+    public void setAlt(String alt) {
+        getImageMixin().setAlt(alt);
+    }
+
+    @Override
+    public String getAlt() {
+        return getImageMixin().getAlt();
+    }
+
     public int getWidth() {
         return ((ImageElement)getElement().cast()).getWidth();
     }
