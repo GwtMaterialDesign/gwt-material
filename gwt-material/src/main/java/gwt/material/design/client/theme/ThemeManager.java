@@ -58,7 +58,7 @@ public class ThemeManager {
     }
 
     public static List<WidgetTheme> getWidgetThemes(MaterialWidget object) {
-        return getWidgetThemes(object, object.getClass(), null);
+        return getWidgetThemes(object, object.getClass(), new ArrayList<>());
     }
 
     public static List<WidgetTheme> getWidgetThemes(MaterialWidget object, Class clazz, List<WidgetTheme> widgetThemes) {
