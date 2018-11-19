@@ -104,7 +104,6 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected JQueryElement $this;
     private HandlerRegistry handlerRegistry;
     private String translationKey;
-    private List<WidgetTheme<MaterialWidget>> widgetThemes;
 
     private IdMixin<MaterialWidget> idMixin;
     private EnabledMixin<MaterialWidget> enabledMixin;
@@ -166,13 +165,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected void onLoad() {
         super.onLoad();
 
-        if (widgetThemes == null) {
-            widgetThemes = ThemeManager.applyLoad(this);
-        } else {
-            for (WidgetTheme<MaterialWidget> widgetTheme : widgetThemes) {
-                widgetTheme.onWidgetLoad(this);
-            }
-        }
+        ThemeManager.applyLoad(this);
 
         if (initialClasses != null) {
             for (String initial : initialClasses) {
@@ -200,13 +193,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected void onUnload() {
         super.onUnload();
 
-        if (widgetThemes == null) {
-            widgetThemes = ThemeManager.applyUnload(this);
-        } else {
-            for (WidgetTheme<MaterialWidget> widgetTheme : widgetThemes) {
-                widgetTheme.onWidgetUnload(this);
-            }
-        }
+        ThemeManager.applyUnload(this);
 
         getHandlerRegistry().clearHandlers();
     }
