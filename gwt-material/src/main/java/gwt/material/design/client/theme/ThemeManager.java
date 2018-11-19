@@ -23,18 +23,18 @@ import com.google.gwt.core.client.GWT;
 import gwt.material.design.client.base.MaterialWidget;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-// TODO: use maps to manage the themes
-// TODO: add a global cache to short curcit
-// TODO: use a context to key the maps
-// TODO: bootstrap the theme loop types to a preset
 @SuppressWarnings("unchecked")
 public class ThemeManager {
 
     private static SortedSet<Theme> themes;
+
+    private static Map<Class, List<WidgetTheme>> themeCache = new HashMap<>();
 
     public static void addTheme(Theme theme) {
         if (!getThemes().contains(theme)) {
@@ -45,7 +45,8 @@ public class ThemeManager {
                 addWidgetTheme(theme.getName(), widgetTheme);
             }
         } else {
-            GWT.log("Theme '" + theme.getName() + "' has already been loaded (ignoring '"+theme.getClass().getSimpleName()+"').");
+            GWT.log("Theme '" + theme.getName() + "' has already been " +
+                    "loaded (ignoring '"+theme.getClass().getSimpleName()+"').");
         }
     }
 
@@ -56,39 +57,52 @@ public class ThemeManager {
         return themes;
     }
 
-    public static <T extends MaterialWidget> List<WidgetTheme<T>> getWidgetThemes(T object) {
-        List<WidgetTheme<T>> widgetThemes = new ArrayList<>();
-        if (themes != null) {
+    public static List<WidgetTheme> getWidgetThemes(MaterialWidget object) {
+        return getWidgetThemes(object, object.getClass(), null);
+    }
+
+    public static List<WidgetTheme> getWidgetThemes(MaterialWidget object, Class clazz, List<WidgetTheme> widgetThemes) {
+        List<WidgetTheme> cachedThemes = themeCache.get(clazz);
+        if (themes != null && cachedThemes == null) {
+            cachedThemes = new ArrayList<>();
             for(Theme theme : themes) {
                 // Check by widgets class name first
-                WidgetTheme widgetTheme = theme.get(object.getClass().getName());
+                WidgetTheme widgetTheme = theme.get(clazz.getName());
                 if (widgetTheme != null) {
-                    widgetThemes.add(widgetTheme);
+                    cachedThemes.add(widgetTheme);
                 }
 
                 // Check by widget class selector
                 for (String styleName : object.getStyleName().split(" ")) {
                     WidgetTheme styleWidgetTheme = theme.get(styleName);
                     if (styleWidgetTheme != null) {
-                        widgetThemes.add(styleWidgetTheme);
+                        cachedThemes.add(styleWidgetTheme);
                     }
                 }
             }
+            themeCache.put(clazz, cachedThemes);
+            widgetThemes.addAll(cachedThemes);
         }
-        return widgetThemes;
+
+        // check the supertype
+        if (!clazz.getSuperclass().equals(Object.class)) {
+            return getWidgetThemes(object, clazz.getSuperclass(), widgetThemes);
+        } else {
+            return widgetThemes;
+        }
     }
 
-    public static <T extends MaterialWidget> List<WidgetTheme<T>> applyLoad(T object) {
-        List<WidgetTheme<T>> widgetThemes = getWidgetThemes(object);
-        for (WidgetTheme<T> widgetTheme : widgetThemes) {
+    public static List<WidgetTheme> applyLoad(MaterialWidget object) {
+        List<WidgetTheme> widgetThemes = getWidgetThemes(object);
+        for (WidgetTheme widgetTheme : widgetThemes) {
             object = widgetTheme.onWidgetLoad(object);
         }
         return widgetThemes;
     }
 
-    public static <T extends MaterialWidget> List<WidgetTheme<T>> applyUnload(T object) {
-        List<WidgetTheme<T>> widgetThemes = getWidgetThemes(object);
-        for (WidgetTheme<T> widgetTheme : widgetThemes) {
+    public static List<WidgetTheme> applyUnload(MaterialWidget object) {
+        List<WidgetTheme> widgetThemes = getWidgetThemes(object);
+        for (WidgetTheme widgetTheme : widgetThemes) {
             object = widgetTheme.onWidgetUnload(object);
         }
         return widgetThemes;
