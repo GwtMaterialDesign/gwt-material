@@ -30,7 +30,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 @SuppressWarnings("unchecked")
-public class ThemeManager {
+public class
+ThemeManager {
 
     private static SortedSet<Theme> themes;
 
@@ -81,11 +82,12 @@ public class ThemeManager {
                 }
             }
             themeCache.put(clazz, cachedThemes);
-            widgetThemes.addAll(cachedThemes);
+
         }
+        widgetThemes.addAll(cachedThemes);
 
         // check the supertype
-        if (!clazz.getSuperclass().equals(Object.class)) {
+        if (clazz.getSuperclass() != null && !clazz.getSuperclass().equals(MaterialWidget.class)) {
             return getWidgetThemes(object, clazz.getSuperclass(), widgetThemes);
         } else {
             return widgetThemes;
