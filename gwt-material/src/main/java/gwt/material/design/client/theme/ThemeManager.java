@@ -82,9 +82,12 @@ ThemeManager {
                 }
             }
             themeCache.put(clazz, cachedThemes);
-
         }
-        widgetThemes.addAll(cachedThemes);
+
+        if (cachedThemes != null) {
+            widgetThemes.addAll(cachedThemes);
+        }
+
 
         // check the supertype
         if (clazz.getSuperclass() != null && !clazz.getSuperclass().equals(MaterialWidget.class)) {
