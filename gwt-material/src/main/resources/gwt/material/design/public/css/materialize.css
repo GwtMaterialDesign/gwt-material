@@ -12487,7 +12487,8 @@ ul.dropdown-content {
     display: none;
 }
 
-.input-field.hoverable-status input {
+.input-field.hoverable-status input.invalid,
+.input-field.hoverable-status input.valid {
     padding-right: 40px;
     box-sizing: border-box;
 }
