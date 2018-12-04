@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasResetField;
+import gwt.material.design.client.base.IsPropagateToChildren;
 import gwt.material.design.client.ui.MaterialValueBox;
 
 /**
@@ -31,7 +32,7 @@ import gwt.material.design.client.ui.MaterialValueBox;
  *
  * @author kevzlou7979@gmail.com
  */
-public class ResetFieldMixin<C extends Widget> implements HasResetField {
+public class ResetFieldMixin<C extends Widget> implements HasResetField, IsPropagateToChildren {
 
     private C content;
     private boolean allowResettingFields = true;
@@ -76,10 +77,12 @@ public class ResetFieldMixin<C extends Widget> implements HasResetField {
         return allowResettingFields;
     }
 
+    @Override
     public boolean isPropagateToChildren() {
         return propagateToChildren;
     }
 
+    @Override
     public void setPropagateToChildren(boolean propagateToChildren) {
         this.propagateToChildren = propagateToChildren;
     }

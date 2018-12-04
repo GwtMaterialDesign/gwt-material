@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
@@ -270,6 +271,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
         options.complete = () -> onNativeClose(true, true);
         options.ready = () -> onNativeOpen(fireEvent);
         $(e).openModal(options);
+        Scheduler.get().scheduleDeferred(() -> $(getElement()).focus());
     }
 
     protected void onNativeOpen(boolean fireEvent) {

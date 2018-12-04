@@ -17,19 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.base.validator;
 
-public interface HasDirtyField {
+public interface DirtyValidator {
 
     /**
      * Detect whether we support dirty field checking
      */
-    boolean isAllowDirtyFields();
+    boolean isAllowDirtyValidation();
 
     /**
      * Will enable / disable dirty field checking into a widget
      */
-    void setAllowDirtyFieldValidation(boolean allowDirty);
+    void setAllowDirtyValidation(boolean allowDirty);
 
     /**
      * Will check whether there are dirty fields found
@@ -40,4 +40,6 @@ public interface HasDirtyField {
      * Sets the widget dirty value
      */
     void setDirty(boolean dirty);
+
+    String getDirtyMessage();
 }

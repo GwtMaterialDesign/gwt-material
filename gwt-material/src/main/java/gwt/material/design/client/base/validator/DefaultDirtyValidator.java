@@ -17,13 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base.mixin;
+package gwt.material.design.client.base.validator;
 
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import gwt.material.design.client.base.HasDirtyField;
+import gwt.material.design.client.base.IsPropagateToChildren;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * @author kevzlou7979@gmail.com
  */
-public class DirtyFieldMixin<C extends Widget> implements HasDirtyField {
+public class DefaultDirtyValidator<C extends Widget> implements DirtyValidator, IsPropagateToChildren {
 
     private List<HandlerRegistration> registrations;
     private boolean allowDirty;
@@ -39,18 +39,18 @@ public class DirtyFieldMixin<C extends Widget> implements HasDirtyField {
     private boolean dirty;
     private C content;
 
-    public DirtyFieldMixin(C content) {
-        assert content != null : "DirtyFieldMixin content cannot be null";
+    public DefaultDirtyValidator(C content) {
+        assert content != null : "DefaultDirtyValidator content cannot be null";
         this.content = content;
     }
 
     @Override
-    public boolean isAllowDirtyFields() {
+    public boolean isAllowDirtyValidation() {
         return allowDirty;
     }
 
     @Override
-    public void setAllowDirtyFieldValidation(boolean allowDirty) {
+    public void setAllowDirtyValidation(boolean allowDirty) {
         this.allowDirty = allowDirty;
 
         if (allowDirty) {
@@ -99,10 +99,17 @@ public class DirtyFieldMixin<C extends Widget> implements HasDirtyField {
         this.dirty = dirty;
     }
 
+    @Override
+    public String getDirtyMessage() {
+        return "Are you sure you want to leave the page, some fields are dirty at the moment.";
+    }
+
+    @Override
     public boolean isPropagateToChildren() {
         return propagateToChildren;
     }
 
+    @Override
     public void setPropagateToChildren(boolean propagateToChildren) {
         this.propagateToChildren = propagateToChildren;
     }
