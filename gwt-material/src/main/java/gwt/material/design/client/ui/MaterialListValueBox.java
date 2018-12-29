@@ -37,10 +37,10 @@ import gwt.material.design.client.async.loader.DefaultListValueBoxLoader;
 import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.async.renderer.AsyncRenderer;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.FieldTypeMixin;
+import gwt.material.design.client.base.mixin.NativeBrowserStyleMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.FieldType;
 import gwt.material.design.client.js.JsMaterialElement;
@@ -81,7 +81,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
         HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, IsAsyncWidget<MaterialListValueBox<T>, List<T>>,
-        HasAsyncRenderer<String, T> {
+        HasAsyncRenderer<String, T>, HasNativeBrowserStyle {
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
@@ -91,11 +91,11 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     private boolean loaded = false;
     private AsyncRenderer<String, T> asyncRenderer;
 
-    private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private FieldTypeMixin<MaterialListValueBox> fieldTypeMixin;
     private AsyncWidgetMixin<MaterialListValueBox<T>, List<T>> asyncWidgetMixin;
+    private NativeBrowserStyleMixin<MaterialListValueBox> nativeBrowserStyleMixin;
 
     private String emptyPlaceHolder = null;
 
@@ -684,12 +684,30 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return index;
     }
 
+    /**
+     * As of GMD 2.2 this was replaced by {@link #setNativeBrowserStyle(boolean)}
+     */
+    @Deprecated
     public boolean isOld() {
-        return getToggleOldMixin().isOn();
+        return isNativeBrowserStyle();
     }
 
-    public void setOld(boolean old) {
-        getToggleOldMixin().setOn(old);
+    /**
+     * As of GMD 2.2 this was replaced by {@link #setNativeBrowserStyle(boolean)}
+     */
+    @Deprecated
+    public void setOld(boolean value) {
+        setNativeBrowserStyle(value);
+    }
+
+    @Override
+    public void setNativeBrowserStyle(boolean value) {
+        getNativeBrowserStyleMixin().setNativeBrowserStyle(value);
+    }
+
+    @Override
+    public boolean isNativeBrowserStyle() {
+        return getNativeBrowserStyleMixin().isNativeBrowserStyle();
     }
 
     /**
@@ -1123,7 +1141,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     @Override
     public void setLoaded(boolean loaded) {
-
+        getAsyncWidgetMixin().setLoaded(loaded);
     }
 
     @Override
@@ -1169,13 +1187,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return readOnlyMixin;
     }
 
-    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
-        if (toggleOldMixin == null) {
-            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
-        }
-        return toggleOldMixin;
-    }
-
     protected FieldTypeMixin<MaterialListValueBox> getFieldTypeMixin() {
         if (fieldTypeMixin == null) {
             fieldTypeMixin = new FieldTypeMixin<>(this);
@@ -1188,5 +1199,12 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
             asyncWidgetMixin = new AsyncWidgetMixin<>(this);
         }
         return asyncWidgetMixin;
+    }
+
+    protected NativeBrowserStyleMixin<MaterialListValueBox> getNativeBrowserStyleMixin() {
+        if (nativeBrowserStyleMixin == null) {
+            nativeBrowserStyleMixin = new NativeBrowserStyleMixin<>(this);
+        }
+        return nativeBrowserStyleMixin;
     }
 }

@@ -149,4 +149,5 @@ public interface CssName {
     String STATUS_ICON = "status-icon";
     String ASYNC = "async";
     String LOADING = "loading";
+    String BROWSER_DEFAULT = "browser-default";
 }

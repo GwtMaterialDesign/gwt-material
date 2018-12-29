@@ -138,14 +138,14 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
     }
 
     protected void checkBrowserDefault(MaterialListValueBox listValueBox, boolean checkElement) {
-        listValueBox.setOld(true);
-        assertTrue(listValueBox.isOld());
+        listValueBox.setNativeBrowserStyle(true);
+        assertTrue(listValueBox.isNativeBrowserStyle());
         if (checkElement) {
             assertTrue(listValueBox.getListBox().getElement().hasClassName("browser-default"));
         }
 
-        listValueBox.setOld(false);
-        assertFalse(listValueBox.isOld());
+        listValueBox.setNativeBrowserStyle(false);
+        assertFalse(listValueBox.isNativeBrowserStyle());
         if (checkElement) {
             assertFalse(listValueBox.getListBox().getElement().hasClassName("browser-default"));
         }
