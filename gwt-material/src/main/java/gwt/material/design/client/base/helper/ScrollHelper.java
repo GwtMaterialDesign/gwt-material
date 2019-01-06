@@ -167,6 +167,10 @@ public class ScrollHelper {
         return isInViewPort(widget.getElement());
     }
 
+    public boolean isInViewPort(Widget widget, double addedHeight) {
+        return isInViewPort(widget.getElement(), addedHeight);
+    }
+
     /**
      * Will perform a detection whether the element is in the View Port Scope or not, providing
      * the {@link #containerElement} as the wrapper or container of the target element.
@@ -177,8 +181,12 @@ public class ScrollHelper {
      * @param element The element you are checking if it's inside the viewport scope.
      */
     public boolean isInViewPort(Element element) {
-        double elementTop = $(element).offset().top;
-        double elementBottom = elementTop + $(element).outerHeight();
+        return isInViewPort(element, 0);
+    }
+
+    public boolean isInViewPort(Element element, double addedHeight) {
+        double elementTop = $(element).offset().top + addedHeight;
+        double elementBottom = elementTop + $(element).outerHeight() + addedHeight;
 
         JQueryElement target = getContainerElement();
         double viewportTop = target.scrollTop();
@@ -188,6 +196,7 @@ public class ScrollHelper {
         }
 
         double viewportBottom = viewportTop + target.height();
+
         return elementBottom > viewportTop && elementTop < viewportBottom;
     }
 
