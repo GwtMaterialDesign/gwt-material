@@ -122,6 +122,20 @@ public class ScrollHelper {
     }
 
     /**
+     * Will detect if {@link #containerElement} has horizontal scrollbar.
+     */
+    public boolean hasHorizontalScrollbar() {
+        return containerElement.getScrollWidth() > containerElement.getClientWidth();
+    }
+
+    /**
+     * Will detect if {@link #containerElement} has vertical scrollbar.
+     */
+    public boolean hasVerticalScrollbar() {
+        return containerElement.getScrollHeight() > containerElement.getClientHeight();
+    }
+
+    /**
      * Will recalculate the offset provided by the positioning based on the container's height
      * See {@link #setOffsetPosition(OffsetPosition)}
      */
