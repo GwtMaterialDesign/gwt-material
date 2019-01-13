@@ -1203,7 +1203,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     protected NativeBrowserStyleMixin<MaterialListValueBox> getNativeBrowserStyleMixin() {
         if (nativeBrowserStyleMixin == null) {
-            nativeBrowserStyleMixin = new NativeBrowserStyleMixin<>(this);
+            nativeBrowserStyleMixin = new NativeBrowserStyleMixin<>(this, listBox);
         }
         return nativeBrowserStyleMixin;
     }

@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.ListItem;
@@ -71,7 +72,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#forms">Material Range</a>
  */
 //@formatter:on
-public class MaterialScrollspy extends UnorderedList {
+public class MaterialScrollspy extends UnorderedList implements JsLoader {
 
     public MaterialScrollspy() {
         super(CssName.SECTION, CssName.TABLE_OF_CONTENTS);
@@ -81,8 +82,31 @@ public class MaterialScrollspy extends UnorderedList {
     protected void onLoad() {
         super.onLoad();
 
+        load();
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        unload();
+    }
+
+    @Override
+    public void load() {
         clearActiveState();
         $(".scrollspy").scrollSpy();
+    }
+
+    @Override
+    public void unload() {
+        clearActiveState();
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
     public void clearActiveState() {

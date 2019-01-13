@@ -20,14 +20,22 @@
 package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasNativeBrowserStyle;
 
 public class NativeBrowserStyleMixin<T extends UIObject & HasNativeBrowserStyle> extends AbstractMixin<T> implements HasNativeBrowserStyle {
 
-    private ToggleStyleMixin<T> toggleNativeBrowserStyleMixin;
+    private Widget target;
+    private ToggleStyleMixin<Widget> toggleNativeBrowserStyleMixin;
 
     public NativeBrowserStyleMixin(final T widget) {
         super(widget);
+    }
+
+    public NativeBrowserStyleMixin(final T widget, Widget target) {
+        this(widget);
+
+        this.target = target;
     }
 
     @Override
@@ -40,9 +48,13 @@ public class NativeBrowserStyleMixin<T extends UIObject & HasNativeBrowserStyle>
         return getToggleNativeBrowserStyleMixin().isOn();
     }
 
-    public ToggleStyleMixin<T> getToggleNativeBrowserStyleMixin() {
+    public ToggleStyleMixin<Widget> getToggleNativeBrowserStyleMixin() {
         if (toggleNativeBrowserStyleMixin == null) {
-            toggleNativeBrowserStyleMixin = new ToggleStyleMixin<>(uiObject, "browser-default");
+            if (target != null) {
+                toggleNativeBrowserStyleMixin = new ToggleStyleMixin(target, "browser-default");
+            } else {
+                toggleNativeBrowserStyleMixin = new ToggleStyleMixin(uiObject, "browser-default");
+            }
         }
         return toggleNativeBrowserStyleMixin;
     }

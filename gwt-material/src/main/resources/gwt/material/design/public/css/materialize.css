@@ -12522,7 +12522,6 @@ ul.dropdown-content {
 .fixed-action-btn.horizontal ul {
     text-align: right;
     right: 54px;
-    transform: translateY(106%);
     height: 100%;
     left: initial;
     width: 500px;
