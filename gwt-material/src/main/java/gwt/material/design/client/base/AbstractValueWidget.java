@@ -53,6 +53,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     private ErrorHandlerMixin<V> errorHandlerMixin;
     private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
     private ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> clearOnKeyUpMixin;
+    private HandlerRegistration attachHandler, blurHandler;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -266,9 +267,19 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     protected void setupBlurValidation() {
         final AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
         if (!inputWidget.isAttached()) {
-            registerHandler(inputWidget.addAttachHandler(attachEvent -> registerHandler(inputWidget.addBlurHandler(blurEvent -> validate(isValidateOnBlur())))));
+            if(attachHandler == null) {
+                attachHandler = inputWidget.addAttachHandler(event -> {
+                    if (blurHandler == null) {
+                        blurHandler = inputWidget.addBlurHandler(blurEvent -> {
+                            validate(isValidateOnBlur());
+                        });
+                    }
+                });
+            }
         } else {
-            registerHandler(inputWidget.addBlurHandler(blurEvent -> validate(isValidateOnBlur())));
+            if(blurHandler == null) {
+                blurHandler = inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
+            }
         }
     }
 
