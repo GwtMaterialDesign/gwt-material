@@ -54,7 +54,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
         HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
-        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation {
+        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation, HasContainer {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -132,6 +132,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private VerticalAlignMixin<MaterialWidget> verticalAlignMixin;
     private TransformMixin<MaterialWidget> transformMixin;
     private OrientationMixin<MaterialWidget> orientationMixin;
+    private ContainerMixin<MaterialWidget> containerMixin;
 
     public MaterialWidget() {
     }
@@ -990,6 +991,26 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getElement().getStyle().setCursor(cursor);
     }
 
+    @Override
+    public void setContainerEnabled(boolean value) {
+        getContainerMixin().setContainerEnabled(value);
+    }
+
+    @Override
+    public boolean isContainerEnabed() {
+        return getContainerMixin().isContainerEnabed();
+    }
+
+    @Override
+    public void setValignWrapper(boolean value) {
+        getContainerMixin().setValignWrapper(value);
+    }
+
+    @Override
+    public boolean isValignWrapper() {
+        return getContainerMixin().isValignWrapper();
+    }
+
     /**
      * Add an {@code AttachHandler} for attachment events.
      *
@@ -1531,6 +1552,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             filterMixin = new FilterStyleMixin<>(this);
         }
         return filterMixin;
+    }
+
+    public ContainerMixin<MaterialWidget> getContainerMixin() {
+        if (containerMixin == null) {
+            containerMixin = new ContainerMixin<>(this);
+        }
+        return containerMixin;
     }
 
     public void setTranslationKey(String key) {

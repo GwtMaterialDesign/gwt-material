@@ -20,11 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import gwt.material.design.client.base.HasContainer;
 import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.CssNameMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
-import gwt.material.design.client.constants.CssName;
 
 //@formatter:off
 
@@ -39,7 +35,7 @@ import gwt.material.design.client.constants.CssName;
  * @author Ben Dol
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#shadow">Material Panels</a>
  */
-public class MaterialPanel extends MaterialWidget implements HasContainer {
+public class MaterialPanel extends MaterialWidget {
 
     public MaterialPanel() {
         super(Document.get().createDivElement());
@@ -47,24 +43,5 @@ public class MaterialPanel extends MaterialWidget implements HasContainer {
 
     public MaterialPanel(String... initialClass) {
         super(Document.get().createDivElement(), initialClass);
-    }
-
-    private ToggleStyleMixin<MaterialWidget> containerEnabledMixin;
-
-    @Override
-    public void setContainerEnabled(boolean value) {
-        getContainerEnabledMixin().setOn(value);
-    }
-
-    @Override
-    public boolean isContainerEnabed() {
-        return getContainerEnabledMixin().isOn();
-    }
-
-    public ToggleStyleMixin<MaterialWidget> getContainerEnabledMixin() {
-        if (containerEnabledMixin == null) {
-            containerEnabledMixin = new ToggleStyleMixin<>(this, CssName.CONTAINER);
-        }
-        return containerEnabledMixin;
     }
 }
