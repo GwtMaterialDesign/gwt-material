@@ -39,6 +39,7 @@ public class ScrollHelper {
     private Element containerElement;
     private Functions.Func completeCallback;
     private String easing = "swing";
+    private int addedScrollOffset;
     private int duration = 400;
     private double offset;
 
@@ -112,7 +113,7 @@ public class ScrollHelper {
         } else {
             target = $("html, body");
         }
-        option.scrollTop = offset;
+        option.scrollTop = offset - addedScrollOffset;
 
         target.animate(option, duration, easing, () -> {
             if (completeCallback != null) {
@@ -216,6 +217,17 @@ public class ScrollHelper {
      */
     public void setContainer(Widget widget) {
         this.containerElement = widget.getElement();
+    }
+
+    public int getAddedScrollOffset() {
+        return addedScrollOffset;
+    }
+
+    /**
+     * Additional offset height in pixels to be added on overall scroll offset once called {@link #scrollTo(double)}
+     */
+    public void setAddedScrollOffset(int addedScrollOffset) {
+        this.addedScrollOffset = addedScrollOffset;
     }
 
     public JQueryElement getContainerElement() {

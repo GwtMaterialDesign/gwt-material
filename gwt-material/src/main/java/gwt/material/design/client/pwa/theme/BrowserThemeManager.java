@@ -39,6 +39,7 @@ public class BrowserThemeManager extends AbstractPwaFeature {
             themeColorElement = Document.get().createMetaElement();
             getManager().getHeadElement().appendChild(themeColorElement);
         }
+
         themeColorElement.setAttribute("name", "theme-color");
         themeColorElement.setAttribute("content", getResource());
     }
