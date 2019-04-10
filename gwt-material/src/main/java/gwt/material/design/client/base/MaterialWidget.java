@@ -31,16 +31,15 @@ import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
 import gwt.material.design.client.events.DragLeaveEvent;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.OrientationChangeEvent.OrientationChangeHandler;
 import gwt.material.design.client.theme.ThemeManager;
-import gwt.material.design.client.theme.WidgetTheme;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -54,7 +53,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
         HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
-        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation, HasContainer {
+        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation, HasContainer, HasWordBreak{
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -933,6 +932,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     public String getLetterSpacing() {
         return getElement().getStyle().getProperty("letterSpacing");
+    }
+
+    @Override
+    public void setWordBreak(WordBreak wordBreak) {
+        getElement().getStyle().setProperty("wordBreak", wordBreak.getCssName());
+    }
+
+    @Override
+    public WordBreak getWordBreak() {
+        return WordBreak.fromStyleName(getElement().getStyle().getProperty("wordBreak"));
     }
 
     public HandlerRegistration registerHandler(HandlerRegistration handler) {
