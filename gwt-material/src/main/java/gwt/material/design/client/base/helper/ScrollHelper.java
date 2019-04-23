@@ -186,20 +186,25 @@ public class ScrollHelper {
     }
 
     public boolean isInViewPort(Element element, double addedHeight) {
-        double elementTop = $(element).offset().top + addedHeight;
+        double elementTop = getElementTop(element) + addedHeight;
         double elementBottom = elementTop + $(element).outerHeight() + addedHeight;
 
         JQueryElement target = getContainerElement();
         double viewportTop = target.scrollTop();
 
         if (target.asElement() != getDefaultContainer()) {
-            viewportTop = target.offset().top;
+            viewportTop = getElementTop(target.asElement());
         }
 
         double viewportBottom = viewportTop + target.height();
 
         return elementBottom > viewportTop && elementTop < viewportBottom;
     }
+
+    protected native double getElementTop(Element element) /*-{
+        var rectObject = element.getBoundingClientRect();
+        return rectObject.top;
+    }-*/;
 
     protected Element getDefaultContainer() {
         return $("html, body").asElement();
