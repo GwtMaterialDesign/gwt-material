@@ -76,7 +76,6 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         super.onLoad();
 
         navWrapper.setStyleName(CssName.NAV_WRAPPER);
-        navWrapper.insert(navMenu,0);
         super.add(navWrapper);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName(CssName.BUTTON_COLLAPSE);
@@ -91,9 +90,9 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         Element sideNavElement = $("#" + getActivatesMixin().getActivates()).asElement();
 
         if (sideNavElement == null) {
-            navMenu.setVisibility(Style.Visibility.HIDDEN);
+            navMenu.removeFromParent();
         } else {
-            navMenu.setVisibility(Style.Visibility.VISIBLE);
+            navWrapper.insert(navMenu,0);
         }
     }
 

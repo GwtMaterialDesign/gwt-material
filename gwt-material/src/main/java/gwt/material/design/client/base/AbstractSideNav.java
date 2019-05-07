@@ -29,7 +29,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.density.Density;
-import gwt.material.design.client.base.density.DisplayDensity;
 import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.DensityMixin;
 import gwt.material.design.client.base.mixin.OverlayStyleMixin;
@@ -343,18 +342,11 @@ public abstract class AbstractSideNav extends MaterialWidget
     @Override
     protected void onDetach() {
         super.onDetach();
-        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
         getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
         getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
         pushElement(getHeader(), 0);
         pushElement(getMain(), 0);
         pushElementMargin(getFooter(), 0);
-    }
-
-    @Override
-    protected void onAttach() {
-        super.onAttach();
-        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
     }
 
     protected Element getMain() {
