@@ -102,7 +102,7 @@ public class BaseCheckBox extends MaterialWidget implements HasName, HasValue<Bo
      * Creates a check box with no label.
      */
     public BaseCheckBox() {
-        super(DOM.createSpan(), CssName.GWT_CHECKBOX);
+        this(DOM.createSpan());
     }
 
     /**
@@ -192,12 +192,11 @@ public class BaseCheckBox extends MaterialWidget implements HasName, HasValue<Bo
     }
 
     protected BaseCheckBox(Element elem) {
-        super(elem);
+        super(elem, CssName.GWT_CHECKBOX);
 
         inputElem = InputElement.as(DOM.createInputCheck());
         labelElem = Document.get().createLabelElement();
 
-        getElement().addClassName(CssName.GWT_CHECKBOX);
         getElement().appendChild(inputElem);
         getElement().appendChild(labelElem);
 
