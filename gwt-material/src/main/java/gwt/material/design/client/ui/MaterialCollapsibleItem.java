@@ -175,7 +175,7 @@ public class MaterialCollapsibleItem<T> extends AbstractButton implements HasWid
                 header.removeStyleName(CssName.ACTIVE);
             }
             if (active) {
-                if (parent != null && parent.isAccordion()) {
+                if (parent.isAccordion()) {
                     parent.clearActive();
                 }
                 addStyleName(CssName.ACTIVE);
@@ -194,7 +194,7 @@ public class MaterialCollapsibleItem<T> extends AbstractButton implements HasWid
     }
 
     protected void fireCollapsibleHandler() {
-        if (getElement().hasClassName(CssName.ACTIVE)) {
+        if (parent != null && getElement().hasClassName(CssName.ACTIVE)) {
             parent.fireEvent(new CollapseEvent<>(this));
         } else {
             parent.fireEvent(new ExpandEvent<>(this));
