@@ -412,8 +412,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
                 suppressChangeEvent = false;
                 label.addStyleName(CssName.ACTIVE);
             }
-            super.setValue(value, fireEvents);
         }
+        super.setValue(value, fireEvents);
     }
 
     @Override
