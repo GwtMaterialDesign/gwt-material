@@ -1021,7 +1021,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @return the index of the value
      */
     public int getIndex(T value) {
-        int count = getItemCount();
+        int count = getItemCount() - getIndexOffset();
         for (int i = 0; i < count; i++) {
             if (Objects.equals(getValue(i), value)) {
                 return i;

@@ -249,6 +249,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         for (int i = 0; i <= 10; i++) {
             valueBox.addItem(i, "Item " + i);
         }
+        MaterialListBox emptyListBox = new MaterialListBox();
         RootPanel.get().add(valueBox);
 
         // when / then
@@ -256,6 +257,9 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         assertEquals(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
         assertEquals(valueBox.getListBox().getItemText(0), EMPTY_PLACEHOLDER);
         assertTrue(valueBox.getOptionElement(0).isDisabled());
+
+        emptyListBox.setEmptyPlaceHolder(EMPTY_PLACEHOLDER);
+        assertEquals(-1, emptyListBox.getIndex("Non-existent value"));
 
         valueBox.setEmptyPlaceHolder(null);
         assertNotSame(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
