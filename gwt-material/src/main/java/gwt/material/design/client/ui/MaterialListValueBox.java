@@ -88,7 +88,6 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     protected final List<T> values = new ArrayList<>();
     private KeyFactory<T, String> keyFactory = new AllowBlankKeyFactory();
     private MaterialLabel errorLabel = new MaterialLabel();
-    private boolean loaded = false;
     private AsyncRenderer<String, T> asyncRenderer;
 
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
@@ -969,16 +968,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     protected void addBlankItemIfNeeded() {
-        if (loaded) {
-            int idx = getIndex(null);
-            if (idx < 0) {
-                ArrayList<T> previous = new ArrayList<>(values);
-                values.clear();
-                values.add(null);
-                values.addAll(previous);
-                listBox.insertItem(AllowBlankKeyFactory.BLANK_VALUE_TEXT, 0);
-                setSelectedIndexInternal(-1);
-            }
+        int idx = getIndex(null);
+        if (idx < 0) {
+            ArrayList<T> previous = new ArrayList<>(values);
+            values.clear();
+            values.add(null);
+            values.addAll(previous);
+            listBox.insertItem(AllowBlankKeyFactory.BLANK_VALUE_TEXT, 0);
+            setSelectedIndexInternal(-1);
         }
     }
 

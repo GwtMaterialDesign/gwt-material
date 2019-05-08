@@ -75,6 +75,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
     protected void onLoad() {
         super.onLoad();
 
+        navWrapper.insert(navMenu,0);
         navWrapper.setStyleName(CssName.NAV_WRAPPER);
         super.add(navWrapper);
         navMenu.setFontSize(2.7, Style.Unit.EM);
@@ -89,11 +90,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
         Element sideNavElement = $("#" + getActivatesMixin().getActivates()).asElement();
 
-        if (sideNavElement == null) {
-            navMenu.removeFromParent();
-        } else {
-            navWrapper.insert(navMenu,0);
-        }
+        navMenu.setDisplay(sideNavElement == null ? Display.NONE : Display.INITIAL);
     }
 
     @Override
