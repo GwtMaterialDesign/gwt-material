@@ -7551,6 +7551,11 @@ nav .input-field label.active {
         line-height: 64px;
     }
 
+    ul.side-nav.mini-with-expand {
+        top: 64px !important;
+        height: calc(100vh - 64px) !important;
+    }
+
     .navbar-fixed {
         height: 64px;
     }
