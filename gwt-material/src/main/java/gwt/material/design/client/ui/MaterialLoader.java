@@ -26,6 +26,7 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.LoaderType;
 import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
+import gwt.material.design.client.ui.html.Label;
 
 //@formatter:off
 
@@ -75,6 +76,8 @@ public class MaterialLoader {
     private MaterialProgress progress = new MaterialProgress();
     private Panel container = RootPanel.get();
     private LoaderType type = LoaderType.CIRCULAR;
+    private MaterialLabel messageLabel = new MaterialLabel();
+    private String message;
 
     public MaterialLoader(LoaderType type) {
         this();
@@ -115,6 +118,10 @@ public class MaterialLoader {
             progress.getElement().getStyle().setProperty("margin", "auto");
             div.add(progress);
         }
+        if (message != null) {
+            div.add(messageLabel);
+            messageLabel.setText(message);
+        }
         container.add(div);
     }
 
@@ -130,6 +137,10 @@ public class MaterialLoader {
             preLoader.removeFromParent();
         } else if (type == LoaderType.PROGRESS) {
             progress.removeFromParent();
+        }
+
+        if (messageLabel.isAttached()) {
+            messageLabel.removeFromParent();
         }
     }
 
@@ -151,6 +162,16 @@ public class MaterialLoader {
         } else {
             loader.hide();
         }
+    }
+
+    public static void loading(boolean visible, String message) {
+        loader.setMessage(message);
+        loading(visible);
+    }
+
+    public static void loading(boolean visible, Panel container, String message) {
+        loader.setMessage(message);
+        loading(visible, container  );
     }
 
     /**
@@ -215,6 +236,20 @@ public class MaterialLoader {
      */
     public void setScrollDisabled(boolean scrollDisabled) {
         this.scrollDisabled = scrollDisabled;
+    }
+
+    /**
+     * Will get the message of the loader
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * Will set the message of the loader
+     */
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public MaterialProgress getProgress() {

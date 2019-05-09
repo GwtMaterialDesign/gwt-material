@@ -75,8 +75,8 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
     protected void onLoad() {
         super.onLoad();
 
-        navWrapper.setStyleName(CssName.NAV_WRAPPER);
         navWrapper.insert(navMenu,0);
+        navWrapper.setStyleName(CssName.NAV_WRAPPER);
         super.add(navWrapper);
         navMenu.setFontSize(2.7, Style.Unit.EM);
         navMenu.addStyleName(CssName.BUTTON_COLLAPSE);
@@ -90,11 +90,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
         Element sideNavElement = $("#" + getActivatesMixin().getActivates()).asElement();
 
-        if (sideNavElement == null) {
-            navMenu.setVisibility(Style.Visibility.HIDDEN);
-        } else {
-            navMenu.setVisibility(Style.Visibility.VISIBLE);
-        }
+        navMenu.setDisplay(sideNavElement == null ? Display.NONE : Display.INITIAL);
     }
 
     @Override

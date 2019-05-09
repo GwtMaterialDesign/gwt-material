@@ -27,22 +27,23 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
-import gwt.material.design.client.base.mixin.ErrorHandlerMixin;
-import gwt.material.design.client.base.mixin.StatusTextMixin;
-import gwt.material.design.client.base.mixin.ValidatorMixin;
+import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.BlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent;
 import gwt.material.design.client.base.validator.Validator;
+import gwt.material.design.client.constants.StatusDisplayType;
+import gwt.material.design.client.ui.MaterialLabel;
 
 import java.util.List;
 
 //TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
-        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V> {
+        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp {
 
     private boolean allowBlank = true;
     private boolean autoValidate;
@@ -50,6 +51,9 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     private ValidatorMixin<AbstractValueWidget<V>, V> validatorMixin;
     private StatusTextMixin<AbstractValueWidget, ?> statusTextMixin;
     private ErrorHandlerMixin<V> errorHandlerMixin;
+    private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
+    private ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> clearOnKeyUpMixin;
+    private HandlerRegistration attachHandler, blurHandler;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -135,6 +139,21 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     @Override
+    public void setStatusDisplayType(StatusDisplayType displayType) {
+        getStatusTextMixin().setStatusDisplayType(displayType);
+    }
+
+    @Override
+    public StatusDisplayType getStatusDisplayType() {
+        return getStatusTextMixin().getStatusDisplayType();
+    }
+
+    @Override
+    public void updateStatusDisplay(StatusDisplayMixin.StatusType statusType) {
+        getStatusTextMixin().updateStatusDisplay(statusType);
+    }
+
+    @Override
     public void showErrors(List<EditorError> errors) {
         getErrorHandlerMixin().showErrors(errors);
     }
@@ -200,6 +219,16 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return getValidatorMixin().validate(show);
     }
 
+    @Override
+    public void setRequired(boolean required) {
+        getRequiredFieldMixin().setRequired(required);
+    }
+
+    @Override
+    public boolean isRequired() {
+        return getRequiredFieldMixin().isRequired();
+    }
+
     /**
      * Enable or disable the default blank validator.
      */
@@ -216,6 +245,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         } else {
             removeValidator(blankValidator);
         }
+
     }
 
     /**
@@ -237,16 +267,31 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     protected void setupBlurValidation() {
         final AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
         if (!inputWidget.isAttached()) {
-            registerHandler(inputWidget.addAttachHandler(attachEvent -> registerHandler(inputWidget.addBlurHandler(blurEvent -> validate(isValidateOnBlur())))));
+            if(attachHandler == null) {
+                attachHandler = inputWidget.addAttachHandler(event -> {
+                    if (blurHandler == null) {
+                        blurHandler = inputWidget.addBlurHandler(blurEvent -> {
+                            validate(isValidateOnBlur());
+                        });
+                    }
+                });
+            }
         } else {
-            registerHandler(inputWidget.addBlurHandler(blurEvent -> validate(isValidateOnBlur())));
+            if(blurHandler == null) {
+                blurHandler = inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
+            }
         }
     }
 
+    @Deprecated
     public boolean isAutoValidate() {
         return autoValidate;
     }
 
+    /**
+     * This method was deprecated and replaced by {@link #setValidateOnBlur(boolean)}
+     */
+    @Deprecated
     public void setAutoValidate(boolean autoValidate) {
         this.autoValidate = autoValidate;
         if (autoValidate) {
@@ -258,8 +303,29 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         }
     }
 
+    @Deprecated
     protected void autoValidate() {
-        registerHandler(addValueChangeHandler(event -> validate()));
+        registerHandler(addBlurHandler(event -> validate()));
+    }
+
+    @Override
+    public void setClearOnKeyUp(boolean value) {
+        getClearOnKeyUpMixin().setClearOnKeyUp(value);
+    }
+
+    @Override
+    public boolean isClearOnKeyUp() {
+        return getClearOnKeyUpMixin().isClearOnKeyUp();
+    }
+
+    @Override
+    public void setClearKeyCode(int keyCode) {
+        getClearOnKeyUpMixin().setClearKeyCode(keyCode);
+    }
+
+    @Override
+    public int getClearKeyCode() {
+        return getClearOnKeyUpMixin().getClearKeyCode();
     }
 
     @Override
@@ -291,5 +357,19 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
             errorHandlerMixin = new ErrorHandlerMixin<>(this);
         }
         return errorHandlerMixin;
+    }
+
+    protected RequiredFieldMixin<AbstractValueWidget, UIObject> getRequiredFieldMixin() {
+        if (requiredFieldMixin == null) {
+            requiredFieldMixin = new RequiredFieldMixin<>(this, getStatusTextMixin().getPlaceholder());
+        }
+        return requiredFieldMixin;
+    }
+
+    public ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> getClearOnKeyUpMixin() {
+        if (clearOnKeyUpMixin == null) {
+            clearOnKeyUpMixin = new ClearOnKeyUpMixin(this,  getStatusTextMixin().getPlaceholder());
+        }
+        return clearOnKeyUpMixin;
     }
 }

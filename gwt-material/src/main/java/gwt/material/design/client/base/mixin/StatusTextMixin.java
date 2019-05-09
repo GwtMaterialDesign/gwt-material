@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasStatusText;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.StatusDisplayType;
 
 /**
  * @author Ben Dol
@@ -32,8 +33,9 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
 
     private H textObject;
     private UIObject target;
-    private UIObject lblPlaceholder;
+    private UIObject placeholder;
     private String helperText;
+    private StatusDisplayMixin<T, H> statusDisplayMixin;
 
     public StatusTextMixin(final T widget) {
         this(widget, null);
@@ -50,15 +52,16 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         this.target = target;
     }
 
-    public StatusTextMixin(final T widget, final H textObject, UIObject target, UIObject lblPlaceholder) {
+    public StatusTextMixin(final T widget, final H textObject, UIObject target, UIObject placeholder) {
         this(widget, textObject, target);
-        this.lblPlaceholder = lblPlaceholder;
+        this.placeholder = placeholder;
     }
 
     @Override
     public void setErrorText(String errorText) {
         clearSuccessText();
         clearHelperText();
+        updateStatusDisplay(StatusDisplayMixin.StatusType.ERROR);
 
         if (textObject != null) {
             textObject.setVisible(true);
@@ -70,10 +73,10 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             target.addStyleName(CssName.FIELD_ERROR);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.addStyleName("red-text");
+        if (placeholder != null) {
+            placeholder.addStyleName("red-text");
             if (errorText != null && !errorText.isEmpty()) {
-                lblPlaceholder.addStyleName(CssName.ACTIVE);
+                placeholder.addStyleName(CssName.ACTIVE);
             }
         }
     }
@@ -82,6 +85,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     public void setSuccessText(String successText) {
         clearErrorText();
         clearHelperText();
+        updateStatusDisplay(StatusDisplayMixin.StatusType.SUCCESS);
 
         if (textObject != null) {
             textObject.setVisible(true);
@@ -93,10 +97,10 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             target.addStyleName(CssName.FIELD_SUCCESS);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.addStyleName("green-text");
+        if (placeholder != null) {
+            placeholder.addStyleName("green-text");
             if (successText != null && !successText.isEmpty()) {
-                lblPlaceholder.addStyleName(CssName.ACTIVE);
+                placeholder.addStyleName(CssName.ACTIVE);
             }
         }
     }
@@ -119,6 +123,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
 
     @Override
     public void clearStatusText() {
+        resetStatusDisplay();
         clearErrorText();
         clearSuccessText();
     }
@@ -132,13 +137,15 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         }
 
         if (target != null) {
+            target.removeStyleName(CssName.INVALID);
             target.removeStyleName(CssName.FIELD_ERROR);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.removeStyleName("red-text");
+        if (placeholder != null) {
+            placeholder.removeStyleName("red-text");
         }
 
+        resetStatusDisplay();
         applyHelperText();
     }
 
@@ -151,13 +158,15 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         }
 
         if (target != null) {
+            target.removeStyleName(CssName.VALID);
             target.removeStyleName(CssName.FIELD_SUCCESS);
         }
 
-        if (lblPlaceholder != null) {
-            lblPlaceholder.removeStyleName("green-text");
+        if (placeholder != null) {
+            placeholder.removeStyleName("green-text");
         }
 
+        resetStatusDisplay();
         applyHelperText();
     }
 
@@ -194,5 +203,35 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     public boolean isSuccessTextVisible() {
         return textObject != null && textObject.getStyleName().contains(CssName.FIELD_SUCCESS_LABEL)
                 && textObject.isVisible();
+    }
+
+    @Override
+    public void setStatusDisplayType(StatusDisplayType displayType) {
+        getStatusDisplayMixin().setStatusDisplayType(displayType);
+    }
+
+    public UIObject getPlaceholder() {
+        return placeholder;
+    }
+
+    @Override
+    public StatusDisplayType getStatusDisplayType() {
+        return getStatusDisplayMixin().getStatusDisplayType();
+    }
+
+    @Override
+    public void updateStatusDisplay(StatusDisplayMixin.StatusType statusType) {
+        getStatusDisplayMixin().updateStatusDisplay(statusType);
+    }
+
+    public void resetStatusDisplay() {
+        getStatusDisplayMixin().resetStatusDisplay();
+    }
+
+    public StatusDisplayMixin<T, H> getStatusDisplayMixin() {
+        if (statusDisplayMixin == null) {
+            statusDisplayMixin = new StatusDisplayMixin<>(uiObject, textObject);
+        }
+        return statusDisplayMixin;
     }
 }

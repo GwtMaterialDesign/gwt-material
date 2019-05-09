@@ -28,7 +28,10 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.density.Density;
 import gwt.material.design.client.base.helper.DOMHelper;
+import gwt.material.design.client.base.mixin.DensityMixin;
+import gwt.material.design.client.base.mixin.OverlayStyleMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.base.viewport.ViewPort;
 import gwt.material.design.client.base.viewport.WidthBoundary;
@@ -52,7 +55,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @author kevzlou7979
  */
 //@formatter:on
-public abstract class AbstractSideNav extends MaterialWidget implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers {
+public abstract class AbstractSideNav extends MaterialWidget
+        implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers, HasOverlayStyle, HasDensity {
 
     protected int width = 240;
     protected int inDuration = 400;
@@ -66,8 +70,11 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     protected Element activator;
     protected WidthBoundary closingBoundary;
     protected ViewPort autoHideViewport;
+    protected OverlayOption overlayOption = OverlayOption.create();
 
     private StyleMixin<MaterialSideNav> typeMixin;
+    private OverlayStyleMixin<AbstractSideNav> overlayStyleMixin;
+    private DensityMixin<AbstractSideNav> densityMixin;
 
     public AbstractSideNav() {
         super(Document.get().createULElement(), CssName.SIDE_NAV);
@@ -94,6 +101,11 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         setupShowOnAttach();
     }
 
+    protected void setupDefaultOverlayStyle() {
+        overlayOption.setVisibility(Style.Visibility.HIDDEN);
+        setOverlayOption(overlayOption);
+    }
+
     protected void setupShowOnAttach() {
         if (showOnAttach != null) {
             // Ensure the side nav starts closed
@@ -103,7 +115,7 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
                 Scheduler.get().scheduleDeferred(() -> {
                     // We are ignoring cases with mobile
                     if (Window.getClientWidth() > 960) {
-                        show();
+                        open();
                     }
                 });
             }
@@ -274,6 +286,7 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         }
 
         setup();
+        setupDefaultOverlayStyle();
 
         JsSideNavOptions options = new JsSideNavOptions();
         options.menuWidth = width;
@@ -283,27 +296,39 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         JsMaterialElement element = $(activator);
         element.sideNav(options);
 
-        element.off("side-nav-closing");
-        element.on("side-nav-closing", e1 -> {
+        element.off(SideNavEvents.SIDE_NAV_CLOSING);
+        element.on(SideNavEvents.SIDE_NAV_CLOSING, e1 -> {
             onClosing();
             return true;
         });
 
-        element.off("side-nav-closed");
-        element.on("side-nav-closed", e1 -> {
+        element.off(SideNavEvents.SIDE_NAV_CLOSED);
+        element.on(SideNavEvents.SIDE_NAV_CLOSED, e1 -> {
             onClosed();
             return true;
         });
 
-        element.off("side-nav-opening");
-        element.on("side-nav-opening", e1 -> {
+        element.off(SideNavEvents.SIDE_NAV_OPENING);
+        element.on(SideNavEvents.SIDE_NAV_OPENING, e1 -> {
             onOpening();
             return true;
         });
 
-        element.off("side-nav-opened");
-        element.on("side-nav-opened", e1 -> {
+        element.off(SideNavEvents.SIDE_NAV_OPENED);
+        element.on(SideNavEvents.SIDE_NAV_OPENED, e1 -> {
             onOpened();
+            return true;
+        });
+
+        element.off(SideNavEvents.SIDE_NAV_OVERLAY_ATTACHED);
+        element.on(SideNavEvents.SIDE_NAV_OVERLAY_ATTACHED, e1 -> {
+            onOverlayAttached();
+            return true;
+        });
+
+        $(".collapsible-header").on("click", (e, param1) -> {
+            //e.stopPropagation();
+
             return true;
         });
     }
@@ -317,18 +342,11 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     @Override
     protected void onDetach() {
         super.onDetach();
-        getNavMenu().setVisibility(Style.Visibility.HIDDEN);
         getNavMenu().removeStyleName(ShowOn.SHOW_ON_LARGE.getCssName());
         getNavMenu().removeStyleName(ShowOn.SHOW_ON_MED_DOWN.getCssName());
         pushElement(getHeader(), 0);
         pushElement(getMain(), 0);
         pushElementMargin(getFooter(), 0);
-    }
-
-    @Override
-    protected void onAttach() {
-        super.onAttach();
-        getNavMenu().setVisibility(Style.Visibility.VISIBLE);
     }
 
     protected Element getMain() {
@@ -404,6 +422,8 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         open = false;
         $("#sidenav-overlay").remove();
         SideNavClosingEvent.fire(this);
+
+        resetOverlayStyle();
     }
 
     protected void onClosed() {
@@ -413,7 +433,12 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     protected void onOpening() {
         open = true;
 
-        $("#sidenav-overlay").each((param1, element) -> element.removeFromParent());
+        $("#sidenav-overlay").each((param1, element) -> {
+            if (element != null) {
+                element.removeFromParent();
+            }
+        });
+
         SideNavOpeningEvent.fire(this);
     }
 
@@ -427,6 +452,10 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         SideNavOpenedEvent.fire(this);
     }
 
+    protected void onOverlayAttached() {
+        applyOverlayStyle(getOverlayElement());
+    }
+
     /**
      * Hide the overlay menu.
      */
@@ -435,17 +464,33 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
     }
 
     /**
+     * Replaced with {@link #open()}
+     */
+    @Deprecated
+    public void show() {
+        open();
+    }
+
+    /**
      * Show the sidenav using the activator element
      */
-    public void show() {
+    public void open() {
         $("#sidenav-overlay").remove();
         $(activator).sideNav("show");
     }
 
     /**
+     * Replaced with {@link #close()}
+     */
+    @Deprecated
+    public void hide() {
+        close();
+    }
+
+    /**
      * Hide the sidenav using the activator element
      */
-    public void hide() {
+    public void close() {
         $(activator).sideNav("hide");
     }
 
@@ -543,6 +588,26 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
         return outDuration;
     }
 
+    @Override
+    public void setOverlayOption(OverlayOption overlayOption) {
+        getOverlayStyleMixin().setOverlayOption(overlayOption);
+    }
+
+    @Override
+    public OverlayOption getOverlayOption() {
+        return getOverlayStyleMixin().getOverlayOption();
+    }
+
+    @Override
+    public void applyOverlayStyle(JQueryElement overlayElement) {
+        getOverlayStyleMixin().applyOverlayStyle(getOverlayElement());
+    }
+
+    @Override
+    public void resetOverlayStyle() {
+        getOverlayStyleMixin().resetOverlayStyle();
+    }
+
     public void setClosingBoundary(WidthBoundary closingBoundary) {
         this.closingBoundary = closingBoundary;
     }
@@ -552,6 +617,16 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
             closingBoundary = new WidthBoundary(0, 992);
         }
         return closingBoundary;
+    }
+
+    @Override
+    public void setDensity(Density density) {
+        getDensityMixin().setDensity(density);
+    }
+
+    @Override
+    public Density getDensity() {
+        return getDensityMixin().getDensity();
     }
 
     public Element getActivator() {
@@ -591,5 +666,19 @@ public abstract class AbstractSideNav extends MaterialWidget implements JsLoader
             typeMixin = new StyleMixin(this);
         }
         return typeMixin;
+    }
+
+    protected OverlayStyleMixin<AbstractSideNav> getOverlayStyleMixin() {
+        if (overlayStyleMixin == null) {
+            overlayStyleMixin = new OverlayStyleMixin<>(this);
+        }
+        return overlayStyleMixin;
+    }
+
+    protected DensityMixin<AbstractSideNav> getDensityMixin() {
+        if (densityMixin == null) {
+            densityMixin = new DensityMixin<>(this);
+        }
+        return densityMixin;
     }
 }

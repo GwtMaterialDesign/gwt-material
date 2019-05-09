@@ -34,4 +34,11 @@ public interface HasContainer {
     void setContainerEnabled(boolean value);
 
     boolean isContainerEnabed();
+
+    /**
+     * Set if child widget will align vertically.
+     */
+    void setValignWrapper(boolean value);
+
+    boolean isValignWrapper();
 }

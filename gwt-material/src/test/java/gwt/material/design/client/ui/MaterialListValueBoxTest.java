@@ -138,14 +138,14 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
     }
 
     protected void checkBrowserDefault(MaterialListValueBox listValueBox, boolean checkElement) {
-        listValueBox.setOld(true);
-        assertTrue(listValueBox.isOld());
+        listValueBox.setNativeBrowserStyle(true);
+        assertTrue(listValueBox.isNativeBrowserStyle());
         if (checkElement) {
             assertTrue(listValueBox.getListBox().getElement().hasClassName("browser-default"));
         }
 
-        listValueBox.setOld(false);
-        assertFalse(listValueBox.isOld());
+        listValueBox.setNativeBrowserStyle(false);
+        assertFalse(listValueBox.isNativeBrowserStyle());
         if (checkElement) {
             assertFalse(listValueBox.getListBox().getElement().hasClassName("browser-default"));
         }
@@ -249,6 +249,7 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         for (int i = 0; i <= 10; i++) {
             valueBox.addItem(i, "Item " + i);
         }
+        MaterialListBox emptyListBox = new MaterialListBox();
         RootPanel.get().add(valueBox);
 
         // when / then
@@ -256,6 +257,9 @@ public class MaterialListValueBoxTest<T> extends AbstractValueWidgetTest<Materia
         assertEquals(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());
         assertEquals(valueBox.getListBox().getItemText(0), EMPTY_PLACEHOLDER);
         assertTrue(valueBox.getOptionElement(0).isDisabled());
+
+        emptyListBox.setEmptyPlaceHolder(EMPTY_PLACEHOLDER);
+        assertEquals(-1, emptyListBox.getIndex("Non-existent value"));
 
         valueBox.setEmptyPlaceHolder(null);
         assertNotSame(EMPTY_PLACEHOLDER, valueBox.getEmptyPlaceHolder());

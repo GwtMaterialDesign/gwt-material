@@ -19,13 +19,13 @@
  */
 /*
  * Copyright 2009 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -49,6 +49,7 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
@@ -85,13 +86,13 @@ import gwt.material.design.client.constants.CssName;
  * { @example com.google.gwt.examples.CheckBoxExample}
  * </p>
  */
-public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolean>,
+public class BaseCheckBox extends MaterialWidget implements HasName, HasValue<Boolean>,
         HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator, IsEditor<LeafValueEditor<Boolean>> {
 
     public static final DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR =
             DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
 
-    final DirectionalTextHelper directionalTextHelper;
+    DirectionalTextHelper directionalTextHelper;
     InputElement inputElem;
     LabelElement labelElem;
     private LeafValueEditor<Boolean> editor;
@@ -102,7 +103,6 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
      */
     public BaseCheckBox() {
         this(DOM.createSpan());
-        setStyleName(CssName.GWT_CHECKBOX);
     }
 
     /**
@@ -137,7 +137,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
     public BaseCheckBox(SafeHtml label, DirectionEstimator directionEstimator) {
         this();
         setDirectionEstimator(directionEstimator);
-        setHTML(label.asString());
+        setHTML(label);
     }
 
     /**
@@ -185,14 +185,14 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
     public BaseCheckBox(String label, boolean asHTML) {
         this();
         if (asHTML) {
-            setHTML(label);
+            setHTML(SafeHtmlUtils.fromString(label));
         } else {
             setText(label);
         }
     }
 
     protected BaseCheckBox(Element elem) {
-        super(elem);
+        super(elem, CssName.GWT_CHECKBOX);
 
         inputElem = InputElement.as(DOM.createInputCheck());
         labelElem = Document.get().createLabelElement();
@@ -249,11 +249,6 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
      */
     public String getFormValue() {
         return inputElem.getValue();
-    }
-
-    @Override
-    public String getHTML() {
-        return directionalTextHelper.getTextOrHtml(true);
     }
 
     @Override
@@ -383,11 +378,6 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
     @Override
     public void setHTML(SafeHtml html, Direction dir) {
         directionalTextHelper.setTextOrHtml(html.asString(), dir, true);
-    }
-
-    @Override
-    public void setHTML(String html) {
-        directionalTextHelper.setTextOrHtml(html, true);
     }
 
     @Override
@@ -522,5 +512,10 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
         // reference between it and the widget).
         DOM.setEventListener(inputElem, null);
         setValue(getValue());
+    }
+
+    @Override
+    public void setHTML(SafeHtml html) {
+        directionalTextHelper.setTextOrHtml(html.asString(), true);
     }
 }

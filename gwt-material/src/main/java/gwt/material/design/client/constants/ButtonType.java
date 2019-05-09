@@ -32,6 +32,7 @@ public enum ButtonType implements CssType {
     RAISED("btn"),
     FLAT("btn-flat"),
     OUTLINED("btn btn-outlined"),
+    GHOST("btn-ghost"),
     FLOATING("btn-floating");
 
     private final String cssClass;

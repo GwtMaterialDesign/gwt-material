@@ -17,27 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.async;
 
-public interface HasDirtyField {
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Widget;
 
-    /**
-     * Detect whether we support dirty field checking
-     */
-    boolean isAllowDirtyFields();
+public interface AsyncWidgetCallback<W extends Widget, T> {
 
-    /**
-     * Will enable / disable dirty field checking into a widget
-     */
-    void setAllowDirtyFieldValidation(boolean allowDirty);
-
-    /**
-     * Will check whether there are dirty fields found
-     */
-    boolean isDirty();
-
-    /**
-     * Sets the widget dirty value
-     */
-    void setDirty(boolean dirty);
+    void load(AsyncCallback<T> callback, W widget);
 }

@@ -82,7 +82,7 @@ public class MaterialSideNavMini extends AbstractSideNav {
                 if (w instanceof MaterialWidget && isExpandOnClick()) {
                     $(w.getElement()).off("click").on("click", (e, param1) -> {
                         if (!getElement().hasClassName("expanded")) {
-                            show();
+                            open();
                         }
                         return true;
                     });

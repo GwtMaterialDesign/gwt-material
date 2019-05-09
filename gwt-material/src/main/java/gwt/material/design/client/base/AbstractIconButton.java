@@ -20,47 +20,67 @@
 package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultButtonLoader;
+import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialIcon;
 
 /**
  * @author Ben Dol
  */
-public abstract class AbstractIconButton extends AbstractButton implements HasIcon {
+public abstract class AbstractIconButton extends AbstractButton implements HasIcon, IsAsyncWidget<AbstractIconButton, String> {
 
-    private MaterialIcon icon = new MaterialIcon();
+    protected AsyncWidgetMixin<AbstractIconButton, String> asyncWidgetMixin;
+    protected MaterialIcon icon = new MaterialIcon();
+
+    public AbstractIconButton() {
+        super();
+        setAsyncDisplayLoader(new DefaultButtonLoader(this));
+        setIconPosition(IconPosition.LEFT);
+    }
 
     public AbstractIconButton(ButtonType type, String text, MaterialIcon icon) {
-        super(type, text);
-
+        this(type, text);
         this.icon = icon;
         ensureIconAttached();
     }
 
     public AbstractIconButton(ButtonType type, String text) {
-        super(type, text);
+        this();
+        setType(type);
+        setText(text);
         setIconPosition(IconPosition.LEFT);
     }
 
     public AbstractIconButton(IconType iconType) {
-        super();
+        this();
         setIconType(iconType);
         setIconPosition(IconPosition.LEFT);
     }
 
     public AbstractIconButton(ButtonType type) {
-        super(type);
-        setIconPosition(IconPosition.LEFT);
-    }
-
-    public AbstractIconButton() {
-        super();
+        this();
+        setType(type);
         setIconPosition(IconPosition.LEFT);
     }
 
     public AbstractIconButton(String... initialClass) {
-        super();
+        this();
         setInitialClasses(initialClass);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        registerHandler(addClickHandler(event -> {
+            if (isAsynchronous()) {
+                load(getAsyncCallback());
+            }
+        }));
     }
 
     @Override
@@ -109,6 +129,17 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
         return icon.isIconPrefix();
     }
 
+    @Override
+    public void setCustomIconType(String iconType) {
+        icon.setCustomIconType(iconType);
+        ensureIconAttached();
+    }
+
+    @Override
+    public String getCustomIconType() {
+        return icon.getCustomIconType();
+    }
+
     /**
      * Ensure the icon is attached in slot 0.
      */
@@ -116,5 +147,57 @@ public abstract class AbstractIconButton extends AbstractButton implements HasIc
         if (icon != null && !icon.isAttached()) {
             insert(icon, 0);
         }
+    }
+
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        getAsyncWidgetMixin().setAsynchronous(asynchronous);
+    }
+
+    @Override
+    public boolean isAsynchronous() {
+        return getAsyncWidgetMixin().isAsynchronous();
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<AbstractIconButton, String> asyncCallback) {
+        getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<AbstractIconButton, String> asyncCallback) {
+        getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
+    }
+
+    @Override
+    public AsyncWidgetCallback<AbstractIconButton, String> getAsyncCallback() {
+        return getAsyncWidgetMixin().getAsyncCallback();
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+        getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
+    }
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return getAsyncWidgetMixin().getAsyncDisplayLoader();
+    }
+
+    protected AsyncWidgetMixin<AbstractIconButton, String> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
     }
 }

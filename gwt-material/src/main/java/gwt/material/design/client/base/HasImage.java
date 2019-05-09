@@ -42,4 +42,11 @@ public interface HasImage {
      * Gets the resource image.
      */
     ImageResource getResource();
+
+    /**
+     * The required alt attribute specifies an alternate text for an image, if the image cannot be displayed.
+     */
+    void setAlt(String alt);
+
+    String getAlt();
 }

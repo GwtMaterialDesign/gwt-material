@@ -707,6 +707,7 @@ if ($) {
       $modal.data('stack-ordinal', lStack);
 
       $("body").append($overlay);
+      $modal.trigger("modal-overlay-attached", overlayID);
 
       // Override defaults
       options = $.extend(defaults, options);
@@ -2308,8 +2309,9 @@ $(document).ready(function(){
                       }
                   });
               $('body').append(overlay);
+              $this.trigger("side-nav-overlay-attached");
               if(transitions) {
-                  overlay.velocity({opacity: 1}, {
+                  overlay.velocity({display: "block"}, {
                       duration: 300, queue: false, easing: 'easeOutQuad',
                       complete: function () {
                           menuOut = true;
@@ -2318,7 +2320,7 @@ $(document).ready(function(){
                       }
                   });
               } else {
-                overlay.css("opacity", "1");
+                overlay.css("display", "block");
                 menuOut = true;
                 panning = false;
                 $this.trigger("side-nav-opened");
@@ -4172,7 +4174,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
                     P.$root.addClass( CLASSES.opened )
                     aria( P.$root[0], 'hidden', false )
 
-                }, 0 )
+                }, 100 )
 
                 // If we have to give focus, bind the element and doc events.
                 if ( dontGiveFocus !== false ) {

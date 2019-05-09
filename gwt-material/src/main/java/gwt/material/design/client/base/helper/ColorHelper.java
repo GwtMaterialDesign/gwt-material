@@ -59,4 +59,37 @@ public class ColorHelper {
         var cs = $wnd.document.defaultView.getComputedStyle(e, null);
         return cs.getPropertyValue('background-color');
     }-*/;
+
+    public static Color addShade(Color color, Shade shade, int value) {
+        Color shadedColor = color;
+        String className = color.getCssName();
+        if (className != null && !className.isEmpty() && !hasShade(color) && color != Color.WHITE && color != Color.TRANSPARENT && color != Color.BLACK && color != Color.DEFAULT) {
+            if (value > 0 && value < 6) {
+                className = className + " " + shade.getName() + "-" + value;
+                shadedColor = Color.fromStyleName(className, true);
+            }
+        }
+        return shadedColor;
+    }
+
+    public static boolean hasShade(Color color) {
+        String className = color.getCssName();
+        return className.contains("lighten") || className.contains("darken") || className.contains("accent");
+    }
+
+    public enum Shade {
+        LIGHTEN("lighten"),
+        DARKEN("darken"),
+        ACCENT("accent");
+
+        private String name;
+
+        Shade(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }

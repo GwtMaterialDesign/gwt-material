@@ -103,7 +103,9 @@ public class MaterialCollapsibleBody extends MaterialWidget implements HasCollap
     }
 
     public void makeActive(Widget child) {
-        parent.clearActive();
+        if (parent != null) {
+            parent.clearActive();
+        }
 
         // mark the collapsible item as active
         MaterialCollapsibleItem item = findCollapsibleItemParent(child);

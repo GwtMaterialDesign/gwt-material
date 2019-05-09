@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.*;
@@ -26,9 +27,10 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.FullscreenMixin;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.DialogType;
+import gwt.material.design.client.base.mixin.OverlayStyleMixin;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsModalOptions;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -75,14 +77,18 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 // @formatter:on
 public class MaterialDialog extends MaterialWidget implements HasType<DialogType>, HasInOutDurationTransition,
-        HasDismissible, HasCloseHandlers<MaterialDialog>, HasOpenHandlers<MaterialDialog>, HasFullscreen {
+        HasDismissible, HasCloseHandlers<MaterialDialog>, HasOpenHandlers<MaterialDialog>, HasFullscreen, HasOverlayStyle {
 
     private JsModalOptions options = new JsModalOptions();
 
+    private final String OVERLAY_ATTACHED = "modal-overlay-attached";
+    private final String HASH_CHANGE = "hashchange";
     private CssTypeMixin<DialogType, MaterialDialog> typeMixin;
     private FullscreenMixin fullscreenMixin;
+    private OverlayStyleMixin<MaterialDialog> overlayStyleMixin;
     private boolean open;
     private boolean closeOnBrowserBackNavigation = true;
+    private JQueryElement overlayElement;
 
     public MaterialDialog() {
         super(Document.get().createDivElement(), CssName.MODAL);
@@ -92,12 +98,25 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     protected void onLoad() {
         super.onLoad();
 
+        setupOverlayStyles();
         setupBackNavigation();
+    }
+
+    protected void setupOverlayStyles() {
+        if (getOverlayOption() != null) {
+            $(getElement()).on(OVERLAY_ATTACHED, (event, id) -> {
+                setOverlayElement($("#" + id));
+                applyOverlayStyle(overlayElement);
+                return true;
+            });
+
+            registerHandler(addCloseHandler(event -> resetOverlayStyle()));
+        }
     }
 
     protected void setupBackNavigation() {
         if (closeOnBrowserBackNavigation) {
-            window().on("hashchange", (e, param1) -> {
+            window().on(HASH_CHANGE, (e, param1) -> {
                 e.preventDefault();
                 if (isOpen()) {
                     close();
@@ -105,7 +124,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
                 return true;
             });
         } else {
-            window().off("hashchange");
+            window().off(HASH_CHANGE);
         }
     }
 
@@ -113,7 +132,8 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     protected void onUnload() {
         super.onUnload();
 
-        window().off("hashchange");
+        window().off(HASH_CHANGE);
+        $(getElement()).off(OVERLAY_ATTACHED);
     }
 
     @Override
@@ -251,6 +271,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
         options.complete = () -> onNativeClose(true, true);
         options.ready = () -> onNativeOpen(fireEvent);
         $(e).openModal(options);
+        Scheduler.get().scheduleDeferred(() -> $(getElement()).focus());
     }
 
     protected void onNativeOpen(boolean fireEvent) {
@@ -318,6 +339,34 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
         return open;
     }
 
+    public void setOverlayElement(JQueryElement overlayElement) {
+        this.overlayElement = overlayElement;
+    }
+
+    public JQueryElement getOverlayElement() {
+        return overlayElement;
+    }
+
+    @Override
+    public void setOverlayOption(OverlayOption overlayOption) {
+        getOverlayStyleMixin().setOverlayOption(overlayOption);
+    }
+
+    @Override
+    public OverlayOption getOverlayOption() {
+        return getOverlayStyleMixin().getOverlayOption();
+    }
+
+    @Override
+    public void applyOverlayStyle(JQueryElement overlayElement) {
+        getOverlayStyleMixin().applyOverlayStyle(overlayElement);
+    }
+
+    @Override
+    public void resetOverlayStyle() {
+        getOverlayStyleMixin().resetOverlayStyle();
+    }
+
     @Override
     public HandlerRegistration addCloseHandler(CloseHandler<MaterialDialog> handler) {
         return addHandler(handler, CloseEvent.getType());
@@ -340,5 +389,12 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
             fullscreenMixin = new FullscreenMixin(this);
         }
         return fullscreenMixin;
+    }
+
+    protected OverlayStyleMixin<MaterialDialog> getOverlayStyleMixin() {
+        if (overlayStyleMixin == null) {
+            overlayStyleMixin = new OverlayStyleMixin<>(this);
+        }
+        return overlayStyleMixin;
     }
 }

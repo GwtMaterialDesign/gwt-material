@@ -73,4 +73,15 @@ public interface HasIcon {
      * Is the icon prefix in the container.
      */
     boolean isIconPrefix();
+
+    /**
+     * Will set the custom Icon type provided by the css classes.
+     * This way we can easily support FontAwesome icons.
+     */
+    void setCustomIconType(String iconType);
+
+    /**
+     * Will get the css class for custom icons.
+     */
+    String getCustomIconType();
 }

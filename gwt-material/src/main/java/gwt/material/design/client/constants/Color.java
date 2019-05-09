@@ -321,7 +321,11 @@ public enum Color implements CssType {
     }
 
     public static Color fromStyleName(final String styleName) {
-        return EnumHelper.fromStyleName(styleName, Color.class, Color.DEFAULT);
+        return EnumHelper.fromStyleName(styleName, Color.class, Color.DEFAULT, false);
+    }
+
+    public static Color fromStyleName(final String styleName, boolean ignoreSpaces) {
+        return EnumHelper.fromStyleName(styleName, Color.class, Color.DEFAULT, ignoreSpaces);
     }
 
     public static void clearStyles(final UIObject uiObject) {

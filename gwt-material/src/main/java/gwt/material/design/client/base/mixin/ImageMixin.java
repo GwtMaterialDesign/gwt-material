@@ -29,6 +29,7 @@ import gwt.material.design.client.base.HasImage;
 public class ImageMixin<T extends UIObject & HasImage> extends AbstractMixin<T> implements HasImage {
 
     private String url = "";
+    private String alt = "";
     private ImageResource resource;
 
     public ImageMixin(final T widget) {
@@ -55,5 +56,16 @@ public class ImageMixin<T extends UIObject & HasImage> extends AbstractMixin<T> 
     @Override
     public ImageResource getResource() {
         return resource;
+    }
+
+    @Override
+    public void setAlt(String alt) {
+        this.alt = alt;
+        uiObject.getElement().setAttribute("alt", alt);
+    }
+
+    @Override
+    public String getAlt() {
+        return alt;
     }
 }

@@ -21,11 +21,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.logical.shared.HasSelectionHandlers;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
@@ -41,7 +38,9 @@ import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -68,8 +67,9 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/menus.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialDropDown extends UnorderedList implements JsLoader, HasSelectionHandlers<Widget>, HasInOutDurationTransition {
+public class MaterialDropDown<T> extends UnorderedList implements JsLoader, HasSelectionHandlers<Widget>, HasValueChangeHandlers<T>, HasInOutDurationTransition {
 
+    private Map<Widget, T> widgetMap = new HashMap<>();
     private String activator;
     private Element activatorElement;
     private List<HandlerRegistration> handlers = new ArrayList<>();
@@ -180,6 +180,21 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
         }
     }
 
+    public void setItems(List<T> items, DropdownItemRenderer<T> renderer) {
+        clear();
+        items.forEach(item -> {
+            MaterialLink link;
+            if (renderer != null) {
+                link = renderer.render(item);
+            } else {
+                link = new MaterialLink(item.toString());
+            }
+            link.addClickHandler(event -> ValueChangeEvent.fire(this, item));
+            widgetMap.put(link, item);
+            add(link);
+        });
+    }
+
     @Override
     public void setInDuration(int durationMillis) {
         options.inDuration = durationMillis;
@@ -286,5 +301,10 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
                 handler.onSelection(event);
             }
         }, SelectionEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<T> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 }

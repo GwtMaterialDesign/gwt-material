@@ -29,11 +29,18 @@ import com.google.gwt.i18n.client.HasDirection.Direction;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.ListBox;
+import gwt.material.design.client.async.AsyncWidgetCallback;
+import gwt.material.design.client.async.HasAsyncRenderer;
+import gwt.material.design.client.async.IsAsyncWidget;
+import gwt.material.design.client.async.loader.AsyncDisplayLoader;
+import gwt.material.design.client.async.loader.DefaultListValueBoxLoader;
+import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
+import gwt.material.design.client.async.renderer.AsyncRenderer;
 import gwt.material.design.client.base.*;
-import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.FieldTypeMixin;
+import gwt.material.design.client.base.mixin.NativeBrowserStyleMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
-import gwt.material.design.client.base.mixin.ToggleStyleMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.FieldType;
 import gwt.material.design.client.js.JsMaterialElement;
@@ -73,27 +80,29 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
-        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes {
-
-    public static final String BLANK_VALUE_TEXT = "";
+        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, IsAsyncWidget<MaterialListValueBox<T>, List<T>>,
+        HasAsyncRenderer<String, T>, HasNativeBrowserStyle {
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
     protected final List<T> values = new ArrayList<>();
     private KeyFactory<T, String> keyFactory = new AllowBlankKeyFactory();
     private MaterialLabel errorLabel = new MaterialLabel();
-    private boolean loaded = false;
+    private AsyncRenderer<String, T> asyncRenderer;
 
-    private ToggleStyleMixin<ListBox> toggleOldMixin;
     private ReadOnlyMixin<MaterialListValueBox<T>, ListBox> readOnlyMixin;
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private FieldTypeMixin<MaterialListValueBox> fieldTypeMixin;
+    private AsyncWidgetMixin<MaterialListValueBox<T>, List<T>> asyncWidgetMixin;
+    private NativeBrowserStyleMixin<MaterialListValueBox> nativeBrowserStyleMixin;
 
     private String emptyPlaceHolder = null;
 
     public MaterialListValueBox() {
-        super(Document.get().createDivElement(), CssName.INPUT_FIELD,  CssName.LISTBOX_WRAPPER);
-        super.setAllowBlank(false);
+        super(Document.get().createDivElement(), CssName.INPUT_FIELD, CssName.LISTBOX_WRAPPER);
+
+        setAllowBlank(false);
+        setAsyncDisplayLoader(new DefaultListValueBoxLoader(this));
     }
 
     @Override
@@ -116,8 +125,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void load() {
         JQueryElement listBoxElement = $(listBox.getElement());
-        JsMaterialElement.$(listBox.getElement()).material_select(
-                () -> $("input.select-dropdown").trigger("close", true));
+        JsMaterialElement.$(listBox.getElement()).material_select(() -> $("input.select-dropdown").trigger("close", true));
         listBoxElement.change((e, param) -> {
             try {
                 ValueChangeEvent.fire(this, getValue());
@@ -140,9 +148,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
         selectDropdown.focus((e, param1) -> {
             DomEvent.fireNativeEvent(Document.get().createFocusEvent(), this);
+
+            if (isAsynchronous() && !isLoaded()) {
+                load(getAsyncCallback());
+            }
+
             return true;
         });
-        loaded = true;
+
         if (isAllowBlank()) {
             addBlankItemIfNeeded();
         }
@@ -626,17 +639,25 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
 
     @Override
     public void setValue(T value, boolean fireEvents) {
-        int index = values.indexOf(value);
-        if (index < 0 && value instanceof String) {
-            index = getIndexByString((String) value);
-        }
-
-        if (index > -1) {
-            T before = getValue();
-            setSelectedIndexInternal(index);
+        if (value == null) {
+            reset();
 
             if (fireEvents) {
-                ValueChangeEvent.fireIfNotEqual(this, before, value);
+                ValueChangeEvent.fire(this, null);
+            }
+        } else {
+            int index = values.indexOf(value);
+            if (index < 0 && value instanceof String) {
+                index = getIndexByString((String) value);
+            }
+
+            if (index > -1) {
+                T before = getValue();
+                setSelectedIndexInternal(index);
+
+                if (fireEvents) {
+                    ValueChangeEvent.fireIfNotEqual(this, before, value);
+                }
             }
         }
     }
@@ -655,20 +676,37 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     public int getIndexByString(String key) {
         int index = -1;
         for (T value : values) {
-            index++;
             if (keyFactory.generateKey(value).equals(key)) {
-                return index;
+                index = values.indexOf(value);
             }
         }
         return index;
     }
 
+    /**
+     * As of GMD 2.2 this was replaced by {@link #setNativeBrowserStyle(boolean)}
+     */
+    @Deprecated
     public boolean isOld() {
-        return getToggleOldMixin().isOn();
+        return isNativeBrowserStyle();
     }
 
-    public void setOld(boolean old) {
-        getToggleOldMixin().setOn(old);
+    /**
+     * As of GMD 2.2 this was replaced by {@link #setNativeBrowserStyle(boolean)}
+     */
+    @Deprecated
+    public void setOld(boolean value) {
+        setNativeBrowserStyle(value);
+    }
+
+    @Override
+    public void setNativeBrowserStyle(boolean value) {
+        getNativeBrowserStyleMixin().setNativeBrowserStyle(value);
+    }
+
+    @Override
+    public boolean isNativeBrowserStyle() {
+        return getNativeBrowserStyleMixin().isNativeBrowserStyle();
     }
 
     /**
@@ -879,6 +917,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setEnabled(boolean enabled) {
         listBox.setEnabled(enabled);
+        label.setEnabled(enabled);
         reload();
     }
 
@@ -929,16 +968,14 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     protected void addBlankItemIfNeeded() {
-        if (loaded) {
-            int idx = getIndex(null);
-            if (idx < 0) {
-                ArrayList<T> previous = new ArrayList<>(values);
-                values.clear();
-                values.add(null);
-                values.addAll(previous);
-                listBox.insertItem(BLANK_VALUE_TEXT, 0);
-                setSelectedIndexInternal(-1);
-            }
+        int idx = getIndex(null);
+        if (idx < 0) {
+            ArrayList<T> previous = new ArrayList<>(values);
+            values.clear();
+            values.add(null);
+            values.addAll(previous);
+            listBox.insertItem(AllowBlankKeyFactory.BLANK_VALUE_TEXT, 0);
+            setSelectedIndexInternal(-1);
         }
     }
 
@@ -1021,34 +1058,13 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      * @return the index of the value
      */
     public int getIndex(T value) {
-        int count = getItemCount();
+        int count = getItemCount() - getIndexOffset();
         for (int i = 0; i < count; i++) {
             if (Objects.equals(getValue(i), value)) {
                 return i;
             }
         }
         return -1;
-    }
-
-    public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
-        if (readOnlyMixin == null) {
-            readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
-        }
-        return readOnlyMixin;
-    }
-
-    protected ToggleStyleMixin<ListBox> getToggleOldMixin() {
-        if (toggleOldMixin == null) {
-            toggleOldMixin = new ToggleStyleMixin<>(listBox, "browser-default");
-        }
-        return toggleOldMixin;
-    }
-
-    protected FieldTypeMixin<MaterialListValueBox> getFieldTypeMixin() {
-        if (fieldTypeMixin == null) {
-            fieldTypeMixin = new FieldTypeMixin<>(this);
-        }
-        return fieldTypeMixin;
     }
 
     /**
@@ -1105,15 +1121,87 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         getFieldTypeMixin().setFieldWidth(percentWidth);
     }
 
-    class AllowBlankKeyFactory implements KeyFactory<T, String> {
+    @Override
+    public void setAsynchronous(boolean asynchronous) {
+        getAsyncWidgetMixin().setAsynchronous(asynchronous);
+    }
 
-        @Override
-        public String generateKey(T object) {
-            if (object == null) {
-                return BLANK_VALUE_TEXT;
-            } else {
-                return object.toString();
-            }
+    @Override
+    public boolean isAsynchronous() {
+        return getAsyncWidgetMixin().isAsynchronous();
+    }
+
+    @Override
+    public void load(AsyncWidgetCallback<MaterialListValueBox<T>, List<T>> asyncCallback) {
+        getAsyncWidgetMixin().load(asyncCallback);
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+        getAsyncWidgetMixin().setLoaded(loaded);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return getAsyncWidgetMixin().isLoaded();
+    }
+
+    @Override
+    public void setAsyncCallback(AsyncWidgetCallback<MaterialListValueBox<T>, List<T>> asyncCallback) {
+        getAsyncWidgetMixin().setAsyncCallback(asyncCallback);
+    }
+
+    @Override
+    public AsyncWidgetCallback<MaterialListValueBox<T>, List<T>> getAsyncCallback() {
+        return getAsyncWidgetMixin().getAsyncCallback();
+    }
+
+    @Override
+    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+        getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
+    }
+
+    @Override
+    public void setAsyncRenderer(AsyncRenderer<String, T> asyncRenderer) {
+        this.asyncRenderer = asyncRenderer;
+    }
+
+    @Override
+    public AsyncRenderer<String, T> getAsyncRenderer() {
+        return asyncRenderer;
+    }
+
+
+    @Override
+    public AsyncDisplayLoader getAsyncDisplayLoader() {
+        return getAsyncWidgetMixin().getAsyncDisplayLoader();
+    }
+
+    public ReadOnlyMixin<MaterialListValueBox<T>, ListBox> getReadOnlyMixin() {
+        if (readOnlyMixin == null) {
+            readOnlyMixin = new ReadOnlyMixin<>(this, listBox);
         }
+        return readOnlyMixin;
+    }
+
+    protected FieldTypeMixin<MaterialListValueBox> getFieldTypeMixin() {
+        if (fieldTypeMixin == null) {
+            fieldTypeMixin = new FieldTypeMixin<>(this);
+        }
+        return fieldTypeMixin;
+    }
+
+    protected AsyncWidgetMixin<MaterialListValueBox<T>, List<T>> getAsyncWidgetMixin() {
+        if (asyncWidgetMixin == null) {
+            asyncWidgetMixin = new AsyncWidgetMixin<>(this);
+        }
+        return asyncWidgetMixin;
+    }
+
+    protected NativeBrowserStyleMixin<MaterialListValueBox> getNativeBrowserStyleMixin() {
+        if (nativeBrowserStyleMixin == null) {
+            nativeBrowserStyleMixin = new NativeBrowserStyleMixin<>(this, listBox);
+        }
+        return nativeBrowserStyleMixin;
     }
 }

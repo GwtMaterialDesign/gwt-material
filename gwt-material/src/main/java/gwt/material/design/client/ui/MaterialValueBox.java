@@ -37,6 +37,7 @@ import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.constants.*;
@@ -67,13 +68,10 @@ import gwt.material.design.client.ui.html.Label;
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes {
+        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes, HasAutocomplete {
 
-    /**
-     * @see #setReturnBlankAsNull(boolean)
-     */
+
     private boolean returnBlankAsNull;
-
     private InputType type = InputType.TEXT;
     private ValueBoxEditor<T> editor;
     private Label label = new Label();
@@ -89,6 +87,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
+    private AttributeMixin<Widget> autocompleteAttributeMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -388,6 +387,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setCustomIconType(String iconType) {
+        icon.setCustomIconType(iconType);
+    }
+
+    @Override
+    public String getCustomIconType() {
+        return icon.getCustomIconType();
+    }
+
+    @Override
     public void setLength(int length) {
         getCounterMixin().setLength(length);
     }
@@ -521,6 +530,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public void setFieldWidth(double percentWidth) {
         getFieldTypeMixin().setFieldWidth(percentWidth);
+    }
+
+    @Override
+    public void setAutocomplete(boolean value) {
+        getAutocompleteAttributeMixin().setAttribute(value ? "on" : "off");
+    }
+
+    @Override
+    public boolean isAutocomplete() {
+        return getAutocompleteAttributeMixin().getAttributeAsBoolean();
     }
 
     @Ignore
@@ -857,5 +876,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldTypeMixin = new FieldTypeMixin<>(this, label, valueBoxBase, errorLabel);
         }
         return fieldTypeMixin;
+    }
+
+    public AttributeMixin<Widget> getAutocompleteAttributeMixin() {
+        if (autocompleteAttributeMixin == null) {
+            autocompleteAttributeMixin = new AttributeMixin<>(valueBoxBase, "autocomplete");
+        }
+        return autocompleteAttributeMixin;
     }
 }

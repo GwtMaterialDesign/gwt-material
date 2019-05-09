@@ -11,8 +11,7 @@
 - [PWA Support](https://github.com/GwtMaterialDesign/gwt-material/wiki/PWA-:-Service-Worker-Automation)
 
 ## Demo
-* [2.1.1 Release Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/)
-* [2.2 Snapshot Demo](http://gwtmaterialdesign.github.io/gwt-material-demo/snapshot/)
+* [2.2 Release Demo](https://gwtmaterialdesign.github.io/gmd-core-demo/)
 
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
@@ -20,12 +19,12 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
-### Current Version 2.1.1
+### Current Version 2.2
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.1.1</version>
+    <version>2.2-rc1</version>
 </dependency>
 ```
 ### Snapshot Version 2.2-SNAPSHOT

@@ -23,6 +23,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractSideNav;
+import gwt.material.design.client.base.density.DensityValue;
+import gwt.material.design.client.base.density.DisplayDensity;
 import gwt.material.design.client.base.viewport.Resolution;
 import gwt.material.design.client.base.viewport.WidthBoundary;
 import gwt.material.design.client.constants.CssName;
@@ -310,6 +312,28 @@ public abstract class AbstractSideNavTest<T extends AbstractSideNav> extends Mat
 
         sideNav.setClosingBoundary(Resolution.ALL_MOBILE.getBoundary());
         assertEquals(Resolution.ALL_MOBILE.getBoundary(), sideNav.getClosingBoundary());
+    }
+
+    public void testDensity() {
+        T sideNav = getWidget();
+
+        assertEquals(DisplayDensity.DEFAULT, sideNav.getDensity());
+        assertEquals(55, DisplayDensity.DEFAULT.getValue());
+
+        sideNav.setDensity(DisplayDensity.COMPACT);
+        assertEquals(DisplayDensity.COMPACT, sideNav.getDensity());
+        assertTrue(sideNav.getElement().hasClassName(DisplayDensity.COMPACT.getCssName()));
+        assertEquals(20, DisplayDensity.COMPACT.getValue());
+
+        sideNav.setDensity(DisplayDensity.COMFORTABLE);
+        assertEquals(DisplayDensity.COMFORTABLE, sideNav.getDensity());
+        assertTrue(sideNav.getElement().hasClassName(DisplayDensity.COMFORTABLE.getCssName()));
+        assertEquals(40, DisplayDensity.COMFORTABLE.getValue());
+
+        sideNav.setDensity(new DensityValue("test", 80));
+        assertTrue(sideNav.getElement().hasClassName("test"));
+        //assertEquals("test", sideNav.getDensity().getCssName());
+        assertEquals(80, sideNav.getDensity().getValue());
     }
 
     protected void checkOpeningHandler(T sideNav) {

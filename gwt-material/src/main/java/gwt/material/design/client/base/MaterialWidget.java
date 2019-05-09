@@ -31,14 +31,15 @@ import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
 import gwt.material.design.client.events.DragLeaveEvent;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.OrientationChangeEvent.OrientationChangeHandler;
+import gwt.material.design.client.theme.ThemeManager;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
@@ -52,7 +53,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
         HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
-        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation {
+        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation, HasContainer, HasWordBreak{
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -130,6 +131,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private VerticalAlignMixin<MaterialWidget> verticalAlignMixin;
     private TransformMixin<MaterialWidget> transformMixin;
     private OrientationMixin<MaterialWidget> orientationMixin;
+    private ContainerMixin<MaterialWidget> containerMixin;
 
     public MaterialWidget() {
     }
@@ -163,6 +165,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     protected void onLoad() {
         super.onLoad();
 
+        ThemeManager.applyLoad(this);
+
         if (initialClasses != null) {
             for (String initial : initialClasses) {
                 if (!initial.isEmpty()) {
@@ -188,6 +192,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     protected void onUnload() {
         super.onUnload();
+
+        ThemeManager.applyUnload(this);
 
         getHandlerRegistry().clearHandlers();
     }
@@ -578,7 +584,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
      */
     public Style.Visibility getVisibility() {
         String visibility = getElement().getStyle().getVisibility();
-        if(visibility != null && !visibility.isEmpty()) {
+        if (visibility != null && !visibility.isEmpty()) {
             return Style.Visibility.valueOf(visibility.toUpperCase());
         }
         return null;
@@ -920,6 +926,24 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getOrientationMixin().isDetectOrientation();
     }
 
+    public void setLetterSpacing(String value) {
+        getElement().getStyle().setProperty("letterSpacing", value);
+    }
+
+    public String getLetterSpacing() {
+        return getElement().getStyle().getProperty("letterSpacing");
+    }
+
+    @Override
+    public void setWordBreak(WordBreak wordBreak) {
+        getElement().getStyle().setProperty("wordBreak", wordBreak.getCssName());
+    }
+
+    @Override
+    public WordBreak getWordBreak() {
+        return WordBreak.fromStyleName(getElement().getStyle().getProperty("wordBreak"));
+    }
+
     public HandlerRegistration registerHandler(HandlerRegistration handler) {
         return getHandlerRegistry().registerHandler(handler);
     }
@@ -965,6 +989,36 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         target.getStyle().setProperty("transition", property.getProperty() + " " + property.getDuration() + "ms " + property.getTimingFunction() + property.getDelay() + "ms");
     }
 
+    public String getCursor() {
+        return getElement().getStyle().getCursor();
+    }
+
+    /**
+     * Will set the {@link com.google.gwt.dom.client.Style.Cursor} style property into this widget
+     */
+    public void setCursor(Style.Cursor cursor) {
+        getElement().getStyle().setCursor(cursor);
+    }
+
+    @Override
+    public void setContainerEnabled(boolean value) {
+        getContainerMixin().setContainerEnabled(value);
+    }
+
+    @Override
+    public boolean isContainerEnabed() {
+        return getContainerMixin().isContainerEnabed();
+    }
+
+    @Override
+    public void setValignWrapper(boolean value) {
+        getContainerMixin().setValignWrapper(value);
+    }
+
+    @Override
+    public boolean isValignWrapper() {
+        return getContainerMixin().isValignWrapper();
+    }
 
     /**
      * Add an {@code AttachHandler} for attachment events.
@@ -1507,6 +1561,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             filterMixin = new FilterStyleMixin<>(this);
         }
         return filterMixin;
+    }
+
+    public ContainerMixin<MaterialWidget> getContainerMixin() {
+        if (containerMixin == null) {
+            containerMixin = new ContainerMixin<>(this);
+        }
+        return containerMixin;
     }
 
     public void setTranslationKey(String key) {

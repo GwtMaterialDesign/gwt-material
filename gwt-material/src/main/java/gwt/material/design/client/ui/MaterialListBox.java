@@ -20,6 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.OptionElement;
+import gwt.material.design.client.base.AllowBlankKeyFactory;
 import gwt.material.design.client.ui.html.Option;
 
 //@formatter:off
@@ -62,7 +63,7 @@ public class MaterialListBox extends MaterialListValueBox<String> {
     public String getValue() {
         String value = super.getValue();
         if (value == null) {
-            return BLANK_VALUE_TEXT;
+            return AllowBlankKeyFactory.BLANK_VALUE_TEXT;
         } else {
             return value;
         }
@@ -70,7 +71,7 @@ public class MaterialListBox extends MaterialListValueBox<String> {
 
     @Override
     public void setValue(String value) {
-        if (BLANK_VALUE_TEXT.equals(value)) {
+        if (AllowBlankKeyFactory.BLANK_VALUE_TEXT.equals(value)) {
             super.setValue(null);
         } else {
             super.setValue(value);

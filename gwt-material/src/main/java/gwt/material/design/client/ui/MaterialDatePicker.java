@@ -412,8 +412,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
                 suppressChangeEvent = false;
                 label.addStyleName(CssName.ACTIVE);
             }
-            super.setValue(value, fireEvents);
         }
+        super.setValue(value, fireEvents);
     }
 
     @Override
@@ -519,6 +519,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    @Override
+    public void setCustomIconType(String iconType) {
+        icon.setCustomIconType(iconType);
+    }
+
+    @Override
+    public String getCustomIconType() {
+        return icon.getCustomIconType();
     }
 
     @Override

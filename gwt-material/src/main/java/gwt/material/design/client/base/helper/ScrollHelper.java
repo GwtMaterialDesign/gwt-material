@@ -39,6 +39,7 @@ public class ScrollHelper {
     private Element containerElement;
     private Functions.Func completeCallback;
     private String easing = "swing";
+    private int addedScrollOffset;
     private int duration = 400;
     private double offset;
 
@@ -112,13 +113,27 @@ public class ScrollHelper {
         } else {
             target = $("html, body");
         }
-        option.scrollTop = offset;
+        option.scrollTop = offset - addedScrollOffset;
 
         target.animate(option, duration, easing, () -> {
             if (completeCallback != null) {
                 completeCallback.call();
             }
         });
+    }
+
+    /**
+     * Will detect if {@link #containerElement} has horizontal scrollbar.
+     */
+    public boolean hasHorizontalScrollbar() {
+        return containerElement.getScrollWidth() > containerElement.getClientWidth();
+    }
+
+    /**
+     * Will detect if {@link #containerElement} has vertical scrollbar.
+     */
+    public boolean hasVerticalScrollbar() {
+        return containerElement.getScrollHeight() > containerElement.getClientHeight();
     }
 
     /**
@@ -153,6 +168,10 @@ public class ScrollHelper {
         return isInViewPort(widget.getElement());
     }
 
+    public boolean isInViewPort(Widget widget, double addedHeight) {
+        return isInViewPort(widget.getElement(), addedHeight);
+    }
+
     /**
      * Will perform a detection whether the element is in the View Port Scope or not, providing
      * the {@link #containerElement} as the wrapper or container of the target element.
@@ -163,19 +182,29 @@ public class ScrollHelper {
      * @param element The element you are checking if it's inside the viewport scope.
      */
     public boolean isInViewPort(Element element) {
-        double elementTop = $(element).offset().top;
-        double elementBottom = elementTop + $(element).outerHeight();
+        return isInViewPort(element, 0);
+    }
+
+    public boolean isInViewPort(Element element, double addedHeight) {
+        double elementTop = getElementTop(element) + addedHeight;
+        double elementBottom = elementTop + $(element).outerHeight() + addedHeight;
 
         JQueryElement target = getContainerElement();
         double viewportTop = target.scrollTop();
 
         if (target.asElement() != getDefaultContainer()) {
-            viewportTop = target.offset().top;
+            viewportTop = getElementTop(target.asElement());
         }
 
         double viewportBottom = viewportTop + target.height();
+
         return elementBottom > viewportTop && elementTop < viewportBottom;
     }
+
+    protected native double getElementTop(Element element) /*-{
+        var rectObject = element.getBoundingClientRect();
+        return rectObject.top;
+    }-*/;
 
     protected Element getDefaultContainer() {
         return $("html, body").asElement();
@@ -193,6 +222,17 @@ public class ScrollHelper {
      */
     public void setContainer(Widget widget) {
         this.containerElement = widget.getElement();
+    }
+
+    public int getAddedScrollOffset() {
+        return addedScrollOffset;
+    }
+
+    /**
+     * Additional offset height in pixels to be added on overall scroll offset once called {@link #scrollTo(double)}
+     */
+    public void setAddedScrollOffset(int addedScrollOffset) {
+        this.addedScrollOffset = addedScrollOffset;
     }
 
     public JQueryElement getContainerElement() {
