@@ -102,4 +102,16 @@ public abstract class AbstractIconButtonTest<T extends AbstractIconButton> exten
         icon.setIconFontSize(2, Style.Unit.PX);
         assertEquals("2px", icon.getElement().getStyle().getFontSize());
     }
+
+    public void testCustomIcon() {
+        final String CUSTOM_ICON = "fas_custom";
+        T widget = getWidget();
+        widget.setCustomIconType(CUSTOM_ICON);
+        assertEquals(CUSTOM_ICON, widget.getCustomIconType());
+        assertTrue(widget.getIcon().getElement().hasClassName(CUSTOM_ICON));
+
+        widget.setCustomIconType(null);
+        assertNull(widget.getCustomIconType());
+        assertFalse(widget.getIcon().getElement().hasClassName(CUSTOM_ICON));
+    }
 }

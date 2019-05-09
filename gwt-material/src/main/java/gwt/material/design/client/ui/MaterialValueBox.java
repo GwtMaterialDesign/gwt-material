@@ -534,12 +534,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     @Override
     public void setAutocomplete(boolean value) {
-        getAutocompleteAttributeMixin().setAttribute(value ? "on" : "off");
+        getElement().setAttribute("autocomplete", value ? "on" : "off");
     }
 
     @Override
     public boolean isAutocomplete() {
-        return getAutocompleteAttributeMixin().getAttributeAsBoolean();
+        return getElement().getAttribute("autocomplete").equals("on");
     }
 
     @Ignore
@@ -876,12 +876,5 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldTypeMixin = new FieldTypeMixin<>(this, label, valueBoxBase, errorLabel);
         }
         return fieldTypeMixin;
-    }
-
-    public AttributeMixin<Widget> getAutocompleteAttributeMixin() {
-        if (autocompleteAttributeMixin == null) {
-            autocompleteAttributeMixin = new AttributeMixin<>(valueBoxBase, "autocomplete");
-        }
-        return autocompleteAttributeMixin;
     }
 }

@@ -82,7 +82,6 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
             }
 
             if (uiObject instanceof HasWidgets && uiObject instanceof MaterialWidget) {
-                MaterialWidget widget = ((MaterialWidget) uiObject);
                 if (container != null && container instanceof MaterialWidget) {
                     ((MaterialWidget) container).insert(statusIcon, 0);
                 } else {

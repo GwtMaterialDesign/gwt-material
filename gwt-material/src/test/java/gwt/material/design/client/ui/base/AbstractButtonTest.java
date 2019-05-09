@@ -79,6 +79,9 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
         widget.setType(ButtonType.OUTLINED);
         assertEquals(ButtonType.OUTLINED, widget.getType());
 
+        widget.setType(ButtonType.GHOST);
+        assertEquals(ButtonType.GHOST, widget.getType());
+
         // Standard
         // given
         attachWidget();
@@ -96,6 +99,9 @@ public abstract class AbstractButtonTest<T extends AbstractButton> extends Mater
 
         widget.setType(ButtonType.OUTLINED);
         assertTrue(element.hasClassName(ButtonType.OUTLINED.getCssName()));
+
+        widget.setType(ButtonType.GHOST);
+        assertTrue(element.hasClassName(ButtonType.GHOST.getCssName()));
     }
 
     public void testActivates() {

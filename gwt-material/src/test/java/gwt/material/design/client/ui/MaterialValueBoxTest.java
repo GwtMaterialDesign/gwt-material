@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ValueBoxBase;
+import gwt.material.design.client.constants.StatusDisplayType;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
 /**
@@ -71,6 +72,68 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
 
             checkValueReturnAsNull(widget);
         }
+    }
+
+    public void testAutocomplete() {
+        T widget = getWidget(false);
+
+        checkAutocomplete(widget);
+
+        attachWidget();
+
+        checkAutocomplete(widget);
+    }
+
+    public void testMandatoryField() {
+        T widget = getWidget(false);
+
+        checkMandatoryField(widget);
+
+        attachWidget();
+
+        checkMandatoryField(widget);
+    }
+
+    public void testStatusDisplayType() {
+        T widget = getWidget(false);
+
+        assertEquals(null, widget.getStatusDisplayType());
+
+        widget.setStatusDisplayType(StatusDisplayType.DEFAULT);
+        assertEquals(StatusDisplayType.DEFAULT, widget.getStatusDisplayType());
+        assertTrue(widget.getElement().hasClassName(StatusDisplayType.DEFAULT.getCssName()));
+
+        widget.setStatusDisplayType(StatusDisplayType.HOVERABLE);
+        assertEquals(StatusDisplayType.HOVERABLE, widget.getStatusDisplayType());
+        assertTrue(widget.getElement().hasClassName(StatusDisplayType.HOVERABLE.getCssName()));
+    }
+
+    protected <W extends MaterialValueBox> void checkMandatoryField(W widget) {
+        String REQUIRED = "required";
+        assertFalse(widget.isRequired());
+
+        widget.setRequired(true);
+        assertTrue(widget.isRequired());
+        assertTrue(widget.getStatusTextMixin().getPlaceholder().getElement().hasClassName(REQUIRED));
+
+        widget.setRequired(false);
+        assertFalse(widget.isRequired());
+        assertFalse(widget.getStatusTextMixin().getPlaceholder().getElement().hasClassName(REQUIRED));
+    }
+
+    protected <W extends MaterialValueBox> void checkAutocomplete(W widget) {
+        assertFalse(widget.isAutocomplete());
+        assertFalse(widget.getElement().hasAttribute("autocomplete"));
+
+        widget.setAutocomplete(true);
+        assertTrue(widget.isAutocomplete());
+        assertEquals(widget.getElement().getAttribute("autocomplete"), "on");
+
+        widget.setAutocomplete(false);
+        assertFalse(widget.isAutocomplete());
+        assertEquals(widget.getElement().getAttribute("autocomplete"), "off");
+
+        widget.getElement().removeAttribute("autocomplete");
     }
 
     protected void checkValueReturnAsNull(T widget) {
