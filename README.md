@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/VaBxpGj.png" />
+<img src="https://avatars2.githubusercontent.com/u/11755403?s=100&v=4" />
 <h2>gwt-material</h2>
 <p>A Google Material Design wrapper for GWT</p>
 
@@ -19,7 +19,7 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
-### Current Version 2.2
+### Current Version 2.2-rc1
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
