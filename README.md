@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/VaBxpGj.png" />
+<img src="https://avatars2.githubusercontent.com/u/11755403?s=100&v=4" />
 <h2>gwt-material</h2>
 <p>A Google Material Design wrapper for GWT</p>
 
