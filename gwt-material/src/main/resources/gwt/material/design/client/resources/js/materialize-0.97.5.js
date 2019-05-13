@@ -4174,7 +4174,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
                     P.$root.addClass( CLASSES.opened )
                     aria( P.$root[0], 'hidden', false )
 
-                }, 100 )
+                }, 0 )
 
                 // If we have to give focus, bind the element and doc events.
                 if ( dontGiveFocus !== false ) {
@@ -4574,6 +4574,14 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
             readonly: false,
             owns: ELEMENT.id + '_root'
         })
+
+        // Chrome 73 suggested solution for DatePicker being fubared when opening.
+        // Refer to https://github.com/GwtMaterialDesign/gwt-material/commit/0670c85ce2a1ee2c28be906fb12f4c0435321ce6
+        document.querySelector("#" + ELEMENT.id).addEventListener('pointerdown', function (event) {
+            if (event.target && event.target.setPointerCapture) {
+                event.target.setPointerCapture(event.pointerId)
+            }
+        });
     }
 
 
