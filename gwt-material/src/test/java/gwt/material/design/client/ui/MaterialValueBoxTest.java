@@ -75,11 +75,7 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
     }
 
     public void testAutocomplete() {
-        T widget = getWidget(false);
-
-        checkAutocomplete(widget);
-
-        attachWidget();
+        T widget = getWidget();
 
         checkAutocomplete(widget);
     }
@@ -122,18 +118,19 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
     }
 
     protected <W extends MaterialValueBox> void checkAutocomplete(W widget) {
+        ValueBoxBase valueBoxBase = widget.getValueBoxBase();
         assertFalse(widget.isAutocomplete());
-        assertFalse(widget.getElement().hasAttribute("autocomplete"));
+        assertFalse(valueBoxBase.getElement().hasAttribute("autocomplete"));
 
         widget.setAutocomplete(true);
         assertTrue(widget.isAutocomplete());
-        assertEquals(widget.getElement().getAttribute("autocomplete"), "on");
+        assertEquals(valueBoxBase.getElement().getAttribute("autocomplete"), "on");
 
         widget.setAutocomplete(false);
         assertFalse(widget.isAutocomplete());
-        assertEquals(widget.getElement().getAttribute("autocomplete"), "off");
+        assertEquals(valueBoxBase.getElement().getAttribute("autocomplete"), "off");
 
-        widget.getElement().removeAttribute("autocomplete");
+        valueBoxBase.getElement().removeAttribute("autocomplete");
     }
 
     protected void checkValueReturnAsNull(T widget) {
