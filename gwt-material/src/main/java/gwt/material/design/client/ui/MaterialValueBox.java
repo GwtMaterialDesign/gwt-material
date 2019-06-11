@@ -37,17 +37,16 @@ import com.google.gwt.user.client.ui.HasName;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.DragEndEvent;
 import gwt.material.design.client.events.DragEnterEvent;
 import gwt.material.design.client.events.DragLeaveEvent;
-import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.client.events.*;
 import gwt.material.design.client.ui.html.Label;
 
 //@formatter:off
@@ -87,7 +86,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
-    private AttributeMixin<Widget> autocompleteAttributeMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -534,12 +532,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     @Override
     public void setAutocomplete(boolean value) {
-        getAutocompleteAttributeMixin().setAttribute(value ? "on" : "off");
+        valueBoxBase.getElement().setAttribute("autocomplete", value ? "on" : "off");
     }
 
     @Override
     public boolean isAutocomplete() {
-        return getAutocompleteAttributeMixin().getAttributeAsBoolean();
+        return valueBoxBase.getElement().getAttribute("autocomplete").equals("on");
     }
 
     @Ignore
@@ -876,12 +874,5 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldTypeMixin = new FieldTypeMixin<>(this, label, valueBoxBase, errorLabel);
         }
         return fieldTypeMixin;
-    }
-
-    public AttributeMixin<Widget> getAutocompleteAttributeMixin() {
-        if (autocompleteAttributeMixin == null) {
-            autocompleteAttributeMixin = new AttributeMixin<>(valueBoxBase, "autocomplete");
-        }
-        return autocompleteAttributeMixin;
     }
 }

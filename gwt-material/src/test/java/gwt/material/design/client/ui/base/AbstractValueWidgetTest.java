@@ -31,5 +31,4 @@ import org.junit.Ignore;
 @Ignore
 public abstract class AbstractValueWidgetTest<T extends AbstractValueWidget> extends MaterialWidgetTest<T> {
 
-
 }

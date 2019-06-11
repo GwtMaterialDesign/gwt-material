@@ -63,6 +63,6 @@ public class BlankValidator<T> extends AbstractValidator<T> {
         if (value instanceof Collection<?>) {
             return ((Collection<?>) value).size() > 0;
         }
-        return value != null && !"".equals(value.toString());
+        return value != null && !"".equals(value.toString().trim());
     }
 }

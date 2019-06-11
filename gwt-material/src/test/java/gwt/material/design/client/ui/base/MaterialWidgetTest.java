@@ -833,6 +833,82 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         assertEquals(FINAL_TRANSFORM_VALUE, widget.getElement().getStyle().getProperty("transform"));
     }
 
+    public void testCursor() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
+
+        checkCursor(widget);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkCursor(widget);
+    }
+
+    public void testValignWrapper() {
+        // UiBinder
+        // given
+        T widget = getWidget(false);
+
+        checkCursor(widget);
+
+        // Standard
+        // given
+        attachWidget();
+
+        // when / then
+        checkCursor(widget);
+    }
+
+    protected <W extends MaterialWidget> void checkValignWrapper(W widget) {
+        assertFalse(widget.isValignWrapper());
+        assertFalse(widget.getElement().hasClassName(CssName.VALIGN_WRAPPER));
+
+        assertFalse(widget.isContainerEnabed());
+        assertFalse(widget.getElement().hasClassName(CssName.CONTAINER));
+
+        widget.setValignWrapper(true);
+        assertTrue(widget.isValignWrapper());
+        assertTrue(widget.getElement().hasClassName(CssName.VALIGN_WRAPPER));
+
+        widget.setValignWrapper(false);
+        assertFalse(widget.isValignWrapper());
+        assertFalse(widget.getElement().hasClassName(CssName.VALIGN_WRAPPER));
+
+        widget.setContainerEnabled(true);
+        assertTrue(widget.isContainerEnabed());
+        assertTrue(widget.getElement().hasClassName(CssName.CONTAINER));
+
+        widget.setContainerEnabled(false);
+        assertFalse(widget.isContainerEnabed());
+        assertFalse(widget.getElement().hasClassName(CssName.CONTAINER));
+    }
+
+    protected <W extends MaterialWidget> void checkCursor(W widget) {
+        widget.setCursor(Style.Cursor.POINTER);
+        assertEquals(Style.Cursor.POINTER.getCssName().toLowerCase(), widget.getCursor());
+        assertEquals(Style.Cursor.POINTER.getCssName().toLowerCase(), widget.getElement().getStyle().getCursor());
+
+        widget.setCursor(Style.Cursor.DEFAULT);
+        assertEquals(Style.Cursor.DEFAULT.getCssName().toLowerCase(), widget.getCursor());
+        assertEquals(Style.Cursor.DEFAULT.getCssName().toLowerCase(), widget.getElement().getStyle().getCursor());
+
+        widget.setCursor(Style.Cursor.AUTO);
+        assertEquals(Style.Cursor.AUTO.getCssName().toLowerCase(), widget.getCursor());
+        assertEquals(Style.Cursor.AUTO.getCssName().toLowerCase(), widget.getElement().getStyle().getCursor());
+
+        widget.setCursor(Style.Cursor.HELP);
+        assertEquals(Style.Cursor.HELP.getCssName().toLowerCase(), widget.getCursor());
+        assertEquals(Style.Cursor.HELP.getCssName().toLowerCase(), widget.getElement().getStyle().getCursor());
+
+        widget.setCursor(Style.Cursor.TEXT);
+        assertEquals(Style.Cursor.TEXT.getCssName().toLowerCase(), widget.getCursor());
+        assertEquals(Style.Cursor.TEXT.getCssName().toLowerCase(), widget.getElement().getStyle().getCursor());
+    }
+
     protected <W extends HasPlaceholder> void checkPlaceholder(W widget) {
         // when / then
         widget.setPlaceholder("Placeholder");
