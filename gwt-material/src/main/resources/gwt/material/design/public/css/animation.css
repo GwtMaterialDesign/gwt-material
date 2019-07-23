@@ -3377,3 +3377,17 @@
   -o-transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
   transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
 }
+
+/** Shadow Pulse **/
+.shadowPulse {
+  animation: shadow-pulse 1s infinite;
+}
+
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 50px rgba(255, 255, 255, 0);
+  }
+}
