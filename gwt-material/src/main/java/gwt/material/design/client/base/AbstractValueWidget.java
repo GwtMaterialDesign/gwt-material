@@ -36,6 +36,7 @@ import gwt.material.design.client.base.validator.BlankValidator;
 import gwt.material.design.client.base.validator.HasValidators;
 import gwt.material.design.client.base.validator.ValidationChangedEvent;
 import gwt.material.design.client.base.validator.Validator;
+import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.constants.StatusDisplayType;
 import gwt.material.design.client.ui.MaterialLabel;
 
@@ -326,6 +327,11 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public int getClearKeyCode() {
         return getClearOnKeyUpMixin().getClearKeyCode();
+    }
+
+    @Override
+    public void setStatusDisplayPosition(Position position) {
+        getStatusTextMixin().setStatusDisplayPosition(position);
     }
 
     @Override
