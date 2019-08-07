@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
+import com.google.gwt.core.client.GWT;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 
@@ -34,41 +35,49 @@ public class ServiceWorkerPlugin implements ServiceWorkerLifecycle {
 
     @Override
     public boolean onRegistered(ServiceEvent event, ServiceWorkerRegistration registration) {
+        GWT.log("ServiceWorker State : Registered");
         return false;
     }
 
     @Override
     public boolean onInstalling(ServiceEvent event) {
+        GWT.log("ServiceWorker State : Installing");
         return false;
     }
 
     @Override
     public boolean onInstalled(ServiceEvent event) {
+        GWT.log("ServiceWorker State : Installed");
         return false;
     }
 
     @Override
     public boolean onActivating(ServiceEvent event) {
+        GWT.log("ServiceWorker State : Activating");
         return false;
     }
 
     @Override
     public boolean onActivated(ServiceEvent event) {
+        GWT.log("ServiceWorker State : Activated");
         return false;
     }
 
     @Override
     public boolean onRedundant(ServiceEvent event) {
+        GWT.log("ServiceWorker State : Redundant");
         return false;
     }
 
     @Override
     public boolean onControllerChange(ServiceEvent event) {
+        GWT.log("ServiceWorker : On Controller Change");
         return false;
     }
 
     @Override
     public boolean onNewServiceWorkerFound(ServiceEvent event, ServiceWorker serviceWorker) {
+        GWT.log("New Service worker found");
         return false;
     }
 

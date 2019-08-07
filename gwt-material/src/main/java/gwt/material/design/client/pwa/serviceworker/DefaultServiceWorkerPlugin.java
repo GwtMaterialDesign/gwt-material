@@ -19,12 +19,8 @@
  */
 package gwt.material.design.client.pwa.serviceworker;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
-import gwt.material.design.client.ui.MaterialLink;
-import gwt.material.design.client.ui.MaterialToast;
 
 class DefaultServiceWorkerPlugin extends ServiceWorkerPlugin {
 
@@ -33,24 +29,7 @@ class DefaultServiceWorkerPlugin extends ServiceWorkerPlugin {
     }
 
     @Override
-    public boolean onActivated(ServiceEvent event) {
-        // Prompt the user with a toast to notify him that the service worker is activated
-        // and ready for future offline visits.
-        new MaterialToast().toast("Caching complete! Future visits will work offline.");
-        return false;
-    }
-
-    @Override
     public boolean onControllerChange(ServiceEvent event) {
-        Window.Location.reload();
-        return false;
-    }
-
-    @Override
-    public boolean onNewServiceWorkerFound(ServiceEvent event, ServiceWorker serviceWorker) {
-        MaterialLink reload = new MaterialLink("REFRESH");
-        reload.addClickHandler(clickEvent -> getServiceWorkerManager().skipWaiting(serviceWorker));
-        new MaterialToast(reload).toast("New updates available.", 0);
         return false;
     }
 
