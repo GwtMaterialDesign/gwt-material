@@ -863,6 +863,24 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
         checkCursor(widget);
     }
 
+    public void testZoom() {
+        // UiBinder
+        // given
+        T widget = getWidget();
+
+        checkZoom(widget);
+    }
+
+    protected <W extends MaterialWidget> void checkZoom(W widget) {
+        String zoomProperty = "zoom";
+        widget.setZoom(1.0);
+        assertEquals("1", widget.getElement().getStyle().getProperty(zoomProperty));
+        widget.setZoom(3.5);
+        assertEquals("3.5", widget.getElement().getStyle().getProperty(zoomProperty));
+        widget.setZoom(null);
+        assertEquals("", widget.getElement().getStyle().getProperty(zoomProperty));
+    }
+
     protected <W extends MaterialWidget> void checkValignWrapper(W widget) {
         assertFalse(widget.isValignWrapper());
         assertFalse(widget.getElement().hasClassName(CssName.VALIGN_WRAPPER));

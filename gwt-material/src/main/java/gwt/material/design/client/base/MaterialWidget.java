@@ -53,7 +53,8 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, HasTextAlign, HasDimension, HasColors, HasGrid,
         HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
         HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
-        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation, HasContainer, HasWordBreak{
+        HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation,
+        HasContainer, HasWordBreak, HasZoom {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -1018,6 +1019,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public boolean isValignWrapper() {
         return getContainerMixin().isValignWrapper();
+    }
+
+    @Override
+    public void setZoom(Double level) {
+        getElement().getStyle().setProperty("zoom", level != null ? String.valueOf(level) : "");
     }
 
     /**
