@@ -140,7 +140,7 @@ public class ScrollHelper {
      * Will recalculate the offset provided by the positioning based on the container's height
      * See {@link #setOffsetPosition(OffsetPosition)}
      */
-    protected double extractOffsetPosition(Element target) {
+    public double extractOffsetPosition(Element target) {
         double offsetTop = $(target).offset().top;
         double containerHeight = $(containerElement).height();
         switch (getOffsetPosition()) {
