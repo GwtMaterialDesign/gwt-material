@@ -256,6 +256,7 @@ public abstract class AbstractSideNav extends MaterialWidget
     @Override
     public void unload() {
         activator = null;
+        $(".drag-target").remove();
     }
 
     /**
