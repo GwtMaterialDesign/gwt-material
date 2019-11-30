@@ -29,6 +29,7 @@ import gwt.material.design.client.pwa.serviceworker.constants.ServiceWorkerMessa
 import gwt.material.design.client.pwa.serviceworker.constants.State;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerContainer;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerOption;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 import gwt.material.design.client.pwa.serviceworker.network.NetworkStatusManager;
 
@@ -51,6 +52,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     private PwaManager manager;
     private String resource;
     private ServiceWorkerRegistration registration;
+    private ServiceWorkerOption option;
 
     private DefaultServiceWorkerPlugin defaultPlugin = new DefaultServiceWorkerPlugin(this);
     private Map<Class<? extends ServiceWorkerPlugin>, ServiceWorkerPlugin> plugins = new LinkedHashMap();
@@ -102,7 +104,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     protected void setupRegistration() {
         if (isServiceWorkerSupported()) {
-            Navigator.serviceWorker.register(getResource()).then(object -> {
+            Navigator.serviceWorker.register(getResource(), getOption()).then(object -> {
                 logger.info("Service worker has been successfully registered");
                 registration = (ServiceWorkerRegistration) object;
 
@@ -530,5 +532,16 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
             defaultPlugin.onError(event, message);
         }
         return false;
+    }
+
+    public ServiceWorkerOption getOption() {
+        if (option == null) {
+            option = ServiceWorkerOption.create();
+        }
+        return option;
+    }
+
+    public void setOption(ServiceWorkerOption option) {
+        this.option = option;
     }
 }

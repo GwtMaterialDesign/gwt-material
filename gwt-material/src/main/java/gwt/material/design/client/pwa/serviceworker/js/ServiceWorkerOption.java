@@ -17,23 +17,35 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.js;
+package gwt.material.design.client.pwa.serviceworker.js;
 
-import gwt.material.design.jquery.client.api.Functions;
-import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
-@JsType(isNative = true, namespace = JsPackage.GLOBAL)
-public class MediaQueryList {
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
+public class ServiceWorkerOption {
 
     @JsProperty
-    public boolean matches;
+    private String scope;
 
-    @JsProperty
-    public String media;
+    private ServiceWorkerOption() {}
 
-    @JsMethod
-    public native void addListener(Functions.Func1<MediaQueryEvent> event);
+    @JsOverlay
+    public static ServiceWorkerOption create() {
+        ServiceWorkerOption option = new ServiceWorkerOption();
+        option.setScope("./");
+        return option;
+    }
+
+    @JsOverlay
+    public final String getScope() {
+        return scope;
+    }
+
+    @JsOverlay
+    public final void setScope(String scope) {
+        this.scope = scope;
+    }
 }

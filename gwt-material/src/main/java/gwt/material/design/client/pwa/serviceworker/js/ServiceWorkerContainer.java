@@ -85,6 +85,9 @@ public class ServiceWorkerContainer {
     @JsMethod
     public native Promise register(String scriptName);
 
+    @JsMethod
+    public native Promise register(String scriptName, ServiceWorkerOption option);
+
     /**
      * Gets a {@link ServiceWorkerRegistration} object whose scope URL matches the provided document URL.
      * If the method can't return a {@link ServiceWorkerRegistration}, it returns a {@link Promise}.
