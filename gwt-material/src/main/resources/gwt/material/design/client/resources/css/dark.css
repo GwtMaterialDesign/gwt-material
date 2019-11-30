@@ -10,8 +10,9 @@ a {
 
 /** Header **/
 nav .brand-logo,
+nav ul a,
 nav a.button-collapse, nav a.button-collapse i {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 /** Badge **/
