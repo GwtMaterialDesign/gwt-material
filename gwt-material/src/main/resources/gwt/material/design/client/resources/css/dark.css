@@ -152,10 +152,18 @@ button.btn.btn-outlined.disabled {
     border-bottom: 2px solid #BB86FC;
 }
 
+[type="checkbox"]:indeterminate + label:before {
+    border-right: 2px solid #bb86fc;
+}
+
 /** Chips **/
 .chip {
     background-color: #2f2f2f;
     color: #ffffff;
+}
+
+.chip .letter {
+    background-color: #424242;
 }
 
 .chip.outlined, .chip.outlined:hover, .chip.outlined:active, .chip.outlined:focus {

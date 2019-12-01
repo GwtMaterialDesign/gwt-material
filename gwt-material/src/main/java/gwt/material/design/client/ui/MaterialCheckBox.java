@@ -76,6 +76,7 @@ public class MaterialCheckBox extends BaseCheckBox implements IsAsyncWidget<Mate
         super(DOM.createDiv());
         setStyleName(CHECKBOX);
         setAsyncDisplayLoader(new DefaultCheckBoxLoader(this));
+        setType(CheckBoxType.FILLED);
     }
 
     public MaterialCheckBox(Element elem) {
