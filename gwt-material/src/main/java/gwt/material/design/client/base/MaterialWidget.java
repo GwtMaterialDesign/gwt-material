@@ -26,8 +26,8 @@ import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
+import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
@@ -136,9 +136,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ContainerMixin<MaterialWidget> containerMixin;
 
     public MaterialWidget() {
+        MaterialDesign.checkJQuery(false);
     }
 
     public MaterialWidget(JQueryElement jQueryElement) {
+        this();
+
         setElement(jQueryElement.asElement());
 
         // We are already attached to the DOM.
@@ -148,6 +151,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     public MaterialWidget(Element element) {
+        this();
+
         setElement(element);
     }
 
