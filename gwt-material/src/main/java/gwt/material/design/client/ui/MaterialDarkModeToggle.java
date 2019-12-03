@@ -21,25 +21,24 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.js.MediaQueryList;
+import gwt.material.design.client.js.Window;
 import gwt.material.design.client.theme.dark.*;
 
 public class MaterialDarkModeToggle extends MaterialIcon implements HasDarkMode, HasColorSchemeChangeHandler {
 
-    protected DarkThemeManager darkThemeManager;
+    protected DarkThemeManager manager = DarkThemeManager.get();
 
     public MaterialDarkModeToggle() {
-        darkThemeManager = new DarkThemeManager();
     }
 
     @Override
     protected void onLoad() {
         super.onLoad();
 
-        darkThemeManager.setCallback(colorScheme -> {
-            setIconType(colorScheme == ColorScheme.DARK ? IconType.BRIGHTNESS_7 : IconType.BRIGHTNESS_4);
-            ColorSchemeChangeEvent.fire(this, colorScheme);
-        });
-        darkThemeManager.load();
+        MediaQueryList mediaQueryList = Window.getMediaQueryList("(prefers-color-scheme: dark)");
+        setDarkMode(mediaQueryList.matches);
+        mediaQueryList.addListener(mediaQueryEvent -> setDarkMode(mediaQueryEvent.matches));
         registerHandler(addClickHandler(event -> setDarkMode(!isDarkMode())));
     }
 
@@ -47,17 +46,19 @@ public class MaterialDarkModeToggle extends MaterialIcon implements HasDarkMode,
     protected void onUnload() {
         super.onUnload();
 
-        darkThemeManager.unload();
+        manager.unload();
     }
 
     @Override
     public void setDarkMode(boolean darkMode) {
-        darkThemeManager.setDarkMode(darkMode);
+        setIconType(darkMode ? IconType.BRIGHTNESS_7 : IconType.BRIGHTNESS_4);
+        manager.setDarkMode(darkMode);
+        ColorSchemeChangeEvent.fire(this, darkMode ? ColorScheme.DARK : ColorScheme.LIGHT);
     }
 
     @Override
     public boolean isDarkMode() {
-        return darkThemeManager.isDarkMode();
+        return manager.isDarkMode();
     }
 
     @Override
