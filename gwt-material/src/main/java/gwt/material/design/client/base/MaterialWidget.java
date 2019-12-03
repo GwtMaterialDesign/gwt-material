@@ -135,9 +135,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private OrientationMixin<MaterialWidget> orientationMixin;
     private ContainerMixin<MaterialWidget> containerMixin;
 
-    public MaterialWidget() {
-        MaterialDesign.checkJQuery(false);
-    }
+    public MaterialWidget() {}
 
     public MaterialWidget(JQueryElement jQueryElement) {
         this();
