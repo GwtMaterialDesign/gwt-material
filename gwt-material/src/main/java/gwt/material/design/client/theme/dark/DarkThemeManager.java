@@ -43,6 +43,10 @@ public class DarkThemeManager implements HasDarkMode {
         return this;
     }
 
+    public DarkThemeLoader getLoader(Class<? extends DarkThemeLoader> clazz) {
+        return map.get(clazz);
+    }
+
     public void load() {
         MediaQueryList mediaQueryList = Window.getMediaQueryList("(prefers-color-scheme: dark)");
         setDarkMode(mediaQueryList.matches);

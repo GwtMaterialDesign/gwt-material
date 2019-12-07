@@ -24,7 +24,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
-import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
 
 /**
@@ -51,14 +50,14 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
 
         // when / then
         assertEquals(2, range.getChildren().size());
-        assertTrue(range.getWidget(0) instanceof Paragraph);
-        Paragraph paragraph = (Paragraph) range.getWidget(0);
-        assertTrue(paragraph.getElement().hasClassName(CssName.RANGE_FIELD));
-        assertEquals(2, paragraph.getWidgetCount());
-        assertTrue(paragraph.getWidget(0) instanceof MaterialInput);
+        assertTrue(range.getWidget(0) instanceof MaterialPanel);
+        MaterialPanel container = (MaterialPanel) range.getWidget(0);
+        assertTrue(container.getElement().hasClassName(CssName.RANGE_FIELD));
+        assertEquals(2, container.getWidgetCount());
+        assertTrue(container.getWidget(0) instanceof MaterialInput);
 
-        assertTrue(paragraph.getWidget(1) instanceof Span);
-        Span thumb = (Span) paragraph.getWidget(1);
+        assertTrue(container.getWidget(1) instanceof Span);
+        Span thumb = (Span) container.getWidget(1);
         assertTrue(thumb.getElement().hasClassName(CssName.THUMB));
         assertEquals(1, thumb.getWidgetCount());
         assertTrue(thumb.getWidget(0) instanceof Span);

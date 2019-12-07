@@ -30,7 +30,6 @@ import gwt.material.design.client.base.HasStatusText;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.ui.html.Paragraph;
 import gwt.material.design.client.ui.html.Span;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -57,7 +56,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     private static String MAX = "max";
     private static String MIN = "min";
 
-    private Paragraph paragraph = new Paragraph();
+    private MaterialPanel rangeContainer = new MaterialPanel();
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
     private Span value = new Span();
@@ -69,7 +68,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
      * Creates a range
      */
     public MaterialRange() {
-        super(Document.get().createFormElement());
+        super(Document.get().createDivElement());
     }
 
     /**
@@ -98,14 +97,14 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
         getElement().setAttribute("action", "#");
         errorLabel.setVisible(false);
-        paragraph.setStyleName(CssName.RANGE_FIELD);
+        rangeContainer.setStyleName(CssName.RANGE_FIELD);
         rangeInputElement.setType(InputType.RANGE);
-        paragraph.add(rangeInputElement);
+        rangeContainer.add(rangeInputElement);
         thumb.getElement().setClassName(CssName.THUMB);
         value.getElement().setClassName(CssName.VALUE);
         thumb.add(value);
-        paragraph.add(thumb);
-        add(paragraph);
+        rangeContainer.add(thumb);
+        add(rangeContainer);
         add(errorLabel);
 
         registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
@@ -205,8 +204,8 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         return rangeInputElement;
     }
 
-    public Paragraph getParagraph() {
-        return paragraph;
+    public MaterialPanel getRangeContainer() {
+        return rangeContainer;
     }
 
     public Span getThumb() {
