@@ -27,7 +27,9 @@ import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasStatusText;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.ui.html.Span;
@@ -63,6 +65,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
     private MaterialLabel errorLabel = new MaterialLabel();
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
+    private ToggleStyleMixin<MaterialWidget> toggleThumbStyleMixin;
 
     /**
      * Creates a range
@@ -95,15 +98,16 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     protected void onLoad() {
         super.onLoad();
 
-        getElement().setAttribute("action", "#");
         errorLabel.setVisible(false);
         rangeContainer.setStyleName(CssName.RANGE_FIELD);
         rangeInputElement.setType(InputType.RANGE);
         rangeContainer.add(rangeInputElement);
+
         thumb.getElement().setClassName(CssName.THUMB);
         value.getElement().setClassName(CssName.VALUE);
         thumb.add(value);
         rangeContainer.add(thumb);
+
         add(rangeContainer);
         add(errorLabel);
 
@@ -187,6 +191,26 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         return getIntFromRangeElement(MAX);
     }
 
+    public Integer getStep() {
+        String step = getRangeInputElement().getElement().getAttribute("step");
+        if (step != null && !step.isEmpty()) {
+            return Integer.parseInt(step);
+        }
+        return null;
+    }
+
+    public void setStep(Integer step) {
+        getRangeInputElement().getElement().setAttribute("step", step + "");
+    }
+
+    public boolean isEnableThumb() {
+        return getToggleThumbStyleMixin().isOn();
+    }
+
+    public void setEnableThumb(boolean enableThumb) {
+        getToggleThumbStyleMixin().setOn(enableThumb);
+    }
+
     /**
      * Write the current max value
      *
@@ -228,5 +252,12 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
             statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
         }
         return statusTextMixin;
+    }
+
+    public ToggleStyleMixin<MaterialWidget> getToggleThumbStyleMixin() {
+        if (toggleThumbStyleMixin == null) {
+            toggleThumbStyleMixin = new ToggleStyleMixin<>(thumb, CssName.INACTIVE);
+        }
+        return toggleThumbStyleMixin;
     }
 }
