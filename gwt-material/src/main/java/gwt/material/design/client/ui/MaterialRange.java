@@ -21,17 +21,21 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.HasInputChangeHandler;
 import gwt.material.design.client.base.HasStatusText;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.events.InputChangeEvent;
 import gwt.material.design.client.ui.html.Span;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -52,7 +56,8 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @see <a href="https://material.io/guidelines/components/sliders.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasStatusText {
+public class MaterialRange extends AbstractValueWidget<Integer>
+    implements HasChangeHandlers, HasStatusText, HasInputChangeHandler {
 
     private static String VALUE = "value";
     private static String MAX = "max";
@@ -110,6 +115,11 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
 
         add(rangeContainer);
         add(errorLabel);
+
+        $(rangeInputElement.getElement()).on("input", (event, o) -> {
+            InputChangeEvent.fire(this, getValue());
+            return true;
+        });
 
         registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
     }
@@ -244,6 +254,11 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     @Override
     public HandlerRegistration addChangeHandler(final ChangeHandler handler) {
         return getRangeInputElement().addDomHandler(handler, ChangeEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addInputChangeHandler(InputChangeEvent.InputChangeHandler handler) {
+        return addHandler(handler, InputChangeEvent.getType());
     }
 
     @Override
