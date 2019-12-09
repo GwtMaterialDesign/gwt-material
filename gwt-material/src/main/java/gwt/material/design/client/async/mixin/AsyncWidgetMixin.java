@@ -42,16 +42,12 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
 
     public AsyncWidgetMixin(W widget) {
         this.widget = widget;
+        this.displayLoader = new DefaultDisplayLoader();
     }
 
     @Override
     public void load(AsyncWidgetCallback<W, V> asyncCallback) {
-        if (displayLoader == null) {
-            displayLoader = new DefaultDisplayLoader();
-            GWT.log("Will be using the default display loader for asynchronous feature.");
-        }
-
-        displayLoader.loading();
+        loading();
         getLoadingStyleMixin().setOn(true);
         asyncCallback.load(new AsyncCallback<V>() {
             @Override
@@ -68,6 +64,14 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
                 getLoadingStyleMixin().setOn(false);
             }
         }, widget);
+    }
+
+    public void loading() {
+        displayLoader.loading();
+    }
+
+    public void finalize() {
+        displayLoader.finalize();
     }
 
     @Override
@@ -107,6 +111,7 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
 
     @Override
     public AsyncDisplayLoader getAsyncDisplayLoader() {
+
         return displayLoader;
     }
 
