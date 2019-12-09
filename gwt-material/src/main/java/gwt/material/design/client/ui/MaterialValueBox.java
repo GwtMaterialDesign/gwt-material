@@ -67,7 +67,7 @@ import gwt.material.design.client.ui.html.Label;
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
         HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes, HasAutocomplete {
+        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes, HasAutocomplete, HasToggleReadOnlyHandler {
 
 
     private boolean returnBlankAsNull;
@@ -833,6 +833,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public HandlerRegistration addToggleReadOnlyHandler(ToggleReadOnlyEvent.ToggleReadOnlyHandler handler) {
+        return addHandler(handler, ToggleReadOnlyEvent.getType());
+    }
+
+    @Override
     protected FocusableMixin<MaterialWidget> getFocusableMixin() {
         if (focusableMixin == null) {
             focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
@@ -850,7 +855,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     protected ReadOnlyMixin<MaterialValueBox, ValueBoxBase> getReadOnlyMixin() {
         if (readOnlyMixin == null) {
-            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
+            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase, readOnly -> ToggleReadOnlyEvent.fire(this, readOnly));
         }
         return readOnlyMixin;
     }

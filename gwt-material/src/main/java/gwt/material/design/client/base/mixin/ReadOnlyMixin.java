@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasReadOnly;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.jquery.client.api.Functions;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -31,10 +32,17 @@ public class ReadOnlyMixin<T extends UIObject & HasReadOnly, H extends UIObject>
         implements HasReadOnly {
 
     private H target;
+    private Functions.Func1<Boolean> callback;
 
     public ReadOnlyMixin(T uiObject, H target) {
         super(uiObject);
         this.target = target;
+    }
+
+    public ReadOnlyMixin(T uiObject, H target, Functions.Func1<Boolean> callback) {
+        super(uiObject);
+        this.target = target;
+        this.callback = callback;
     }
 
     @Override
@@ -52,6 +60,10 @@ public class ReadOnlyMixin<T extends UIObject & HasReadOnly, H extends UIObject>
             }
             target.getElement().removeAttribute("readonly");
             uiObject.removeStyleName(CssName.READ_ONLY);
+        }
+
+        if (callback != null) {
+            callback.call(readOnly);
         }
     }
 
