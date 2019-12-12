@@ -80,17 +80,18 @@ public class ReadOnlyMixin<T extends UIObject & HasReadOnly, H extends UIObject>
             if (uiObject instanceof HasEnabled && !((HasEnabled) uiObject).isEnabled()) {
                 ((HasEnabled) uiObject).setEnabled(true);
             }
-            $(target).off("mousedown");
-            $(uiObject).mousedown((e, param1) -> {
+            $(uiObject).off("mousedown").mousedown((e, param1) -> {
                 setReadOnly(false);
                 return true;
             });
 
-            $(target).off("blur");
-            $(target).blur((e, param1) -> {
+            $(target).off("blur").blur((e, param1) -> {
                 setReadOnly(true);
                 return true;
             });
+        } else {
+            $(uiObject).off("mousedown");
+            $(target).off("blur");
         }
     }
 
