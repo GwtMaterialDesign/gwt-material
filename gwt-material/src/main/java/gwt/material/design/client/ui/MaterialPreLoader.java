@@ -20,10 +20,14 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import gwt.material.design.client.base.HasOverlayStyle;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.base.mixin.OverlayStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.LoaderSize;
+import gwt.material.design.client.constants.OverlayOption;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 //@formatter:off
 
@@ -44,9 +48,10 @@ import gwt.material.design.client.constants.LoaderSize;
  * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialPreLoader extends MaterialWidget {
+public class MaterialPreLoader extends MaterialWidget implements HasOverlayStyle {
 
     private CssNameMixin<MaterialPreLoader, LoaderSize> sizeMixin;
+    private OverlayStyleMixin<MaterialDialog> overlayStyleMixin;
 
     public MaterialPreLoader() {
         super(Document.get().createDivElement(), CssName.PRELOADER_WRAPPER, CssName.ACTIVE);
@@ -74,10 +79,37 @@ public class MaterialPreLoader extends MaterialWidget {
         return getSize();
     }
 
+    @Override
+    public void setOverlayOption(OverlayOption overlayOption) {
+        getOverlayStyleMixin().setOverlayOption(overlayOption);
+    }
+
+    @Override
+    public OverlayOption getOverlayOption() {
+        return getOverlayStyleMixin().getOverlayOption();
+    }
+
+    @Override
+    public void applyOverlayStyle(JQueryElement overlayElement) {
+        getOverlayStyleMixin().applyOverlayStyle(overlayElement);
+    }
+
+    @Override
+    public void resetOverlayStyle() {
+        getOverlayStyleMixin().resetOverlayStyle();
+    }
+
     protected CssNameMixin<MaterialPreLoader, LoaderSize> getSizeMixin() {
         if (sizeMixin == null) {
             sizeMixin = new CssNameMixin<>(this);
         }
         return sizeMixin;
+    }
+
+    protected OverlayStyleMixin<MaterialDialog> getOverlayStyleMixin() {
+        if (overlayStyleMixin == null) {
+            overlayStyleMixin = new OverlayStyleMixin(this);
+        }
+        return overlayStyleMixin;
     }
 }

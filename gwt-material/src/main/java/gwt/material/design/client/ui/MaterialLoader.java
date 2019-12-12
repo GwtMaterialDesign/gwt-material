@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,11 +22,16 @@ package gwt.material.design.client.ui;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.HasOverlayStyle;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.LoaderType;
+import gwt.material.design.client.constants.OverlayOption;
 import gwt.material.design.client.constants.SpinnerColor;
 import gwt.material.design.client.ui.html.Div;
-import gwt.material.design.client.ui.html.Label;
+import gwt.material.design.jquery.client.api.JQueryElement;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
 
@@ -60,7 +65,6 @@ import gwt.material.design.client.ui.html.Label;
  *
  * @author kevzlou7979
  * @author Ben Dol
- *
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Loaders</a>
  * @see <a href="https://material.io/guidelines/components/progress-activity.html">Material Design Specification</a>
  * }
@@ -78,6 +82,8 @@ public class MaterialLoader {
     private LoaderType type = LoaderType.CIRCULAR;
     private MaterialLabel messageLabel = new MaterialLabel();
     private String message;
+    private HasOverlayStyle hasOverlayStyle;
+    private OverlayOption overlayOption = OverlayOption.create();
 
     public MaterialLoader(LoaderType type) {
         this();
@@ -101,6 +107,7 @@ public class MaterialLoader {
      * Shows the Loader component
      */
     public void show() {
+        Widget widget = null;
         if (!(container instanceof RootPanel)) {
             if (!(container instanceof MaterialDialog)) {
                 container.getElement().getStyle().setPosition(Style.Position.RELATIVE);
@@ -113,16 +120,25 @@ public class MaterialLoader {
         if (type == LoaderType.CIRCULAR) {
             div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.LOADER_WRAPPER);
             div.add(preLoader);
+            widget = preLoader;
         } else if (type == LoaderType.PROGRESS) {
             div.setStyleName(CssName.VALIGN_WRAPPER + " " + CssName.PROGRESS_WRAPPER);
             progress.getElement().getStyle().setProperty("margin", "auto");
             div.add(progress);
+            widget = progress;
         }
+
         if (message != null) {
             div.add(messageLabel);
             messageLabel.setText(message);
         }
         container.add(div);
+
+        if (widget != null && widget instanceof HasOverlayStyle) {
+            hasOverlayStyle = (HasOverlayStyle) widget;
+            hasOverlayStyle.setOverlayOption(overlayOption);
+            hasOverlayStyle.applyOverlayStyle($(div.getElement()));
+        }
     }
 
     /**
@@ -141,6 +157,10 @@ public class MaterialLoader {
 
         if (messageLabel.isAttached()) {
             messageLabel.removeFromParent();
+        }
+
+        if (hasOverlayStyle != null) {
+            hasOverlayStyle.resetOverlayStyle();
         }
     }
 
@@ -171,7 +191,7 @@ public class MaterialLoader {
 
     public static void loading(boolean visible, Panel container, String message) {
         loader.setMessage(message);
-        loading(visible, container  );
+        loading(visible, container);
     }
 
     /**
@@ -250,6 +270,14 @@ public class MaterialLoader {
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setOverlayOption(OverlayOption overlayOption) {
+        this.overlayOption = overlayOption;
+    }
+
+    public OverlayOption getOverlayOption() {
+        return overlayOption;
     }
 
     public MaterialProgress getProgress() {
