@@ -185,6 +185,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         }
     }
 
+    public void select() {
+        if (valueBoxBase != null) {
+            $("#" + valueBoxBase.getElement().getId()).select();
+        }
+    }
+
     public void removeErrorModifiers() {
         valueBoxBase.getElement().removeClassName(CssName.VALID);
         valueBoxBase.getElement().removeClassName(CssName.INVALID);
