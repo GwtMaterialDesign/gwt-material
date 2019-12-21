@@ -168,13 +168,15 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     public void loadEvents() {
-        $("#" + valueBoxBase.getElement().getId()).on("paste", event -> {
-            PasteNativeEvent nativeEvent = (PasteNativeEvent) event;
-            if (nativeEvent != null && nativeEvent.originalEvent.clipboardData != null) {
-                PasteEvent.fire(this, nativeEvent.originalEvent.clipboardData.getData("text/plain"));
-            }
-            return true;
-        });
+        if (valueBoxBase != null && valueBoxBase.isAttached()) {
+            $("#" + valueBoxBase.getElement().getId()).on("paste", event -> {
+                PasteNativeEvent nativeEvent = (PasteNativeEvent) event;
+                if (nativeEvent != null && nativeEvent.originalEvent.clipboardData != null) {
+                    PasteEvent.fire(this, nativeEvent.originalEvent.clipboardData.getData("text/plain"));
+                }
+                return true;
+            });
+        }
     }
 
     public void unloadEvents() {
