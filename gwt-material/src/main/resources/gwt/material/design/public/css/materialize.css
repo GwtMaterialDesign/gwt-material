@@ -8242,7 +8242,6 @@ button.btn-floating {
 .fixed-action-btn.horizontal ul {
     text-align: right;
     right: 64px;
-    top: -6px;
     height: 100%;
     left: initial;
     width: 500px;
@@ -12114,6 +12113,11 @@ blockquote {
     background-color: #D4D4D4;
 }
 
+/** Secondary Label **/
+.secondary-label {
+    color: rgba(0, 0, 0, 0.6);
+}
+
 /**
 * Range Slider
 * Fixed for IE issue with multiple indicator https://github.com/GwtMaterialDesign/gwt-material/issues/815
@@ -12135,29 +12139,21 @@ input[type=range] {
     border: none;
 }
 
-.range-field .progress {
-    background-color: #42A5F5;
-    position: absolute;
-    top: 8px;
-    z-index: 1;
-    transition: none !important;
-}
-
 input[type=range]::-webkit-slider-thumb {
     position: relative;
     z-index: 2;
 }
 
 input[type=range]:hover::-webkit-slider-thumb {
-    -webkit-box-shadow: 0px 0px 0px 8px rgba(33, 150, 243, 0.16);
-    -moz-box-shadow: 0px 0px 0px 8px rgba(33, 150, 243, 0.16);
-    box-shadow: 0px 0px 0px 8px rgba(33, 150, 243, 0.16);
+    -webkit-box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.15);
+    -moz-box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.15);
+    box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.15);
 }
 
 input[type=range]:focus::-webkit-slider-thumb {
-    -webkit-box-shadow: 0px 0px 0px 12px rgba(33, 150, 243, 0.16);
-    -moz-box-shadow: 0px 0px 0px 12px rgba(33, 150, 243, 0.16);
-    box-shadow: 0px 0px 0px 12px rgba(33, 150, 243, 0.16);
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
+    -moz-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
+    box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -12173,16 +12169,11 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .range-field .progress {
-    background-color: #42a5f5;
+    background-color: #42A5F5;
     position: absolute;
     top: -7px;
     z-index: 1;
-    transition: none!important;
-}
-
-/** Secondary Label **/
-.secondary-label {
-    color: rgba(0, 0, 0, 0.6)
+    transition: none !important;
 }
 
 /**
@@ -12590,6 +12581,7 @@ ul.dropdown-content {
     text-align: right;
     right: 54px;
     height: 100%;
+    top: -6px;
     left: initial;
     width: 500px;
 }
@@ -12937,7 +12929,9 @@ ul.side-nav.mini-with-expand li a span {
     visibility: hidden;
 }
 
-/** SideNav - Compact Density **/
+/**
+* SideNav - Compact Density
+**/
 .compact.side-nav a {
     height: 32px;
     line-height: 32px;
@@ -12946,12 +12940,15 @@ ul.side-nav.mini-with-expand li a span {
 .compact.side-nav li {
     line-height: 32px;
 }
+
 .compact.side-nav i {
     font-size: 1.4em !important;
     margin-left: 4px !important;
 }
 
-/** SideNav - Comfortable Density **/
+/**
+* SideNav - Comfortable Density
+**/
 .comfortable.side-nav a {
     height: 40px;
     line-height: 40px;
@@ -12960,6 +12957,7 @@ ul.side-nav.mini-with-expand li a span {
 .comfortable.side-nav li {
     line-height: 40px;
 }
+
 .comfortable.side-nav i {
     font-size: 1.6em !important;
     margin-left: 4px !important;
