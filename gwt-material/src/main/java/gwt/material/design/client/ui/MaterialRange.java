@@ -62,6 +62,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
     private static String MIN = "min";
 
     private MaterialPanel progress = new MaterialPanel();
+    private MaterialPanel progressContainer = new MaterialPanel();
     private MaterialPanel rangeContainer = new MaterialPanel();
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
@@ -113,7 +114,9 @@ public class MaterialRange extends AbstractValueWidget<Integer>
         rangeContainer.add(thumb);
 
         progress.getElement().setClassName(CssName.PROGRESS);
-        rangeContainer.add(progress);
+        progressContainer.getElement().setClassName("progress-container");
+        progressContainer.add(progress);
+        rangeContainer.add(progressContainer);
 
         add(rangeContainer);
         add(errorLabel);
