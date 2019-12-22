@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,10 +21,8 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.AbstractValueWidget;
@@ -63,6 +61,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
     private static String MAX = "max";
     private static String MIN = "min";
 
+    private MaterialPanel progress = new MaterialPanel();
     private MaterialPanel rangeContainer = new MaterialPanel();
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
@@ -113,15 +112,27 @@ public class MaterialRange extends AbstractValueWidget<Integer>
         thumb.add(value);
         rangeContainer.add(thumb);
 
+        progress.getElement().setClassName(CssName.PROGRESS);
+        rangeContainer.add(progress);
+
         add(rangeContainer);
         add(errorLabel);
 
         $(rangeInputElement.getElement()).on("input", (event, o) -> {
             InputChangeEvent.fire(this, getValue());
+            updateProgressWidth(getValue());
             return true;
         });
 
-        registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
+        registerHandler(addChangeHandler(changeEvent -> {
+            setValue(getValue(), true);
+            $(rangeInputElement.getElement()).blur();
+        }));
+    }
+
+    protected void updateProgressWidth(int value) {
+        int range = ((value - getMin()) * 100) / (getMax() - getMin());
+        progress.setWidth(range + "%");
     }
 
     /**
@@ -170,7 +181,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
             throw new IllegalArgumentException("Value must not be greater than the maximum range value");
         }
         setIntToRangeElement(VALUE, value);
-
+        updateProgressWidth(value);
         super.setValue(value, fireEvents);
     }
 

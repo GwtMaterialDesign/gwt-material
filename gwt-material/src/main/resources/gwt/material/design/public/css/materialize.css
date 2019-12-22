@@ -12126,6 +12126,41 @@ input[type=range]::-ms-fill-lower {
     background-color: #deddde !important;
 }
 
+[type="radio"]:not(:checked) + label, [type="radio"]:checked + label,
+[type="checkbox"] + label {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.range-field .progress {
+    background-color: #42A5F5;
+    position: absolute;
+    top: 8px;
+    z-index: 1;
+    transition: none !important;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    position: relative;
+    z-index: 2;
+}
+
+input[type=range]:hover::-webkit-slider-thumb {
+    -webkit-box-shadow: 0px 0px 0px 8px rgba(33, 150, 243, 0.16);
+    -moz-box-shadow: 0px 0px 0px 8px rgba(33, 150, 243, 0.16);
+    box-shadow: 0px 0px 0px 8px rgba(33, 150, 243, 0.16);
+}
+
+input[type=range]:focus::-webkit-slider-thumb {
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(33, 150, 243, 0.16);
+    -moz-box-shadow: 0px 0px 0px 12px rgba(33, 150, 243, 0.16);
+    box-shadow: 0px 0px 0px 12px rgba(33, 150, 243, 0.16);
+}
+
+/** Secondary Label **/
+.secondary-label {
+    color: rgba(0, 0, 0, 0.6)
+}
+
 /**
 * Chips
 **/
