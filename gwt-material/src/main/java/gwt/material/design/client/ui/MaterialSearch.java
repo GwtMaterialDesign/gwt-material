@@ -183,7 +183,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                         reset(obj.getKeyword());
                     });
                     // If matches add to search result container and object to temp searches
-                    if (obj.getKeyword().toLowerCase().contains(keyword)) {
+                    if (match(obj, keyword)) {
                         searchResultPanel.add(link);
                         tempSearches.add(obj);
                     }
@@ -240,6 +240,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
             }
         }));
     }
+
+	protected boolean match(SearchObject obj, String keyword) {
+		return obj.getKeyword().toLowerCase().contains(keyword);
+	}
 
     @Override
     protected void onUnload() {
