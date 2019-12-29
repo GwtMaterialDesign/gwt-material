@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -67,6 +67,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
     private Span value = new Span();
+    private boolean autoBlur;
 
     private MaterialLabel errorLabel = new MaterialLabel();
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
@@ -129,12 +130,14 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
         registerHandler(addChangeHandler(changeEvent -> {
             setValue(getValue(), true);
-            $(rangeInputElement.getElement()).blur();
+            if (isAutoBlur()) {
+                $(rangeInputElement.getElement()).blur();
+            }
         }));
     }
 
     protected void updateProgressWidth(int value) {
-        int range = ((value - getMin()) * 100) / (getMax() - getMin());
+        double range = ((value - getMin()) * 100.0) / (getMax() - getMin());
         progress.setWidth(range + "%");
     }
 
@@ -232,7 +235,15 @@ public class MaterialRange extends AbstractValueWidget<Integer>
     }
 
     public void setEnableThumb(boolean enableThumb) {
-        getToggleThumbStyleMixin().setOn(enableThumb);
+        getToggleThumbStyleMixin().setOn(!enableThumb);
+    }
+
+    public boolean isAutoBlur() {
+        return autoBlur;
+    }
+
+    public void setAutoBlur(boolean autoBlur) {
+        this.autoBlur = autoBlur;
     }
 
     /**
@@ -285,7 +296,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
     public ToggleStyleMixin<MaterialWidget> getToggleThumbStyleMixin() {
         if (toggleThumbStyleMixin == null) {
-            toggleThumbStyleMixin = new ToggleStyleMixin<>(thumb, CssName.INACTIVE);
+            toggleThumbStyleMixin = new ToggleStyleMixin<>(this, CssName.NO_THUMB);
         }
         return toggleThumbStyleMixin;
     }

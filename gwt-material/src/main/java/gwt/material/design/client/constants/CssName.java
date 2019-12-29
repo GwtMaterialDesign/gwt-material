@@ -150,4 +150,5 @@ public interface CssName {
     String ASYNC = "async";
     String LOADING = "loading";
     String BROWSER_DEFAULT = "browser-default";
+    String NO_THUMB = "no-thumb";
 }
