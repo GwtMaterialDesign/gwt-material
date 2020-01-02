@@ -9295,13 +9295,11 @@ input[type=range]::-moz-range-track {
 input[type=range]::-moz-range-thumb {
     transform: translateY(0px); }
 
-input[type=range]:hover::-ms-thumb,
 input[type=range]:hover::-moz-range-thumb {
     -webkit-box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.2);
     -moz-box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.2);
     box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.2); }
 
-input[type=range]:focus::-ms-thumb,
 input[type=range]:focus::-moz-range-thumb {
     -webkit-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.2);
     -moz-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.2);
