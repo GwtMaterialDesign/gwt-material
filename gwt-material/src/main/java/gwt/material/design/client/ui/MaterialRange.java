@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,6 +25,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasInputChangeHandler;
 import gwt.material.design.client.base.HasStatusText;
@@ -131,8 +132,21 @@ public class MaterialRange extends AbstractValueWidget<Integer>
             return true;
         });
 
+        // Fixing IE Inconsistent event handling on Value Change event
+        // https://www.impressivewebs.com/onchange-vs-oninput-for-range-sliders/
+        registerHandler(addMouseUpHandler(event -> {
+            if (isIE()) {
+                setValue(getValue(), true);
+            }
+        }));
+
         registerHandler(addChangeHandler(changeEvent -> {
-            setValue(getValue(), true);
+            // Fixing IE Inconsistent event handling on Input Change event
+            // https://www.impressivewebs.com/onchange-vs-oninput-for-range-sliders/
+            if (isIE()) {
+                InputChangeEvent.fire(this, getValue());
+            }
+            setValue(getValue(), !isIE());
             if (isAutoBlur()) {
                 $(rangeInputElement.getElement()).blur();
             }
@@ -272,6 +286,10 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
     public Span getThumb() {
         return thumb;
+    }
+
+    public boolean isIE() {
+        return Window.Navigator.getUserAgent().indexOf("MSIE") > -1 || Window.Navigator.getUserAgent().indexOf("Trident/") > -1;
     }
 
     /**
