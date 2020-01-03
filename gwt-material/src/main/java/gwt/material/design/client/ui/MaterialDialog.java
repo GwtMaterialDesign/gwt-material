@@ -110,6 +110,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
                 return true;
             });
 
+            registerHandler(addOpenHandler(event -> applyOverlayStyle(overlayElement)));
             registerHandler(addCloseHandler(event -> resetOverlayStyle()));
         }
     }
@@ -132,6 +133,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     protected void onUnload() {
         super.onUnload();
 
+        resetOverlayStyle();
         window().off(HASH_CHANGE);
         $(getElement()).off(OVERLAY_ATTACHED);
     }
