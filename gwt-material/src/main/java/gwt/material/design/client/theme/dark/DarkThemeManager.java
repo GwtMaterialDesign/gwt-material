@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.theme.dark;
 
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.SimpleEventBus;
 import gwt.material.design.client.js.MediaQueryList;
 import gwt.material.design.client.js.Window;
 import gwt.material.design.jquery.client.api.Functions;
@@ -26,12 +28,12 @@ import gwt.material.design.jquery.client.api.Functions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DarkThemeManager implements HasDarkMode {
+public class DarkThemeManager extends SimpleEventBus implements HasDarkMode {
 
-    protected static boolean darkMode;
-    protected static Functions.Func1<ColorScheme> callback;
     protected static DarkThemeManager instance;
-    protected static Map<Class<? extends DarkThemeLoader>, DarkThemeLoader> map = new HashMap<>();
+    protected boolean darkMode;
+    protected Functions.Func1<ColorScheme> callback;
+    protected Map<Class<? extends DarkThemeLoader>, DarkThemeLoader> map = new HashMap<>();
 
     public DarkThemeManager register(DarkThemeLoader darkThemeLoader) {
         map.put(darkThemeLoader.getClass(), darkThemeLoader);
@@ -59,7 +61,7 @@ public class DarkThemeManager implements HasDarkMode {
         }
     }
 
-    public static Map<Class<? extends DarkThemeLoader>, DarkThemeLoader> getMap() {
+    public Map<Class<? extends DarkThemeLoader>, DarkThemeLoader> getMap() {
         return map;
     }
 
@@ -81,10 +83,16 @@ public class DarkThemeManager implements HasDarkMode {
                 darkThemeLoader.unload();
             }
         });
+
+        ColorSchemeChangeEvent.fire(this, darkMode ? ColorScheme.DARK : ColorScheme.LIGHT);
     }
 
     @Override
     public boolean isDarkMode() {
         return darkMode;
+    }
+
+    public HandlerRegistration addColorSchemeChangeHandler(ColorSchemeChangeEvent.ColorSchemeChangeHandler handler) {
+        return addHandler(ColorSchemeChangeEvent.TYPE, handler);
     }
 }
