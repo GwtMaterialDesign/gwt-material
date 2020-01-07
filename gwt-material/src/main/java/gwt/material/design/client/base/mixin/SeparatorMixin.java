@@ -37,9 +37,12 @@ public class SeparatorMixin<T extends UIObject & HasSeparator> extends AbstractM
     public void setSeparator(boolean separator) {
         if (separator) {
             uiObject.getElement().getStyle().setProperty("borderBottom", "1px solid #e9e9e9");
+            uiObject.getElement().addClassName("separator");
         } else {
             uiObject.getElement().getStyle().setProperty("borderBottom", "");
+            uiObject.getElement().removeClassName("separator");
         }
+
     }
 
     @Override

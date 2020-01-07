@@ -134,6 +134,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         super.onLoad();
 
         setType(InputType.SEARCH);
+        setAutocomplete(false);
         label.add(iconSearch);
         label.getElement().setAttribute("for", "search");
         add(label);
