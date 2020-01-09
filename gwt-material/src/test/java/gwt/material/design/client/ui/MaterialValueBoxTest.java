@@ -119,8 +119,6 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
 
     protected <W extends MaterialValueBox> void checkAutocomplete(W widget) {
         ValueBoxBase valueBoxBase = widget.getValueBoxBase();
-        assertFalse(widget.isAutocomplete());
-        assertFalse(valueBoxBase.getElement().hasAttribute("autocomplete"));
 
         widget.setAutocomplete(true);
         assertTrue(widget.isAutocomplete());
