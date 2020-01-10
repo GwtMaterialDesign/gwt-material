@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.base.viewport;
 
-import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.js.Window;
 import gwt.material.design.jquery.client.api.Functions;
 
@@ -36,9 +35,9 @@ public class ViewPortHandler {
 
     private ViewPort viewPort;
 
-    private HandlerRegistration resize;
-    private List<Boundary> boundaries;
 
+    private List<Boundary> boundaries;
+    private ViewPortResizeHandler resizeHandler;
     private Functions.Func1<ViewPortChange> then;
     private ViewPortFallback fallback;
 
@@ -49,7 +48,7 @@ public class ViewPortHandler {
 
         boundaries = new ArrayList<>();
         boundaries.add(boundary);
-        if(other != null) {
+        if (other != null) {
             Collections.addAll(boundaries, other);
         }
     }
@@ -58,7 +57,7 @@ public class ViewPortHandler {
      * Apply more {@link Boundary}s to the detection conditions.
      */
     public ViewPortHandler or(Boundary boundary) {
-        if(!boundaries.contains(boundary)) {
+        if (!boundaries.contains(boundary)) {
             boundaries.add(boundary);
         }
         return this;
@@ -76,7 +75,7 @@ public class ViewPortHandler {
     /**
      * Load the view port execution.
      *
-     * @param then callback when the view port is detected.
+     * @param then     callback when the view port is detected.
      * @param fallback fallback when no view port detected or failure to detect the given
      *                 {@link Boundary} (using {@link #propagateFallback(boolean)})
      */
@@ -99,10 +98,7 @@ public class ViewPortHandler {
     }
 
     protected ViewPortHandler unload() {
-        if(resize != null) {
-            resize.removeHandler();
-            resize = null;
-        }
+        getResizeHandler().unload();
         return this;
     }
 
@@ -110,27 +106,24 @@ public class ViewPortHandler {
      * Load the windows resize handler with initial view port detection.
      */
     protected ViewPort load() {
-        resize = Window.addResizeHandler(event -> {
-            execute(event.getWidth(), event.getHeight());
-        });
-
-        execute(window().width(), (int)window().height());
+        getResizeHandler().load((event) -> execute(event.getWidth(), event.getHeight()));
+        execute(window().width(), (int) window().height());
         return viewPort;
     }
 
     protected void execute(int width, int height) {
         boolean match = false;
-        for(Boundary boundary : boundaries) {
+        for (Boundary boundary : boundaries) {
             if (Window.matchMedia(boundary.asMediaQuery())) {
                 then.call(new ViewPortChange(width, height, boundary));
                 match = true;
-            } else if(propagateFallback && fallback != null && !fallback.call(new ViewPortRect(width, height))) {
+            } else if (propagateFallback && fallback != null && !fallback.call(new ViewPortRect(width, height))) {
                 // We will not propagate.
                 break;
             }
         }
 
-        if(!propagateFallback && !match && fallback != null) {
+        if (!propagateFallback && !match && fallback != null) {
             fallback.call(new ViewPortRect(width, height));
         }
 
@@ -145,5 +138,19 @@ public class ViewPortHandler {
      */
     public void propagateFallback(boolean propagateFallback) {
         this.propagateFallback = propagateFallback;
+    }
+
+    public ViewPortResizeHandler getResizeHandler() {
+        if (resizeHandler == null) {
+            resizeHandler = new DefaultViewPortResizeHandler();
+        }
+        return resizeHandler;
+    }
+
+    /**
+     * Will set the Window Resize Handler. Default @see {@link DefaultViewPortResizeHandler}
+     */
+    public void setResizeHandler(ViewPortResizeHandler resizeHandler) {
+        this.resizeHandler = resizeHandler;
     }
 }

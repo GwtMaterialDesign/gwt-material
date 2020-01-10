@@ -134,6 +134,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         super.onLoad();
 
         setType(InputType.SEARCH);
+        setAutocomplete(false);
         label.add(iconSearch);
         label.getElement().setAttribute("for", "search");
         add(label);
@@ -187,6 +188,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                         searchResultPanel.add(link);
                         tempSearches.add(obj);
                     }
+                    searchResultPanel.setVisible(true);
                 }
 
                 // Apply selected search
@@ -263,9 +265,15 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     }
 
     public void close() {
+        close(true);
+    }
+
+    public void close(boolean fireEvents) {
         setActive(false);
-        Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).blur());
-        CloseEvent.fire(MaterialSearch.this, getText());
+        if (fireEvents) {
+            Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).blur());
+            CloseEvent.fire(MaterialSearch.this, getText());
+        }
     }
 
     protected void applyHighlightedItem(MaterialLink link) {
@@ -288,6 +296,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
             iconClose.setIconColor(Color.WHITE);
             iconSearch.setIconColor(Color.WHITE);
         }
+        searchResultPanel.setVisible(active);
     }
 
     @Override

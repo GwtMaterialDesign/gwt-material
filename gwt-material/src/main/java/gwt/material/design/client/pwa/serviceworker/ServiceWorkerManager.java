@@ -22,13 +22,14 @@ package gwt.material.design.client.pwa.serviceworker;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Window;
+import gwt.material.design.client.js.Navigator;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.base.PwaFeature;
 import gwt.material.design.client.pwa.serviceworker.constants.ServiceWorkerMessage;
 import gwt.material.design.client.pwa.serviceworker.constants.State;
-import gwt.material.design.client.js.Navigator;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorker;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerContainer;
+import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerOption;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
 import gwt.material.design.client.pwa.serviceworker.network.NetworkStatusManager;
 
@@ -51,6 +52,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     private PwaManager manager;
     private String resource;
     private ServiceWorkerRegistration registration;
+    private ServiceWorkerOption option;
 
     private DefaultServiceWorkerPlugin defaultPlugin = new DefaultServiceWorkerPlugin(this);
     private Map<Class<? extends ServiceWorkerPlugin>, ServiceWorkerPlugin> plugins = new LinkedHashMap();
@@ -102,7 +104,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     protected void setupRegistration() {
         if (isServiceWorkerSupported()) {
-            Navigator.serviceWorker.register(getResource()).then(object -> {
+            Navigator.serviceWorker.register(getResource(), getOption()).then(object -> {
                 logger.info("Service worker has been successfully registered");
                 registration = (ServiceWorkerRegistration) object;
 
@@ -174,46 +176,50 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      * @param registration - The Service Worker Registration
      */
     protected void observeLifecycle(ServiceWorkerRegistration registration) {
-        // Will listen to Service Worker lifecycle
-        if (registration.installing != null) {
-            registration.onupdatefound = event -> {
-                onStateChange(registration.installing);
-                return true;
-            };
-        }
+        registration.onupdatefound = event -> {
 
-        // Will check if there's a waiting service worker to be installed from the current registration
-        // If any then fire {@link #onNewServiceWorkerFound}
-        if (registration.waiting != null) {
             onNewServiceWorkerFound(new ServiceEvent(), registration.waiting);
-        }
+
+            if (registration.installing != null) {
+                onInstalling(new ServiceEvent());
+
+                onStateChange(registration.installing);
+            }
+
+            if (registration.active != null) {
+                onStateChange(registration.active);
+            }
+            return true;
+        };
     }
 
     /**
      * Will listen to any Service worker's {@link State} changes.
      */
     protected void onStateChange(ServiceWorker serviceWorker) {
-        serviceWorker.onstatechange = e -> {
-            State state = State.fromStyleName(serviceWorker.state);
-            switch (state) {
-                case INSTALLING:
-                    onInstalling(new ServiceEvent());
-                    break;
-                case INSTALLED:
-                    onInstalled(new ServiceEvent());
-                    break;
-                case ACTIVATING:
-                    onActivating(new ServiceEvent());
-                    break;
-                case ACTIVATED:
-                    onActivated(new ServiceEvent());
-                    break;
-                case REDUNDANT:
-                    onRedundant(new ServiceEvent());
-                    break;
-            }
-            return true;
-        };
+        if (serviceWorker != null) {
+            serviceWorker.onstatechange = e -> {
+                State state = State.fromStyleName(serviceWorker.state);
+                switch (state) {
+                    case INSTALLING:
+                        onInstalling(new ServiceEvent());
+                        break;
+                    case INSTALLED:
+                        onInstalled(new ServiceEvent());
+                        break;
+                    case ACTIVATING:
+                        onActivating(new ServiceEvent());
+                        break;
+                    case ACTIVATED:
+                        onActivated(new ServiceEvent());
+                        break;
+                    case REDUNDANT:
+                        onRedundant(new ServiceEvent());
+                        break;
+                }
+                return true;
+            };
+        }
     }
 
     /**
@@ -340,8 +346,6 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onRegistered(ServiceEvent event, ServiceWorkerRegistration registration) {
-        GWT.log("Service Worker is registered");
-
         for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onRegistered(event, registration) || event.isStopPropagation()) {
                 break; // Stop propagation
@@ -356,8 +360,6 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onInstalling(ServiceEvent event) {
-        GWT.log("Service worker is installing");
-
         for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onInstalling(event) || event.isStopPropagation()) {
                 break; // Stop propagation
@@ -372,8 +374,6 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onInstalled(ServiceEvent event) {
-        GWT.log("Service worker is installed");
-
         for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onInstalled(event) || event.isStopPropagation()) {
                 break; // Stop propagation
@@ -388,8 +388,6 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onActivating(ServiceEvent event) {
-        GWT.log("Service worker is activating");
-
         for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onActivating(event) || event.isStopPropagation()) {
                 break; // Stop propagation
@@ -404,8 +402,6 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     @Override
     public boolean onActivated(ServiceEvent event) {
-        GWT.log("Service worker is activated");
-
         for (ServiceWorkerPlugin plugin : plugins.values()) {
             if(plugin.onActivated(event) || event.isStopPropagation()) {
                 break; // Stop propagation
@@ -536,5 +532,16 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
             defaultPlugin.onError(event, message);
         }
         return false;
+    }
+
+    public ServiceWorkerOption getOption() {
+        if (option == null) {
+            option = ServiceWorkerOption.create();
+        }
+        return option;
+    }
+
+    public void setOption(ServiceWorkerOption option) {
+        this.option = option;
     }
 }

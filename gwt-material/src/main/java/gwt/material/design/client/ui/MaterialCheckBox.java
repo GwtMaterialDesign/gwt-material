@@ -65,6 +65,7 @@ public class MaterialCheckBox extends BaseCheckBox implements IsAsyncWidget<Mate
 
     private Object object;
 
+    private static final String CHECKBOX = "checkbox";
     private HandlerRegistry handlerRegistry = new DefaultHandlerRegistry(this);
     private ToggleStyleMixin<MaterialCheckBox> toggleOldMixin;
     private AsyncWidgetMixin<MaterialCheckBox, Boolean> asyncWidgetMixin;
@@ -73,7 +74,9 @@ public class MaterialCheckBox extends BaseCheckBox implements IsAsyncWidget<Mate
 
     public MaterialCheckBox() {
         super(DOM.createDiv());
+        setStyleName(CHECKBOX);
         setAsyncDisplayLoader(new DefaultCheckBoxLoader(this));
+        setType(CheckBoxType.FILLED);
     }
 
     public MaterialCheckBox(Element elem) {

@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasStatusText;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.constants.StatusDisplayType;
 
 /**
@@ -222,6 +223,11 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     @Override
     public void updateStatusDisplay(StatusDisplayMixin.StatusType statusType) {
         getStatusDisplayMixin().updateStatusDisplay(statusType);
+    }
+
+    @Override
+    public void setStatusDisplayPosition(Position position) {
+        getStatusDisplayMixin().setStatusDisplayPosition(position);
     }
 
     public void resetStatusDisplay() {

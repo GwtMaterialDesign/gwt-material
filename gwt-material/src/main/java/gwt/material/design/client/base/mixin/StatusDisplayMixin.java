@@ -43,6 +43,7 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     private StatusDisplayType displayType;
     private MaterialIcon statusIcon = new MaterialIcon();
     private Widget container;
+    private Position position;
 
     private CssNameMixin<T, StatusDisplayType> statusCssNameMixin;
     private CssNameMixin<H, Position> positionCssNameMixin;
@@ -95,6 +96,12 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
         }
     }
 
+    @Override
+    public void setStatusDisplayPosition(Position position) {
+        this.position = position;
+        updatePosition(position);
+    }
+
     protected void registerHandlers() {
         MaterialWidget widget = (MaterialWidget) uiObject;
         statusIcon.getHandlerRegistry().clearHandlers();
@@ -125,11 +132,12 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
      * If the message tooltip is our of vertical viewport then we update the position to be at the bottom
      */
     protected void showStatus() {
-        Position position;
-        if (!new ScrollHelper().isInViewPort(textObject.getElement())) {
-            position = Position.TOP;
-        } else {
-            position = Position.LEFT;
+        if (position == null) {
+            if (!new ScrollHelper().isInViewPort(textObject.getElement())) {
+                position = Position.TOP;
+            } else {
+                position = Position.LEFT;
+            }
         }
 
         updatePosition(position);

@@ -25,12 +25,16 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.HasInputChangeHandler;
 import gwt.material.design.client.base.HasStatusText;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.ui.html.Paragraph;
+import gwt.material.design.client.events.InputChangeEvent;
 import gwt.material.design.client.ui.html.Span;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -51,25 +55,31 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @see <a href="https://material.io/guidelines/components/sliders.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialRange extends AbstractValueWidget<Integer> implements HasChangeHandlers, HasStatusText {
+public class MaterialRange extends AbstractValueWidget<Integer>
+    implements HasChangeHandlers, HasStatusText, HasInputChangeHandler {
 
     private static String VALUE = "value";
     private static String MAX = "max";
     private static String MIN = "min";
 
-    private Paragraph paragraph = new Paragraph();
+    private MaterialPanel progress = new MaterialPanel();
+    private MaterialPanel progressWrapper = new MaterialPanel();
+    private MaterialPanel progressFillContainer = new MaterialPanel();
+    private MaterialPanel rangeContainer = new MaterialPanel();
     private MaterialInput rangeInputElement = new MaterialInput();
     private Span thumb = new Span();
     private Span value = new Span();
+    private boolean autoBlur;
 
     private MaterialLabel errorLabel = new MaterialLabel();
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
+    private ToggleStyleMixin<MaterialWidget> toggleThumbStyleMixin;
 
     /**
      * Creates a range
      */
     public MaterialRange() {
-        super(Document.get().createFormElement());
+        super(Document.get().createDivElement());
     }
 
     /**
@@ -96,19 +106,56 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     protected void onLoad() {
         super.onLoad();
 
-        getElement().setAttribute("action", "#");
         errorLabel.setVisible(false);
-        paragraph.setStyleName(CssName.RANGE_FIELD);
+        rangeContainer.setStyleName(CssName.RANGE_FIELD);
         rangeInputElement.setType(InputType.RANGE);
-        paragraph.add(rangeInputElement);
+        rangeContainer.add(rangeInputElement);
+
         thumb.getElement().setClassName(CssName.THUMB);
         value.getElement().setClassName(CssName.VALUE);
         thumb.add(value);
-        paragraph.add(thumb);
-        add(paragraph);
+        rangeContainer.add(thumb);
+
+        progressWrapper.getElement().setClassName("range-progress-wrapper");
+        progress.getElement().setClassName(CssName.PROGRESS);
+        progressFillContainer.getElement().setClassName("progress-container");
+        progressFillContainer.add(progress);
+        progressWrapper.add(progressFillContainer);
+        rangeContainer.add(progressWrapper);
+
+        add(rangeContainer);
         add(errorLabel);
 
-        registerHandler(addChangeHandler(changeEvent -> setValue(getValue(), true)));
+        $(rangeInputElement.getElement()).on("input", (event, o) -> {
+            InputChangeEvent.fire(this, getValue());
+            updateProgressWidth(getValue());
+            return true;
+        });
+
+        // Fixing IE Inconsistent event handling on Value Change event
+        // https://www.impressivewebs.com/onchange-vs-oninput-for-range-sliders/
+        registerHandler(addMouseUpHandler(event -> {
+            if (isIE()) {
+                setValue(getValue(), true);
+            }
+        }));
+
+        registerHandler(addChangeHandler(changeEvent -> {
+            // Fixing IE Inconsistent event handling on Input Change event
+            // https://www.impressivewebs.com/onchange-vs-oninput-for-range-sliders/
+            if (isIE()) {
+                InputChangeEvent.fire(this, getValue());
+            }
+            setValue(getValue(), !isIE());
+            if (isAutoBlur()) {
+                $(rangeInputElement.getElement()).blur();
+            }
+        }));
+    }
+
+    protected void updateProgressWidth(int value) {
+        double range = ((value - getMin()) * 100.0) / (getMax() - getMin());
+        progress.setWidth(range + "%");
     }
 
     /**
@@ -157,7 +204,7 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
             throw new IllegalArgumentException("Value must not be greater than the maximum range value");
         }
         setIntToRangeElement(VALUE, value);
-
+        updateProgressWidth(value);
         super.setValue(value, fireEvents);
     }
 
@@ -188,6 +235,34 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         return getIntFromRangeElement(MAX);
     }
 
+    public Integer getStep() {
+        String step = getRangeInputElement().getElement().getAttribute("step");
+        if (step != null && !step.isEmpty()) {
+            return Integer.parseInt(step);
+        }
+        return null;
+    }
+
+    public void setStep(Integer step) {
+        getRangeInputElement().getElement().setAttribute("step", step + "");
+    }
+
+    public boolean isEnableThumb() {
+        return getToggleThumbStyleMixin().isOn();
+    }
+
+    public void setEnableThumb(boolean enableThumb) {
+        getToggleThumbStyleMixin().setOn(!enableThumb);
+    }
+
+    public boolean isAutoBlur() {
+        return autoBlur;
+    }
+
+    public void setAutoBlur(boolean autoBlur) {
+        this.autoBlur = autoBlur;
+    }
+
     /**
      * Write the current max value
      *
@@ -205,12 +280,16 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
         return rangeInputElement;
     }
 
-    public Paragraph getParagraph() {
-        return paragraph;
+    public MaterialPanel getRangeContainer() {
+        return rangeContainer;
     }
 
     public Span getThumb() {
         return thumb;
+    }
+
+    public boolean isIE() {
+        return Window.Navigator.getUserAgent().indexOf("MSIE") > -1 || Window.Navigator.getUserAgent().indexOf("Trident/") > -1;
     }
 
     /**
@@ -224,10 +303,22 @@ public class MaterialRange extends AbstractValueWidget<Integer> implements HasCh
     }
 
     @Override
+    public HandlerRegistration addInputChangeHandler(InputChangeEvent.InputChangeHandler handler) {
+        return addHandler(handler, InputChangeEvent.getType());
+    }
+
+    @Override
     public StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
         if (statusTextMixin == null) {
             statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
         }
         return statusTextMixin;
+    }
+
+    public ToggleStyleMixin<MaterialWidget> getToggleThumbStyleMixin() {
+        if (toggleThumbStyleMixin == null) {
+            toggleThumbStyleMixin = new ToggleStyleMixin<>(this, CssName.NO_THUMB);
+        }
+        return toggleThumbStyleMixin;
     }
 }

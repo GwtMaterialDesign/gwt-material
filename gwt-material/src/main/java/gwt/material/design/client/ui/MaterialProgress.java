@@ -20,13 +20,17 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
+import gwt.material.design.client.base.HasOverlayStyle;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
+import gwt.material.design.client.base.mixin.OverlayStyleMixin;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.constants.OverlayOption;
 import gwt.material.design.client.constants.ProgressType;
 import gwt.material.design.client.ui.html.Div;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 //@formatter:off
 
@@ -48,13 +52,14 @@ import gwt.material.design.client.ui.html.Div;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#loader">Material Progress</a>
  * @see <a href="https://material.io/guidelines/components/progress-activity.html#">Material Design Specification</a>
  */
-public class MaterialProgress extends Div implements HasType<ProgressType> {
+public class MaterialProgress extends Div implements HasType<ProgressType>, HasOverlayStyle {
 
     private double percent = 0;
     private Div fillContainer = new Div();
 
     private ColorsMixin<Div> fillColorMixin;
     private CssTypeMixin<ProgressType, MaterialProgress> typeMixin;
+    private OverlayStyleMixin<MaterialDialog> overlayStyleMixin;
 
     public MaterialProgress() {
         super(CssName.PROGRESS);
@@ -109,6 +114,26 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
         fillContainer.getElement().getStyle().setWidth(percent, Unit.PCT);
     }
 
+    @Override
+    public void setOverlayOption(OverlayOption overlayOption) {
+        getOverlayStyleMixin().setOverlayOption(overlayOption);
+    }
+
+    @Override
+    public OverlayOption getOverlayOption() {
+        return getOverlayStyleMixin().getOverlayOption();
+    }
+
+    @Override
+    public void applyOverlayStyle(JQueryElement overlayElement) {
+        getOverlayStyleMixin().applyOverlayStyle(overlayElement);
+    }
+
+    @Override
+    public void resetOverlayStyle() {
+        getOverlayStyleMixin().resetOverlayStyle();
+    }
+
     /**
      * Get the progress bar color.
      */
@@ -141,5 +166,12 @@ public class MaterialProgress extends Div implements HasType<ProgressType> {
             typeMixin = new CssTypeMixin<>(this, fillContainer);
         }
         return typeMixin;
+    }
+
+    protected OverlayStyleMixin<MaterialDialog> getOverlayStyleMixin() {
+        if (overlayStyleMixin == null) {
+            overlayStyleMixin = new OverlayStyleMixin(this);
+        }
+        return overlayStyleMixin;
     }
 }

@@ -49,6 +49,8 @@ import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.ui.html.Label;
 
+import static gwt.material.design.jquery.client.api.JQuery.$;
+
 //@formatter:off
 
 /**
@@ -66,8 +68,9 @@ import gwt.material.design.client.ui.html.Label;
  */
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
-        HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-        HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes, HasAutocomplete {
+    HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
+    HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes, HasAutocomplete,
+    HasToggleReadOnlyHandler, HasPasteHandlers {
 
 
     private boolean returnBlankAsNull;
@@ -133,9 +136,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         String id = DOM.createUniqueId();
         valueBoxBase.getElement().setId(id);
         label.getElement().setAttribute("for", id);
-
+        loadEvents();
         // Make valueBoxBase the primary focus target
         getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        unloadEvents();
     }
 
     @Override
@@ -154,6 +164,30 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
         if (getPlaceholder() == null || getPlaceholder().isEmpty()) {
             label.removeStyleName(CssName.ACTIVE);
+        }
+    }
+
+    public void loadEvents() {
+        if (valueBoxBase != null && valueBoxBase.isAttached()) {
+            $("#" + valueBoxBase.getElement().getId()).on("paste", event -> {
+                PasteNativeEvent nativeEvent = (PasteNativeEvent) event;
+                if (nativeEvent != null && nativeEvent.originalEvent.clipboardData != null) {
+                    PasteEvent.fire(this, nativeEvent.originalEvent.clipboardData.getData("text/plain"));
+                }
+                return true;
+            });
+        }
+    }
+
+    public void unloadEvents() {
+        if (valueBoxBase != null) {
+            $("#" + valueBoxBase.getElement().getId()).off("paste");
+        }
+    }
+
+    public void select() {
+        if (valueBoxBase != null) {
+            $("#" + valueBoxBase.getElement().getId()).select();
         }
     }
 
@@ -833,6 +867,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public HandlerRegistration addToggleReadOnlyHandler(ToggleReadOnlyEvent.ToggleReadOnlyHandler handler) {
+        return addHandler(handler, ToggleReadOnlyEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addPasteHandler(PasteEvent.PasteEventHandler handler) {
+        return addHandler(handler, PasteEvent.getType());
+    }
+
+    @Override
     protected FocusableMixin<MaterialWidget> getFocusableMixin() {
         if (focusableMixin == null) {
             focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
@@ -850,7 +894,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     protected ReadOnlyMixin<MaterialValueBox, ValueBoxBase> getReadOnlyMixin() {
         if (readOnlyMixin == null) {
-            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase);
+            readOnlyMixin = new ReadOnlyMixin<>(this, valueBoxBase, readOnly -> ToggleReadOnlyEvent.fire(this, readOnly));
         }
         return readOnlyMixin;
     }

@@ -61,7 +61,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage,
-        HasLoadHandlers, HasErrorHandlers, HasActivates, HasValue<String> {
+        HasLoadHandlers, HasErrorHandlers, HasActivates, HasValue<String>, HasSourceSet {
 
     private CssTypeMixin<ImageType, MaterialImage> typeMixin;
     private ImageMixin<MaterialImage> imageMixin;
@@ -199,6 +199,16 @@ public class MaterialImage extends MaterialWidget implements HasCaption, HasType
         if(fireEvents) {
             ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
         }
+    }
+
+    @Override
+    public void setSourceSet(String value) {
+        getElement().setAttribute("srcset", value);
+    }
+
+    @Override
+    public String getSourceSet() {
+        return getElement().getAttribute("srcset");
     }
 
     @Override

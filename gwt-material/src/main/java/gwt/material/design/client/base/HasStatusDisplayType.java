@@ -20,6 +20,7 @@
 package gwt.material.design.client.base;
 
 import gwt.material.design.client.base.mixin.StatusDisplayMixin;
+import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.constants.StatusDisplayType;
 
 public interface HasStatusDisplayType {
@@ -29,4 +30,6 @@ public interface HasStatusDisplayType {
     StatusDisplayType getStatusDisplayType();
 
     void updateStatusDisplay(StatusDisplayMixin.StatusType statusType);
+
+    void setStatusDisplayPosition(Position position);
 }

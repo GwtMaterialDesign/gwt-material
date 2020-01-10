@@ -105,7 +105,10 @@ public enum Transition implements CssType {
     SLIDEOUTDOWN("slideOutDown"),
     SLIDEOUTLEFT("slideOutLeft"),
     SLIDEOUTRIGHT("slideOutRight"),
-    SLIDEOUTUP("slideOutUp");
+    SLIDEOUTUP("slideOutUp"),
+
+    // Customer Animations
+    SHADOW_PULSE("shadowPulse");
 
     private final String cssClass;
 

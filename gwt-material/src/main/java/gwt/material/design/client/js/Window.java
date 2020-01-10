@@ -30,6 +30,10 @@ public class Window {
         return $wnd.window.matchMedia(query).matches;
     }-*/;
 
+    public static native MediaQueryList getMediaQueryList(String query) /*-{
+        return $wnd.window.matchMedia(query);
+    }-*/;
+
     public static HandlerRegistration addResizeHandler(ResizeHandler handler) {
         return com.google.gwt.user.client.Window.addResizeHandler(handler);
     }
