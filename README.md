@@ -2,7 +2,7 @@
 <h2>gwt-material</h2>
 <p>A Google Material Design wrapper for GWT</p>
 
-[![Build Status](https://travis-ci.org/GwtMaterialDesign/gwt-material.svg?branch=master)](https://travis-ci.org/GwtMaterialDesign/gwt-material) [![Join the chat at https://gitter.im/GwtMaterialDesign/gwt-material](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/GwtMaterialDesign/gwt-material?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/GwtMaterialDesign/gwt-material.svg?branch=master)](https://travis-ci.org/GwtMaterialDesign/gwt-material) [![Join us](https://img.shields.io/badge/slack-channel-purple)](https://gmd-project.slack.com)
 
 <br/>
 
