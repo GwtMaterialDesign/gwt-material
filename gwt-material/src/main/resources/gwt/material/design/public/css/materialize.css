@@ -8805,7 +8805,7 @@ button.btn-ghost:hover, button.btn-ghost:active {
 /**
 * InputField - Outlined
 **/
-.input-field input {
+.input-field.disabled input {
   pointer-events: none; }
 
 .input-field label {
