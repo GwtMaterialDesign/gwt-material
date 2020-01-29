@@ -30,6 +30,7 @@ import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasInputChangeHandler;
 import gwt.material.design.client.base.HasStatusText;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.EnabledMixin;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
@@ -290,6 +291,17 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
     public boolean isIE() {
         return Window.Navigator.getUserAgent().indexOf("MSIE") > -1 || Window.Navigator.getUserAgent().indexOf("Trident/") > -1;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+
+        if (!enabled) {
+            getRangeInputElement().getElement().setAttribute(CssName.DISABLED, "true");
+        } else {
+            getRangeInputElement().getElement().removeAttribute(CssName.DISABLED);
+        }
     }
 
     /**
