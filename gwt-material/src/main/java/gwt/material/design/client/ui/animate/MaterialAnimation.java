@@ -35,7 +35,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * Stateful object holding animation details.
  * Default behaviour is a bounce transition for 800ms.
  */
-public class MaterialAnimation implements HasDurationTransition, HasDelayTransition {
+public class MaterialAnimation implements Animation {
 
     private Widget widget;
     private Transition transition = Transition.BOUNCE;
@@ -70,10 +70,6 @@ public class MaterialAnimation implements HasDurationTransition, HasDelayTransit
     public MaterialAnimation infinite(boolean infinite) {
         this.infinite = infinite;
         return this;
-    }
-
-    public void animate() {
-        animate(widget);
     }
 
     public void animate(Widget widget) {
@@ -187,16 +183,14 @@ public class MaterialAnimation implements HasDurationTransition, HasDelayTransit
         }
     }
 
+    @Override
+    public void animate() {
+        animate(widget);
+    }
+
+    @Override
     public Widget getWidget() {
         return widget;
-    }
-
-    public Transition getTransition() {
-        return transition;
-    }
-
-    public void setTransition(Transition transition) {
-        this.transition = transition;
     }
 
     @Override
@@ -217,6 +211,14 @@ public class MaterialAnimation implements HasDurationTransition, HasDelayTransit
     @Override
     public int getDuration() {
         return duration;
+    }
+
+    public Transition getTransition() {
+        return transition;
+    }
+
+    public void setTransition(Transition transition) {
+        this.transition = transition;
     }
 
     public boolean isInfinite() {
