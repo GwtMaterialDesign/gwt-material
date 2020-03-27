@@ -21,8 +21,6 @@ package gwt.material.design.client.ui.animate;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.base.HasDelayTransition;
-import gwt.material.design.client.base.HasDurationTransition;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.ui.html.ListItem;
@@ -42,7 +40,7 @@ public class MaterialAnimation implements Animation {
     private int delay = 0;
     private int duration = 800;
     private boolean infinite;
-
+    private Functions.Func startCallback, completeCallback;
     private Timer startTimer, endTimer;
 
     public MaterialAnimation() {
@@ -72,8 +70,18 @@ public class MaterialAnimation implements Animation {
         return this;
     }
 
+    public MaterialAnimation completeCallback(Functions.Func completeCallback) {
+        this.completeCallback = completeCallback;
+        return this;
+    }
+
+    public MaterialAnimation startCallback(Functions.Func startCallback) {
+        this.startCallback = startCallback;
+        return this;
+    }
+
     public void animate(Widget widget) {
-        animate(widget, null);
+        animate(widget, completeCallback);
     }
 
     public void animate(Functions.Func callback) {
@@ -119,6 +127,11 @@ public class MaterialAnimation implements Animation {
         startTimer = new Timer() {
             @Override
             public void run() {
+
+                if (startCallback != null) {
+                    startCallback.call();
+                }
+
                 switch (transition) {
                 case SHOW_STAGGERED_LIST:
                     JsMaterialElement.showStaggeredList(element);
@@ -228,5 +241,25 @@ public class MaterialAnimation implements Animation {
     public void setInfinite(boolean infinite) {
         this.infinite = infinite;
         stopAnimation();
+    }
+
+    @Override
+    public Functions.Func getCompleteCallback() {
+        return completeCallback;
+    }
+
+    @Override
+    public void setStartCallback(Functions.Func startCallback) {
+        this.startCallback = startCallback;
+    }
+
+    @Override
+    public Functions.Func getStartCallback() {
+        return startCallback;
+    }
+
+    @Override
+    public void setCompleteCallback(Functions.Func completeCallback) {
+        this.completeCallback = completeCallback;
     }
 }

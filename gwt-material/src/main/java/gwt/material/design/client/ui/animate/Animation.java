@@ -22,9 +22,14 @@ package gwt.material.design.client.ui.animate;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasDelayTransition;
 import gwt.material.design.client.base.HasDurationTransition;
+import gwt.material.design.jquery.client.api.Functions;
 
 public interface Animation extends HasDurationTransition, HasDelayTransition {
 
     void animate();
     Widget getWidget();
+    void setCompleteCallback(Functions.Func completeCallback);
+    Functions.Func getCompleteCallback();
+    void setStartCallback(Functions.Func startCallback);
+    Functions.Func getStartCallback();
 }
