@@ -9067,6 +9067,9 @@ input:-webkit-autofill {
 /**
 * ListBox
 **/
+.input-field.listbox-wrapper input:read-only {
+  pointer-events: initial; }
+
 .input-field .select-wrapper.gwt-ListBox + label.active {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
