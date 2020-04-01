@@ -44,6 +44,6 @@ public class FieldSensitivityMixin<T extends UIObject & HasFieldSensitivity & Ha
 
     @Override
     public boolean isSensitive() {
-        return false;
+        return uiObject.getType().equals(InputType.PASSWORD);
     }
 }
