@@ -91,6 +91,12 @@ public class MaterialAnimation implements Animation {
     }
 
     public void animate(Widget widget, Functions.Func callback) {
+        if (!AnimationGlobalConfig.ENABLE_ANIMATION) {
+            if (callback != null) {
+                callback.call();
+            }
+            return;
+        }
 
         if (AnimationGlobalConfig.ENABLE_DEBUGGING) GWT.log(toString());
 
