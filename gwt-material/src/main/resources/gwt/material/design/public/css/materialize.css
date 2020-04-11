@@ -9531,6 +9531,9 @@ table .gwt-CheckBox label {
   border-bottom: 1px solid #42A5F5;
   box-shadow: 0 1px 0 0 #42A5F5; }
 
+.input-field input.picker__input:read-only {
+  pointer-events: initial; }
+
 /**
 * Dropdown
 **/

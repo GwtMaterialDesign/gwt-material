@@ -3422,8 +3422,8 @@
   animation-name: fadeThrough;
 }
 
-/** Shared Axis X In **/
-@-webkit-keyframes sharedAxisXIn {
+/** Shared Axis X ForwardIn **/
+@-webkit-keyframes sharedAxisXForwardIn {
   from {
     opacity: 0;
     transform: translateX(30px);
@@ -3435,7 +3435,7 @@
   }
 }
 
-@keyframes sharedAxisXIn {
+@keyframes sharedAxisXForwardIn {
   from {
     opacity: 0;
     transform: translateX(30px);
@@ -3447,13 +3447,43 @@
   }
 }
 
-.sharedAxisXIn {
-  -webkit-animation-name: sharedAxisXIn;
-  animation-name: sharedAxisXIn;
+.sharedAxisXForwardIn {
+  -webkit-animation-name: sharedAxisXForwardIn;
+  animation-name: sharedAxisXForwardIn;
 }
 
-/** Shared Axis X Out **/
-@-webkit-keyframes sharedAxisXOut {
+/** Shared Axis X BackwardIn **/
+@-webkit-keyframes sharedAxisXBackwardIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes sharedAxisXBackwardIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.sharedAxisXBackwardIn {
+  -webkit-animation-name: sharedAxisXBackwardIn;
+  animation-name: sharedAxisXBackwardIn;
+}
+
+/** Shared Axis X ForwardOut **/
+@-webkit-keyframes sharedAxisXForwardOut {
   from {
     opacity: 1;
     transform: translateX(0px);
@@ -3465,7 +3495,7 @@
   }
 }
 
-@keyframes sharedAxisXOut {
+@keyframes sharedAxisXForwardOut {
   from {
     opacity: 1;
     transform: translateX(0px);
@@ -3477,13 +3507,13 @@
   }
 }
 
-.sharedAxisXOut {
-  -webkit-animation-name: sharedAxisXOut;
-  animation-name: sharedAxisXOut;
+.sharedAxisXForwardOut {
+  -webkit-animation-name: sharedAxisXForwardOut;
+  animation-name: sharedAxisXForwardOut;
 }
 
-/** Shared Axis Y In **/
-@-webkit-keyframes sharedAxisYIn {
+/** Shared Axis Y ForwardIn **/
+@-webkit-keyframes sharedAxisYForwardIn {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -3495,7 +3525,7 @@
   }
 }
 
-@keyframes sharedAxisYIn {
+@keyframes sharedAxisYForwardIn {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -3507,13 +3537,13 @@
   }
 }
 
-.sharedAxisYIn {
-  -webkit-animation-name: sharedAxisYIn;
-  animation-name: sharedAxisYIn;
+.sharedAxisYForwardIn {
+  -webkit-animation-name: sharedAxisYForwardIn;
+  animation-name: sharedAxisYForwardIn;
 }
 
-/** Shared Axis Y Out **/
-@-webkit-keyframes sharedAxisYOut {
+/** Shared Axis Y ForwardOut **/
+@-webkit-keyframes sharedAxisYForwardOut {
   from {
     opacity: 1;
     transform: translateY(0px);
@@ -3525,7 +3555,7 @@
   }
 }
 
-@keyframes sharedAxisYOut {
+@keyframes sharedAxisYForwardOut {
   from {
     opacity: 1;
     transform: translateY(0px);
@@ -3537,13 +3567,13 @@
   }
 }
 
-.sharedAxisYOut {
-  -webkit-animation-name: sharedAxisYOut;
-  animation-name: sharedAxisYOut;
+.sharedAxisYForwardOut {
+  -webkit-animation-name: sharedAxisYForwardOut;
+  animation-name: sharedAxisYForwardOut;
 }
 
-/** Shared Axis Z In **/
-@-webkit-keyframes sharedAxisZIn {
+/** Shared Axis Z ForwardIn **/
+@-webkit-keyframes sharedAxisZForwardIn {
   from {
     opacity: 0;
     transform: scale(0.8);
@@ -3555,7 +3585,7 @@
   }
 }
 
-@keyframes sharedAxisZIn {
+@keyframes sharedAxisZForwardIn {
   from {
     opacity: 0;
     transform: scale(0.8);
@@ -3567,13 +3597,13 @@
   }
 }
 
-.sharedAxisZIn {
-  -webkit-animation-name: sharedAxisZIn;
-  animation-name: sharedAxisZIn;
+.sharedAxisZForwardIn {
+  -webkit-animation-name: sharedAxisZForwardIn;
+  animation-name: sharedAxisZForwardIn;
 }
 
-/** Shared Axis Z Out **/
-@-webkit-keyframes sharedAxisZOut {
+/** Shared Axis Z ForwardOut **/
+@-webkit-keyframes sharedAxisZForwardOut {
   from {
     opacity: 1;
     transform: scale(1);
@@ -3585,7 +3615,7 @@
   }
 }
 
-@keyframes sharedAxisZOut {
+@keyframes sharedAxisZForwardOut {
   from {
     opacity: 1;
     transform: scale(1);
@@ -3597,9 +3627,9 @@
   }
 }
 
-.sharedAxisZOut {
-  -webkit-animation-name: sharedAxisZOut;
-  animation-name: sharedAxisZOut;
+.sharedAxisZForwardOut {
+  -webkit-animation-name: sharedAxisZForwardOut;
+  animation-name: sharedAxisZForwardOut;
 }
 
 /** Will listen to user-preferred animation settings to turn on / off the animation **/
