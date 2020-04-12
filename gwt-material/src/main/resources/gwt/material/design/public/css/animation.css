@@ -3572,8 +3572,8 @@
   animation-name: sharedAxisYForwardOut;
 }
 
-/** Shared Axis Z ForwardIn **/
-@-webkit-keyframes sharedAxisZForwardIn {
+/** Shared Axis Z In **/
+@-webkit-keyframes sharedAxisZIn {
   from {
     opacity: 0;
     transform: scale(0.8);
@@ -3585,7 +3585,7 @@
   }
 }
 
-@keyframes sharedAxisZForwardIn {
+@keyframes sharedAxisZIn {
   from {
     opacity: 0;
     transform: scale(0.8);
@@ -3597,13 +3597,13 @@
   }
 }
 
-.sharedAxisZForwardIn {
-  -webkit-animation-name: sharedAxisZForwardIn;
-  animation-name: sharedAxisZForwardIn;
+.sharedAxisZIn {
+  -webkit-animation-name: sharedAxisZIn;
+  animation-name: sharedAxisZIn;
 }
 
-/** Shared Axis Z ForwardOut **/
-@-webkit-keyframes sharedAxisZForwardOut {
+/** Shared Axis Z Out **/
+@-webkit-keyframes sharedAxisZOut {
   from {
     opacity: 1;
     transform: scale(1);
@@ -3615,7 +3615,7 @@
   }
 }
 
-@keyframes sharedAxisZForwardOut {
+@keyframes sharedAxisZOut {
   from {
     opacity: 1;
     transform: scale(1);
@@ -3627,9 +3627,9 @@
   }
 }
 
-.sharedAxisZForwardOut {
-  -webkit-animation-name: sharedAxisZForwardOut;
-  animation-name: sharedAxisZForwardOut;
+.sharedAxisZOut {
+  -webkit-animation-name: sharedAxisZOut;
+  animation-name: sharedAxisZOut;
 }
 
 /** Will listen to user-preferred animation settings to turn on / off the animation **/
