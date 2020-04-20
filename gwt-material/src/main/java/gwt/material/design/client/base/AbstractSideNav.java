@@ -271,13 +271,17 @@ public abstract class AbstractSideNav extends MaterialWidget
     protected void load(boolean strict) {
         try {
             activator = DOMHelper.getElementByAttribute("data-activates", getId());
-            getNavMenu().setShowOn(ShowOn.SHOW_ON_MED_DOWN);
-            if (alwaysShowActivator && !getTypeMixin().getStyle().equals(SideNavType.FIXED.getCssName())) {
-                getNavMenu().setShowOn(ShowOn.SHOW_ON_LARGE);
-            } else {
-                getNavMenu().setHideOn(HideOn.HIDE_ON_LARGE);
+
+            MaterialWidget navMenu = getNavMenu();
+            if (navMenu != null) {
+                navMenu.setShowOn(ShowOn.SHOW_ON_MED_DOWN);
+                if (alwaysShowActivator && !getTypeMixin().getStyle().equals(SideNavType.FIXED.getCssName())) {
+                    navMenu.setShowOn(ShowOn.SHOW_ON_LARGE);
+                } else {
+                    navMenu.setHideOn(HideOn.HIDE_ON_LARGE);
+                }
+                navMenu.removeStyleName(CssName.NAVMENU_PERMANENT);
             }
-            getNavMenu().removeStyleName(CssName.NAVMENU_PERMANENT);
         } catch (Exception ex) {
             if (strict) {
                 throw new IllegalArgumentException(
