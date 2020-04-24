@@ -140,7 +140,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         add(label);
         add(iconClose);
 
-        registerHandler(iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText())));
+        registerHandler(iconClose.addClickHandler(clickEvent -> CloseEvent.fire(MaterialSearch.this, getText())));
 
         add(searchResultPanel);
 
