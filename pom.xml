@@ -56,8 +56,8 @@
         <source.version>1.8</source.version>
         <target.version>1.8</target.version>
         <surefire.version>2.6</surefire.version>
-        <gwt.version>2.8.2</gwt.version>
-        <tbroyer.version>1.0-rc-9</tbroyer.version>
+        <gwt.version>2.9.0</gwt.version>
+        <tbroyer.version>1.0.0</tbroyer.version>
         <gwt.style>OBF</gwt.style>
     </properties>
 
