@@ -21,9 +21,9 @@ package gwt.material.design.client.async;
 
 import gwt.material.design.client.async.loader.AsyncDisplayLoader;
 
-public interface HasAsyncDisplayLoader {
+public interface HasAsyncDisplayLoader<V> {
 
-    void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader);
+    void setAsyncDisplayLoader(AsyncDisplayLoader<V> displayLoader);
 
-    AsyncDisplayLoader getAsyncDisplayLoader();
+    AsyncDisplayLoader<V> getAsyncDisplayLoader();
 }

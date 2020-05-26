@@ -21,7 +21,7 @@ package gwt.material.design.client.async;
 
 import com.google.gwt.user.client.ui.Widget;
 
-public interface IsAsyncWidget<W extends Widget, V> extends HasAsyncCallback<W, V>, HasAsyncDisplayLoader {
+public interface IsAsyncWidget<W extends Widget, V> extends HasAsyncCallback<W, V>, HasAsyncDisplayLoader<V> {
 
     void setAsynchronous(boolean asynchronous);
 

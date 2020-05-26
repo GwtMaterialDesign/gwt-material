@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,7 @@ import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.constants.SwitchType;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Span;
 
@@ -55,14 +56,15 @@ import gwt.material.design.client.ui.html.Span;
  */
 //@formatter:on
 public class MaterialSwitch extends AbstractValueWidget<Boolean>
-        implements HasValue<Boolean>, IsAsyncWidget<MaterialSwitch, Boolean> {
+    implements HasValue<Boolean>, IsAsyncWidget<MaterialSwitch, Boolean> {
 
+    private final MaterialLabel errorLabel = new MaterialLabel();
+    private final Span onLabel = new Span();
+    private final Span offLabel = new Span();
     private MaterialInput input = new MaterialInput();
-    private MaterialLabel errorLabel = new MaterialLabel();
     private Label label = new Label();
     private Span span = new Span();
-    private Span onLabel = new Span();
-    private Span offLabel = new Span();
+    private SwitchType type;
 
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private AsyncWidgetMixin<MaterialSwitch, Boolean> asyncWidgetMixin;
@@ -96,6 +98,11 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
         setValue(value);
     }
 
+    public MaterialSwitch(SwitchType switchType) {
+        this();
+        setType(switchType);
+    }
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -112,16 +119,16 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
         // and therefore it will deal with clicks as first and setup the value
         // right before others get notified.
         registerHandler(addClickHandler(event -> {
+            if (type.equals(SwitchType.DEFAULT)) {
+                if (isAsynchronous()) {
+                    load(getAsyncCallback());
+                } else {
+                    setValue(!getValue(), true);
+                }
+            }
+
             event.preventDefault();
             event.stopPropagation();
-        }));
-
-        registerHandler(addClickHandler(event -> {
-            if (isAsynchronous()) {
-                load(getAsyncCallback());
-            } else {
-                setValue(!getValue(), true);
-            }
         }));
     }
 
@@ -238,17 +245,12 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
         return offLabel;
     }
 
-    @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Boolean> handler) {
-        return addHandler(handler, ValueChangeEvent.getType());
+    public SwitchType getType() {
+        return type;
     }
 
-    @Override
-    protected StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
-        if (statusTextMixin == null) {
-            statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
-        }
-        return statusTextMixin;
+    public void setType(SwitchType type) {
+        this.type = type;
     }
 
     @Override
@@ -287,12 +289,25 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
     }
 
     @Override
-    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+    public void setAsyncDisplayLoader(AsyncDisplayLoader<Boolean> displayLoader) {
         getAsyncWidgetMixin().setAsyncDisplayLoader(displayLoader);
     }
 
     @Override
-    public AsyncDisplayLoader getAsyncDisplayLoader() {
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Boolean> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
+
+    @Override
+    protected StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
+        if (statusTextMixin == null) {
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, null);
+        }
+        return statusTextMixin;
+    }
+
+    @Override
+    public AsyncDisplayLoader<Boolean> getAsyncDisplayLoader() {
         return getAsyncWidgetMixin().getAsyncDisplayLoader();
     }
 
