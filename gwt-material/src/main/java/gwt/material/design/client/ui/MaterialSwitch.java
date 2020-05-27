@@ -64,7 +64,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
     private MaterialInput input = new MaterialInput();
     private Label label = new Label();
     private Span span = new Span();
-    private SwitchType type;
+    private SwitchType type = SwitchType.DEFAULT;
 
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private AsyncWidgetMixin<MaterialSwitch, Boolean> asyncWidgetMixin;

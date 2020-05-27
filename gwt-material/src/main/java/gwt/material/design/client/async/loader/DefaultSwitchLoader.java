@@ -47,19 +47,19 @@ public class DefaultSwitchLoader implements AsyncDisplayLoader<Boolean> {
     public void loading() {
         materialSwitch.setEnabled(false);
         materialSwitch.getLabel().setVisibility(Style.Visibility.HIDDEN);
+        materialSwitch.clearErrorText();
         loader.show();
     }
 
     @Override
     public void success(Boolean result) {
-        materialSwitch.clearErrorText();
         materialSwitch.setValue(result);
     }
 
     @Override
     public void failure(String error) {
         if (materialSwitch.getType().equals(SwitchType.DEFAULT)) {
-            materialSwitch.setValue(!materialSwitch.getValue());
+            materialSwitch.setErrorText(error);
         }
     }
 
