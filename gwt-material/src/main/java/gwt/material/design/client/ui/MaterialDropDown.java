@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,6 +27,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.*;
@@ -67,8 +68,10 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/components/menus.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialDropDown<T> extends UnorderedList implements JsLoader, HasSelectionHandlers<Widget>, HasValueChangeHandlers<T>, HasInOutDurationTransition {
+public class MaterialDropDown<T> extends UnorderedList
+    implements JsLoader, HasValue<T>, HasSelectionHandlers<Widget>, HasValueChangeHandlers<T>, HasInOutDurationTransition {
 
+    private T value;
     private Map<Widget, T> widgetMap = new HashMap<>();
     private String activator;
     private Element activatorElement;
@@ -129,7 +132,6 @@ public class MaterialDropDown<T> extends UnorderedList implements JsLoader, HasS
         }
 
         $(activatorElement).dropdown(options);
-
     }
 
     @Override
@@ -291,6 +293,25 @@ public class MaterialDropDown<T> extends UnorderedList implements JsLoader, HasS
 
     public Element getActivatorElement() {
         return activatorElement;
+    }
+
+    @Override
+    public T getValue() {
+        return value;
+    }
+
+    @Override
+    public void setValue(T value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(T value, boolean fireEvents) {
+        this.value = value;
+
+        if (fireEvents) {
+            ValueChangeEvent.fire(this, value);
+        }
     }
 
     @Override
