@@ -86,7 +86,7 @@ import gwt.material.design.client.constants.CssName;
  * { @example com.google.gwt.examples.CheckBoxExample}
  * </p>
  */
-public class BaseCheckBox extends MaterialWidget implements HasName, HasValue<Boolean>,
+public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasName, HasValue<Boolean>,
         HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator, IsEditor<LeafValueEditor<Boolean>> {
 
     public static final DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR =
