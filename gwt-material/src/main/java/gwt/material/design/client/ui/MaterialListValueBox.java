@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -80,8 +80,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
-        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, IsAsyncWidget<MaterialListValueBox<T>, List<T>>,
-        HasAsyncRenderer<String, T>, HasNativeBrowserStyle {
+    HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, IsAsyncWidget<MaterialListValueBox<T>, List<T>>,
+    HasAsyncRenderer<String, T>, HasNativeBrowserStyle, HasLabel {
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
@@ -552,9 +552,20 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         }
     }
 
+    /**
+     * Starting GMD 2.3.1 we standardized the labelling system
+     * of all value widget fields. Please check {@link HasLabel#setLabel(String)}
+     * for the new setter.
+     */
+    @Deprecated
     @Override
     public void setPlaceholder(String placeholder) {
-        label.setText(placeholder);
+        setLabel(placeholder);
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.label.setText(label);
     }
 
     @Override
@@ -1074,7 +1085,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     protected boolean isEmptyPlaceHolderListed() {
         return emptyPlaceHolder.equals(listBox.getValue(0)) &&
-                values.get(0) == null;
+            values.get(0) == null;
     }
 
     protected void insertEmptyPlaceHolder(String emptyPlaceHolder) {

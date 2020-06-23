@@ -87,7 +87,7 @@ import gwt.material.design.client.constants.CssName;
  * </p>
  */
 public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasName, HasValue<Boolean>,
-        HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator, IsEditor<LeafValueEditor<Boolean>> {
+        HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator, IsEditor<LeafValueEditor<Boolean>>, HasLabel {
 
     public static final DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR =
             DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
@@ -517,5 +517,10 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
     @Override
     public void setHTML(SafeHtml html) {
         directionalTextHelper.setTextOrHtml(html.asString(), true);
+    }
+
+    @Override
+    public void setLabel(String label) {
+        setText(label);
     }
 }

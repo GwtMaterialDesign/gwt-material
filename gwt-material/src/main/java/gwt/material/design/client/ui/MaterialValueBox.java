@@ -70,7 +70,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
     HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
     HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes,
-    HasAutocomplete, HasPasteHandlers, HasFieldSensitivity {
+    HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel {
 
 
     private boolean returnBlankAsNull;
@@ -220,6 +220,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
      * inside the box.
      * </p>
      */
+    @Override
     public void setLabel(String label) {
         this.label.setText(label);
 

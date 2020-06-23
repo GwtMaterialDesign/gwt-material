@@ -67,7 +67,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsLoader, HasPlaceholder,
         HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly,
-        HasFieldTypes {
+        HasFieldTypes, HasLabel {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -290,9 +290,20 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         return placeholder;
     }
 
+    /**
+     * Starting GMD 2.3.1 we standardized the labelling system
+     * of all value widget fields. Please check {@link HasLabel#setLabel(String)}
+     * for the new setter.
+     */
+    @Deprecated
     @Override
     public void setPlaceholder(String placeholder) {
-        this.placeholder = placeholder;
+        setLabel(placeholder);
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.placeholder = label;
 
         if (placeholder != null) {
             placeholderLabel.setText(placeholder);
