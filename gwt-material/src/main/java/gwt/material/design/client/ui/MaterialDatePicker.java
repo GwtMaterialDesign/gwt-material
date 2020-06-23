@@ -32,9 +32,9 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.DateFormatHelper;
-import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.FieldTypeMixin;
 import gwt.material.design.client.base.mixin.ReadOnlyMixin;
+import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsDatePickerOptions;
 import gwt.material.design.client.js.JsMaterialElement;
@@ -66,8 +66,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsLoader, HasPlaceholder,
-        HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly,
-        HasFieldTypes, HasLabel {
+    HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly,
+    HasFieldTypes, HasLabel {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -79,7 +79,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         YEAR
     }
 
-    private String placeholder;
+    private String label;
     private String tabIndex = "0";
     private Date date;
     private Date dateMin;
@@ -93,8 +93,8 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     private boolean suppressChangeEvent;
     protected Element pickatizedDateInput;
     private DateInput dateInput = new DateInput();
-    private Label label = new Label();
-    private MaterialLabel placeholderLabel = new MaterialLabel();
+    private Label labelWrapper = new Label();
+    private MaterialLabel labelWidget = new MaterialLabel();
     private MaterialLabel errorLabel = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
 
@@ -109,23 +109,23 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         super(Document.get().createDivElement(), CssName.INPUT_FIELD);
 
         add(dateInput);
-        label.add(placeholderLabel);
-        add(label);
+        labelWrapper.add(labelWidget);
+        add(labelWrapper);
         add(errorLabel);
     }
 
-    public MaterialDatePicker(String placeholder) {
+    public MaterialDatePicker(String label) {
         this();
-        setPlaceholder(placeholder);
+        setLabel(label);
     }
 
-    public MaterialDatePicker(String placeholder, Date value) {
-        this(placeholder);
+    public MaterialDatePicker(String label, Date value) {
+        this(label);
         setDate(value);
     }
 
-    public MaterialDatePicker(String placeholder, Date value, MaterialDatePickerType selectionType) {
-        this(placeholder, value);
+    public MaterialDatePicker(String label, Date value, MaterialDatePickerType selectionType) {
+        this(label, value);
         setSelectionType(selectionType);
     }
 
@@ -157,7 +157,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
             return true;
         });
 
-        label.getElement().setAttribute("for", getPickerId());
+        labelWrapper.getElement().setAttribute("for", getPickerId());
         setPopupEnabled(isEnabled());
         setAutoClose(autoClose);
         setDate(date);
@@ -285,15 +285,10 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         return getPickerDate();
     }
 
-    @Override
-    public String getPlaceholder() {
-        return placeholder;
-    }
-
     /**
      * Starting GMD 2.3.1 we standardized the labelling system
      * of all value widget fields. Please check {@link HasLabel#setLabel(String)}
-     * for the new setter.
+     * for the new getter and setter.
      */
     @Deprecated
     @Override
@@ -301,13 +296,29 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         setLabel(placeholder);
     }
 
+    /**
+     * Starting GMD 2.3.1 we standardized the labelling system
+     * of all value widget fields. Please check {@link HasLabel#getLabel()}
+     * for the new getter and setter.
+     */
+    @Deprecated
+    @Override
+    public String getPlaceholder() {
+        return getLabel();
+    }
+
     @Override
     public void setLabel(String label) {
-        this.placeholder = label;
+        this.label = label;
 
-        if (placeholder != null) {
-            placeholderLabel.setText(placeholder);
+        if (this.label != null) {
+            labelWidget.setText(this.label);
         }
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
     }
 
     /**
@@ -421,7 +432,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
                 suppressChangeEvent = !fireEvents;
                 setPickerDate(JsDate.create((double) value.getTime()), pickatizedDateInput);
                 suppressChangeEvent = false;
-                label.addStyleName(CssName.ACTIVE);
+                labelWrapper.addStyleName(CssName.ACTIVE);
             }
         }
         super.setValue(value, fireEvents);
@@ -610,12 +621,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         options.container = container == DatePickerContainer.SELF ? getElement().getId() : container.getCssName();
     }
 
-    public Label getLabel() {
-        return label;
+    public Label getLabelWrapper() {
+        return labelWrapper;
     }
 
-    public MaterialLabel getPlaceholderLabel() {
-        return placeholderLabel;
+    public MaterialLabel getLabelWidget() {
+        return labelWidget;
     }
 
     public MaterialLabel getErrorLabel() {
@@ -641,7 +652,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     protected void select() {
-        label.addStyleName(CssName.ACTIVE);
+        labelWrapper.addStyleName(CssName.ACTIVE);
 
         // Ensure the value change event is
         // triggered on selecting a date if the picker is open
@@ -653,14 +664,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
 
     protected void onClose() {
         CloseEvent.fire(this, this);
-        fireEvent(new BlurEvent() {});
+        fireEvent(new BlurEvent() {
+        });
     }
 
     protected void onOpen() {
-        label.addStyleName(CssName.ACTIVE);
+        labelWrapper.addStyleName(CssName.ACTIVE);
         dateInput.setFocus(true);
         OpenEvent.fire(this, this);
-        fireEvent(new FocusEvent() {});
+        fireEvent(new FocusEvent() {
+        });
     }
 
     @Override
@@ -687,7 +700,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
         }
         // Clear all active / error styles on datepicker
         clearStatusText();
-        label.removeStyleName(CssName.ACTIVE);
+        labelWrapper.removeStyleName(CssName.ACTIVE);
     }
 
     protected void setPopupEnabled(boolean enabled) {
@@ -733,7 +746,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     @Override
     protected StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
         if (statusTextMixin == null) {
-            statusTextMixin = new StatusTextMixin<>(this, errorLabel, dateInput, placeholderLabel);
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, dateInput, labelWidget);
         }
         return statusTextMixin;
     }

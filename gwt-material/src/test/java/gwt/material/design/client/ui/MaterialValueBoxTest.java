@@ -39,7 +39,7 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
         MaterialValueBox widget = getWidget();
 
         // when / then
-        checkFieldErrorSuccess(widget, widget.getErrorLabel(), widget.getValueBoxBase(), widget.getLabel());
+        checkFieldErrorSuccess(widget, widget.getErrorLabel(), widget.getValueBoxBase(), widget.getLabelWidget());
     }
 
     public void testPlaceholder() {

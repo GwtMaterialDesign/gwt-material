@@ -523,4 +523,9 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
     public void setLabel(String label) {
         setText(label);
     }
+
+    @Override
+    public String getLabel() {
+        return getText();
+    }
 }

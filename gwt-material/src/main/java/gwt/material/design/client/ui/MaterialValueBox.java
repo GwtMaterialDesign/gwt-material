@@ -212,14 +212,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         }
     }
 
-    /**
-     * Set the label of this field.
-     * <p>
-     * This will be displayed above the field when values are
-     * assigned to the box, otherwise the value is displayed
-     * inside the box.
-     * </p>
-     */
     @Override
     public void setLabel(String label) {
         this.label.setText(label);
@@ -227,6 +219,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         if (!getPlaceholder().isEmpty()) {
             this.label.setStyleName(CssName.ACTIVE);
         }
+    }
+
+    @Override
+    public String getLabel() {
+        return label.getText();
     }
 
     @Override
@@ -592,7 +589,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         return valueBoxBase;
     }
 
-    public Label getLabel() {
+    public Label getLabelWidget() {
         return label;
     }
 

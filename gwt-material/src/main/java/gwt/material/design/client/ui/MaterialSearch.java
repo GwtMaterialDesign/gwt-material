@@ -356,7 +356,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     }
 
     @Override
-    public Label getLabel() {
+    public Label getLabelWidget() {
         return label;
     }
 

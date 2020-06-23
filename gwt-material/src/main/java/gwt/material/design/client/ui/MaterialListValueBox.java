@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -555,12 +555,23 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     /**
      * Starting GMD 2.3.1 we standardized the labelling system
      * of all value widget fields. Please check {@link HasLabel#setLabel(String)}
-     * for the new setter.
+     * for the new getter and setter.
      */
     @Deprecated
     @Override
     public void setPlaceholder(String placeholder) {
         setLabel(placeholder);
+    }
+
+    /**
+     * Starting GMD 2.3.1 we standardized the labelling system
+     * of all value widget fields. Please check {@link HasLabel#getLabel()}
+     * for the new getter and setter.
+     */
+    @Deprecated
+    @Override
+    public String getPlaceholder() {
+        return getLabel();
     }
 
     @Override
@@ -569,7 +580,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     }
 
     @Override
-    public String getPlaceholder() {
+    public String getLabel() {
         return label.getText();
     }
 
@@ -1009,7 +1020,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return statusTextMixin;
     }
 
-    public Label getLabel() {
+    public Label getLabelWidget() {
         return label;
     }
 
