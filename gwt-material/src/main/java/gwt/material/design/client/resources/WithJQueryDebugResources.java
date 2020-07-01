@@ -24,6 +24,6 @@ import com.google.gwt.resources.client.TextResource;
 
 public interface WithJQueryDebugResources extends ClientBundle {
 
-    @Source("js/jquery-2.1.1.js")
+    @Source("js/jquery-3.5.1.js")
     TextResource jQueryDebug();
 }

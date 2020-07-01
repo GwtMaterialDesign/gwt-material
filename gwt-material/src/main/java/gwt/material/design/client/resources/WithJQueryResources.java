@@ -24,6 +24,6 @@ import com.google.gwt.resources.client.TextResource;
 
 public interface WithJQueryResources extends ClientBundle {
 
-    @Source("js/jquery-2.1.1.min.js")
+    @Source("js/jquery-3.5.1.min.js")
     TextResource jQuery();
 }
