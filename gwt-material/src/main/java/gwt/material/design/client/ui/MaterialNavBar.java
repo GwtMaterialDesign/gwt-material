@@ -88,7 +88,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         navMenu.setIconPosition(IconPosition.NONE);
 
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
-        Element sideNavElement = $("#" + getActivatesMixin().getActivates()).asElement();
+        Element sideNavElement = $("\\#" + getActivatesMixin().getActivates()).asElement();
 
         navMenu.setDisplay(sideNavElement == null ? Display.NONE : Display.INITIAL);
     }

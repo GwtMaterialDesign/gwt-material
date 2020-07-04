@@ -20,12 +20,9 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.JsLoader;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
-
-import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -95,7 +92,7 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
     @Override
     public void load() {
         clearActiveState();
-        $(".scrollspy").scrollSpy();
+        /*$(".scrollspy").scrollSpy();*/
     }
 
     @Override
