@@ -8578,8 +8578,8 @@ nav ul li a {
 /**
 * Async Switch and CheckBox
 */
-.checkbox,
-.switch {
+.async.checkbox,
+.async.switch {
   position: relative;
   display: inline-block !important; }
 
