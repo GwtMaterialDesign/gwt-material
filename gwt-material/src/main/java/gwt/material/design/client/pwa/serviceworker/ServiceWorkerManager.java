@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,7 +58,8 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     private Map<Class<? extends ServiceWorkerPlugin>, ServiceWorkerPlugin> plugins = new LinkedHashMap();
     private NetworkStatusManager networkStatusManager = new NetworkStatusManager();
 
-    protected ServiceWorkerManager() {}
+    protected ServiceWorkerManager() {
+    }
 
     public ServiceWorkerManager(PwaManager manager, String resource) {
         this(resource);
@@ -104,7 +105,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     protected void setupRegistration() {
         if (isServiceWorkerSupported()) {
-            Navigator.serviceWorker.register(getResource(), getOption()).then(object -> {
+            Navigator.serviceWorker.register(getResource(), getOption()).then((e, object) -> {
                 logger.info("Service worker has been successfully registered");
                 registration = (ServiceWorkerRegistration) object;
 
@@ -118,7 +119,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
                 setupOnMessageEvent();
                 setupOnErrorEvent();
                 return null;
-            }, error -> {
+            }).fail((e, error) -> {
                 logger.info("ServiceWorker registration failed: " + error);
                 return null;
             });
@@ -172,8 +173,9 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
 
     /**
      * Will listen and observe to service worker life cycle. This method also tracks if there are incoming service worker.
-     * @see <a href="https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle">Service Worker Lifecycles</a>
+     *
      * @param registration - The Service Worker Registration
+     * @see <a href="https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle">Service Worker Lifecycles</a>
      */
     protected void observeLifecycle(ServiceWorkerRegistration registration) {
         registration.onupdatefound = event -> {
@@ -347,7 +349,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onRegistered(ServiceEvent event, ServiceWorkerRegistration registration) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onRegistered(event, registration) || event.isStopPropagation()) {
+            if (plugin.onRegistered(event, registration) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -361,7 +363,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onInstalling(ServiceEvent event) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onInstalling(event) || event.isStopPropagation()) {
+            if (plugin.onInstalling(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -375,7 +377,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onInstalled(ServiceEvent event) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onInstalled(event) || event.isStopPropagation()) {
+            if (plugin.onInstalled(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -389,7 +391,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onActivating(ServiceEvent event) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onActivating(event) || event.isStopPropagation()) {
+            if (plugin.onActivating(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -403,7 +405,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onActivated(ServiceEvent event) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onActivated(event) || event.isStopPropagation()) {
+            if (plugin.onActivated(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -417,7 +419,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onRedundant(ServiceEvent event) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onRedundant(event) || event.isStopPropagation()) {
+            if (plugin.onRedundant(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -431,7 +433,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onControllerChange(ServiceEvent event) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onControllerChange(event) || event.isStopPropagation()) {
+            if (plugin.onControllerChange(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -445,7 +447,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onNewServiceWorkerFound(ServiceEvent event, ServiceWorker serviceWorker) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onNewServiceWorkerFound(event, serviceWorker) || event.isStopPropagation()) {
+            if (plugin.onNewServiceWorkerFound(event, serviceWorker) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -461,7 +463,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         GWT.log("Network Status is now online");
 
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onOnline(event) || event.isStopPropagation()) {
+            if (plugin.onOnline(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -477,7 +479,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         GWT.log("Network Status is now offline");
 
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onOffline(event) || event.isStopPropagation()) {
+            if (plugin.onOffline(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -493,7 +495,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         GWT.log("Can't connect to the server at the moment.", new RuntimeException());
 
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onServerFailing(event) || event.isStopPropagation()) {
+            if (plugin.onServerFailing(event) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -509,7 +511,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
         GWT.log("Message received: " + data);
 
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onMessageReceived(event, data) || event.isStopPropagation()) {
+            if (plugin.onMessageReceived(event, data) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }
@@ -523,7 +525,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
     @Override
     public boolean onError(ServiceEvent event, String message) {
         for (ServiceWorkerPlugin plugin : plugins.values()) {
-            if(plugin.onError(event, message) || event.isStopPropagation()) {
+            if (plugin.onError(event, message) || event.isStopPropagation()) {
                 break; // Stop propagation
             }
         }

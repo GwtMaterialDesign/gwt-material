@@ -21,9 +21,9 @@ package gwt.material.design.client.pwa.serviceworker.js;
 
 
 import gwt.material.design.client.pwa.push.js.Notification;
-import gwt.material.design.jquery.client.api.Functions;
-import gwt.material.design.jscore.client.api.promise.Promise;
 import gwt.material.design.client.pwa.push.js.PushManager;
+import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jquery.client.api.Promise;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
