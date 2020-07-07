@@ -21,11 +21,11 @@ package gwt.material.design.client.pwa.push;
 
 import com.google.gwt.core.client.GWT;
 import gwt.material.design.client.pwa.push.helper.PushCryptoHelper;
-import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.client.pwa.push.js.PushManager;
 import gwt.material.design.client.pwa.push.js.PushSubscription;
 import gwt.material.design.client.pwa.push.js.PushSubscriptionOptions;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
+import gwt.material.design.jquery.client.api.Functions;
 
 /**
  * A class that manage all Push Notification Services to the Service Worker.
