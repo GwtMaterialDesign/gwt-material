@@ -9477,6 +9477,9 @@ table .gwt-CheckBox label {
 .table-container .top-panel {
   background: #42A5F5; }
 
+.tabs .tab a {
+  color: #cbe2f5; }
+
 /**
 * Date Picker - Landscape
 **/
