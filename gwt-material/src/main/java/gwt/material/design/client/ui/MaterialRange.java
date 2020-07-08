@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,6 @@ import com.google.gwt.user.client.Window;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasInputChangeHandler;
 import gwt.material.design.client.base.HasStatusText;
-import gwt.material.design.client.base.MaterialWidget;
-import gwt.material.design.client.base.mixin.EnabledMixin;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
@@ -74,7 +72,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
     private MaterialLabel errorLabel = new MaterialLabel();
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
-    private ToggleStyleMixin<MaterialWidget> toggleThumbStyleMixin;
+    private ToggleStyleMixin<MaterialRange> enableThumbMixin;
 
     /**
      * Creates a range
@@ -249,11 +247,11 @@ public class MaterialRange extends AbstractValueWidget<Integer>
     }
 
     public boolean isEnableThumb() {
-        return getToggleThumbStyleMixin().isOn();
+        return getEnableThumbMixin().isOn();
     }
 
     public void setEnableThumb(boolean enableThumb) {
-        getToggleThumbStyleMixin().setOn(!enableThumb);
+        getEnableThumbMixin().setOn(!enableThumb);
     }
 
     public boolean isAutoBlur() {
@@ -327,10 +325,10 @@ public class MaterialRange extends AbstractValueWidget<Integer>
         return statusTextMixin;
     }
 
-    public ToggleStyleMixin<MaterialWidget> getToggleThumbStyleMixin() {
-        if (toggleThumbStyleMixin == null) {
-            toggleThumbStyleMixin = new ToggleStyleMixin<>(this, CssName.NO_THUMB);
+    public ToggleStyleMixin<MaterialRange> getEnableThumbMixin() {
+        if (enableThumbMixin == null) {
+            enableThumbMixin = new ToggleStyleMixin<>(this, CssName.NO_THUMB);
         }
-        return toggleThumbStyleMixin;
+        return enableThumbMixin;
     }
 }

@@ -9272,6 +9272,9 @@ input[type=range]::-ms-fill-lower {
 .range-field {
   padding-top: 12px; }
 
+.no-thumb .range-field .thumb {
+  display: none; }
+
 input[type=range] {
   border: none;
   color: transparent;
