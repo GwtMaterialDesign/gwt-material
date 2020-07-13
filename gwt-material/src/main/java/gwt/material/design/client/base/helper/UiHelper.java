@@ -75,6 +75,7 @@ public final class UiHelper {
         return Window.getClientHeight() - widget.getAbsoluteTop() - widget.getOffsetHeight();
     }
 
+    //TODO: Convert to JSInterop
     public static native boolean isTouchScreenDevice() /*-{
         return 'ontouchstart' in document.documentElement;
     }-*/;

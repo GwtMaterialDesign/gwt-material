@@ -281,6 +281,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         setSelectedLink(link);
     }
 
+    //TODO: Convert to JSInterop
     protected native void locateSearch(String location)/*-{
         $wnd.window.location.hash = location;
     }-*/;

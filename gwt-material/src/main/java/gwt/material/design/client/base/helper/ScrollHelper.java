@@ -201,6 +201,7 @@ public class ScrollHelper {
         return elementBottom > viewportTop && elementTop < viewportBottom;
     }
 
+    //TODO: Convert to JSInterop
     protected native double getElementTop(Element element) /*-{
         var rectObject = element.getBoundingClientRect();
         return rectObject.top;
