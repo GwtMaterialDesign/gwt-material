@@ -26,4 +26,7 @@ public interface WithJQueryResources extends ClientBundle {
 
     @Source("js/jquery-3.5.1.min.js")
     TextResource jQuery();
+
+    @Source("js/jquery-3.5.1.js")
+    TextResource jQueryDebug();
 }

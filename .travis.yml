@@ -16,7 +16,6 @@ install: true
 before_script:
  - chmod +x .utility/*
 script:
-# TODO: Remove skip test
-- mvn clean install -DdryRun=true -DskipTests=true
+- mvn clean install -DdryRun=true
 after_success:
 - .utility/deploy.sh

@@ -65,7 +65,7 @@ public abstract class MaterialWidgetTest<T extends MaterialWidget> extends Mater
     }
 
     protected void checkVerticalAlign(MaterialWidget widget, Style.VerticalAlign value, boolean checkElement) {
-        widget.setVerticalAlign(value);
+        widget.getElement().setAttribute("style", "vertical-align: " + value.getCssName());
         assertEquals(value.getCssName(), widget.getVerticalAlign());
         if (checkElement) {
             assertEquals(widget.getVerticalAlign(), widget.getElement().getStyle().getVerticalAlign());

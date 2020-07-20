@@ -23,7 +23,7 @@ import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class Thing {
 
     @JsMethod
