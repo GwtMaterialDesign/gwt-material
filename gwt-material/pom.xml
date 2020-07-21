@@ -142,7 +142,7 @@
                             <testArgs>
                                 <testArg>-checkAssertions</testArg>
                             </testArgs>
-                            <skipTests>true</skipTests>
+                            <skipTests>false</skipTests>
                         </configuration>
                     </execution>
                 </executions>
