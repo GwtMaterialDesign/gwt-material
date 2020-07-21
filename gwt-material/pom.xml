@@ -33,13 +33,13 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.23</version>
+            <version>${htmlunit.version}</version>
         </dependency>
     </dependencies>
 
@@ -56,28 +56,42 @@
         </repository>
     </repositories>
 
+    <!-- TODO Update the testing -->
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
-                    <additionalClasspathElements>
-                        <additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
-                        <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
-                    </additionalClasspathElements>
-                    <useManifestOnlyJar>false</useManifestOnlyJar>
-                    <forkMode>always</forkMode>
-                    <argLine>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.NoOpLog</argLine>
+                    <excludes>
+                        <exclude>**/client/*.java</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
+                        <phase>test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <!--
+				The integration-test phase runs after regular test phase (but before verify/install).
+				We use this to our advantage to peak at the compiled output from the GWTTestSuite
+				 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.plugin}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*.class</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
@@ -98,15 +112,39 @@
                         <compilerArg>-compileReport</compilerArg>
                         <compilerArg>-XcompilerMetrics</compilerArg>
                     </compilerArgs>
+                    <skipModule>true</skipModule>
                     <classpathScope>compile+runtime</classpathScope>
                     <failOnError>true</failOnError>
-                    <skipModule>true</skipModule>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>compile</id>
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>default-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <!--
+							Because we expressly disable asserts in tests to avoid a compiler bug, we also must run surefire manually
+							on the JRE tests
+							 -->
+                            <includes>
+                                <include>**/**Test.java</include>
+                            </includes>
+
+                            <!-- disable JVM asserts, but enable JS asserts for tests -->
+                            <enableAssertions>false</enableAssertions>
+                            <testArgs>
+                                <testArg>-checkAssertions</testArg>
+                                <testArg>-runStyle</testArg>
+                            </testArgs>
+                            <skipTests>true</skipTests>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

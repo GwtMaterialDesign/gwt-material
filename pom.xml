@@ -49,6 +49,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.failsafe.plugin>2.22.1</maven.failsafe.plugin>
         <project.encoding>UTF-8</project.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -58,7 +59,10 @@
         <surefire.version>2.6</surefire.version>
         <gwt.version>2.9.0</gwt.version>
         <tbroyer.version>1.0.0</tbroyer.version>
+        <junit.version>4.12</junit.version>
+        <htmlunit.version>2.23</htmlunit.version>
         <gwt.style>OBF</gwt.style>
+
     </properties>
 
     <scm>
