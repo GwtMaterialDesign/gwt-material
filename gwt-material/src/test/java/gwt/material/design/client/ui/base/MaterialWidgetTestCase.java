@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client;
+package gwt.material.design.client.ui.base;
 
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Document;

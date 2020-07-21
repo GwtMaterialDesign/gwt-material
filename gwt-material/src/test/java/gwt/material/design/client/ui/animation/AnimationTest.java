@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui.animation;
 
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.MaterialTestCase;
+import gwt.material.design.client.ui.base.MaterialTestCase;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.animate.MaterialAnimation;
 import gwt.material.design.client.ui.animate.Transition;

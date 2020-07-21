@@ -22,7 +22,6 @@ package gwt.material.design.client.ui.base;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.UIObject;
-import gwt.material.design.client.MaterialWidgetTestCase;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialPanel;

@@ -97,7 +97,7 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
 
         widget.setStatusDisplayType(StatusDisplayType.DEFAULT);
         assertEquals(StatusDisplayType.DEFAULT, widget.getStatusDisplayType());
-        assertTrue(widget.getElement().hasClassName(StatusDisplayType.DEFAULT.getCssName()));
+        assertTrue(widget.getElement().getClassName().isEmpty());
 
         widget.setStatusDisplayType(StatusDisplayType.HOVERABLE);
         assertEquals(StatusDisplayType.HOVERABLE, widget.getStatusDisplayType());

@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.MaterialTestCase;
+import gwt.material.design.client.ui.base.MaterialTestCase;
 import gwt.material.design.client.constants.Position;
 
 /**

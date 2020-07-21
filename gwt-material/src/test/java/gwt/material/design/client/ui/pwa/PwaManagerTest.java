@@ -17,11 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
+package gwt.material.design.client.ui.pwa;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.MaterialTestCase;
+import gwt.material.design.client.ui.base.MaterialTestCase;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 import gwt.material.design.client.ui.base.CustomServiceWorker;

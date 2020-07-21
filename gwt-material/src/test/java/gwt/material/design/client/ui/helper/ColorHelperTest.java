@@ -17,25 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui.base.helper;
+package gwt.material.design.client.ui.helper;
 
-import gwt.material.design.client.MaterialTestCase;
-import gwt.material.design.client.base.helper.EnumHelper;
+import gwt.material.design.client.ui.base.MaterialTestCase;
+import gwt.material.design.client.base.helper.ColorHelper;
 import gwt.material.design.client.constants.Color;
 
 /**
- * Test case for {@link EnumHelper}.
+ * Test case for {@link gwt.material.design.client.base.helper.ColorHelper}.
  */
-public class EnumHelperTest extends MaterialTestCase {
+public class ColorHelperTest extends MaterialTestCase {
 
     public void testFromStyleName() {
-        assertEquals(Color.PINK,
-            EnumHelper.fromStyleName("pink", Color.class, Color.DEFAULT));
-
-        assertEquals(Color.PINK,
-            EnumHelper.fromStyleName("pink lighten-1", Color.class, Color.DEFAULT));
-
         assertEquals(Color.PINK_LIGHTEN_1,
-            EnumHelper.fromStyleName("pink lighten-1", Color.class, Color.DEFAULT, true));
+            ColorHelper.fromStyleName("pink lighten-1", Color.class, Color.DEFAULT));
     }
 }

@@ -64,7 +64,7 @@
                 <version>${surefire.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/client/*.java</exclude>
+                        <exclude>**/**.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -133,10 +133,12 @@
 							Because we expressly disable asserts in tests to avoid a compiler bug, we also must run surefire manually
 							on the JRE tests
 							 -->
+                            <excludes>
+                                <exclude>**/ui/**.java</exclude>
+                            </excludes>
                             <includes>
-                                <include>**/**Test.java</include>
+                                <include>**/MaterialWidgetTestSuite.java</include>
                             </includes>
-
                             <!-- disable JVM asserts, but enable JS asserts for tests -->
                             <enableAssertions>false</enableAssertions>
                             <testArgs>

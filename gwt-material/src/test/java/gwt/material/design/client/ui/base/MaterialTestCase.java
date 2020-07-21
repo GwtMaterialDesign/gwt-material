@@ -17,11 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client;
+package gwt.material.design.client.ui.base;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.resources.MaterialResources;
 import gwt.material.design.client.resources.WithJQueryResources;
 import org.junit.Ignore;
