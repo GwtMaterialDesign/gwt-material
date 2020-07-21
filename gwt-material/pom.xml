@@ -141,7 +141,6 @@
                             <enableAssertions>false</enableAssertions>
                             <testArgs>
                                 <testArg>-checkAssertions</testArg>
-                                <testArg>-runStyle</testArg>
                             </testArgs>
                             <skipTests>true</skipTests>
                         </configuration>
