@@ -28,7 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
 import org.junit.Ignore;
 
 @Ignore
-public abstract class WidgetTestCase<T extends Widget> extends MaterialTestCase {
+public abstract class WidgetTestCase<T extends Widget> extends BaseTestCase {
 
     private T widget;
 

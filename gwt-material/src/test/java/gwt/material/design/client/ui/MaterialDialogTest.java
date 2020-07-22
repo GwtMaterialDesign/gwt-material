@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.DialogType;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -33,7 +33,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialDialogTest extends MaterialWidgetTest<MaterialDialog> {
+public class MaterialDialogTest extends MaterialWidgetTestCase<MaterialDialog> {
 
     @Override
     protected MaterialDialog createWidget() {

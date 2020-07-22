@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.Span;
 
@@ -29,7 +29,7 @@ import gwt.material.design.client.ui.html.Span;
  *
  * @author kevzlou7979
  */
-public class MaterialSwitchTest extends MaterialWidgetTest<MaterialSwitch> {
+public class MaterialSwitchTest extends MaterialWidgetTestCase<MaterialSwitch> {
 
     @Override
     protected MaterialSwitch createWidget() {

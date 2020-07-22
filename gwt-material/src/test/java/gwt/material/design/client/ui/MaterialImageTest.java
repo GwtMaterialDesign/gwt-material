@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ImageType;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * Test case for Image.
@@ -29,7 +29,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialImageTest extends MaterialWidgetTest<MaterialImage> {
+public class MaterialImageTest extends MaterialWidgetTestCase<MaterialImage> {
 
     @Override
     protected MaterialImage createWidget() {

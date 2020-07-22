@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui.animation;
 
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.ui.base.MaterialTestCase;
+import gwt.material.design.client.ui.base.BaseTestCase;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.animate.MaterialAnimation;
 import gwt.material.design.client.ui.animate.Transition;
@@ -31,7 +31,7 @@ import gwt.material.design.client.ui.animate.Transition;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class AnimationTest extends MaterialTestCase {
+public class AnimationTest extends BaseTestCase {
 
     public void testAnimation() {
         MaterialPanel panel = new MaterialPanel();

@@ -145,6 +145,7 @@
                                 <testArg>-checkAssertions</testArg>
                             </testArgs>
                             <skipTests>false</skipTests>
+                            <style>OBFUSCATED</style>
                         </configuration>
                     </execution>
                 </executions>

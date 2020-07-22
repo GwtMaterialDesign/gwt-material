@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * Test case for Nav Brand.
@@ -29,7 +29,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialNavBrandTest extends MaterialWidgetTest<MaterialNavBrand> {
+public class MaterialNavBrandTest extends MaterialWidgetTestCase<MaterialNavBrand> {
 
     @Override
     protected MaterialNavBrand createWidget() {

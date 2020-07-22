@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 import gwt.material.design.client.ui.html.Div;
 
 /**
@@ -29,7 +29,7 @@ import gwt.material.design.client.ui.html.Div;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialParallaxTest extends MaterialWidgetTest<MaterialParallax> {
+public class MaterialParallaxTest extends MaterialWidgetTestCase<MaterialParallax> {
 
     @Override
     protected MaterialParallax createWidget() {

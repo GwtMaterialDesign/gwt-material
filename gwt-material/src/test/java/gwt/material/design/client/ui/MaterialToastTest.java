@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Timer;
-import gwt.material.design.client.ui.base.MaterialTestCase;
+import gwt.material.design.client.ui.base.BaseTestCase;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
@@ -31,7 +31,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialToastTest extends MaterialTestCase {
+public class MaterialToastTest extends BaseTestCase {
 
     public void testMultipleToasts() {
         for (int i = 1; i <= 5; i++) {

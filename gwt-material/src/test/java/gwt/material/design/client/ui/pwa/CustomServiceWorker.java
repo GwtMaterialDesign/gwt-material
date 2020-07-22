@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui.base;
+package gwt.material.design.client.ui.pwa;
 
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
 

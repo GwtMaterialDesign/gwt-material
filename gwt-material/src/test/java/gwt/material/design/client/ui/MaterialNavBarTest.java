@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.NavBarExpandEvent;
 import gwt.material.design.client.events.NavBarShrinkEvent;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 import gwt.material.design.client.ui.html.Div;
 
 /**
@@ -33,7 +33,7 @@ import gwt.material.design.client.ui.html.Div;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialNavBarTest extends MaterialWidgetTest<MaterialNavBar> {
+public class MaterialNavBarTest extends MaterialWidgetTestCase<MaterialNavBar> {
 
     @Override
     protected MaterialNavBar createWidget() {

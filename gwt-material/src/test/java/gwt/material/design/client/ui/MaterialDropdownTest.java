@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.constants.Alignment;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 import gwt.material.design.client.ui.html.ListItem;
 
 /**
@@ -31,7 +31,7 @@ import gwt.material.design.client.ui.html.ListItem;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
+public class MaterialDropdownTest extends MaterialWidgetTestCase<MaterialDropDown> {
 
     @Override
     protected MaterialDropDown createWidget() {

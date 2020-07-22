@@ -33,6 +33,7 @@ public class MaterialWidgetTestSuite extends GWTTestSuite {
 
     public static Test suite() {
         TestSuite suite = new TestSuite("Test Suite for GMD Widgets");
+
         // Core / Materialize Widget Tests
         suite.addTestSuite(MaterialBadgeTest.class);
         suite.addTestSuite(MaterialBigDecimalBoxTest.class);

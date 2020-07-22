@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.ui.base.MaterialTestCase;
+import gwt.material.design.client.ui.base.BaseTestCase;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.LoaderSize;
@@ -34,7 +34,7 @@ import gwt.material.design.client.constants.SpinnerColor;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialLoaderTest extends MaterialTestCase {
+public class MaterialLoaderTest extends BaseTestCase {
 
     public void testLoaderBasic() {
         MaterialLoader.loading(true);

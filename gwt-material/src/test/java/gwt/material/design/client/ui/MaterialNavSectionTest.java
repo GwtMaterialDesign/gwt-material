@@ -24,7 +24,7 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.Position;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 import gwt.material.design.client.ui.html.ListItem;
 
 /**
@@ -33,7 +33,7 @@ import gwt.material.design.client.ui.html.ListItem;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialNavSectionTest extends MaterialWidgetTest<MaterialNavSection> {
+public class MaterialNavSectionTest extends MaterialWidgetTestCase<MaterialNavSection> {
 
     @Override
     protected MaterialNavSection createWidget() {

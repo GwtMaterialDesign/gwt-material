@@ -36,7 +36,7 @@ import gwt.material.design.client.events.SideNavOpeningEvent;
 import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.ListItem;
 
-public abstract class AbstractSideNavTest<T extends AbstractSideNav> extends MaterialWidgetTest<T> {
+public abstract class AbstractSideNavTest<T extends AbstractSideNav> extends MaterialWidgetTestCase<T> {
 
     protected static MaterialNavBar navBar;
     protected static final String ACTIVATES = "activates";
