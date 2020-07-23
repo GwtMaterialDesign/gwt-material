@@ -129,7 +129,6 @@ public class MaterialRangeTest extends AbstractValueWidgetTest<MaterialRange> {
         checkFieldErrorSuccess(range, range.getErrorLabel());
     }
 
-    //TODO: Test Failed
     public void testChangeHandler() {
         MaterialRange range = getWidget();
 

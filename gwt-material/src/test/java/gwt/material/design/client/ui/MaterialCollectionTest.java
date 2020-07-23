@@ -100,9 +100,8 @@ public class MaterialCollectionTest extends MaterialWidgetTestCase<MaterialColle
         assertFalse(item.getElement().hasClassName(CssName.DISMISSABLE));
     }
 
-    //TODO: Test Failed
     public void testCollectionItem() {
-        /*// given
+        // given
         MaterialCollection collection = getWidget();
 
         // when / then
@@ -123,7 +122,7 @@ public class MaterialCollectionTest extends MaterialWidgetTestCase<MaterialColle
             assertTrue(clickHandler[0]);
             assertTrue(linkClickHandler[0]);
         }
-        assertEquals(5, collection.getChildren().size());*/
+        assertEquals(5, collection.getChildren().size());
     }
 
     public void testCheckBoxType() {
