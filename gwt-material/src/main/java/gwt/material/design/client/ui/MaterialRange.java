@@ -154,7 +154,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
     protected void updateProgressWidth(int value) {
         double range = ((value - getMin()) * 100.0) / (getMax() - getMin());
-        progress.setWidth(range + "%");
+        progress.setWidth(range > 0 ? range + "%" : "0px");
     }
 
     /**
