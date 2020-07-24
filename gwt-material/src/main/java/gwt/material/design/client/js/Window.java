@@ -26,10 +26,12 @@ import jsinterop.annotations.JsType;
 @JsType
 public class Window {
 
+    //TODO: Convert to JSInterop
     public static native boolean matchMedia(String query) /*-{
         return $wnd.window.matchMedia(query).matches;
     }-*/;
 
+    //TODO: Convert to JSInterop
     public static native MediaQueryList getMediaQueryList(String query) /*-{
         return $wnd.window.matchMedia(query);
     }-*/;

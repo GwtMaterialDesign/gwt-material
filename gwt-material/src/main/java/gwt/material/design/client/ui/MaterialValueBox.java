@@ -69,8 +69,8 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 //@formatter:on
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
     HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
-    HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes, HasAutocomplete,
-    HasToggleReadOnlyHandler, HasPasteHandlers {
+    HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes,
+    HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel {
 
 
     private boolean returnBlankAsNull;
@@ -89,6 +89,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private FocusableMixin<MaterialWidget> focusableMixin;
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
+    private FieldSensitivityMixin<MaterialValueBox> fieldSensitivityMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -121,6 +122,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setup(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
+        setAutocomplete(false);
     }
 
     @Deprecated
@@ -210,20 +212,18 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         }
     }
 
-    /**
-     * Set the label of this field.
-     * <p>
-     * This will be displayed above the field when values are
-     * assigned to the box, otherwise the value is displayed
-     * inside the box.
-     * </p>
-     */
+    @Override
     public void setLabel(String label) {
         this.label.setText(label);
 
         if (!getPlaceholder().isEmpty()) {
             this.label.setStyleName(CssName.ACTIVE);
         }
+    }
+
+    @Override
+    public String getLabel() {
+        return label.getText();
     }
 
     @Override
@@ -501,8 +501,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void setReadOnly(boolean readOnly) {
-        getReadOnlyMixin().setReadOnly(readOnly);
+    public void setReadOnly(boolean value) {
+        getReadOnlyMixin().setReadOnly(value);
     }
 
     @Override
@@ -574,12 +574,22 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         return valueBoxBase.getElement().getAttribute("autocomplete").equals("on");
     }
 
+    @Override
+    public void setSensitive(boolean sensitive) {
+        getFieldSensitivityMixin().setSensitive(sensitive);
+    }
+
+    @Override
+    public boolean isSensitive() {
+        return getFieldSensitivityMixin().isSensitive();
+    }
+
     @Ignore
     public ValueBoxBase<T> getValueBoxBase() {
         return valueBoxBase;
     }
 
-    public Label getLabel() {
+    public Label getLabelWidget() {
         return label;
     }
 
@@ -867,11 +877,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public HandlerRegistration addToggleReadOnlyHandler(ToggleReadOnlyEvent.ToggleReadOnlyHandler handler) {
-        return addHandler(handler, ToggleReadOnlyEvent.getType());
-    }
-
-    @Override
     public HandlerRegistration addPasteHandler(PasteEvent.PasteEventHandler handler) {
         return addHandler(handler, PasteEvent.getType());
     }
@@ -918,5 +923,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldTypeMixin = new FieldTypeMixin<>(this, label, valueBoxBase, errorLabel);
         }
         return fieldTypeMixin;
+    }
+
+    protected FieldSensitivityMixin<MaterialValueBox> getFieldSensitivityMixin() {
+        if (fieldSensitivityMixin == null) {
+            fieldSensitivityMixin = new FieldSensitivityMixin(this);
+        }
+        return fieldSensitivityMixin;
     }
 }

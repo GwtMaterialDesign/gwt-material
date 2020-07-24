@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.Orientation;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * Test case for Cards.
@@ -31,7 +31,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialCardTest extends MaterialWidgetTest<MaterialCard> {
+public class MaterialCardTest extends MaterialWidgetTestCase<MaterialCard> {
 
     @Override
     protected MaterialCard createWidget() {

@@ -59,8 +59,8 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         assertEquals(CssName.INPUT_FIELD, picker.getInitialClasses()[0]);
         assertEquals(3, picker.getWidgetCount());
         assertEquals(picker.getDateInput(), picker.getWidget(0));
-        assertEquals(picker.getLabel(), picker.getWidget(1));
-        assertEquals(picker.getPlaceholderLabel(), picker.getLabel().getWidget(0));
+        assertEquals(picker.getLabelWrapper(), picker.getWidget(1));
+        assertEquals(picker.getLabelWidget(), picker.getLabelWrapper().getWidget(0));
         assertEquals(picker.getErrorLabel(), picker.getWidget(2));
     }
 
@@ -91,7 +91,7 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         MaterialDatePicker datePicker = getWidget();
 
         // when / then
-        checkFieldErrorSuccess(datePicker, datePicker.getErrorLabel(), datePicker.getDateInput(), datePicker.getPlaceholderLabel());
+        checkFieldErrorSuccess(datePicker, datePicker.getErrorLabel(), datePicker.getDateInput(), datePicker.getLabelWidget());
     }
 
     public void testReadOnly() {
@@ -183,7 +183,7 @@ public class MaterialDatePickerTest extends AbstractValueWidgetTest<MaterialDate
         picker.clear();
 
         assertEquals("", picker.getDateInput().getElement().getInnerText());
-        assertFalse(picker.getLabel().getElement().hasClassName(CssName.ACTIVE));
+        assertFalse(picker.getLabelWrapper().getElement().hasClassName(CssName.ACTIVE));
         assertFalse(picker.getDateInput().getElement().hasClassName(CssName.VALID));
         assertFalse(picker.getDateInput().getElement().hasClassName(CssName.INVALID));
 

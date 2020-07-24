@@ -17,13 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui.base;
+package gwt.material.design.client.ui.helper;
 
-import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
+import gwt.material.design.client.ui.base.BaseTestCase;
+import gwt.material.design.client.base.helper.ColorHelper;
+import gwt.material.design.client.constants.Color;
 
-public class CustomServiceWorker extends ServiceWorkerManager {
+/**
+ * Test case for {@link gwt.material.design.client.base.helper.ColorHelper}.
+ */
+public class ColorHelperTest extends BaseTestCase {
 
-    public CustomServiceWorker(String resource) {
-        super(resource);
+    public void testFromStyleName() {
+        assertEquals(Color.PINK_LIGHTEN_1,
+            ColorHelper.fromStyleName("pink lighten-1", Color.class, Color.DEFAULT));
     }
 }

@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 import gwt.material.design.client.ui.html.UnorderedList;
 
 /**
@@ -30,7 +30,7 @@ import gwt.material.design.client.ui.html.UnorderedList;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialSliderTest extends MaterialWidgetTest<MaterialSlider> {
+public class MaterialSliderTest extends MaterialWidgetTestCase<MaterialSlider> {
 
     @Override
     protected MaterialSlider createWidget() {

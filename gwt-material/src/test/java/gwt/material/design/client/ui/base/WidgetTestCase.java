@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client;
+package gwt.material.design.client.ui.base;
 
 import com.google.gwt.event.logical.shared.HasAttachHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
@@ -28,7 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
 import org.junit.Ignore;
 
 @Ignore
-public abstract class WidgetTestCase<T extends Widget> extends MaterialTestCase {
+public abstract class WidgetTestCase<T extends Widget> extends BaseTestCase {
 
     private T widget;
 

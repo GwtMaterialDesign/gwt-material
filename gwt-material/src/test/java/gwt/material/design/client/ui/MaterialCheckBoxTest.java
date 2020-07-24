@@ -21,7 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.WidgetTestCase;
+import gwt.material.design.client.ui.base.WidgetTestCase;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.constants.CssName;
 

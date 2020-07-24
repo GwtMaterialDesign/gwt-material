@@ -21,13 +21,13 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.MaterialTestCase;
+import gwt.material.design.client.ui.base.BaseTestCase;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.ProgressType;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
-public class MaterialProgressTest extends MaterialTestCase {
+public class MaterialProgressTest extends BaseTestCase {
 
     public void testProgressBasic() {
         MaterialLoader.progress(true);
@@ -77,7 +77,7 @@ public class MaterialProgressTest extends MaterialTestCase {
         MaterialWidget progressDiv = (MaterialWidget) progress.getWidget(0);
         assertEquals("90%", progressDiv.getElement().getStyle().getWidth());
         // Check color
-        MaterialWidgetTest.checkColor(progress);
+        MaterialWidgetTestCase.checkColor(progress);
     }
 
     protected void checkProgressValue(MaterialProgress progress) {

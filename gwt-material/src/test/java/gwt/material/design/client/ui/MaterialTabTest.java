@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.TabType;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * Test case for Tabs.
@@ -34,7 +34,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialTabTest extends MaterialWidgetTest<MaterialTab> {
+public class MaterialTabTest extends MaterialWidgetTestCase<MaterialTab> {
 
     private MaterialRow row;
 

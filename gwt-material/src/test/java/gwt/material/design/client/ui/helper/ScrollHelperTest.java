@@ -17,12 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui.base.helper;
+package gwt.material.design.client.ui.helper;
 
 import gwt.material.design.client.base.helper.ScrollHelper;
 import gwt.material.design.client.constants.OffsetPosition;
 import gwt.material.design.client.ui.MaterialPanel;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 import gwt.material.design.jquery.client.api.Functions;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -32,7 +32,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  *
  * @author kevzlou7979@gmail.com
  */
-public class ScrollHelperTest extends MaterialWidgetTest<MaterialPanel> {
+public class ScrollHelperTest extends MaterialWidgetTestCase<MaterialPanel> {
 
     @Override
     protected MaterialPanel createWidget() {

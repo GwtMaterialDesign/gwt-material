@@ -29,6 +29,6 @@ import org.junit.Ignore;
  * @author Ben Dol
  */
 @Ignore
-public abstract class AbstractValueWidgetTest<T extends AbstractValueWidget> extends MaterialWidgetTest<T> {
+public abstract class AbstractValueWidgetTest<T extends AbstractValueWidget> extends MaterialWidgetTestCase<T> {
 
 }

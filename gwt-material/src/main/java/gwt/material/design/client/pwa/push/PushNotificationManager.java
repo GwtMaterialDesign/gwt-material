@@ -21,11 +21,11 @@ package gwt.material.design.client.pwa.push;
 
 import com.google.gwt.core.client.GWT;
 import gwt.material.design.client.pwa.push.helper.PushCryptoHelper;
-import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.client.pwa.push.js.PushManager;
 import gwt.material.design.client.pwa.push.js.PushSubscription;
 import gwt.material.design.client.pwa.push.js.PushSubscriptionOptions;
 import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerRegistration;
+import gwt.material.design.jquery.client.api.Functions;
 
 /**
  * A class that manage all Push Notification Services to the Service Worker.
@@ -44,7 +44,7 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
     @Override
     public void load(Functions.Func1<PushSubscription> callback) {
         if (isSupported()) {
-            getPushManager().getSubscription().then(object -> {
+            getPushManager().getSubscription().then((e, object) -> {
                 subscribed = object != null;
                 PushSubscription subscription = (PushSubscription) object;
                 callback.call(subscription);
@@ -58,7 +58,7 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
         PushSubscriptionOptions options = new PushSubscriptionOptions();
         options.userVisibleOnly = userVisibleOnly;
         options.applicationServerKey = PushCryptoHelper.Base64ToArrayBuffer(applicationServerKey);
-        getPushManager().subscribe(options).then(object -> {
+        getPushManager().subscribe(options).then((e, object) -> {
             PushSubscription subscription = (PushSubscription) object;
             subscribed = subscription != null;
             callback.call(subscription);
@@ -73,7 +73,7 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
 
     @Override
     public void unsubscribe(Functions.Func callback) {
-        getPushManager().getSubscription().then(object -> {
+        getPushManager().getSubscription().then((e, object) -> {
             PushSubscription subscription;
             if (object != null) {
                 subscription = (PushSubscription) object;

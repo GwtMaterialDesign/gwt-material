@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2020 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,19 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui.base.helper;
+package gwt.material.design.client.ui.animate.debugger;
 
-import gwt.material.design.client.MaterialTestCase;
-import gwt.material.design.client.base.helper.ColorHelper;
-import gwt.material.design.client.constants.Color;
+public class AnimationGlobalConfig {
 
-/**
- * Test case for {@link gwt.material.design.client.base.helper.ColorHelper}.
- */
-public class ColorHelperTest extends MaterialTestCase {
-
-    public void testFromStyleName() {
-        assertEquals(Color.PINK_LIGHTEN_1,
-            ColorHelper.fromStyleName("pink lighten-1", Color.class, Color.DEFAULT));
-    }
+    public static AnimationSpeed SPEED = AnimationSpeed.NORMAL;
+    public static Boolean ENABLE_DEBUGGING = false;
+    public static Boolean ENABLE_ANIMATION = true;
 }

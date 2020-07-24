@@ -140,7 +140,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         add(label);
         add(iconClose);
 
-        registerHandler(iconClose.addMouseDownHandler(mouseDownEvent -> CloseEvent.fire(MaterialSearch.this, getText())));
+        registerHandler(iconClose.addClickHandler(clickEvent -> CloseEvent.fire(MaterialSearch.this, getText())));
 
         add(searchResultPanel);
 
@@ -281,6 +281,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         setSelectedLink(link);
     }
 
+    //TODO: Convert to JSInterop
     protected native void locateSearch(String location)/*-{
         $wnd.window.location.hash = location;
     }-*/;
@@ -356,7 +357,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     }
 
     @Override
-    public Label getLabel() {
+    public Label getLabelWidget() {
         return label;
     }
 

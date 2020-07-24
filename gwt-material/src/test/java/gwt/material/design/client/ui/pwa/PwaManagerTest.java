@@ -17,18 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.ui;
+package gwt.material.design.client.ui.pwa;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import gwt.material.design.client.MaterialTestCase;
+import gwt.material.design.client.ui.base.BaseTestCase;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.ServiceWorkerManager;
-import gwt.material.design.client.ui.base.CustomServiceWorker;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class PwaManagerTest extends MaterialTestCase {
+public class PwaManagerTest extends BaseTestCase {
 
     final String WEB_MANIFEST_URL = "manifest.json";
     final String SERVICE_WORKER_URL = "service-worker.js";

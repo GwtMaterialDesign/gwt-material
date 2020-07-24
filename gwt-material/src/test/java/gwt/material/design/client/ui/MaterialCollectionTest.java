@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.constants.CollectionType;
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * Test case for Collections.
@@ -30,7 +30,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialCollectionTest extends MaterialWidgetTest<MaterialCollection> {
+public class MaterialCollectionTest extends MaterialWidgetTestCase<MaterialCollection> {
 
     @Override
     protected MaterialCollection createWidget() {

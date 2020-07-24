@@ -20,6 +20,7 @@
 package gwt.material.design.client.async.loader;
 
 import com.google.gwt.dom.client.Style;
+import gwt.material.design.client.constants.SwitchType;
 import gwt.material.design.client.ui.MaterialLoader;
 import gwt.material.design.client.ui.MaterialSwitch;
 
@@ -28,7 +29,8 @@ public class DefaultSwitchLoader implements AsyncDisplayLoader<Boolean> {
     private MaterialSwitch materialSwitch;
     private MaterialLoader loader;
 
-    protected DefaultSwitchLoader() {}
+    protected DefaultSwitchLoader() {
+    }
 
     public DefaultSwitchLoader(MaterialSwitch materialSwitch) {
         this.materialSwitch = materialSwitch;
@@ -45,18 +47,20 @@ public class DefaultSwitchLoader implements AsyncDisplayLoader<Boolean> {
     public void loading() {
         materialSwitch.setEnabled(false);
         materialSwitch.getLabel().setVisibility(Style.Visibility.HIDDEN);
+        materialSwitch.clearErrorText();
         loader.show();
     }
 
     @Override
     public void success(Boolean result) {
-        materialSwitch.clearErrorText();
-        materialSwitch.setValue(result, true);
+        materialSwitch.setValue(result);
     }
 
     @Override
     public void failure(String error) {
-        materialSwitch.setErrorText(error);
+        if (materialSwitch.getType().equals(SwitchType.DEFAULT)) {
+            materialSwitch.setErrorText(error);
+        }
     }
 
     @Override

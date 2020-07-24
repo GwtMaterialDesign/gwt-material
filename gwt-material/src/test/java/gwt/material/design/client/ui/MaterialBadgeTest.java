@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * Test case for Badges
@@ -28,7 +28,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialBadgeTest extends MaterialWidgetTest<MaterialBadge> {
+public class MaterialBadgeTest extends MaterialWidgetTestCase<MaterialBadge> {
 
     @Override
     protected MaterialBadge createWidget() {

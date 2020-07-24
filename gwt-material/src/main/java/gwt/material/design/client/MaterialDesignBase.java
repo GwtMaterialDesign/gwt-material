@@ -135,10 +135,12 @@ public class MaterialDesignBase {
      *
      * @return true is jQuery is loaded, false otherwise
      */
+    //TODO: Convert to JSInterop
     public static native boolean isjQueryLoaded() /*-{
         return (typeof $wnd['jQuery'] !== 'undefined');
     }-*/;
 
+    //TODO: Convert to JSInterop
     public static native boolean isMaterializeLoaded() /*-{
         return (typeof $wnd['Materialize'] !== 'undefined')
     }-*/;

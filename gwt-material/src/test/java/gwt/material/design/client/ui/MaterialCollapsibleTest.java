@@ -22,7 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * Test case for Collapsibles.
@@ -30,7 +30,7 @@ import gwt.material.design.client.ui.base.MaterialWidgetTest;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialCollapsibleTest extends MaterialWidgetTest<MaterialCollapsible> {
+public class MaterialCollapsibleTest extends MaterialWidgetTestCase<MaterialCollapsible> {
 
     static final int FIRST_ITEM = 1;
     static final int SECOND_ITEM = 2;

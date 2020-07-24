@@ -35,7 +35,7 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
     protected W widget;
     protected boolean loaded;
     protected AsyncDisplayLoader<V> displayLoader;
-    protected AsyncWidgetCallback asyncCallback;
+    protected AsyncWidgetCallback<W, V> asyncCallback;
 
     private ToggleStyleMixin<MaterialWidget> asyncStyleMixin;
     private ToggleStyleMixin<MaterialWidget> loadingStyleMixin;
@@ -95,23 +95,22 @@ public class AsyncWidgetMixin<W extends Widget, V> implements IsAsyncWidget<W, V
     }
 
     @Override
-    public void setAsyncCallback(AsyncWidgetCallback asyncCallback) {
+    public void setAsyncCallback(AsyncWidgetCallback<W, V> asyncCallback) {
         this.asyncCallback = asyncCallback;
     }
 
     @Override
-    public AsyncWidgetCallback getAsyncCallback() {
+    public AsyncWidgetCallback<W, V> getAsyncCallback() {
         return asyncCallback;
     }
 
     @Override
-    public void setAsyncDisplayLoader(AsyncDisplayLoader displayLoader) {
+    public void setAsyncDisplayLoader(AsyncDisplayLoader<V> displayLoader) {
         this.displayLoader = displayLoader;
     }
 
     @Override
-    public AsyncDisplayLoader getAsyncDisplayLoader() {
-
+    public AsyncDisplayLoader<V> getAsyncDisplayLoader() {
         return displayLoader;
     }
 

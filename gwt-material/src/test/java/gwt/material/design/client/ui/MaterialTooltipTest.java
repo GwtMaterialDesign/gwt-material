@@ -20,7 +20,7 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.MaterialTestCase;
+import gwt.material.design.client.ui.base.BaseTestCase;
 import gwt.material.design.client.constants.Position;
 
 /**
@@ -29,7 +29,7 @@ import gwt.material.design.client.constants.Position;
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialTooltipTest extends MaterialTestCase {
+public class MaterialTooltipTest extends BaseTestCase {
 
     final static String TOOLTIP = "tooltip";
     final static int DELAY = 100;

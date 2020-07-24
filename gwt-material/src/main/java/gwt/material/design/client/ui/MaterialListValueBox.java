@@ -80,8 +80,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements JsLoader, HasPlaceholder,
-        HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, IsAsyncWidget<MaterialListValueBox<T>, List<T>>,
-        HasAsyncRenderer<String, T>, HasNativeBrowserStyle {
+    HasConstrainedValue<T>, HasReadOnly, HasFieldTypes, IsAsyncWidget<MaterialListValueBox<T>, List<T>>,
+    HasAsyncRenderer<String, T>, HasNativeBrowserStyle, HasLabel {
 
     private final ListBox listBox = new ListBox();
     private final Label label = new Label();
@@ -552,13 +552,35 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         }
     }
 
+    /**
+     * Starting GMD 2.3.1 we standardized the labelling system
+     * of all value widget fields. Please check {@link HasLabel#setLabel(String)}
+     * for the new getter and setter.
+     */
+    @Deprecated
     @Override
     public void setPlaceholder(String placeholder) {
-        label.setText(placeholder);
+        setLabel(placeholder);
+    }
+
+    /**
+     * Starting GMD 2.3.1 we standardized the labelling system
+     * of all value widget fields. Please check {@link HasLabel#getLabel()}
+     * for the new getter and setter.
+     */
+    @Deprecated
+    @Override
+    public String getPlaceholder() {
+        return getLabel();
     }
 
     @Override
-    public String getPlaceholder() {
+    public void setLabel(String label) {
+        this.label.setText(label);
+    }
+
+    @Override
+    public String getLabel() {
         return label.getText();
     }
 
@@ -998,7 +1020,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
         return statusTextMixin;
     }
 
-    public Label getLabel() {
+    public Label getLabelWidget() {
         return label;
     }
 
@@ -1074,7 +1096,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
      */
     protected boolean isEmptyPlaceHolderListed() {
         return emptyPlaceHolder.equals(listBox.getValue(0)) &&
-                values.get(0) == null;
+            values.get(0) == null;
     }
 
     protected void insertEmptyPlaceHolder(String emptyPlaceHolder) {

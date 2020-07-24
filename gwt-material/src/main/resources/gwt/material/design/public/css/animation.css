@@ -37,8 +37,8 @@
   from, 20%, 53%, 80%, to {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   40%, 43% {
@@ -56,8 +56,8 @@
   }
 
   90% {
-    -webkit-transform: translate3d(0,-4px,0);
-    transform: translate3d(0,-4px,0);
+    -webkit-transform: translate3d(0, -4px, 0);
+    transform: translate3d(0, -4px, 0);
   }
 }
 
@@ -65,8 +65,8 @@
   from, 20%, 53%, 80%, to {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   40%, 43% {
@@ -84,8 +84,8 @@
   }
 
   90% {
-    -webkit-transform: translate3d(0,-4px,0);
-    transform: translate3d(0,-4px,0);
+    -webkit-transform: translate3d(0, -4px, 0);
+    transform: translate3d(0, -4px, 0);
   }
 }
 
@@ -3389,5 +3389,260 @@
   }
   100% {
     box-shadow: 0 0 0 50px rgba(255, 255, 255, 0);
+  }
+}
+
+/** Fade Through **/
+@-webkit-keyframes fadeThrough {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeThrough {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fadeThrough {
+  -webkit-animation-name: fadeThrough;
+  animation-name: fadeThrough;
+}
+
+/** Shared Axis X ForwardIn **/
+@-webkit-keyframes sharedAxisXForwardIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes sharedAxisXForwardIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.sharedAxisXForwardIn {
+  -webkit-animation-name: sharedAxisXForwardIn;
+  animation-name: sharedAxisXForwardIn;
+}
+
+/** Shared Axis X BackwardIn **/
+@-webkit-keyframes sharedAxisXBackwardIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes sharedAxisXBackwardIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.sharedAxisXBackwardIn {
+  -webkit-animation-name: sharedAxisXBackwardIn;
+  animation-name: sharedAxisXBackwardIn;
+}
+
+/** Shared Axis X ForwardOut **/
+@-webkit-keyframes sharedAxisXForwardOut {
+  from {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes sharedAxisXForwardOut {
+  from {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+.sharedAxisXForwardOut {
+  -webkit-animation-name: sharedAxisXForwardOut;
+  animation-name: sharedAxisXForwardOut;
+}
+
+/** Shared Axis Y ForwardIn **/
+@-webkit-keyframes sharedAxisYForwardIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes sharedAxisYForwardIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.sharedAxisYForwardIn {
+  -webkit-animation-name: sharedAxisYForwardIn;
+  animation-name: sharedAxisYForwardIn;
+}
+
+/** Shared Axis Y ForwardOut **/
+@-webkit-keyframes sharedAxisYForwardOut {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes sharedAxisYForwardOut {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+.sharedAxisYForwardOut {
+  -webkit-animation-name: sharedAxisYForwardOut;
+  animation-name: sharedAxisYForwardOut;
+}
+
+/** Shared Axis Z In **/
+@-webkit-keyframes sharedAxisZIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes sharedAxisZIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sharedAxisZIn {
+  -webkit-animation-name: sharedAxisZIn;
+  animation-name: sharedAxisZIn;
+}
+
+/** Shared Axis Z Out **/
+@-webkit-keyframes sharedAxisZOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes sharedAxisZOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+.sharedAxisZOut {
+  -webkit-animation-name: sharedAxisZOut;
+  animation-name: sharedAxisZOut;
+}
+
+/** Will listen to user-preferred animation settings to turn on / off the animation **/
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    will-change: none !important;
   }
 }

@@ -20,13 +20,13 @@
 package gwt.material.design.client.ui;
 
 import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.ui.base.MaterialWidgetTest;
+import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
 /**
  * @author kevzlou7979
  * @author Ben Dol
  */
-public class MaterialPanelTest extends MaterialWidgetTest<MaterialPanel> {
+public class MaterialPanelTest extends MaterialWidgetTestCase<MaterialPanel> {
 
     @Override
     protected MaterialPanel createWidget() {

@@ -29,6 +29,18 @@ public enum Transition implements CssType {
     FADE_IN_IMAGE("fade_in_image"),
     SHOW_GRID("show_grid"),
     CLOSE_GRID("close_grid"),
+    FADE_THROUGH("fadeThrough"),
+    SHARED_AXIS_X_FORWARD_IN("sharedAxisXForwardIn"),
+    SHARED_AXIS_X_FORWARD_OUT("sharedAxisXForwardOut"),
+    SHARED_AXIS_X_BACKWARD_IN("sharedAxisXBackwardIn"),
+    SHARED_AXIS_X_BACKWARD_OUT("sharedAxisXBackwardOut"),
+    SHARED_AXIS_Y_FORWARD_IN("sharedAxisYForwardIn"),
+    SHARED_AXIS_Y_FORWARD_OUT("sharedAxisYForwardOut"),
+    SHARED_AXIS_Y_BACKWARD_IN("sharedAxisYBackwardIn"),
+    SHARED_AXIS_Y_BACKWARD_OUT("sharedAxisYBackwardOut"),
+    SHARED_AXIS_Z_IN("sharedAxisZIn"),
+    SHARED_AXIS_Z_OUT("sharedAxisZOut"),
+
 
     // Core Animation Components
     BOUNCE("bounce"),

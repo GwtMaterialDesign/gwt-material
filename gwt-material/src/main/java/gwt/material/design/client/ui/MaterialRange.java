@@ -29,7 +29,6 @@ import com.google.gwt.user.client.Window;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.HasInputChangeHandler;
 import gwt.material.design.client.base.HasStatusText;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CssName;
@@ -73,7 +72,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
     private MaterialLabel errorLabel = new MaterialLabel();
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
-    private ToggleStyleMixin<MaterialWidget> toggleThumbStyleMixin;
+    private ToggleStyleMixin<MaterialRange> enableThumbMixin;
 
     /**
      * Creates a range
@@ -155,7 +154,7 @@ public class MaterialRange extends AbstractValueWidget<Integer>
 
     protected void updateProgressWidth(int value) {
         double range = ((value - getMin()) * 100.0) / (getMax() - getMin());
-        progress.setWidth(range + "%");
+        progress.setWidth(range > 0 ? range + "%" : "0px");
     }
 
     /**
@@ -248,11 +247,11 @@ public class MaterialRange extends AbstractValueWidget<Integer>
     }
 
     public boolean isEnableThumb() {
-        return getToggleThumbStyleMixin().isOn();
+        return getEnableThumbMixin().isOn();
     }
 
     public void setEnableThumb(boolean enableThumb) {
-        getToggleThumbStyleMixin().setOn(!enableThumb);
+        getEnableThumbMixin().setOn(!enableThumb);
     }
 
     public boolean isAutoBlur() {
@@ -292,6 +291,17 @@ public class MaterialRange extends AbstractValueWidget<Integer>
         return Window.Navigator.getUserAgent().indexOf("MSIE") > -1 || Window.Navigator.getUserAgent().indexOf("Trident/") > -1;
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+
+        if (!enabled) {
+            getRangeInputElement().getElement().setAttribute(CssName.DISABLED, "true");
+        } else {
+            getRangeInputElement().getElement().removeAttribute(CssName.DISABLED);
+        }
+    }
+
     /**
      * Register the ChangeHandler to become notified if the user changes the slider.
      * The Handler is called when the user releases the mouse only at the end of the slide
@@ -315,10 +325,10 @@ public class MaterialRange extends AbstractValueWidget<Integer>
         return statusTextMixin;
     }
 
-    public ToggleStyleMixin<MaterialWidget> getToggleThumbStyleMixin() {
-        if (toggleThumbStyleMixin == null) {
-            toggleThumbStyleMixin = new ToggleStyleMixin<>(this, CssName.NO_THUMB);
+    public ToggleStyleMixin<MaterialRange> getEnableThumbMixin() {
+        if (enableThumbMixin == null) {
+            enableThumbMixin = new ToggleStyleMixin<>(this, CssName.NO_THUMB);
         }
-        return toggleThumbStyleMixin;
+        return enableThumbMixin;
     }
 }

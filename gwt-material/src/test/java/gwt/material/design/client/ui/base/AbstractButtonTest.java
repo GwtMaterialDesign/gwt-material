@@ -34,7 +34,7 @@ import org.junit.Ignore;
  * @author Ben Dol
  */
 @Ignore
-public abstract class AbstractButtonTest<T extends AbstractButton> extends MaterialWidgetTest<T> {
+public abstract class AbstractButtonTest<T extends AbstractButton> extends MaterialWidgetTestCase<T> {
 
     public void testSize() {
         // UiBinder

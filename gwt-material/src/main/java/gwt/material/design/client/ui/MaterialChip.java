@@ -29,6 +29,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.mixin.ActiveMixin;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.base.mixin.ImageMixin;
 import gwt.material.design.client.base.mixin.LetterMixin;
@@ -61,7 +62,7 @@ import gwt.material.design.client.ui.html.Span;
  */
 //@formatter:on
 public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter,
-        HasValue<String>, HasCloseHandlers, HasType<ChipType> {
+        HasValue<String>, HasCloseHandlers, HasType<ChipType>, HasActive {
 
     private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
@@ -70,6 +71,7 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     private ImageMixin<MaterialImage> imageMixin;
     private LetterMixin<MaterialChip> letterMixin;
     private CssTypeMixin<ChipType, MaterialChip> typeMixin;
+    private ActiveMixin<MaterialChip> activeMixin;
 
     public MaterialChip() {
         super(Document.get().createDivElement(), CssName.CHIP);
@@ -266,6 +268,16 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
         this.image = image;
     }
 
+    @Override
+    public void setActive(boolean active) {
+        getActiveMixin().setActive(active);
+    }
+
+    @Override
+    public boolean isActive() {
+        return getActiveMixin().isActive();
+    }
+
     public Span getChipLabel() {
         return chipLabel;
     }
@@ -294,5 +306,12 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
             typeMixin = new CssTypeMixin<>(this);
         }
         return typeMixin;
+    }
+
+    public ActiveMixin<MaterialChip> getActiveMixin() {
+        if (activeMixin == null) {
+            activeMixin = new ActiveMixin<>(this);
+        }
+        return activeMixin;
     }
 }
