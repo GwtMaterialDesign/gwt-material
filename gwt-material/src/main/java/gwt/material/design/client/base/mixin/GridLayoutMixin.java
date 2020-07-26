@@ -35,14 +35,13 @@ public class GridLayoutMixin<T extends Widget & HasGridLayout> extends StyleProp
         super(uiObject);
     }
 
-
     @Override
-    public void setGrid(String value) {
+    public void setGridLayout(String value) {
         setProperty(GRID, value);
     }
 
     @Override
-    public String getGrid() {
+    public String getGridLayout() {
         return getProperty(GRID);
     }
 
@@ -84,5 +83,135 @@ public class GridLayoutMixin<T extends Widget & HasGridLayout> extends StyleProp
     @Override
     public String getGridAutoRows() {
         return getProperty(GRID_AUTO_ROWS);
+    }
+
+    @Override
+    public void setGridColumn(String value) {
+        setProperty(GRID_COLUMN, value);
+    }
+
+    @Override
+    public String getGridColumn() {
+        return getProperty(GRID_COLUMN);
+    }
+
+    @Override
+    public void setGridColumnEnd(String value) {
+        setProperty(GRID_COLUMN_END, value);
+    }
+
+    @Override
+    public String getGridColumnEnd() {
+        return getProperty(GRID_COLUMN);
+    }
+
+    @Override
+    public void setGridColumnGap(String value) {
+        setProperty(GRID_COLUMN_GAP, value);
+    }
+
+    @Override
+    public String getGridColumnGap() {
+        return getProperty(GRID_COLUMN_GAP);
+    }
+
+    @Override
+    public void setGridColumnStart(String value) {
+        setProperty(GRID_COLUMN_START, value);
+    }
+
+    @Override
+    public String getGridColumnStart() {
+        return getProperty(GRID_COLUMN_START);
+    }
+
+    @Override
+    public void setGridGap(String value) {
+        setProperty(GRID_GAP, value);
+    }
+
+    @Override
+    public String getGridGap() {
+        return getProperty(GRID_GAP);
+    }
+
+    @Override
+    public void setGridRow(String value) {
+        setProperty(GRID_ROW, value);
+    }
+
+    @Override
+    public String getGridRow() {
+        return getProperty(GRID_ROW);
+    }
+
+    @Override
+    public void setGridRowEnd(String value) {
+        setProperty(GRID_ROW_END, value);
+    }
+
+    @Override
+    public String getGridRowEnd() {
+        return getProperty(GRID_ROW_END);
+    }
+
+    @Override
+    public void setGridRowGap(String value) {
+        setProperty(GRID_ROW_GAP, value);
+    }
+
+    @Override
+    public String getGridRowGap() {
+        return getProperty(GRID_ROW_GAP);
+    }
+
+    @Override
+    public void setGridRowStart(String value) {
+        setProperty(GRID_ROW_START, value);
+    }
+
+    @Override
+    public String getGridRowStart() {
+        return getProperty(GRID_ROW_START);
+    }
+
+    @Override
+    public void setGridTemplate(String value) {
+        setProperty(GRID_TEMPLATE, value);
+    }
+
+    @Override
+    public String getGridTemplate() {
+        return getProperty(GRID_TEMPLATE);
+    }
+
+    @Override
+    public void setGridTemplateAreas(String value) {
+        setProperty(GRID_TEMPLATE_AREAS, value);
+    }
+
+    @Override
+    public String getGridTemplateAreas() {
+        return getProperty(GRID_TEMPLATE_AREAS);
+    }
+
+    @Override
+    public void setGridTemplateColumns(String value) {
+        setProperty(GRID_TEMPLATE_COLUMNS, value);
+    }
+
+    @Override
+    public String getGridTemplateColumns() {
+        return getProperty(GRID_TEMPLATE_COLUMNS);
+    }
+
+    @Override
+    public void setGridTemplateRows(String value) {
+        setProperty(GRID_TEMPLATE_ROWS, value);
+    }
+
+    @Override
+    public String getGridTemplateRows() {
+        return getProperty(GRID_TEMPLATE_ROWS);
     }
 }

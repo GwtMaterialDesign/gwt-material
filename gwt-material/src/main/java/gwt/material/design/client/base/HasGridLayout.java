@@ -31,6 +31,7 @@ public interface HasGridLayout {
     String GRID_TEMPLATE_COLUMNS = "grid-template-columns";
     String GRID_TEMPLATE_ROWS = "grid-template-rows";
 
+
     /**
      * The grid CSS property is a shorthand property that sets all of the explicit grid properties (grid-template-rows,
      * grid-template-columns, and grid-template-areas), and all the implicit grid properties (grid-auto-rows, grid-auto-columns,
@@ -38,16 +39,14 @@ public interface HasGridLayout {
      *
      * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid">Documentation</a>
      */
-    void setGrid(String value);
+    void setGridLayout(String value);
 
-    String getGrid();
+    String getGridLayout();
 
     /**
      * The grid-area CSS property is a shorthand property for grid-row-start, grid-column-start, grid-row-end and grid-column-end,
      * specifying a grid item’s size and location within the grid by contributing a line, a span, or nothing (automatic)
      * to its grid placement, thereby specifying the edges of its grid area.
-     *
-     * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area">Documentation</a>
      */
     void setGridArea(String value);
 
@@ -55,8 +54,6 @@ public interface HasGridLayout {
 
     /**
      * The grid-auto-columns CSS property specifies the size of an implicitly-created grid column track or pattern of tracks.
-     *
-     * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns">Documentation</a>
      */
     void setGridAutoColumns(String value);
 
@@ -65,8 +62,6 @@ public interface HasGridLayout {
     /**
      * The grid-auto-flow CSS property controls how the auto-placement algorithm works, specifying exactly how auto-placed
      * items get flowed into the grid.
-     *
-     * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow">Documentation</a>
      */
     void setGridAutoFlow(String value);
 
@@ -74,10 +69,108 @@ public interface HasGridLayout {
 
     /**
      * The grid-auto-rows CSS property specifies the size of an implicitly-created grid row track or pattern of tracks.
-     *
-     * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows">Documentation</a>
      */
     void setGridAutoRows(String value);
 
     String getGridAutoRows();
+
+    /**
+     * The grid-column CSS property is a shorthand property for grid-column-start and grid-column-end specifying a grid
+     * item's size and location within the grid column by contributing a line, a span, or nothing (automatic) to its grid
+     * placement, thereby specifying the inline-start and inline-end edge of its grid area.
+     */
+    void setGridColumn(String value);
+
+    String getGridColumn();
+
+    /**
+     * The grid-column-end CSS property specifies a grid item’s end position within the grid column by contributing a
+     * line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area.
+     */
+    void setGridColumnEnd(String value);
+
+    String getGridColumnEnd();
+
+    /**
+     * The column-gap CSS property sets the size of the gap (gutter) between an element's columns.
+     */
+    void setGridColumnGap(String value);
+
+    String getGridColumnGap();
+
+    /**
+     * The grid-column-start CSS property specifies a grid item’s start position within the grid column by contributing
+     * a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of
+     * the grid area.
+     */
+    void setGridColumnStart(String value);
+
+    String getGridColumnStart();
+
+    /**
+     * The gap CSS property sets the gaps (gutters) between rows and columns. It is a shorthand for row-gap and column-gap.
+     */
+    void setGridGap(String value);
+
+    String getGridGap();
+
+    /**
+     * The grid-row CSS property is a shorthand property for grid-row-start and grid-row-end specifying a grid item’s
+     * size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement,
+     * thereby specifying the inline-start and inline-end edge of its grid area.
+     */
+    void setGridRow(String value);
+
+    String getGridRow();
+
+    /**
+     * The grid-row-end CSS property specifies a grid item’s end position within the grid row by contributing a line,
+     * a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area.
+     */
+    void setGridRowEnd(String value);
+
+    String getGridRowEnd();
+
+    /**
+     * The row-gap CSS property sets the size of the gap (gutter) between an element's grid rows.
+     */
+    void setGridRowGap(String value);
+
+    String getGridRowGap();
+
+    /**
+     * The grid-row-start CSS property specifies a grid item’s start position within the grid row by contributing a line,
+     * a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area.
+     */
+    void setGridRowStart(String value);
+
+    String getGridRowStart();
+
+    /**
+     * The grid-template CSS property is a shorthand property for defining grid columns, rows, and areas.
+     */
+    void setGridTemplate(String value);
+
+    String getGridTemplate();
+
+    /**
+     * The grid-template-areas CSS property specifies named grid areas, establishing the cells in the grid and assigning them names.
+     */
+    void setGridTemplateAreas(String value);
+
+    String getGridTemplateAreas();
+
+    /**
+     * The grid-template-columns CSS property defines the line names and track sizing functions of the grid columns.
+     */
+    void setGridTemplateColumns(String value);
+
+    String getGridTemplateColumns();
+
+    /**
+     * The grid-template-rows CSS property defines the line names and track sizing functions of the grid rows.
+     */
+    void setGridTemplateRows(String value);
+
+    String getGridTemplateRows();
 }

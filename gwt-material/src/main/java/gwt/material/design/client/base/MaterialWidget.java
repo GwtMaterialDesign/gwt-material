@@ -55,7 +55,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
     HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
     HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation,
-    HasContainer, HasWordBreak, HasZoom {
+    HasContainer, HasWordBreak, HasZoom, HasGridLayout {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -134,6 +134,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private TransformMixin<MaterialWidget> transformMixin;
     private OrientationMixin<MaterialWidget> orientationMixin;
     private ContainerMixin<MaterialWidget> containerMixin;
+    private GridLayoutMixin<MaterialWidget> gridLayoutMixin;
 
     public MaterialWidget() {}
 
@@ -337,8 +338,188 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
+    public String getGridLayout() {
+        return getGridLayoutMixin().getGridLayout();
+    }
+
+    @Override
+    public void setGridArea(String value) {
+        getGridLayoutMixin().setGridArea(value);
+    }
+
+    @Override
+    public String getGridArea() {
+        return getGridLayoutMixin().getGridArea();
+    }
+
+    @Override
+    public void setGridAutoColumns(String value) {
+        getGridLayoutMixin().setGridAutoColumns(value);
+    }
+
+    @Override
+    public String getGridAutoColumns() {
+        return getGridLayoutMixin().getGridAutoColumns();
+    }
+
+    @Override
+    public void setGridAutoFlow(String value) {
+        getGridLayoutMixin().setGridAutoFlow(value);
+    }
+
+    @Override
+    public String getGridAutoFlow() {
+        return getGridLayoutMixin().getGridAutoFlow();
+    }
+
+    @Override
+    public void setGridAutoRows(String value) {
+        getGridLayoutMixin().setGridAutoRows(value);
+    }
+
+    @Override
+    public String getGridAutoRows() {
+        return getGridLayoutMixin().getGridAutoRows();
+    }
+
+    @Override
+    public void setGridColumn(String value) {
+        getGridLayoutMixin().setGridColumn(value);
+    }
+
+    @Override
+    public String getGridColumn() {
+        return getGridLayoutMixin().getGridColumn();
+    }
+
+    @Override
+    public void setGridColumnEnd(String value) {
+        getGridLayoutMixin().setGridColumnEnd(value);
+    }
+
+    @Override
+    public String getGridColumnEnd() {
+        return getGridLayoutMixin().getGridColumnEnd();
+    }
+
+    @Override
+    public void setGridColumnGap(String value) {
+        getGridLayoutMixin().setGridColumnGap(value);
+    }
+
+    @Override
+    public String getGridColumnGap() {
+        return getGridLayoutMixin().getGridColumnGap();
+    }
+
+    @Override
+    public void setGridColumnStart(String value) {
+        getGridLayoutMixin().setGridColumnStart(value);
+    }
+
+    @Override
+    public String getGridColumnStart() {
+        return getGridLayoutMixin().getGridColumnStart();
+    }
+
+    @Override
+    public void setGridGap(String value) {
+        getGridLayoutMixin().setGridGap(value);
+    }
+
+    @Override
+    public String getGridGap() {
+        return getGridLayoutMixin().getGridGap();
+    }
+
+    @Override
+    public void setGridRow(String value) {
+        getGridLayoutMixin().setGridRow(value);
+    }
+
+    @Override
+    public String getGridRow() {
+        return getGridLayoutMixin().getGridRow();
+    }
+
+    @Override
+    public void setGridRowEnd(String value) {
+        getGridLayoutMixin().setGridRowEnd(value);
+    }
+
+    @Override
+    public String getGridRowEnd() {
+        return getGridLayoutMixin().getGridRowEnd();
+    }
+
+    @Override
+    public void setGridRowGap(String value) {
+        getGridLayoutMixin().setGridRowGap(value);
+    }
+
+    @Override
+    public String getGridRowGap() {
+        return getGridLayoutMixin().getGridRowGap();
+    }
+
+    @Override
+    public void setGridRowStart(String value) {
+        getGridLayoutMixin().setGridRowStart(value);
+    }
+
+    @Override
+    public String getGridRowStart() {
+        return getGridLayoutMixin().getGridRowStart();
+    }
+
+    @Override
+    public void setGridTemplate(String value) {
+        getGridLayoutMixin().setGridTemplate(value);
+    }
+
+    @Override
+    public String getGridTemplate() {
+        return getGridLayoutMixin().getGridTemplate();
+    }
+
+    @Override
+    public void setGridTemplateAreas(String value) {
+        getGridLayoutMixin().setGridTemplateAreas(value);
+    }
+
+    @Override
+    public String getGridTemplateAreas() {
+        return getGridLayoutMixin().getGridTemplateAreas();
+    }
+
+    @Override
+    public void setGridTemplateColumns(String value) {
+        getGridLayoutMixin().setGridTemplateAreas(value);
+    }
+
+    @Override
+    public String getGridTemplateColumns() {
+        return getGridLayoutMixin().getGridTemplateColumns();
+    }
+
+    @Override
+    public void setGridTemplateRows(String value) {
+        getGridLayoutMixin().setGridTemplateRows(value);
+    }
+
+    @Override
+    public String getGridTemplateRows() {
+        return getGridLayoutMixin().getGridTemplateRows();
+    }
+
+    @Override
     public void setGrid(String grid) {
         getGridMixin().setGrid(grid);
+    }
+
+    @Override
+    public void setGridLayout(String value) {
+        getGridLayoutMixin().setGridLayout(value);
     }
 
     @Override
@@ -1579,6 +1760,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             containerMixin = new ContainerMixin<>(this);
         }
         return containerMixin;
+    }
+
+    public GridLayoutMixin<MaterialWidget> getGridLayoutMixin() {
+        if (gridLayoutMixin == null) {
+            gridLayoutMixin = new GridLayoutMixin<>(this);
+        }
+        return gridLayoutMixin;
     }
 
     public void setTranslationKey(String key) {
