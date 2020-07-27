@@ -41,6 +41,8 @@ public interface HasFlexbox {
 
     void setFlex(Flex flex);
 
+    void setFlexValue(String value);
+
     void setFlexGrow(Integer flexGrow);
 
     void setFlexShrink(Integer flexShrink);

@@ -1,3 +1,22 @@
+/*
+ * #%L
+ * GwtMaterial
+ * %%
+ * Copyright (C) 2015 - 2020 GwtMaterialDesign
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package gwt.material.design.client.base;
 
 /**
@@ -13,31 +32,41 @@ package gwt.material.design.client.base;
 public interface HasGridLayout {
 
     String GRID = "grid";
-    String GRID_AREA = "grid-area";
-    String GRID_AUTO_COLUMNS = "grid-auto-columns";
-    String GRID_AUTO_FLOW = "grid-auto-flow";
-    String GRID_AUTO_ROWS = "grid-auto-rows";
-    String GRID_COLUMN = "grid-column";
-    String GRID_COLUMN_END = "grid-column-end";
-    String GRID_COLUMN_GAP = "grid-column-gap";
-    String GRID_COLUMN_START = "grid-column-start";
-    String GRID_GAP = "grid-gap";
-    String GRID_ROW = "grid-row";
-    String GRID_ROW_END = "grid-row-end";
-    String GRID_ROW_GAP = "grid-row-gap";
-    String GRID_ROW_START = "grid-row-start";
-    String GRID_TEMPLATE = "grid-template";
-    String GRID_TEMPLATE_AREAS = "grid-template-areas";
-    String GRID_TEMPLATE_COLUMNS = "grid-template-columns";
-    String GRID_TEMPLATE_ROWS = "grid-template-rows";
-
+    String GRID_AREA = "gridArea";
+    String GRID_AUTO_COLUMNS = "gridAutoColumns";
+    String GRID_AUTO_FLOW = "gridAutoFlow";
+    String GRID_AUTO_ROWS = "gridAutoRows";
+    String GRID_COLUMN = "gridColumn";
+    String GRID_COLUMN_END = "gridColumnEnd";
+    String GRID_COLUMN_GAP = "gridColumnGap";
+    String GRID_COLUMN_START = "gridColumnStart";
+    String GRID_GAP = "gridGap";
+    String GRID_ROW = "gridRow";
+    String GRID_ROW_END = "gridRowEnd";
+    String GRID_ROW_GAP = "gridRowGap";
+    String GRID_ROW_START = "gridRowStart";
+    String GRID_TEMPLATE = "gridTemplate";
+    String GRID_TEMPLATE_AREAS = "gridTemplateAreas";
+    String GRID_TEMPLATE_COLUMNS = "gridTemplateColumns";
+    String GRID_TEMPLATE_ROWS = "gridTemplateRows";
+    String ALIGN_CONTENT = "alignContent";
+    String ALIGN_ITEMS = "alignItems";
+    String ALIGN_SELF = "alignSelf";
+    String COLUMN_GAP = "columnGap";
+    String GAP = "gap";
+    String JUSTIFY_CONTENT = "justifyContent";
+    String JUSTIFY_ITEMS = "justifyItems";
+    String JUSTIFY_SELF = "justifySelf";
+    String PLACE_CONTENT = "placeContent";
+    String PLACE_ITEMS = "placeItems";
+    String PLACE_SELF = "placeSelf";
+    String ROW_GAP = "rowGap";
+    String ASPECT_RATIO = "aspectRatio";
 
     /**
      * The grid CSS property is a shorthand property that sets all of the explicit grid properties (grid-template-rows,
      * grid-template-columns, and grid-template-areas), and all the implicit grid properties (grid-auto-rows, grid-auto-columns,
      * and grid-auto-flow), in a single declaration.
-     *
-     * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid">Documentation</a>
      */
     void setGridLayout(String value);
 
@@ -173,4 +202,106 @@ public interface HasGridLayout {
     void setGridTemplateRows(String value);
 
     String getGridTemplateRows();
+
+    /**
+     * The CSS align-content property sets the distribution of space between and around content items along a flexbox's
+     * cross-axis or a grid's block axis.
+     */
+    void setAlignContent(String value);
+
+    String getAlignContent();
+
+    /**
+     * The CSS align-items property sets the align-self value on all direct children as a group. In Flexbox, it controls
+     * the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis
+     * within their grid area.
+     */
+    void setAlignItems(String value);
+
+    String getAlignItems();
+
+    /**
+     * The align-self CSS property overrides a grid or flex item's align-items value. In Grid, it aligns the item inside
+     * the grid area. In Flexbox, it aligns the item on the cross axis.
+     */
+    void setAlignSelf(String value);
+
+    String getAlignSelf();
+
+    /**
+     * The column-gap CSS property sets the size of the gap (gutter) between an element's columns.
+     */
+    void setColumnGap(String value);
+
+    String getColumnGap();
+
+    /**
+     * The gap CSS property sets the gaps (gutters) between rows and columns. It is a shorthand for row-gap and column-gap.
+     */
+    void setGap(String value);
+
+    String getGap();
+
+    /**
+     * The CSS justify-content property defines how the browser distributes space between and around content items along
+     * the main-axis of a flex container, and the inline axis of a grid container.
+     */
+    void setJustifyContent(String value);
+
+    String getJustifyContent();
+
+    /**
+     * The CSS justify-items property defines the default justify-self for all items of the box, giving them all a default
+     * way of justifying each box along the appropriate axis.
+     */
+    void setJustifyItems(String value);
+
+    String getJustifyItems();
+
+    /**
+     * The CSS justify-self property sets the way a box is justified inside its alignment container along the appropriate axis.
+     */
+    void setJustifySelf(String value);
+
+    String getJustifySelf();
+
+    /**
+     * The place-content CSS property is a shorthand for align-content and justify-content. It can be used in any layout
+     * method which utilizes both of these alignment values.
+     */
+    void setPlaceContent(String value);
+
+    String getPlaceContent();
+
+    /**
+     * The CSS place-items shorthand property sets the align-items and justify-items properties, respectively.
+     * If the second value is not set, the first value is also used for it.
+     */
+    void setPlaceItems(String value);
+
+    String getPlaceItems();
+
+    /**
+     * The place-self CSS property is a shorthand property sets both the align-self and justify-self properties.
+     * The first value is the align-self property value, the second the justify-self one. If the second value is not present,
+     * the first value is also used for it.
+     */
+    void setPlaceSelf(String value);
+
+    String getPlaceSelf();
+
+    /**
+     * The row-gap CSS property sets the size of the gap (gutter) between an element's grid rows.
+     */
+    void setRowGap(String value);
+
+    String getRowGap();
+
+    /**
+     * The aspect-ratio  CSS property sets a preferred aspect ratio for the box, which will be used in the calculation
+     * of auto sizes and some other layout functions.
+     */
+    void setAspectRatio(String value);
+
+    String getAspectRatio();
 }

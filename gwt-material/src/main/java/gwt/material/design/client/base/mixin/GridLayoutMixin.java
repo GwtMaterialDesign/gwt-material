@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -213,5 +213,135 @@ public class GridLayoutMixin<T extends Widget & HasGridLayout> extends StyleProp
     @Override
     public String getGridTemplateRows() {
         return getProperty(GRID_TEMPLATE_ROWS);
+    }
+
+    @Override
+    public void setAlignContent(String value) {
+        setProperty(ALIGN_CONTENT, value);
+    }
+
+    @Override
+    public String getAlignContent() {
+        return getProperty(ALIGN_CONTENT);
+    }
+
+    @Override
+    public void setAlignItems(String value) {
+        setProperty(ALIGN_ITEMS, value);
+    }
+
+    @Override
+    public String getAlignItems() {
+        return getProperty(ALIGN_ITEMS);
+    }
+
+    @Override
+    public void setAlignSelf(String value) {
+        setProperty(ALIGN_SELF, value);
+    }
+
+    @Override
+    public String getAlignSelf() {
+        return getProperty(ALIGN_SELF);
+    }
+
+    @Override
+    public void setColumnGap(String value) {
+        setProperty(COLUMN_GAP, value);
+    }
+
+    @Override
+    public String getColumnGap() {
+        return getProperty(COLUMN_GAP);
+    }
+
+    @Override
+    public void setGap(String value) {
+        setProperty(GAP, value);
+    }
+
+    @Override
+    public String getGap() {
+        return getProperty(GAP);
+    }
+
+    @Override
+    public void setJustifyContent(String value) {
+        setProperty(JUSTIFY_CONTENT, value);
+    }
+
+    @Override
+    public String getJustifyContent() {
+        return getProperty(JUSTIFY_CONTENT);
+    }
+
+    @Override
+    public void setJustifyItems(String value) {
+        setProperty(JUSTIFY_ITEMS, value);
+    }
+
+    @Override
+    public String getJustifyItems() {
+        return getProperty(JUSTIFY_ITEMS);
+    }
+
+    @Override
+    public void setJustifySelf(String value) {
+        setProperty(JUSTIFY_SELF, value);
+    }
+
+    @Override
+    public String getJustifySelf() {
+        return getProperty(JUSTIFY_SELF);
+    }
+
+    @Override
+    public void setPlaceContent(String value) {
+        setProperty(PLACE_CONTENT, value);
+    }
+
+    @Override
+    public String getPlaceContent() {
+        return getProperty(PLACE_CONTENT);
+    }
+
+    @Override
+    public void setPlaceItems(String value) {
+        setProperty(PLACE_ITEMS, value);
+    }
+
+    @Override
+    public String getPlaceItems() {
+        return getProperty(PLACE_ITEMS);
+    }
+
+    @Override
+    public void setPlaceSelf(String value) {
+        setProperty(PLACE_SELF, value);
+    }
+
+    @Override
+    public String getPlaceSelf() {
+        return getProperty(PLACE_SELF);
+    }
+
+    @Override
+    public void setRowGap(String value) {
+        setProperty(ROW_GAP, value);
+    }
+
+    @Override
+    public String getRowGap() {
+        return getProperty(ROW_GAP);
+    }
+
+    @Override
+    public void setAspectRatio(String value) {
+        setProperty(ASPECT_RATIO, value);
+    }
+
+    @Override
+    public String getAspectRatio() {
+        return getProperty(ASPECT_RATIO);
     }
 }

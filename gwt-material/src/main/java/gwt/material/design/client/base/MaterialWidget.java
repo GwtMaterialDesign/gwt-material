@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,6 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
-import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
@@ -55,7 +54,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
     HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
     HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation,
-    HasContainer, HasWordBreak, HasZoom, HasGridLayout {
+    HasContainer, HasWordBreak, HasZoom, HasGridLayout, HasResize, HasContentEditable {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -136,7 +135,8 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private ContainerMixin<MaterialWidget> containerMixin;
     private GridLayoutMixin<MaterialWidget> gridLayoutMixin;
 
-    public MaterialWidget() {}
+    public MaterialWidget() {
+    }
 
     public MaterialWidget(JQueryElement jQueryElement) {
         this();
@@ -494,7 +494,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public void setGridTemplateColumns(String value) {
-        getGridLayoutMixin().setGridTemplateAreas(value);
+        getGridLayoutMixin().setGridTemplateColumns(value);
     }
 
     @Override
@@ -510,6 +510,136 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public String getGridTemplateRows() {
         return getGridLayoutMixin().getGridTemplateRows();
+    }
+
+    @Override
+    public void setAlignContent(String value) {
+        getGridLayoutMixin().setAlignContent(value);
+    }
+
+    @Override
+    public String getAlignContent() {
+        return getGridLayoutMixin().getAlignContent();
+    }
+
+    @Override
+    public void setAlignItems(String value) {
+        getGridLayoutMixin().setAlignItems(value);
+    }
+
+    @Override
+    public String getAlignItems() {
+        return getGridLayoutMixin().getAlignItems();
+    }
+
+    @Override
+    public void setAlignSelf(String value) {
+        getGridLayoutMixin().setAlignSelf(value);
+    }
+
+    @Override
+    public String getAlignSelf() {
+        return getGridLayoutMixin().getAlignSelf();
+    }
+
+    @Override
+    public void setColumnGap(String value) {
+        getGridLayoutMixin().setColumnGap(value);
+    }
+
+    @Override
+    public String getColumnGap() {
+        return getGridLayoutMixin().getColumnGap();
+    }
+
+    @Override
+    public void setGap(String value) {
+        getGridLayoutMixin().setGap(value);
+    }
+
+    @Override
+    public String getGap() {
+        return getGridLayoutMixin().getGap();
+    }
+
+    @Override
+    public void setJustifyContent(String value) {
+        getGridLayoutMixin().setJustifyContent(value);
+    }
+
+    @Override
+    public String getJustifyContent() {
+        return getGridLayoutMixin().getJustifyContent();
+    }
+
+    @Override
+    public void setJustifyItems(String value) {
+        getGridLayoutMixin().setJustifyItems(value);
+    }
+
+    @Override
+    public String getJustifyItems() {
+        return getGridLayoutMixin().getJustifyItems();
+    }
+
+    @Override
+    public void setJustifySelf(String value) {
+        getGridLayoutMixin().setJustifySelf(value);
+    }
+
+    @Override
+    public String getJustifySelf() {
+        return getGridLayoutMixin().getJustifySelf();
+    }
+
+    @Override
+    public void setPlaceContent(String value) {
+        getGridLayoutMixin().setPlaceContent(value);
+    }
+
+    @Override
+    public String getPlaceContent() {
+        return getGridLayoutMixin().getPlaceContent();
+    }
+
+    @Override
+    public void setPlaceItems(String value) {
+        getGridLayoutMixin().setPlaceItems(value);
+    }
+
+    @Override
+    public String getPlaceItems() {
+        return getGridLayoutMixin().getPlaceItems();
+    }
+
+    @Override
+    public void setPlaceSelf(String value) {
+        getGridLayoutMixin().setPlaceSelf(value);
+    }
+
+    @Override
+    public String getPlaceSelf() {
+        return getGridLayoutMixin().getPlaceSelf();
+    }
+
+    @Override
+    public void setRowGap(String value) {
+        getGridLayoutMixin().setRowGap(value);
+    }
+
+    @Override
+    public String getRowGap() {
+        return getGridLayoutMixin().getRowGap();
+    }
+
+    @Override
+    public void setAspectRatio(String value) {
+        getGridLayoutMixin().setAspectRatio(value);
+    }
+
+    @Override
+    public String getAspectRatio() {
+        return getGridLayoutMixin().getAspectRatio();
     }
 
     @Override
@@ -789,6 +919,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public void setFlex(Flex flex) {
         getFlexboxMixin().setFlex(flex);
+    }
+
+    @Override
+    public void setFlexValue(String value) {
+        getElement().getStyle().setProperty("flex", value);
     }
 
     @Override
@@ -1209,6 +1344,36 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public void setZoom(Double level) {
         getElement().getStyle().setProperty("zoom", level != null ? String.valueOf(level) : "");
+    }
+
+    @Override
+    public void setResize(Resizable value) {
+        getElement().getStyle().setProperty("resize", value != null ? value.getName() : "");
+    }
+
+    @Override
+    public String getResize() {
+        return getElement().getPropertyString("resize");
+    }
+
+    @Override
+    public void setContentEditable(boolean value) {
+        getElement().setAttribute("contenteditable", String.valueOf(value));
+    }
+
+    @Override
+    public boolean isContentEditable() {
+        return getElement().getAttribute("contenteditable").equals(true);
+    }
+
+    @Override
+    public void setWidth(String width) {
+        getElement().getStyle().setProperty("width", width);
+    }
+
+    @Override
+    public void setHeight(String height) {
+        getElement().getStyle().setProperty("height", height);
     }
 
     /**
