@@ -102,7 +102,7 @@ public class GridLayoutMixin<T extends Widget & HasGridLayout> extends StyleProp
 
     @Override
     public String getGridColumnEnd() {
-        return getProperty(GRID_COLUMN);
+        return getProperty(GRID_COLUMN_END);
     }
 
     @Override
