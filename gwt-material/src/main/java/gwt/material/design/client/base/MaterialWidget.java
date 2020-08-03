@@ -1348,12 +1348,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     @Override
     public void setResize(Resizable value) {
-        getElement().setAttribute("resize", value != null ? value.getName() : "");
+        getElement().getStyle().setProperty("resize", value != null ? value.getName() : "");
     }
 
     @Override
     public String getResize() {
-        return getElement().getAttribute("resize");
+        return getElement().getStyle().getProperty("resize");
     }
 
     @Override
