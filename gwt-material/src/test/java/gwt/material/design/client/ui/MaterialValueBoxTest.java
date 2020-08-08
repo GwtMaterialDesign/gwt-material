@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ValueBoxBase;
+import gwt.material.design.client.constants.Autocomplete;
 import gwt.material.design.client.constants.StatusDisplayType;
 import gwt.material.design.client.ui.base.AbstractValueWidgetTest;
 
@@ -120,13 +121,17 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
     protected <W extends MaterialValueBox> void checkAutocomplete(W widget) {
         ValueBoxBase valueBoxBase = widget.getValueBoxBase();
 
-        widget.setAutocomplete(true);
-        assertTrue(widget.isAutocomplete());
+        widget.setAutocomplete(Autocomplete.ON);
+        assertEquals(Autocomplete.ON, widget.getAutocomplete());
         assertEquals(valueBoxBase.getElement().getAttribute("autocomplete"), "on");
 
-        widget.setAutocomplete(false);
-        assertFalse(widget.isAutocomplete());
+        widget.setAutocomplete(Autocomplete.OFF);
+        assertEquals(Autocomplete.OFF, widget.getAutocomplete());
         assertEquals(valueBoxBase.getElement().getAttribute("autocomplete"), "off");
+
+        widget.setAutocomplete(Autocomplete.NEW_PASSWORD);
+        assertEquals(Autocomplete.NEW_PASSWORD, widget.getAutocomplete());
+        assertEquals(valueBoxBase.getElement().getAttribute("autocomplete"), "new-password");
 
         valueBoxBase.getElement().removeAttribute("autocomplete");
     }

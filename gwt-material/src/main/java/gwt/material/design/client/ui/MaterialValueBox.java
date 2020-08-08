@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -122,7 +122,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setup(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
-        setAutocomplete(false);
+        setAutocomplete(Autocomplete.OFF);
     }
 
     @Deprecated
@@ -565,13 +565,13 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void setAutocomplete(boolean value) {
-        valueBoxBase.getElement().setAttribute("autocomplete", value ? "on" : "off");
+    public void setAutocomplete(Autocomplete value) {
+        valueBoxBase.getElement().setAttribute("autocomplete", value.getName());
     }
 
     @Override
-    public boolean isAutocomplete() {
-        return valueBoxBase.getElement().getAttribute("autocomplete").equals("on");
+    public Autocomplete getAutocomplete() {
+        return Autocomplete.get(valueBoxBase.getElement().getAttribute("autocomplete"));
     }
 
     @Override
