@@ -70,7 +70,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
     HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
     HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes,
-    HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel {
+    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel {
 
 
     private boolean returnBlankAsNull;
@@ -122,7 +122,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setup(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
-        setAutocomplete(false);
+        setAutocomplete(Autocomplete.OFF);
     }
 
     @Deprecated
@@ -565,13 +565,13 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void setAutocomplete(boolean value) {
-        valueBoxBase.getElement().setAttribute("autocomplete", value ? "on" : "off");
+    public void setAutocomplete(Autocomplete value) {
+        valueBoxBase.getElement().setAttribute("autocomplete", value.getName());
     }
 
     @Override
-    public boolean isAutocomplete() {
-        return valueBoxBase.getElement().getAttribute("autocomplete").equals("on");
+    public Autocomplete getAutocomplete() {
+        return Autocomplete.get(valueBoxBase.getElement().getAttribute("autocomplete"));
     }
 
     @Override
@@ -879,6 +879,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public HandlerRegistration addPasteHandler(PasteEvent.PasteEventHandler handler) {
         return addHandler(handler, PasteEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addToggleReadOnlyHandler(ToggleReadOnlyEvent.ToggleReadOnlyHandler handler) {
+        return addHandler(handler, ToggleReadOnlyEvent.getType());
     }
 
     @Override

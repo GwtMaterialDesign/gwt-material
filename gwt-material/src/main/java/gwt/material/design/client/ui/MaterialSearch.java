@@ -29,10 +29,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.base.HasActive;
 import gwt.material.design.client.base.HasSearchHandlers;
 import gwt.material.design.client.base.SearchObject;
-import gwt.material.design.client.constants.Color;
-import gwt.material.design.client.constants.CssName;
-import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.SearchFinishEvent;
 import gwt.material.design.client.events.SearchNoResultEvent;
 import gwt.material.design.client.ui.html.Label;
@@ -134,7 +131,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         super.onLoad();
 
         setType(InputType.SEARCH);
-        setAutocomplete(false);
+        setAutocomplete(Autocomplete.OFF);
         label.add(iconSearch);
         label.getElement().setAttribute("for", "search");
         add(label);
