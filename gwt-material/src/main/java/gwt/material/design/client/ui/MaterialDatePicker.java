@@ -67,7 +67,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsLoader, HasPlaceholder,
     HasOpenHandlers<MaterialDatePicker>, HasCloseHandlers<MaterialDatePicker>, HasIcon, HasReadOnly,
-    HasFieldTypes, HasLabel {
+    HasFieldTypes, HasLabel, HasOpenClose {
 
     /**
      * Enum for identifying various selection types for the picker.
@@ -636,6 +636,7 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     /**
      * Programmatically close the date picker component
      */
+    @Override
     public void close() {
         Scheduler.get().scheduleDeferred(() -> getPicker().close());
     }
@@ -643,10 +644,12 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     /**
      * Programmatically open the date picker component
      */
+    @Override
     public void open() {
         Scheduler.get().scheduleDeferred(() -> getPicker().open());
     }
 
+    @Override
     public boolean isOpen() {
         return Boolean.parseBoolean(getPicker().get("open").toString());
     }

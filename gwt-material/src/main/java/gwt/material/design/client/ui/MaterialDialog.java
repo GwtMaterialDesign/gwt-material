@@ -77,7 +77,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 // @formatter:on
 public class MaterialDialog extends MaterialWidget implements HasType<DialogType>, HasInOutDurationTransition,
-        HasDismissible, HasCloseHandlers<MaterialDialog>, HasOpenHandlers<MaterialDialog>, HasFullscreen, HasOverlayStyle {
+        HasDismissible, HasCloseHandlers<MaterialDialog>, HasOpenHandlers<MaterialDialog>, HasFullscreen, HasOverlayStyle,
+        HasOpenClose {
 
     private JsModalOptions options = new JsModalOptions();
 
@@ -232,6 +233,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
      *
      * @throws IllegalStateException If the MaterialDialog is not added to the document
      */
+    @Override
     public void open() {
         open(true);
     }
@@ -296,6 +298,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
      * are not using UiBinder. See {@link #open()}.
      * </p>
      */
+    @Override
     public void close() {
         close(false);
     }
@@ -337,6 +340,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
         }
     }
 
+    @Override
     public boolean isOpen() {
         return open;
     }

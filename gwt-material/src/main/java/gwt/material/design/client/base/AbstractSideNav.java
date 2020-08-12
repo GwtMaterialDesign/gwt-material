@@ -56,7 +56,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public abstract class AbstractSideNav extends MaterialWidget
-        implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers, HasOverlayStyle, HasDensity {
+        implements JsLoader, HasSelectables, HasInOutDurationTransition, HasSideNavHandlers, HasOverlayStyle, HasOpenClose, HasDensity {
 
     protected int width = 240;
     protected int inDuration = 400;
@@ -482,6 +482,7 @@ public abstract class AbstractSideNav extends MaterialWidget
     /**
      * Show the sidenav using the activator element
      */
+    @Override
     public void open() {
         $("#sidenav-overlay").remove();
         $(activator).sideNav("show");
@@ -498,10 +499,12 @@ public abstract class AbstractSideNav extends MaterialWidget
     /**
      * Hide the sidenav using the activator element
      */
+    @Override
     public void close() {
         $(activator).sideNav("hide");
     }
 
+    @Override
     public boolean isOpen() {
         return open;
     }
