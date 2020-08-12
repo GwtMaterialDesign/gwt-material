@@ -181,7 +181,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                         reset(obj.getKeyword());
                     });
                     // If matches add to search result container and object to temp searches
-                    if (obj.getKeyword().toLowerCase().contains(keyword)) {
+                    if (match(obj, keyword)) {
                         searchResultPanel.add(link);
                         tempSearches.add(obj);
                     }
@@ -211,25 +211,21 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
 
                 // Selection logic using key down event to navigate the search results
                 int totalItems = searchResultPanel.getWidgetCount();
-                if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN) {
-                    if (curSel >= totalItems) {
-                        setCurSel(getCurSel());
-                        applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel - 1));
-                    } else {
-                        setCurSel(getCurSel() + 1);
-                        applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
+                if (totalItems > 0) {
+                    if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN) {
+                    	if (++curSel >= totalItems)
+                    		curSel = 0;
+                    	
+                    	applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
                     }
-                }
 
-                // Selection logic using key up event to navigate the search results
-                if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP) {
-                    if (curSel <= -1) {
-                        setCurSel(-1);
-                        applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
-                    } else {
-                        setCurSel(getCurSel() - 1);
-                        applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
-                    }
+                    // Selection logic using key up event to navigate the search results
+                    if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP) {
+                    	if (--curSel < 0)
+                    		curSel = totalItems - 1;
+                    	
+                    	applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
+                    }                	
                 }
             }
 
@@ -243,6 +239,10 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
             }
         }));
     }
+
+	protected boolean match(SearchObject obj, String keyword) {
+		return obj.getKeyword().toLowerCase().contains(keyword);
+	}
 
     @Override
     protected void onUnload() {
