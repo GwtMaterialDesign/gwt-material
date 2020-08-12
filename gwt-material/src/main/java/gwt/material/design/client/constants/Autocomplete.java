@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2019 GwtMaterialDesign
+ * Copyright (C) 2015 - 2020 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.constants;
 
-import gwt.material.design.client.constants.Autocomplete;
+import java.util.Arrays;
 
-/**
- * The autocomplete attribute specifies whether or not an input field should have autocomplete enabled.
- *
- * <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Securing_your_site/Turning_off_form_autocompletion">Documentation</a>
- */
-public interface HasAutocomplete {
+public enum Autocomplete {
 
-    void setAutocomplete(Autocomplete autocomplete);
+    ON("on"),
+    OFF("off"),
+    NEW_PASSWORD("new-password");
 
-    Autocomplete getAutocomplete();
+    private String name;
+
+    Autocomplete(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static Autocomplete get(String name) {
+        return name != null && !name.isEmpty() ? Arrays.stream(values()).filter(autocomplete -> autocomplete.getName().equals(name)).findAny().orElse(null) : null;
+    }
 }

@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActivates;
 import gwt.material.design.client.base.HasProgress;
@@ -88,8 +89,7 @@ public class MaterialNavBar extends Nav implements HasActivates, HasProgress {
         navMenu.setIconPosition(IconPosition.NONE);
 
         // Check whether the SideNav is attached or not. If not attached Hide the NavMenu
-        Element sideNavElement = $("\\#" + getActivatesMixin().getActivates()).asElement();
-
+        Element sideNavElement = $(DOM.getElementById(getActivatesMixin().getActivates())).asElement();
         navMenu.setDisplay(sideNavElement == null ? Display.NONE : Display.INITIAL);
     }
 

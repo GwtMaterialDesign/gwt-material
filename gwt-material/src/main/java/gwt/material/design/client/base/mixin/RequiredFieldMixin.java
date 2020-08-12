@@ -32,7 +32,7 @@ import gwt.material.design.client.base.HasRequiredField;
 public class RequiredFieldMixin <T extends AbstractValueWidget & HasRequiredField, H extends UIObject>
         extends AbstractMixin<T> implements HasRequiredField {
 
-    private String REQUIRED = "required";
+    private final String REQUIRED = "required";
     private H targetLabel;
     private boolean required;
     private ToggleStyleMixin<UIObject> toggleStyleMixin;
@@ -51,8 +51,8 @@ public class RequiredFieldMixin <T extends AbstractValueWidget & HasRequiredFiel
     public void setRequired(boolean required) {
         this.required = required;
 
-        uiObject.setValidateOnBlur(true);
-        uiObject.setAllowBlank(false);
+        uiObject.setValidateOnBlur(required);
+        uiObject.setAllowBlank(!required);
 
         if (targetLabel != null) {
             getToggleStyleMixin().setOn(required);

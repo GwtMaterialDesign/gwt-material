@@ -122,7 +122,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setup(ValueBoxBase<T> tValueBox) {
         valueBoxBase = tValueBox;
         add(valueBoxBase);
-        setAutocomplete(false);
+        setAutocomplete(Autocomplete.OFF);
     }
 
     @Deprecated
@@ -565,13 +565,13 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void setAutocomplete(boolean value) {
-        valueBoxBase.getElement().setAttribute("autocomplete", value ? "on" : "off");
+    public void setAutocomplete(Autocomplete value) {
+        valueBoxBase.getElement().setAttribute("autocomplete", value.getName());
     }
 
     @Override
-    public boolean isAutocomplete() {
-        return valueBoxBase.getElement().getAttribute("autocomplete").equals("on");
+    public Autocomplete getAutocomplete() {
+        return Autocomplete.get(valueBoxBase.getElement().getAttribute("autocomplete"));
     }
 
     @Override
