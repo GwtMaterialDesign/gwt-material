@@ -52,9 +52,6 @@ Contributions are welcomed by all! If you would like to submit changes be sure t
 
 Please follow the [contribution document](https://github.com/GwtMaterialDesign/gwt-material/wiki/Contributing) on the projects code style standards.
 
-## Follow Us
-<a href="https://plus.google.com/u/0/communities/108005250093449814286"> Google Plus</a>
-
 ## Related Projects
 <ul>
  <li><a href="https://github.com/GwtMaterialDesign/gwt-material-addins" >Addins</a></li>
