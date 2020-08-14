@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -31,6 +32,7 @@ import gwt.material.design.client.async.loader.AsyncDisplayLoader;
 import gwt.material.design.client.async.loader.DefaultSwitchLoader;
 import gwt.material.design.client.async.mixin.AsyncWidgetMixin;
 import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.SelectionToggleHandler;
 import gwt.material.design.client.base.mixin.StatusTextMixin;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
@@ -65,6 +67,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
     private Label label = new Label();
     private Span span = new Span();
     private SwitchType type = SwitchType.DEFAULT;
+    private SelectionToggleHandler<MaterialSwitch> selectionToggleHandler;
 
     private StatusTextMixin<AbstractValueWidget, MaterialLabel> statusTextMixin;
     private AsyncWidgetMixin<MaterialSwitch, Boolean> asyncWidgetMixin;
@@ -76,7 +79,9 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
         super(Document.get().createDivElement(), CssName.SWITCH);
         span.setStyleName(CssName.LEVER);
         input.setType(InputType.CHECKBOX);
+        selectionToggleHandler = new SelectionToggleHandler<>(this);
         setAsyncDisplayLoader(new DefaultSwitchLoader(this));
+        setTabIndex(0);
     }
 
     public MaterialSwitch(String onLabel, String offLabel) {
@@ -114,6 +119,7 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
         add(errorLabel);
         errorLabel.getElement().getStyle().setMarginTop(16, Unit.PX);
         label.add(onLabel);
+        selectionToggleHandler.load();
 
         // Register click handler here in order to have it at first position
         // and therefore it will deal with clicks as first and setup the value
@@ -130,6 +136,12 @@ public class MaterialSwitch extends AbstractValueWidget<Boolean>
             event.preventDefault();
             event.stopPropagation();
         }));
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+        selectionToggleHandler.unload();
     }
 
     @Override

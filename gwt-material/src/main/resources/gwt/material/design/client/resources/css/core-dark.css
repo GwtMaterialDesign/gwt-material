@@ -178,6 +178,17 @@ button.btn.btn-outlined.disabled {
     border-right: 2px solid #bb86fc
 }
 
+/** CheckBox Focusable **/
+.checkbox:not(.checkbox-disabled):not(.filled-in) [type="checkbox"].filled-in + label:after {
+    transition: 200ms box-shadow;
+}
+
+.checkbox:not(.checkbox-disabled):focus [type="checkbox"].filled-in + label:after,
+.checkbox:not(.checkbox-disabled):hover [type="checkbox"].filled-in + label:after {
+    -webkit-box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
 /** Chip **/
 .chip {
     background-color: #2f2f2f;
@@ -391,6 +402,19 @@ select {
     border-color: rgba(150, 150, 150, .26)
 }
 
+/** Radio Focusable **/
+.gwt-RadioButton:not(.gwt-RadioButton-disabled):focus label:before,
+.gwt-RadioButton:not(.gwt-RadioButton-disabled):hover label:before {
+    -webkit-box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.gwt-RadioButton:not(.gwt-RadioButton-disabled):focus label:before,
+.gwt-RadioButton:not(.gwt-RadioButton-disabled):hover label:before {
+    -webkit-box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
 /** Search **/
 .input-field input[type=search], .light.input-field.inline-search {
     background-color: #2f2f2f
@@ -469,6 +493,17 @@ input[type=checkbox]:checked:not(:disabled) ~ .lever:active:after {
 
 .switch.disabled {
     opacity: .4
+}
+
+/** Switch Focusable **/
+.switch:focus input[type=checkbox]:checked:not(:disabled) ~ .lever:after,
+.switch:hover input[type=checkbox]:checked:not(:disabled) ~ .lever:after {
+    box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.4), 0 0 0 15px rgba(96, 76, 121, 0.1);
+}
+
+.switch:focus input[type=checkbox]:not(:disabled) ~ .lever:after,
+.switch:focus input[type=checkbox]:not(:disabled) ~ .lever:after {
+    box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.4), 0 0 0 15px rgba(255, 255, 255, 0.08);
 }
 
 /** Tabs **/

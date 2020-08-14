@@ -26,8 +26,11 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RadioButton;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.TypeWidget;
+import gwt.material.design.client.base.SelectionToggleHandler;
 import gwt.material.design.client.base.mixin.CssTypeMixin;
 import gwt.material.design.client.constants.RadioButtonType;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
 
@@ -51,6 +54,7 @@ import gwt.material.design.client.constants.RadioButtonType;
 public class MaterialRadioButton extends RadioButton implements HasType<RadioButtonType> {
 
     private CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> typeMixin;
+    private SelectionToggleHandler<MaterialRadioButton> selectionToggleHandler = new SelectionToggleHandler<>(this);
 
     public MaterialRadioButton() {
         super("");
@@ -89,6 +93,18 @@ public class MaterialRadioButton extends RadioButton implements HasType<RadioBut
     }
 
     @Override
+    protected void onLoad() {
+        super.onLoad();
+        selectionToggleHandler.load();
+    }
+
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+        selectionToggleHandler.unload();
+    }
+
+    @Override
     public RadioButtonType getType() {
         return getTypeMixin().getType();
     }
@@ -96,6 +112,11 @@ public class MaterialRadioButton extends RadioButton implements HasType<RadioBut
     @Override
     public void setType(RadioButtonType type) {
         getTypeMixin().setType(type);
+    }
+
+    @Override
+    public void setTabIndex(int index) {
+        getElement().setTabIndex(index);
     }
 
     protected CssTypeMixin<RadioButtonType, TypeWidget<RadioButtonType>> getTypeMixin() {
