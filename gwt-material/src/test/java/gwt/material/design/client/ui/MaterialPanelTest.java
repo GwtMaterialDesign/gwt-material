@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import gwt.material.design.client.base.HasResize;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.base.MaterialWidgetTestCase;
 
@@ -45,5 +46,23 @@ public class MaterialPanelTest extends MaterialWidgetTestCase<MaterialPanel> {
         panel.setContainerEnabled(false);
         assertFalse(panel.isContainerEnabed());
         assertFalse(panel.getElement().hasClassName(CssName.CONTAINER));
+    }
+
+    public void testContentEditable() {
+        MaterialPanel panel = getWidget();
+        panel.setContentEditable(true);
+        assertTrue(panel.isContentEditable());
+        assertTrue(panel.getElement().hasAttribute("contenteditable"));
+        panel.setContentEditable(false);
+        assertFalse(panel.isContentEditable());
+    }
+
+    public void testResizable() {
+        MaterialPanel panel = getWidget();
+        panel.setResize(HasResize.Resizable.BOTH);
+        assertEquals(HasResize.Resizable.BOTH.getName(), panel.getResize());
+        assertEquals(HasResize.Resizable.BOTH.getName(), panel.getElement().getStyle().getProperty("resize"));
+        panel.setResize(HasResize.Resizable.HORIZONTAL);
+        assertEquals(HasResize.Resizable.HORIZONTAL.getName(), panel.getElement().getStyle().getProperty("resize"));
     }
 }
