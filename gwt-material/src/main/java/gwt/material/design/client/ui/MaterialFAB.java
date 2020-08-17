@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.HasAxis;
+import gwt.material.design.client.base.HasOpenClose;
 import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.CssNameMixin;
@@ -61,7 +62,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  */
 //@formatter:on
 public class MaterialFAB extends MaterialWidget implements HasType<FABType>, HasAxis, HasCloseHandlers<MaterialFAB>,
-        HasOpenHandlers<MaterialFAB> {
+        HasOpenHandlers<MaterialFAB>, HasOpenClose {
 
     private CssTypeMixin<FABType, MaterialFAB> typeMixin;
     private CssNameMixin<MaterialFAB, Axis> axisMixin;
@@ -93,6 +94,7 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     /**
      * Open the FAB programmatically
      */
+    @Override
     public void open() {
         open(true);
     }
@@ -112,6 +114,7 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     /**
      * Close the FAB programmatically
      */
+    @Override
     public void close() {
         close(true);
     }
@@ -126,6 +129,11 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
             CloseEvent.fire(this, this);
         }
         $(getElement()).closeFAB();
+    }
+
+    @Override
+    public boolean isOpen() {
+        return getElement().hasClassName(CssName.ACTIVE);
     }
 
     @Override
@@ -146,10 +154,6 @@ public class MaterialFAB extends MaterialWidget implements HasType<FABType>, Has
     @Override
     public Axis getAxis() {
         return getAxisMixin().getCssName();
-    }
-
-    public boolean isOpen() {
-        return getElement().hasClassName(CssName.ACTIVE);
     }
 
     @Override

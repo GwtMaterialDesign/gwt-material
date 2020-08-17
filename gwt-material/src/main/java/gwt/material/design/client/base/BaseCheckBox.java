@@ -498,6 +498,7 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
      */
     @Override
     protected void onLoad() {
+        super.onLoad();
         DOM.setEventListener(inputElem, this);
     }
 

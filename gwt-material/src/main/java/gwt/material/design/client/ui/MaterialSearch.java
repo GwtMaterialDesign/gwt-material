@@ -27,6 +27,7 @@ import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.base.HasActive;
+import gwt.material.design.client.base.HasOpenClose;
 import gwt.material.design.client.base.HasSearchHandlers;
 import gwt.material.design.client.base.SearchObject;
 import gwt.material.design.client.constants.*;
@@ -75,7 +76,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 //@formatter:on
 public class MaterialSearch extends MaterialValueBox<String> implements HasOpenHandlers<String>, HasCloseHandlers<String>,
-        HasActive, HasSearchHandlers {
+        HasActive, HasSearchHandlers, HasOpenClose {
 
     private Label label = new Label();
     private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
@@ -255,14 +256,21 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
     /**
      * Programmatically open the search input field component
      */
+    @Override
     public void open() {
         setActive(true);
         Scheduler.get().scheduleDeferred(() -> $(valueBoxBase.getElement()).focus());
         OpenEvent.fire(MaterialSearch.this, getText());
     }
 
+    @Override
     public void close() {
         close(true);
+    }
+
+    @Override
+    public boolean isOpen() {
+        return isActive();
     }
 
     public void close(boolean fireEvents) {

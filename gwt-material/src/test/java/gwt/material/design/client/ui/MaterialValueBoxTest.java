@@ -112,10 +112,14 @@ public abstract class MaterialValueBoxTest<T extends MaterialValueBox> extends A
         widget.setRequired(true);
         assertTrue(widget.isRequired());
         assertTrue(widget.getStatusTextMixin().getPlaceholder().getElement().hasClassName(REQUIRED));
+        assertTrue(widget.isValidateOnBlur());
+        assertFalse(widget.isAllowBlank());
 
         widget.setRequired(false);
         assertFalse(widget.isRequired());
         assertFalse(widget.getStatusTextMixin().getPlaceholder().getElement().hasClassName(REQUIRED));
+        assertFalse(widget.isValidateOnBlur());
+        assertTrue(widget.isAllowBlank());
     }
 
     protected <W extends MaterialValueBox> void checkAutocomplete(W widget) {
