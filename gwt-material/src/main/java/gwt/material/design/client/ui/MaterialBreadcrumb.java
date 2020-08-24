@@ -49,6 +49,8 @@ public class MaterialBreadcrumb extends AbstractIconButton {
 
     public MaterialBreadcrumb() {
         super(CssName.BREADCRUMB);
+
+        setTabIndex(0);
     }
 
     public MaterialBreadcrumb(String text) {

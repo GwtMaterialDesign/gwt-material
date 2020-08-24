@@ -183,7 +183,7 @@ button.btn.btn-outlined.disabled {
     transition: 200ms box-shadow;
 }
 
-.checkbox:not(.checkbox-disabled):focus [type="checkbox"].filled-in + label:after,
+.checkbox:not(.checkbox-disabled).focus-visible [type="checkbox"].filled-in + label:after,
 .checkbox:not(.checkbox-disabled):hover [type="checkbox"].filled-in + label:after {
     -webkit-box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
@@ -195,6 +195,7 @@ button.btn.btn-outlined.disabled {
     color: #fff
 }
 
+.chip.focus-visible,
 .chip.active {
     color: #bb86fc;
     background-color: rgba(187, 134, 252, .25)
@@ -403,13 +404,13 @@ select {
 }
 
 /** Radio Focusable **/
-.gwt-RadioButton:not(.gwt-RadioButton-disabled):focus label:before,
+.gwt-RadioButton:not(.gwt-RadioButton-disabled).focus-visible label:before,
 .gwt-RadioButton:not(.gwt-RadioButton-disabled):hover label:before {
     -webkit-box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
-.gwt-RadioButton:not(.gwt-RadioButton-disabled):focus label:before,
+.gwt-RadioButton:not(.gwt-RadioButton-disabled).focus-visible label:before,
 .gwt-RadioButton:not(.gwt-RadioButton-disabled):hover label:before {
     -webkit-box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
@@ -450,7 +451,7 @@ input[type=range]::-webkit-slider-thumb {
     background-color: #bb86fc
 }
 
-input[type=range]::-webkit-slider-runnable-track, input[type=range]:focus::-webkit-slider-runnable-track {
+input[type=range]::-webkit-slider-runnable-track, input[type=range].focus-visible::-webkit-slider-runnable-track {
     background-color: #4c3f5b
 }
 
@@ -472,7 +473,7 @@ input[type=range]:hover::-webkit-slider-thumb {
     box-shadow: 0 0 0 8px rgba(187, 134, 252, .16) !important
 }
 
-input[type=range]:focus::-webkit-slider-thumb {
+input[type=range].focus-visible::-webkit-slider-thumb {
     -webkit-box-shadow: 0 0 0 12px rgba(187, 134, 252, .16) !important;
     -moz-box-shadow: 0 0 0 12px rgba(187, 134, 252, .16) !important;
     box-shadow: 0 0 0 12px rgba(187, 134, 252, .16) !important
@@ -496,13 +497,12 @@ input[type=checkbox]:checked:not(:disabled) ~ .lever:active:after {
 }
 
 /** Switch Focusable **/
-.switch:focus input[type=checkbox]:checked:not(:disabled) ~ .lever:after,
+.switch.focus-visible input[type=checkbox]:checked:not(:disabled) ~ .lever:after,
 .switch:hover input[type=checkbox]:checked:not(:disabled) ~ .lever:after {
     box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.4), 0 0 0 15px rgba(96, 76, 121, 0.1);
 }
 
-.switch:focus input[type=checkbox]:not(:disabled) ~ .lever:after,
-.switch:focus input[type=checkbox]:not(:disabled) ~ .lever:after {
+.switch.focus-visible input[type=checkbox]:not(:disabled) ~ .lever:after {
     box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.4), 0 0 0 15px rgba(255, 255, 255, 0.08);
 }
 

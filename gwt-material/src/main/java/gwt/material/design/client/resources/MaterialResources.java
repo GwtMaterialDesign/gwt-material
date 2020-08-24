@@ -34,4 +34,7 @@ public interface MaterialResources extends ClientBundle {
 
     @Source("js/app-installer.min.js")
     TextResource appInstallerJs();
+
+    @Source("js/focus-visible.min.js")
+    TextResource focusVisibleJs();
 }

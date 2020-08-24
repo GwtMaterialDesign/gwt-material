@@ -20,6 +20,7 @@ package gwt.material.design.client;
  * #L%
  */
 
+import gwt.material.design.client.accessibility.AccessibilityControl;
 import gwt.material.design.client.resources.MaterialDebugResources;
 
 public class MaterialDesignDebugBase extends MaterialDesignBase {
@@ -31,6 +32,7 @@ public class MaterialDesignDebugBase extends MaterialDesignBase {
             injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.appInstallerJsDebug());
+            accessibilityControl.load(true);
         }
         onModuleLoaded();
     }

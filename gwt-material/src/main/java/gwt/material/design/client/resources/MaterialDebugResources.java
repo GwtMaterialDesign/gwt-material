@@ -34,4 +34,7 @@ public interface MaterialDebugResources extends ClientBundle {
 
     @Source("js/app-installer.js")
     TextResource appInstallerJsDebug();
+
+    @Source("js/focus-visible.js")
+    TextResource focusVisibleJsDebug();
 }

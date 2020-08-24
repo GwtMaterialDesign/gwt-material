@@ -40,6 +40,7 @@ public class MaterialChipContainer extends MaterialPanel {
 
         if (child instanceof MaterialChip) {
             MaterialChip chip = (MaterialChip) child;
+            chip.setTabIndex(0);
             chip.registerHandler(chip.addClickHandler(event -> {
                 if (isEnableToggle()) setActive(chip);
             }));
