@@ -21,6 +21,7 @@ package gwt.material.design.client;
  */
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
@@ -46,14 +47,13 @@ public class MaterialDesignBase {
     static final JQueryProvider jQueryProvider = GWT.create(JQueryProvider.class);
     static List<FutureResource> futureResources;
     static boolean jqueryWarning;
-    static AccessibilityControl accessibilityControl = new AccessibilityControl();
 
     protected void load() {
         checkJQuery(false);
         if(!isMaterializeLoaded()) {
             injectJs(MaterialResources.INSTANCE.materializeJs());
             injectJs(MaterialResources.INSTANCE.animationJs());
-            accessibilityControl.load(false);
+            AccessibilityControl.load(false);
         }
         onModuleLoaded();
     }
