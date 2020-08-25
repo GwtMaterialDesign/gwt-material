@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
@@ -93,6 +94,16 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
             }
         });
         registerHandler(handlerRegistration);
+
+        registerHandler(addKeyUpHandler(event -> {
+            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                Widget parent = getParent();
+                if (parent instanceof MaterialCollection) {
+                    MaterialCollection collection = (MaterialCollection) parent;
+                    collection.setActive(collection.getWidgetIndex(this) + 1);
+                }
+            }
+        }));
 
         JsMaterialElement.initDismissableCollection();
     }

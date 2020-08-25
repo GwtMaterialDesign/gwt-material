@@ -51,6 +51,10 @@ ul.side-nav li.active a span, ul.side-nav li:hover a span {
     color: #bb86fc
 }
 
+.side-nav li a.focus-visible {
+    background: #272727;
+}
+
 /** Badge **/
 span.badge {
     background-color: #b180ed;
@@ -195,7 +199,11 @@ button.btn.btn-outlined.disabled {
     color: #fff
 }
 
-.chip.focus-visible,
+.chip.focus-visible {
+    color: #fff;
+    background-color: #232323;
+}
+
 .chip.active {
     color: #bb86fc;
     background-color: rgba(187, 134, 252, .25)
@@ -231,6 +239,12 @@ button.btn.btn-outlined.disabled {
     border-bottom: 1px solid #2f2f2f
 }
 
+/** Collapsible Focusable **/
+.collapsible-header:hover,
+.collapsible-header.focus-visible {
+    background-color: #353535;
+}
+
 /** Collection **/
 .collection .collection-item, .collection.with-header .collection-header {
     background-color: #2f2f2f;
@@ -248,6 +262,12 @@ button.btn.btn-outlined.disabled {
 .collection .collection-item.active {
     background-color: #39353e;
     color: #a87be0
+}
+
+
+/** Collection Focusable **/
+.collection-item.focus-visible {
+    background-color: #353535;
 }
 
 /** Date Picker **/

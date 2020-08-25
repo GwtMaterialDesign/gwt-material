@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -76,7 +76,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     public void setEnabled(MaterialWidget widget, boolean enabled) {
         setEnabled(enabled);
 
-        if(isPropagateToChildren()) {
+        if (isPropagateToChildren()) {
             for (Widget child : widget.getChildren()) {
                 if (child instanceof MaterialWidget) {
                     ((MaterialWidget) child).setEnabled(enabled);
@@ -97,6 +97,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
         }
 
         updateWaves(enabled, obj);
+        updateTabIndex(enabled, obj);
     }
 
     public void updateWaves(boolean enabled, UIObject obj) {
@@ -109,6 +110,13 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
             } else {
                 widget.getElement().removeClassName(CssName.WAVES_EFFECT);
             }
+        }
+    }
+
+    public void updateTabIndex(boolean enabled, UIObject obj) {
+        if (obj instanceof MaterialWidget) {
+            MaterialWidget widget = (MaterialWidget) obj;
+            widget.setTabIndex(enabled ? widget.getTabIndex() : -1);
         }
     }
 

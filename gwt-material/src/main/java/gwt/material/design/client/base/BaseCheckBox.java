@@ -53,6 +53,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
+import gwt.material.design.client.accessibility.AccessibilityControl;
 import gwt.material.design.client.constants.CssName;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
@@ -209,6 +210,8 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
 
         directionalTextHelper = new DirectionalTextHelper(labelElem, true);
         selectionToggleHandler = new SelectionToggleHandler<>(this);
+
+        setTabIndex(0);
     }
 
     @Override
@@ -487,7 +490,6 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
         super.onLoad();
 
         DOM.setEventListener(inputElem, this);
-        setTabIndex(isEnabled() ? getTabIndex() : -1);
         selectionToggleHandler.load();
     }
 

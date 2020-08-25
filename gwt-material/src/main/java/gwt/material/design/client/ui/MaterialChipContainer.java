@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -42,7 +43,10 @@ public class MaterialChipContainer extends MaterialPanel {
             MaterialChip chip = (MaterialChip) child;
             chip.setTabIndex(0);
             chip.registerHandler(chip.addClickHandler(event -> {
-                if (isEnableToggle()) setActive(chip);
+                if (isEnableToggle()) toggle(chip);
+            }));
+            chip.registerHandler(chip.addKeyUpHandler(event -> {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) toggle(chip);
             }));
             chipList.add(chip);
         }
@@ -83,6 +87,10 @@ public class MaterialChipContainer extends MaterialPanel {
         if (chip != null) {
             setActive(chip);
         }
+    }
+
+    public void toggle(MaterialChip chip) {
+        if (isEnableToggle()) setActive(chip);
     }
 
     public void clearActive() {
