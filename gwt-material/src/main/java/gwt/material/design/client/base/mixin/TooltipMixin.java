@@ -126,4 +126,14 @@ public class TooltipMixin<H extends Widget & HasTooltip> extends AbstractMixin<H
     public JQueryElement getTooltipElement() {
         return tooltip.getTooltipElement();
     }
+
+    @Override
+    public void removeTooltip() {
+        if (tooltip != null) {
+            JQueryElement tooltipElement = tooltip.getTooltipElement();
+            if (tooltipElement != null) {
+                tooltipElement.remove();
+            }
+        }
+    }
 }

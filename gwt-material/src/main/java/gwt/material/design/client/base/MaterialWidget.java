@@ -891,6 +891,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getTooltipMixin().getTooltipElement();
     }
 
+    @Override
+    public void removeTooltip() {
+        getTooltipMixin().removeTooltip();
+    }
+
     public void setVisibility(Style.Visibility visibility) {
         getElement().getStyle().setVisibility(visibility);
     }

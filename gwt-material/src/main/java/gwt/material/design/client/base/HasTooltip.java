@@ -79,4 +79,9 @@ public interface HasTooltip {
      * Get the Tooltip element to ease of customization
      */
     JQueryElement getTooltipElement();
+
+    /**
+     * This will detach or remove the tooltip element
+     */
+    void removeTooltip();
 }
