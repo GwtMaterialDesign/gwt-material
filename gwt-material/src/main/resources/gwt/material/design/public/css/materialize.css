@@ -8618,10 +8618,28 @@ button.btn-floating.focus-visible:before {
   left: calc(50% - 24px); }
 
 /** Checkbox Focusable */
-.checkbox:not(.checkbox-disabled).focus-visible [type="checkbox"].filled-in + label:after,
-.checkbox:not(.checkbox-disabled):hover [type="checkbox"].filled-in + label:after {
-  -webkit-box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1); }
+.checkbox.gwt-CheckBox.focus-visible,
+.checkbox.gwt-CheckBox:hover {
+  position: relative; }
+
+.checkbox.gwt-CheckBox:after {
+  opacity: 0;
+  transition: 200ms;
+  transform: scale(0);
+  content: "";
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  border-radius: 100%;
+  z-index: -1; }
+
+.checkbox.gwt-CheckBox.focus-visible:after,
+.checkbox.gwt-CheckBox:hover:after {
+  transform: scale(1);
+  opacity: 1; }
 
 /** Radio Button Focusable **/
 .gwt-RadioButton:not(.gwt-RadioButton-disabled).focus-visible label:before,

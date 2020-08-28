@@ -183,14 +183,8 @@ button.btn.btn-outlined.disabled {
 }
 
 /** CheckBox Focusable **/
-.checkbox:not(.checkbox-disabled):not(.filled-in) [type="checkbox"].filled-in + label:after {
-    transition: 200ms box-shadow;
-}
-
-.checkbox:not(.checkbox-disabled).focus-visible [type="checkbox"].filled-in + label:after,
-.checkbox:not(.checkbox-disabled):hover [type="checkbox"].filled-in + label:after {
-    -webkit-box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+.checkbox.gwt-CheckBox:after {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /** Chip **/
