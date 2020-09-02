@@ -32,7 +32,7 @@ public class MaterialDesignDebugBase extends MaterialDesignBase {
             injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.appInstallerJsDebug());
-            AccessibilityControl.load(true);
+            AccessibilityControl.get().load(true);
         }
         onModuleLoaded();
     }

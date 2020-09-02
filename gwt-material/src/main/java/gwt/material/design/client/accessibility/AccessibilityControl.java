@@ -21,12 +21,17 @@ package gwt.material.design.client.accessibility;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.resources.MaterialDebugResources;
 import gwt.material.design.client.resources.MaterialResources;
+import gwt.material.design.jquery.client.api.JQuery;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -36,10 +41,17 @@ public class AccessibilityControl {
     protected static final String FOCUS_VISIBILITY_ATTRIBUTE = "data-js-focus-visible";
     protected static final String FOCUS_VISIBLE_WIDGET = "focus-visible";
     protected static final String DATA_FOCUS_ADDED_ATTRIBUTE = "data-focus-visible-added";
-    protected static JavaScriptObject resourceUrlObject;
-    protected static boolean loaded;
+    public static AccessibilityControl instance;
+    protected JavaScriptObject resourceUrlObject;
+    protected Map<HandlerRegistration, Widget> accessibilityHandlerRegistration;
+    protected boolean enabled;
+    protected boolean loaded;
 
-    public static void load(boolean debug) {
+    public AccessibilityControl() {
+        accessibilityHandlerRegistration = new HashMap<>();
+    }
+
+    public void load(boolean debug) {
         TextResource resource;
         if (!loaded) {
             if (debug) {
@@ -52,7 +64,7 @@ public class AccessibilityControl {
         }
     }
 
-    protected static void injectJs(TextResource resource) {
+    protected void injectJs(TextResource resource) {
         String text = resource.getText() + ("//# sourceURL=" + resource.getName() + ".js");
 
         // Inject the script resource
@@ -61,7 +73,38 @@ public class AccessibilityControl {
             .inject();
     }
 
-    public static void unloadWidgetAccessibility(Widget widget) {
+    /**
+     * This will register the accessibility control for a widget provided with keycodes
+     */
+    public void registerWidget(MaterialWidget widget, int key) {
+        registerWidget(widget, key, null);
+    }
+
+    /**
+     * This will register the accessibility control for a widget provided with keycodes and
+     * TriggerCallback
+     */
+    public void registerWidget(MaterialWidget widget, int key, TriggerCallback callback) {
+        if (widget != null) {
+            widget.setTabIndex(isEnabled() ? 0 : -1);
+            HandlerRegistration handlerRegistration = widget.registerHandler(widget.addKeyUpHandler(event -> {
+                if (isEnabled() && event.getNativeKeyCode() == key) {
+                    if (callback != null) {
+                        callback.call(event);
+                    } else {
+                        JQuery.$(widget.getElement()).click();
+                    }
+                }
+            }));
+            accessibilityHandlerRegistration.put(handlerRegistration, widget);
+        }
+    }
+
+    /**
+     * This will unregister any accessibility control to a widget
+     * @param widget
+     */
+    public void unregisterWidget(Widget widget) {
         if (widget != null) {
             if (widget.getElement().hasClassName(FOCUS_VISIBLE_WIDGET)) {
                 widget.removeStyleName(FOCUS_VISIBLE_WIDGET);
@@ -70,10 +113,13 @@ public class AccessibilityControl {
             if (widget.getElement().hasAttribute(DATA_FOCUS_ADDED_ATTRIBUTE)) {
                 widget.getElement().removeAttribute(DATA_FOCUS_ADDED_ATTRIBUTE);
             }
+            accessibilityHandlerRegistration.forEach((handlerRegistration, widget1) -> {
+
+            });
         }
     }
 
-    public static void unload() {
+    public void unload() {
         JsMaterialElement html = $("html");
         if (html != null) {
             if (html.hasClass(FOCUS_VISIBILITY_CLASSNAME)) {
@@ -87,5 +133,21 @@ public class AccessibilityControl {
             scriptTag.remove();
         }
         loaded = false;
+    }
+
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public static AccessibilityControl get() {
+        if (instance == null) {
+            instance = new AccessibilityControl();
+        }
+        return instance;
     }
 }

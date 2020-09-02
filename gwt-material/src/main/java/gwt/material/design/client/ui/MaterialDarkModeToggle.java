@@ -30,6 +30,7 @@ public class MaterialDarkModeToggle extends MaterialIcon implements HasDarkMode,
     protected DarkThemeManager manager = DarkThemeManager.get();
 
     public MaterialDarkModeToggle() {
+        setTabIndex(0);
     }
 
     @Override

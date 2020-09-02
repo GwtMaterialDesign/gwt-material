@@ -116,7 +116,11 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     public void updateTabIndex(boolean enabled, UIObject obj) {
         if (obj instanceof MaterialWidget) {
             MaterialWidget widget = (MaterialWidget) obj;
-            widget.setTabIndex(enabled ? widget.getTabIndex() : -1);
+            if (enabled) {
+                widget.setTabIndex(0);
+            } else {
+                widget.getElement().removeAttribute("tabIndex");
+            }
         }
     }
 

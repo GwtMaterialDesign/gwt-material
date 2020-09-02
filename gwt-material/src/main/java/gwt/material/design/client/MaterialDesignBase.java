@@ -53,7 +53,7 @@ public class MaterialDesignBase {
         if(!isMaterializeLoaded()) {
             injectJs(MaterialResources.INSTANCE.materializeJs());
             injectJs(MaterialResources.INSTANCE.animationJs());
-            AccessibilityControl.load(false);
+            AccessibilityControl.get().load(false);
         }
         onModuleLoaded();
     }

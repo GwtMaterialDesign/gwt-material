@@ -8582,14 +8582,16 @@ nav ul li a {
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none; }
 
-/** Tabs & Button Focusable **/
-button.focus-visible,
-.tabs .tab a.focus-visible {
+/** Tabs & Buttons Focusable **/
+i[tabindex],
+button[tabindex],
+.tabs .tab a[tabindex] {
   overflow: hidden;
   position: relative; }
 
-.tabs .tab a:before,
-button:before {
+i[tabindex]:before,
+.tabs .tab a[tabindex]:before,
+button[tabindex]:before {
   content: "";
   position: absolute;
   background: rgba(0, 0, 0, 0.2);
@@ -8603,6 +8605,7 @@ button:before {
   opacity: 0;
   transition: 400ms; }
 
+i.focus-visible:before,
 button.focus-visible:before,
 .tabs .tab a.focus-visible:before {
   opacity: 1;
@@ -8616,6 +8619,12 @@ button.btn-floating.focus-visible:before {
   height: 48px;
   top: calc(50% - 24px);
   left: calc(50% - 24px); }
+
+i.focus-visible:before {
+  width: 32px;
+  height: 32px;
+  top: calc(50% - 17px);
+  left: calc(50% - 16px); }
 
 /** Checkbox Focusable */
 .checkbox.gwt-CheckBox.focus-visible,

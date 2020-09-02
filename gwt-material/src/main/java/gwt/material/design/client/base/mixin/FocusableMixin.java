@@ -51,7 +51,7 @@ public class FocusableMixin<T extends UIObject & Focusable> extends AbstractMixi
         if (index > -1) {
             if (uiObject instanceof HasClickHandlers && uiObject instanceof Widget) {
                 ((HasClickHandlers) uiObject).addClickHandler(event ->
-                    AccessibilityControl.unloadWidgetAccessibility((Widget) uiObject));
+                    AccessibilityControl.get().unregisterWidget((Widget) uiObject));
             }
         }
     }
