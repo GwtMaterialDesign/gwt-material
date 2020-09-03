@@ -21,6 +21,7 @@ package gwt.material.design.client.accessibility;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.ui.Widget;
@@ -44,7 +45,7 @@ public class AccessibilityControl {
     public static AccessibilityControl instance;
     protected JavaScriptObject resourceUrlObject;
     protected Map<HandlerRegistration, Widget> accessibilityHandlerRegistration;
-    protected boolean enabled;
+    protected boolean enabled = true;
     protected boolean loaded;
 
     public AccessibilityControl() {
@@ -81,12 +82,18 @@ public class AccessibilityControl {
     }
 
     /**
+     * This will register the accessibility control for a widget provided with default KeyCodes.ENTER
+     */
+    public void registerWidget(MaterialWidget widget) {
+        registerWidget(widget, KeyCodes.KEY_ENTER);
+    }
+
+    /**
      * This will register the accessibility control for a widget provided with keycodes and
      * TriggerCallback
      */
     public void registerWidget(MaterialWidget widget, int key, TriggerCallback callback) {
         if (widget != null) {
-            widget.setTabIndex(isEnabled() ? 0 : -1);
             HandlerRegistration handlerRegistration = widget.registerHandler(widget.addKeyUpHandler(event -> {
                 if (isEnabled() && event.getNativeKeyCode() == key) {
                     if (callback != null) {
@@ -96,6 +103,11 @@ public class AccessibilityControl {
                     }
                 }
             }));
+            if (enabled) {
+                widget.setTabIndex(0);
+            } else {
+                widget.getElement().removeAttribute("tabIndex");
+            }
             accessibilityHandlerRegistration.put(handlerRegistration, widget);
         }
     }
