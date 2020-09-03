@@ -99,7 +99,7 @@ public class AccessibilityControl {
                     if (callback != null) {
                         callback.call(event);
                     } else {
-                        JQuery.$(widget.getElement()).click();
+                        triggerClick(widget);
                     }
                 }
             }));
@@ -125,9 +125,7 @@ public class AccessibilityControl {
             if (widget.getElement().hasAttribute(DATA_FOCUS_ADDED_ATTRIBUTE)) {
                 widget.getElement().removeAttribute(DATA_FOCUS_ADDED_ATTRIBUTE);
             }
-            accessibilityHandlerRegistration.forEach((handlerRegistration, widget1) -> {
-
-            });
+            accessibilityHandlerRegistration.forEach((handlerRegistration, widget1) -> handlerRegistration.removeHandler());
         }
     }
 
@@ -147,6 +145,11 @@ public class AccessibilityControl {
         loaded = false;
     }
 
+    protected void triggerClick(Widget widget) {
+        if (widget != null) {
+            JQuery.$(widget.getElement()).click();
+        }
+    }
 
     public boolean isEnabled() {
         return enabled;
