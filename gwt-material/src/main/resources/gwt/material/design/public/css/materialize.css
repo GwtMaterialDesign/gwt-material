@@ -8660,6 +8660,9 @@ nav .nav-wrapper i.focus-visible:before {
   transform: scale(1);
   opacity: 1; }
 
+.checkbox.col.gwt-CheckBox:after {
+  left: 3px; }
+
 /** Radio Button Focusable **/
 .gwt-RadioButton:not(.gwt-RadioButton-disabled).focus-visible label:before,
 .gwt-RadioButton:not(.gwt-RadioButton-disabled):hover label:before {

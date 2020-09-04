@@ -349,6 +349,7 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
         } else {
             addStyleDependentName(CssName.DISABLED);
         }
+        getEnabledMixin().setEnabled(enabled);
     }
 
     @Override
