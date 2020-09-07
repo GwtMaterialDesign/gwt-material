@@ -147,6 +147,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
             @Override
             public void onKeyUp(KeyUpEvent event) {
                 String keyword = getText().toLowerCase();
+                int keyCode = event.getNativeEvent().getKeyCode();
                 // Clear the panel and temp objects
                 searchResultPanel.clear();
                 tempSearches.clear();
@@ -190,7 +191,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                 }
 
                 // Apply selected search
-                if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER && !tempSearches.isEmpty()) {
+                if (keyCode == KeyCodes.KEY_ENTER && !tempSearches.isEmpty()) {
                     if (getCurSel() == -1) {
                         setSelectedObject(tempSearches.get(0));
                         setSelectedLink((MaterialLink) searchResultPanel.getWidget(0));
@@ -213,7 +214,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                 // Selection logic using key down event to navigate the search results
                 int totalItems = searchResultPanel.getWidgetCount();
                 if (totalItems > 0) {
-                    if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_DOWN) {
+                    if (keyCode == KeyCodes.KEY_DOWN) {
                     	if (++curSel >= totalItems)
                     		curSel = 0;
                     	
@@ -227,6 +228,11 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                     	
                     	applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
                     }                	
+                }
+
+                // Add Escape key for closing the result panel
+                if (keyCode == KeyCodes.KEY_ESCAPE) {
+                    close();
                 }
             }
 

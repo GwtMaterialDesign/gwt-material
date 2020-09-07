@@ -8717,6 +8717,10 @@ input[type=range].focus-visible::-ms-thumb {
 .collection-item.focus-visible {
   background-color: #eee; }
 
+/** Search Focusbale **/
+.search-result a.focus-visible {
+  background-color: #eee; }
+
 /**
 * Async Switch and CheckBox
 */

@@ -29,7 +29,9 @@ import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.client.resources.MaterialDebugResources;
 import gwt.material.design.client.resources.MaterialResources;
+import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.jquery.client.api.JQuery;
+import gwt.material.design.jscore.client.api.core.Element;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -125,7 +127,11 @@ public class AccessibilityControl {
             if (widget.getElement().hasAttribute(DATA_FOCUS_ADDED_ATTRIBUTE)) {
                 widget.getElement().removeAttribute(DATA_FOCUS_ADDED_ATTRIBUTE);
             }
-            accessibilityHandlerRegistration.forEach((handlerRegistration, widget1) -> handlerRegistration.removeHandler());
+            accessibilityHandlerRegistration.forEach((handlerRegistration, currentWidget) -> {
+                if (widget == currentWidget) {
+                    handlerRegistration.removeHandler();
+                }
+            });
         }
     }
 
