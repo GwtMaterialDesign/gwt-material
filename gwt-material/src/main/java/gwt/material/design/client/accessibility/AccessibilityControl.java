@@ -90,6 +90,10 @@ public class AccessibilityControl {
         registerWidget(widget, KeyCodes.KEY_ENTER);
     }
 
+    public void registerWidget(MaterialWidget widget, TriggerCallback callback) {
+        registerWidget(widget, KeyCodes.KEY_ENTER, callback);
+    }
+
     /**
      * This will register the accessibility control for a widget provided with keycodes and
      * TriggerCallback

@@ -8590,8 +8590,11 @@ button[tabindex],
   overflow: hidden;
   position: relative; }
 
-.button-collapse[tabindex]:before,
-i[tabindex]:before,
+i[tabindex] {
+  overflow: visible; }
+
+.button-collapse[tabindex]:after,
+i[tabindex]:after,
 .tabs .tab a[tabindex]:before,
 button[tabindex]:before {
   content: "";
@@ -8607,8 +8610,8 @@ button[tabindex]:before {
   opacity: 0;
   transition: 400ms; }
 
-.button-collapse.focus-visible:before,
-i.focus-visible:before,
+.button-collapse.focus-visible:after,
+i.focus-visible:after,
 button.focus-visible:before,
 .tabs .tab a.focus-visible:before {
   opacity: 1;
@@ -8623,14 +8626,14 @@ button.btn-floating.focus-visible:before {
   top: calc(50% - 24px);
   left: calc(50% - 24px); }
 
-i.focus-visible:before {
+i.focus-visible:after {
   width: 32px;
   height: 32px;
   top: calc(50% - 17px);
   left: calc(50% - 16px); }
 
 .button-collapse.focus-visible:before,
-nav .nav-wrapper i.focus-visible:before {
+nav .nav-wrapper i.focus-visible:after {
   width: 40px;
   height: 40px;
   top: calc(50% - 20px);

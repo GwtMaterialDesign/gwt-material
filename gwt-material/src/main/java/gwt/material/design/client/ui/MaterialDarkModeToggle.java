@@ -43,7 +43,7 @@ public class MaterialDarkModeToggle extends MaterialIcon implements HasDarkMode,
         setDarkMode(mediaQueryList.matches);
         mediaQueryList.addListener(mediaQueryEvent -> setDarkMode(mediaQueryEvent.matches));
         registerHandler(addClickHandler(event -> setDarkMode(!isDarkMode())));
-        AccessibilityControl.get().registerWidget(this, KeyCodes.KEY_ENTER, event -> setDarkMode(!isDarkMode()));
+        AccessibilityControl.get().registerWidget(this, event -> setDarkMode(!isDarkMode()));
     }
 
     @Override
