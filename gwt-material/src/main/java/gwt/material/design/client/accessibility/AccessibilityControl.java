@@ -151,7 +151,7 @@ public class AccessibilityControl {
         loaded = false;
     }
 
-    protected void triggerClick(Widget widget) {
+    public void triggerClick(Widget widget) {
         if (widget != null) {
             JQuery.$(widget.getElement()).click();
         }
