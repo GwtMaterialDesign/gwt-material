@@ -26,6 +26,6 @@ import com.google.gwt.resources.client.TextResource;
 public interface DarkThemeResources extends ClientBundle {
     DarkThemeResources INSTANCE = GWT.create(DarkThemeResources.class);
 
-    @Source("css/core-dark.min.css")
+    @Source("css/materialize.dark.min.css")
     TextResource darkCss();
 }
