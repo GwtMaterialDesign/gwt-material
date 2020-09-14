@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
 
     private static final String TAB_INDEX = "tabIndex";
     private static final String DISABLED = "disabled";
+    private String initialTabIndex;
 
     private HandlerRegistration handler;
 
@@ -52,6 +53,8 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
             handler.removeHandler();
             handler = null;
         }
+
+        initialTabIndex = uiObject.getElement().getAttribute("tabIndex");
     }
 
     @Override
@@ -118,8 +121,10 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     public void updateTabIndex(boolean enabled, UIObject obj) {
         if (obj instanceof MaterialWidget) {
             MaterialWidget widget = (MaterialWidget) obj;
-            if (!enabled && widget.getElement().hasAttribute(TAB_INDEX)) {
-                widget.getElement().removeAttribute(TAB_INDEX);
+            if (enabled) {
+                if (initialTabIndex != null) widget.getElement().setAttribute(TAB_INDEX, initialTabIndex);
+            } else {
+                widget.getElement().setAttribute(TAB_INDEX, "-1");
             }
         }
     }

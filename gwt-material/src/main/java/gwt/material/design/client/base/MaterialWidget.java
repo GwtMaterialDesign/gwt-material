@@ -332,6 +332,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getFocusableMixin().setFocus(focused);
     }
 
+    public void setFocus(boolean focused, boolean appendFocusStyleName) {
+        getFocusableMixin().setFocus(focused, appendFocusStyleName);
+    }
+
     @Override
     public void setTabIndex(int index) {
         getFocusableMixin().setTabIndex(index);

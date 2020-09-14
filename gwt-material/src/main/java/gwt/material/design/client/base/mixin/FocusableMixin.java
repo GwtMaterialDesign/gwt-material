@@ -9,9 +9,9 @@ package gwt.material.design.client.base.mixin;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,8 @@ import gwt.material.design.client.accessibility.AccessibilityControl;
  * @author Sven Jacobs
  */
 public class FocusableMixin<T extends UIObject & Focusable> extends AbstractMixin<T> implements Focusable {
+
+    protected static final String FOCUS_VISIBLE = "focus-visible";
 
     public FocusableMixin(final T uiObject) {
         super(uiObject);
@@ -72,10 +74,16 @@ public class FocusableMixin<T extends UIObject & Focusable> extends AbstractMixi
 
     @Override
     public void setFocus(final boolean focused) {
+        setFocus(focused, false);
+    }
+
+    public void setFocus(boolean focused, boolean appendFocusStyleName) {
         if (focused) {
             uiObject.getElement().focus();
+            if (appendFocusStyleName) uiObject.addStyleName(FOCUS_VISIBLE);
         } else {
             uiObject.getElement().blur();
+            if (appendFocusStyleName) uiObject.removeStyleName(FOCUS_VISIBLE);
         }
     }
 }
