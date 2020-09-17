@@ -26,6 +26,7 @@ import gwt.material.design.client.constants.CssType;
 public enum Transition implements CssType {
     // Material Animation Components
     SHOW_STAGGERED_LIST("staggered_list"),
+    HIDE_STAGGERED_LIST("staggered_list_hide"),
     FADE_IN_IMAGE("fade_in_image"),
     SHOW_GRID("show_grid"),
     CLOSE_GRID("close_grid"),
