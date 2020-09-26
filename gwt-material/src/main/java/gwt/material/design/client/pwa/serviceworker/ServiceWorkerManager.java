@@ -105,7 +105,7 @@ public class ServiceWorkerManager implements ServiceWorkerLifecycle, PwaFeature 
      */
     protected void setupRegistration() {
         if (isServiceWorkerSupported()) {
-            Navigator.serviceWorker.register(getResource(), getOption()).then((e, object) -> {
+            Navigator.serviceWorker.register(getResource(), getOption()).then((object) -> {
                 logger.info("Service worker has been successfully registered");
                 registration = (ServiceWorkerRegistration) object;
 

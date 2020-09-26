@@ -3452,6 +3452,36 @@
   animation-name: sharedAxisXForwardIn;
 }
 
+/** Shared Axis X ForwardOut **/
+@-webkit-keyframes sharedAxisXForwardOut {
+  from {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes sharedAxisXForwardOut {
+  from {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+.sharedAxisXForwardOut {
+  -webkit-animation-name: sharedAxisXForwardOut;
+  animation-name: sharedAxisXForwardOut;
+}
+
 /** Shared Axis X BackwardIn **/
 @-webkit-keyframes sharedAxisXBackwardIn {
   from {
@@ -3482,8 +3512,8 @@
   animation-name: sharedAxisXBackwardIn;
 }
 
-/** Shared Axis X ForwardOut **/
-@-webkit-keyframes sharedAxisXForwardOut {
+/** Shared Axis X BackwardIn **/
+@-webkit-keyframes sharedAxisXBackwardOut {
   from {
     opacity: 1;
     transform: translateX(0px);
@@ -3491,11 +3521,11 @@
 
   to {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(30px);
   }
 }
 
-@keyframes sharedAxisXForwardOut {
+@keyframes sharedAxisXBackwardOut {
   from {
     opacity: 1;
     transform: translateX(0px);
@@ -3503,13 +3533,13 @@
 
   to {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(30px);
   }
 }
 
-.sharedAxisXForwardOut {
-  -webkit-animation-name: sharedAxisXForwardOut;
-  animation-name: sharedAxisXForwardOut;
+.sharedAxisXBackwardOut {
+  -webkit-animation-name: sharedAxisXBackwardOut;
+  animation-name: sharedAxisXBackwardOut;
 }
 
 /** Shared Axis Y ForwardIn **/
@@ -3570,6 +3600,66 @@
 .sharedAxisYForwardOut {
   -webkit-animation-name: sharedAxisYForwardOut;
   animation-name: sharedAxisYForwardOut;
+}
+
+/** Shared Axis Y BackwardIn **/
+@-webkit-keyframes sharedAxisYBackwardIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes sharedAxisYBackwardIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.sharedAxisYBackwardIn {
+  -webkit-animation-name: sharedAxisYBackwardIn;
+  animation-name: sharedAxisYBackwardIn;
+}
+
+/** Shared Axis Y BackwardOut **/
+@-webkit-keyframes sharedAxisYBackwardOut {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@keyframes sharedAxisYBackwardOut {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+.sharedAxisYBackwardOut {
+  -webkit-animation-name: sharedAxisYBackwardOut;
+  animation-name: sharedAxisYBackwardOut;
 }
 
 /** Shared Axis Z In **/
@@ -3644,5 +3734,53 @@
     transition-duration: 0s !important;
     transition-delay: 0s !important;
     will-change: none !important;
+  }
+}
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
   }
 }

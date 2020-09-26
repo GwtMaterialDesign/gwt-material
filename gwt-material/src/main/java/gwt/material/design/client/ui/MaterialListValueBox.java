@@ -958,7 +958,7 @@ public class MaterialListValueBox<T> extends AbstractValueWidget<T> implements J
     @Override
     public void setReadOnly(boolean value) {
         getReadOnlyMixin().setReadOnly(value);
-        if (!value) {
+        if (!value && isAttached()) {
             $(listBox.getElement()).material_select("destroy");
             $(listBox.getElement()).material_select();
         }
