@@ -28,6 +28,11 @@ nav .nav-wrapper ul li:hover i {
 /**
 * Side Nav
 **/
+ul.side-nav.fixed,
+ul.side-nav.card,
+ul.side-nav.drawer-with-header,
+ul.side-nav.push-with-header,
+ul.side-nav.mini,
 ul.side-nav {
   background-color: #2e2e2e; }
 
