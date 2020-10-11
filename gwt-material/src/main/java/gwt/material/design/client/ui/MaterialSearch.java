@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,10 +26,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
-import gwt.material.design.client.base.HasActive;
-import gwt.material.design.client.base.HasOpenClose;
-import gwt.material.design.client.base.HasSearchHandlers;
-import gwt.material.design.client.base.SearchObject;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.SearchFinishEvent;
 import gwt.material.design.client.events.SearchNoResultEvent;
@@ -76,12 +73,13 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
  */
 //@formatter:on
 public class MaterialSearch extends MaterialValueBox<String> implements HasOpenHandlers<String>, HasCloseHandlers<String>,
-        HasActive, HasSearchHandlers, HasOpenClose {
+    HasActive, HasSearchHandlers, HasOpenClose {
 
     private Label label = new Label();
     private MaterialIcon iconSearch = new MaterialIcon(IconType.SEARCH);
     private MaterialIcon iconClose = new MaterialIcon(IconType.CLOSE);
 
+    private SearchMatcher matcher = new DefaultSearchMatcher();
     /**
      * The list of search objects added to MaterialSearchResult panel to
      * display the lists of result items
@@ -215,19 +213,19 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
                 int totalItems = searchResultPanel.getWidgetCount();
                 if (totalItems > 0) {
                     if (keyCode == KeyCodes.KEY_DOWN) {
-                    	if (++curSel >= totalItems)
-                    		curSel = 0;
-                    	
-                    	applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
+                        if (++curSel >= totalItems)
+                            curSel = 0;
+
+                        applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
                     }
 
                     // Selection logic using key up event to navigate the search results
                     if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_UP) {
-                    	if (--curSel < 0)
-                    		curSel = totalItems - 1;
-                    	
-                    	applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
-                    }                	
+                        if (--curSel < 0)
+                            curSel = totalItems - 1;
+
+                        applyHighlightedItem((MaterialLink) searchResultPanel.getWidget(curSel));
+                    }
                 }
 
                 // Add Escape key for closing the result panel
@@ -247,9 +245,21 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         }));
     }
 
-	protected boolean match(SearchObject obj, String keyword) {
-		return obj.getKeyword().toLowerCase().contains(keyword);
-	}
+    protected boolean match(SearchObject obj, String keyword) {
+        return matcher.match(obj, keyword);
+    }
+
+    public SearchMatcher getMatcher() {
+        return matcher;
+    }
+
+    /**
+     * Will set a custom matcher to match the keyword.
+     * By Default {@lnk DefaultSearchMatcher}
+     */
+    public void setMatcher(SearchMatcher matcher) {
+        this.matcher = matcher;
+    }
 
     @Override
     protected void onUnload() {
