@@ -1,6 +1,6 @@
 package gwt.material.design.client.base;
 
-public interface CopyToClipboardLocale {
+public interface CopyCommandLocale {
 
     default String Copied() {
         return "Copied";

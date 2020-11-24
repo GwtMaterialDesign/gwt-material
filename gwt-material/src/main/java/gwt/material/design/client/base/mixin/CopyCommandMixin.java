@@ -1,7 +1,8 @@
 package gwt.material.design.client.base.mixin;
 
-import gwt.material.design.client.base.CopyToClipboardLocale;
-import gwt.material.design.client.base.HasCopyToClipboard;
+import gwt.material.design.client.base.CopyCommand;
+import gwt.material.design.client.base.CopyCommandLocale;
+import gwt.material.design.client.base.HasCopyCommand;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.constants.Position;
@@ -12,39 +13,34 @@ import gwt.material.design.jscore.client.api.Document;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class CopyToClipboardMixin<T extends MaterialValueBox & HasCopyToClipboard> extends AbstractMixin<T> implements HasCopyToClipboard {
+public class CopyCommandMixin<T extends MaterialValueBox & HasCopyCommand> extends AbstractMixin<T> implements HasCopyCommand {
 
-    public static final String COPY_TO_CLIPBOARD = "copy-to-clipboard";
+    public static final String COPY_COMMAND = "copy-command";
 
     protected T widget;
-    protected boolean enabled;
+    protected CopyCommand copyCommand = CopyCommand.OFF;
     protected MaterialIcon icon = new MaterialIcon(IconType.CONTENT_COPY);
-    protected CopyToClipboardLocale locale = new CopyToClipboardLocale() {
+    protected CopyCommandLocale locale = new CopyCommandLocale() {
     };
-    protected CopyToClipboardCallback callback;
+    protected CopyCommandCallback<T> callback;
 
-    public CopyToClipboardMixin(T widget) {
+    public CopyCommandMixin(T widget) {
         super(widget);
 
         this.widget = widget;
-        this.icon.addStyleName(COPY_TO_CLIPBOARD);
+        this.icon.addStyleName(COPY_COMMAND);
         this.widget.addAttachHandler(event -> {
-            if (event.isAttached()) {
-                setup();
-            }
+            if (event.isAttached()) setup();
         });
     }
 
-    @Override
-    public void setEnableCopyToClipboard(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     protected void setup() {
-        if (enabled && widget.getType() != InputType.PASSWORD) {
+        if (copyCommand != null && copyCommand != CopyCommand.OFF && widget.getType() != InputType.PASSWORD) {
             widget.add(icon);
+            icon.addStyleName(copyCommand.getName());
             icon.addClickHandler(event -> copyToClipboard());
             icon.addMouseOutHandler(event -> updateTooltip(locale.CopyToClipboard()));
+            if (copyCommand == CopyCommand.ON_READ_ONLY && !widget.isReadOnly()) icon.setVisible(false);
         } else {
             if (icon.isAttached()) {
                 icon.removeFromParent();
@@ -73,27 +69,32 @@ public class CopyToClipboardMixin<T extends MaterialValueBox & HasCopyToClipboar
     }
 
     @Override
-    public void setCopyToClipboardCallback(CopyToClipboardCallback callback) {
+    public void setCopyCommand(CopyCommand copyCommand) {
+        this.copyCommand = copyCommand;
+    }
+
+    @Override
+    public CopyCommand getCopyCommand() {
+        return copyCommand;
+    }
+
+    @Override
+    public void setCopyCommandCallback(CopyCommandCallback callback) {
         this.callback = callback;
     }
 
     @Override
-    public void setCopyToClipboardLocale(CopyToClipboardLocale locale) {
+    public void setCopyCommandLocale(CopyCommandLocale locale) {
         this.locale = locale;
     }
 
     @Override
-    public void setCopyToClipboardIcon(MaterialIcon icon) {
+    public void setCopyCommandIcon(MaterialIcon icon) {
         this.icon = icon;
     }
 
     @Override
-    public MaterialIcon getCopyToClipboardIcon() {
+    public MaterialIcon getCopyCommandIcon() {
         return icon;
-    }
-
-    @Override
-    public boolean isEnableCopyToClipboard() {
-        return enabled;
     }
 }

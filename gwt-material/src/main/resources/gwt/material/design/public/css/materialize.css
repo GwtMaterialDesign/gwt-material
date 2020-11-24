@@ -9480,10 +9480,17 @@ input[type=range]::-ms-thumb {
   margin-bottom: 22px; }
 
 /** Copy to Clipboard **/
-.copy-to-clipboard {
+.copy-command {
   position: absolute;
   top: 8px;
   right: -20px; }
+
+.input-field:hover i.copy-command:not(.on-always) {
+  opacity: 1; }
+
+i.copy-command:not(.on-always) {
+  opacity: 0;
+  transition: 400ms; }
 
 /**
 * Chips

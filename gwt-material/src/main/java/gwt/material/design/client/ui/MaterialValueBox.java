@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -70,7 +70,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
     HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
     HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes,
-    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel, HasCopyToClipboard {
+    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel, HasCopyCommand {
 
 
     private boolean returnBlankAsNull;
@@ -90,7 +90,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
     private FieldSensitivityMixin<MaterialValueBox> fieldSensitivityMixin;
-    private CopyToClipboardMixin<MaterialValueBox> copyToClipboardMixin;
+    private CopyCommandMixin<MaterialValueBox> copyCommandMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -586,33 +586,33 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void setEnableCopyToClipboard(boolean enable) {
-        getCopyToClipboardMixin().setEnableCopyToClipboard(enable);
+    public void setCopyCommand(CopyCommand copyCommand) {
+        getCopyCommandMixin().setCopyCommand(copyCommand);
     }
 
     @Override
-    public void setCopyToClipboardCallback(CopyToClipboardCallback callback) {
-        getCopyToClipboardMixin().setCopyToClipboardCallback(callback);
+    public CopyCommand getCopyCommand() {
+        return getCopyCommandMixin().getCopyCommand();
     }
 
     @Override
-    public void setCopyToClipboardLocale(CopyToClipboardLocale locale) {
-        getCopyToClipboardMixin().setCopyToClipboardLocale(locale);
+    public void setCopyCommandCallback(CopyCommandCallback callback) {
+        getCopyCommandMixin().setCopyCommandCallback(callback);
     }
 
     @Override
-    public void setCopyToClipboardIcon(MaterialIcon icon) {
-        getCopyToClipboardMixin().setCopyToClipboardIcon(icon);
+    public void setCopyCommandLocale(CopyCommandLocale locale) {
+        getCopyCommandMixin().setCopyCommandLocale(locale);
     }
 
     @Override
-    public MaterialIcon getCopyToClipboardIcon() {
-        return getCopyToClipboardMixin().getCopyToClipboardIcon();
+    public void setCopyCommandIcon(MaterialIcon icon) {
+        getCopyCommandMixin().setCopyCommandIcon(icon);
     }
 
     @Override
-    public boolean isEnableCopyToClipboard() {
-        return getCopyToClipboardMixin().isEnableCopyToClipboard();
+    public MaterialIcon getCopyCommandIcon() {
+        return getCopyCommandMixin().getCopyCommandIcon();
     }
 
     @Ignore
@@ -968,10 +968,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         return fieldSensitivityMixin;
     }
 
-    protected CopyToClipboardMixin<MaterialValueBox> getCopyToClipboardMixin() {
-        if (copyToClipboardMixin == null) {
-            copyToClipboardMixin = new CopyToClipboardMixin<>(this);
+    protected CopyCommandMixin<MaterialValueBox> getCopyCommandMixin() {
+        if (copyCommandMixin == null) {
+            copyCommandMixin = new CopyCommandMixin<>(this);
         }
-        return copyToClipboardMixin;
+        return copyCommandMixin;
     }
 }
