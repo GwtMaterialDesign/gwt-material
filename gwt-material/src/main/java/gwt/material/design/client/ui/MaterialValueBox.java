@@ -596,8 +596,18 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
-    public void setCopyToClipboardIcon(IconType icon) {
+    public void setCopyToClipboardLocale(CopyToClipboardLocale locale) {
+        getCopyToClipboardMixin().setCopyToClipboardLocale(locale);
+    }
+
+    @Override
+    public void setCopyToClipboardIcon(MaterialIcon icon) {
         getCopyToClipboardMixin().setCopyToClipboardIcon(icon);
+    }
+
+    @Override
+    public MaterialIcon getCopyToClipboardIcon() {
+        return getCopyToClipboardMixin().getCopyToClipboardIcon();
     }
 
     @Override

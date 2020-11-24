@@ -1,6 +1,10 @@
 package gwt.material.design.client.base.mixin;
 
-public interface CopyToClipboardCallback {
+import gwt.material.design.client.base.HasCopyToClipboard;
+import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.ui.MaterialIcon;
 
-    void call(String text);
+public interface CopyToClipboardCallback<T extends MaterialWidget & HasCopyToClipboard> {
+
+    void call(T widget, MaterialIcon clipboardIcon, String text);
 }

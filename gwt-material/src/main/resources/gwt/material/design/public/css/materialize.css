@@ -9483,7 +9483,7 @@ input[type=range]::-ms-thumb {
 .copy-to-clipboard {
   position: absolute;
   top: 8px;
-  right: 0; }
+  right: -20px; }
 
 /**
 * Chips
