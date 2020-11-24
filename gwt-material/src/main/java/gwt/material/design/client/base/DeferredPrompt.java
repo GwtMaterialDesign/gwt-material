@@ -19,7 +19,9 @@
  */
 package gwt.material.design.client.base;
 
-public interface SearchMatcher {
+import jsinterop.annotations.JsType;
 
-    boolean match(SearchObject obj, String keyword);
+@JsType
+public class DeferredPrompt {
+
 }

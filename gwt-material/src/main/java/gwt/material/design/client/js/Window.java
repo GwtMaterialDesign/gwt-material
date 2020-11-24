@@ -21,6 +21,9 @@ package gwt.material.design.client.js;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.DeferredPrompt;
+import gwt.material.design.jquery.client.api.Functions;
+import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsType;
 
 @JsType
@@ -35,6 +38,12 @@ public class Window {
     public static native MediaQueryList getMediaQueryList(String query) /*-{
         return $wnd.window.matchMedia(query);
     }-*/;
+
+    @JsMethod(namespace = "window")
+    public static native void addEventListener(String eventName, Functions.Func1<Object> event);
+
+    @JsMethod
+    public static native DeferredPrompt deferredPrompt();
 
     public static HandlerRegistration addResizeHandler(ResizeHandler handler) {
         return com.google.gwt.user.client.Window.addResizeHandler(handler);

@@ -70,7 +70,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
     HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
     HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes,
-    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel {
+    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel, HasCopyToClipboard {
 
 
     private boolean returnBlankAsNull;
@@ -90,6 +90,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
     private FieldSensitivityMixin<MaterialValueBox> fieldSensitivityMixin;
+    private CopyToClipboardMixin<MaterialValueBox> copyToClipboardMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -584,6 +585,21 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         return getFieldSensitivityMixin().isSensitive();
     }
 
+    @Override
+    public void setEnableCopyToClipboard(boolean enable) {
+        getCopyToClipboardMixin().setEnableCopyToClipboard(enable);
+    }
+
+    @Override
+    public void setCopyToClipboardIcon(IconType icon) {
+        getCopyToClipboardMixin().setCopyToClipboardIcon(icon);
+    }
+
+    @Override
+    public boolean isEnableCopyToClipboard() {
+        return getCopyToClipboardMixin().isEnableCopyToClipboard();
+    }
+
     @Ignore
     public ValueBoxBase<T> getValueBoxBase() {
         return valueBoxBase;
@@ -935,5 +951,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldSensitivityMixin = new FieldSensitivityMixin(this);
         }
         return fieldSensitivityMixin;
+    }
+
+    protected CopyToClipboardMixin<MaterialValueBox> getCopyToClipboardMixin() {
+        if (copyToClipboardMixin == null) {
+            copyToClipboardMixin = new CopyToClipboardMixin<>(this);
+        }
+        return copyToClipboardMixin;
     }
 }
