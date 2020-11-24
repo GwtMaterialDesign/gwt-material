@@ -9,6 +9,9 @@ import gwt.material.design.jscore.client.api.Document;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
+//TODO: Add support for tooltip
+//TODO: Add support for not read-only widgets.
+//TODO: Test and final delivery for copy to clipboard mixin
 public class CopyToClipboardMixin<T extends MaterialValueBox & HasCopyToClipboard> extends AbstractMixin<T> implements HasCopyToClipboard {
 
     public static final String COPY_TO_CLIPBOARD = "copy-to-clipboard";
