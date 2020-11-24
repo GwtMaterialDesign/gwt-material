@@ -591,6 +591,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setCopyToClipboardCallback(CopyToClipboardCallback callback) {
+        getCopyToClipboardMixin().setCopyToClipboardCallback(callback);
+    }
+
+    @Override
     public void setCopyToClipboardIcon(IconType icon) {
         getCopyToClipboardMixin().setCopyToClipboardIcon(icon);
     }

@@ -16,6 +16,7 @@ public class CopyToClipboardMixin<T extends MaterialValueBox & HasCopyToClipboar
     protected T widget;
     protected boolean enabled;
     protected MaterialIcon icon = new MaterialIcon(IconType.CONTENT_COPY);
+    protected CopyToClipboardCallback callback;
 
     public CopyToClipboardMixin(T widget) {
         super(widget);
@@ -37,6 +38,11 @@ public class CopyToClipboardMixin<T extends MaterialValueBox & HasCopyToClipboar
         }
     }
 
+    @Override
+    public void setCopyToClipboardCallback(CopyToClipboardCallback callback) {
+        this.callback = callback;
+    }
+
     protected void copyToClipboard() {
         Object value = widget.getValue();
         if (value != null) {
@@ -45,6 +51,7 @@ public class CopyToClipboardMixin<T extends MaterialValueBox & HasCopyToClipboar
             element.select();
             Document.execCommand("copy");
             if (widget.isReadOnly()) widget.setEnabled(false);
+            if (callback != null) callback.call(value.toString());
         }
     }
 
