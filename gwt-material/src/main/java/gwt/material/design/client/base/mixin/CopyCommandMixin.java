@@ -40,7 +40,7 @@ public class CopyCommandMixin<T extends MaterialValueBox & HasCopyCommand> exten
             icon.addStyleName(copyCommand.getName());
             icon.addClickHandler(event -> copyToClipboard());
             icon.addMouseOutHandler(event -> updateTooltip(locale.CopyToClipboard()));
-            if (copyCommand == CopyCommand.ON_READ_ONLY && !widget.isReadOnly()) icon.setVisible(false);
+            if (copyCommand == CopyCommand.ON_READONLY && !widget.isReadOnly()) icon.setVisible(false);
         } else {
             if (icon.isAttached()) {
                 icon.removeFromParent();

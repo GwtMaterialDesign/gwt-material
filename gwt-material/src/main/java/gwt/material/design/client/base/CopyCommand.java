@@ -4,7 +4,8 @@ public enum CopyCommand {
 
     OFF("off"),
     ON_ALWAYS("on-always"),
-    ON_READ_ONLY("on-read-only"),
+    ON_READONLY("on-readonly"),
+    ON_READONLY_HOVER("on-readonly-hover"),
     ON_ALWAYS_HOVER("on-always-hover");
 
     private String name;

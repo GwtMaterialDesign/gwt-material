@@ -9485,10 +9485,11 @@ input[type=range]::-ms-thumb {
   top: 8px;
   right: -20px; }
 
-.input-field:hover i.copy-command:not(.on-always) {
+.input-field:hover i.copy-command.on-readonly-hover,
+.input-field:hover i.copy-command.on-always-hover {
   opacity: 1; }
 
-i.copy-command:not(.on-always) {
+i.copy-command.on-readonly-hover i.copy-command.on-always-hover {
   opacity: 0;
   transition: 400ms; }
 
