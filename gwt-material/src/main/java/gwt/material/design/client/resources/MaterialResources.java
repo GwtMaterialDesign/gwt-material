@@ -32,6 +32,9 @@ public interface MaterialResources extends ClientBundle {
     @Source("js/materialize-0.97.5.min.js")
     TextResource materializeJs();
 
+    @Source("js/clipboard.min.js")
+    TextResource clipboardJs();
+
     @Source("js/app-installer.min.js")
     TextResource appInstallerJs();
 

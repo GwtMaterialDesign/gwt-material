@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,13 +38,15 @@ import gwt.material.design.client.base.validator.ValidationChangedEvent;
 import gwt.material.design.client.base.validator.Validator;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.constants.StatusDisplayType;
+import gwt.material.design.client.ui.MaterialIcon;
 import gwt.material.design.client.ui.MaterialLabel;
+import gwt.material.design.client.ui.MaterialValueBox;
 
 import java.util.List;
 
 //TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
-        HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp {
+    HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp, HasCopyCommand {
 
     private boolean allowBlank = true;
     private boolean autoValidate;
@@ -55,6 +57,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
     private ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> clearOnKeyUpMixin;
     private HandlerRegistration attachHandler, blurHandler;
+    protected CopyCommandMixin<MaterialValueBox> copyCommandMixin;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -81,7 +84,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
         if (this instanceof HasReload) {
             if (reload) {
-                ((HasReload)this).reload();
+                ((HasReload) this).reload();
             }
         }
     }
@@ -268,7 +271,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     protected void setupBlurValidation() {
         final AbstractValueWidget inputWidget = getValidatorMixin().getInputWidget();
         if (!inputWidget.isAttached()) {
-            if(attachHandler == null) {
+            if (attachHandler == null) {
                 attachHandler = inputWidget.addAttachHandler(event -> {
                     if (blurHandler == null) {
                         blurHandler = inputWidget.addBlurHandler(blurEvent -> {
@@ -278,7 +281,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
                 });
             }
         } else {
-            if(blurHandler == null) {
+            if (blurHandler == null) {
                 blurHandler = inputWidget.addBlurHandler(event -> validate(isValidateOnBlur()));
             }
         }
@@ -335,6 +338,36 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     @Override
+    public void setCopyCommand(CopyCommand copyCommand) {
+        getCopyCommandMixin().setCopyCommand(copyCommand);
+    }
+
+    @Override
+    public CopyCommand getCopyCommand() {
+        return getCopyCommandMixin().getCopyCommand();
+    }
+
+    @Override
+    public void setCopyCommandCallback(CopyCommandCallback callback) {
+        getCopyCommandMixin().setCopyCommandCallback(callback);
+    }
+
+    @Override
+    public void setCopyCommandLocale(CopyCommandLocale locale) {
+        getCopyCommandMixin().setCopyCommandLocale(locale);
+    }
+
+    @Override
+    public void setCopyCommandIcon(MaterialIcon icon) {
+        getCopyCommandMixin().setCopyCommandIcon(icon);
+    }
+
+    @Override
+    public MaterialIcon getCopyCommandIcon() {
+        return getCopyCommandMixin().getCopyCommandIcon();
+    }
+
+    @Override
     public HandlerRegistration addValidationChangedHandler(ValidationChangedEvent.ValidationChangedHandler handler) {
         return getValidatorMixin().addValidationChangedHandler(handler);
     }
@@ -374,8 +407,15 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
 
     public ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> getClearOnKeyUpMixin() {
         if (clearOnKeyUpMixin == null) {
-            clearOnKeyUpMixin = new ClearOnKeyUpMixin(this,  getStatusTextMixin().getPlaceholder());
+            clearOnKeyUpMixin = new ClearOnKeyUpMixin(this, getStatusTextMixin().getPlaceholder());
         }
         return clearOnKeyUpMixin;
+    }
+
+    protected CopyCommandMixin<MaterialValueBox> getCopyCommandMixin() {
+        if (copyCommandMixin == null) {
+            copyCommandMixin = new CopyCommandMixin(this);
+        }
+        return copyCommandMixin;
     }
 }

@@ -1,6 +1,5 @@
 package gwt.material.design.client.base;
 
-import gwt.material.design.client.base.mixin.CopyCommandCallback;
 import gwt.material.design.client.ui.MaterialIcon;
 
 public interface HasCopyCommand {

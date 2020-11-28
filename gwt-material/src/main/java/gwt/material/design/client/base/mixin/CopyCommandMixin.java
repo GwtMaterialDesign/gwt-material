@@ -1,46 +1,59 @@
 package gwt.material.design.client.base.mixin;
 
-import gwt.material.design.client.base.CopyCommand;
-import gwt.material.design.client.base.CopyCommandLocale;
-import gwt.material.design.client.base.HasCopyCommand;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.InputType;
 import gwt.material.design.client.constants.Position;
+import gwt.material.design.client.js.ClipboardJS;
+import gwt.material.design.client.js.CopyCommandData;
 import gwt.material.design.client.ui.MaterialIcon;
-import gwt.material.design.client.ui.MaterialValueBox;
-import gwt.material.design.jquery.client.api.JQueryElement;
-import gwt.material.design.jscore.client.api.Document;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class CopyCommandMixin<T extends MaterialValueBox & HasCopyCommand> extends AbstractMixin<T> implements HasCopyCommand {
+public class CopyCommandMixin<T extends AbstractValueWidget & HasReadOnly & HasCopyCommand> extends AbstractMixin<T> implements HasCopyCommand {
 
     public static final String COPY_COMMAND = "copy-command";
+    public static final String DATA_CLIPBOARD_TEXT = "data-clipboard-text";
+    public static final String DATA_CLIPBOARD_ACTION = "data-clipboard-action";
 
-    protected T widget;
+    protected T valueBox;
+    protected ClipboardJS clipboardJS;
     protected CopyCommand copyCommand = CopyCommand.OFF;
     protected MaterialIcon icon = new MaterialIcon(IconType.CONTENT_COPY);
     protected CopyCommandLocale locale = new CopyCommandLocale() {
     };
     protected CopyCommandCallback<T> callback;
 
-    public CopyCommandMixin(T widget) {
-        super(widget);
+    public CopyCommandMixin(T valueBox) {
+        super(valueBox);
 
-        this.widget = widget;
-        this.icon.addStyleName(COPY_COMMAND);
-        this.widget.addAttachHandler(event -> {
+        this.valueBox = valueBox;
+        this.valueBox.addAttachHandler(event -> {
             if (event.isAttached()) setup();
         });
     }
 
     protected void setup() {
-        if (copyCommand != null && copyCommand != CopyCommand.OFF && widget.getType() != InputType.PASSWORD) {
-            widget.add(icon);
+        if (copyCommand != null && copyCommand != CopyCommand.OFF) {
+            // Setup Widget and Icon
+            icon.addStyleName(COPY_COMMAND);
+            icon.setId(DOM.createUniqueId());
+            valueBox.add(icon);
             icon.addStyleName(copyCommand.getName());
-            icon.addClickHandler(event -> copyToClipboard());
             icon.addMouseOutHandler(event -> updateTooltip(locale.CopyToClipboard()));
-            if (copyCommand == CopyCommand.ON_READONLY && !widget.isReadOnly()) icon.setVisible(false);
+            icon.addClickHandler(event -> {
+                icon.getElement().setAttribute(DATA_CLIPBOARD_TEXT, valueBox.getValue() != null ? valueBox.getValue().toString() : "");
+                if (valueBox.isReadOnly()) {
+                    valueBox.setEnabled(true);
+                }
+            });
+            if (copyCommand == CopyCommand.ON_READONLY && !valueBox.isReadOnly()) icon.setVisible(false);
+
+            // Initialize Clipboard Js
+            updateTooltip(locale.CopyToClipboard());
+            clipboardJS = new ClipboardJS("#" + icon.getId());
+            clipboardJS.on("success", this::onSuccess);
+            clipboardJS.on("error", this::onError);
         } else {
             if (icon.isAttached()) {
                 icon.removeFromParent();
@@ -48,24 +61,33 @@ public class CopyCommandMixin<T extends MaterialValueBox & HasCopyCommand> exten
         }
     }
 
-    protected void copyToClipboard() {
-        String value = widget.getText();
-        if (value != null) {
-            JQueryElement element = $(widget.getValueBoxBase().getElement());
-            if (widget.isReadOnly()) widget.setEnabled(true);
-            element.select();
-            Document.execCommand("copy");
-            if (widget.isReadOnly()) widget.setEnabled(false);
-            if (callback != null) callback.call(widget, icon, value);
-            updateTooltip(locale.Copied() + " : " + value);
-            $(icon.getElement()).trigger("mouseover", null);
-        }
-    }
-
     protected void updateTooltip(String tooltip) {
         icon.setTooltipPosition(Position.TOP);
         icon.setTooltipDelayMs(0);
         icon.setTooltip(tooltip);
+    }
+
+    protected String getStringValue() {
+        return valueBox != null && valueBox.getValue() != null ? valueBox.getValue().toString() : "";
+    }
+
+    protected boolean onSuccess(CopyCommandData data) {
+        if (callback != null) callback.success(valueBox, icon, data);
+        updateTooltip(locale.Copied() + ":" + getStringValue());
+        $(icon.getElement()).trigger("mouseover", null);
+        data.clearSelection();
+        if (valueBox.isReadOnly()) {
+            valueBox.setEnabled(false);
+        }
+        return true;
+    }
+
+    protected boolean onError(CopyCommandData data) {
+        if (callback != null) callback.error(data);
+        if (valueBox.isReadOnly()) {
+            valueBox.setEnabled(false);
+        }
+        return false;
     }
 
     @Override

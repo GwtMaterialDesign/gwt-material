@@ -70,8 +70,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
     HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
     HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes,
-    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel, HasCopyCommand {
-
+    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel {
 
     private boolean returnBlankAsNull;
     private InputType type = InputType.TEXT;
@@ -90,7 +89,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
     private FieldSensitivityMixin<MaterialValueBox> fieldSensitivityMixin;
-    private CopyCommandMixin<MaterialValueBox> copyCommandMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -585,36 +583,6 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         return getFieldSensitivityMixin().isSensitive();
     }
 
-    @Override
-    public void setCopyCommand(CopyCommand copyCommand) {
-        getCopyCommandMixin().setCopyCommand(copyCommand);
-    }
-
-    @Override
-    public CopyCommand getCopyCommand() {
-        return getCopyCommandMixin().getCopyCommand();
-    }
-
-    @Override
-    public void setCopyCommandCallback(CopyCommandCallback callback) {
-        getCopyCommandMixin().setCopyCommandCallback(callback);
-    }
-
-    @Override
-    public void setCopyCommandLocale(CopyCommandLocale locale) {
-        getCopyCommandMixin().setCopyCommandLocale(locale);
-    }
-
-    @Override
-    public void setCopyCommandIcon(MaterialIcon icon) {
-        getCopyCommandMixin().setCopyCommandIcon(icon);
-    }
-
-    @Override
-    public MaterialIcon getCopyCommandIcon() {
-        return getCopyCommandMixin().getCopyCommandIcon();
-    }
-
     @Ignore
     public ValueBoxBase<T> getValueBoxBase() {
         return valueBoxBase;
@@ -966,12 +934,5 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldSensitivityMixin = new FieldSensitivityMixin(this);
         }
         return fieldSensitivityMixin;
-    }
-
-    protected CopyCommandMixin<MaterialValueBox> getCopyCommandMixin() {
-        if (copyCommandMixin == null) {
-            copyCommandMixin = new CopyCommandMixin<>(this);
-        }
-        return copyCommandMixin;
     }
 }
