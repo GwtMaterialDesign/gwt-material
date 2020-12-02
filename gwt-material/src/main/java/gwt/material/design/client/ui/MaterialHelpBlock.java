@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,10 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasSanitizedText;
 import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconPosition;
@@ -29,7 +31,7 @@ import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.html.Div;
 
-public class MaterialHelpBlock extends Div implements HasText, HasIcon {
+public class MaterialHelpBlock extends Div implements HasSanitizedText, HasText, HasIcon {
 
     private MaterialIcon icon = new MaterialIcon();
     private TextMixin<MaterialHelpBlock> textMixin;
@@ -46,6 +48,11 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
     @Override
     public void setText(String text) {
         getTextMixin().setText(text);
+    }
+
+    @Override
+    public void setText(String text, HtmlSanitizer sanitizer) {
+        getTextMixin().setText(text, sanitizer);
     }
 
     @Override

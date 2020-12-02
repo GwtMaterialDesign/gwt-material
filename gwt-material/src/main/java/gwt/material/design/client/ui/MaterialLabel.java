@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,10 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.HasSanitizedText;
 import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Color;
@@ -42,7 +44,7 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="https://material.io/guidelines/style/typography.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialLabel extends AbstractValueWidget<String> implements HasText {
+public class MaterialLabel extends AbstractValueWidget<String> implements HasSanitizedText, HasText {
 
     private boolean secondary;
     private TextMixin<MaterialLabel> textMixin;
@@ -77,6 +79,11 @@ public class MaterialLabel extends AbstractValueWidget<String> implements HasTex
     @Override
     public void setText(String text) {
         setValue(text, true);
+    }
+
+    @Override
+    public void setText(String text, HtmlSanitizer sanitizer) {
+        getTextMixin().setText(text, sanitizer);
     }
 
     @Override

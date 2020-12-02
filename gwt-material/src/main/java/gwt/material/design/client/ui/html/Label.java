@@ -19,10 +19,15 @@
  */
 package gwt.material.design.client.ui.html;
 
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.HasSanitizedText;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.TextMixin;
 
-public class Label extends MaterialWidget {
+public class Label extends MaterialWidget implements HasSanitizedText {
+
+    private TextMixin<Label> textMixin;
 
     public Label() {
         super(DOM.createLabel());
@@ -34,10 +39,22 @@ public class Label extends MaterialWidget {
     }
 
     public String getText() {
-        return getElement().getInnerText();
+        return getTextMixin().getText();
     }
 
     public void setText(String text) {
-        getElement().setInnerText(text);
+        getTextMixin().setText(text);
+    }
+
+    @Override
+    public void setText(String text, HtmlSanitizer sanitizer) {
+        getTextMixin().setText(text, sanitizer);
+    }
+
+    protected TextMixin<Label> getTextMixin() {
+        if (textMixin == null) {
+            textMixin = new TextMixin<>(this);
+        }
+        return textMixin;
     }
 }

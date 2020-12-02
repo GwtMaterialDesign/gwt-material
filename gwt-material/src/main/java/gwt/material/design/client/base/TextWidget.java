@@ -20,13 +20,14 @@
 package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.mixin.TextMixin;
 
-public class TextWidget extends MaterialWidget implements HasText {
+public class TextWidget extends MaterialWidget implements HasSanitizedText, HasText {
 
-    private final TextMixin<TextWidget> textMixin = new TextMixin<>(this);
+    private TextMixin<TextWidget> textMixin;
 
     public TextWidget() {
         super(DOM.createDiv());
@@ -42,11 +43,23 @@ public class TextWidget extends MaterialWidget implements HasText {
 
     @Override
     public String getText() {
-        return textMixin.getText();
+        return getTextMixin().getText();
     }
 
     @Override
     public void setText(String text) {
-        textMixin.setText(text);
+        getTextMixin().setText(text);
+    }
+
+    @Override
+    public void setText(String text, HtmlSanitizer sanitizer) {
+        getTextMixin().setText(text, sanitizer);
+    }
+
+    public TextMixin<TextWidget> getTextMixin() {
+        if (textMixin == null) {
+            textMixin = new TextMixin<>(this);
+        }
+        return textMixin;
     }
 }

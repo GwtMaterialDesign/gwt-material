@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,9 @@ import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.mixin.ActiveMixin;
@@ -62,7 +64,7 @@ import gwt.material.design.client.ui.html.Span;
  */
 //@formatter:on
 public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter,
-        HasValue<String>, HasCloseHandlers, HasType<ChipType>, HasActive {
+    HasValue<String>, HasCloseHandlers, HasType<ChipType>, HasActive, HasSanitizedText, HasText {
 
     private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
@@ -124,6 +126,11 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     public String getText() {
         return getValue();
+    }
+
+    @Override
+    public void setText(String text, HtmlSanitizer sanitizer) {
+        chipLabel.setText(text, sanitizer);
     }
 
     @Override

@@ -20,13 +20,15 @@
 package gwt.material.design.client.ui.html;
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.HasText;
+import gwt.material.design.client.base.HasSanitizedText;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.HeadingSize;
 
-public class Heading extends MaterialWidget implements HasText {
+public class Heading extends MaterialWidget implements HasSanitizedText, HasText {
 
     private TextMixin<Heading> textMixin;
 
@@ -47,6 +49,11 @@ public class Heading extends MaterialWidget implements HasText {
     @Override
     public void setText(String text) {
         getTextMixin().setText(text);
+    }
+
+    @Override
+    public void setText(String text, HtmlSanitizer sanitizer) {
+        getTextMixin().setText(text, sanitizer);
     }
 
     public TextMixin<Heading> getTextMixin() {

@@ -23,13 +23,14 @@ package gwt.material.design.client.base.mixin;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.UIObject;
+import gwt.material.design.client.base.HasSanitizedText;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * @author Grant Slender
  */
-public class HTMLMixin<T extends UIObject> extends TextMixin<T> implements HasHTML {
+public class HTMLMixin<T extends UIObject & HasSanitizedText> extends TextMixin<T> implements HasHTML {
 
     public HTMLMixin(final T uiObject) {
         super(uiObject);

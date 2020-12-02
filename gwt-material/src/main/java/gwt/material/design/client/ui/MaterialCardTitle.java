@@ -21,8 +21,10 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasSanitizedText;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Span;
@@ -38,7 +40,7 @@ import gwt.material.design.client.ui.html.Span;
  * @see <a href="https://material.io/guidelines/components/cards.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasText {
+public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasSanitizedText, HasText {
 
     private MaterialIcon icon = new MaterialIcon();
     private Span titleLabel = new Span();
@@ -59,6 +61,11 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasTex
         if(!titleLabel.isAttached()) {
             add(titleLabel);
         }
+    }
+
+    @Override
+    public void setText(String text, HtmlSanitizer sanitizer) {
+        titleLabel.setText(text, sanitizer);
     }
 
     @Override
