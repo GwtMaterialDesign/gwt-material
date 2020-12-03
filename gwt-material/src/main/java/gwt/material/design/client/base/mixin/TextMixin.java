@@ -21,33 +21,36 @@ package gwt.material.design.client.base.mixin;
  */
 
 import com.google.gwt.safehtml.shared.HtmlSanitizer;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.DefaultHtmlSanitizer;
-import gwt.material.design.client.base.HasSanitizedText;
+import gwt.material.design.client.base.HasSafeText;
 
 /**
  * @author Ben Dol
  */
-public class TextMixin<T extends UIObject & HasSanitizedText> extends AbstractMixin<T> implements HasSanitizedText {
+public class TextMixin<T extends UIObject & HasSafeText> extends AbstractMixin<T> implements HasSafeText {
+
+    protected static HtmlSanitizer defaultSanitizer = new DefaultHtmlSanitizer();
 
     public TextMixin(final T uiObject) {
         super(uiObject);
     }
 
     public String getText() {
-        return SafeHtmlUtils.fromString(uiObject.getElement().getInnerText()).asString();
+        return uiObject.getElement().getInnerText();
     }
 
     public void setText(final String text) {
-        setText(text, new DefaultHtmlSanitizer());
+        setText(defaultSanitizer.sanitize(text));
     }
 
     @Override
-    public void setText(String text, HtmlSanitizer sanitizer) {
-        if (sanitizer == null) {
-            sanitizer = new DefaultHtmlSanitizer();
-        }
-        uiObject.getElement().setInnerSafeHtml(sanitizer.sanitize(text));
+    public void setText(SafeHtml html) {
+        uiObject.getElement().setInnerSafeHtml(html);
+    }
+
+    public static void setDefaultSanitizer(HtmlSanitizer sanitizer) {
+        defaultSanitizer = sanitizer;
     }
 }

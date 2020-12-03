@@ -20,10 +20,10 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.safehtml.shared.HtmlSanitizer;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.AbstractValueWidget;
-import gwt.material.design.client.base.HasSanitizedText;
+import gwt.material.design.client.base.HasSafeText;
 import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Color;
@@ -44,7 +44,7 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="https://material.io/guidelines/style/typography.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialLabel extends AbstractValueWidget<String> implements HasSanitizedText, HasText {
+public class MaterialLabel extends AbstractValueWidget<String> implements HasSafeText, HasText {
 
     private boolean secondary;
     private TextMixin<MaterialLabel> textMixin;
@@ -82,8 +82,8 @@ public class MaterialLabel extends AbstractValueWidget<String> implements HasSan
     }
 
     @Override
-    public void setText(String text, HtmlSanitizer sanitizer) {
-        getTextMixin().setText(text, sanitizer);
+    public void setText(SafeHtml html) {
+        getTextMixin().setText(html);
     }
 
     @Override

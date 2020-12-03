@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,13 +21,13 @@ package gwt.material.design.client.ui.html;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.safehtml.shared.HtmlSanitizer;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.HasText;
-import gwt.material.design.client.base.HasSanitizedText;
+import gwt.material.design.client.base.HasSafeText;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.TextMixin;
 
-public class Span extends MaterialWidget implements HasSanitizedText, HasText {
+public class Span extends MaterialWidget implements HasSafeText, HasText {
 
     private TextMixin<Span> textMixin;
 
@@ -55,8 +55,8 @@ public class Span extends MaterialWidget implements HasSanitizedText, HasText {
     }
 
     @Override
-    public void setText(String text, HtmlSanitizer sanitizer) {
-        getTextMixin().setText(text, sanitizer);
+    public void setText(SafeHtml html) {
+        getTextMixin().setText(html);
     }
 
     public TextMixin<Span> getTextMixin() {

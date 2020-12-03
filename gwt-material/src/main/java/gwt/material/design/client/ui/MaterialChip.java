@@ -26,8 +26,7 @@ import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.safehtml.shared.HtmlSanitizer;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.*;
@@ -64,7 +63,7 @@ import gwt.material.design.client.ui.html.Span;
  */
 //@formatter:on
 public class MaterialChip extends AbstractValueWidget<String> implements HasImage, HasIcon, HasLetter,
-    HasValue<String>, HasCloseHandlers, HasType<ChipType>, HasActive, HasSanitizedText, HasText {
+    HasValue<String>, HasCloseHandlers, HasType<ChipType>, HasActive, HasSafeText, HasText {
 
     private MaterialIcon icon = new MaterialIcon(IconType.CLOSE);
     private Span chipLabel = new Span();
@@ -129,8 +128,8 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     }
 
     @Override
-    public void setText(String text, HtmlSanitizer sanitizer) {
-        chipLabel.setText(text, sanitizer);
+    public void setText(SafeHtml html) {
+        chipLabel.setText(html);
     }
 
     @Override
@@ -141,7 +140,7 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
 
     @Override
     public String getValue() {
-        return SafeHtmlUtils.fromString(chipLabel.getElement().getInnerText()).asString();
+        return chipLabel.getText();
     }
 
     @Override
