@@ -20,6 +20,7 @@
 package gwt.material.design.client;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
+import gwt.material.design.client.mixin.CopyCommandMixinTest;
 import gwt.material.design.client.mixin.TextMixinTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -29,6 +30,7 @@ public class MixinTestSuite extends GWTTestSuite {
     public static Test suite() {
         TestSuite suite = new TestSuite("Test Suite for GMD Mixins");
         suite.addTestSuite(TextMixinTest.class);
+        suite.addTestSuite(CopyCommandMixinTest.class);
         return suite;
     }
 }

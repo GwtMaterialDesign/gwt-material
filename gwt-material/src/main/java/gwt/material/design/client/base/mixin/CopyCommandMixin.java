@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
+import gwt.material.design.client.base.helper.EventHelper;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.js.ClipboardJS;
@@ -47,9 +48,7 @@ public class CopyCommandMixin<T extends AbstractValueWidget & HasReadOnly & HasC
         super(valueBox);
 
         this.valueBox = valueBox;
-        this.valueBox.addAttachHandler(event -> {
-            if (event.isAttached()) setup();
-        });
+        EventHelper.onAttachOnce(uiObject, attachEvent -> setup());
     }
 
     protected void setup() {
