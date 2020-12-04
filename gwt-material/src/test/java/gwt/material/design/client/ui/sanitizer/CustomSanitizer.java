@@ -17,16 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.ui.sanitizer;
 
 import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
-public interface HasSafeText {
+public class CustomSanitizer implements HtmlSanitizer {
 
-    void setText(SafeHtml html);
+    protected static CustomSanitizer instance;
 
-    void setSanitizer(HtmlSanitizer sanitizer);
+    private CustomSanitizer() {}
 
-    HtmlSanitizer getSanitizer();
+    @Override
+    public SafeHtml sanitize(String html) {
+        return SafeHtmlUtils.fromString(html);
+    }
+
+    public static CustomSanitizer getInstance() {
+        if (instance == null) {
+            instance = new CustomSanitizer();
+        }
+        return instance;
+    }
 }

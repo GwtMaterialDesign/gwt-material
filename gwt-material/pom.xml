@@ -137,6 +137,7 @@
                                 <exclude>**/ui/**.java</exclude>
                             </excludes>
                             <includes>
+                                <include>**/MixinTestSuite.java</include>
                                 <include>**/MaterialWidgetTestSuite.java</include>
                             </includes>
                             <!-- disable JVM asserts, but enable JS asserts for tests -->

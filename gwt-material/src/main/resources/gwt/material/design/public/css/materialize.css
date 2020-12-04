@@ -9483,15 +9483,22 @@ input[type=range]::-ms-thumb {
 .copy-command {
   position: absolute;
   top: 8px;
-  right: -20px; }
+  right: -20px;
+  z-index: 998; }
 
 .input-field:hover i.copy-command.on-readonly-hover,
 .input-field:hover i.copy-command.on-always-hover {
   opacity: 1; }
 
-i.copy-command.on-readonly-hover i.copy-command.on-always-hover {
+i.copy-command.on-readonly-hover,
+i.copy-command.on-always-hover {
   opacity: 0;
   transition: 400ms; }
+
+@media screen and (max-width: 900px) {
+  i.copy-command.on-readonly-hover,
+  i.copy-command.on-always-hover {
+    opacity: 1; } }
 
 /**
 * Chips

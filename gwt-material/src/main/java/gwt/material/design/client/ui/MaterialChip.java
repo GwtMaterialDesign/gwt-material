@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,6 +26,7 @@ import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.HasCloseHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
@@ -130,6 +131,16 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     @Override
     public void setText(SafeHtml html) {
         chipLabel.setText(html);
+    }
+
+    @Override
+    public void setSanitizer(HtmlSanitizer sanitizer) {
+        chipLabel.setSanitizer(sanitizer);
+    }
+
+    @Override
+    public HtmlSanitizer getSanitizer() {
+        return chipLabel.getSanitizer();
     }
 
     @Override
