@@ -32,16 +32,14 @@ public class TextMixinTest extends AbstractMixinTest<TextMixin<MaterialLabel>> {
 
     @Override
     protected void runTest(TextMixin<MaterialLabel> mixin) {
-        MaterialLabel label = mixin.getUiObject();
-
         // Test Defaults
-        assertEquals(DefaultHtmlSanitizer.class, TextMixin.DEFAULT_SANITIZER.getClass());
+        assertEquals(DefaultHtmlSanitizer.class, TextMixin.getDefaultSanitizer().getClass());
         assertNull(mixin.getSanitizer());
 
         // Updating DefaultSanitizer
         SimpleHtmlSanitizer simpleHtmlSanitizer = SimpleHtmlSanitizer.getInstance();
         TextMixin.setDefaultSanitizer(simpleHtmlSanitizer);
-        assertEquals(simpleHtmlSanitizer, TextMixin.DEFAULT_SANITIZER);
+        assertEquals(simpleHtmlSanitizer, TextMixin.getDefaultSanitizer());
 
         // Updating CustomSanitizer
         CustomSanitizer customSanitizer = CustomSanitizer.getInstance();
@@ -51,16 +49,23 @@ public class TextMixinTest extends AbstractMixinTest<TextMixin<MaterialLabel>> {
         // Test setText(String)
         mixin.setText("<b>Test</b>");
         assertEquals("<b>Test</b>", mixin.getText());
-        assertEquals(label.getText(), label.getElement().getInnerText());
 
         // Test setText(SafeHtml)
         String anchorTag = "<a>test</a>";
         SafeHtmlBuilder builder = new SafeHtmlBuilder();
         builder.appendEscaped(anchorTag);
         SafeHtml safeHtml = builder.toSafeHtml();
-        mixin.setText(safeHtml);
+        mixin.setHtml(safeHtml);
         assertEquals(safeHtml, SafeHtmlUtils.fromString(mixin.getText()));
         assertEquals(anchorTag, mixin.getText());
+
+        // Check Null safety when having a null text
+        mixin.setText(null);
+        assertNull(mixin.getText());
+
+        // Check if we provided an empty text
+        mixin.setText("");
+        assertEquals("", mixin.getText());
     }
 
     @Override

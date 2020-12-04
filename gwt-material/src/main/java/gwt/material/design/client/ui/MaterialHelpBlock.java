@@ -52,8 +52,8 @@ public class MaterialHelpBlock extends Div implements HasSafeText, HasText, HasI
     }
 
     @Override
-    public void setText(SafeHtml html) {
-        getTextMixin().setText(html);
+    public void setHtml(SafeHtml html) {
+        getTextMixin().setHtml(html);
     }
 
     @Override

@@ -234,7 +234,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setPlaceholder(String placeholder) {
         valueBoxBase.getElement().setAttribute("placeholder", placeholder);
 
-        if (!label.getText().isEmpty()) {
+        if (label.getText() != null && !label.getText().isEmpty()) {
             label.setStyleName(CssName.ACTIVE);
         }
     }

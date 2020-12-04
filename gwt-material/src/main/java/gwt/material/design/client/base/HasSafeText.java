@@ -24,7 +24,7 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 
 public interface HasSafeText {
 
-    void setText(SafeHtml html);
+    void setHtml(SafeHtml html);
 
     void setSanitizer(HtmlSanitizer sanitizer);
 

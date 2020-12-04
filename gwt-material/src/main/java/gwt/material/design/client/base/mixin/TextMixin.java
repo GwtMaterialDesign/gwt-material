@@ -22,6 +22,7 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.safehtml.shared.HtmlSanitizer;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.DefaultHtmlSanitizer;
 import gwt.material.design.client.base.HasSafeText;
@@ -32,38 +33,46 @@ import gwt.material.design.client.base.HasSafeText;
  */
 public class TextMixin<T extends UIObject & HasSafeText> extends AbstractMixin<T> implements HasSafeText {
 
-    public static HtmlSanitizer DEFAULT_SANITIZER = new DefaultHtmlSanitizer();
+    protected static HtmlSanitizer DEFAULT_SANITIZER = new DefaultHtmlSanitizer();
     protected HtmlSanitizer _sanitizer;
+    protected SafeHtml safeHtml;
 
     public TextMixin(final T uiObject) {
         super(uiObject);
     }
 
     public String getText() {
-        return uiObject.getElement().getInnerText();
+        return safeHtml != null ? uiObject.getElement().getInnerText() : null;
     }
 
     public void setText(final String text) {
-        setText(toSafeHtml(text));
+        setHtml(toSafeHtml(text));
     }
 
     protected SafeHtml toSafeHtml(String text) {
-        SafeHtml safeHtml;
-        if (_sanitizer == null) {
-            safeHtml = DEFAULT_SANITIZER.sanitize(text);
-        } else {
-            safeHtml = _sanitizer.sanitize(text);
+        SafeHtml safeHtml = null;
+        if (text != null) {
+            if (_sanitizer == null) {
+                safeHtml = DEFAULT_SANITIZER.sanitize(text);
+            } else {
+                safeHtml = _sanitizer.sanitize(text);
+            }
         }
         return safeHtml;
     }
 
     @Override
-    public void setText(SafeHtml html) {
-        uiObject.getElement().setInnerSafeHtml(html);
+    public void setHtml(SafeHtml safeHtml) {
+        this.safeHtml = safeHtml;
+        uiObject.getElement().setInnerSafeHtml(safeHtml != null ? safeHtml : SafeHtmlUtils.fromString(""));
     }
 
     public static void setDefaultSanitizer(HtmlSanitizer defaultSanitizer) {
         DEFAULT_SANITIZER = defaultSanitizer;
+    }
+
+    public static HtmlSanitizer getDefaultSanitizer() {
+        return DEFAULT_SANITIZER;
     }
 
     @Override

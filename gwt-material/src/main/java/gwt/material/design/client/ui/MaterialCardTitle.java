@@ -65,8 +65,8 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasSaf
     }
 
     @Override
-    public void setText(SafeHtml html) {
-        titleLabel.setText(html);
+    public void setHtml(SafeHtml html) {
+        titleLabel.setHtml(html);
     }
 
     @Override

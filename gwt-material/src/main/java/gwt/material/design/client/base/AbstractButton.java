@@ -172,8 +172,8 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
     }
 
     @Override
-    public void setText(SafeHtml html) {
-        span.setText(html);
+    public void setHtml(SafeHtml html) {
+        span.setHtml(html);
     }
 
     @Override

@@ -56,8 +56,8 @@ public class Span extends MaterialWidget implements HasSafeText, HasText {
     }
 
     @Override
-    public void setText(SafeHtml html) {
-        getTextMixin().setText(html);
+    public void setHtml(SafeHtml html) {
+        getTextMixin().setHtml(html);
     }
 
     @Override

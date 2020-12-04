@@ -129,8 +129,8 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     }
 
     @Override
-    public void setText(SafeHtml html) {
-        chipLabel.setText(html);
+    public void setHtml(SafeHtml html) {
+        chipLabel.setHtml(html);
     }
 
     @Override

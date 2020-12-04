@@ -24,11 +24,18 @@ import gwt.material.design.client.ui.base.BaseTestCase;
 
 public abstract class AbstractMixinTest<M extends AbstractMixin> extends BaseTestCase {
 
+    protected M mixin;
+
     public void testMixin() {
-        runTest(setupMixin());
+        mixin = setupMixin();
+        runTest(mixin);
     }
 
     protected abstract void runTest(M mixin);
 
     protected abstract M setupMixin();
+
+    public M getMixin() {
+        return mixin;
+    }
 }
