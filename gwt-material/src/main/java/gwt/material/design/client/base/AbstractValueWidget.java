@@ -89,9 +89,6 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         }
     }
 
-    //TODO:
-    //setSanitizer();
-
     @Override
     public void setErrorText(String errorText) {
         getStatusTextMixin().setErrorText(errorText);

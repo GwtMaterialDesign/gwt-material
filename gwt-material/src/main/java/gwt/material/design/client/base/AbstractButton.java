@@ -24,6 +24,8 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasValue;
 import gwt.material.design.client.base.mixin.ActivatesMixin;
@@ -36,7 +38,7 @@ import gwt.material.design.client.ui.html.Span;
  * @author Ben Dol
  */
 public abstract class AbstractButton extends MaterialWidget implements HasHref, HasGrid, HasActivates,
-        HasTargetHistoryToken, HasType<ButtonType>, HasValue<String> {
+    HasTargetHistoryToken, HasType<ButtonType>, HasValue<String>, HasSafeText {
 
     private String targetHistoryToken;
     private Span span = new Span();
@@ -167,6 +169,21 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
         if (!span.isAttached()) {
             add(span);
         }
+    }
+
+    @Override
+    public void setHtml(SafeHtml html) {
+        span.setHtml(html);
+    }
+
+    @Override
+    public void setSanitizer(HtmlSanitizer sanitizer) {
+        span.setSanitizer(sanitizer);
+    }
+
+    @Override
+    public HtmlSanitizer getSanitizer() {
+        return span.getSanitizer();
     }
 
     /**
