@@ -32,4 +32,6 @@ public interface HasStatusDisplayType {
     void updateStatusDisplay(StatusDisplayMixin.StatusType statusType);
 
     void setStatusDisplayPosition(Position position);
+
+    void setStatusShowByDefault(boolean showByDefault);
 }

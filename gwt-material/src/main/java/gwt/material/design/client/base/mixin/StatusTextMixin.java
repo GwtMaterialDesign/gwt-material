@@ -230,6 +230,11 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
         getStatusDisplayMixin().setStatusDisplayPosition(position);
     }
 
+    @Override
+    public void setStatusShowByDefault(boolean showByDefault) {
+        getStatusDisplayMixin().setStatusShowByDefault(showByDefault);
+    }
+
     public void resetStatusDisplay() {
         getStatusDisplayMixin().resetStatusDisplay();
     }

@@ -897,6 +897,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public HandlerRegistration addRegexValidationHandler(RegexValidationEvent.RegexValidationHandler handler) {
+        return addHandler(handler, RegexValidationEvent.getType());
+    }
+
+    @Override
     protected FocusableMixin<MaterialWidget> getFocusableMixin() {
         if (focusableMixin == null) {
             focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
