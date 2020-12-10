@@ -150,6 +150,11 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     }
 
     @Override
+    public void setStatusShowByDefault(boolean showByDefault) {
+        getStatusTextMixin().setStatusShowByDefault(showByDefault);
+    }
+
+    @Override
     public void updateStatusDisplay(StatusDisplayMixin.StatusType statusType) {
         getStatusTextMixin().updateStatusDisplay(statusType);
     }
