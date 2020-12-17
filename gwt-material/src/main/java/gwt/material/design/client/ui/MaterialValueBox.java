@@ -590,6 +590,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setRegex(String regex, String replaceRegex) {
+        getRegexMixin().setRegex(regex, replaceRegex);
+    }
+
+    @Override
     public String getRegex() {
         return getRegexMixin().getRegex();
     }

@@ -21,7 +21,18 @@ package gwt.material.design.client.base;
 
 public interface HasRegex extends HasRegexHandlers {
 
+    /**
+     * The regex to be matched on value boxe's value. To be validated
+     * on KeyPress and Paste Events.
+     */
     void setRegex(String regex);
+
+    /**
+     * The regex to be matched on value boxe's value. To be validated
+     * on KeyPress and Paste Events. The second parameter will
+     * clean all pasted value with provided regex replace expression
+     */
+    void setRegex(String regex, String replaceRegex);
 
     String getRegex();
 }
