@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,7 +44,6 @@ import gwt.material.design.client.ui.MaterialValueBox;
 
 import java.util.List;
 
-//TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
     HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp, HasCopyCommand {
 
@@ -57,7 +56,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
     private ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> clearOnKeyUpMixin;
     private HandlerRegistration attachHandler, blurHandler;
-    protected CopyCommandMixin<MaterialValueBox> copyCommandMixin;
+    protected CopyCommandMixin<AbstractValueWidget> copyCommandMixin;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -414,7 +413,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return clearOnKeyUpMixin;
     }
 
-    protected CopyCommandMixin<MaterialValueBox> getCopyCommandMixin() {
+    protected CopyCommandMixin<AbstractValueWidget> getCopyCommandMixin() {
         if (copyCommandMixin == null) {
             copyCommandMixin = new CopyCommandMixin(this);
         }

@@ -9486,8 +9486,8 @@ input[type=range]::-ms-thumb {
   right: -20px;
   z-index: 998; }
 
-.input-field:hover i.copy-command.on-readonly-hover,
-.input-field:hover i.copy-command.on-always-hover {
+.copy-command-parent:hover i.copy-command.on-readonly-hover,
+.copy-command-parent:hover i.copy-command.on-always-hover {
   opacity: 1; }
 
 i.copy-command.on-readonly-hover,
