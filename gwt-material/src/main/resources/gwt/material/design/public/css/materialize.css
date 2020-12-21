@@ -8593,6 +8593,13 @@ button[tabindex],
 i[tabindex] {
   overflow: visible; }
 
+i[tabindex]:hover:after {
+  opacity: 1;
+  width: 32px;
+  height: 32px;
+  top: calc(50% - 17px);
+  left: calc(50% - 16px); }
+
 .button-collapse[tabindex]:after,
 i[tabindex]:after,
 .tabs .tab a[tabindex]:before,
@@ -9328,6 +9335,9 @@ blockquote {
   position: initial !important;
   opacity: 0 !important; }
 
+.checkbox {
+  margin-bottom: 20px; }
+
 /**
 * ReadOnly States
 **/
@@ -9494,6 +9504,12 @@ i.copy-command.on-readonly-hover,
 i.copy-command.on-always-hover {
   opacity: 0;
   transition: 400ms; }
+
+i[tabindex].copy-command {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  z-index: 999; }
 
 @media screen and (max-width: 900px) {
   i.copy-command.on-readonly-hover,
