@@ -20,8 +20,11 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasIcon;
+import gwt.material.design.client.base.HasSafeText;
 import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.IconPosition;
@@ -29,7 +32,7 @@ import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.html.Div;
 
-public class MaterialHelpBlock extends Div implements HasText, HasIcon {
+public class MaterialHelpBlock extends Div implements HasSafeText, HasText, HasIcon {
 
     private MaterialIcon icon = new MaterialIcon();
     private TextMixin<MaterialHelpBlock> textMixin;
@@ -46,6 +49,21 @@ public class MaterialHelpBlock extends Div implements HasText, HasIcon {
     @Override
     public void setText(String text) {
         getTextMixin().setText(text);
+    }
+
+    @Override
+    public void setHtml(SafeHtml html) {
+        getTextMixin().setHtml(html);
+    }
+
+    @Override
+    public void setSanitizer(HtmlSanitizer sanitizer) {
+        getTextMixin().setSanitizer(sanitizer);
+    }
+
+    @Override
+    public HtmlSanitizer getSanitizer() {
+        return getTextMixin().getSanitizer();
     }
 
     @Override

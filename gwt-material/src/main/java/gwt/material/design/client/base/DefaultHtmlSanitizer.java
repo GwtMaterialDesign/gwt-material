@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2020 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,26 +17,19 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.base;
 
-
-import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.safehtml.shared.HtmlSanitizer;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
 /**
- * @author Sven Jacobs
+ * HTML-escapes its argument and returns the result wrapped as a SafeHtml.
  */
-public abstract class AbstractMixin<T extends UIObject> {
+public class DefaultHtmlSanitizer implements HtmlSanitizer {
 
-    T uiObject;
-
-    AbstractMixin(final T uiObject) {
-        setUiObject(uiObject);
-    }
-
-    public void setUiObject(T uiObject) {
-        this.uiObject = uiObject;
-    }
-
-    public T getUiObject() {
-        return uiObject;
+    @Override
+    public SafeHtml sanitize(String html) {
+        return SafeHtmlUtils.fromString(html);
     }
 }
