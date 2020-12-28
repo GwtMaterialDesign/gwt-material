@@ -145,7 +145,7 @@ public class MaterialCollection extends MaterialWidget
      * Sets the header of the collection component.
      */
     public void setHeader(String header) {
-        headerLabel.getElement().setInnerSafeHtml(SafeHtmlUtils.fromString(header));
+        headerLabel.setText(header);
         addStyleName(CssName.WITH_HEADER);
         ListItem item = new ListItem(headerLabel);
         UiHelper.addMousePressedHandlers(item);
