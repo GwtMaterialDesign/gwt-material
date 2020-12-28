@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2020 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,26 +17,18 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client;
 
+import com.google.gwt.junit.tools.GWTTestSuite;
+import gwt.material.design.client.mixin.TextMixinTest;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import com.google.gwt.user.client.ui.UIObject;
+public class MixinTestSuite extends GWTTestSuite {
 
-/**
- * @author Sven Jacobs
- */
-public abstract class AbstractMixin<T extends UIObject> {
-
-    T uiObject;
-
-    AbstractMixin(final T uiObject) {
-        setUiObject(uiObject);
-    }
-
-    public void setUiObject(T uiObject) {
-        this.uiObject = uiObject;
-    }
-
-    public T getUiObject() {
-        return uiObject;
+    public static Test suite() {
+        TestSuite suite = new TestSuite("Test Suite for GMD Mixins");
+        suite.addTestSuite(TextMixinTest.class);
+        return suite;
     }
 }

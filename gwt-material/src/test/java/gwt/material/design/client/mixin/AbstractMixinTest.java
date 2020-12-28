@@ -1,10 +1,8 @@
-package gwt.material.design.client.base.mixin;
-
 /*
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2020 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,26 +17,25 @@ package gwt.material.design.client.base.mixin;
  * limitations under the License.
  * #L%
  */
+package gwt.material.design.client.mixin;
 
+import gwt.material.design.client.base.mixin.AbstractMixin;
+import gwt.material.design.client.ui.base.BaseTestCase;
 
-import com.google.gwt.user.client.ui.UIObject;
+public abstract class AbstractMixinTest<M extends AbstractMixin> extends BaseTestCase {
 
-/**
- * @author Sven Jacobs
- */
-public abstract class AbstractMixin<T extends UIObject> {
+    protected M mixin;
 
-    T uiObject;
-
-    AbstractMixin(final T uiObject) {
-        setUiObject(uiObject);
+    public void testMixin() {
+        mixin = setupMixin();
+        runTest(mixin);
     }
 
-    public void setUiObject(T uiObject) {
-        this.uiObject = uiObject;
-    }
+    protected abstract void runTest(M mixin);
 
-    public T getUiObject() {
-        return uiObject;
+    protected abstract M setupMixin();
+
+    public M getMixin() {
+        return mixin;
     }
 }
