@@ -44,7 +44,6 @@ import gwt.material.design.client.ui.MaterialValueBox;
 
 import java.util.List;
 
-//TODO: HasRawValue
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
     HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp, HasCopyCommand {
 
@@ -57,7 +56,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
     private ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> clearOnKeyUpMixin;
     private HandlerRegistration attachHandler, blurHandler;
-    protected CopyCommandMixin<MaterialValueBox> copyCommandMixin;
+    protected CopyCommandMixin<AbstractValueWidget> copyCommandMixin;
 
     public AbstractValueWidget(Element element) {
         super(element);
@@ -414,7 +413,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
         return clearOnKeyUpMixin;
     }
 
-    protected CopyCommandMixin<MaterialValueBox> getCopyCommandMixin() {
+    protected CopyCommandMixin<AbstractValueWidget> getCopyCommandMixin() {
         if (copyCommandMixin == null) {
             copyCommandMixin = new CopyCommandMixin(this);
         }

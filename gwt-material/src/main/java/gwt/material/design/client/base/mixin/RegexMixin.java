@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,6 +32,7 @@ import gwt.material.design.client.ui.MaterialValueBox;
 public class RegexMixin<T extends MaterialValueBox> extends AbstractMixin<T> implements HasRegex {
 
     protected String regex;
+    protected String replaceRegex;
     protected HandlerRegistration keyPressHandler, pasteHandler, blurHandler;
 
     public RegexMixin(final T uiObject) {
@@ -61,9 +62,13 @@ public class RegexMixin<T extends MaterialValueBox> extends AbstractMixin<T> imp
     }
 
     protected void matchRegexOnPaste(PasteEvent event) {
-        boolean matches = event.getValue().matches(regex);
         Scheduler.get().scheduleDeferred(() -> {
-            if (!matches) uiObject.clear();
+            String value = event.getValue().replaceAll(replaceRegex, "");
+            boolean matches = value.matches(regex);
+            uiObject.clear();
+            if (matches) {
+                uiObject.setText(value);
+            }
             RegexValidationEvent.fire(uiObject, event, event.getValue(), regex, matches);
         });
     }
@@ -82,6 +87,12 @@ public class RegexMixin<T extends MaterialValueBox> extends AbstractMixin<T> imp
     @Override
     public void setRegex(String regex) {
         this.regex = regex;
+    }
+
+    @Override
+    public void setRegex(String regex, String replaceRegex) {
+        this.regex = regex;
+        this.replaceRegex = replaceRegex;
     }
 
     @Override

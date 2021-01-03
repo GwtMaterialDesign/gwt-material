@@ -580,6 +580,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setSensitive(boolean sensitive, boolean fireEvents) {
+        getFieldSensitivityMixin().setSensitive(sensitive, fireEvents);
+    }
+
+    @Override
     public boolean isSensitive() {
         return getFieldSensitivityMixin().isSensitive();
     }
@@ -587,6 +592,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public void setRegex(String regex) {
         getRegexMixin().setRegex(regex);
+    }
+
+    @Override
+    public void setRegex(String regex, String replaceRegex) {
+        getRegexMixin().setRegex(regex, replaceRegex);
     }
 
     @Override
@@ -899,6 +909,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public HandlerRegistration addRegexValidationHandler(RegexValidationEvent.RegexValidationHandler handler) {
         return addHandler(handler, RegexValidationEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addSensitivityChangedHandler(SensitivityChangedEvent.SensitivityChangedHandler handler) {
+        return addHandler(handler, SensitivityChangedEvent.TYPE);
     }
 
     @Override

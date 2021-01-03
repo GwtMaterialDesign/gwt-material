@@ -19,6 +19,8 @@
  */
 package gwt.material.design.client.base.mixin;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.base.helper.EventHelper;
@@ -27,16 +29,18 @@ import gwt.material.design.client.constants.Position;
 import gwt.material.design.client.js.ClipboardJS;
 import gwt.material.design.client.js.CopyCommandData;
 import gwt.material.design.client.ui.MaterialIcon;
+import gwt.material.design.client.ui.MaterialValueBox;
 
 import static gwt.material.design.jquery.client.api.JQuery.$;
 
-public class CopyCommandMixin<T extends AbstractValueWidget & HasReadOnly & HasCopyCommand> extends AbstractMixin<T> implements HasCopyCommand {
+public class CopyCommandMixin<T extends AbstractValueWidget> extends AbstractMixin<T> implements HasCopyCommand {
 
     public static final String COPY_COMMAND = "copy-command";
+    public static final String COPY_COMMAND_PARENT = "copy-command-parent";
     public static final String DATA_CLIPBOARD_TEXT = "data-clipboard-text";
     public static final String DATA_CLIPBOARD_ACTION = "data-clipboard-action";
 
-    protected T valueBox;
+    protected T copyCommandParent;
     protected ClipboardJS clipboardJS;
     protected CopyCommand copyCommand = CopyCommand.OFF;
     protected MaterialIcon icon = new MaterialIcon(IconType.CONTENT_COPY);
@@ -44,38 +48,64 @@ public class CopyCommandMixin<T extends AbstractValueWidget & HasReadOnly & HasC
     };
     protected CopyCommandCallback<T> callback;
 
-    public CopyCommandMixin(T valueBox) {
-        super(valueBox);
+    public CopyCommandMixin(T copyCommandParent) {
+        super(copyCommandParent);
 
-        this.valueBox = valueBox;
+        this.copyCommandParent = copyCommandParent;
         EventHelper.onAttachOnce(uiObject, attachEvent -> setup());
     }
 
     protected void setup() {
         if (copyCommand != null && copyCommand != CopyCommand.OFF) {
-            // Setup Widget and Icon
-            icon.addStyleName(COPY_COMMAND);
-            icon.setId(DOM.createUniqueId());
-            valueBox.add(icon);
-            icon.addStyleName(copyCommand.getName());
-            icon.addMouseOutHandler(event -> updateTooltip(locale.CopyToClipboard()));
-            icon.addClickHandler(event -> {
-                icon.getElement().setAttribute(DATA_CLIPBOARD_TEXT, valueBox.getValue() != null ? valueBox.getValue().toString() : "");
-                if (valueBox.isReadOnly()) {
-                    valueBox.setEnabled(true);
-                }
-            });
-            if (copyCommand == CopyCommand.ON_READONLY && !valueBox.isReadOnly()) icon.setVisible(false);
-
-            // Initialize Clipboard Js
-            updateTooltip(locale.CopyToClipboard());
-            clipboardJS = new ClipboardJS("#" + icon.getId());
-            clipboardJS.on("success", this::onSuccess);
-            clipboardJS.on("error", this::onError);
+            setupCopyIcon();
+            setupValueBox();
+            setupClipboardJs();
         } else {
-            if (icon.isAttached()) {
-                icon.removeFromParent();
-            }
+            detachIcon();
+        }
+    }
+
+    protected void setupCopyIcon() {
+        // Setup Widget and Icon
+        icon.addStyleName(COPY_COMMAND);
+        icon.setId(DOM.createUniqueId());
+        copyCommandParent.addStyleName(COPY_COMMAND_PARENT);
+        copyCommandParent.add(icon);
+        icon.addStyleName(copyCommand.getName());
+        icon.addMouseOutHandler(event -> updateTooltip(locale.CopyToClipboard()));
+        icon.addClickHandler(event -> {
+            icon.getElement().setAttribute(DATA_CLIPBOARD_TEXT, copyCommandParent.getValue() != null ? copyCommandParent.getValue().toString() : "");
+        });
+    }
+
+    protected void setupValueBox() {
+        // Will be checking if we have a value box as parent.
+        if (copyCommandParent instanceof MaterialValueBox) {
+            MaterialValueBox<?> valueBox = (MaterialValueBox) this.copyCommandParent;
+            valueBox.addToggleReadOnlyHandler(event -> checkReadyOnly(valueBox));
+            valueBox.addSensitivityChangedHandler(event -> checkReadyOnly(valueBox));
+            checkReadyOnly(valueBox);
+        }
+    }
+
+    protected void setupClipboardJs() {
+        updateTooltip(locale.CopyToClipboard());
+        clipboardJS = new ClipboardJS("#" + icon.getId());
+        clipboardJS.on("success", this::onSuccess);
+        clipboardJS.on("error", this::onError);
+    }
+
+    protected void checkReadyOnly(MaterialValueBox<?> valueBox) {
+        boolean visible = (copyCommand == CopyCommand.ON_READONLY || copyCommand == CopyCommand.ON_READONLY_HOVER)
+            && !valueBox.isSensitive()
+            && valueBox.isReadOnly();
+        icon.getElement().getStyle().setVisibility(visible ? Style.Visibility.VISIBLE : Style.Visibility.HIDDEN);
+        Scheduler.get().scheduleDeferred(() -> icon.setEnabled(visible));
+    }
+
+    protected void detachIcon() {
+        if (icon.isAttached()) {
+            icon.removeFromParent();
         }
     }
 
@@ -86,25 +116,19 @@ public class CopyCommandMixin<T extends AbstractValueWidget & HasReadOnly & HasC
     }
 
     protected String getStringValue() {
-        return valueBox != null && valueBox.getValue() != null ? valueBox.getValue().toString() : "";
+        return copyCommandParent != null && copyCommandParent.getValue() != null ? copyCommandParent.getValue().toString() : "";
     }
 
     protected boolean onSuccess(CopyCommandData data) {
-        if (callback != null) callback.success(valueBox, icon, data);
+        if (callback != null) callback.success(copyCommandParent, icon, data);
         updateTooltip(locale.Copied() + ":" + getStringValue());
         $(icon.getElement()).trigger("mouseover", null);
         data.clearSelection();
-        if (valueBox.isReadOnly()) {
-            valueBox.setEnabled(false);
-        }
         return true;
     }
 
     protected boolean onError(CopyCommandData data) {
         if (callback != null) callback.error(data);
-        if (valueBox.isReadOnly()) {
-            valueBox.setEnabled(false);
-        }
         return false;
     }
 
