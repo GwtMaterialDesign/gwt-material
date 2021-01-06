@@ -89,6 +89,7 @@ public class StatusTextMixinTest extends AbstractMixinTest<StatusTextMixin<Mater
         mixin.clearStatusText();
 
         // Then
+        assertEquals(HELPER_TEXT, label.getText());
         assertFalse(label.getElement().hasClassName(CssName.FIELD_ERROR_LABEL));
         assertFalse(label.getElement().hasClassName(CssName.FIELD_SUCCESS_LABEL));
         assertTrue(label.getElement().hasClassName(CssName.FIELD_HELPER_LABEL));
