@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,7 +61,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     @Override
     public void setErrorText(String errorText) {
         clearSuccessText();
-        clearHelperText();
+        hideHelperText();
         updateStatusDisplay(StatusDisplayMixin.StatusType.ERROR);
 
         if (textObject != null) {
@@ -85,7 +85,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
     @Override
     public void setSuccessText(String successText) {
         clearErrorText();
-        clearHelperText();
+        hideHelperText();
         updateStatusDisplay(StatusDisplayMixin.StatusType.SUCCESS);
 
         if (textObject != null) {
@@ -105,6 +105,7 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
             }
         }
     }
+
 
     @Override
     public void setHelperText(String helperText) {
@@ -173,6 +174,11 @@ public class StatusTextMixin<T extends UIObject & HasStatusText, H extends UIObj
 
     @Override
     public void clearHelperText() {
+        helperText="";
+        hideHelperText();
+    }
+
+    protected void hideHelperText() {
         if (textObject != null) {
             textObject.setText("");
             textObject.setVisible(false);
