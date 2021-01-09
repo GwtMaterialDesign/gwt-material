@@ -22,7 +22,6 @@ package gwt.material.design.client.mixin;
 import com.google.gwt.user.client.ui.RootPanel;
 import gwt.material.design.client.base.CopyCommand;
 import gwt.material.design.client.base.mixin.CopyCommandMixin;
-import gwt.material.design.client.ui.MaterialIcon;
 import gwt.material.design.client.ui.MaterialTextBox;
 
 public class CopyCommandMixinTest extends AbstractMixinTest<CopyCommandMixin<MaterialTextBox>> {
@@ -34,21 +33,11 @@ public class CopyCommandMixinTest extends AbstractMixinTest<CopyCommandMixin<Mat
         RootPanel.get().add(textBox);
         textBox.setCopyCommand(CopyCommand.ON_READONLY_HOVER);
 
-
-        // Test Default
-        //assertEquals(CopyCommand.OFF, textBox.getCopyCommand());
-
         // Test CopyCommand Types
         checkCopyCommandType(textBox, CopyCommand.ON_ALWAYS);
         checkCopyCommandType(textBox, CopyCommand.ON_READONLY);
         checkCopyCommandType(textBox, CopyCommand.ON_READONLY_HOVER);
         checkCopyCommandType(textBox, CopyCommand.ON_ALWAYS_HOVER);
-
-        //TODO: Test Structure & Icons
-        //TODO: Test Performing Copying.
-        //TODO: Test DATA Attributes
-        //TODO: Test Callbacks
-        //TODO: Test Localization
     }
 
     protected void checkCopyCommandType(MaterialTextBox textBox, CopyCommand copyCommand) {
