@@ -46,7 +46,7 @@ public class MaterialBadge extends Span {
      * Collection, DropDown, SideNav and any other Material components.
      */
     public MaterialBadge() {
-        super(Document.get().createSpanElement(), CssName.BADGE, CssName.SIDEBAR_BADGE);
+        super(Document.get().createSpanElement(), CssName.BADGE);
     }
 
     /**

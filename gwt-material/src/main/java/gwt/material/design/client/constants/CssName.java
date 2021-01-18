@@ -27,7 +27,6 @@ package gwt.material.design.client.constants;
 public interface CssName {
 
     String BADGE = "badge";
-    String SIDEBAR_BADGE = "sideBarBadge";
     String BREADCRUMB = "breadcrumb";
     String CARD = "card";
     String CARD_ACTION = "card-action";
