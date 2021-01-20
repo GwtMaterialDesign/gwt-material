@@ -49,8 +49,8 @@ import gwt.material.design.client.ui.html.Paragraph;
 //@formatter:on
 public class MaterialTitle extends AbstractValueWidget<String> implements HasTitle {
 
-    private MaterialLabel header = new MaterialLabel();
-    private MaterialLabel paragraph = new MaterialLabel();
+    private Heading header = new Heading(HeadingSize.H4);
+    private Paragraph paragraph = new Paragraph();
 
     public MaterialTitle(String title, String description) {
         this();
@@ -65,16 +65,13 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
 
     public MaterialTitle() {
         super(DOM.createDiv());
-
-        header.setFontSize("2.28em");
-        header.setMarginTop(12);
-        header.setMarginBottom(12);
     }
 
     @Override
     protected void onLoad() {
         super.onLoad();
 
+        header.setFontWeight(300);
         add(header);
         add(paragraph);
     }
@@ -99,11 +96,11 @@ public class MaterialTitle extends AbstractValueWidget<String> implements HasTit
         return getValue();
     }
 
-    public MaterialLabel getHeader() {
+    public Heading getHeader() {
         return header;
     }
 
-    public MaterialLabel getParagraph() {
+    public Paragraph getParagraph() {
         return paragraph;
     }
 
