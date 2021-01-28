@@ -352,13 +352,13 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
             assertFalse(element.hasClassName(CssName.DISABLED));
             assertFalse(element.hasAttribute(CssName.DISABLED));
         }
-        assertEquals(widget.isEnabled(), true);
+        assertTrue(widget.isEnabled());
         widget.setEnabled(false);
         if(checkElement) {
             assertTrue(element.hasClassName(CssName.DISABLED));
             assertTrue(element.hasAttribute(CssName.DISABLED));
         }
-        assertEquals(target.isEnabled(), false);
+        assertFalse(target.isEnabled());
     }
 
     // Generic Event Handling
@@ -1006,18 +1006,39 @@ public abstract class MaterialWidgetTestCase<T extends MaterialWidget> extends W
     public void testEnabled() {
         // UiBinder
         // given
-        T widget = getWidget(false);
+        T widget = getWidget(true);
 
         // when / then
-        checkEnabled(widget, widget, false);
+        checkEnabled(widget, widget, true);
+    }
 
-        // Standard
+    public void testMultiSetEnabledState() {
+        // given
+        T widget = getWidget();
+
+        // when / then
+        widget.setEnabled(false);
+        assertFalse(false);
+
+        // when / then
+        widget.setEnabled(true);
+        assertTrue(widget.isEnabled());
+
+        // when / then
+        widget.setEnabled(false);
+        assertFalse(widget.isEnabled());
+
         // given
         attachWidget();
 
         // when / then
+        assertFalse(widget.isEnabled());
         widget.setEnabled(true);
-        checkEnabled(widget, widget, true);
+        assertTrue(widget.isEnabled());
+
+        // when / then
+        widget.setEnabled(false);
+        assertFalse(widget.isEnabled());
     }
 
     public void testId() {
