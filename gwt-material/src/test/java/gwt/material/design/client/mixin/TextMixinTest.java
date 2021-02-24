@@ -54,6 +54,7 @@ public class TextMixinTest extends AbstractMixinTest<TextMixin<MaterialLabel>> {
         mixin.setText("<script>alert('xss')</script>");
         assertEquals("<script>alert('xss')</script>", mixin.getText());
 
+
         // Test setText(SafeHtml)
         String anchorTag = "<a>test</a>";
         SafeHtmlBuilder builder = new SafeHtmlBuilder();
