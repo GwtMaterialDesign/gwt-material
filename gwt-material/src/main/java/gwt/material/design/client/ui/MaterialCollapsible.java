@@ -187,8 +187,6 @@ public class MaterialCollapsible extends MaterialWidget
 
     /**
      * Open the given collapsible item.
-     *
-     * @param index the one-based collapsible item index.
      */
     public void open(int index) {
         setActive(index);
@@ -196,8 +194,6 @@ public class MaterialCollapsible extends MaterialWidget
 
     /**
      * Close the given collapsible item.
-     *
-     * @param index the one-based collapsible item index.
      */
     public void close(int index) {
         setActive(index, false);
@@ -259,8 +255,8 @@ public class MaterialCollapsible extends MaterialWidget
         activeIndex = index;
         if (isAttached()) {
             if (index <= getWidgetCount()) {
-                if (index != 0) {
-                    activeWidget = getWidget(index - 1);
+                if (index > 0) {
+                    activeWidget = getWidget(index);
                     if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
                         ((MaterialCollapsibleItem) activeWidget).setActive(active);
                         reload();

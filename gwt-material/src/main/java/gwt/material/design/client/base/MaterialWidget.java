@@ -27,7 +27,6 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
-import gwt.material.design.client.MaterialDesign;
 import gwt.material.design.client.base.helper.StyleHelper;
 import gwt.material.design.client.base.mixin.*;
 import gwt.material.design.client.base.validator.HasValidators;
@@ -55,7 +54,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
     HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
     HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation,
-    HasContainer, HasWordBreak, HasZoom {
+    HasContainer, HasWordBreak, HasZoom, HasGridLayout, HasResize, HasContentEditable {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -134,8 +133,10 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private TransformMixin<MaterialWidget> transformMixin;
     private OrientationMixin<MaterialWidget> orientationMixin;
     private ContainerMixin<MaterialWidget> containerMixin;
+    private GridLayoutMixin<MaterialWidget> gridLayoutMixin;
 
-    public MaterialWidget() {}
+    public MaterialWidget() {
+    }
 
     public MaterialWidget(JQueryElement jQueryElement) {
         this();
@@ -331,14 +332,328 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         getFocusableMixin().setFocus(focused);
     }
 
+    public void setFocus(boolean focused, boolean appendFocusStyleName) {
+        getFocusableMixin().setFocus(focused, appendFocusStyleName);
+    }
+
     @Override
     public void setTabIndex(int index) {
         getFocusableMixin().setTabIndex(index);
     }
 
     @Override
+    public String getGridLayout() {
+        return getGridLayoutMixin().getGridLayout();
+    }
+
+    @Override
+    public void setGridArea(String value) {
+        getGridLayoutMixin().setGridArea(value);
+    }
+
+    @Override
+    public String getGridArea() {
+        return getGridLayoutMixin().getGridArea();
+    }
+
+    @Override
+    public void setGridAutoColumns(String value) {
+        getGridLayoutMixin().setGridAutoColumns(value);
+    }
+
+    @Override
+    public String getGridAutoColumns() {
+        return getGridLayoutMixin().getGridAutoColumns();
+    }
+
+    @Override
+    public void setGridAutoFlow(String value) {
+        getGridLayoutMixin().setGridAutoFlow(value);
+    }
+
+    @Override
+    public String getGridAutoFlow() {
+        return getGridLayoutMixin().getGridAutoFlow();
+    }
+
+    @Override
+    public void setGridAutoRows(String value) {
+        getGridLayoutMixin().setGridAutoRows(value);
+    }
+
+    @Override
+    public String getGridAutoRows() {
+        return getGridLayoutMixin().getGridAutoRows();
+    }
+
+    @Override
+    public void setGridColumn(String value) {
+        getGridLayoutMixin().setGridColumn(value);
+    }
+
+    @Override
+    public String getGridColumn() {
+        return getGridLayoutMixin().getGridColumn();
+    }
+
+    @Override
+    public void setGridColumnEnd(String value) {
+        getGridLayoutMixin().setGridColumnEnd(value);
+    }
+
+    @Override
+    public String getGridColumnEnd() {
+        return getGridLayoutMixin().getGridColumnEnd();
+    }
+
+    @Override
+    public void setGridColumnGap(String value) {
+        getGridLayoutMixin().setGridColumnGap(value);
+    }
+
+    @Override
+    public String getGridColumnGap() {
+        return getGridLayoutMixin().getGridColumnGap();
+    }
+
+    @Override
+    public void setGridColumnStart(String value) {
+        getGridLayoutMixin().setGridColumnStart(value);
+    }
+
+    @Override
+    public String getGridColumnStart() {
+        return getGridLayoutMixin().getGridColumnStart();
+    }
+
+    @Override
+    public void setGridGap(String value) {
+        getGridLayoutMixin().setGridGap(value);
+    }
+
+    @Override
+    public String getGridGap() {
+        return getGridLayoutMixin().getGridGap();
+    }
+
+    @Override
+    public void setGridRow(String value) {
+        getGridLayoutMixin().setGridRow(value);
+    }
+
+    @Override
+    public String getGridRow() {
+        return getGridLayoutMixin().getGridRow();
+    }
+
+    @Override
+    public void setGridRowEnd(String value) {
+        getGridLayoutMixin().setGridRowEnd(value);
+    }
+
+    @Override
+    public String getGridRowEnd() {
+        return getGridLayoutMixin().getGridRowEnd();
+    }
+
+    @Override
+    public void setGridRowGap(String value) {
+        getGridLayoutMixin().setGridRowGap(value);
+    }
+
+    @Override
+    public String getGridRowGap() {
+        return getGridLayoutMixin().getGridRowGap();
+    }
+
+    @Override
+    public void setGridRowStart(String value) {
+        getGridLayoutMixin().setGridRowStart(value);
+    }
+
+    @Override
+    public String getGridRowStart() {
+        return getGridLayoutMixin().getGridRowStart();
+    }
+
+    @Override
+    public void setGridTemplate(String value) {
+        getGridLayoutMixin().setGridTemplate(value);
+    }
+
+    @Override
+    public String getGridTemplate() {
+        return getGridLayoutMixin().getGridTemplate();
+    }
+
+    @Override
+    public void setGridTemplateAreas(String value) {
+        getGridLayoutMixin().setGridTemplateAreas(value);
+    }
+
+    @Override
+    public String getGridTemplateAreas() {
+        return getGridLayoutMixin().getGridTemplateAreas();
+    }
+
+    @Override
+    public void setGridTemplateColumns(String value) {
+        getGridLayoutMixin().setGridTemplateColumns(value);
+    }
+
+    @Override
+    public String getGridTemplateColumns() {
+        return getGridLayoutMixin().getGridTemplateColumns();
+    }
+
+    @Override
+    public void setGridTemplateRows(String value) {
+        getGridLayoutMixin().setGridTemplateRows(value);
+    }
+
+    @Override
+    public String getGridTemplateRows() {
+        return getGridLayoutMixin().getGridTemplateRows();
+    }
+
+    @Override
+    public void setAlignContent(String value) {
+        getGridLayoutMixin().setAlignContent(value);
+    }
+
+    @Override
+    public String getAlignContent() {
+        return getGridLayoutMixin().getAlignContent();
+    }
+
+    @Override
+    public void setAlignItems(String value) {
+        getGridLayoutMixin().setAlignItems(value);
+    }
+
+    @Override
+    public String getAlignItems() {
+        return getGridLayoutMixin().getAlignItems();
+    }
+
+    @Override
+    public void setAlignSelf(String value) {
+        getGridLayoutMixin().setAlignSelf(value);
+    }
+
+    @Override
+    public String getAlignSelf() {
+        return getGridLayoutMixin().getAlignSelf();
+    }
+
+    @Override
+    public void setColumnGap(String value) {
+        getGridLayoutMixin().setColumnGap(value);
+    }
+
+    @Override
+    public String getColumnGap() {
+        return getGridLayoutMixin().getColumnGap();
+    }
+
+    @Override
+    public void setGap(String value) {
+        getGridLayoutMixin().setGap(value);
+    }
+
+    @Override
+    public String getGap() {
+        return getGridLayoutMixin().getGap();
+    }
+
+    @Override
+    public void setJustifyContent(String value) {
+        getGridLayoutMixin().setJustifyContent(value);
+    }
+
+    @Override
+    public String getJustifyContent() {
+        return getGridLayoutMixin().getJustifyContent();
+    }
+
+    @Override
+    public void setJustifyItems(String value) {
+        getGridLayoutMixin().setJustifyItems(value);
+    }
+
+    @Override
+    public String getJustifyItems() {
+        return getGridLayoutMixin().getJustifyItems();
+    }
+
+    @Override
+    public void setJustifySelf(String value) {
+        getGridLayoutMixin().setJustifySelf(value);
+    }
+
+    @Override
+    public String getJustifySelf() {
+        return getGridLayoutMixin().getJustifySelf();
+    }
+
+    @Override
+    public void setPlaceContent(String value) {
+        getGridLayoutMixin().setPlaceContent(value);
+    }
+
+    @Override
+    public String getPlaceContent() {
+        return getGridLayoutMixin().getPlaceContent();
+    }
+
+    @Override
+    public void setPlaceItems(String value) {
+        getGridLayoutMixin().setPlaceItems(value);
+    }
+
+    @Override
+    public String getPlaceItems() {
+        return getGridLayoutMixin().getPlaceItems();
+    }
+
+    @Override
+    public void setPlaceSelf(String value) {
+        getGridLayoutMixin().setPlaceSelf(value);
+    }
+
+    @Override
+    public String getPlaceSelf() {
+        return getGridLayoutMixin().getPlaceSelf();
+    }
+
+    @Override
+    public void setRowGap(String value) {
+        getGridLayoutMixin().setRowGap(value);
+    }
+
+    @Override
+    public String getRowGap() {
+        return getGridLayoutMixin().getRowGap();
+    }
+
+    @Override
+    public void setAspectRatio(String value) {
+        getGridLayoutMixin().setAspectRatio(value);
+    }
+
+    @Override
+    public String getAspectRatio() {
+        return getGridLayoutMixin().getAspectRatio();
+    }
+
+    @Override
     public void setGrid(String grid) {
         getGridMixin().setGrid(grid);
+    }
+
+    @Override
+    public void setGridLayout(String value) {
+        getGridLayoutMixin().setGridLayout(value);
     }
 
     @Override
@@ -580,6 +895,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getTooltipMixin().getTooltipElement();
     }
 
+    @Override
+    public void removeTooltip() {
+        getTooltipMixin().removeTooltip();
+    }
+
     public void setVisibility(Style.Visibility visibility) {
         getElement().getStyle().setVisibility(visibility);
     }
@@ -608,6 +928,11 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public void setFlex(Flex flex) {
         getFlexboxMixin().setFlex(flex);
+    }
+
+    @Override
+    public void setFlexValue(String value) {
+        getElement().getStyle().setProperty("flex", value);
     }
 
     @Override
@@ -1028,6 +1353,36 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     @Override
     public void setZoom(Double level) {
         getElement().getStyle().setProperty("zoom", level != null ? String.valueOf(level) : "");
+    }
+
+    @Override
+    public void setResize(Resizable value) {
+        getElement().getStyle().setProperty("resize", value != null ? value.getName() : "");
+    }
+
+    @Override
+    public String getResize() {
+        return getElement().getStyle().getProperty("resize");
+    }
+
+    @Override
+    public void setContentEditable(boolean value) {
+        getElement().setAttribute("contenteditable", String.valueOf(value));
+    }
+
+    @Override
+    public boolean isContentEditable() {
+        return Boolean.parseBoolean(getElement().getAttribute("contenteditable"));
+    }
+
+    @Override
+    public void setWidth(String width) {
+        getElement().getStyle().setProperty("width", width);
+    }
+
+    @Override
+    public void setHeight(String height) {
+        getElement().getStyle().setProperty("height", height);
     }
 
     /**
@@ -1579,6 +1934,13 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
             containerMixin = new ContainerMixin<>(this);
         }
         return containerMixin;
+    }
+
+    public GridLayoutMixin<MaterialWidget> getGridLayoutMixin() {
+        if (gridLayoutMixin == null) {
+            gridLayoutMixin = new GridLayoutMixin<>(this);
+        }
+        return gridLayoutMixin;
     }
 
     public void setTranslationKey(String key) {

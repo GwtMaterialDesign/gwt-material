@@ -26,10 +26,11 @@ import com.google.gwt.dom.client.Style.HasCssName;
  * @author chriswjones
  */
 public enum Display implements HasCssName {
-    FLEX("flex"),
-    NONE(Style.Display.NONE),
-    BLOCK(Style.Display.BLOCK),
     INLINE(Style.Display.INLINE),
+    BLOCK(Style.Display.BLOCK),
+    FLEX("flex"),
+    GRID("grid"),
+    INLINE_GRID("inline-grid"),
     INLINE_BLOCK(Style.Display.INLINE_BLOCK),
     INLINE_TABLE(Style.Display.INLINE_TABLE),
     LIST_ITEM(Style.Display.LIST_ITEM),
@@ -43,6 +44,7 @@ public enum Display implements HasCssName {
     TABLE_CELL(Style.Display.TABLE_CELL),
     TABLE_COLUMN(Style.Display.TABLE_COLUMN),
     TABLE_ROW(Style.Display.TABLE_ROW),
+    NONE(Style.Display.NONE),
     INITIAL(Style.Display.INITIAL);
 
     private final String cssName;

@@ -81,6 +81,10 @@ public class OverlayStyleMixin<T extends UIObject & HasOverlayStyle> extends Abs
                      blurValue = "";
                 }
                 target.css("filter",  blurValue != null ? blurValue : "");
+
+                if (blur.isFixedTarget()) {
+                    target.css("height", "100" + Style.Unit.PCT);
+                }
             }
         }
     }

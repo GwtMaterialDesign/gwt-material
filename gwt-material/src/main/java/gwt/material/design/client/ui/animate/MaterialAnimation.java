@@ -147,6 +147,9 @@ public class MaterialAnimation implements Animation {
                     case SHOW_STAGGERED_LIST:
                         JsMaterialElement.showStaggeredList(element);
                         break;
+                    case HIDE_STAGGERED_LIST:
+                        JsMaterialElement.hideStaggeredList(element);
+                        break;
                     case FADE_IN_IMAGE:
                         JsMaterialElement.fadeInImage(element);
                         break;

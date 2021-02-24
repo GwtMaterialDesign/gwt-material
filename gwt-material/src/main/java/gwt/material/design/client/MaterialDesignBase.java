@@ -21,9 +21,12 @@ package gwt.material.design.client;
  */
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
+import gwt.material.design.client.accessibility.AccessibilityControl;
+import gwt.material.design.client.resources.MaterialDebugResources;
 import gwt.material.design.client.resources.MaterialResources;
 
 import java.util.ArrayList;
@@ -51,7 +54,8 @@ public class MaterialDesignBase {
         if(!isMaterializeLoaded()) {
             injectJs(MaterialResources.INSTANCE.materializeJs());
             injectJs(MaterialResources.INSTANCE.animationJs());
-            injectJs(MaterialResources.INSTANCE.appInstallerJs());
+            injectJs(MaterialResources.INSTANCE.clipboardJs());
+            AccessibilityControl.get().load(false);
         }
         onModuleLoaded();
     }

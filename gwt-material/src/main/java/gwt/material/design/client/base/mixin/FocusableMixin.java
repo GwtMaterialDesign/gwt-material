@@ -24,13 +24,18 @@ import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.accessibility.AccessibilityControl;
 
 /**
  * @author Sven Jacobs
  */
 public class FocusableMixin<T extends UIObject & Focusable> extends AbstractMixin<T> implements Focusable {
+
+    protected static final String FOCUS_VISIBLE = "focus-visible";
 
     public FocusableMixin(final T uiObject) {
         super(uiObject);
@@ -44,6 +49,13 @@ public class FocusableMixin<T extends UIObject & Focusable> extends AbstractMixi
     @Override
     public void setTabIndex(final int index) {
         uiObject.getElement().setTabIndex(index);
+
+        if (index > -1) {
+            if (uiObject instanceof HasClickHandlers && uiObject instanceof Widget) {
+                ((HasClickHandlers) uiObject).addClickHandler(event ->
+                    AccessibilityControl.get().unregisterWidget((Widget) uiObject));
+            }
+        }
     }
 
     @Override
@@ -62,10 +74,16 @@ public class FocusableMixin<T extends UIObject & Focusable> extends AbstractMixi
 
     @Override
     public void setFocus(final boolean focused) {
+        setFocus(focused, false);
+    }
+
+    public void setFocus(boolean focused, boolean appendFocusStyleName) {
         if (focused) {
             uiObject.getElement().focus();
+            if (appendFocusStyleName) uiObject.addStyleName(FOCUS_VISIBLE);
         } else {
             uiObject.getElement().blur();
+            if (appendFocusStyleName) uiObject.removeStyleName(FOCUS_VISIBLE);
         }
     }
 }

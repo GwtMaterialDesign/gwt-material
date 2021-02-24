@@ -29,6 +29,7 @@ import gwt.material.design.jquery.client.api.JQueryElement;
 public class Blur {
 
     private int value;
+    private boolean fixedTarget;
     private JQueryElement[] targets;
 
     public Blur() {
@@ -65,5 +66,17 @@ public class Blur {
      */
     public void setTargets(JQueryElement... targets) {
         this.targets = targets;
+    }
+
+    public boolean isFixedTarget() {
+        return fixedTarget;
+    }
+
+    /**
+     * Will apply a height of 100% to a fix target. This is a recommended fixed
+     * fixed position element applying a blur.
+     */
+    public void setFixedTarget(boolean fixedTarget) {
+        this.fixedTarget = fixedTarget;
     }
 }

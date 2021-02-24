@@ -62,6 +62,8 @@ public class MaterialButton extends AbstractIconButton {
 
     public MaterialButton() {
         super(ButtonType.RAISED);
+
+        setTabIndex(0);
     }
 
     public MaterialButton(String text) {

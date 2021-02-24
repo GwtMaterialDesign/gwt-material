@@ -5579,42 +5579,12 @@ nav {
   .navbar-fixed {
     height: 64px; } }
 
-@font-face {
-  font-family: "Roboto";
-  src: local(Roboto Thin), url("../font/roboto/Roboto-Thin.eot");
-  src: url("../font/roboto/Roboto-Thin.eot?#iefix") format("embedded-opentype"), url("../font/roboto/Roboto-Thin.woff2") format("woff2"), url("../font/roboto/Roboto-Thin.woff") format("woff"), url("../font/roboto/Roboto-Thin.ttf") format("truetype");
-  font-weight: 200; }
-
-@font-face {
-  font-family: "Roboto";
-  src: local(Roboto Light), url("../font/roboto/Roboto-Light.eot");
-  src: url("../font/roboto/Roboto-Light.eot?#iefix") format("embedded-opentype"), url("../font/roboto/Roboto-Light.woff2") format("woff2"), url("../font/roboto/Roboto-Light.woff") format("woff"), url("../font/roboto/Roboto-Light.ttf") format("truetype");
-  font-weight: 300; }
-
-@font-face {
-  font-family: "Roboto";
-  src: local(Roboto Regular), url("../font/roboto/Roboto-Regular.eot");
-  src: url("../font/roboto/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../font/roboto/Roboto-Regular.woff2") format("woff2"), url("../font/roboto/Roboto-Regular.woff") format("woff"), url("../font/roboto/Roboto-Regular.ttf") format("truetype");
-  font-weight: 400; }
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../font/roboto/Roboto-Medium.eot");
-  src: url("../font/roboto/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("../font/roboto/Roboto-Medium.woff2") format("woff2"), url("../font/roboto/Roboto-Medium.woff") format("woff"), url("../font/roboto/Roboto-Medium.ttf") format("truetype");
-  font-weight: 500; }
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../font/roboto/Roboto-Bold.eot");
-  src: url("../font/roboto/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("../font/roboto/Roboto-Bold.woff2") format("woff2"), url("../font/roboto/Roboto-Bold.woff") format("woff"), url("../font/roboto/Roboto-Bold.ttf") format("truetype");
-  font-weight: 700; }
-
 a {
   text-decoration: none; }
 
 html {
   line-height: 1.5;
-  font-family: "Roboto", sans-serif;
+  font-family: sans-serif;
   font-weight: normal;
   color: rgba(0, 0, 0, 0.87); }
   @media only screen and (min-width: 0) {
@@ -8538,7 +8508,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   background-size: cover;
   background: no-repeat fixed;
   line-height: 1.5;
-  font-family: "Roboto", sans-serif;
+  font-family: sans-serif;
   font-weight: normal;
   color: rgba(0, 0, 0, 0.87); }
 
@@ -8574,6 +8544,162 @@ div {
 */
 nav ul li a {
   float: left; }
+
+/*
+  This will hide the focus indicator if the element receives focus via the mouse,
+  but it will still show up on keyboard focus.
+*/
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none; }
+
+/** Tabs & Buttons Focusable **/
+.button-collapse[tabindex],
+i[tabindex],
+button[tabindex],
+.tabs .tab a[tabindex] {
+  overflow: hidden;
+  position: relative; }
+
+i[tabindex] {
+  overflow: visible; }
+
+i[tabindex]:hover:after {
+  opacity: 1;
+  width: 32px;
+  height: 32px;
+  top: calc(50% - 17px);
+  left: calc(50% - 16px); }
+
+.button-collapse[tabindex]:after,
+i[tabindex]:after,
+.tabs .tab a[tabindex]:before,
+button[tabindex]:before {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 100% !important;
+  width: 0px;
+  height: 0px;
+  top: 50%;
+  left: 50%;
+  -webkit-animation: breathing 1.5s ease-out infinite normal;
+  animation: breathing 1.5s ease-out infinite normal;
+  opacity: 0;
+  transition: 400ms; }
+
+.button-collapse.focus-visible:after,
+i.focus-visible:after,
+button.focus-visible:before,
+.tabs .tab a.focus-visible:before {
+  opacity: 1;
+  width: 100px;
+  height: 100px;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px); }
+
+button.btn-floating.focus-visible:before {
+  width: 48px;
+  height: 48px;
+  top: calc(50% - 24px);
+  left: calc(50% - 24px); }
+
+i.focus-visible:after {
+  width: 32px;
+  height: 32px;
+  top: calc(50% - 17px);
+  left: calc(50% - 16px); }
+
+.button-collapse.focus-visible:before,
+nav .nav-wrapper i.focus-visible:after {
+  width: 40px;
+  height: 40px;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px); }
+
+/** Checkbox Focusable */
+.checkbox.gwt-CheckBox.focus-visible,
+.checkbox.gwt-CheckBox:hover {
+  position: relative; }
+
+.checkbox.gwt-CheckBox:after {
+  opacity: 0;
+  transition: 200ms;
+  transform: scale(0);
+  content: "";
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  border-radius: 100%;
+  z-index: -1; }
+
+.checkbox.gwt-CheckBox.focus-visible:after,
+.checkbox.gwt-CheckBox:hover:after {
+  transform: scale(1);
+  opacity: 1; }
+
+.checkbox.col.gwt-CheckBox:after {
+  left: 3px; }
+
+/** Radio Button Focusable **/
+.gwt-RadioButton:not(.gwt-RadioButton-disabled).focus-visible label:before,
+.gwt-RadioButton:not(.gwt-RadioButton-disabled):hover label:before {
+  -webkit-box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1); }
+
+/** Switch Focusable **/
+.switch.focus-visible input[type=checkbox]:checked:not(:disabled) ~ .lever:after {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(66, 165, 245, 0.15); }
+
+.switch.focus-visible input[type=checkbox]:not(:disabled) ~ .lever:after {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.08); }
+
+/** Range Focusable **/
+input[type=range].focus-visible::-webkit-slider-thumb {
+  -webkit-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
+  -moz-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
+  box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15); }
+
+input[type=range].focus-visible::-moz-range-thumb {
+  -webkit-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
+  -moz-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
+  box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15); }
+
+input[type=range]:hover::-ms-thumb,
+input[type=range].focus-visible::-ms-thumb {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important; }
+
+/** Breadcrumb Focusable **/
+.breadcrumb.focus-visible i:only-child {
+  border-bottom: 1px solid; }
+
+.breadcrumb.focus-visible span {
+  border-bottom: 1px solid; }
+
+.chip.focus-visible {
+  color: rgba(0, 0, 0, 0.6);
+  background-color: #c8c8c8; }
+
+/** Side Focusable **/
+.side-nav li a.focus-visible {
+  background: #e9e9e9; }
+
+/** Collapsible Focusable **/
+.collapsible-header:hover,
+.collapsible-header.focus-visible {
+  background-color: #eee; }
+
+/** Collection Focusable **/
+.collection-item.focus-visible {
+  background-color: #eee; }
+
+/** Search Focusbale **/
+.search-result a.focus-visible {
+  background-color: #eee; }
 
 /**
 * Async Switch and CheckBox
@@ -8660,11 +8786,9 @@ nav ul a span.badge {
   float: right;
   margin-top: 22px; }
 
-.side-nav .badge {
+.side-nav span.badge {
   float: right;
-  top: 22px; }
-
-.sideBarBadge {
+  top: 22px;
   height: 20px !important;
   line-height: 0 !important;
   padding: 10px !important;
@@ -8672,23 +8796,25 @@ nav ul a span.badge {
   border-radius: 3px !important;
   font-size: 0.7em !important; }
 
-.badge.circle {
+span.badge.circle {
   position: absolute;
-  min-width: 0 !important;
-  border-radius: 100% !important;
-  height: 24px !important;
+  min-width: 0;
+  border-radius: 100%;
+  height: 24px;
   top: -12px;
   width: 24px;
-  font-size: 0.6rem !important;
+  font-size: 0.6rem;
   text-align: center;
-  padding: 0 !important;
-  padding-top: 12px !important;
+  padding: 12px 0 0;
   right: 8px; }
 
-.badge > div:first-child {
+span.badge > div:first-child {
   display: inline; }
 
-.badge {
+nav ul a span.badge:not(.circle) {
+  line-height: 22px; }
+
+span.badge {
   background: #42A5F5; }
 
 /**
@@ -8899,7 +9025,7 @@ input:-webkit-autofill {
   box-shadow: none; }
 
 .input-field.disabled label {
-  color: rgba(0, 0, 0, 0.26) !important; }
+  color: rgba(0, 0, 0, 0.6) !important; }
 
 /**
 * Aligned Label
@@ -9179,6 +9305,9 @@ blockquote {
   position: initial !important;
   opacity: 0 !important; }
 
+.checkbox {
+  margin-bottom: 20px; }
+
 /**
 * ReadOnly States
 **/
@@ -9251,10 +9380,6 @@ blockquote {
 .switch label input[type=checkbox]:checked + .lever.disabled {
   background-color: #D4D4D4; }
 
-/** Secondary Label **/
-.secondary-label {
-  color: rgba(0, 0, 0, 0.6); }
-
 /**
 * Range Slider
 * Fixed for IE issue with multiple indicator https://github.com/GwtMaterialDesign/gwt-material/issues/815
@@ -9264,10 +9389,6 @@ blockquote {
 
 input[type=range]::-ms-fill-lower {
   background-color: #deddde !important; }
-
-[type="radio"]:not(:checked) + label, [type="radio"]:checked + label,
-[type="checkbox"] + label {
-  color: rgba(0, 0, 0, 0.87); }
 
 .range-field {
   padding-top: 12px; }
@@ -9289,11 +9410,6 @@ input[type=range]:hover::-webkit-slider-thumb {
   -webkit-box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.15);
   -moz-box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.15);
   box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.15); }
-
-input[type=range]:focus::-webkit-slider-thumb {
-  -webkit-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
-  -moz-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15);
-  box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.15); }
 
 input[type=range]::-webkit-slider-runnable-track {
   background-color: transparent !important;
@@ -9326,11 +9442,6 @@ input[type=range]:hover::-moz-range-thumb {
   -moz-box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.2);
   box-shadow: 0px 0px 0px 8px rgba(66, 165, 245, 0.2); }
 
-input[type=range]:focus::-moz-range-thumb {
-  -webkit-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.2);
-  -moz-box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.2);
-  box-shadow: 0px 0px 0px 12px rgba(66, 165, 245, 0.2); }
-
 /** Range IE Support **/
 input[type=range]::-ms-track {
   height: 32px;
@@ -9348,11 +9459,32 @@ input[type=range]::-ms-thumb {
   transform: translateY(18px);
   margin-bottom: 22px; }
 
-input[type=range]:hover::-ms-thumb,
-input[type=range]:focus::-ms-thumb {
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-shadow: none !important; }
+/** Copy to Clipboard **/
+.copy-command {
+  position: absolute;
+  top: 8px;
+  right: -20px;
+  z-index: 998; }
+
+.copy-command-parent:hover i.copy-command.on-readonly-hover,
+.copy-command-parent:hover i.copy-command.on-always-hover {
+  opacity: 1; }
+
+i.copy-command.on-readonly-hover,
+i.copy-command.on-always-hover {
+  opacity: 0;
+  transition: 400ms; }
+
+i[tabindex].copy-command {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  z-index: 999; }
+
+@media screen and (max-width: 900px) {
+  i.copy-command.on-readonly-hover,
+  i.copy-command.on-always-hover {
+    opacity: 1; } }
 
 /**
 * Chips
@@ -9927,6 +10059,13 @@ ul.side-nav .collapsible-body li {
 ul.side-nav .collapsible-body li.active {
   background-color: #eeeeee !important; }
 
+.side-nav li:hover, .side-nav li.active {
+  background-color: rgba(100, 181, 246, 0.1); }
+
+.side-nav li:hover a,
+.side-nav li.active a {
+  color: #64B5F6; }
+
 ul.side-nav.right-aligned {
   left: auto !important; }
 
@@ -10309,10 +10448,10 @@ i[class*="waves-"].material-icons {
 /**
 * Carousel
 **/
-.slick-dots li {
+ul.slick-dots li {
   background: #b1dafb; }
 
-.slick-dots li.slick-active {
+ul.slick-dots li.slick-active {
   background: #42A5F5; }
 
 /**
@@ -10439,7 +10578,7 @@ button.waves-effect.waves-light.btn.disabled, button.waves-effect.waves-light.di
 /**
 * Window
 **/
-.window .window-toolbar {
+div.window .window-toolbar {
   background-color: #42A5F5; }
 
 /* ==========================================================================
@@ -10448,7 +10587,7 @@ button.waves-effect.waves-light.btn.disabled, button.waves-effect.waves-light.di
 /**
 * Group Toggle Button
 **/
-.group-toggle-button button.active {
+.group-toggle-button button.btn.active, .group-toggle-button button.active.btn-large {
   background: #42A5F5; }
 
 /**
@@ -10469,3 +10608,23 @@ button.waves-effect.waves-light.btn.disabled, button.waves-effect.waves-light.di
   background: #42A5F5;
   -webkit-animation: 1.5s cubic-bezier(0.08, -0.18, 0.91, 1.14) barbounce alternate infinite;
   animation: 1.5s cubic-bezier(0.08, -0.18, 0.91, 1.14) barbounce alternate infinite; }
+
+/**
+* Date Range
+**/
+div.daterangepicker td.active,
+div.daterangepicker td.active:hover,
+div.daterangepicker td.in-range.active:not(.off),
+div.daterangepicker .ranges li.active {
+  background-color: #64B5F6; }
+
+div.daterangepicker td.in-range,
+div.daterangepicker td.available.in-range:hover:not(.active) {
+  background-color: rgba(100, 181, 246, 0.2);
+  color: #64B5F6; }
+
+div.drp-buttons button.cancelBtn {
+  color: #64B5F6; }
+
+div.daterangepicker td.available:hover:after {
+  border: 2px solid #64B5F6; }

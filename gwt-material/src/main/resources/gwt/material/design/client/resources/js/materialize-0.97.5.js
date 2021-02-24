@@ -3778,7 +3778,7 @@ $(document).ready(function(){
       });
   };
 
-  // Horizontal staggered list
+  // Horizontal show staggered list
   Materialize.showStaggeredList = function(selector) {
     var time = 0;
     $(selector).find('li').velocity(
@@ -3790,6 +3790,21 @@ $(document).ready(function(){
         { opacity: "1", translateX: "0"},
         { duration: 800, delay: time, easing: [60, 10] });
       time += 120;
+    });
+  };
+
+  // Horizontal hide staggered list
+  Materialize.hideStaggeredList = function(selector) {
+    var time = 0;
+    $(selector).find('li').velocity(
+      { translateX: "0px"},
+      { duration: 0 });
+
+    $(selector).find('li').each(function() {
+       $(this).velocity(
+         { opacity: "0", translateX: "-100px"},
+         { duration: 800, delay: time, easing: [60, 10] });
+       time += 120;
     });
   };
 

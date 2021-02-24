@@ -70,8 +70,7 @@ import static gwt.material.design.jquery.client.api.JQuery.$;
 public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasChangeHandlers, HasName,
     HasDirectionEstimator, HasText, AutoDirectionHandler.Target, IsEditor<ValueBoxEditor<T>>, HasIcon,
     HasInputType, HasPlaceholder, HasCounter, HasReadOnly, HasActive, HasFieldTypes,
-    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel {
-
+    HasToggleReadOnlyHandler, HasAutocomplete, HasPasteHandlers, HasFieldSensitivity, HasLabel, HasRegex {
 
     private boolean returnBlankAsNull;
     private InputType type = InputType.TEXT;
@@ -90,6 +89,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private ActiveMixin<MaterialValueBox> activeMixin;
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
     private FieldSensitivityMixin<MaterialValueBox> fieldSensitivityMixin;
+    private RegexMixin<MaterialValueBox> regexMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -580,8 +580,28 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setSensitive(boolean sensitive, boolean fireEvents) {
+        getFieldSensitivityMixin().setSensitive(sensitive, fireEvents);
+    }
+
+    @Override
     public boolean isSensitive() {
         return getFieldSensitivityMixin().isSensitive();
+    }
+
+    @Override
+    public void setRegex(String regex) {
+        getRegexMixin().setRegex(regex);
+    }
+
+    @Override
+    public void setRegex(String regex, String replaceRegex) {
+        getRegexMixin().setRegex(regex, replaceRegex);
+    }
+
+    @Override
+    public String getRegex() {
+        return getRegexMixin().getRegex();
     }
 
     @Ignore
@@ -887,6 +907,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public HandlerRegistration addRegexValidationHandler(RegexValidationEvent.RegexValidationHandler handler) {
+        return addHandler(handler, RegexValidationEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addSensitivityChangedHandler(SensitivityChangedEvent.SensitivityChangedHandler handler) {
+        return addHandler(handler, SensitivityChangedEvent.TYPE);
+    }
+
+    @Override
     protected FocusableMixin<MaterialWidget> getFocusableMixin() {
         if (focusableMixin == null) {
             focusableMixin = new FocusableMixin<>(new MaterialWidget(valueBoxBase.getElement()));
@@ -935,5 +965,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             fieldSensitivityMixin = new FieldSensitivityMixin(this);
         }
         return fieldSensitivityMixin;
+    }
+
+    protected RegexMixin<MaterialValueBox> getRegexMixin() {
+        if (regexMixin == null) {
+            regexMixin = new RegexMixin<>(this);
+        }
+        return regexMixin;
     }
 }

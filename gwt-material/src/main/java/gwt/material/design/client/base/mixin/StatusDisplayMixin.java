@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.base.mixin;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.ui.HasText;
@@ -32,7 +33,7 @@ import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialIcon;
 
 public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText>
-        extends AbstractMixin<T> implements HasStatusDisplayType {
+    extends AbstractMixin<T> implements HasStatusDisplayType {
 
     public enum StatusType {
         ERROR,
@@ -44,6 +45,7 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     private MaterialIcon statusIcon = new MaterialIcon();
     private Widget container;
     private Position position;
+    private boolean showByDefault = false;
 
     private CssNameMixin<T, StatusDisplayType> statusCssNameMixin;
     private CssNameMixin<H, Position> positionCssNameMixin;
@@ -91,6 +93,8 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
 
                 registerHandlers();
             }
+
+            if (showByDefault) Scheduler.get().scheduleDeferred(this::showStatus);
         } else {
             resetStatusDisplay();
         }
@@ -100,6 +104,11 @@ public class StatusDisplayMixin<T extends UIObject, H extends UIObject & HasText
     public void setStatusDisplayPosition(Position position) {
         this.position = position;
         updatePosition(position);
+    }
+
+    @Override
+    public void setStatusShowByDefault(boolean showByDefault) {
+        this.showByDefault = showByDefault;
     }
 
     protected void registerHandlers() {

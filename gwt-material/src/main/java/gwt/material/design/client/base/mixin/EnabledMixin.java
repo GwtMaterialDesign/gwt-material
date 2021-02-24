@@ -31,7 +31,10 @@ import gwt.material.design.client.constants.CssName;
  * @author kevzlou7979
  */
 public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T> implements HasEnabled {
+
+    private static final String TAB_INDEX = "tabIndex";
     private static final String DISABLED = "disabled";
+    private String initialTabIndex;
 
     private HandlerRegistration handler;
 
@@ -50,6 +53,8 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
             handler.removeHandler();
             handler = null;
         }
+
+        initialTabIndex = uiObject.getElement().getAttribute("tabIndex");
     }
 
     @Override
@@ -58,8 +63,13 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
-        if (!uiObject.isAttached() && handler == null) {
+    public void setEnabled(final boolean enabled) {
+        if (!uiObject.isAttached()) {
+            if (handler != null) {
+                handler.removeHandler();
+                handler = null;
+            }
+
             handler = uiObject.addAttachHandler(event -> {
                 if (event.isAttached()) {
                     applyEnabled(enabled, uiObject);
@@ -76,7 +86,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
     public void setEnabled(MaterialWidget widget, boolean enabled) {
         setEnabled(enabled);
 
-        if(isPropagateToChildren()) {
+        if (isPropagateToChildren()) {
             for (Widget child : widget.getChildren()) {
                 if (child instanceof MaterialWidget) {
                     ((MaterialWidget) child).setEnabled(enabled);
@@ -97,6 +107,7 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
         }
 
         updateWaves(enabled, obj);
+        updateTabIndex(enabled, obj);
     }
 
     public void updateWaves(boolean enabled, UIObject obj) {
@@ -108,6 +119,17 @@ public class EnabledMixin<T extends Widget & HasEnabled> extends AbstractMixin<T
                 }
             } else {
                 widget.getElement().removeClassName(CssName.WAVES_EFFECT);
+            }
+        }
+    }
+
+    public void updateTabIndex(boolean enabled, UIObject obj) {
+        if (obj instanceof MaterialWidget) {
+            MaterialWidget widget = (MaterialWidget) obj;
+            if (enabled) {
+                if (initialTabIndex != null) widget.getElement().setAttribute(TAB_INDEX, initialTabIndex);
+            } else {
+                widget.getElement().setAttribute(TAB_INDEX, "-1");
             }
         }
     }

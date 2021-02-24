@@ -19,7 +19,9 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.accessibility.AccessibilityControl;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.js.MediaQueryList;
 import gwt.material.design.client.js.Window;
@@ -30,6 +32,7 @@ public class MaterialDarkModeToggle extends MaterialIcon implements HasDarkMode,
     protected DarkThemeManager manager = DarkThemeManager.get();
 
     public MaterialDarkModeToggle() {
+
     }
 
     @Override
@@ -40,6 +43,7 @@ public class MaterialDarkModeToggle extends MaterialIcon implements HasDarkMode,
         setDarkMode(mediaQueryList.matches);
         mediaQueryList.addListener(mediaQueryEvent -> setDarkMode(mediaQueryEvent.matches));
         registerHandler(addClickHandler(event -> setDarkMode(!isDarkMode())));
+        AccessibilityControl.get().registerWidget(this, event -> setDarkMode(!isDarkMode()));
     }
 
     @Override

@@ -20,6 +20,7 @@ package gwt.material.design.client;
  * #L%
  */
 
+import gwt.material.design.client.accessibility.AccessibilityControl;
 import gwt.material.design.client.resources.MaterialDebugResources;
 
 public class MaterialDesignDebugBase extends MaterialDesignBase {
@@ -27,10 +28,12 @@ public class MaterialDesignDebugBase extends MaterialDesignBase {
     @Override
     public void load() {
         checkJQuery(true);
-        if(!isMaterializeLoaded()) {
+        if (!isMaterializeLoaded()) {
             injectDebugJs(MaterialDebugResources.INSTANCE.materializeJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.animationJsDebug());
             injectDebugJs(MaterialDebugResources.INSTANCE.appInstallerJsDebug());
+            injectDebugJs(MaterialDebugResources.INSTANCE.clipboardJs());
+            AccessibilityControl.get().load(true);
         }
         onModuleLoaded();
     }

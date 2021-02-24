@@ -37,6 +37,6 @@ public class MaterialBadgeTest extends MaterialWidgetTestCase<MaterialBadge> {
 
     @Override
     public void testInitialClasses() {
-        checkInitialClasses(CssName.BADGE, CssName.SIDEBAR_BADGE);
+        checkInitialClasses(CssName.BADGE);
     }
 }

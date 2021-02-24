@@ -81,6 +81,9 @@ public class MaterialCheckBox extends BaseCheckBox implements IsAsyncWidget<Mate
 
     public MaterialCheckBox(Element elem) {
         super(elem);
+        setStyleName(CHECKBOX);
+        setAsyncDisplayLoader(new DefaultCheckBoxLoader(this));
+        setType(CheckBoxType.FILLED);
     }
 
     public MaterialCheckBox(SafeHtml label, Direction dir) {

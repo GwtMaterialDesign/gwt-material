@@ -50,18 +50,22 @@ public class MaterialLink extends AbstractIconButton {
 
     public MaterialLink(ButtonType type, String text, MaterialIcon icon) {
         super(type, text, icon);
+        setTabIndex(0);
     }
 
     public MaterialLink(String text, MaterialIcon icon) {
         super(ButtonType.LINK, text, icon);
+        setTabIndex(0);
     }
 
     public MaterialLink(IconType iconType) {
         super(iconType);
+        setTabIndex(0);
     }
 
     public MaterialLink(String text) {
         super(ButtonType.LINK, text);
+        setTabIndex(0);
     }
 
     public MaterialLink(String text, String href) {
@@ -78,6 +82,7 @@ public class MaterialLink extends AbstractIconButton {
 
     public MaterialLink() {
         super(ButtonType.LINK);
+        setTabIndex(0);
     }
 
     @Override

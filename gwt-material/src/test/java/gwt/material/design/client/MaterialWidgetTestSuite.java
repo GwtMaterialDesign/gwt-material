@@ -25,6 +25,7 @@ import gwt.material.design.client.ui.animation.AnimationTest;
 import gwt.material.design.client.ui.helper.ColorHelperTest;
 import gwt.material.design.client.ui.helper.EnumHelperTest;
 import gwt.material.design.client.ui.helper.ScrollHelperTest;
+import gwt.material.design.client.ui.layout.GridLayoutTest;
 import gwt.material.design.client.ui.pwa.PwaManagerTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -87,6 +88,8 @@ public class MaterialWidgetTestSuite extends GWTTestSuite {
         suite.addTestSuite(ColorHelperTest.class);
         suite.addTestSuite(EnumHelperTest.class);
         suite.addTestSuite(ScrollHelperTest.class);
+        // Layout Tests
+        suite.addTestSuite(GridLayoutTest.class);
         return suite;
     }
 }

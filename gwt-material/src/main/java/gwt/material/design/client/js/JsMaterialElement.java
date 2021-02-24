@@ -232,6 +232,9 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod(namespace = "Materialize")
     public static native double showStaggeredList(Object selector);
 
+    @JsMethod(namespace = "Materialize")
+    public static native double hideStaggeredList(Object selector);
+
     @JsMethod(namespace = "Waves")
     public static native void displayEffect();
 

@@ -19,8 +19,16 @@
  */
 package gwt.material.design.client.base;
 
+import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.events.SensitivityChangedEvent;
+
 public interface HasFieldSensitivity {
 
     void setSensitive(boolean sensitive);
+
+    void setSensitive(boolean sensitive, boolean fireEvents);
+
     boolean isSensitive();
+
+    HandlerRegistration addSensitivityChangedHandler(SensitivityChangedEvent.SensitivityChangedHandler handler);
 }

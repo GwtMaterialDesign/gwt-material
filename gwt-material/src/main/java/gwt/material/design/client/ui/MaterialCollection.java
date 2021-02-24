@@ -26,7 +26,6 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasActiveParent;
 import gwt.material.design.client.base.HasClearActiveHandler;
@@ -101,7 +100,7 @@ import gwt.material.design.client.ui.html.ListItem;
  */
 //@formatter:on
 public class MaterialCollection extends MaterialWidget
-        implements HasActiveParent, HasClearActiveHandler, HasSelectionHandlers<MaterialCollectionItem> {
+    implements HasActiveParent, HasClearActiveHandler, HasSelectionHandlers<MaterialCollectionItem> {
 
     private int index;
     private boolean selectable;
@@ -160,6 +159,10 @@ public class MaterialCollection extends MaterialWidget
 
     @Override
     public void setActive(int index, boolean value) {
+        setActive(index, value, true);
+    }
+
+    public void setActive(int index, boolean value, boolean fireEvents) {
         this.index = index;
         Widget activeWidget = getActive();
         if (activeWidget != null) {
@@ -167,7 +170,9 @@ public class MaterialCollection extends MaterialWidget
                 if (index != 0) {
                     clearActiveClass(this);
                     if (activeWidget instanceof MaterialCollectionItem) {
-                        ((MaterialCollectionItem) activeWidget).setActive(value);
+                        MaterialCollectionItem activeItem = (MaterialCollectionItem) activeWidget;
+                        activeItem.setActive(value);
+                        if (fireEvents) SelectionEvent.fire(this, activeItem);
                     }
                 } else {
                     throw new IllegalArgumentException("The active index must be a one-base index to mark as active.");

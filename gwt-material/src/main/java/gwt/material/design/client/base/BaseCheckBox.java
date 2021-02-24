@@ -53,7 +53,10 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
+import gwt.material.design.client.accessibility.AccessibilityControl;
 import gwt.material.design.client.constants.CssName;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 /**
  * A standard check box widget.
@@ -87,16 +90,17 @@ import gwt.material.design.client.constants.CssName;
  * </p>
  */
 public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasName, HasValue<Boolean>,
-        HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator, IsEditor<LeafValueEditor<Boolean>>, HasLabel {
+    HasWordWrap, HasDirectionalSafeHtml, HasDirectionEstimator, IsEditor<LeafValueEditor<Boolean>>, HasLabel {
 
     public static final DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR =
-            DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
+        DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
 
     DirectionalTextHelper directionalTextHelper;
     InputElement inputElem;
     LabelElement labelElem;
     private LeafValueEditor<Boolean> editor;
     private boolean valueChangeHandlerInitialized;
+    private SelectionToggleHandler<BaseCheckBox> selectionToggleHandler;
 
     /**
      * Creates a check box with no label.
@@ -205,18 +209,14 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
         labelElem.setHtmlFor(uid);
 
         directionalTextHelper = new DirectionalTextHelper(labelElem, true);
+        selectionToggleHandler = new SelectionToggleHandler<>(this);
 
-        // Accessibility: setting tab index to be 0 by default, ensuring element
-        // appears in tab sequence. FocusWidget's setElement method already
-        // calls setTabIndex, which is overridden below. However, at the time
-        // that this call is made, inputElem has not been created. So, we have
-        // to call setTabIndex again, once inputElem has been created.
         setTabIndex(0);
     }
 
     @Override
     public HandlerRegistration addValueChangeHandler(
-            final ValueChangeHandler<Boolean> handler) {
+        final ValueChangeHandler<Boolean> handler) {
         // Is this the first value change handler? If so, time to add handlers
         if (!valueChangeHandlerInitialized) {
             ensureDomEventHandlers();
@@ -349,6 +349,7 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
         } else {
             addStyleDependentName(CssName.DISABLED);
         }
+        getEnabledMixin().setEnabled(enabled);
     }
 
     @Override
@@ -383,17 +384,6 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
     @Override
     public void setName(String name) {
         inputElem.setName(name);
-    }
-
-    @Override
-    public void setTabIndex(int index) {
-        // Need to guard against call to setTabIndex before inputElem is
-        // initialized. This happens because FocusWidget's (a superclass of
-        // CheckBox) setElement method calls setTabIndex before inputElem is
-        // initialized. See CheckBox's protected constructor for more information.
-        if (inputElem != null) {
-            inputElem.setTabIndex(index);
-        }
     }
 
     @Override
@@ -460,7 +450,7 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
     public void sinkEvents(int eventBitsToAdd) {
         if (isOrWasAttached()) {
             Event.sinkEvents(inputElem, eventBitsToAdd
-                    | Event.getEventsSunk(inputElem));
+                | Event.getEventsSunk(inputElem));
         } else {
             super.sinkEvents(eventBitsToAdd);
         }
@@ -499,7 +489,9 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
     @Override
     protected void onLoad() {
         super.onLoad();
+
         DOM.setEventListener(inputElem, this);
+        selectionToggleHandler.load();
     }
 
     /**
@@ -512,6 +504,7 @@ public class BaseCheckBox extends AbstractValueWidget<Boolean> implements HasNam
         // Clear out the inputElem's event listener (breaking the circular
         // reference between it and the widget).
         DOM.setEventListener(inputElem, null);
+        selectionToggleHandler.unload();
         setValue(getValue());
     }
 

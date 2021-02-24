@@ -44,7 +44,7 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
     @Override
     public void load(Functions.Func1<PushSubscription> callback) {
         if (isSupported()) {
-            getPushManager().getSubscription().then((e, object) -> {
+            getPushManager().getSubscription().then(object -> {
                 subscribed = object != null;
                 PushSubscription subscription = (PushSubscription) object;
                 callback.call(subscription);
@@ -58,7 +58,7 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
         PushSubscriptionOptions options = new PushSubscriptionOptions();
         options.userVisibleOnly = userVisibleOnly;
         options.applicationServerKey = PushCryptoHelper.Base64ToArrayBuffer(applicationServerKey);
-        getPushManager().subscribe(options).then((e, object) -> {
+        getPushManager().subscribe(options).then(object -> {
             PushSubscription subscription = (PushSubscription) object;
             subscribed = subscription != null;
             callback.call(subscription);
@@ -73,13 +73,13 @@ public class PushNotificationManager implements HasPushNotificationFeatures {
 
     @Override
     public void unsubscribe(Functions.Func callback) {
-        getPushManager().getSubscription().then((e, object) -> {
+        getPushManager().getSubscription().then(object -> {
             PushSubscription subscription;
             if (object != null) {
                 subscription = (PushSubscription) object;
                 subscription.unsubscribe().then(o -> {
                     callback.call();
-                     return true;
+                    return true;
                 });
                 subscribed = false;
             }
