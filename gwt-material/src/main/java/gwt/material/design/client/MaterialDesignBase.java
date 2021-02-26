@@ -26,6 +26,7 @@ import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
 import gwt.material.design.client.accessibility.AccessibilityControl;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 import gwt.material.design.client.resources.MaterialDebugResources;
 import gwt.material.design.client.resources.MaterialResources;
 
@@ -139,12 +140,12 @@ public class MaterialDesignBase {
      *
      * @return true is jQuery is loaded, false otherwise
      */
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native boolean isjQueryLoaded() /*-{
         return (typeof $wnd['jQuery'] !== 'undefined');
     }-*/;
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native boolean isMaterializeLoaded() /*-{
         return (typeof $wnd['Materialize'] !== 'undefined')
     }-*/;

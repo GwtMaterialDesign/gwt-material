@@ -23,6 +23,7 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 import gwt.material.design.client.events.DefaultHandlerRegistry;
 
 /**
@@ -75,7 +76,7 @@ public final class UiHelper {
         return Window.getClientHeight() - widget.getAbsoluteTop() - widget.getOffsetHeight();
     }
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native boolean isTouchScreenDevice() /*-{
         return 'ontouchstart' in document.documentElement;
     }-*/;

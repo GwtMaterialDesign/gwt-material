@@ -21,6 +21,7 @@ package gwt.material.design.client.base.helper;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 import gwt.material.design.client.constants.OffsetPosition;
 import gwt.material.design.client.js.ScrollOption;
 import gwt.material.design.jquery.client.api.Functions;
@@ -201,7 +202,7 @@ public class ScrollHelper {
         return elementBottom > viewportTop && elementTop < viewportBottom;
     }
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     protected native double getElementTop(Element element) /*-{
         var rectObject = element.getBoundingClientRect();
         return rectObject.top;

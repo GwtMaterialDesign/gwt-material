@@ -26,6 +26,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 import gwt.material.design.client.base.*;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.events.SearchFinishEvent;
@@ -302,7 +303,7 @@ public class MaterialSearch extends MaterialValueBox<String> implements HasOpenH
         setSelectedLink(link);
     }
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     protected native void locateSearch(String location)/*-{
         $wnd.window.location.hash = location;
     }-*/;

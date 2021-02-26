@@ -21,6 +21,7 @@ package gwt.material.design.client.js;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 import gwt.material.design.client.base.DeferredPrompt;
 import gwt.material.design.jquery.client.api.Functions;
 import jsinterop.annotations.JsMethod;
@@ -29,12 +30,12 @@ import jsinterop.annotations.JsType;
 @JsType
 public class Window {
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native boolean matchMedia(String query) /*-{
         return $wnd.window.matchMedia(query).matches;
     }-*/;
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native MediaQueryList getMediaQueryList(String query) /*-{
         return $wnd.window.matchMedia(query);
     }-*/;

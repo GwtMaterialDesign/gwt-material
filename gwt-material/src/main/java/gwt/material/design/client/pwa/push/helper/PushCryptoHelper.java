@@ -20,10 +20,11 @@
 package gwt.material.design.client.pwa.push.helper;
 
 import com.google.gwt.typedarrays.shared.Uint8Array;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 
 public class PushCryptoHelper {
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native Uint8Array Base64ToArrayBuffer(String base64String)/*-{
         var padding = '='.repeat((4 - base64String.length % 4) % 4);
         var base64 = (base64String + padding)
@@ -39,7 +40,7 @@ public class PushCryptoHelper {
         return outputArray;
     }-*/;
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native String arrayBufferToBase64(byte[] arrayBuffer) /*-{
         return btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
     }-*/;

@@ -22,6 +22,7 @@ package gwt.material.design.client.ui;
 //@formatter:off
 
 import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 import gwt.material.design.client.base.AbstractValueWidget;
 
 /**
@@ -92,7 +93,7 @@ public class MaterialWeather extends AbstractValueWidget<String> {
         this.color = color;
     }
 
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     public static native void showWeather(String location, String div, String color)/*-{
         $wnd.jQuery.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=53455a3a8a8a46135396f0272314f49d", function (data) {
             var items = [];

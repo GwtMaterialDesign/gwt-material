@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.RootPanel;
+import gwt.material.design.client.annotation.Gwt3Incompatible;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Color;
 
@@ -55,7 +56,7 @@ public class ColorHelper {
     /**
      * Native call to getComputedStyle.
      */
-    //TODO: Convert to JSInterop
+    @Gwt3Incompatible
     protected static native String getComputedBackgroundColor(Element e)/*-{
         var cs = $wnd.document.defaultView.getComputedStyle(e, null);
         return cs.getPropertyValue('background-color');
