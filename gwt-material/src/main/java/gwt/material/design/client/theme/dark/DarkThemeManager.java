@@ -32,6 +32,7 @@ public class DarkThemeManager extends SimpleEventBus implements HasDarkMode {
 
     protected static DarkThemeManager instance;
     protected boolean darkMode;
+    protected boolean dynamic;
     protected Functions.Func1<ColorScheme> callback;
     protected Map<Class<? extends DarkThemeLoader>, DarkThemeLoader> map = new HashMap<>();
 
@@ -52,7 +53,11 @@ public class DarkThemeManager extends SimpleEventBus implements HasDarkMode {
     public void load() {
         MediaQueryList mediaQueryList = Window.getMediaQueryList("(prefers-color-scheme: dark)");
         setDarkMode(mediaQueryList.matches);
-        mediaQueryList.addListener(mediaQueryEvent -> setDarkMode(mediaQueryEvent.matches));
+        mediaQueryList.addListener(mediaQueryEvent -> {
+            if (isDynamic()) {
+                setDarkMode(mediaQueryEvent.matches);
+            }
+        });
     }
 
     public void unload() {
@@ -90,6 +95,14 @@ public class DarkThemeManager extends SimpleEventBus implements HasDarkMode {
     @Override
     public boolean isDarkMode() {
         return darkMode;
+    }
+
+    public boolean isDynamic() {
+        return dynamic;
+    }
+
+    public void setDynamic(boolean dynamic) {
+        this.dynamic = dynamic;
     }
 
     public HandlerRegistration addColorSchemeChangeHandler(ColorSchemeChangeEvent.ColorSchemeChangeHandler handler) {

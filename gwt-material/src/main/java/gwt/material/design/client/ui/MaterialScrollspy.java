@@ -21,6 +21,7 @@ package gwt.material.design.client.ui;
 
 import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.ScrollspyOption;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -73,6 +74,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialScrollspy extends UnorderedList implements JsLoader {
 
+    protected ScrollspyOption option;
+
     public MaterialScrollspy() {
         super(CssName.SECTION, CssName.TABLE_OF_CONTENTS);
     }
@@ -94,7 +97,12 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
     @Override
     public void load() {
         clearActiveState();
-        $(".scrollspy").scrollSpy();
+
+        if (option != null) {
+            $(".scrollspy").scrollSpy(option);
+        } else {
+            $(".scrollspy").scrollSpy();
+        }
     }
 
     @Override
@@ -117,5 +125,13 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
                 }
             }
         });
+    }
+
+    public void setOption(ScrollspyOption option) {
+        this.option = option;
+    }
+
+    public ScrollspyOption getOption() {
+        return option;
     }
 }
