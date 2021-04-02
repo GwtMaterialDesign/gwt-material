@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.ScrollspyOption;
@@ -114,6 +115,35 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
     public void reload() {
         unload();
         load();
+    }
+
+    public void setActive(String scrollSpy) {
+        Widget widget = getWidget(scrollSpy);
+        if (widget != null) {
+            $(widget.getElement()).trigger("click", null);
+        }
+    }
+
+    public void setError(String scrollSpy) {
+        Widget widget = getWidget(scrollSpy);
+        if (widget != null) {
+            widget.addStyleName("error");
+        }
+    }
+
+    public Widget getWidget(String scrollSpy) {
+        for (Widget child : getChildren()) {
+            if (child instanceof ListItem) {
+                ListItem item = (ListItem) child;
+                if (item.getWidgetCount() > 0 && item.getWidget(0) != null) {
+                    Widget widget = item.getWidget(0);
+                    if (widget.getElement().getAttribute("href").replace("#", "").equals(scrollSpy)) {
+                        return widget;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public void clearActiveState() {
