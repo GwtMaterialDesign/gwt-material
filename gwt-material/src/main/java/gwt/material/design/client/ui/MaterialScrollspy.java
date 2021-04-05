@@ -19,10 +19,12 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.js.ScrollspyOption;
+import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -125,9 +127,21 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
     }
 
     public void setError(String scrollSpy) {
+        setError(scrollSpy, null);
+    }
+
+    public void setError(String scrollSpy, String badge) {
         Widget widget = getWidget(scrollSpy);
         if (widget != null) {
             widget.addStyleName("error");
+
+            if (badge != null) {
+                Label label = new Label(badge);
+                widget.getElement().appendChild(label.getElement());
+            } else {
+                Node child = widget.getElement().getChild(1);
+                child.removeFromParent();
+            }
         }
     }
 

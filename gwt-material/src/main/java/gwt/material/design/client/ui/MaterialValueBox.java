@@ -196,6 +196,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void removeErrorModifiers() {
         valueBoxBase.getElement().removeClassName(CssName.VALID);
         valueBoxBase.getElement().removeClassName(CssName.INVALID);
+        removeStyleName(CssName.INVALID);
+        removeStyleName(CssName.VALID);
     }
 
     @Override
@@ -349,6 +351,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         super.setErrorText(errorText);
         removeErrorModifiers();
         valueBoxBase.getElement().addClassName(CssName.INVALID);
+        addStyleName(CssName.INVALID);
     }
 
     @Override
@@ -356,6 +359,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         super.setSuccessText(successText);
         removeErrorModifiers();
         valueBoxBase.getElement().addClassName(CssName.VALID);
+        addStyleName(CssName.VALID);
     }
 
     @Override
