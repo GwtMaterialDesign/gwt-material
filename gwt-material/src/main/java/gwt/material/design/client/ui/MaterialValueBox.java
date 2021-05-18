@@ -75,7 +75,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private boolean returnBlankAsNull;
     private InputType type = InputType.TEXT;
     private ValueBoxEditor<T> editor;
-    private Label label = new Label();
+    private Label fieldLabel = new Label();
     private MaterialLabel errorLabel = new MaterialLabel();
     private MaterialIcon icon = new MaterialIcon();
 
@@ -103,9 +103,9 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         public void setValue(V value) {
             super.setValue(value);
             if (valueBoxBase.getText() != null && !valueBoxBase.getText().isEmpty()) {
-                label.addStyleName(CssName.ACTIVE);
+                fieldLabel.addStyleName(CssName.ACTIVE);
             } else {
-                label.removeStyleName(CssName.ACTIVE);
+                fieldLabel.removeStyleName(CssName.ACTIVE);
             }
         }
     }
@@ -137,7 +137,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
         String id = DOM.createUniqueId();
         valueBoxBase.getElement().setId(id);
-        label.getElement().setAttribute("for", id);
+        fieldLabel.getElement().setAttribute("for", id);
         loadEvents();
         // Make valueBoxBase the primary focus target
         getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
@@ -165,7 +165,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         clearStatusText();
 
         if (getPlaceholder() == null || getPlaceholder().isEmpty()) {
-            label.removeStyleName(CssName.ACTIVE);
+            fieldLabel.removeStyleName(CssName.ACTIVE);
         }
     }
 
@@ -210,22 +210,30 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.setText(text);
 
         if (text != null && !text.isEmpty()) {
-            label.addStyleName(CssName.ACTIVE);
+            fieldLabel.addStyleName(CssName.ACTIVE);
         }
     }
 
     @Override
     public void setLabel(String label) {
-        this.label.setText(label);
+        this.fieldLabel.setText(label);
 
         if (!getPlaceholder().isEmpty()) {
-            this.label.setStyleName(CssName.ACTIVE);
+            this.fieldLabel.setStyleName(CssName.ACTIVE);
         }
     }
 
     @Override
     public String getLabel() {
-        return label.getText();
+        return fieldLabel.getText();
+    }
+
+    public Label getFieldLabel() {
+        return fieldLabel;
+    }
+
+    public void setFieldLabel(Label fieldLabel) {
+        this.fieldLabel = fieldLabel;
     }
 
     @Override
@@ -237,8 +245,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     public void setPlaceholder(String placeholder) {
         valueBoxBase.getElement().setAttribute("placeholder", placeholder);
 
-        if (label.getText() != null && !label.getText().isEmpty()) {
-            label.setStyleName(CssName.ACTIVE);
+        if (fieldLabel.getText() != null && !fieldLabel.getText().isEmpty()) {
+            fieldLabel.setStyleName(CssName.ACTIVE);
         }
     }
 
@@ -252,7 +260,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         this.type = type;
         valueBoxBase.getElement().setAttribute("type", type.getType());
         if (getType() != InputType.SEARCH) {
-            add(label);
+            add(fieldLabel);
             errorLabel.setVisible(false);
             add(errorLabel);
         }
@@ -299,7 +307,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         valueBoxBase.setValue(value, fireEvents);
 
         if (value != null && !value.toString().isEmpty()) {
-            label.addStyleName(CssName.ACTIVE);
+            fieldLabel.addStyleName(CssName.ACTIVE);
         }
     }
 
@@ -462,7 +470,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         Scheduler.get().scheduleDeferred(() -> {
             valueBoxBase.setFocus(focused);
             if (focused) {
-                label.addStyleName(CssName.ACTIVE);
+                fieldLabel.addStyleName(CssName.ACTIVE);
             } else {
                 updateLabelActiveStyle();
             }
@@ -476,9 +484,9 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
      */
     protected void updateLabelActiveStyle() {
         if (this.valueBoxBase.getText() != null && !this.valueBoxBase.getText().isEmpty()) {
-            label.addStyleName(CssName.ACTIVE);
+            fieldLabel.addStyleName(CssName.ACTIVE);
         } else {
-            label.removeStyleName(CssName.ACTIVE);
+            fieldLabel.removeStyleName(CssName.ACTIVE);
         }
     }
 
@@ -614,7 +622,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     public Label getLabelWidget() {
-        return label;
+        return fieldLabel;
     }
 
     public MaterialLabel getErrorLabel() {
@@ -931,7 +939,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     protected StatusTextMixin<AbstractValueWidget, MaterialLabel> getStatusTextMixin() {
         if (statusTextMixin == null) {
-            statusTextMixin = new StatusTextMixin<>(this, errorLabel, valueBoxBase, label);
+            statusTextMixin = new StatusTextMixin<>(this, errorLabel, valueBoxBase, fieldLabel);
         }
         return statusTextMixin;
     }
@@ -945,7 +953,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     protected ActiveMixin<MaterialValueBox> getActiveMixin() {
         if (activeMixin == null) {
-            activeMixin = new ActiveMixin<>(this, label);
+            activeMixin = new ActiveMixin<>(this, fieldLabel);
         }
         return activeMixin;
     }
@@ -959,7 +967,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
 
     protected FieldTypeMixin<MaterialValueBox> getFieldTypeMixin() {
         if (fieldTypeMixin == null) {
-            fieldTypeMixin = new FieldTypeMixin<>(this, label, valueBoxBase, errorLabel);
+            fieldTypeMixin = new FieldTypeMixin<>(this, fieldLabel, valueBoxBase, errorLabel);
         }
         return fieldTypeMixin;
     }
