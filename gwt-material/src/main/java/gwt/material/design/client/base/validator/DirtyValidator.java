@@ -19,7 +19,7 @@
  */
 package gwt.material.design.client.base.validator;
 
-public interface DirtyValidator {
+public interface DirtyValidator extends DirtyCheck {
 
     /**
      * Detect whether we support dirty field checking
@@ -30,16 +30,6 @@ public interface DirtyValidator {
      * Will enable / disable dirty field checking into a widget
      */
     void setAllowDirtyValidation(boolean allowDirty);
-
-    /**
-     * Will check whether there are dirty fields found
-     */
-    boolean isDirty();
-
-    /**
-     * Sets the widget dirty value
-     */
-    void setDirty(boolean dirty);
 
     String getDirtyMessage();
 }
