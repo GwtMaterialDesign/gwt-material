@@ -70,13 +70,14 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public void setValue(V value) {
         setValue(value, false);
+
+        if (initialValue == null) {
+            initialValue = value;
+        }
     }
 
     @Override
     public void setValue(V value, boolean fireEvents) {
-        if (initialValue == null) {
-            initialValue = value;
-        }
         if (fireEvents) {
             ValueChangeEvent.fire(this, value);
         }
