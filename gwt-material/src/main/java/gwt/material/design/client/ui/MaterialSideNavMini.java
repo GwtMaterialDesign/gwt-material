@@ -19,12 +19,8 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.AbstractSideNav;
-import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.SideNavType;
-
-import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -54,44 +50,30 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 public class MaterialSideNavMini extends AbstractSideNav {
 
     private boolean overlay;
-    private boolean expandable;
-    private boolean expandOnClick;
+    private boolean expandOnClick = true;
+    private boolean collapseOnClick = true;
 
     public MaterialSideNavMini() {
-        super(SideNavType.MINI);
+        super(SideNavType.MINI_WITH_EXPAND);
         setShowOnAttach(false);
     }
 
     @Override
     protected void setup() {
         applyBodyScroll();
-        if (isExpandable()) {
-            setType(SideNavType.MINI_WITH_EXPAND);
-            applyTransition(getElement());
-            int originalWidth = getWidth();
-            int miniWidth = 64;
-            pushElement(getMain(), miniWidth);
-            pushElementMargin(getFooter(), miniWidth);
-            setWidth(miniWidth);
+        applyTransition(getElement());
+        int originalWidth = getWidth();
+        int miniWidth = 64;
+        pushElement(getMain(), miniWidth);
+        pushElementMargin(getFooter(), miniWidth);
+        setWidth(miniWidth);
 
-            registerHandler(addOpeningHandler(event -> expand(originalWidth)));
-            registerHandler(addClosingHandler(event -> collapse(miniWidth)));
-
-            // Add Opening when sidenav link is clicked by default
-            for (Widget w : getChildren()) {
-                if (w instanceof MaterialWidget && isExpandOnClick()) {
-                    $(w.getElement()).off("click").on("click", (e, param1) -> {
-                        if (!getElement().hasClassName("expanded")) {
-                            open();
-                        }
-                        return true;
-                    });
-                }
-            }
-        } else {
-            setType(SideNavType.MINI);
-            setWidth(64);
-        }
+        registerHandler(addOpeningHandler(event -> {
+            if (expandOnClick) expand(originalWidth);
+        }));
+        registerHandler(addClosingHandler(event -> {
+            if (collapseOnClick) collapse(miniWidth);
+        }));
     }
 
     protected void expand(int width) {
@@ -112,12 +94,12 @@ public class MaterialSideNavMini extends AbstractSideNav {
         }
     }
 
-    public void setExpandable(boolean expandable) {
-        this.expandable = expandable;
+    public boolean isCollapseOnClick() {
+        return collapseOnClick;
     }
 
-    public boolean isExpandable() {
-        return expandable;
+    public void setCollapseOnClick(boolean collapseOnClick) {
+        this.collapseOnClick = collapseOnClick;
     }
 
     public boolean isExpandOnClick() {
