@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.ToastPosition;
 import gwt.material.design.client.js.JsMaterialElement;
 import gwt.material.design.jquery.client.api.Functions;
 import gwt.material.design.jquery.client.api.JQueryElement;
@@ -137,13 +138,17 @@ public class MaterialToast {
         toast(msg, DURATION, className);
     }
 
+    public void toast(String msg, int lifeMillis, String className) {
+        toast(msg, lifeMillis, className, ToastPosition.DEFAULT);
+    }
+
     /**
      * @param msg        Message text for your toast.
      * @param lifeMillis how long it should present itself before being removed.
      *                   If value is less than 0 - then it will be treated as unlimited duration
      * @param className  class name to custom style your toast.
      */
-    public void toast(String msg, int lifeMillis, String className) {
+    public void toast(String msg, int lifeMillis, String className, ToastPosition position) {
         String id;
         if (element != null) {
             id = (String) element.attr("id");
@@ -171,7 +176,7 @@ public class MaterialToast {
         element = $(".toast." + id);
         element.attr("id", id);
         //element.toggleClass(className, true);
-
+        element.addClass(position.getName());
         if (widgets != null) {
             RootPanel toast = RootPanel.get(id);
             for (Widget widget : widgets) {
