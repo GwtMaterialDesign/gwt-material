@@ -17,22 +17,38 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.font;
 
-public enum ToastPosition {
-    DEFAULT(""),
-    TOP_LEFT("top-left"),
-    TOP_RIGHT("top-right"),
-    BOTTOM_LEFT("bottom-left"),
-    BOTTOM_RIGHT("bottom-right");
+public class Font {
 
+    private String resourceUrl;
     private String name;
 
-    ToastPosition(String name) {
+    public Font() {
+    }
+
+    public Font(String resourceUrl, String name) {
+        this.resourceUrl = resourceUrl;
         this.name = name;
+    }
+
+    public Font(String name) {
+        this.name = name;
+    }
+
+    public String getResourceUrl() {
+        return resourceUrl;
+    }
+
+    public void setResourceUrl(String resourceUrl) {
+        this.resourceUrl = resourceUrl;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

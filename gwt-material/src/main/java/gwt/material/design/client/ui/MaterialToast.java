@@ -209,6 +209,10 @@ public class MaterialToast {
         return element != null ? (String) element.attr("id") : null;
     }
 
+    public void addWidget(Widget... widgets) {
+        this.widgets = widgets;
+    }
+
     public JQueryElement getElement() {
         return element;
     }
