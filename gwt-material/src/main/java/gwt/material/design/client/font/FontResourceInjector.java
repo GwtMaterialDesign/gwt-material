@@ -31,6 +31,8 @@ public class FontResourceInjector {
     private static Font defaultFont;
 
     public static void inject(Font font) {
+        injectGoogleFontLink();
+
         String name = getDefaultFont().getName();
         if (createFontUrlLink(font.getResourceUrl())) {
             name = font.getName();
@@ -51,6 +53,19 @@ public class FontResourceInjector {
 
     public static void setDefaultFont(Font defaultFont) {
         FontResourceInjector.defaultFont = defaultFont;
+    }
+
+    protected static void injectGoogleFontLink() {
+        LinkElement fontGoogleApisLink = Document.get().createLinkElement();
+        fontGoogleApisLink.setRel("preconnect");
+        fontGoogleApisLink.setHref("https://fonts.googleapis.com");
+        getHeadElement().appendChild(fontGoogleApisLink);
+
+        LinkElement gstaticLink = Document.get().createLinkElement();
+        gstaticLink.setRel("preconnect");
+        gstaticLink.setHref("https://fonts.gstatic.com");
+        gstaticLink.setAttribute("crossorigin", "");
+        getHeadElement().appendChild(gstaticLink);
     }
 
     protected static boolean createFontUrlLink(String resourceUrl) {
