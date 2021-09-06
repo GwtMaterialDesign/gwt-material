@@ -206,6 +206,11 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
         }
 
         if (this.widget.isAttached()) {
+            widget.addAttachHandler(event -> {
+                if (!event.isAttached()) {
+                    unload();
+                }
+            });
             reload();
         } else {
             // Smart detect the attachment and detachment of widget to update the tooltip
