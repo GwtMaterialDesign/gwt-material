@@ -34,6 +34,6 @@ public class MaterialSideNavMiniTest extends AbstractSideNavTest<MaterialSideNav
     @Override
     public void testInitialClasses() {
         super.testInitialClasses();
-        checkInitialClasses(SideNavType.MINI.getCssName());
+        checkInitialClasses(SideNavType.MINI_WITH_EXPAND.getCssName());
     }
 }

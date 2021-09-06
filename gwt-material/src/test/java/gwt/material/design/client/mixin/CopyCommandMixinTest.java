@@ -24,7 +24,7 @@ import gwt.material.design.client.base.CopyCommand;
 import gwt.material.design.client.base.mixin.CopyCommandMixin;
 import gwt.material.design.client.ui.MaterialTextBox;
 
-public class CopyCommandMixinTest extends AbstractMixinTest<CopyCommandMixin<MaterialTextBox>> {
+public class CopyCommandMixinTest extends BaseMixinTest<CopyCommandMixin<MaterialTextBox>> {
 
     @Override
     protected void runTest(CopyCommandMixin<MaterialTextBox> mixin) {

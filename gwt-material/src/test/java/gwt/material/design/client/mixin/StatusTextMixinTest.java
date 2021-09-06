@@ -24,7 +24,7 @@ import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialTextBox;
 
-public class StatusTextMixinTest extends AbstractMixinTest<StatusTextMixin<MaterialTextBox, MaterialLabel>> {
+public class StatusTextMixinTest extends BaseMixinTest<StatusTextMixin<MaterialTextBox, MaterialLabel>> {
 
     @Override
     protected void runTest(StatusTextMixin<MaterialTextBox, MaterialLabel> mixin) {

@@ -22,7 +22,7 @@ package gwt.material.design.client.mixin;
 import gwt.material.design.client.base.mixin.AbstractMixin;
 import gwt.material.design.client.ui.base.BaseTestCase;
 
-public abstract class AbstractMixinTest<M extends AbstractMixin> extends BaseTestCase {
+public class BaseMixinTest<M extends AbstractMixin> extends BaseTestCase {
 
     protected M mixin;
 
@@ -31,9 +31,13 @@ public abstract class AbstractMixinTest<M extends AbstractMixin> extends BaseTes
         runTest(mixin);
     }
 
-    protected abstract void runTest(M mixin);
+    protected void runTest(M mixin) {
 
-    protected abstract M setupMixin();
+    }
+
+    protected M setupMixin() {
+        return mixin;
+    }
 
     public M getMixin() {
         return mixin;
