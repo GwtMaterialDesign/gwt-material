@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2019 GwtMaterialDesign
+ * Copyright (C) 2015 - 2021 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.base.validator;
 
-public interface DropdownItemRenderer<T> {
+public interface DirtyCheck {
 
-    MaterialWidget render(T object);
+    /**
+     * Will check whether there are dirty fields found
+     */
+    boolean isDirty();
+
+    /**
+     * Sets the widget dirty value
+     */
+    void setDirty(boolean dirty);
 }

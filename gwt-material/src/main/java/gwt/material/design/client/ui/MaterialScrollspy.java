@@ -19,8 +19,12 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.JsLoader;
 import gwt.material.design.client.constants.CssName;
+import gwt.material.design.client.js.ScrollspyOption;
+import gwt.material.design.client.ui.html.Label;
 import gwt.material.design.client.ui.html.ListItem;
 import gwt.material.design.client.ui.html.UnorderedList;
 
@@ -73,6 +77,8 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
 //@formatter:on
 public class MaterialScrollspy extends UnorderedList implements JsLoader {
 
+    protected ScrollspyOption option;
+
     public MaterialScrollspy() {
         super(CssName.SECTION, CssName.TABLE_OF_CONTENTS);
     }
@@ -94,7 +100,12 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
     @Override
     public void load() {
         clearActiveState();
-        $(".scrollspy").scrollSpy();
+
+        if (option != null) {
+            $(".scrollspy").scrollSpy(option);
+        } else {
+            $(".scrollspy").scrollSpy();
+        }
     }
 
     @Override
@@ -108,6 +119,47 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
         load();
     }
 
+    public void setActive(String scrollSpy) {
+        Widget widget = getWidget(scrollSpy);
+        if (widget != null) {
+            $(widget.getElement()).trigger("click", null);
+        }
+    }
+
+    public void setError(String scrollSpy) {
+        setError(scrollSpy, null);
+    }
+
+    public void setError(String scrollSpy, String badge) {
+        Widget widget = getWidget(scrollSpy);
+        if (widget != null) {
+            widget.addStyleName("error");
+
+            if (badge != null) {
+                Label label = new Label(badge);
+                widget.getElement().appendChild(label.getElement());
+            } else {
+                Node child = widget.getElement().getChild(1);
+                child.removeFromParent();
+            }
+        }
+    }
+
+    public Widget getWidget(String scrollSpy) {
+        for (Widget child : getChildren()) {
+            if (child instanceof ListItem) {
+                ListItem item = (ListItem) child;
+                if (item.getWidgetCount() > 0 && item.getWidget(0) != null) {
+                    Widget widget = item.getWidget(0);
+                    if (widget.getElement().getAttribute("href").replace("#", "").equals(scrollSpy)) {
+                        return widget;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void clearActiveState() {
         getChildren().forEach(widget -> {
             if (widget instanceof ListItem) {
@@ -117,5 +169,13 @@ public class MaterialScrollspy extends UnorderedList implements JsLoader {
                 }
             }
         });
+    }
+
+    public void setOption(ScrollspyOption option) {
+        this.option = option;
+    }
+
+    public ScrollspyOption getOption() {
+        return option;
     }
 }

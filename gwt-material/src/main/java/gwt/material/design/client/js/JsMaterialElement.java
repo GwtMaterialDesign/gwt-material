@@ -118,6 +118,9 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod
     public native JQueryElement scrollSpy();
 
+    @JsMethod
+    public native JQueryElement scrollSpy(ScrollspyOption option);
+
     /**
      * Image Component
      */

@@ -20,6 +20,9 @@
 package gwt.material.design.client;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
+import gwt.material.design.client.mixin.CopyCommandMixinTest;
+import gwt.material.design.client.mixin.StatusTextMixinTest;
+import gwt.material.design.client.mixin.TextMixinTest;
 import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.animation.AnimationTest;
 import gwt.material.design.client.ui.helper.ColorHelperTest;
@@ -90,6 +93,10 @@ public class MaterialWidgetTestSuite extends GWTTestSuite {
         suite.addTestSuite(ScrollHelperTest.class);
         // Layout Tests
         suite.addTestSuite(GridLayoutTest.class);
+        // Mixin Tests
+        suite.addTestSuite(CopyCommandMixinTest.class);
+        suite.addTestSuite(StatusTextMixinTest.class);
+        suite.addTestSuite(TextMixinTest.class);
         return suite;
     }
 }

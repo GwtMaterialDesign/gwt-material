@@ -185,7 +185,7 @@ public class MaterialDropDown<T> extends UnorderedList
     public void setItems(List<T> items, DropdownItemRenderer<T> renderer) {
         clear();
         items.forEach(item -> {
-            MaterialLink link;
+            MaterialWidget link;
             if (renderer != null) {
                 link = renderer.render(item);
             } else {

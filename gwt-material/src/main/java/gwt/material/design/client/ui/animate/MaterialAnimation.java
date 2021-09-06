@@ -135,14 +135,13 @@ public class MaterialAnimation implements Animation {
                 break;
         }
 
+        if (startCallback != null) {
+            startCallback.call();
+        }
+
         startTimer = new Timer() {
             @Override
             public void run() {
-
-                if (startCallback != null) {
-                    startCallback.call();
-                }
-
                 switch (transition) {
                     case SHOW_STAGGERED_LIST:
                         JsMaterialElement.showStaggeredList(element);

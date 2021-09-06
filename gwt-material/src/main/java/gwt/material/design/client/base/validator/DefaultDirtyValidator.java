@@ -28,10 +28,6 @@ import gwt.material.design.client.base.IsPropagateToChildren;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * //TODO: Leaving/Abandoning validator (Name)
- * @author kevzlou7979@gmail.com
- */
 public class DefaultDirtyValidator<C extends Widget> implements DirtyValidator, IsPropagateToChildren {
 
     private List<HandlerRegistration> registrations;

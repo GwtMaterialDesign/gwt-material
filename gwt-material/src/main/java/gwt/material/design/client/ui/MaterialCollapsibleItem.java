@@ -194,10 +194,12 @@ public class MaterialCollapsibleItem<T> extends AbstractButton implements HasWid
     }
 
     protected void fireCollapsibleHandler() {
-        if (parent != null && getElement().hasClassName(CssName.ACTIVE)) {
-            parent.fireEvent(new CollapseEvent<>(this));
-        } else {
-            parent.fireEvent(new ExpandEvent<>(this));
+        if (parent != null) {
+            if (getElement().hasClassName(CssName.ACTIVE)) {
+                parent.fireEvent(new CollapseEvent<>(this));
+            } else {
+                parent.fireEvent(new ExpandEvent<>(this));
+            }
         }
     }
 

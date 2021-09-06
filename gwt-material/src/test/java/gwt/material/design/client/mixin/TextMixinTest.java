@@ -28,7 +28,7 @@ import gwt.material.design.client.base.mixin.TextMixin;
 import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.sanitizer.CustomSanitizer;
 
-public class TextMixinTest extends AbstractMixinTest<TextMixin<MaterialLabel>> {
+public class TextMixinTest extends BaseMixinTest<TextMixin<MaterialLabel>> {
 
     @Override
     protected void runTest(TextMixin<MaterialLabel> mixin) {

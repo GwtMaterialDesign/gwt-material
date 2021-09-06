@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2020 GwtMaterialDesign
+ * Copyright (C) 2015 - 2021 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.mixin;
+package gwt.material.design.client.font;
 
-import gwt.material.design.client.base.mixin.AbstractMixin;
-import gwt.material.design.client.ui.base.BaseTestCase;
+public class OpenSansFont extends Font {
 
-public abstract class AbstractMixinTest<M extends AbstractMixin> extends BaseTestCase {
+    public static String RESOURCE = "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap";
+    public static String NAME = "Open Sans, sans-serif";
 
-    protected M mixin;
-
-    public void testMixin() {
-        mixin = setupMixin();
-        runTest(mixin);
-    }
-
-    protected abstract void runTest(M mixin);
-
-    protected abstract M setupMixin();
-
-    public M getMixin() {
-        return mixin;
+    public OpenSansFont() {
+        super(RESOURCE, NAME);
     }
 }

@@ -17,19 +17,33 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base.validator;
+package gwt.material.design.client.js;
 
-public interface DirtyValidator extends DirtyCheck {
+import gwt.material.design.client.base.helper.ScrollHelper;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
-    /**
-     * Detect whether we support dirty field checking
-     */
-    boolean isAllowDirtyValidation();
+/**
+ * JSInterop util for {@link ScrollHelper}
+ *
+ * @author kevzlou7979@gmail.com
+ */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
+public class ScrollspyOption {
 
-    /**
-     * Will enable / disable dirty field checking into a widget
-     */
-    void setAllowDirtyValidation(boolean allowDirty);
+    @JsProperty
+    public int throttle;
 
-    String getDirtyMessage();
+    @JsProperty
+    public double offsetTop;
+
+    @JsProperty
+    public double offsetRight;
+
+    @JsProperty
+    public double offsetBottom;
+
+    @JsProperty
+    public double offsetLeft;
 }

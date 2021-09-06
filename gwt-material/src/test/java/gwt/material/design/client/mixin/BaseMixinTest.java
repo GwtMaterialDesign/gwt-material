@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2019 GwtMaterialDesign
+ * Copyright (C) 2015 - 2020 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,29 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.base;
+package gwt.material.design.client.mixin;
 
-public interface DropdownItemRenderer<T> {
+import gwt.material.design.client.base.mixin.AbstractMixin;
+import gwt.material.design.client.ui.base.BaseTestCase;
 
-    MaterialWidget render(T object);
+public class BaseMixinTest<M extends AbstractMixin> extends BaseTestCase {
+
+    protected M mixin;
+
+    public void testMixin() {
+        mixin = setupMixin();
+        runTest(mixin);
+    }
+
+    protected void runTest(M mixin) {
+
+    }
+
+    protected M setupMixin() {
+        return mixin;
+    }
+
+    public M getMixin() {
+        return mixin;
+    }
 }

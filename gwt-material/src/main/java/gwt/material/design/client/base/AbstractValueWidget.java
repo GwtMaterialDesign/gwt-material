@@ -47,6 +47,7 @@ import java.util.List;
 public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
     HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp, HasCopyCommand {
 
+    private V initialValue;
     private boolean allowBlank = true;
     private boolean autoValidate;
     private BlankValidator<V> blankValidator;
@@ -69,6 +70,10 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public void setValue(V value) {
         setValue(value, false);
+
+        if (initialValue == null) {
+            initialValue = value;
+        }
     }
 
     @Override
@@ -86,6 +91,14 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
                 ((HasReload) this).reload();
             }
         }
+    }
+
+    public V getInitialValue() {
+        return initialValue;
+    }
+
+    public void setInitialValue(V initialValue) {
+        this.initialValue = initialValue;
     }
 
     @Override
