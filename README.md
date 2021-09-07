@@ -20,20 +20,20 @@ We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs
 
 
 ## Maven
-### Current Version 2.5.0
+### Current Version 2.6.0
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.5.0</version>
+    <version>2.6.0</version>
 </dependency>
 ```
-### Snapshot Version 2.5.0
+### Snapshot Version 2.6.0-SNAPSHOT
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.5.0</version>
+    <version>2.6.0-SNAPSHOT</version>
 </dependency>
 ```
 
