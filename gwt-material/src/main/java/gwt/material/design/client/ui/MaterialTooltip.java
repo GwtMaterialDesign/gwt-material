@@ -206,21 +206,27 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
         }
 
         if (this.widget.isAttached()) {
-            widget.addAttachHandler(event -> {
-                if (!event.isAttached()) {
-                    unload();
+            widget.addAttachHandler(new AttachEvent.Handler() {
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
+                    if (!event.isAttached()) {
+                        unload();
+                    }
                 }
             });
             reload();
         } else {
             // Smart detect the attachment and detachment of widget to update the tooltip
-            widget.addAttachHandler(event -> {
-                if (event.isAttached()) {
-                    // If its attached - reload the tooltip
-                    reload();
-                } else {
-                    // If it was detached - unload the tooltip
-                    unload();
+            widget.addAttachHandler(new AttachEvent.Handler() {
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
+                    if (event.isAttached()) {
+                        // If its attached - reload the tooltip
+                        reload();
+                    } else {
+                        // If it was detached - unload the tooltip
+                        unload();
+                    }
                 }
             });
         }
@@ -346,8 +352,11 @@ public class MaterialTooltip implements JsLoader, IsWidget, HasWidgets, HasOneWi
 
     public void setAttribute(String attr, String value) {
         if (widget != null) {
-            AttachEvent.Handler handler = event -> {
-                widget.getElement().setAttribute(attr, value);
+            AttachEvent.Handler handler = new AttachEvent.Handler() {
+                @Override
+                public void onAttachOrDetach(AttachEvent event) {
+                    widget.getElement().setAttribute(attr, value);
+                }
             };
             if (widget.isAttached()) {
                 handler.onAttachOrDetach(null);
