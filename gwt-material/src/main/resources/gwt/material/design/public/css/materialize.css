@@ -10127,13 +10127,6 @@ ul.side-nav .collapsible-body li.active a {
 /**
 * SideNav - Mini with Expand
 **/
-ul.side-nav.mini-with-expand {
-  left: 0px !important; }
-
-ul.side-nav.mini-with-expand.right-aligned {
-  right: 0px !important;
-  left: inherit !important; }
-
 ul.side-nav.mini-with-expand.expanded li a span {
   opacity: 1;
   visibility: visible; }
@@ -10461,6 +10454,13 @@ i[class*="waves-"].material-icons {
   .input-field input[type=search],
   .input-field textarea.materialize-textarea {
     font-size: 16px; } }
+
+@media screen and (min-width: 901px) and (max-width: 7680px) {
+  ul.side-nav.mini-with-expand {
+    left: 0px !important; }
+  ul.side-nav.mini-with-expand.right-aligned {
+    right: 0px !important;
+    left: inherit !important; } }
 
 /* ==========================================================================
    ADDINS CSS STYLES
