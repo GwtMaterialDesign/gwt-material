@@ -21,6 +21,8 @@ package gwt.material.design.client.async.loader;
 
 import gwt.material.design.client.base.AbstractIconButton;
 import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.ui.animate.MaterialAnimation;
+import gwt.material.design.client.ui.animate.Transition;
 
 public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
 
@@ -43,8 +45,11 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
     @Override
     public void loading() {
         button.setEnabled(false);
-        button.setText("Loading");
         button.setIconType(getLoadingIcon());
+        new MaterialAnimation()
+            .transition(Transition.ROTATEIN)
+            .infinite(true)
+            .animate(button.getIcon());
     }
 
     @Override
