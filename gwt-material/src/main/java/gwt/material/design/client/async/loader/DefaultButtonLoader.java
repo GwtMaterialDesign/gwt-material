@@ -29,6 +29,7 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
     protected String initialText;
     protected IconType initialIcon;
     protected AbstractIconButton button;
+    protected MaterialAnimation animation;
 
     protected DefaultButtonLoader() {}
 
@@ -46,10 +47,12 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
     public void loading() {
         button.setEnabled(false);
         button.setIconType(getLoadingIcon());
-        new MaterialAnimation()
-            .transition(Transition.ROTATEIN)
-            .infinite(true)
-            .animate(button.getIcon());
+        animation = new MaterialAnimation();
+        animation.delay(0);
+        animation.duration(600);
+        animation.setTransition(Transition.SPIN);
+        animation.setInfinite(true);
+        animation.animate(button.getIcon());
     }
 
     @Override
@@ -71,6 +74,10 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
 
         if (initialIcon != null) {
             button.setIconType(initialIcon);
+        }
+
+        if (animation != null) {
+            animation.stopAnimation();
         }
     }
 
