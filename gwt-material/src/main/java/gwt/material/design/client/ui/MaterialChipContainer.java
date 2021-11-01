@@ -20,15 +20,20 @@
 package gwt.material.design.client.ui;
 
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaterialChipContainer extends MaterialPanel {
+public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>> {
 
     private List<MaterialChip> chipList = new ArrayList<>();
+    private List<MaterialChip> selected = new ArrayList<>();
     private boolean enableToggle = true;
 
     public MaterialChipContainer() {
@@ -76,21 +81,20 @@ public class MaterialChipContainer extends MaterialPanel {
         chipList.clear();
     }
 
-    public void setActive(MaterialChip chip) {
-        clearActive();
-        chip.setActive(true);
-    }
+    public void setActive(MaterialChip chip, boolean active) {
+        chip.setActive(active);
 
-    public void setActive(int index) {
-        clearActive();
-        MaterialChip chip = chipList.get(index);
-        if (chip != null) {
-            setActive(chip);
+        if (active && !selected.contains(chip)) {
+            selected.add(chip);
+        } else {
+            selected.remove(chip);
         }
+
+        SelectionEvent.fire(this, selected);
     }
 
     public void toggle(MaterialChip chip) {
-        if (isEnableToggle()) setActive(chip);
+        setActive(chip, !chip.isActive());
     }
 
     public void clearActive() {
@@ -103,5 +107,10 @@ public class MaterialChipContainer extends MaterialPanel {
 
     public void setEnableToggle(boolean enableToggle) {
         this.enableToggle = enableToggle;
+    }
+
+    @Override
+    public HandlerRegistration addSelectionHandler(SelectionHandler<List<MaterialChip>> handler) {
+        return addHandler(handler, SelectionEvent.getType());
     }
 }
