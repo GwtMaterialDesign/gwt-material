@@ -36,7 +36,9 @@ public class UiSortHelper {
                 Object elem1Order = $(elem1).data(dataAttribute);
                 Object elem2Order = $(elem2).data(dataAttribute);
                 if (elem1Order != null && elem2Order != null) {
-                    return Integer.parseInt(elem2Order.toString()) < Integer.parseInt(elem1Order.toString()) ? 1 : -1;
+                    int order1 = Integer.parseInt(elem1Order.toString());
+                    int order2 = Integer.parseInt(elem2Order.toString());
+                    return order2 < order1 || order1 < 0 ? 1 : -1;
                 }
                 return -1;
             }).appendTo(containerSelector);

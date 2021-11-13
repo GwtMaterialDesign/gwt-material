@@ -90,6 +90,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
     private FieldSensitivityMixin<MaterialValueBox> fieldSensitivityMixin;
     private RegexMixin<MaterialValueBox> regexMixin;
+    private FieldClearMixin<MaterialValueBox> clearMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -141,6 +142,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         loadEvents();
         // Make valueBoxBase the primary focus target
         getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
+        getClearMixin().load();
     }
 
     @Override
@@ -155,6 +157,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         super.reset();
 
         clear();
+    }
+
+    public void setEnableClear(boolean enableClear) {
+        getClearMixin().setEnableClear(enableClear);
     }
 
     /**
@@ -984,5 +990,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             regexMixin = new RegexMixin<>(this);
         }
         return regexMixin;
+    }
+
+    protected FieldClearMixin<MaterialValueBox> getClearMixin() {
+        if (clearMixin == null) {
+            clearMixin = new FieldClearMixin<>(this);
+        }
+        return clearMixin;
     }
 }
