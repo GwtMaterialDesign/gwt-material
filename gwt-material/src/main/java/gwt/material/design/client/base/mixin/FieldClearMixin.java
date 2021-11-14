@@ -27,31 +27,42 @@ import gwt.material.design.client.ui.MaterialValueBox;
 
 public class FieldClearMixin<T extends MaterialValueBox> extends AbstractMixin<T> {
 
-    private T target;
+    private T valueBox;
+    private boolean enableClear;
     private MaterialIcon clear = new MaterialIcon(IconType.CLOSE);
 
-    public FieldClearMixin(final T target) {
-        super(target);
+    public FieldClearMixin(final T valueBox) {
+        super(valueBox);
 
-        this.target = target;
+        this.valueBox = valueBox;
         this.clear.setLayoutPosition(Style.Position.ABSOLUTE);
         this.clear.setRight(16);
         this.clear.setTop(12);
         this.clear.setBackgroundColor(Color.WHITE);
-        this.clear.setVisible(false);
+
+        setEnableClear(false);
     }
 
     public void load() {
         if (!clear.isAttached()) {
-            target.add(clear);
+            valueBox.add(clear);
         }
+
+        clear.setVisible(false);
+        valueBox.addKeyUpHandler(event -> {
+            Object value = valueBox.getValue();
+            boolean showClear = value != null && !value.toString().isEmpty() && enableClear;
+            clear.setVisible(showClear);
+        });
+
         clear.addClickHandler(event -> {
-            target.reset();
-            target.setValue(null, true);
+            valueBox.reset();
+            valueBox.setValue(null, true);
+            clear.setVisible(false);
         });
     }
 
     public void setEnableClear(boolean enableClear) {
-        clear.setVisible(enableClear);
+        this.enableClear = enableClear;
     }
 }
