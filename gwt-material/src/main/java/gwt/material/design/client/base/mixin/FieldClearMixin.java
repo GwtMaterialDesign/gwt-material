@@ -39,6 +39,7 @@ public class FieldClearMixin<T extends MaterialValueBox> extends AbstractMixin<T
         this.clear.setRight(16);
         this.clear.setTop(12);
         this.clear.setBackgroundColor(Color.WHITE);
+        this.clear.addStyleName("clear-field");
 
         setEnableClear(false);
     }

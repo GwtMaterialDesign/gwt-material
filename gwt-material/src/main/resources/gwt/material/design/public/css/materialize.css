@@ -8966,6 +8966,9 @@ button.btn-ghost:hover, button.btn-ghost:active {
 .input-field.listbox-wrapper label.disabled:before {
   display: none; }
 
+.input-field.disabled i.clear-field {
+  display: none !important; }
+
 .col .input-field label {
   left: 0px; }
 
