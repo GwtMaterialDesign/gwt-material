@@ -173,6 +173,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         if (getPlaceholder() == null || getPlaceholder().isEmpty()) {
             fieldLabel.removeStyleName(CssName.ACTIVE);
         }
+
+        getClearMixin().reset();
     }
 
     public void loadEvents() {
