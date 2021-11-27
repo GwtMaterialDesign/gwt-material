@@ -60,7 +60,7 @@ import static gwt.material.design.client.js.JsMaterialElement.$;
  * @see <a href="https://material.io/guidelines/style/imagery.html">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialImage extends MaterialWidget implements HasCaption, HasType<ImageType>, HasImage,
+public class MaterialImage extends AbstractValueWidget<String> implements HasCaption, HasType<ImageType>, HasImage,
         HasLoadHandlers, HasErrorHandlers, HasActivates, HasValue<String>, HasSourceSet {
 
     private CssTypeMixin<ImageType, MaterialImage> typeMixin;
