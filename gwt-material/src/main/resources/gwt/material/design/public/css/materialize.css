@@ -10460,7 +10460,7 @@ i[class*="waves-"].material-icons {
 
 @media screen and (min-width: 901px) and (max-width: 7680px) {
   ul.side-nav.mini-with-expand {
-    left: 0px; }
+    left: 0px !important; }
   ul.side-nav.mini-with-expand.right-aligned {
     right: 0px !important;
     left: inherit !important; } }
