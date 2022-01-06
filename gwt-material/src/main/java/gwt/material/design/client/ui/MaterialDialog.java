@@ -30,6 +30,8 @@ import gwt.material.design.client.base.mixin.FullscreenMixin;
 import gwt.material.design.client.base.mixin.OverlayStyleMixin;
 import gwt.material.design.client.constants.*;
 import gwt.material.design.client.js.JsModalOptions;
+import gwt.material.design.client.js.ScrollOption;
+import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
@@ -89,6 +91,7 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
     private OverlayStyleMixin<MaterialDialog> overlayStyleMixin;
     private boolean open;
     private boolean closeOnBrowserBackNavigation = true;
+    private boolean scrollTopOnClose = false;
     private JQueryElement overlayElement;
 
     public MaterialDialog() {
@@ -111,7 +114,14 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
                 return true;
             });
 
-            registerHandler(addOpenHandler(event -> applyOverlayStyle(overlayElement)));
+            registerHandler(addOpenHandler(event -> {
+                applyOverlayStyle(overlayElement);
+                if (scrollTopOnClose) {
+                    ScrollOption option = new ScrollOption();
+                    option.scrollTop = 0;
+                    JQuery.$("html, body").animate(option, 400);
+                }
+            }));
             registerHandler(addCloseHandler(event -> resetOverlayStyle()));
         }
     }
@@ -388,6 +398,14 @@ public class MaterialDialog extends MaterialWidget implements HasType<DialogType
             typeMixin = new CssTypeMixin<>(this);
         }
         return typeMixin;
+    }
+
+    public boolean isScrollTopOnClose() {
+        return scrollTopOnClose;
+    }
+
+    public void setScrollTopOnClose(boolean scrollTopOnClose) {
+        this.scrollTopOnClose = scrollTopOnClose;
     }
 
     protected FullscreenMixin getFullscreenMixin() {
