@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,7 @@ import gwt.material.design.client.base.helper.DOMHelper;
 import gwt.material.design.client.base.mixin.DensityMixin;
 import gwt.material.design.client.base.mixin.OverlayStyleMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.base.viewport.ViewPort;
 import gwt.material.design.client.base.viewport.WidthBoundary;
 import gwt.material.design.client.constants.*;
@@ -62,7 +63,6 @@ public abstract class AbstractSideNav extends MaterialWidget
     protected int width = 240;
     protected int inDuration = 400;
     protected int outDuration = 200;
-    protected boolean open;
     protected boolean closeOnClick;
     protected boolean alwaysShowActivator = true;
     protected boolean allowBodyScroll = true;
@@ -76,6 +76,7 @@ public abstract class AbstractSideNav extends MaterialWidget
     private StyleMixin<MaterialSideNav> typeMixin;
     private OverlayStyleMixin<AbstractSideNav> overlayStyleMixin;
     private DensityMixin<AbstractSideNav> densityMixin;
+    private ToggleStyleMixin<AbstractSideNav> openMixin;
 
     public AbstractSideNav() {
         super(Document.get().createULElement(), CssName.SIDE_NAV);
@@ -431,10 +432,8 @@ public abstract class AbstractSideNav extends MaterialWidget
     }
 
     protected void onClosing() {
-        open = false;
-        $("#sidenav-overlay").remove();
+        getOpenMixin().setOn(false);
         SideNavClosingEvent.fire(this);
-
         resetOverlayStyle();
     }
 
@@ -443,14 +442,7 @@ public abstract class AbstractSideNav extends MaterialWidget
     }
 
     protected void onOpening() {
-        open = true;
-
-        $("#sidenav-overlay").each((param1, element) -> {
-            if (element != null) {
-                element.removeFromParent();
-            }
-        });
-
+        getOpenMixin().setOn(true);
         SideNavOpeningEvent.fire(this);
     }
 
@@ -472,7 +464,14 @@ public abstract class AbstractSideNav extends MaterialWidget
      * Hide the overlay menu.
      */
     public void hideOverlay() {
-        $("#sidenav-overlay").remove();
+        JQueryElement overlayElement = getOverlayElement();
+        if (overlayElement != null) {
+            overlayElement.each((param1, element) -> {
+                if (element != null) {
+                    element.removeFromParent();
+                }
+            });
+        }
     }
 
     /**
@@ -488,8 +487,9 @@ public abstract class AbstractSideNav extends MaterialWidget
      */
     @Override
     public void open() {
-        $("#sidenav-overlay").remove();
-        $(activator).sideNav("show");
+        if (!isOpen()) {
+            $(activator).sideNav("show");
+        }
     }
 
     /**
@@ -510,7 +510,7 @@ public abstract class AbstractSideNav extends MaterialWidget
 
     @Override
     public boolean isOpen() {
-        return open;
+        return getOpenMixin().isOn();
     }
 
     /**
@@ -695,5 +695,12 @@ public abstract class AbstractSideNav extends MaterialWidget
             densityMixin = new DensityMixin<>(this);
         }
         return densityMixin;
+    }
+
+    public ToggleStyleMixin<AbstractSideNav> getOpenMixin() {
+        if (openMixin == null) {
+            openMixin = new ToggleStyleMixin<>(this, "opened");
+        }
+        return openMixin;
     }
 }
