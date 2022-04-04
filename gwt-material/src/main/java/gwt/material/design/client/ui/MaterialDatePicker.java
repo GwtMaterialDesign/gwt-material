@@ -554,6 +554,16 @@ public class MaterialDatePicker extends AbstractValueWidget<Date> implements JsL
     }
 
     @Override
+    public void setIconDisplay(IconDisplay iconDisplay) {
+        icon.setIconDisplay(iconDisplay);
+    }
+
+    @Override
+    public IconDisplay getIconDisplay() {
+        return icon.getIconDisplay();
+    }
+
+    @Override
     public void setReadOnly(boolean value) {
         getReadOnlyMixin().setReadOnly(value);
     }

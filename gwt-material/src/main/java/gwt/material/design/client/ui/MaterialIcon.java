@@ -57,6 +57,7 @@ import gwt.material.design.client.constants.*;
 public class MaterialIcon extends AbstractButton
         implements HasSeparator, HasIcon, IsAsyncWidget<MaterialIcon, IconType> {
 
+    private IconDisplay iconDisplay = IconDisplay.FILLED;
     private CssNameMixin<MaterialIcon, IconPosition> positionMixin;
     private CssNameMixin<MaterialIcon, IconSize> sizeMixin;
     private ToggleStyleMixin<MaterialIcon> prefixMixin;
@@ -172,6 +173,16 @@ public class MaterialIcon extends AbstractButton
         return getCustomIconMixin().getStyle();
     }
 
+    @Override
+    public void setIconDisplay(IconDisplay iconDisplay) {
+        this.iconDisplay = iconDisplay;
+    }
+
+    @Override
+    public IconDisplay getIconDisplay() {
+        return iconDisplay;
+    }
+
     protected CssNameMixin<MaterialIcon, IconPosition> getPositionMixin() {
         if (positionMixin == null) {
             positionMixin = new CssNameMixin<>(this);
@@ -209,7 +220,7 @@ public class MaterialIcon extends AbstractButton
 
     protected ToggleStyleMixin<MaterialIcon> getMaterialIconToggleStyleMixin() {
         if (materialIconToggleStyleMixin == null) {
-            materialIconToggleStyleMixin = new ToggleStyleMixin<>(this, CssName.MATERIAL_ICONS);
+            materialIconToggleStyleMixin = new ToggleStyleMixin<>(this, CssName.MATERIAL_ICONS + getIconDisplay().getSuffix());
         }
         return materialIconToggleStyleMixin;
     }

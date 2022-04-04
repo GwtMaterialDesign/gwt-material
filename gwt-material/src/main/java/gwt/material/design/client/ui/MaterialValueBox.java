@@ -439,6 +439,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     }
 
     @Override
+    public void setIconDisplay(IconDisplay iconDisplay) {
+        icon.setIconDisplay(iconDisplay);
+    }
+
+    @Override
+    public IconDisplay getIconDisplay() {
+        return icon.getIconDisplay();
+    }
+
+    @Override
     public void setCustomIconType(String iconType) {
         icon.setCustomIconType(iconType);
     }
