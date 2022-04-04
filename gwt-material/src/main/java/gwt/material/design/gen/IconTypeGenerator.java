@@ -21,9 +21,7 @@ package gwt.material.design.gen;
 
 import gwt.material.design.client.constants.IconType;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -41,57 +39,66 @@ import java.util.regex.Pattern;
  */
 public class IconTypeGenerator {
 
+    private static String ijmapSource = "MaterialIcons-Regular.ijmap";
+    private static String templateSource = "IconTypeTemplate.txt";
+    private static String output = "IconType.java";
+
     public static void main(String[] args) throws IOException {
         System.out.println("Generating the IconType class...");
 
-        File ijmap = new File("src/main/resources/gwt/material/design/public/font/material-icons/MaterialIcons-Regular.ijmap");
+        File ijmap = new File(ijmapSource);
         if (!ijmap.isFile()) {
             throw new FileNotFoundException(ijmap.getAbsolutePath());
         }
-        File template = new File("src/main/java/gwt/material/design/gen/IconTypeTemplate.txt");
+        File template = new File(templateSource);
         if (!template.isFile()) {
             throw new FileNotFoundException(template.getAbsolutePath());
         }
 
-        //parses the ijmap file by using a regex
-        //to parse it as a json, on Java 7, an external library should be used
-        String iconsFile = new String(Files.readAllBytes(Paths.get(ijmap.toURI())), "UTF-8");
-        Pattern pattern = Pattern.compile("\\{\\s*\"name\"\\s*:\\s*\"([^\"]*)\"\\s*\\}");
-        Matcher matcher = pattern.matcher(iconsFile);
 
         StringBuilder builder = new StringBuilder();
-
-        //adds the default constant
         builder.append("DEFAULT(\"\")");
-        int count = 1;
 
-        while (matcher.find()) {
-            String name = matcher.group(1);
-            String cssName = name.toLowerCase().replace(' ', '_');
+        BufferedReader reader;
+        try {
+            int count = 0;
+            reader = new BufferedReader(new FileReader(ijmap));
+            String line = reader.readLine();
+            while (line != null) {
+                // read next line
+                line = reader.readLine();
 
-            //when a name starts with a number, the type name must be changed
-            while (name.matches("\\d.*")) { //starts with a number
-                int firstSpace = name.indexOf(' ');
-                String num = name.substring(0, firstSpace);
-                name = name.substring(firstSpace + 1) + '_' + num;
+                if (line != null && !line.isEmpty()) {
+                    String typeName = "";
+                    typeName = line.replace(line.substring(line.indexOf(" ")), "");
+                    System.out.println(typeName);
+
+                    boolean digit = Character.isDigit(typeName.charAt(0));
+                    String prefix = "";
+                    if (digit) {
+                        prefix = "_";
+                    }
+
+                    builder.append(",\n    " + prefix).append(typeName.toUpperCase()).append("(\"").append(typeName).append("\")");
+                }
+                count++;
             }
-            String typeName = name.toUpperCase().replace(' ', '_');
+            builder.append(";");
+            reader.close();
 
-            //appends to the document
-            builder.append(",\n    ").append(typeName).append("(\"").append(cssName).append("\")");
-            count++;
+            //loading the template java file
+            String templateString = new String(Files.readAllBytes(Paths.get(template.toURI())), "UTF-8");
+            templateString = templateString.replace("${generationDate}", getDateAsISO8601()).replace("${enumValues}", builder.toString());
+
+            //time to write it to the destination
+            File target = new File(output);
+            Files.write(Paths.get(target.toURI()), templateString.getBytes("UTF-8"));
+
+            System.out.println("Generation complete with " + count + " IconType constants.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         builder.append(";");
-
-        //loading the template java file
-        String templateString = new String(Files.readAllBytes(Paths.get(template.toURI())), "UTF-8");
-        templateString = templateString.replace("${generationDate}", getDateAsISO8601()).replace("${enumValues}", builder.toString());
-
-        //time to write it to the destination
-        File target = new File("src/main/java/gwt/material/design/client/constants/IconType.java");
-        Files.write(Paths.get(target.toURI()), templateString.getBytes("UTF-8"));
-
-        System.out.println("Generation complete with " + count + " IconType constants.");
     }
 
     /*
