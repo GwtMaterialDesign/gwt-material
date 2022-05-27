@@ -42,6 +42,7 @@ public class NumberBox<T> extends ValueBox<T> {
     public NumberBox(NumberHandler handler) {
         // currently there's no way to create a <input type="number"> directly
         super(Document.get().createTextInputElement(), handler, handler);
+        addStyleName("number-box");
     }
 
     public static class NumberHandler<T> implements Renderer<T>, Parser<T> {
