@@ -54,7 +54,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     HasShadow, Focusable, HasInlineStyle, HasSeparator, HasScrollspy, HasHideOn, HasShowOn, HasCenterOn, HasCircle, HasWaves,
     HasDataAttributes, HasFloat, HasTooltip, HasFlexbox, HasHoverable, HasFontWeight, HasFontSize, HasDepth, HasInitialClasses,
     HasInteractionHandlers, HasAllFocusHandlers, HasFilterStyle, HasBorder, HasVerticalAlign, HasTransform, HasOrientation,
-    HasContainer, HasWordBreak, HasZoom, HasGridLayout, HasResize, HasContentEditable {
+    HasContainer, HasWordBreak, HasZoom, HasGridLayout, HasResize, HasContentEditable, HasTruncate {
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
@@ -125,7 +125,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     private FlexboxMixin<MaterialWidget> flexboxMixin;
     private ToggleStyleMixin<MaterialWidget> hoverableMixin;
     private CssNameMixin<MaterialWidget, FontWeight> fontWeightMixin;
-    private ToggleStyleMixin<MaterialWidget> truncateMixin;
+    private TruncateMixin<MaterialWidget> truncateMixin;
     private FilterStyleMixin<MaterialWidget> filterMixin;
     private BorderMixin<MaterialWidget> borderMixin;
     private DimensionMixin<MaterialWidget> dimensionMixin;
@@ -1065,15 +1065,15 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return getFilterStyleMixin().getFilterStyle();
     }
 
-    /**
-     * If true the label inside this component will be truncated by ellipsis
-     **/
+
+    @Override
     public void setTruncate(boolean truncate) {
-        getTruncateMixin().setOn(truncate);
+        getTruncateMixin().setTruncate(truncate);
     }
 
+    @Override
     public boolean isTruncate() {
-        return getTruncateMixin().isOn();
+        return getTruncateMixin().isTruncate();
     }
 
     @Override
@@ -1880,9 +1880,9 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
         return fontWeightMixin;
     }
 
-    public ToggleStyleMixin<MaterialWidget> getTruncateMixin() {
+    public TruncateMixin<MaterialWidget> getTruncateMixin() {
         if (truncateMixin == null) {
-            truncateMixin = new ToggleStyleMixin<>(this, CssName.TRUNCATE);
+            truncateMixin = new TruncateMixin<>(this);
         }
         return truncateMixin;
     }
