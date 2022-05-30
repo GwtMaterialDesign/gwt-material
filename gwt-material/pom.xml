@@ -41,6 +41,26 @@
             <artifactId>htmlunit</artifactId>
             <version>${htmlunit.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-core</artifactId>
+            <version>${elemental2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-promise</artifactId>
+            <version>${elemental2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-dom</artifactId>
+            <version>${elemental2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-media</artifactId>
+            <version>${elemental2.version}</version>
+        </dependency>
     </dependencies>
 
     <repositories>

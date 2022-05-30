@@ -62,7 +62,7 @@
         <junit.version>4.13.1</junit.version>
         <htmlunit.version>2.23</htmlunit.version>
         <gwt.style>OBF</gwt.style>
-
+        <elemental2.version>1.0.0-RC1</elemental2.version>
     </properties>
 
     <scm>
