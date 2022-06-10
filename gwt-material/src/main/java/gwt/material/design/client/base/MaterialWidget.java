@@ -1077,6 +1077,16 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
     }
 
     @Override
+    public void setEnableTruncateTitle(boolean value) {
+        getTruncateMixin().setEnableTruncateTitle(value);
+    }
+
+    @Override
+    public boolean isEnableTruncateTitle() {
+        return getTruncateMixin().isEnableTruncateTitle();
+    }
+
+    @Override
     public void setBorder(String value) {
         getBorderMixin().setBorder(value);
     }

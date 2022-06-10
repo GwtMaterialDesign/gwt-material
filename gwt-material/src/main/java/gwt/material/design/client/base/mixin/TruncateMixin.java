@@ -19,9 +19,9 @@
  */
 package gwt.material.design.client.base.mixin;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasTruncate;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.CssName;
@@ -29,6 +29,8 @@ import gwt.material.design.client.constants.CssName;
 public class TruncateMixin<T extends MaterialWidget & HasTruncate> extends AbstractMixin<T> implements HasTruncate {
 
     private ToggleStyleMixin<MaterialWidget> toggleStyleMixin;
+    private HandlerRegistration mouseOverHandler, mouseOutHandler;
+    private boolean enableTruncateTitle = true;
 
     public TruncateMixin(T uiObject) {
         super(uiObject);
@@ -42,25 +44,49 @@ public class TruncateMixin<T extends MaterialWidget & HasTruncate> extends Abstr
 
     public void checkEllipsis() {
         if (uiObject instanceof HasText) {
-            Element element = uiObject.getElement();
-            HasText hasText = (HasText) uiObject;
-            element.setAttribute("title", "");
-            uiObject.addMouseOverHandler(event -> {
-                if (!uiObject.getElement().hasAttribute("title")) return;
-                String text = hasText.getText();
-                boolean withEllipsis = element.getOffsetWidth() < element.getScrollWidth();
-                if (withEllipsis) {
-                    element.setAttribute("title", text);
+            if (enableTruncateTitle) {
+                Element element = uiObject.getElement();
+                HasText hasText = (HasText) uiObject;
+                element.setAttribute("title", "");
+                if (mouseOutHandler == null) {
+                    mouseOverHandler = uiObject.addMouseOverHandler(event -> {
+                        if (!uiObject.getElement().hasAttribute("title")) return;
+                        String text = hasText.getText();
+                        boolean withEllipsis = element.getOffsetWidth() < element.getScrollWidth();
+                        if (withEllipsis) {
+                            element.setAttribute("title", text);
+                        }
+                    });
                 }
-            });
 
-            uiObject.addMouseOutHandler(event -> element.setAttribute("title", ""));
+                if (mouseOutHandler == null) {
+                    mouseOutHandler = uiObject.addMouseOutHandler(event -> element.setAttribute("title", ""));
+                }
+            } else {
+                if (mouseOverHandler != null) {
+                    mouseOverHandler.removeHandler();
+                }
+
+                if (mouseOutHandler != null) {
+                    mouseOutHandler.removeHandler();
+                }
+            }
         }
     }
 
     @Override
     public boolean isTruncate() {
         return getToggleStyleMixin().isOn();
+    }
+
+    @Override
+    public void setEnableTruncateTitle(boolean value) {
+        this.enableTruncateTitle = value;
+    }
+
+    @Override
+    public boolean isEnableTruncateTitle() {
+        return enableTruncateTitle;
     }
 
     public ToggleStyleMixin<MaterialWidget> getToggleStyleMixin() {

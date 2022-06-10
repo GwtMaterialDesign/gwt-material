@@ -27,4 +27,11 @@ public interface HasTruncate {
     void setTruncate(boolean truncate);
 
     boolean isTruncate();
+
+    /**
+     * Will enable long texts to set the elements attribute when mouse overed the truncated text
+     */
+    void setEnableTruncateTitle(boolean value);
+
+    boolean isEnableTruncateTitle();
 }
