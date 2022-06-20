@@ -39,10 +39,10 @@ public class TruncateMixin<T extends MaterialWidget & HasTruncate> extends Abstr
     @Override
     public void setTruncate(boolean truncate) {
         getToggleStyleMixin().setOn(truncate);
-        checkEllipsis();
+        updateTitle();
     }
 
-    public void checkEllipsis() {
+    protected void updateTitle() {
         if (uiObject instanceof HasText) {
             if (enableTruncateTitle) {
                 Element element = uiObject.getElement();
