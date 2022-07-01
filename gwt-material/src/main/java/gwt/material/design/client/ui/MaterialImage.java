@@ -142,6 +142,7 @@ public class MaterialImage extends AbstractValueWidget<String> implements HasCap
         $(getElement()).off("error").on("error", e -> {
             setUrl(fallbackUrl);
         });
+        setValue(url);
     }
 
     @Override
