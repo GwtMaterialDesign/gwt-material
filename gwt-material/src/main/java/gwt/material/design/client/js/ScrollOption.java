@@ -33,5 +33,5 @@ import jsinterop.annotations.JsType;
 public class ScrollOption {
 
     @JsProperty
-    public double scrollTop;
+    public Object scrollTop;
 }
