@@ -21,12 +21,15 @@ package gwt.material.design.client.async.loader;
 
 import gwt.material.design.client.base.AbstractIconButton;
 import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.ui.animate.MaterialAnimation;
+import gwt.material.design.client.ui.animate.Transition;
 
 public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
 
     protected String initialText;
     protected IconType initialIcon;
     protected AbstractIconButton button;
+    protected MaterialAnimation animation;
 
     protected DefaultButtonLoader() {}
 
@@ -43,8 +46,13 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
     @Override
     public void loading() {
         button.setEnabled(false);
-        button.setText("Loading");
         button.setIconType(getLoadingIcon());
+        animation = new MaterialAnimation();
+        animation.delay(0);
+        animation.duration(600);
+        animation.setTransition(Transition.SPIN);
+        animation.setInfinite(true);
+        animation.animate(button.getIcon());
     }
 
     @Override
@@ -66,6 +74,10 @@ public class DefaultButtonLoader implements AsyncIconDisplayLoader<String> {
 
         if (initialIcon != null) {
             button.setIconType(initialIcon);
+        }
+
+        if (animation != null) {
+            animation.stopAnimation();
         }
     }
 

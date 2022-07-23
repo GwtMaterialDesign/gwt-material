@@ -105,7 +105,9 @@ public class MaterialCollectionItem extends MaterialWidget implements HasDismiss
             }
         }));
 
-        JsMaterialElement.initDismissableCollection();
+        if (isDismissible()) {
+            JsMaterialElement.initDismissableCollection();
+        }
     }
 
     @Override

@@ -135,6 +135,16 @@ public class MaterialCardTitle extends MaterialWidget implements HasIcon, HasSaf
         return icon.getCustomIconType();
     }
 
+    @Override
+    public void setIconDisplay(IconDisplay iconDisplay) {
+        icon.setIconDisplay(iconDisplay);
+    }
+
+    @Override
+    public IconDisplay getIconDisplay() {
+        return icon.getIconDisplay();
+    }
+
     public Span getTitleLabel() {
         return titleLabel;
     }

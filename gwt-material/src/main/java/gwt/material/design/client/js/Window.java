@@ -23,6 +23,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.base.DeferredPrompt;
 import gwt.material.design.jquery.client.api.Functions;
+import gwt.material.design.jscore.client.api.core.Element;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsType;
 
@@ -41,6 +42,20 @@ public class Window {
 
     @JsMethod(namespace = "window")
     public static native void addEventListener(String eventName, Functions.Func1<Object> event);
+
+    @JsMethod(namespace = "window")
+    public static native String atob(String param);
+
+    @JsMethod(namespace = "window")
+    public static native String unescape(String param);
+
+    public static native void logWindowEvents() /*-{
+        console.log($wnd.jQuery._data($wnd, "events"));
+    }-*/;
+
+    public static native void logEventRegistration(Element element) /*
+        console.log($wnd.jQuery._data(element, "events"));
+    */;
 
     @JsMethod
     public static native DeferredPrompt deferredPrompt();

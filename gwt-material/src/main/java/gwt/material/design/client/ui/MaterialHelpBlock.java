@@ -26,10 +26,7 @@ import com.google.gwt.user.client.ui.HasText;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasSafeText;
 import gwt.material.design.client.base.mixin.TextMixin;
-import gwt.material.design.client.constants.Color;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.html.Div;
 
 public class MaterialHelpBlock extends Div implements HasSafeText, HasText, HasIcon {
@@ -123,6 +120,16 @@ public class MaterialHelpBlock extends Div implements HasSafeText, HasText, HasI
     @Override
     public String getCustomIconType() {
         return icon.getCustomIconType();
+    }
+
+    @Override
+    public void setIconDisplay(IconDisplay iconDisplay) {
+        icon.setIconDisplay(iconDisplay);
+    }
+
+    @Override
+    public IconDisplay getIconDisplay() {
+        return icon.getIconDisplay();
     }
 
     protected TextMixin<MaterialHelpBlock> getTextMixin() {

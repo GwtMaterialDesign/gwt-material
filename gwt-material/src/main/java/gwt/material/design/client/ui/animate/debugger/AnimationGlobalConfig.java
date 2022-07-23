@@ -21,7 +21,31 @@ package gwt.material.design.client.ui.animate.debugger;
 
 public class AnimationGlobalConfig {
 
-    public static AnimationSpeed SPEED = AnimationSpeed.NORMAL;
-    public static Boolean ENABLE_DEBUGGING = false;
-    public static Boolean ENABLE_ANIMATION = true;
+    public static AnimationSpeed speed = AnimationSpeed.NORMAL;
+    public static Boolean enableDebugging = false;
+    public static Boolean enableAnimation = true;
+
+    public static void setEnableAnimation(boolean enableAnimation) {
+        AnimationGlobalConfig.enableAnimation = enableAnimation;
+    }
+
+    public static void setEnableDebugging(boolean enableDebugging) {
+        AnimationGlobalConfig.enableDebugging = enableDebugging;
+    }
+
+    public static void setAnimationSpeed(AnimationSpeed speed) {
+        AnimationGlobalConfig.speed = speed;
+    }
+
+    public static AnimationSpeed getSpeed() {
+        return speed;
+    }
+
+    public static Boolean isEnableDebugging() {
+        return enableDebugging;
+    }
+
+    public static Boolean isEnableAnimation() {
+        return enableAnimation;
+    }
 }

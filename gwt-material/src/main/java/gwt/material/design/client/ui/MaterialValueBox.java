@@ -90,6 +90,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     private FieldTypeMixin<MaterialValueBox> fieldTypeMixin;
     private FieldSensitivityMixin<MaterialValueBox> fieldSensitivityMixin;
     private RegexMixin<MaterialValueBox> regexMixin;
+    private FieldClearMixin<MaterialValueBox> clearMixin;
 
     public class MaterialValueBoxEditor<V> extends ValueBoxEditor<V> {
         private final ValueBoxBase<V> valueBoxBase;
@@ -141,6 +142,7 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         loadEvents();
         // Make valueBoxBase the primary focus target
         getFocusableMixin().setUiObject(new MaterialWidget(valueBoxBase.getElement()));
+        getClearMixin().load();
     }
 
     @Override
@@ -157,6 +159,10 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         clear();
     }
 
+    public void setEnableClear(boolean enableClear) {
+        getClearMixin().setEnableClear(enableClear);
+    }
+
     /**
      * Resets the text box by removing its content and resetting visual state.
      */
@@ -167,6 +173,8 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         if (getPlaceholder() == null || getPlaceholder().isEmpty()) {
             fieldLabel.removeStyleName(CssName.ACTIVE);
         }
+
+        getClearMixin().reset();
     }
 
     public void loadEvents() {
@@ -428,6 +436,16 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
     @Override
     public boolean isIconPrefix() {
         return icon.isIconPrefix();
+    }
+
+    @Override
+    public void setIconDisplay(IconDisplay iconDisplay) {
+        icon.setIconDisplay(iconDisplay);
+    }
+
+    @Override
+    public IconDisplay getIconDisplay() {
+        return icon.getIconDisplay();
     }
 
     @Override
@@ -984,5 +1002,12 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
             regexMixin = new RegexMixin<>(this);
         }
         return regexMixin;
+    }
+
+    protected FieldClearMixin<MaterialValueBox> getClearMixin() {
+        if (clearMixin == null) {
+            clearMixin = new FieldClearMixin<>(this);
+        }
+        return clearMixin;
     }
 }

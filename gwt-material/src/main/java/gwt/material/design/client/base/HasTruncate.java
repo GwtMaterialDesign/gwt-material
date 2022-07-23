@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2018 GwtMaterialDesign
+ * Copyright (C) 2015 - 2022 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package gwt.material.design.client.js;
+package gwt.material.design.client.base;
 
-import gwt.material.design.client.base.helper.ScrollHelper;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+public interface HasTruncate {
 
-/**
- * JSInterop util for {@link ScrollHelper}
- *
- * @author kevzlou7979@gmail.com
- */
-@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-public class ScrollOption {
+    /**
+     * If true the label inside this component will be truncated by ellipsis
+     **/
+    void setTruncate(boolean truncate);
 
-    @JsProperty
-    public Object scrollTop;
+    boolean isTruncate();
+
+    /**
+     * Will enable long texts to set the elements attribute when mouse overed the truncated text
+     */
+    void setEnableTruncateTitle(boolean value);
+
+    boolean isEnableTruncateTitle();
 }

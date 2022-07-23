@@ -2548,7 +2548,7 @@ nav ul a span.badge {
 
 @font-face {
   font-family: "Material-Design-Icons";
-  src: url("../font/material-design-icons/Material-Design-Icons.eot?#iefix") format("embedded-opentype"), url("../font/material-design-icons/Material-Design-Icons.woff2") format("woff2"), url("../font/material-design-icons/Material-Design-Icons.woff") format("woff"), url("../font/material-design-icons/Material-Design-Icons.ttf") format("truetype"), url("../font/material-design-icons/Material-Design-Icons.svg#Material-Design-Icons") format("svg");
+  src: url("../font/material-design-icons/MaterialIcons-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
@@ -8966,6 +8966,9 @@ button.btn-ghost:hover, button.btn-ghost:active {
 .input-field.listbox-wrapper label.disabled:before {
   display: none; }
 
+.input-field.disabled i.clear-field {
+  display: none !important; }
+
 .col .input-field label {
   left: 0px; }
 
@@ -10127,13 +10130,6 @@ ul.side-nav .collapsible-body li.active a {
 /**
 * SideNav - Mini with Expand
 **/
-ul.side-nav.mini-with-expand {
-  left: 0px !important; }
-
-ul.side-nav.mini-with-expand.right-aligned {
-  right: 0px !important;
-  left: inherit !important; }
-
 ul.side-nav.mini-with-expand.expanded li a span {
   opacity: 1;
   visibility: visible; }
@@ -10461,6 +10457,13 @@ i[class*="waves-"].material-icons {
   .input-field input[type=search],
   .input-field textarea.materialize-textarea {
     font-size: 16px; } }
+
+@media screen and (min-width: 901px) and (max-width: 7680px) {
+  ul.side-nav.mini-with-expand {
+    left: 0px !important; }
+  ul.side-nav.mini-with-expand.right-aligned {
+    right: 0px !important;
+    left: inherit !important; } }
 
 /* ==========================================================================
    ADDINS CSS STYLES

@@ -20,10 +20,7 @@
 package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Style;
-import gwt.material.design.client.constants.Color;
-import gwt.material.design.client.constants.IconPosition;
-import gwt.material.design.client.constants.IconSize;
-import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.*;
 import gwt.material.design.client.ui.MaterialIcon;
 
 public interface HasIcon {
@@ -84,4 +81,14 @@ public interface HasIcon {
      * Will get the css class for custom icons.
      */
     String getCustomIconType();
+
+    /**
+     * Will set the icon display structure.
+     * OUTLINED, FILLED, ROUNDED, SHARP and TWO TONE
+     *
+     * @see <a href="https://fonts.google.com/icons">Example</a>
+     */
+    void setIconDisplay(IconDisplay iconDisplay);
+
+    IconDisplay getIconDisplay();
 }

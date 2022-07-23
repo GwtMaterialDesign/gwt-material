@@ -3784,3 +3784,17 @@
     transform: scale(0.9);
   }
 }
+
+.spin {
+  -webkit-animation-name: spin;
+  animation-name: spin;
+}
+
+@keyframes spin {
+  from {
+    transform:rotate(0deg);
+  }
+  to {
+    transform:rotate(360deg);
+  }
+}

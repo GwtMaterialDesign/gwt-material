@@ -91,14 +91,14 @@ public class MaterialAnimation implements Animation {
     }
 
     public void animate(Widget widget, Functions.Func callback) {
-        if (!AnimationGlobalConfig.ENABLE_ANIMATION) {
+        if (!AnimationGlobalConfig.isEnableAnimation()) {
             if (callback != null) {
                 callback.call();
             }
             return;
         }
 
-        if (AnimationGlobalConfig.ENABLE_DEBUGGING) GWT.log(toString());
+        if (AnimationGlobalConfig.isEnableDebugging()) GWT.log(toString());
 
         if (widget != null) {
             this.widget = widget;
@@ -221,7 +221,7 @@ public class MaterialAnimation implements Animation {
 
     @Override
     public void setDelay(int delay) {
-        this.delay = (int) (delay * AnimationGlobalConfig.SPEED.getValue());
+        this.delay = (int) (delay * AnimationGlobalConfig.getSpeed().getValue());
     }
 
     @Override
@@ -231,7 +231,7 @@ public class MaterialAnimation implements Animation {
 
     @Override
     public void setDuration(int duration) {
-        this.duration = (int) (duration * AnimationGlobalConfig.SPEED.getValue());
+        this.duration = (int) (duration * AnimationGlobalConfig.getSpeed().getValue());
     }
 
     @Override

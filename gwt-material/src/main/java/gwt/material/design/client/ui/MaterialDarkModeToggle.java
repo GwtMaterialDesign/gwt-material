@@ -55,7 +55,7 @@ public class MaterialDarkModeToggle extends MaterialIcon implements HasDarkMode,
 
     @Override
     public void setDarkMode(boolean darkMode) {
-        setIconType(darkMode ? IconType.BRIGHTNESS_7 : IconType.BRIGHTNESS_4);
+        /*setIconType(darkMode ? IconType.BRIGHTNESS_7 : IconType.BRIGHTNESS_4);*/
         manager.setDarkMode(darkMode);
         ColorSchemeChangeEvent.fire(this, darkMode ? ColorScheme.DARK : ColorScheme.LIGHT);
     }

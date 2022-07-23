@@ -68,12 +68,12 @@ public class MaterialSearchTest extends MaterialValueBoxTest<MaterialSearch> {
         // when / then
         search.open();
         assertEquals(InputType.SEARCH, search.getType());
-        assertEquals(4, search.getChildren().size());
+        assertEquals(5, search.getChildren().size());
 
         assertEquals(search.getValueBoxBase(), search.getWidget(0));
-        assertEquals(search.getLabelWidget(), search.getWidget(1));
-        assertEquals(search.getIconClose(), search.getWidget(2));
-        assertEquals(search.getSearchResultPanel(), search.getWidget(3));
+        assertEquals(search.getLabelWidget(), search.getWidget(2));
+        assertEquals(search.getIconClose(), search.getWidget(3));
+        assertEquals(search.getSearchResultPanel(), search.getWidget(4));
 
         MaterialSearchResult searchResultWidget = search.getSearchResultPanel();
         assertNotNull(searchResultWidget);

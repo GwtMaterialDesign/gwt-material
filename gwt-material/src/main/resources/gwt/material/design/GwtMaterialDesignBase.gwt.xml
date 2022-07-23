@@ -33,7 +33,7 @@
   <inherits name="com.google.gwt.core.Core"/>
   <inherits name="com.google.gwt.resources.Resources"/>
   <inherits name="gwt.material.design.jquery.JQuery" />
-
+  <inherits name="elemental2.dom.Dom"/>
   <replace-with class="gwt.material.design.client.JQueryProvider.NoJQuery">
     <when-type-is class="gwt.material.design.client.JQueryProvider"/>
   </replace-with>
