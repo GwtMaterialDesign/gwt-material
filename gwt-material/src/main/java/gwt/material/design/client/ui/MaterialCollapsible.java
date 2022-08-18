@@ -254,7 +254,7 @@ public class MaterialCollapsible extends MaterialWidget
     public void setActive(int index, boolean active) {
         activeIndex = index;
         if (isAttached()) {
-            if (index <= getWidgetCount()) {
+            if (index < getWidgetCount()) {
                 if (index > 0) {
                     activeWidget = getWidget(index);
                     if (activeWidget != null && activeWidget instanceof MaterialCollapsibleItem) {
