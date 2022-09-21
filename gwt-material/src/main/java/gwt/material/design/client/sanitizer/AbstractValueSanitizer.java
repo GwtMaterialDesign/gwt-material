@@ -23,6 +23,7 @@ import gwt.material.design.client.sanitizer.handler.*;
 
 public abstract class AbstractValueSanitizer implements ValueSanitizer {
 
+    protected boolean enabled = true;
 
     public AbstractValueSanitizer() {
         register(new ChineseSanitizeHandler());
@@ -37,14 +38,26 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
 
     @Override
     public boolean sanitize(String value) throws ValueSanitizerException {
-        for (ValueSanitizeHandler enabledHandler : ValueSanitizerRegistry.getEnabledHandlers()) {
-            enabledHandler.sanitize(value);
+        if (enabled) {
+            for (ValueSanitizeHandler enabledHandler : ValueSanitizerRegistry.getEnabledHandlers()) {
+                enabledHandler.sanitize(value);
+            }
         }
         return true;
     }
 
     public void register(ValueSanitizeHandler handler) {
         ValueSanitizerRegistry.register(handler);
+    }
+
+    @Override
+    public void enabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
     @Override

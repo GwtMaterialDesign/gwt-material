@@ -23,6 +23,10 @@ public interface ValueSanitizer {
 
     boolean sanitize(String value) throws ValueSanitizerException;
 
+    void enabled(boolean enabled);
+
+    boolean isEnabled();
+
     ValueSanitizer reservedString(boolean sanitize);
 
     ValueSanitizer special(boolean sanitize);
