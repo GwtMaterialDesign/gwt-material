@@ -23,6 +23,10 @@ public interface ValueSanitizer {
 
     boolean sanitize(String value) throws ValueSanitizerException;
 
+    void enabled(boolean enabled);
+
+    boolean isEnabled();
+
     ValueSanitizer reservedString(boolean sanitize);
 
     ValueSanitizer special(boolean sanitize);
@@ -33,11 +37,15 @@ public interface ValueSanitizer {
 
     ValueSanitizer chinese(boolean sanitize);
 
+    ValueSanitizer japanese(boolean sanitize);
+
     ValueSanitizer emoji(boolean sanitize);
 
     ValueSanitizer rtl(boolean sanitize);
 
     ValueSanitizer zalgo(boolean sanitize);
+
+    ValueSanitizer ogham(boolean ogham);
 
     ValueSanitizer quotation(boolean sanitize);
 }

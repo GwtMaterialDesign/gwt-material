@@ -21,6 +21,9 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.sanitizer.DefaultValueSanitizer;
+import gwt.material.design.client.sanitizer.ValueSanitizer;
+import gwt.material.design.client.sanitizer.ValueSanitizerException;
 
 //@formatter:off
 
@@ -40,6 +43,8 @@ import gwt.material.design.client.constants.InputType;
 //@formatter:on
 public class MaterialTextBox extends MaterialValueBox<String> {
 
+    protected ValueSanitizer valueSanitizer;
+
     public MaterialTextBox() {
         super(new TextBox());
         setType(InputType.TEXT);
@@ -48,6 +53,26 @@ public class MaterialTextBox extends MaterialValueBox<String> {
     public MaterialTextBox(String placeholder) {
         this();
         setPlaceholder(placeholder);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        if (valueSanitizer != null) {
+            registerHandler(addValueChangeHandler(valueChangeEvent -> {
+                try {
+                    clearErrorText();
+                    valueSanitizer.sanitize(valueChangeEvent.getValue());
+                } catch (Exception e) {
+                    if (e instanceof ValueSanitizerException) {
+                        setErrorText(e.getLocalizedMessage());
+                    } else {
+                        setErrorText("Invalid input value");
+                    }
+                }
+            }));
+        }
     }
 
     public void setMaxLength(int length) {
@@ -64,6 +89,14 @@ public class MaterialTextBox extends MaterialValueBox<String> {
 
     public int getVisibleLength() {
         return asTextBox().getVisibleLength();
+    }
+
+    public ValueSanitizer getValueSanitizer() {
+        return valueSanitizer;
+    }
+
+    public void setValueSanitizer(ValueSanitizer valueSanitizer) {
+        this.valueSanitizer = valueSanitizer;
     }
 
     @Ignore

@@ -23,9 +23,11 @@ import gwt.material.design.client.sanitizer.handler.*;
 
 public abstract class AbstractValueSanitizer implements ValueSanitizer {
 
+    protected boolean enabled = true;
 
     public AbstractValueSanitizer() {
         register(new ChineseSanitizeHandler());
+        register(new JapaneseSanitizeHandler());
         register(new EmojiSanitizeHandler());
         register(new NumericSanitizeHandler());
         register(new ReservedWordSanitizeHandler());
@@ -33,19 +35,32 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new SpecialCharacterSanitizeHandler());
         register(new UnicodeSanitizeHandler());
         register(new ZalgoTextSanitizeHandler());
+        register(new OghamSanitizeHandler());
         register(new QuotationSanitizeHandler());
     }
 
     @Override
     public boolean sanitize(String value) throws ValueSanitizerException {
-        for (ValueSanitizeHandler enabledHandler : ValueSanitizerRegistry.getEnabledHandlers()) {
-            enabledHandler.sanitize(value);
+        if (enabled) {
+            for (ValueSanitizeHandler enabledHandler : ValueSanitizerRegistry.getEnabledHandlers()) {
+                enabledHandler.sanitize(value);
+            }
         }
         return true;
     }
 
     public void register(ValueSanitizeHandler handler) {
         ValueSanitizerRegistry.register(handler);
+    }
+
+    @Override
+    public void enabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
     @Override
@@ -79,6 +94,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     }
 
     @Override
+    public ValueSanitizer japanese(boolean sanitize) {
+        ValueSanitizerRegistry.enable(JapaneseSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
     public ValueSanitizer emoji(boolean sanitize) {
         ValueSanitizerRegistry.enable(EmojiSanitizeHandler.class, sanitize);
         return this;
@@ -93,6 +114,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer zalgo(boolean sanitize) {
         ValueSanitizerRegistry.enable(ZalgoTextSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer ogham(boolean ogham) {
+        ValueSanitizerRegistry.enable(OghamSanitizeHandler.class, ogham);
         return this;
     }
 

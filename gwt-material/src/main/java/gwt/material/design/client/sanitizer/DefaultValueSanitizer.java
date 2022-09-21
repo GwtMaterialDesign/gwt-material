@@ -28,10 +28,12 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         special(true);
         numeric(true);
         unicode(true);
+        japanese(true);
         chinese(true);
         emoji(true);
         rtl(true);
         zalgo(true);
+        ogham(true);
         quotation(true);
     }
 }

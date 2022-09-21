@@ -1,5 +1,7 @@
 package gwt.material.design.client.sanitizer.handler;
 
+import gwt.material.design.client.sanitizer.Patterns;
+
 public class ZalgoTextSanitizeHandler extends AbstractSanitizeHandler {
 
     public ZalgoTextSanitizeHandler() {
@@ -7,6 +9,6 @@ public class ZalgoTextSanitizeHandler extends AbstractSanitizeHandler {
 
     @Override
     public boolean sanitize(String value) {
-        return true;
+        return matches(Patterns.ZALGO, value, "Value must not contain Zalgo Characters");
     }
 }

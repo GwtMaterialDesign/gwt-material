@@ -1,6 +1,7 @@
 package gwt.material.design.client.sanitizer.handler;
 
-import gwt.material.design.client.sanitizer.Patterns;
+import gwt.material.design.client.sanitizer.ValueSanitizerException;
+import gwt.material.design.client.sanitizer.utils.EmojiUtil;
 
 public class EmojiSanitizeHandler extends AbstractSanitizeHandler {
 
@@ -9,6 +10,9 @@ public class EmojiSanitizeHandler extends AbstractSanitizeHandler {
 
     @Override
     public boolean sanitize(String value) {
-        return matches(Patterns.EMOJI, value, "Value must not contain Emoji characters");
+        if (EmojiUtil.containsEmoji(value)) {
+            throw new ValueSanitizerException("Value must not contain reserved emoji characters");
+        }
+        return true;
     }
 }
