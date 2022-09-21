@@ -15,4 +15,6 @@ public interface ValueSanitizerHandler {
     boolean sanitizeChinese(String value) throws ValueSanitizerException;
 
     boolean sanitizeEmoji(String value) throws ValueSanitizerException;
+
+    boolean sanitizeRtl(String value) throws ValueSanitizerException;
 }

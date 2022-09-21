@@ -15,4 +15,6 @@ public interface ValueSanitizer {
     ValueSanitizer chinese(boolean allow);
 
     ValueSanitizer emoji(boolean allow);
+
+    ValueSanitizer rtl(boolean allow);
 }

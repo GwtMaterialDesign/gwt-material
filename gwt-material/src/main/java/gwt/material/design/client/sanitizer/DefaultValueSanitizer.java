@@ -14,5 +14,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         unicode(false);
         chinese(false);
         emoji(false);
+        rtl(false);
     }
 }

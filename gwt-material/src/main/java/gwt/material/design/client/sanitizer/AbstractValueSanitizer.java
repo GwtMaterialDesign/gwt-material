@@ -11,6 +11,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     protected boolean allowUnicode;
     protected boolean allowChinese;
     protected boolean allowEmoji;
+    protected boolean allowRtl;
 
     public AbstractValueSanitizer(ValueSanitizerHandler handler) {
         this.handler = handler;
@@ -35,6 +36,9 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         }
         if (!allowEmoji) {
             handler.sanitizeEmoji(value);
+        }
+        if (!allowRtl) {
+            handler.sanitizeRtl(value);
         }
         return true;
     }
@@ -72,6 +76,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer emoji(boolean allow) {
         this.allowEmoji = allow;
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer rtl(boolean allow) {
+        this.allowRtl = allow;
         return this;
     }
 }

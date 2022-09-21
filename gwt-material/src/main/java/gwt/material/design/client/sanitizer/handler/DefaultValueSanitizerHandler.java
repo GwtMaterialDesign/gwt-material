@@ -47,6 +47,17 @@ public class DefaultValueSanitizerHandler implements ValueSanitizerHandler {
         return matches(Patterns.EMOJI, value, "Value must not contain Emoji characters");
     }
 
+    @Override
+    public boolean sanitizeRtl(String value) throws ValueSanitizerException {
+        char[] chars = value.toCharArray();
+        for(char c: chars){
+            if(c >= 0x600 && c <= 0x6ff){
+                throw new ValueSanitizerException("Value must not contain right to left characters");
+            }
+        }
+        return true;
+    }
+
     public boolean matches(String pattern, String value, String sanitizeError) {
         RegExp regExp = RegExp.compile(pattern);
         MatchResult matcher = regExp.exec(value);
