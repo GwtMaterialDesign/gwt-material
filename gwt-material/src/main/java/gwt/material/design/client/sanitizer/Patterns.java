@@ -28,5 +28,9 @@ public class Patterns {
     public static final String JAPANESE = "[\\u3000-\\u303f\\u3040-\\u309f\\u30a0-\\u30ff\\uff00-\\uff9f\\u4e00-\\u9faf\\u3400-\\u4dbf\\uac00-\\ud7a3]";
     public static final String ZALGO = "[\\u0300-\\u0361\\u0316-\\u0362\\u0334-\\u0338\\u0363-\\u036f]";
     public static final String OGHAM = "[\\u1680-\\u169f]";
-    public static final String SUPERSCRIPT_SUBSCRIPT = "[\\u2070-\\u209F]";
+    public static final String SUPERSCRIPT_SUBSCRIPT = "[\\u2070-\\u209f]";
+    public static final String CURRENCY_SYMBOLS = "[\\u20a0-\\u20cf]";
+    public static final String LETTER_LIKE_SYMBOLS = "[\\u2100-\\u214f]";
+    public static final String NUMBER_FORMS = "[\\u2150-\\u218f]";
+    public static final String ARROW_SYMBOLS = "[\\u2190-\\u21ff\\u27f0-\\u27ff\\u2900-\\u297f\\u1f800-\\u1f8ff]";
 }

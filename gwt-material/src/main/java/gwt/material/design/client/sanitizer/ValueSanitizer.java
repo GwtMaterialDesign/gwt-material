@@ -27,6 +27,8 @@ public interface ValueSanitizer {
 
     boolean isEnabled();
 
+    ValueSanitizer standard(boolean sanitize);
+
     ValueSanitizer reservedString(boolean sanitize);
 
     ValueSanitizer special(boolean sanitize);
@@ -48,4 +50,12 @@ public interface ValueSanitizer {
     ValueSanitizer ogham(boolean sanitize);
 
     ValueSanitizer superscriptAndSubscript(boolean sanitize);
+
+    ValueSanitizer letterLikeSymbols(boolean sanitize);
+
+    ValueSanitizer currencySymbols(boolean sanitize);
+
+    ValueSanitizer arrowSymbols(boolean sanitize);
+
+    ValueSanitizer numberForms(boolean sanitize);
 }

@@ -26,6 +26,8 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     protected boolean enabled = true;
 
     public AbstractValueSanitizer() {
+        //TODO: Self Register this
+        register(new StandardSanitizeHandler());
         register(new ChineseSanitizeHandler());
         register(new JapaneseSanitizeHandler());
         register(new EmojiSanitizeHandler());
@@ -37,6 +39,10 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new ZalgoTextSanitizeHandler());
         register(new OghamSanitizeHandler());
         register(new SuperscriptSubscriptSanitizeHandler());
+        register(new CurrencySymbolSanitizeHandler());
+        register(new LetterLikeSymbolSanitizeHandler());
+        register(new NumberFormsSanitizeHandler());
+        register(new ArrowSymbolsSanitizeHandler());
     }
 
     @Override
@@ -61,6 +67,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public ValueSanitizer standard(boolean sanitize) {
+        ValueSanitizerRegistry.enable(StandardSanitizeHandler.class, sanitize);
+        return this;
     }
 
     @Override
@@ -126,6 +138,30 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer superscriptAndSubscript(boolean sanitize) {
         ValueSanitizerRegistry.enable(SuperscriptSubscriptSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer letterLikeSymbols(boolean sanitize) {
+        ValueSanitizerRegistry.enable(LetterLikeSymbolSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer currencySymbols(boolean sanitize) {
+        ValueSanitizerRegistry.enable(CurrencySymbolSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer arrowSymbols(boolean sanitize) {
+        ValueSanitizerRegistry.enable(ArrowSymbolsSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer numberForms(boolean sanitize) {
+        ValueSanitizerRegistry.enable(NumberFormsSanitizeHandler.class, sanitize);
         return this;
     }
 }

@@ -19,11 +19,12 @@
  */
 package gwt.material.design.client.sanitizer;
 
-public class CustomValueSanitizer extends AbstractValueSanitizer {
+public class DefaultValueSanitizer extends AbstractValueSanitizer {
 
-    public CustomValueSanitizer() {
+    public DefaultValueSanitizer() {
         super();
 
+        //standard(true);
         reservedString(true);
         special(true);
         numeric(true);
@@ -35,5 +36,9 @@ public class CustomValueSanitizer extends AbstractValueSanitizer {
         zalgo(true);
         ogham(true);
         superscriptAndSubscript(true);
+        letterLikeSymbols(true);
+        currencySymbols(true);
+        /*arrowSymbols(true);*/
+        numberForms(true);
     }
 }
