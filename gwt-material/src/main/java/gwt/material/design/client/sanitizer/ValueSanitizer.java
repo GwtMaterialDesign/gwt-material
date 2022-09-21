@@ -58,4 +58,10 @@ public interface ValueSanitizer {
     ValueSanitizer arrowSymbols(boolean sanitize);
 
     ValueSanitizer numberForms(boolean sanitize);
+
+    ValueSanitizer quotation(boolean sanitize);
+
+    ValueSanitizer nonWhiteSpaceC0Controls(boolean sanitize);
+
+    ValueSanitizer nonWhiteSpaceC1Controls(boolean sanitize);
 }

@@ -33,4 +33,7 @@ public class Patterns {
     public static final String LETTER_LIKE_SYMBOLS = "[\\u2100-\\u214f]";
     public static final String NUMBER_FORMS = "[\\u2150-\\u218f]";
     public static final String ARROW_SYMBOLS = "[\\u2190-\\u21ff\\u27f0-\\u27ff\\u2900-\\u297f\\u1f800-\\u1f8ff]";
+    public static final String QUOTATION = "((?:'|\").*(?:'|\"))";
+    public static final String NON_WHITESPACE_C0_CONTROLS ="[\\u0001-\\u0008\\u000e-\\u001f\\u007f]";
+    public static final String NON_WHITESPACE_C1_CONTROLS = "[\\u0080-\\u0084\\u0086-\\u009f]";
 }

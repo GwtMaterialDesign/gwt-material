@@ -24,7 +24,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
     public DefaultValueSanitizer() {
         super();
 
-        //standard(true);
         reservedString(true);
         special(true);
         numeric(true);
@@ -40,5 +39,8 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         currencySymbols(true);
         /*arrowSymbols(true);*/
         numberForms(true);
+        quotation(true);
+        nonWhiteSpaceC0Controls(true);
+        nonWhiteSpaceC1Controls(true);
     }
 }
