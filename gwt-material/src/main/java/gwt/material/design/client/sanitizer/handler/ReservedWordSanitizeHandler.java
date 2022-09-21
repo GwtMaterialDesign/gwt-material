@@ -2,9 +2,9 @@ package gwt.material.design.client.sanitizer.handler;
 
 import gwt.material.design.client.sanitizer.Keywords;
 
-public class ReservedWordSanitizer extends AbstractSanitizerHandler {
+public class ReservedWordSanitizeHandler extends AbstractSanitizeHandler {
 
-    public ReservedWordSanitizer() {
+    public ReservedWordSanitizeHandler() {
     }
 
     @Override

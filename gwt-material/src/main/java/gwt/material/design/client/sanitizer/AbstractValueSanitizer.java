@@ -25,73 +25,73 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
 
 
     public AbstractValueSanitizer() {
-        register(new ChineseSanitizer());
-        register(new EmojiSanitizer());
-        register(new NumericSanitizer());
-        register(new ReservedWordSanitizer());
-        register(new RtlCharacterSanitizer());
-        register(new SpecialCharacterSanitizer());
-        register(new UnicodeSanitizer());
-        register(new ZalgoTextSanitizer());
+        register(new ChineseSanitizeHandler());
+        register(new EmojiSanitizeHandler());
+        register(new NumericSanitizeHandler());
+        register(new ReservedWordSanitizeHandler());
+        register(new RtlCharacterSanitizeHandler());
+        register(new SpecialCharacterSanitizeHandler());
+        register(new UnicodeSanitizeHandler());
+        register(new ZalgoTextSanitizeHandler());
     }
 
     @Override
     public boolean sanitize(String value) throws ValueSanitizerException {
-        for (ValueSanitizerHandler enabledHandler : ValueSanitizerRegistry.getEnabledHandlers()) {
+        for (ValueSanitizeHandler enabledHandler : ValueSanitizerRegistry.getEnabledHandlers()) {
             enabledHandler.sanitize(value);
         }
         return true;
     }
 
-    public void register(ValueSanitizerHandler handler) {
+    public void register(ValueSanitizeHandler handler) {
         ValueSanitizerRegistry.register(handler);
     }
 
     @Override
     public ValueSanitizer reservedString(boolean sanitize) {
-        ValueSanitizerRegistry.enable(ReservedWordSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(ReservedWordSanitizeHandler.class, sanitize);
         return this;
     }
 
     @Override
     public ValueSanitizer special(boolean sanitize) {
-        ValueSanitizerRegistry.enable(SpecialCharacterSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(SpecialCharacterSanitizeHandler.class, sanitize);
         return this;
     }
 
     @Override
     public ValueSanitizer numeric(boolean sanitize) {
-        ValueSanitizerRegistry.enable(NumericSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(NumericSanitizeHandler.class, sanitize);
         return this;
     }
 
     @Override
     public ValueSanitizer unicode(boolean sanitize) {
-        ValueSanitizerRegistry.enable(UnicodeSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(UnicodeSanitizeHandler.class, sanitize);
         return this;
     }
 
     @Override
     public ValueSanitizer chinese(boolean sanitize) {
-        ValueSanitizerRegistry.enable(ChineseSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(ChineseSanitizeHandler.class, sanitize);
         return this;
     }
 
     @Override
     public ValueSanitizer emoji(boolean sanitize) {
-        ValueSanitizerRegistry.enable(EmojiSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(EmojiSanitizeHandler.class, sanitize);
         return this;
     }
 
     @Override
     public ValueSanitizer rtl(boolean sanitize) {
-        ValueSanitizerRegistry.enable(RtlCharacterSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(RtlCharacterSanitizeHandler.class, sanitize);
         return this;
     }
 
     @Override
     public ValueSanitizer zalgo(boolean sanitize) {
-        ValueSanitizerRegistry.enable(ZalgoTextSanitizer.class, sanitize);
+        ValueSanitizerRegistry.enable(ZalgoTextSanitizeHandler.class, sanitize);
         return this;
     }
 }

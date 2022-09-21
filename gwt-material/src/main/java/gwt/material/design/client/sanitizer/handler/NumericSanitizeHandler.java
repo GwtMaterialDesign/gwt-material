@@ -1,8 +1,8 @@
 package gwt.material.design.client.sanitizer.handler;
 
-public class ZalgoTextSanitizer extends AbstractSanitizerHandler {
+public class NumericSanitizeHandler extends AbstractSanitizeHandler {
 
-    public ZalgoTextSanitizer() {
+    public NumericSanitizeHandler() {
     }
 
     @Override

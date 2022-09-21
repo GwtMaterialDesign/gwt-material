@@ -2,9 +2,9 @@ package gwt.material.design.client.sanitizer.handler;
 
 import gwt.material.design.client.sanitizer.Patterns;
 
-public class SpecialCharacterSanitizer extends AbstractSanitizerHandler {
+public class SpecialCharacterSanitizeHandler extends AbstractSanitizeHandler {
 
-    public SpecialCharacterSanitizer() {
+    public SpecialCharacterSanitizeHandler() {
     }
 
     @Override

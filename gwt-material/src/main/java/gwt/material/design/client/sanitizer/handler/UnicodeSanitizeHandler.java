@@ -1,8 +1,8 @@
 package gwt.material.design.client.sanitizer.handler;
 
-public class NumericSanitizer extends AbstractSanitizerHandler {
+public class UnicodeSanitizeHandler extends AbstractSanitizeHandler {
 
-    public NumericSanitizer() {
+    public UnicodeSanitizeHandler() {
     }
 
     @Override

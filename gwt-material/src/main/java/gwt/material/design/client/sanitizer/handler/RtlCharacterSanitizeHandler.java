@@ -2,9 +2,9 @@ package gwt.material.design.client.sanitizer.handler;
 
 import gwt.material.design.client.sanitizer.ValueSanitizerException;
 
-public class RtlCharacterSanitizer extends AbstractSanitizerHandler {
+public class RtlCharacterSanitizeHandler extends AbstractSanitizeHandler {
 
-    public RtlCharacterSanitizer() {
+    public RtlCharacterSanitizeHandler() {
     }
 
     @Override

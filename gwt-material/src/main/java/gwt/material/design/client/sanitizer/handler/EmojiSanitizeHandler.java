@@ -2,9 +2,9 @@ package gwt.material.design.client.sanitizer.handler;
 
 import gwt.material.design.client.sanitizer.Patterns;
 
-public class EmojiSanitizer extends AbstractSanitizerHandler {
+public class EmojiSanitizeHandler extends AbstractSanitizeHandler {
 
-    public EmojiSanitizer() {
+    public EmojiSanitizeHandler() {
     }
 
     @Override

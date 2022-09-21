@@ -4,11 +4,11 @@ import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 import gwt.material.design.client.sanitizer.ValueSanitizerException;
 
-public abstract class AbstractSanitizerHandler implements ValueSanitizerHandler {
+public abstract class AbstractSanitizeHandler implements ValueSanitizeHandler {
 
     protected boolean enabled;
 
-    public AbstractSanitizerHandler() {
+    public AbstractSanitizeHandler() {
 
     }
 

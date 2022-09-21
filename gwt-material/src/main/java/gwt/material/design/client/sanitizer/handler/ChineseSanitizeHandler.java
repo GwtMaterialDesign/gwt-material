@@ -2,9 +2,9 @@ package gwt.material.design.client.sanitizer.handler;
 
 import gwt.material.design.client.sanitizer.Patterns;
 
-public class ChineseSanitizer extends AbstractSanitizerHandler {
+public class ChineseSanitizeHandler extends AbstractSanitizeHandler {
 
-    public ChineseSanitizer() {
+    public ChineseSanitizeHandler() {
     }
 
     @Override

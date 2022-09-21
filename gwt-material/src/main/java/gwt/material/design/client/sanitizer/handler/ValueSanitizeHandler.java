@@ -21,7 +21,7 @@ package gwt.material.design.client.sanitizer.handler;
 
 import gwt.material.design.client.sanitizer.ValueSanitizerException;
 
-public interface ValueSanitizerHandler {
+public interface ValueSanitizeHandler {
 
     boolean sanitize(String value) throws ValueSanitizerException;
 
