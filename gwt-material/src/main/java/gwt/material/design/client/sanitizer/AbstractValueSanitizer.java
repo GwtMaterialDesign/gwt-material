@@ -27,6 +27,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
 
     public AbstractValueSanitizer() {
         register(new ChineseSanitizeHandler());
+        register(new JapaneseSanitizeHandler());
         register(new EmojiSanitizeHandler());
         register(new NumericSanitizeHandler());
         register(new ReservedWordSanitizeHandler());
@@ -34,6 +35,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new SpecialCharacterSanitizeHandler());
         register(new UnicodeSanitizeHandler());
         register(new ZalgoTextSanitizeHandler());
+        register(new OghamSanitizeHandler());
     }
 
     @Override
@@ -91,6 +93,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     }
 
     @Override
+    public ValueSanitizer japanese(boolean sanitize) {
+        ValueSanitizerRegistry.enable(JapaneseSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
     public ValueSanitizer emoji(boolean sanitize) {
         ValueSanitizerRegistry.enable(EmojiSanitizeHandler.class, sanitize);
         return this;
@@ -105,6 +113,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer zalgo(boolean sanitize) {
         ValueSanitizerRegistry.enable(ZalgoTextSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer ogham(boolean ogham) {
+        ValueSanitizerRegistry.enable(OghamSanitizeHandler.class, ogham);
         return this;
     }
 }

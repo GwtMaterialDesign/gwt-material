@@ -37,9 +37,13 @@ public interface ValueSanitizer {
 
     ValueSanitizer chinese(boolean sanitize);
 
+    ValueSanitizer japanese(boolean sanitize);
+
     ValueSanitizer emoji(boolean sanitize);
 
     ValueSanitizer rtl(boolean sanitize);
 
     ValueSanitizer zalgo(boolean sanitize);
+
+    ValueSanitizer ogham(boolean ogham);
 }
