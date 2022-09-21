@@ -37,4 +37,5 @@ public class Patterns {
     public static final String NON_WHITESPACE_C0_CONTROLS ="[\\u0001-\\u0008\\u000e-\\u001f\\u007f]";
     public static final String NON_WHITESPACE_C1_CONTROLS = "[\\u0080-\\u0084\\u0086-\\u009f]";
     public static final String GREEK = "[\\u03b1-\\u03c9\\u0391-\\u03a9]";
+    public static final String WHITESPACE_ZSZlZP = "[\\u0009\\u000b\\u000c\\u0085\\u200b\\u0000\\u000a\\u000d]";
 }

@@ -43,5 +43,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         nonWhiteSpaceC0Controls(true);
         nonWhiteSpaceC1Controls(true);
         greek(true);
+        whiteSpaceZsZlZp(true);
     }
 }

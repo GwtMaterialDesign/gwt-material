@@ -47,6 +47,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new NonWhiteSpaceC0SanitizeHandler());
         register(new NonWhiteSpaceC1SanitizeHandler());
         register(new GreekSanitizeHandler());
+        register(new WhiteSpaceZsZlZpSanitizeHandler());
     }
 
     @Override
@@ -190,6 +191,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer greek(boolean sanitize) {
         ValueSanitizerRegistry.enable(GreekSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer whiteSpaceZsZlZp(boolean sanitize) {
+        ValueSanitizerRegistry.enable(WhiteSpaceZsZlZpSanitizeHandler.class, sanitize);
         return this;
     }
 }

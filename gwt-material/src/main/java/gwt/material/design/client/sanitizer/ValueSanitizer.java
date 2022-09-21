@@ -66,4 +66,6 @@ public interface ValueSanitizer {
     ValueSanitizer nonWhiteSpaceC1Controls(boolean sanitize);
 
     ValueSanitizer greek(boolean sanitize);
+
+    ValueSanitizer whiteSpaceZsZlZp(boolean sanitize);
 }

@@ -25,7 +25,7 @@ public class ValueSanitizerTester {
 
     public static void main(String[] args) {
         try {
-             String test = "ζ";
+             String test = "\u000B\f \u0085";
             System.out.println("Valid : " + sanitizer.sanitize(test));
         } catch (Exception e) {
             System.out.println(e + "");
