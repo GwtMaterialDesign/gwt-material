@@ -25,7 +25,7 @@ public class ValueSanitizerTester {
 
     public static void main(String[] args) {
         try {
-            System.out.println("Valid : " + sanitizer.sanitize("NIL"));
+            System.out.println("Valid : " + sanitizer.sanitize("abstract"));
         } catch (Exception e) {
             System.out.println(e + "");
         }

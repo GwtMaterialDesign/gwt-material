@@ -19,98 +19,79 @@
  */
 package gwt.material.design.client.sanitizer;
 
-import gwt.material.design.client.sanitizer.handler.ValueSanitizerHandler;
+import gwt.material.design.client.sanitizer.handler.*;
 
 public abstract class AbstractValueSanitizer implements ValueSanitizer {
 
-    protected final ValueSanitizerHandler handler;
-    protected boolean allowReservedString;
-    protected boolean allowSpecial;
-    protected boolean allowNumeric;
-    protected boolean allowUnicode;
-    protected boolean allowChinese;
-    protected boolean allowEmoji;
-    protected boolean allowRtl;
-    protected boolean allowZalgo;
 
-    public AbstractValueSanitizer(ValueSanitizerHandler handler) {
-        this.handler = handler;
+    public AbstractValueSanitizer() {
+        register(new ChineseSanitizer());
+        register(new EmojiSanitizer());
+        register(new NumericSanitizer());
+        register(new ReservedWordSanitizer());
+        register(new RtlCharacterSanitizer());
+        register(new SpecialCharacterSanitizer());
+        register(new UnicodeSanitizer());
+        register(new ZalgoTextSanitizer());
     }
 
     @Override
     public boolean sanitize(String value) throws ValueSanitizerException {
-        if (!allowReservedString) {
-            handler.sanitizeReservedString(value);
-        }
-        if (!allowSpecial) {
-            handler.sanitizeSpecial(value);
-        }
-        if (!allowNumeric) {
-            handler.sanitizeNumeric(value);
-        }
-        if (!allowUnicode) {
-            handler.sanitizeUnicode(value);
-        }
-        if (!allowChinese) {
-            handler.sanitizeChinese(value);
-        }
-        if (!allowEmoji) {
-            handler.sanitizeEmoji(value);
-        }
-        if (!allowRtl) {
-            handler.sanitizeRtl(value);
-        }
-        if (!allowZalgo) {
-            handler.sanitizeZalgo(value);
+        for (ValueSanitizerHandler enabledHandler : ValueSanitizerRegistry.getEnabledHandlers()) {
+            enabledHandler.sanitize(value);
         }
         return true;
     }
 
+    public void register(ValueSanitizerHandler handler) {
+        ValueSanitizerRegistry.register(handler);
+    }
+
     @Override
-    public ValueSanitizer reservedString(boolean allow) {
-        this.allowReservedString = allow;
+    public ValueSanitizer reservedString(boolean sanitize) {
+        ValueSanitizerRegistry.enable(ReservedWordSanitizer.class, sanitize);
         return this;
     }
 
     @Override
-    public ValueSanitizer special(boolean allow) {
-        this.allowSpecial = allow;
+    public ValueSanitizer special(boolean sanitize) {
+        ValueSanitizerRegistry.enable(SpecialCharacterSanitizer.class, sanitize);
         return this;
     }
 
     @Override
-    public ValueSanitizer numeric(boolean allow) {
-        this.allowNumeric = allow;
+    public ValueSanitizer numeric(boolean sanitize) {
+        ValueSanitizerRegistry.enable(NumericSanitizer.class, sanitize);
         return this;
     }
 
     @Override
-    public ValueSanitizer unicode(boolean allow) {
-        this.allowUnicode = allow;
+    public ValueSanitizer unicode(boolean sanitize) {
+        ValueSanitizerRegistry.enable(UnicodeSanitizer.class, sanitize);
         return this;
     }
 
     @Override
-    public ValueSanitizer chinese(boolean allow) {
-        this.allowChinese = allow;
+    public ValueSanitizer chinese(boolean sanitize) {
+        ValueSanitizerRegistry.enable(ChineseSanitizer.class, sanitize);
         return this;
     }
 
     @Override
-    public ValueSanitizer emoji(boolean allow) {
-        this.allowEmoji = allow;
+    public ValueSanitizer emoji(boolean sanitize) {
+        ValueSanitizerRegistry.enable(EmojiSanitizer.class, sanitize);
         return this;
     }
 
     @Override
-    public ValueSanitizer rtl(boolean allow) {
-        this.allowRtl = allow;
+    public ValueSanitizer rtl(boolean sanitize) {
+        ValueSanitizerRegistry.enable(RtlCharacterSanitizer.class, sanitize);
         return this;
     }
 
     @Override
-    public ValueSanitizer zalgo(boolean allow) {
-        this.allowZalgo = allow;
+    public ValueSanitizer zalgo(boolean sanitize) {
+        ValueSanitizerRegistry.enable(ZalgoTextSanitizer.class, sanitize);
         return this;
     }
 }

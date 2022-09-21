@@ -23,19 +23,19 @@ public interface ValueSanitizer {
 
     boolean sanitize(String value) throws ValueSanitizerException;
 
-    ValueSanitizer reservedString(boolean allow);
+    ValueSanitizer reservedString(boolean sanitize);
 
-    ValueSanitizer special(boolean allow);
+    ValueSanitizer special(boolean sanitize);
 
-    ValueSanitizer numeric(boolean allow);
+    ValueSanitizer numeric(boolean sanitize);
 
-    ValueSanitizer unicode(boolean allow);
+    ValueSanitizer unicode(boolean sanitize);
 
-    ValueSanitizer chinese(boolean allow);
+    ValueSanitizer chinese(boolean sanitize);
 
-    ValueSanitizer emoji(boolean allow);
+    ValueSanitizer emoji(boolean sanitize);
 
-    ValueSanitizer rtl(boolean allow);
+    ValueSanitizer rtl(boolean sanitize);
 
-    ValueSanitizer zalgo(boolean allow);
+    ValueSanitizer zalgo(boolean sanitize);
 }

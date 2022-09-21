@@ -19,21 +19,18 @@
  */
 package gwt.material.design.client.sanitizer;
 
-import gwt.material.design.client.sanitizer.handler.DefaultValueSanitizerHandler;
-
-//TODO: Check
 public class DefaultValueSanitizer extends AbstractValueSanitizer {
 
     public DefaultValueSanitizer() {
-        super(new DefaultValueSanitizerHandler());
+        super();
 
-        reservedString(false);
-        special(false);
-        numeric(false);
-        unicode(false);
-        chinese(false);
-        emoji(false);
-        rtl(false);
-        zalgo(false);
+        reservedString(true);
+        special(true);
+        numeric(true);
+        unicode(true);
+        chinese(true);
+        emoji(true);
+        rtl(true);
+        zalgo(true);
     }
 }
