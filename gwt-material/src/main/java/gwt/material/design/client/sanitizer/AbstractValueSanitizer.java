@@ -36,6 +36,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new UnicodeSanitizeHandler());
         register(new ZalgoTextSanitizeHandler());
         register(new OghamSanitizeHandler());
+        register(new SuperscriptSubscriptSanitizeHandler());
     }
 
     @Override
@@ -117,8 +118,14 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     }
 
     @Override
-    public ValueSanitizer ogham(boolean ogham) {
-        ValueSanitizerRegistry.enable(OghamSanitizeHandler.class, ogham);
+    public ValueSanitizer ogham(boolean sanitize) {
+        ValueSanitizerRegistry.enable(OghamSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer superscriptAndSubscript(boolean sanitize) {
+        ValueSanitizerRegistry.enable(SuperscriptSubscriptSanitizeHandler.class, sanitize);
         return this;
     }
 }

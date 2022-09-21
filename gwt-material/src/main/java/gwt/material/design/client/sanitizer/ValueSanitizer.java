@@ -45,5 +45,7 @@ public interface ValueSanitizer {
 
     ValueSanitizer zalgo(boolean sanitize);
 
-    ValueSanitizer ogham(boolean ogham);
+    ValueSanitizer ogham(boolean sanitize);
+
+    ValueSanitizer superscriptAndSubscript(boolean sanitize);
 }

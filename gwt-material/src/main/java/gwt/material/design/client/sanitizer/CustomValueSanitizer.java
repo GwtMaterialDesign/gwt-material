@@ -19,9 +19,9 @@
  */
 package gwt.material.design.client.sanitizer;
 
-public class DefaultValueSanitizer extends AbstractValueSanitizer {
+public class CustomValueSanitizer extends AbstractValueSanitizer {
 
-    public DefaultValueSanitizer() {
+    public CustomValueSanitizer() {
         super();
 
         reservedString(true);
@@ -34,5 +34,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         rtl(true);
         zalgo(true);
         ogham(true);
+        superscriptAndSubscript(true);
     }
 }

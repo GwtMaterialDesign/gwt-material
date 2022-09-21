@@ -21,7 +21,7 @@ package gwt.material.design.client.sanitizer;
 
 public class ValueSanitizerTester {
 
-    public static DefaultValueSanitizer sanitizer = new DefaultValueSanitizer();
+    public static CustomValueSanitizer sanitizer = new CustomValueSanitizer();
 
     public static void main(String[] args) {
         try {

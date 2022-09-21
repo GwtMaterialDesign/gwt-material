@@ -21,7 +21,6 @@ package gwt.material.design.client.ui;
 
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.constants.InputType;
-import gwt.material.design.client.sanitizer.DefaultValueSanitizer;
 import gwt.material.design.client.sanitizer.ValueSanitizer;
 import gwt.material.design.client.sanitizer.ValueSanitizerException;
 
