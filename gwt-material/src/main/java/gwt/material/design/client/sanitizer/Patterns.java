@@ -23,7 +23,8 @@ public class Patterns {
 
     public static final String CHINESE = "[\\u2E80-\\u2FD5\\u3190-\\u319f\\u3400-\\u4DBF\\u4E00-\\u9FCC\\uF900-\\uFAAD]";
     public static final String SPECIAL = "(?=.*[-\\/:-@\\[-\\`{-~]{1,})";
-    public static final String UNICODE = "[\uE700-\uE72E\uE730\uE731\uE734\uE735\uE737-\uE756]";
+    public static final String UNICODE = "[\\uE700-\\uE72E\\uE730\\uE731\\uE734\\uE735\\uE737-\\uE756]";
     public static final String JAPANESE = "[\\u3000-\\u303f\\u3040-\\u309f\\u30a0-\\u30ff\\uff00-\\uff9f\\u4e00-\\u9faf\\u3400-\\u4dbf\\uac00-\\ud7a3]";
+    public static final String ZALGO = "[\\u0300-\\u0361\\u0316-\\u0362\\u0334-\\u0338\\u0363-\\u036f]";
     public static final String OGHAM = "[\\u1680-\\u169f]";
 }
