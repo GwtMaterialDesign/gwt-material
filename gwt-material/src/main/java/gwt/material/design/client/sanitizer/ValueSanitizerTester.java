@@ -6,7 +6,7 @@ public class ValueSanitizerTester {
 
     public static void main(String[] args) {
         try {
-            System.out.println("Valid : " + sanitizer.sanitize("123"));
+            System.out.println("Valid : " + sanitizer.sanitize("$"));
         } catch (Exception e) {
             System.out.println(e + "");
         }
