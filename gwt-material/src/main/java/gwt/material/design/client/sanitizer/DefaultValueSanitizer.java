@@ -32,5 +32,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         emoji(true);
         rtl(true);
         zalgo(true);
+        quotation(true);
     }
 }

@@ -25,7 +25,9 @@ public class ValueSanitizerTester {
 
     public static void main(String[] args) {
         try {
-            System.out.println("Valid : " + sanitizer.sanitize("abstract"));
+             String test = " \'ROM\' ";;
+            System.out.println(test);
+            System.out.println("Valid : " + sanitizer.sanitize(test));
         } catch (Exception e) {
             System.out.println(e + "");
         }

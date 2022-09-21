@@ -38,4 +38,6 @@ public interface ValueSanitizer {
     ValueSanitizer rtl(boolean sanitize);
 
     ValueSanitizer zalgo(boolean sanitize);
+
+    ValueSanitizer quotation(boolean sanitize);
 }

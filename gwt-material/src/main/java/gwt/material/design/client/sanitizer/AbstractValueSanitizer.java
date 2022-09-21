@@ -33,6 +33,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new SpecialCharacterSanitizeHandler());
         register(new UnicodeSanitizeHandler());
         register(new ZalgoTextSanitizeHandler());
+        register(new QuotationSanitizeHandler());
     }
 
     @Override
@@ -92,6 +93,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer zalgo(boolean sanitize) {
         ValueSanitizerRegistry.enable(ZalgoTextSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer quotation(boolean sanitize) {
+        ValueSanitizerRegistry.enable(QuotationSanitizeHandler.class, sanitize);
         return this;
     }
 }
