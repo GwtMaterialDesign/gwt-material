@@ -42,5 +42,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         quotation(true);
         nonWhiteSpaceC0Controls(true);
         nonWhiteSpaceC1Controls(true);
+        greek(true);
     }
 }
