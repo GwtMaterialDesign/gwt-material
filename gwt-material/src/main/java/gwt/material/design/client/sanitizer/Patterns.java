@@ -29,4 +29,5 @@ public class Patterns {
     public static final String OGHAM = "[\\u1680-\\u169f]";
     public static final String QUOTATION = "((?:'|\").*(?:'|\"))";
     public static final String NON_WHITESPACE_C0_CONTROLS ="[\\u0001-\\u0008\\u000e-\\u001f\\u007f]";
+    public static final String NON_WHITESPACE_C1_CONTROLS = "[\\u0080-\\u0084\\u0086-\\u009f]";
 }

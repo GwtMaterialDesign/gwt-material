@@ -9,6 +9,6 @@ public class NonWhiteSpaceC0SanitizeHandler extends AbstractSanitizeHandler {
 
     @Override
     public boolean sanitize(String value) {
-        return matches(Patterns.NON_WHITESPACE_C0_CONTROLS, value, "Value must not contain C0 controls");
+        return matches(Patterns.NON_WHITESPACE_C0_CONTROLS, value, "Value must not contain non white space C0 controls");
     }
 }

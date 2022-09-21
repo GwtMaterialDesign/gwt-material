@@ -36,5 +36,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         ogham(true);
         quotation(true);
         nonWhiteSpaceC0Controls(true);
+        nonWhiteSpaceC1Controls(true);
     }
 }

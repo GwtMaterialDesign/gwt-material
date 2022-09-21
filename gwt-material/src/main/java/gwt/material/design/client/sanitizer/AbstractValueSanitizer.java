@@ -38,6 +38,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new OghamSanitizeHandler());
         register(new QuotationSanitizeHandler());
         register(new NonWhiteSpaceC0SanitizeHandler());
+        register(new NonWhiteSpaceC1SanitizeHandler());
     }
 
     @Override
@@ -133,6 +134,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer nonWhiteSpaceC0Controls(boolean sanitize) {
         ValueSanitizerRegistry.enable(NonWhiteSpaceC0SanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer nonWhiteSpaceC1Controls(boolean sanitize) {
+        ValueSanitizerRegistry.enable(NonWhiteSpaceC1SanitizeHandler.class, sanitize);
         return this;
     }
 }
