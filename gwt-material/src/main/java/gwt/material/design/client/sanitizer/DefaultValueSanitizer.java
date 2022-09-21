@@ -35,5 +35,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         zalgo(true);
         ogham(true);
         quotation(true);
+        nonWhiteSpaceC0Controls(true);
     }
 }

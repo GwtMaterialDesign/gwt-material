@@ -48,4 +48,6 @@ public interface ValueSanitizer {
     ValueSanitizer ogham(boolean ogham);
 
     ValueSanitizer quotation(boolean sanitize);
+
+    ValueSanitizer nonWhiteSpaceC0Controls(boolean sanitize);
 }

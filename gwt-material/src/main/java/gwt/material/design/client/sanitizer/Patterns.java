@@ -28,4 +28,5 @@ public class Patterns {
     public static final String ZALGO = "[\\u0300-\\u0361\\u0316-\\u0362\\u0334-\\u0338\\u0363-\\u036f]";
     public static final String OGHAM = "[\\u1680-\\u169f]";
     public static final String QUOTATION = "((?:'|\").*(?:'|\"))";
+    public static final String NON_WHITESPACE_C0_CONTROLS ="[\\u0001-\\u0008\\u000e-\\u001f\\u007f]";
 }
