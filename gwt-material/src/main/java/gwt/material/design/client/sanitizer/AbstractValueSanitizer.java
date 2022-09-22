@@ -39,10 +39,9 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new ZalgoTextSanitizeHandler());
         register(new OghamSanitizeHandler());
         register(new SuperscriptSubscriptSanitizeHandler());
-        register(new CurrencySymbolSanitizeHandler());
-        register(new LetterLikeSymbolSanitizeHandler());
+        register(new SymbolsSanitizeHandler());
+        register(new MathOperatorsSanitizeHandler());
         register(new NumberFormsSanitizeHandler());
-        register(new ArrowSymbolsSanitizeHandler());
         register(new QuotationSanitizeHandler());
         register(new NonWhiteSpaceC0SanitizeHandler());
         register(new NonWhiteSpaceC1SanitizeHandler());
@@ -145,20 +144,8 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     }
 
     @Override
-    public ValueSanitizer letterLikeSymbols(boolean sanitize) {
-        ValueSanitizerRegistry.enable(LetterLikeSymbolSanitizeHandler.class, sanitize);
-        return this;
-    }
-
-    @Override
-    public ValueSanitizer currencySymbols(boolean sanitize) {
-        ValueSanitizerRegistry.enable(CurrencySymbolSanitizeHandler.class, sanitize);
-        return this;
-    }
-
-    @Override
-    public ValueSanitizer arrowSymbols(boolean sanitize) {
-        ValueSanitizerRegistry.enable(ArrowSymbolsSanitizeHandler.class, sanitize);
+    public ValueSanitizer symbols(boolean sanitize) {
+        ValueSanitizerRegistry.enable(SymbolsSanitizeHandler.class, sanitize);
         return this;
     }
 
@@ -183,6 +170,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer nonWhiteSpaceC1Controls(boolean sanitize) {
         ValueSanitizerRegistry.enable(NonWhiteSpaceC1SanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer mathOperators(boolean sanitize) {
+        ValueSanitizerRegistry.enable(MathOperatorsSanitizeHandler.class, sanitize);
         return this;
     }
 }

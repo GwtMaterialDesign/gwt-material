@@ -35,9 +35,8 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         zalgo(true);
         ogham(true);
         superscriptAndSubscript(true);
-        letterLikeSymbols(true);
-        currencySymbols(true);
-        /*arrowSymbols(true);*/
+        symbols(true);
+        mathOperators(true);
         numberForms(true);
         quotation(true);
         nonWhiteSpaceC0Controls(true);

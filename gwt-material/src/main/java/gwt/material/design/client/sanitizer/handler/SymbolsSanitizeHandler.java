@@ -21,13 +21,13 @@ package gwt.material.design.client.sanitizer.handler;
 
 import gwt.material.design.client.sanitizer.Patterns;
 
-public class NonWhiteSpaceC1SanitizeHandler extends AbstractSanitizeHandler {
+public class SymbolsSanitizeHandler extends AbstractSanitizeHandler {
 
-    public NonWhiteSpaceC1SanitizeHandler() {
+    public SymbolsSanitizeHandler() {
     }
 
     @Override
     public boolean sanitize(String value) {
-        return matches(Patterns.NON_WHITESPACE_C1_CONTROLS, value, "Value must not contain non whitespace C1 controls");
+        return matches(Patterns.SYMBOLS, value, "Value must not contain symbols");
     }
 }

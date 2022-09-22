@@ -51,11 +51,7 @@ public interface ValueSanitizer {
 
     ValueSanitizer superscriptAndSubscript(boolean sanitize);
 
-    ValueSanitizer letterLikeSymbols(boolean sanitize);
-
-    ValueSanitizer currencySymbols(boolean sanitize);
-
-    ValueSanitizer arrowSymbols(boolean sanitize);
+    ValueSanitizer symbols(boolean sanitize);
 
     ValueSanitizer numberForms(boolean sanitize);
 
@@ -64,4 +60,6 @@ public interface ValueSanitizer {
     ValueSanitizer nonWhiteSpaceC0Controls(boolean sanitize);
 
     ValueSanitizer nonWhiteSpaceC1Controls(boolean sanitize);
+
+    ValueSanitizer mathOperators(boolean sanitize);
 }
