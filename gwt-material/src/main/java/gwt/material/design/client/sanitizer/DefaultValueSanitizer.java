@@ -45,5 +45,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         greek(true);
         whiteSpaceZsZlZp(true);
         accents(true);
+        specialUnicodeCharacters(true);
     }
 }

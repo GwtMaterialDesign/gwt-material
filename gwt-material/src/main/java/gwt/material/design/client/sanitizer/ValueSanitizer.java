@@ -70,4 +70,6 @@ public interface ValueSanitizer {
     ValueSanitizer whiteSpaceZsZlZp(boolean sanitize);
 
     ValueSanitizer accents(boolean sanitize);
+
+    ValueSanitizer specialUnicodeCharacters(boolean sanitize);
 }

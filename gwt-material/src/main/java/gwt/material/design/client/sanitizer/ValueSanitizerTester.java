@@ -25,7 +25,7 @@ public class ValueSanitizerTester {
 
     public static void main(String[] args) {
         try {
-             String test = "◌̋";
+             String test = "表";
             System.out.println("Valid : " + sanitizer.sanitize(test));
         } catch (Exception e) {
             System.out.println(e + "");

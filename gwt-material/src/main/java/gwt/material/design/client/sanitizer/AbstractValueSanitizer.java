@@ -49,6 +49,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new GreekSanitizeHandler());
         register(new WhiteSpaceZsZlZpSanitizeHandler());
         register(new AccentsSanitizeHandler());
+        register(new SpecialUnicodeCharactersSanitizeHandler());
     }
 
     @Override
@@ -204,6 +205,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer accents(boolean sanitize) {
         ValueSanitizerRegistry.enable(AccentsSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer specialUnicodeCharacters(boolean sanitize) {
+        ValueSanitizerRegistry.enable(SpecialUnicodeCharactersSanitizeHandler.class, sanitize);
         return this;
     }
 }
