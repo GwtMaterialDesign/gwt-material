@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.sanitizer;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwt.material.design.client.sanitizer.handler.*;
 
 public abstract class AbstractValueSanitizer implements ValueSanitizer {

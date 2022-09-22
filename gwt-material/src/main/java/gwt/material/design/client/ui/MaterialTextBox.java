@@ -19,10 +19,13 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.sanitizer.HasValueSanitizer;
 import gwt.material.design.client.sanitizer.ValueSanitizer;
 import gwt.material.design.client.sanitizer.ValueSanitizerException;
+import gwt.material.design.client.sanitizer.handler.ValueSanitizerErrorEvent;
 
 //@formatter:off
 
@@ -40,7 +43,7 @@ import gwt.material.design.client.sanitizer.ValueSanitizerException;
  * @see <a href="https://material.io/guidelines/components/text-fields.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialTextBox extends MaterialValueBox<String> {
+public class MaterialTextBox extends MaterialValueBox<String> implements HasValueSanitizer {
 
     protected ValueSanitizer valueSanitizer;
 
@@ -66,6 +69,7 @@ public class MaterialTextBox extends MaterialValueBox<String> {
                 } catch (Exception e) {
                     if (e instanceof ValueSanitizerException) {
                         setErrorText(e.getLocalizedMessage());
+                        fireEvent(new ValueSanitizerErrorEvent(e.getLocalizedMessage()));
                     } else {
                         setErrorText("Invalid input value");
                     }
@@ -90,12 +94,19 @@ public class MaterialTextBox extends MaterialValueBox<String> {
         return asTextBox().getVisibleLength();
     }
 
+    @Override
     public ValueSanitizer getValueSanitizer() {
         return valueSanitizer;
     }
 
+    @Override
     public void setValueSanitizer(ValueSanitizer valueSanitizer) {
         this.valueSanitizer = valueSanitizer;
+    }
+
+    @Override
+    public HandlerRegistration addSanitizationErrorHandler(ValueSanitizerErrorEvent.ValueSanitizerErrorHandler handler) {
+        return addHandler(handler, ValueSanitizerErrorEvent.TYPE);
     }
 
     @Ignore
