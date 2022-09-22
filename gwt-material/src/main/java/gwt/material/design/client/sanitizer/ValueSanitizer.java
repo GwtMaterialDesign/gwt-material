@@ -68,4 +68,6 @@ public interface ValueSanitizer {
     ValueSanitizer greek(boolean sanitize);
 
     ValueSanitizer whiteSpaceZsZlZp(boolean sanitize);
+
+    ValueSanitizer accents(boolean sanitize);
 }
