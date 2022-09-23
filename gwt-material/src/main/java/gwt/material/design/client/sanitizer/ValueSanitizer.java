@@ -72,4 +72,6 @@ public interface ValueSanitizer {
     ValueSanitizer accents(boolean sanitize);
 
     ValueSanitizer specialUnicodeCharacters(boolean sanitize);
+
+    ValueSanitizer regionalIndicatorSymbols(boolean sanitize);
 }

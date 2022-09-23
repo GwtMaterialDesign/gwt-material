@@ -50,6 +50,7 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
         register(new WhiteSpaceZsZlZpSanitizeHandler());
         register(new AccentsSanitizeHandler());
         register(new SpecialUnicodeCharactersSanitizeHandler());
+        register(new RegionalIndicatorSymbolSanitizeHandler());
     }
 
     @Override
@@ -211,6 +212,12 @@ public abstract class AbstractValueSanitizer implements ValueSanitizer {
     @Override
     public ValueSanitizer specialUnicodeCharacters(boolean sanitize) {
         ValueSanitizerRegistry.enable(SpecialUnicodeCharactersSanitizeHandler.class, sanitize);
+        return this;
+    }
+
+    @Override
+    public ValueSanitizer regionalIndicatorSymbols(boolean sanitize) {
+        ValueSanitizerRegistry.enable(RegionalIndicatorSymbolSanitizeHandler.class, sanitize);
         return this;
     }
 }
