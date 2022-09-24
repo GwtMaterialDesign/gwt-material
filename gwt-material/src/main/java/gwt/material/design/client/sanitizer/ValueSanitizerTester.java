@@ -25,7 +25,7 @@ public class ValueSanitizerTester {
 
     public static void main(String[] args) {
         try {
-             String test = "USRUSA";
+             String test = "۳";
             System.out.println("Valid : " + sanitizer.sanitize(test));
         } catch (Exception e) {
             System.out.println(e + "");

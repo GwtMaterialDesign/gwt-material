@@ -1,5 +1,8 @@
 package gwt.material.design.client.sanitizer.handler;
 
+import gwt.material.design.client.sanitizer.Patterns;
+
+//Reference https://www.fileformat.info/info/unicode/category/Nd/list.htm
 public class UnicodeSanitizeHandler extends AbstractSanitizeHandler {
 
     public UnicodeSanitizeHandler() {
@@ -7,6 +10,6 @@ public class UnicodeSanitizeHandler extends AbstractSanitizeHandler {
 
     @Override
     public boolean sanitize(String value) {
-        return true;
+        return matches(Patterns.UNICODE, value, "Value must not contain unicode numbers");
     }
 }
