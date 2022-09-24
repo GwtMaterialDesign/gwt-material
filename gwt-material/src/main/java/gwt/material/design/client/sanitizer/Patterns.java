@@ -41,5 +41,6 @@ public class Patterns {
     public static final String ACCENTS = "[\\u0300-\\u036f]";
     public static final String SPECIAL_UNICODE_CHARACTERS="[\\u8868\\u30dd\\u3042\\u0041\\u9dd7\\u0153\\u00e9\\uff22\\u900d\\u00fc\\u00df\\u00aa\\u0105\\u00f1\\u4e02\\u3400\\u20000]";
     public static final String REGIONAL_INDICATOR_SYMBOLS = "[\\u1f1e6-\\u1f1ff]";
+    public static final String UPSIDE_DOWN= "[\\u0250\\u0bbf\\u00a1]";
 
 }

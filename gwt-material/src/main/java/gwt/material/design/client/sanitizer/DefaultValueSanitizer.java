@@ -47,5 +47,6 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
         accents(true);
         specialUnicodeCharacters(true);
         regionalIndicatorSymbols(true);
+        upsideDown(true);
     }
 }

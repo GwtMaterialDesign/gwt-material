@@ -74,4 +74,6 @@ public interface ValueSanitizer {
     ValueSanitizer specialUnicodeCharacters(boolean sanitize);
 
     ValueSanitizer regionalIndicatorSymbols(boolean sanitize);
+
+    ValueSanitizer upsideDown(boolean sanitize);
 }
