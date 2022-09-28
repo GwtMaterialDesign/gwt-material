@@ -23,23 +23,5 @@ public class DefaultValueSanitizer extends AbstractValueSanitizer {
 
     public DefaultValueSanitizer() {
         super();
-
-        reservedString(true);
-        special(true);
-        numeric(true);
-        unicode(true);
-        japanese(true);
-        chinese(true);
-        emoji(true);
-        rtl(true);
-        zalgo(true);
-        ogham(true);
-        superscriptAndSubscript(true);
-        symbols(true);
-        mathOperators(true);
-        numberForms(true);
-        quotation(true);
-        nonWhiteSpaceC0Controls(true);
-        nonWhiteSpaceC1Controls(true);
     }
 }

@@ -43,6 +43,7 @@ import gwt.material.design.client.sanitizer.handler.ValueSanitizerErrorEvent;
  * @see <a href="https://material.io/guidelines/components/text-fields.html#">Material Design Specification</a>
  */
 //@formatter:on
+//TODO: Sanitizer on TextArea
 public class MaterialTextBox extends MaterialValueBox<String> implements HasValueSanitizer {
 
     protected ValueSanitizer valueSanitizer;
