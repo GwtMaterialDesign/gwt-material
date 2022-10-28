@@ -26,18 +26,28 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.DefaultMoreChipHandler;
+import gwt.material.design.client.base.MoreChipHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>> {
 
+    private MoreChipHandler chipHandler = new DefaultMoreChipHandler();
     private List<MaterialChip> chipList = new ArrayList<>();
     private List<MaterialChip> selected = new ArrayList<>();
     private boolean enableToggle = true;
 
     public MaterialChipContainer() {
         super("chip-container");
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        chipHandler.load(this);
     }
 
     @Override
@@ -81,6 +91,10 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         chipList.clear();
     }
 
+    public void reload() {
+        chipHandler.reload();
+    }
+
     public void setActive(MaterialChip chip, boolean active) {
         chip.setActive(active);
 
@@ -91,6 +105,10 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         }
 
         SelectionEvent.fire(this, selected);
+    }
+
+    public void setVisibleChips(int visibleChips) {
+        chipHandler.setVisibleChipsSize(visibleChips);
     }
 
     public void toggle(MaterialChip chip) {
@@ -107,6 +125,14 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
 
     public void setEnableToggle(boolean enableToggle) {
         this.enableToggle = enableToggle;
+    }
+
+    public List<MaterialChip> getChipList() {
+        return chipList;
+    }
+
+    public List<MaterialChip> getSelected() {
+        return selected;
     }
 
     @Override
