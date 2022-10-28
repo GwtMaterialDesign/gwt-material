@@ -20,28 +20,30 @@
 package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.shared.HandlerRegistration;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.ui.MaterialChip;
 import gwt.material.design.client.ui.MaterialChipContainer;
 import gwt.material.design.client.ui.MaterialLink;
-import gwt.material.design.client.ui.MaterialToast;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 public class DefaultMoreChipHandler implements MoreChipHandler {
 
     protected int visibleChipsSize = 0;
-    protected int hiddenChipsSize = 0;
     protected MaterialLink more = new MaterialLink();
-    protected boolean showHiddenChips;
-    protected List<MaterialChip> hiddenChips = new ArrayList<>();
     protected String localizedMoreText = "Show {0} more items";
     protected MaterialChipContainer container;
+    protected ToggleStyleMixin<MaterialChipContainer> toggleStyleMixin;
+    protected HandlerRegistration handlerRegistration;
 
     public DefaultMoreChipHandler() {
         more.setDisplay(Display.BLOCK);
-        more.setMarginLeft(12);
+        more.setMarginLeft(4);
+        more.setMarginTop(12);
     }
 
     @Override
@@ -53,35 +55,31 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
     public void load(MaterialChipContainer container) {
         this.container = container;
 
-        more.addClickHandler(clickEvent -> showHiddenChips(!isShowHiddenChips()));
-        container.add(more);
-        update();
+        showHiddenChips(false);
     }
 
     @Override
     public void reload() {
-        update();
-    }
-
-    public void update(){
-
-        List<MaterialChip> chipList = container.getChipList();
-        if (chipList != null && visibleChipsSize > 0 && visibleChipsSize <= chipList.size()) {
-            hiddenChips.clear();
-            hiddenChipsSize = chipList.size() - visibleChipsSize;
-            for (MaterialChip chip : chipList) {
-                if (chipList.indexOf(chip) >= hiddenChipsSize) {
-                    hiddenChips.add(chip);
-                }
-            }
-            showHiddenChips(false);
-        }
+        showHiddenChips(false);
     }
 
     public void showHiddenChips(boolean showHiddenChips) {
-        this.showHiddenChips = showHiddenChips;
-        for (MaterialChip hiddenChip : hiddenChips) {
-            hiddenChip.setVisible(showHiddenChips);
+        if (handlerRegistration == null) {
+            handlerRegistration = more.addClickHandler(clickEvent -> showHiddenChips(!getToggleStyleMixin().isOn()));
+        }
+        if (!more.isAttached()) {
+            container.add(more);
+        }
+        List<MaterialChip> chipList = container.getChipList();
+        int hiddenChipsSize = chipList.size() - visibleChipsSize;
+        for (MaterialChip widgets : chipList) {
+            if (showHiddenChips) {
+                $(widgets.getElement()).css("display", "block");
+            } else {
+                if (chipList.indexOf(widgets) > visibleChipsSize) {
+                    $(widgets.getElement()).css("display", "none");
+                }
+            }
         }
 
         if (showHiddenChips) {
@@ -92,7 +90,10 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
         }
     }
 
-    public boolean isShowHiddenChips() {
-        return showHiddenChips;
+    public ToggleStyleMixin<MaterialChipContainer> getToggleStyleMixin() {
+        if (toggleStyleMixin == null) {
+            toggleStyleMixin = new ToggleStyleMixin<>(container, "expanded");
+        }
+        return toggleStyleMixin;
     }
 }
