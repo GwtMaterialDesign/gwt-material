@@ -64,29 +64,31 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
     }
 
     public void showHiddenChips(boolean showHiddenChips) {
-        if (handlerRegistration == null) {
-            handlerRegistration = more.addClickHandler(clickEvent -> showHiddenChips(!getToggleStyleMixin().isOn()));
-        }
-        if (!more.isAttached()) {
-            container.add(more);
-        }
-        List<MaterialChip> chipList = container.getChipList();
-        int hiddenChipsSize = chipList.size() - visibleChipsSize;
-        for (MaterialChip widgets : chipList) {
-            if (showHiddenChips) {
-                $(widgets.getElement()).css("display", "block");
-            } else {
-                if (chipList.indexOf(widgets) > visibleChipsSize) {
-                    $(widgets.getElement()).css("display", "none");
+        if (visibleChipsSize > 0) {
+            if (handlerRegistration == null) {
+                handlerRegistration = more.addClickHandler(clickEvent -> showHiddenChips(!getToggleStyleMixin().isOn()));
+            }
+            if (!more.isAttached()) {
+                container.add(more);
+            }
+            List<MaterialChip> chipList = container.getChipList();
+            int hiddenChipsSize = chipList.size() - visibleChipsSize;
+            for (MaterialChip widgets : chipList) {
+                if (showHiddenChips) {
+                    $(widgets.getElement()).css("display", "block");
+                } else {
+                    if (chipList.indexOf(widgets) > visibleChipsSize) {
+                        $(widgets.getElement()).css("display", "none");
+                    }
                 }
             }
-        }
 
-        if (showHiddenChips) {
-            more.setVisibility(Style.Visibility.HIDDEN);
-        } else {
-            more.setVisibility(Style.Visibility.VISIBLE);
-            more.setText(localizedMoreText.replace("{0}", hiddenChipsSize + ""));
+            if (showHiddenChips) {
+                more.setVisibility(Style.Visibility.HIDDEN);
+            } else {
+                more.setVisibility(Style.Visibility.VISIBLE);
+                more.setText(localizedMoreText.replace("{0}", hiddenChipsSize + ""));
+            }
         }
     }
 
