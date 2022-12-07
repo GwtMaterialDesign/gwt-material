@@ -6,6 +6,7 @@
 
 <br/>
 
+
 ## Migration 2.0 -> 2.1
 - [Mojo to TBroyer](https://github.com/GwtMaterialDesign/gwt-material/wiki/Migrating-from-Mojo-GWT-Maven-Plugin-to-TBroyer)
 - [PWA Support](https://github.com/GwtMaterialDesign/gwt-material/wiki/PWA-:-Service-Worker-Automation)
@@ -17,7 +18,6 @@
 ## Documentation
 Support documentation can be found [here](https://github.com/GwtMaterialDesign/gwt-material/wiki) <br/>
 We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs" > Java Docs </a> for developers
-
 
 ## Maven
 ### Current Version 2.7.0
