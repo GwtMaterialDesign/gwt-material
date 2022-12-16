@@ -19,7 +19,6 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
@@ -33,94 +32,106 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>> {
-
     private MoreChipHandler chipHandler = new DefaultMoreChipHandler();
-    private List<MaterialChip> chipList = new ArrayList<>();
-    private List<MaterialChip> selected = new ArrayList<>();
+    private List<MaterialChip> chipList = new ArrayList();
+    private List<MaterialChip> selected = new ArrayList();
+    private boolean multiple = true;
     private boolean enableToggle = true;
 
     public MaterialChipContainer() {
-        super("chip-container");
+        super(new String[]{"chip-container"});
     }
 
-    @Override
     protected void onLoad() {
         super.onLoad();
-
-        chipHandler.load(this);
+        this.chipHandler.load(this);
     }
 
-    @Override
     protected void add(Widget child, Element container) {
         super.add(child, container);
-
         if (child instanceof MaterialChip) {
-            MaterialChip chip = (MaterialChip) child;
+            MaterialChip chip = (MaterialChip)child;
             chip.setTabIndex(0);
-            chip.registerHandler(chip.addClickHandler(event -> {
-                if (isEnableToggle()) toggle(chip);
+            chip.registerHandler(chip.addClickHandler((event) -> {
+                if (this.isEnableToggle()) {
+                    this.toggle(chip);
+                }
+
             }));
-            chip.registerHandler(chip.addKeyUpHandler(event -> {
-                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) toggle(chip);
+            chip.registerHandler(chip.addKeyUpHandler((event) -> {
+                if (event.getNativeKeyCode() == 13) {
+                    this.toggle(chip);
+                }
+
             }));
-            chipList.add(chip);
+            this.chipList.add(chip);
         }
+
     }
 
-    @Override
     protected void insert(Widget child, Element container, int beforeIndex, boolean domInsert) {
         super.insert(child, container, beforeIndex, domInsert);
-
         if (child instanceof MaterialChip) {
-            chipList.add(beforeIndex, (MaterialChip) child);
+            this.chipList.add(beforeIndex, (MaterialChip)child);
         }
+
     }
 
-    @Override
     public boolean remove(Widget w) {
         if (w instanceof MaterialChip) {
-            chipList.remove(w);
+            this.chipList.remove(w);
         }
+
         return super.remove(w);
     }
 
-    @Override
     public void clear() {
         super.clear();
-
-        chipList.clear();
+        this.chipList.clear();
     }
 
     public void reload() {
-        chipHandler.reload();
+        this.chipHandler.reload();
     }
 
     public void setActive(MaterialChip chip, boolean active) {
+        if (!multiple) {
+            clearActive();
+        }
         chip.setActive(active);
-
-        if (active && !selected.contains(chip)) {
-            selected.add(chip);
+        if (active && !this.selected.contains(chip)) {
+            this.selected.add(chip);
         } else {
-            selected.remove(chip);
+            this.selected.remove(chip);
         }
 
-        SelectionEvent.fire(this, selected);
+        SelectionEvent.fire(this, this.selected);
     }
 
     public void setVisibleChips(int visibleChips) {
-        chipHandler.setVisibleChipsSize(visibleChips);
+        this.chipHandler.setVisibleChipsSize(visibleChips);
     }
 
     public void toggle(MaterialChip chip) {
-        setActive(chip, !chip.isActive());
+        this.setActive(chip, !chip.isActive());
     }
 
     public void clearActive() {
-        chipList.forEach(c -> c.setActive(false));
+        this.chipList.forEach((c) -> {
+            c.setActive(false);
+        });
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
     }
 
     public boolean isEnableToggle() {
-        return enableToggle;
+        return this.enableToggle;
     }
 
     public void setEnableToggle(boolean enableToggle) {
@@ -128,15 +139,14 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
     }
 
     public List<MaterialChip> getChipList() {
-        return chipList;
+        return this.chipList;
     }
 
     public List<MaterialChip> getSelected() {
-        return selected;
+        return this.selected;
     }
 
-    @Override
     public HandlerRegistration addSelectionHandler(SelectionHandler<List<MaterialChip>> handler) {
-        return addHandler(handler, SelectionEvent.getType());
+        return this.addHandler(handler, SelectionEvent.getType());
     }
 }
