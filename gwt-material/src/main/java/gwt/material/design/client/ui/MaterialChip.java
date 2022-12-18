@@ -74,10 +74,15 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     private LetterMixin<MaterialChip> letterMixin;
     private CssTypeMixin<ChipType, MaterialChip> typeMixin;
     private ActiveMixin<MaterialChip> activeMixin;
+    private MaterialIcon prefixIcon = new MaterialIcon(IconType.CHECK);
+    private boolean enablePrefixIcon;
 
     public MaterialChip() {
         super(Document.get().createDivElement(), CssName.CHIP);
         add(chipLabel);
+        setEnablePrefixIcon(false);
+        prefixIcon.addStyleName("prefix-icon");
+        prefixIcon.setIconPosition(IconPosition.LEFT);
     }
 
     public MaterialChip(String text) {
@@ -110,6 +115,12 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     protected void onLoad() {
         super.onLoad();
 
+        add(prefixIcon);
+        registerHandler(prefixIcon.addClickHandler(clickEvent -> {
+            clickEvent.stopPropagation();
+            clickEvent.preventDefault();
+            setActive(!isActive());
+        }));
         registerHandler(icon.addClickHandler(clickEvent -> close()));
     }
 
@@ -303,6 +314,14 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
     @Override
     public boolean isActive() {
         return getActiveMixin().isActive();
+    }
+
+    public void setEnablePrefixIcon(boolean enablePrefixIcon) {
+        prefixIcon.setVisible(enablePrefixIcon);
+    }
+
+    public void setPrefixIcon(IconType icon) {
+        prefixIcon.setIconType(icon);
     }
 
     public Span getChipLabel() {
