@@ -25,7 +25,13 @@ public interface MoreChipHandler {
 
     void setVisibleChipsSize(int visibleChipsSize);
 
-    void load(MaterialChipContainer container);
+    void load();
+
+    void collapse();
+
+    void expand();
+
+    void setCollapsible(boolean enableCollapsible);
 
     void reload();
 }

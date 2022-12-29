@@ -21,10 +21,13 @@ package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Display;
+import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.ui.MaterialChip;
 import gwt.material.design.client.ui.MaterialChipContainer;
+import gwt.material.design.client.ui.MaterialIcon;
 import gwt.material.design.client.ui.MaterialLink;
 
 import java.util.List;
@@ -39,8 +42,12 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
     protected MaterialChipContainer container;
     protected ToggleStyleMixin<MaterialChipContainer> toggleStyleMixin;
     protected HandlerRegistration handlerRegistration;
+    protected MaterialIcon expandIcon = new MaterialIcon(IconType.KEYBOARD_ARROW_UP);
+    protected ToggleStyleMixin<Widget> collapsibleMixin;
+    protected ToggleStyleMixin<Widget> collapseMixin;
 
-    public DefaultMoreChipHandler() {
+    public DefaultMoreChipHandler(MaterialChipContainer container) {
+        this.container = container;
         more.setDisplay(Display.BLOCK);
         more.setMarginLeft(4);
         more.setMarginTop(12);
@@ -52,10 +59,33 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
     }
 
     @Override
-    public void load(MaterialChipContainer container) {
-        this.container = container;
-
+    public void load() {
         showHiddenChips(false);
+        expandIcon.addStyleName("collapse");
+        expandIcon.addClickHandler(event -> {
+            if (!getCollapseMixin().isOn()) {
+                collapse();
+            } else {
+                expand();
+            }
+            event.stopPropagation();
+            event.preventDefault();
+        });
+        if (!expandIcon.isAttached()) {
+            container.add(expandIcon);
+        }
+    }
+
+    public void collapse() {
+        getCollapseMixin().setOn(true);
+    }
+
+    public void expand() {
+        getCollapseMixin().setOn(false);
+    }
+
+    public void setCollapsible(boolean enableCollapsible) {
+        getCollapsibleMixin().setOn(enableCollapsible);
     }
 
     @Override
@@ -90,6 +120,20 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
                 more.setText(localizedMoreText.replace("{0}", hiddenChipsSize + ""));
             }
         }
+    }
+
+    public ToggleStyleMixin<Widget> getCollapseMixin() {
+        if (collapseMixin == null) {
+            collapseMixin = new ToggleStyleMixin<>(container, "collapse");
+        }
+        return collapseMixin;
+    }
+
+    public ToggleStyleMixin<Widget> getCollapsibleMixin() {
+        if (collapsibleMixin == null) {
+            collapsibleMixin = new ToggleStyleMixin<>(container, "enable-collapsible");
+        }
+        return collapsibleMixin;
     }
 
     public ToggleStyleMixin<MaterialChipContainer> getToggleStyleMixin() {
