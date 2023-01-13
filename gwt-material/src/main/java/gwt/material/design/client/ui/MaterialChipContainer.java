@@ -54,7 +54,7 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         super.add(child, container);
 
         if (child instanceof MaterialChip) {
-            MaterialChip chip = (MaterialChip)child;
+            MaterialChip chip = (MaterialChip) child;
             chip.setTabIndex(0);
             chip.registerHandler(chip.addClickHandler((event) -> {
                 if (isEnableToggle()) {
@@ -67,6 +67,7 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
                 }
 
             }));
+            chipHandler.update(chip);
             chipList.add(chip);
         }
     }
@@ -75,7 +76,8 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         super.insert(child, container, beforeIndex, domInsert);
 
         if (child instanceof MaterialChip) {
-            chipList.add(beforeIndex, (MaterialChip)child);
+            chipList.add(beforeIndex, (MaterialChip) child);
+            chipHandler.update((MaterialChip) child);
         }
     }
 
@@ -83,6 +85,7 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         if (w instanceof MaterialChip) {
             chipList.remove(w);
             super.remove(w);
+            chipHandler.update((MaterialChip) w);
         }
         return true;
     }

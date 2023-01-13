@@ -19,7 +19,7 @@
  */
 package gwt.material.design.client.base;
 
-import gwt.material.design.client.ui.MaterialChipContainer;
+import gwt.material.design.client.ui.MaterialChip;
 
 public interface MoreChipHandler {
 
@@ -34,4 +34,6 @@ public interface MoreChipHandler {
     void setCollapsible(boolean enableCollapsible);
 
     void reload();
+
+    void update(MaterialChip chip);
 }

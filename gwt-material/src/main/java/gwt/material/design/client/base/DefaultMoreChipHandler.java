@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,15 +20,13 @@
 package gwt.material.design.client.base;
 
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.Display;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.ui.MaterialChip;
-import gwt.material.design.client.ui.MaterialChipContainer;
-import gwt.material.design.client.ui.MaterialIcon;
-import gwt.material.design.client.ui.MaterialLink;
+import gwt.material.design.client.ui.*;
 
 import java.util.List;
 
@@ -42,7 +40,8 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
     protected MaterialChipContainer container;
     protected ToggleStyleMixin<MaterialChipContainer> toggleStyleMixin;
     protected HandlerRegistration handlerRegistration;
-    protected MaterialIcon expandIcon = new MaterialIcon(IconType.KEYBOARD_ARROW_UP);
+    protected MaterialLabel collapseLabel = new MaterialLabel();
+    protected MaterialIcon collapseIcon = new MaterialIcon(IconType.KEYBOARD_ARROW_UP);
     protected ToggleStyleMixin<Widget> collapsibleMixin;
     protected ToggleStyleMixin<Widget> collapseMixin;
 
@@ -61,18 +60,15 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
     @Override
     public void load() {
         showHiddenChips(false);
-        expandIcon.addStyleName("collapse");
-        expandIcon.addClickHandler(event -> {
-            if (!getCollapseMixin().isOn()) {
-                collapse();
-            } else {
-                expand();
-            }
-            event.stopPropagation();
-            event.preventDefault();
-        });
-        if (!expandIcon.isAttached()) {
-            container.add(expandIcon);
+        collapseIcon.addStyleName("collapse");
+        collapseLabel.addStyleName("collapse-label");
+        collapseIcon.addClickHandler(this::toggle);
+        collapseLabel.addClickHandler(this::toggle);
+        if (!collapseIcon.isAttached()) {
+            collapseIcon.setVisible(false);
+            collapseLabel.setVisible(false);
+            container.add(collapseIcon);
+            container.add(collapseLabel);
         }
     }
 
@@ -88,9 +84,35 @@ public class DefaultMoreChipHandler implements MoreChipHandler {
         getCollapsibleMixin().setOn(enableCollapsible);
     }
 
+    protected void toggle(ClickEvent event) {
+        if (!getCollapseMixin().isOn()) {
+            collapse();
+        } else {
+            expand();
+        }
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
     @Override
     public void reload() {
         showHiddenChips(false);
+    }
+
+    @Override
+    public void update(MaterialChip chip) {
+        if (getCollapseMixin().isOn()) {
+            MaterialIcon icon = chip.getIcon();
+            icon.registerHandler(icon.addClickHandler(clickEvent -> updateCollapseLabel(chip)));
+            updateCollapseLabel(chip);
+        }
+    }
+
+    protected void updateCollapseLabel(MaterialChip chip) {
+        int length = $(container.getElement()).find(".chip").length();
+        collapseIcon.setVisible(length > 0);
+        collapseLabel.setVisible(length > 0);
+        collapseLabel.setText(length + "");
     }
 
     public void showHiddenChips(boolean showHiddenChips) {
