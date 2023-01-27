@@ -50,6 +50,14 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         chipHandler.load();
     }
 
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+
+        chipList.clear();
+        selected.clear();
+    }
+
     protected void add(Widget child, Element container) {
         super.add(child, container);
 
@@ -124,6 +132,7 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
 
     public void clearActive() {
         chipList.forEach((c) -> c.setActive(false));
+        selected.clear();
     }
 
     public void collapse() {
