@@ -98,6 +98,14 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         }
     }
 
+    public void clearAllChips() {
+        selected.clear();
+        chipList.clear();
+        for (Widget child : getChildren()) {
+            child.removeFromParent();
+        }
+    }
+
     public void reload() {
         chipHandler.reload();
     }
