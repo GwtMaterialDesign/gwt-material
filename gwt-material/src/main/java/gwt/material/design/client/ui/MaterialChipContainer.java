@@ -162,6 +162,13 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
     }
 
     public List<MaterialChip> getSelected() {
+        List<MaterialChip> selected = new ArrayList<>();
+        List<MaterialChip> chips = chipList;
+        for (MaterialChip chip : chips) {
+            if (chip.isActive()) {
+                selected.add(chip);
+            }
+        }
         return selected;
     }
 
