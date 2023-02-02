@@ -23,6 +23,7 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.DefaultMoreChipHandler;
@@ -30,13 +31,15 @@ import gwt.material.design.client.base.MoreChipHandler;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+//TODO: HasResetField
 public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>> {
 
     private MoreChipHandler chipHandler = new DefaultMoreChipHandler(this);
-    private List<MaterialChip> chipList = new ArrayList();
-    private List<MaterialChip> selected = new ArrayList();
+    private Map<String, MaterialChip> chipList = new HashMap<>();
     private boolean multiple = true;
     private boolean enableToggle = true;
 
@@ -55,6 +58,7 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
 
         if (child instanceof MaterialChip) {
             MaterialChip chip = (MaterialChip) child;
+            chip.setId(DOM.createUniqueId());
             chip.setTabIndex(0);
             chip.registerHandler(chip.addClickHandler((event) -> {
                 if (isEnableToggle()) {
@@ -68,16 +72,7 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
 
             }));
             chipHandler.update(chip);
-            chipList.add(chip);
-        }
-    }
-
-    protected void insert(Widget child, Element container, int beforeIndex, boolean domInsert) {
-        super.insert(child, container, beforeIndex, domInsert);
-
-        if (child instanceof MaterialChip) {
-            chipList.add(beforeIndex, (MaterialChip) child);
-            chipHandler.update((MaterialChip) child);
+            chipList.put(chip.getId(), chip);
         }
     }
 
@@ -91,19 +86,10 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
     }
 
     public void clear() {
-        for (Widget chip : getChildren()) {
-            if (chip instanceof MaterialChip) {
-                remove(chip);
-            }
+        for (MaterialChip value : chipList.values()) {
+            value.removeFromParent();
         }
-    }
-
-    public void clearAllChips() {
-        selected.clear();
         chipList.clear();
-        for (Widget child : getChildren()) {
-            child.removeFromParent();
-        }
     }
 
     public void reload() {
@@ -115,13 +101,7 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
             clearActive();
         }
         chip.setActive(active);
-        if (active && !selected.contains(chip)) {
-            selected.add(chip);
-        } else {
-            selected.remove(chip);
-        }
-
-        SelectionEvent.fire(this, selected);
+        SelectionEvent.fire(this, getSelected());
     }
 
     public void setVisibleChips(int visibleChips) {
@@ -133,8 +113,10 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
     }
 
     public void clearActive() {
-        chipList.forEach((c) -> c.setActive(false));
-        selected.clear();
+        for (String s : chipList.keySet()) {
+            MaterialChip chip = chipList.get(s);
+            if (chip != null) chip.setActive(false);
+        }
     }
 
     public void collapse() {
@@ -166,12 +148,12 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
     }
 
     public List<MaterialChip> getChipList() {
-        return chipList;
+        return new ArrayList<>(chipList.values());
     }
 
     public List<MaterialChip> getSelected() {
         List<MaterialChip> selected = new ArrayList<>();
-        List<MaterialChip> chips = chipList;
+        List<MaterialChip> chips = getChipList();
         for (MaterialChip chip : chips) {
             if (chip.isActive()) {
                 selected.add(chip);
