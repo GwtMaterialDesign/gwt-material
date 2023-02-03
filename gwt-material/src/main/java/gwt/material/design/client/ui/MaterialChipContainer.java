@@ -27,7 +27,9 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.DefaultMoreChipHandler;
+import gwt.material.design.client.base.HasResetField;
 import gwt.material.design.client.base.MoreChipHandler;
+import gwt.material.design.client.base.mixin.ResetFieldMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 
 import java.util.ArrayList;
@@ -35,13 +37,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//TODO: HasResetField
-public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>> {
+public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>>,
+        HasResetField {
 
     private MoreChipHandler chipHandler = new DefaultMoreChipHandler(this);
     private Map<String, MaterialChip> chipList = new HashMap<>();
     private boolean multiple = true;
     private boolean enableToggle = true;
+    private ResetFieldMixin<Widget> resetFieldMixin;
 
     public MaterialChipContainer() {
         super("chip-container");
@@ -162,7 +165,29 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         return selected;
     }
 
+    @Override
+    public void resetFields() {
+        getResetFieldMixin().resetFields();
+    }
+
+    @Override
+    public void setAllowResettingFields(boolean allowResettingFields) {
+        getResetFieldMixin().setAllowResettingFields(allowResettingFields);
+    }
+
+    @Override
+    public boolean isAllowResettingFields() {
+        return getResetFieldMixin().isAllowResettingFields();
+    }
+
     public HandlerRegistration addSelectionHandler(SelectionHandler<List<MaterialChip>> handler) {
         return addHandler(handler, SelectionEvent.getType());
+    }
+
+    public ResetFieldMixin<Widget> getResetFieldMixin() {
+        if (resetFieldMixin == null) {
+            resetFieldMixin = new ResetFieldMixin<>(this);
+        }
+        return resetFieldMixin;
     }
 }
