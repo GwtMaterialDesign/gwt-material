@@ -119,7 +119,6 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
         registerHandler(prefixIcon.addClickHandler(clickEvent -> {
             clickEvent.stopPropagation();
             clickEvent.preventDefault();
-            setActive(!isActive());
         }));
         registerHandler(icon.addClickHandler(clickEvent -> close()));
     }
