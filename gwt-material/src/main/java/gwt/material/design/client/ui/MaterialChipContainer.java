@@ -68,6 +68,12 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
                     toggle(chip);
                 }
             }));
+            MaterialIcon icon = chip.getPrefixIcon();
+            icon.registerHandler(icon.addClickHandler(clickEvent -> {
+                if (isEnableToggle()) {
+                    setActive(chip, false);
+                }
+            }));
             chip.registerHandler(chip.addKeyUpHandler((event) -> {
                 if (event.getNativeKeyCode() == 13) {
                     toggle(chip);

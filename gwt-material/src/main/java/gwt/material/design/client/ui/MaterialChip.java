@@ -327,6 +327,10 @@ public class MaterialChip extends AbstractValueWidget<String> implements HasImag
         return chipLabel;
     }
 
+    public MaterialIcon getPrefixIcon() {
+        return prefixIcon;
+    }
+
     @Override
     public HandlerRegistration addCloseHandler(CloseHandler closeHandler) {
         return addHandler(closeHandler, CloseEvent.getType());
