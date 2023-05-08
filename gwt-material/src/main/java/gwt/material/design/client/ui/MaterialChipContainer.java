@@ -19,78 +19,102 @@
  */
 package gwt.material.design.client.ui;
 
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.DefaultMoreChipHandler;
+import gwt.material.design.client.base.HasResetField;
+import gwt.material.design.client.base.MoreChipHandler;
+import gwt.material.design.client.base.mixin.ResetFieldMixin;
+import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>> {
+public class MaterialChipContainer extends MaterialPanel implements HasSelectionHandlers<List<MaterialChip>>,
+        HasResetField {
 
-    private List<MaterialChip> chipList = new ArrayList<>();
-    private List<MaterialChip> selected = new ArrayList<>();
+    private MoreChipHandler chipHandler = new DefaultMoreChipHandler(this);
+    private Map<String, MaterialChip> chipList = new HashMap<>();
+    private boolean multiple = true;
     private boolean enableToggle = true;
+    private ResetFieldMixin<Widget> resetFieldMixin;
 
     public MaterialChipContainer() {
         super("chip-container");
     }
 
-    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        chipHandler.load();
+    }
+
     protected void add(Widget child, Element container) {
         super.add(child, container);
 
         if (child instanceof MaterialChip) {
             MaterialChip chip = (MaterialChip) child;
+            chip.setId(DOM.createUniqueId());
             chip.setTabIndex(0);
-            chip.registerHandler(chip.addClickHandler(event -> {
-                if (isEnableToggle()) toggle(chip);
+            chip.registerHandler(chip.addClickHandler((event) -> {
+                if (isEnableToggle()) {
+                    toggle(chip);
+                }
             }));
-            chip.registerHandler(chip.addKeyUpHandler(event -> {
-                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) toggle(chip);
+            MaterialIcon icon = chip.getPrefixIcon();
+            icon.registerHandler(icon.addClickHandler(clickEvent -> {
+                if (isEnableToggle()) {
+                    setActive(chip, false);
+                }
             }));
-            chipList.add(chip);
+            chip.registerHandler(chip.addKeyUpHandler((event) -> {
+                if (event.getNativeKeyCode() == 13) {
+                    toggle(chip);
+                }
+
+            }));
+            chipHandler.update(chip);
+            chipList.put(chip.getId(), chip);
         }
     }
 
-    @Override
-    protected void insert(Widget child, Element container, int beforeIndex, boolean domInsert) {
-        super.insert(child, container, beforeIndex, domInsert);
-
-        if (child instanceof MaterialChip) {
-            chipList.add(beforeIndex, (MaterialChip) child);
-        }
-    }
-
-    @Override
     public boolean remove(Widget w) {
         if (w instanceof MaterialChip) {
             chipList.remove(w);
+            super.remove(w);
+            chipHandler.update((MaterialChip) w);
         }
-        return super.remove(w);
+        return true;
     }
 
-    @Override
     public void clear() {
-        super.clear();
-
+        for (MaterialChip value : chipList.values()) {
+            value.removeFromParent();
+        }
         chipList.clear();
     }
 
+    public void reload() {
+        chipHandler.reload();
+    }
+
     public void setActive(MaterialChip chip, boolean active) {
-        chip.setActive(active);
-
-        if (active && !selected.contains(chip)) {
-            selected.add(chip);
-        } else {
-            selected.remove(chip);
+        if (!multiple) {
+            clearActive();
         }
+        chip.setActive(active);
+        SelectionEvent.fire(this, getSelected());
+    }
 
-        SelectionEvent.fire(this, selected);
+    public void setVisibleChips(int visibleChips) {
+        chipHandler.setVisibleChipsSize(visibleChips);
     }
 
     public void toggle(MaterialChip chip) {
@@ -98,7 +122,30 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
     }
 
     public void clearActive() {
-        chipList.forEach(c -> c.setActive(false));
+        for (String s : chipList.keySet()) {
+            MaterialChip chip = chipList.get(s);
+            if (chip != null) chip.setActive(false);
+        }
+    }
+
+    public void collapse() {
+        chipHandler.collapse();
+    }
+
+    public void expand() {
+        chipHandler.expand();
+    }
+
+    public void setCollapsible(boolean enableCollapsible) {
+        chipHandler.setCollapsible(enableCollapsible);
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
     }
 
     public boolean isEnableToggle() {
@@ -109,8 +156,44 @@ public class MaterialChipContainer extends MaterialPanel implements HasSelection
         this.enableToggle = enableToggle;
     }
 
+    public List<MaterialChip> getChipList() {
+        return new ArrayList<>(chipList.values());
+    }
+
+    public List<MaterialChip> getSelected() {
+        List<MaterialChip> selected = new ArrayList<>();
+        List<MaterialChip> chips = getChipList();
+        for (MaterialChip chip : chips) {
+            if (chip.isActive()) {
+                selected.add(chip);
+            }
+        }
+        return selected;
+    }
+
     @Override
+    public void resetFields() {
+        getResetFieldMixin().resetFields();
+    }
+
+    @Override
+    public void setAllowResettingFields(boolean allowResettingFields) {
+        getResetFieldMixin().setAllowResettingFields(allowResettingFields);
+    }
+
+    @Override
+    public boolean isAllowResettingFields() {
+        return getResetFieldMixin().isAllowResettingFields();
+    }
+
     public HandlerRegistration addSelectionHandler(SelectionHandler<List<MaterialChip>> handler) {
         return addHandler(handler, SelectionEvent.getType());
+    }
+
+    public ResetFieldMixin<Widget> getResetFieldMixin() {
+        if (resetFieldMixin == null) {
+            resetFieldMixin = new ResetFieldMixin<>(this);
+        }
+        return resetFieldMixin;
     }
 }

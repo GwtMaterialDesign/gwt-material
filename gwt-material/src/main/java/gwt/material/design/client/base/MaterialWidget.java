@@ -39,6 +39,7 @@ import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
 import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.OrientationChangeEvent.OrientationChangeHandler;
+import gwt.material.design.client.theme.GlobalThemeConfig;
 import gwt.material.design.client.theme.ThemeManager;
 import gwt.material.design.jquery.client.api.JQuery;
 import gwt.material.design.jquery.client.api.JQueryElement;
@@ -58,6 +59,7 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     private static JQueryElement window = null;
     private static JQueryElement body = null;
+    private static GlobalThemeConfig themeConfig;
 
     public static JQueryElement window() {
         if (window == null) {
@@ -1959,5 +1961,12 @@ public class MaterialWidget extends ComplexPanel implements HasId, HasEnabled, H
 
     public String getTranslationKey() {
         return translationKey;
+    }
+
+    public static GlobalThemeConfig getGlobalTheme() {
+        if (themeConfig == null) {
+            themeConfig = new GlobalThemeConfig();
+        }
+        return themeConfig;
     }
 }
