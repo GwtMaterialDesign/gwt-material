@@ -143,8 +143,12 @@ public class MaterialDropDown<T> extends UnorderedList
         // Hook for materialize bug on dropdown for not having closed once detach
         if (getElement() != null && isAttached()) {
             getElement().getStyle().setDisplay(Style.Display.NONE);
+
         }
-        $(activatorElement).dropdown("remove");
+
+        if (activatorElement != null) {
+            $(activatorElement).dropdown("remove");
+        }
     }
 
     @Override

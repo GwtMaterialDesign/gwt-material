@@ -63,7 +63,7 @@ public class MaterialChipTest extends AbstractValueWidgetTest<MaterialChip> {
         assertEquals(Color.RED, chip.getIconColor());
 
         assertEquals(chip.getChipLabel(), chip.getWidget(0));
-        assertEquals(chip.getIcon(), chip.getWidget(1));
+        assertEquals(chip.getPrefixIcon(), chip.getWidget(1));
     }
 
     public void testLetter() {
