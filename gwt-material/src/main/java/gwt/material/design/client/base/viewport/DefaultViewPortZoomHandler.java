@@ -21,15 +21,16 @@ package gwt.material.design.client.base.viewport;
 
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
-import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.jscore.client.api.viewport.VisualViewport;
 
 public class DefaultViewPortZoomHandler implements ViewPortZoomHandler {
 
-    protected int zoomBoundaryLevel;
+    protected int initialZoomLevel;
+    protected int maxZoomLevel;
 
-    public DefaultViewPortZoomHandler(int zoomBoundaryLevel) {
-        this.zoomBoundaryLevel = zoomBoundaryLevel;
+    public DefaultViewPortZoomHandler(int maxZoomLevel, int initialZoomLevel) {
+        this.maxZoomLevel = maxZoomLevel;
+        this.initialZoomLevel = initialZoomLevel;
     }
 
     @Override
@@ -56,25 +57,18 @@ public class DefaultViewPortZoomHandler implements ViewPortZoomHandler {
         double clientWidth = gwt.material.design.jscore.client.api.Window.outerWidth;
         int currentZoomLevel = (int) ((clientWidth / width) * 100);
         Element element = RootPanel.get().getElement();
-        if (currentZoomLevel >= zoomBoundaryLevel) {
-            double excessZoom = currentZoomLevel - zoomBoundaryLevel; // 25
-            double scale = ((zoomBoundaryLevel - excessZoom) / 100.0);
-            MaterialToast.fireToast("Current Zoom Level : " + currentZoomLevel);
-            MaterialToast.fireToast("Zoom Level Boundary : " + zoomBoundaryLevel);
-
-            // Standardized the page scale or zoom level.
-            /**
-             *     transform: scale(0.5);
-             *     transform-origin: 0 0;
-             *     width: calc(100% + 100%);
-             */
-
-            element.getStyle().setProperty("transform", "scale(" + 0.5 + ")");
-            element.getStyle().setProperty("transformOrigin", "0 0");
-            element.getStyle().setProperty("width", "200%");
+        if (currentZoomLevel >= maxZoomLevel) {
+            double excessZoom = currentZoomLevel - maxZoomLevel;
+            double scale = ((maxZoomLevel - excessZoom) / 100.0);
+            /*if (currentZoomLevel == maxZoomLevel) {
+                scale = initialZoomLevel;
+            }*/
+            if (scale <= 0.5) {
+                scale = 0.5;
+            }
+            element.getStyle().setProperty("zoom", scale + "");
         } else {
-            element.getStyle().setProperty("transform", "scale(" + 1 + ")");
-            element.getStyle().setProperty("width", "100%");
+            element.getStyle().setProperty("zoom", "1");
         }
     }
 }
