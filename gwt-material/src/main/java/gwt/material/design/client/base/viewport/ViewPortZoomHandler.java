@@ -24,4 +24,14 @@ public interface ViewPortZoomHandler {
     void load();
 
     void unload();
+
+    double getCurrentViewportRatio();
+
+    double getMaxViewPortRatio();
+
+    void scale();
+
+    boolean isOutOfZoomLevel();
+
+    void resetZoom();
 }
