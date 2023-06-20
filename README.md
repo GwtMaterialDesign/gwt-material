@@ -20,12 +20,12 @@ Support documentation can be found [here](https://github.com/GwtMaterialDesign/g
 We created <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/apidocs" > Java Docs </a> for developers
 
 ## Maven
-### Current Version 2.7.0
+### Current Version 2.7.1
 ```xml
 <dependency>
     <groupId>com.github.gwtmaterialdesign</groupId>
     <artifactId>gwt-material</artifactId>
-    <version>2.7.0</version>
+    <version>2.7.1</version>
 </dependency>
 ```
 ### Snapshot Version 2.8.0-SNAPSHOT
