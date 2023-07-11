@@ -4,25 +4,27 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.LinkElement;
 import gwt.material.design.client.base.HasSymbols;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.SymbolType;
 import gwt.material.design.client.ui.html.Span;
 
 public class MaterialSymbol extends MaterialWidget implements HasSymbols {
 
-    static {
-        LinkElement linkElement = Document.get().createLinkElement();
-        linkElement.setRel("stylesheet");
-        linkElement.setHref("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
-        body().append(linkElement);
-    }
-
     protected Span span = new Span();
+    protected static LinkElement linkElement = Document.get().createLinkElement();
     protected CssNameMixin<Span, SymbolType> symbolTypeMixin;
+    protected ColorsMixin<MaterialSymbol> symbolColorsMixin;
     protected boolean filled;
     protected int weight = 400;
     protected int grade = 0;
     protected int opticalSize = 48;
+
+    static {
+        linkElement.setRel("stylesheet");
+        body().append(linkElement);
+    }
 
     public MaterialSymbol() {
         super(Document.get().createElement("div"));
@@ -43,8 +45,19 @@ public class MaterialSymbol extends MaterialWidget implements HasSymbols {
     }
 
     @Override
+    public void setColor(Color color) {
+        getSymbolColorsMixin().setTextColor(color);
+    }
+
+    @Override
+    public void setSymbolSize(String size) {
+        span.getElement().getStyle().setProperty("fontSize", size);
+    }
+
+    @Override
     public void setType(SymbolType type) {
         getSymbolTypeMixin().setCssName(type);
+        linkElement.setHref(type.getCssLink());
     }
 
     @Override
@@ -68,7 +81,14 @@ public class MaterialSymbol extends MaterialWidget implements HasSymbols {
     }
 
     protected void load() {
-        getElement().setAttribute("style", "font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;");
+        span.getElement().getStyle().setProperty("fontVariationSettings", "'FILL' " + (filled ? 1 : 0) + ", 'wght' " + weight + ", 'GRAD' " + grade + ", 'opsz' " + opticalSize);
+    }
+
+    public ColorsMixin<MaterialSymbol> getSymbolColorsMixin() {
+        if (symbolColorsMixin == null) {
+            symbolColorsMixin = new ColorsMixin<>(this);
+        }
+        return symbolColorsMixin;
     }
 
     public CssNameMixin<Span, SymbolType> getSymbolTypeMixin() {

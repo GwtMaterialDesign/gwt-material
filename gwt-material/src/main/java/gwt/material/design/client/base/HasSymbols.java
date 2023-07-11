@@ -1,5 +1,6 @@
 package gwt.material.design.client.base;
 
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.constants.SymbolType;
 
 public interface HasSymbols {
@@ -7,6 +8,10 @@ public interface HasSymbols {
     void setType(SymbolType type);
 
     void setSymbol(String symbol);
+
+    void setColor(Color color);
+
+    void setSymbolSize(String size);
 
     void setFilled(boolean filled);
 
