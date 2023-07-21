@@ -41,7 +41,7 @@ public class MaterialSymbol extends MaterialWidget implements HasSymbols {
 
     @Override
     public void setSymbol(String symbol) {
-        span.getElement().setInnerText(symbol);
+        span.setText(symbol);
     }
 
     @Override
