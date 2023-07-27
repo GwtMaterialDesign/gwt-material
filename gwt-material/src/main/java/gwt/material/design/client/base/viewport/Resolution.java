@@ -22,7 +22,7 @@ package gwt.material.design.client.base.viewport;
 public enum Resolution implements Boundary {
     ALL_DEVICES(new WidthBoundary(0, 2560)),
     ALL_MOBILE(new WidthBoundary(0, 425)),
-    ALL_LAPTOP(new WidthBoundary(769, 2560)),
+    ALL_LAPTOP(new WidthBoundary(769, 25000)),
     MOBILE_SMALL(new WidthBoundary(0, 320)),
     MOBILE_MEDIUM(new WidthBoundary(321, 375)),
     MOBILE_LARGE(new WidthBoundary(376, 425)),
@@ -30,7 +30,7 @@ public enum Resolution implements Boundary {
     TABLET_AND_MOBILE(new WidthBoundary(0, 768)),
     LAPTOP(new WidthBoundary(769, 1024)),
     LAPTOP_LARGE(new WidthBoundary(1025, 1440)),
-    LAPTOP_4K(new WidthBoundary(1441, 2560));
+    LAPTOP_4K(new WidthBoundary(1441, 25000));
 
     private final WidthBoundary boundary;
 
