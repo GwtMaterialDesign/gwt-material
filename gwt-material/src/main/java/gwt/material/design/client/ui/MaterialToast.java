@@ -200,6 +200,9 @@ public class MaterialToast {
         String id = getId();
         if (id != null && !id.isEmpty()) {
             Widget toast = RootPanel.get(id);
+            if(toast == null){
+                return false;
+            }
             return toast.isAttached() && toast.isVisible();
         }
         return false;
