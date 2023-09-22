@@ -21,6 +21,7 @@ package gwt.material.design.client.theme;
 
 import com.google.gwt.core.client.GWT;
 import gwt.material.design.client.base.MaterialWidget;
+import gwt.material.design.client.theme.dark.DarkThemeLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ public class
 ThemeManager {
 
     private static SortedSet<Theme> themes;
+    private static DarkThemeLoader darkTheme;
 
     private static Map<Class, List<WidgetTheme>> themeCache = new HashMap<>();
 
@@ -130,5 +132,13 @@ ThemeManager {
 
     public static <T extends MaterialWidget> void addWidgetTheme(Theme theme, WidgetTheme<T> widgetTheme) {
         theme.put(widgetTheme.getClassSelector(), widgetTheme);
+    }
+
+    public static DarkThemeLoader getDarkTheme() {
+        return darkTheme;
+    }
+
+    public static void setDarkTheme(DarkThemeLoader darkTheme) {
+        ThemeManager.darkTheme = darkTheme;
     }
 }
