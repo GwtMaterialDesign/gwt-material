@@ -19,7 +19,19 @@
  */
 package gwt.material.design.client.base;
 
+import com.google.gwt.resources.client.TextResource;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.base.mixin.DependencyCallback;
+
 public interface HasDependency {
 
-    void onDependencyLoaded();
+    void install(TextResource minifiedJs, TextResource debugJs, TextResource minifiedCss, TextResource debugCss);
+
+    void setDebug(boolean debug);
+
+    DependencyCallback getCallback();
+
+    boolean isDependencyLoaded(Class<?> widgetClass);
+
+    void setDependencyLoaded(Class<?> widgetClass, boolean loaded);
 }

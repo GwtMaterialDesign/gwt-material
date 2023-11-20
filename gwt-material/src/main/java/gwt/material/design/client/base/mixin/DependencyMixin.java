@@ -24,27 +24,47 @@ import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.HasDependency;
+import gwt.material.design.client.base.JsLoader;
+import gwt.material.design.client.ui.MaterialToast;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DependencyMixin implements HasDependency {
+public class DependencyMixin<T extends JsLoader> implements HasDependency {
 
-    private static Map<Class<? extends Widget>, Boolean> libs = new LinkedHashMap();
-    private boolean debugMode = false;
+    private static Map<Class<?>, Boolean> libs = new LinkedHashMap();
+    private boolean debugMode = true;
+    private final T loader;
     private DependencyCallback callback;
-    private final Widget widget;
 
-    public DependencyMixin(Widget widget) {
-        this.widget = widget;
+    public DependencyMixin(T loader) {
+        this.loader = loader;
     }
 
     @Override
-    public void onDependencyLoaded() {
+    public void install(TextResource minifiedJs, TextResource debugJs, TextResource minifiedCss, TextResource debugCss) {
+
+        if (!isDependencyLoaded(loader.getClass())) {
+            installJs(minifiedJs, debugJs, new DependencyCallback() {
+                @Override
+                public void onSuccess() {
+                    setDependencyLoaded(loader.getClass(), true);
+                    loader.load();
+                }
+
+                @Override
+                public void onError(String error) {
+                    MaterialToast.fireToast("Error injecting the Dependency url : " + error);
+                }
+            });
+            installCss(minifiedCss, debugCss);
+        } else {
+            loader.load();
+        }
 
     }
 
-    public void installJs(TextResource minified, TextResource debug, DependencyCallback callback) {
+    protected void installJs(TextResource minified, TextResource debug, DependencyCallback callback) {
         if (!debugMode) {
             installJs(minified, true, false, callback);
         } else {
@@ -52,10 +72,11 @@ public class DependencyMixin implements HasDependency {
         }
     }
 
-    public void installJs(TextResource resource, boolean removeTag, boolean sourceUrl, DependencyCallback callback) {
+    protected void installJs(TextResource resource, boolean removeTag, boolean sourceUrl, DependencyCallback callback) {
+        this.callback = callback;
         try {
-            if (libs.get(widget.getClass()) == null || !libs.get(widget.getClass())) {
-                libs.put(widget.getClass(), false);
+            if (libs.get(loader.getClass()) == null || !libs.get(loader.getClass())) {
+                libs.put(loader.getClass(), false);
 
                 String text = resource.getText() + (sourceUrl ?
                         "//# sourceURL=" + resource.getName() + ".js" : "");
@@ -66,6 +87,7 @@ public class DependencyMixin implements HasDependency {
                         .setRemoveTag(removeTag)
                         .inject();
                 if (callback != null) callback.onSuccess();
+
             }
         } catch (RuntimeException e) {
             if (callback != null) callback.onError(e.getMessage());
@@ -82,15 +104,28 @@ public class DependencyMixin implements HasDependency {
         StyleInjector.inject(resource);
     }
 
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+
+    @Override
+    public void setDebug(boolean debug) {
+        this.debugMode = debug;
+    }
+
+    @Override
     public DependencyCallback getCallback() {
         return callback;
     }
 
-    public void setCallback(DependencyCallback callback) {
-        this.callback = callback;
+    @Override
+    public boolean isDependencyLoaded(Class<?> loaderClass) {
+        boolean loaded = libs != null && libs.get(loaderClass) != null ? libs.get(loaderClass) : false;
+        return loaded;
     }
 
-    public boolean isDependencyLoaded(Class<? extends Widget> widgetClass) {
-        return libs != null && libs.get(widgetClass) != null ? libs.get(widgetClass) : false;
+    @Override
+    public void setDependencyLoaded(Class<?> loaderClass, boolean loaded) {
+        libs.put(loaderClass, loaded);
     }
 }
