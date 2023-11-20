@@ -64,6 +64,11 @@ public class DependencyMixin<T extends JsLoader> implements HasDependency {
 
     }
 
+    @Override
+    public void install(TextResource minifiedJs, TextResource debugJs) {
+        install(minifiedJs, debugJs, null, null);
+    }
+
     protected void installJs(TextResource minified, TextResource debug, DependencyCallback callback) {
         if (!debugMode) {
             installJs(minified, true, false, callback);
@@ -94,14 +99,16 @@ public class DependencyMixin<T extends JsLoader> implements HasDependency {
         }
     }
 
-    public void installCss(TextResource minifiedCss, TextResource debug) {
-        String resource = null;
-        if (!debugMode) {
-            resource = minifiedCss.getText();
-        } else {
-            resource = debug.getText();
+    public void installCss(TextResource minifiedCss, TextResource debugCss) {
+        if (minifiedCss != null && debugCss != null) {
+            String resource = null;
+            if (!debugMode) {
+                resource = minifiedCss.getText();
+            } else {
+                resource = debugCss.getText();
+            }
+            StyleInjector.inject(resource);
         }
-        StyleInjector.inject(resource);
     }
 
     public boolean isDebugMode() {
@@ -120,8 +127,7 @@ public class DependencyMixin<T extends JsLoader> implements HasDependency {
 
     @Override
     public boolean isDependencyLoaded(Class<?> loaderClass) {
-        boolean loaded = libs != null && libs.get(loaderClass) != null ? libs.get(loaderClass) : false;
-        return loaded;
+        return libs != null && libs.get(loaderClass) != null ? libs.get(loaderClass) : false;
     }
 
     @Override

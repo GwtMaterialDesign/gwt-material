@@ -27,6 +27,8 @@ public interface HasDependency {
 
     void install(TextResource minifiedJs, TextResource debugJs, TextResource minifiedCss, TextResource debugCss);
 
+    void install(TextResource minifiedJs, TextResource debugJs);
+
     void setDebug(boolean debug);
 
     DependencyCallback getCallback();
