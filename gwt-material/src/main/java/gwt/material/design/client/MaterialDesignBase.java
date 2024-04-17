@@ -22,6 +22,7 @@ package gwt.material.design.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.resources.client.TextResource;
@@ -108,7 +109,7 @@ public class MaterialDesignBase {
     }
 
     public static void injectCss(TextResource resource) {
-        StyleInjector.injectAtEnd(resource.getText());
+        StyleInjector.injectAtStart(resource.getText(), true);
     }
 
     public static boolean checkJQuery(boolean debug) {
