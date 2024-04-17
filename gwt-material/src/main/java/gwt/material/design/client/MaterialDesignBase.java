@@ -108,7 +108,7 @@ public class MaterialDesignBase {
     }
 
     public static void injectCss(TextResource resource) {
-        StyleInjector.inject(resource.getText());
+        StyleInjector.injectAtEnd(resource.getText());
     }
 
     public static boolean checkJQuery(boolean debug) {
