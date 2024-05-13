@@ -28,6 +28,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.base.error.ErrorHandler;
 import gwt.material.design.client.base.error.ErrorHandlerType;
 import gwt.material.design.client.base.error.HasErrorHandler;
@@ -44,7 +45,7 @@ import gwt.material.design.client.ui.MaterialValueBox;
 
 import java.util.List;
 
-public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasValue<V>, LeafValueEditor<V>,
+public abstract class AbstractValueWidget<V> extends MaterialWidget implements HasResetField, HasValue<V>, LeafValueEditor<V>,
     HasEditorErrors<V>, HasErrorHandler, HasStatusText, HasValidators<V>, HasRequiredField, HasClearOnKeyUp, HasCopyCommand {
 
     private V initialValue;
@@ -55,6 +56,7 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     private StatusTextMixin<AbstractValueWidget, ?> statusTextMixin;
     private ErrorHandlerMixin<V> errorHandlerMixin;
     private RequiredFieldMixin<AbstractValueWidget, UIObject> requiredFieldMixin;
+    private ResetFieldMixin<Widget> resetFieldMixin;
     private ClearOnKeyUpMixin<AbstractValueWidget, MaterialLabel> clearOnKeyUpMixin;
     private HandlerRegistration attachHandler, blurHandler;
     protected CopyCommandMixin<AbstractValueWidget> copyCommandMixin;
@@ -149,6 +151,22 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
     @Override
     public boolean isSuccessTextVisible() {
         return getStatusTextMixin().isSuccessTextVisible();
+    }
+
+    @Override
+    public void resetFields() {
+        getResetFieldMixin().resetFields();
+        getValidatorMixin().reset();
+    }
+
+    @Override
+    public void setAllowResettingFields(boolean allowResettingFields) {
+        getResetFieldMixin().setAllowResettingFields(allowResettingFields);
+    }
+
+    @Override
+    public boolean isAllowResettingFields() {
+        return getResetFieldMixin().isAllowResettingFields();
     }
 
     @Override
@@ -431,5 +449,12 @@ public abstract class AbstractValueWidget<V> extends MaterialWidget implements H
             copyCommandMixin = new CopyCommandMixin(this);
         }
         return copyCommandMixin;
+    }
+
+    public ResetFieldMixin<Widget> getResetFieldMixin() {
+        if (resetFieldMixin == null) {
+            resetFieldMixin = new ResetFieldMixin<>(this);
+        }
+        return resetFieldMixin;
     }
 }

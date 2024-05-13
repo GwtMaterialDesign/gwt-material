@@ -19,8 +19,13 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.TextBox;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.sanitizer.HasValueSanitizer;
+import gwt.material.design.client.sanitizer.ValueSanitizer;
+import gwt.material.design.client.sanitizer.ValueSanitizerException;
+import gwt.material.design.client.sanitizer.handler.ValueSanitizerErrorEvent;
 
 //@formatter:off
 
@@ -38,7 +43,10 @@ import gwt.material.design.client.constants.InputType;
  * @see <a href="https://material.io/guidelines/components/text-fields.html#">Material Design Specification</a>
  */
 //@formatter:on
-public class MaterialTextBox extends MaterialValueBox<String> {
+//TODO: Sanitizer on TextArea
+public class MaterialTextBox extends MaterialValueBox<String> implements HasValueSanitizer {
+
+    protected ValueSanitizer valueSanitizer;
 
     public MaterialTextBox() {
         super(new TextBox());
@@ -48,6 +56,27 @@ public class MaterialTextBox extends MaterialValueBox<String> {
     public MaterialTextBox(String placeholder) {
         this();
         setPlaceholder(placeholder);
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        if (valueSanitizer != null) {
+            registerHandler(addValueChangeHandler(valueChangeEvent -> {
+                try {
+                    clearErrorText();
+                    valueSanitizer.sanitize(valueChangeEvent.getValue());
+                } catch (Exception e) {
+                    if (e instanceof ValueSanitizerException) {
+                        setErrorText(e.getLocalizedMessage());
+                        fireEvent(new ValueSanitizerErrorEvent(e.getLocalizedMessage()));
+                    } else {
+                        setErrorText("Invalid input value");
+                    }
+                }
+            }));
+        }
     }
 
     public void setMaxLength(int length) {
@@ -64,6 +93,21 @@ public class MaterialTextBox extends MaterialValueBox<String> {
 
     public int getVisibleLength() {
         return asTextBox().getVisibleLength();
+    }
+
+    @Override
+    public ValueSanitizer getValueSanitizer() {
+        return valueSanitizer;
+    }
+
+    @Override
+    public void setValueSanitizer(ValueSanitizer valueSanitizer) {
+        this.valueSanitizer = valueSanitizer;
+    }
+
+    @Override
+    public HandlerRegistration addSanitizationErrorHandler(ValueSanitizerErrorEvent.ValueSanitizerErrorHandler handler) {
+        return addHandler(handler, ValueSanitizerErrorEvent.TYPE);
     }
 
     @Ignore

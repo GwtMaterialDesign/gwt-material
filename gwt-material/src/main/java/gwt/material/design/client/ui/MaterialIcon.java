@@ -28,11 +28,13 @@ import gwt.material.design.client.async.loader.AsyncDisplayLoader;
 import gwt.material.design.client.base.AbstractButton;
 import gwt.material.design.client.base.HasIcon;
 import gwt.material.design.client.base.HasSeparator;
+import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.base.mixin.ColorsMixin;
 import gwt.material.design.client.base.mixin.CssNameMixin;
 import gwt.material.design.client.base.mixin.StyleMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.*;
+import gwt.material.design.client.theme.GlobalThemeConfig;
 
 //@formatter:off
 
@@ -57,7 +59,7 @@ import gwt.material.design.client.constants.*;
 public class MaterialIcon extends AbstractButton
         implements HasSeparator, HasIcon, IsAsyncWidget<MaterialIcon, IconType> {
 
-    private IconDisplay iconDisplay = IconDisplay.FILLED;
+    private IconDisplay iconDisplay = MaterialWidget.getGlobalTheme().getIconDisplay();
     private CssNameMixin<MaterialIcon, IconPosition> positionMixin;
     private CssNameMixin<MaterialIcon, IconSize> sizeMixin;
     private ToggleStyleMixin<MaterialIcon> prefixMixin;

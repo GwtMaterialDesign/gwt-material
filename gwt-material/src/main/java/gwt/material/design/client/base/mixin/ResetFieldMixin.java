@@ -57,8 +57,8 @@ public class ResetFieldMixin<C extends Widget> implements HasResetField, IsPropa
     protected void reset(Widget parent) {
         if (parent instanceof HasWidgets) {
             for (Widget child : (HasWidgets) parent) {
-                if (child instanceof AbstractValueWidget) {
-                    ((AbstractValueWidget) child).reset();
+                if (child instanceof HasResetField) {
+                    ((HasResetField) child).resetFields();
                 }
                 else if (propagateToChildren) {
                     reset(child);
