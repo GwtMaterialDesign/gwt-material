@@ -2,7 +2,7 @@
  * #%L
  * GwtMaterial
  * %%
- * Copyright (C) 2015 - 2017 GwtMaterialDesign
+ * Copyright (C) 2015 - 2024 GwtMaterialDesign
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,23 +19,13 @@
  */
 package gwt.material.design.client.js;
 
-import com.google.gwt.geolocation.client.Geolocation;
-import gwt.material.design.client.pwa.serviceworker.js.ServiceWorkerContainer;
-import jsinterop.annotations.JsProperty;
+import elemental2.promise.Promise;
+import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsType;
 
-import static jsinterop.annotations.JsPackage.GLOBAL;
+@JsType(isNative = true)
+public class ModernClipboard {
 
-@JsType(isNative = true, namespace = GLOBAL, name = "navigator")
-public class Navigator {
-
-    public static ServiceWorkerContainer serviceWorker;
-
-    public static Geolocation geolocation;
-
-    @JsProperty
-    public static boolean onLine;
-
-    @JsProperty
-    public static ModernClipboard clipboard;
+    @JsMethod
+    public native Promise writeText(String text);
 }
