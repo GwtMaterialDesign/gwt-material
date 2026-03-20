@@ -57,10 +57,39 @@ public class MaterialLongBox extends MaterialNumberBox<Long> {
     }
 
     @Override
-    protected Long parseNumber(double number) {
-        if (Double.isNaN(number)) {
+    public Long getValue() {
+        final String value = valueBoxBase.getText();
+        if ((value == null) || value.isEmpty()) {
             return null;
         }
-        return (long) Math.rint(number);
+
+        try {
+            return Long.parseLong(value);
+        }
+        catch (final NumberFormatException i_exception) {
+            return null;
+        }
+    }
+
+    /**
+     * @deprecated JavaScript Number uses IEEE-754 double precision and cannot
+     *             reliably represent 64-bit integer values. Use {@link #getValue()} instead.
+     */
+    @Override
+    @Deprecated
+    public Double getValueAsNumber() {
+        return super.getValueAsNumber();
+    }
+
+    /**
+     * @deprecated Parsing through double leads to precision loss for large values.
+     *             This method should not be used for Long values.
+     */
+    @Override
+    @Deprecated
+    protected Long parseNumber(final double i_number) {
+        throw new UnsupportedOperationException(
+            "Double-based parsing is not supported for Long values."
+        );
     }
 }
